@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+	<string>de.mariusgassen.lastenhandhabung</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>lshh</string>
+	<key>CFBundleExecutable</key>
+	<string>Lastenhandhabung</string>
+	<key>CFBundleDisplayName</key>
+	<string>Lastenhandhabung</string>
+	<key>CFBundleName</key>
+	<string>Lastenhandhabung</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>CFBundleGetInfoString</key>
+	<string>Lastenhandhabung</string>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>ios/icons/iTunesArtwork@2x.png</string>
+		<string>ios/icons/iTunesArtwork.png</string>
+		<string>ios/icons/Icon@2x.png</string>
+		<string>ios/icons/Icon.png</string>
+		<string>ios/icons/Icon-Small@2x.png</string>
+		<string>ios/icons/Icon-Small.png</string>
+		<string>ios/icons/Icon-Small-50@2x.png</string>
+		<string>ios/icons/Icon-Small-50.png</string>
+		<string>ios/icons/Icon-Small-30@2x.png</string>
+		<string>ios/icons/Icon-Small-30.png</string>
+		<string>ios/icons/Icon-Small-20@2x.png</string>
+		<string>ios/icons/Icon-Small-20.png</string>
+		<string>ios/icons/Icon-72@2x.png</string>
+		<string>ios/icons/Icon-72.png</string>
+		<string>ios/icons/apple-touch-icon-precomposed.png</string>
+		<string>ios/icons/apple-touch-icon-144x144-precomposed.png</string>
+		<string>ios/icons/apple-touch-icon-114x114-precomposed.png</string>
+		<string>ios/icons/apple-touch-icon-72x72-precomposed.png</string>
+	</array>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>de</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+</dict>
+</plist>
