@@ -9,6 +9,7 @@
 #include "owncon.h"
 #include "variantcon.h"
 #include "variant.h"
+#include "seperator.h"
 #include "variantspecification.h"
 
 class AngleControl : public QWidget
@@ -30,8 +31,8 @@ private slots:
 private:
     VariantCon *variantCon;
     QVector<OwnCon*> *ownCons;
-    QVector<QWidget*> *ownConSeperator;
-    QHBoxLayout *mainLayout;
+    QVector<Seperator*> *ownConSeperator;
+    QHBoxLayout *mainHLayout;
     QVBoxLayout *subVariantsLayout;
 
 };

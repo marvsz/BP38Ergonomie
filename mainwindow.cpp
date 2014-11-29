@@ -96,20 +96,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ac3->addVariant(headTilt);
     ac3->addVariant(headSidewiseTilt);
 
-    QWidget *hSep1 = new QWidget(this);
-    hSep1->setStyleSheet("QWidget {background-color: #c8c7cc;border: 1px solid #c8c7cc; border-radius: 2px; margin: 10px 10px 10px 10px}");
-    hSep1->setFixedHeight(3);
-    hSep1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    QWidget *hSep2 = new QWidget(this);
-    hSep2->setStyleSheet("QWidget {background-color: #c8c7cc;border: 1px solid #c8c7cc; border-radius: 2px; margin: 10px 10px 10px 10px}");
-    hSep2->setFixedHeight(3);
-    hSep2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    QWidget *hSep3 = new QWidget(this);
-    hSep3->setStyleSheet("QWidget {background-color: #c8c7cc;border: 1px solid #c8c7cc; border-radius: 2px; margin: 10px 10px 10px 10px}");
-    hSep3->setFixedHeight(3);
-    hSep3->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-
-
     btnBack = new QPushButton("< Zurück");
     btnBack->setFixedSize(120,45);
     lblViewName = new QLabel("Körperhaltung");
@@ -117,11 +103,8 @@ MainWindow::MainWindow(QWidget *parent) :
     stopWatch = new StopWatch(timer);
 
     categoryLayout->addWidget(ac1);
-    categoryLayout->addWidget(hSep1);
     categoryLayout->addWidget(ac2);
-    categoryLayout->addWidget(hSep2);
     categoryLayout->addWidget(ac4);
-    categoryLayout->addWidget(hSep3);
     categoryLayout->addWidget(ac3);
     control->setLayout(categoryLayout);
 

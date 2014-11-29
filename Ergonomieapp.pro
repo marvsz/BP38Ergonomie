@@ -28,7 +28,8 @@ HEADERS += \
     variantspecification.h \
     viewcontroller.h \
     textqpushbutton.h \
-    textcon.h
+    textcon.h \
+    seperator.h
 
 SOURCES += \
     anglecontrol.cpp \
@@ -48,7 +49,8 @@ SOURCES += \
     variantspecification.cpp \
     viewcontroller.cpp \
     textqpushbutton.cpp \
-    textcon.cpp
+    textcon.cpp \
+    seperator.cpp
 
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
