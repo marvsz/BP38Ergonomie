@@ -122,6 +122,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->setCentralWidget(main);
 
+    ac1->showContent();
+    ac2->hideContent();
+    ac3->hideContent();
+    ac4->hideContent();
+
     connect(btnBack, SIGNAL(clicked()) , SLOT(openMenuView()));
 }
 

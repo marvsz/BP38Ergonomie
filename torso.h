@@ -5,13 +5,13 @@
 class Torso
 {
 public:
-    Torso(Angle flextion, Angle tilt, Angle rotation);
+    Torso(Angle* flextion, Angle* tilt, Angle* rotation);
     ~Torso();
 
 private:
-    Angle flextion;
-    Angle tilt;
-    Angle rotation;
+    Angle* flextion;
+    Angle* tilt;
+    Angle* rotation;
 };
 
 #endif // TORSO_H

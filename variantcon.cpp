@@ -2,20 +2,14 @@
 #include <QLabel>
 #include "buttonwithid.h"
 
-VariantCon::VariantCon(QString* conText, QWidget *parent) :
+VariantCon::VariantCon(QWidget *parent) :
     QWidget(parent)
 {
-    this->conText = conText;
     this->currentSelBtnID = 0;
 
     mainLayout = new QVBoxLayout;
     varLayout = new QVBoxLayout;
     varSpeciLayout = new QVBoxLayout;
-
-    varDesc = new QLabel(this);
-    varDesc->setText((*conText));
-    varDesc->setAlignment(Qt::AlignCenter);
-    mainLayout->addWidget(varDesc, 0 , Qt::AlignTop);
 
     mainLayout->addLayout(varLayout);
     mainLayout->addSpacerItem(new QSpacerItem(10, 20, QSizePolicy::Fixed, QSizePolicy::Fixed));
@@ -27,7 +21,6 @@ VariantCon::VariantCon(QString* conText, QWidget *parent) :
     variants = new QVector<Variant*>();
 
     currentSelVarSpeciBtnID = 0;
-
     this->setLayout(mainLayout);
 }
 

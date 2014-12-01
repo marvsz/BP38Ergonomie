@@ -12,3 +12,4 @@ Arm::Arm(Angle *upperArmPosition, Angle *lowerArmPosition, Angle *upperArmRotati
 Arm::~Arm(){
 
 }
+

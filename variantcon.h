@@ -15,7 +15,7 @@ class VariantCon : public QWidget
 {
     Q_OBJECT
 public:
-    explicit VariantCon(QString* conText, QWidget *parent = 0);
+    explicit VariantCon(QWidget *parent = 0);
 
     void addVariant(Variant *variant);
     void setVariantSpecification(VariantSpecification* varSpeci);
@@ -37,8 +37,6 @@ private:
     QVBoxLayout *varSpeciLayout;
     QVBoxLayout *varLayout;
     VariantSpecification *varSpeci;
-    QLabel *varDesc;
-    QString* conText;
     QVector<ButtonWithID*> *varSpeciBtns;
     QVector<ButtonWithID*> *variantBtns;
     QVector<Variant*> *variants;

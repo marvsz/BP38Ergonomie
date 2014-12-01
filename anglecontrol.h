@@ -4,8 +4,10 @@
 #include <QWidget>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QPushButton>
 #include <QVector>
 #include <QString>
+#include <QLabel>
 #include "owncon.h"
 #include "variantcon.h"
 #include "variant.h"
@@ -23,17 +25,25 @@ public:
 signals:
 
 public slots:
+    void showContent();
+    void hideContent();
 
 private slots:
     void selectedVariantChanged(int id);
-
+    void showHideBtnPressed();
 
 private:
     VariantCon *variantCon;
+
+    QLabel *descLbl;
+    QPushButton *showHideBtn;
     QVector<OwnCon*> *ownCons;
     QVector<Seperator*> *ownConSeperator;
     QHBoxLayout *mainHLayout;
     QVBoxLayout *subVariantsLayout;
+    QWidget *content;
+
+
 
 };
 

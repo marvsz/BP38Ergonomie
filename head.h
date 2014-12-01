@@ -5,13 +5,13 @@
 class Head
 {
 public:
-    Head(Angle rotation, Angle tilt, Angle sidewiseTilt);
+    Head(Angle* rotation, Angle* tilt, Angle* sidewiseTilt);
     ~Head();
 
 private:
-    Angle rotation;
-    Angle tilt;
-    Angle sidewiseTilt;
+    Angle* rotation;
+    Angle* tilt;
+    Angle* sidewiseTilt;
 };
 
 #endif // HEAD_H
