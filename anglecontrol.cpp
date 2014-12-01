@@ -1,11 +1,14 @@
 #include "anglecontrol.h"
+#include <QApplication>
 #include <QHBoxLayout>
+#include <QDebug>
 #include "seperator.h"
 
 AngleControl::AngleControl(QString* descVarConText, Variant* variant, VariantSpecification* varSpeci, QWidget *parent) :
     QWidget(parent)
 {
     QVBoxLayout* mainVLayout = new QVBoxLayout;
+    mist = new QWidget(this);
     mainHLayout = new QHBoxLayout;
     subVariantsLayout = new QVBoxLayout;
 
@@ -17,6 +20,10 @@ AngleControl::AngleControl(QString* descVarConText, Variant* variant, VariantSpe
 
     this->ownConSeperator = new QVector<Seperator*>();
 
+    this->expandBtn = new QPushButton(this);
+    this->setMinimumSize(,50);
+    connect(expandBtn, SIGNAL(pressed()), this, SLOT(expand()));
+
     this->addVariant(variant);
     this->selectedVariantChanged(0);
 
@@ -27,9 +34,12 @@ AngleControl::AngleControl(QString* descVarConText, Variant* variant, VariantSpe
     mainHLayout->addWidget(new Seperator(Qt::Vertical, 3, this));
     subVariantsLayout->addWidget(ownCons->at(0));
     mainHLayout->addLayout(subVariantsLayout);
-    mainVLayout->addLayout(mainHLayout);
+    mainVLayout->addWidget(mist);
+    mainVLayout->addWidget(expandBtn, 0 , Qt::AlignRight);
     mainVLayout->addWidget(new Seperator(Qt::Horizontal, 3, this));
+    mist->setLayout(mainHLayout);
     this->setLayout(mainVLayout);
+    expand();
 }
 
 void AngleControl::addVariant(Variant* variant){
@@ -66,5 +76,18 @@ void AngleControl::selectedVariantChanged(int id){
 
 void AngleControl::selectVariant(int id){
     variantCon->selectID(id);
+}
+
+void AngleControl::expand(){
+    if(mist->isVisible()){
+        mist->hide();
+        this->expandBtn->setText("+");
+    }
+    else{
+        mist->show();
+        this->expandBtn->setText("-");
+    }
+
+    QApplication::processEvents();
 }
 
