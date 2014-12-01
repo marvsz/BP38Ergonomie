@@ -9,11 +9,11 @@ public:
     ~Arm();
 
 private:
-    Angle upperArmPosition;
-    Angle lowerArmPosition;
-    Angle upperArmRotation;
-    Angle lowerArmRotation;
-    Angle upperArmOpening;
+    Angle* upperArmPosition;
+    Angle* lowerArmPosition;
+    Angle* upperArmRotation;
+    Angle* lowerArmRotation;
+    Angle* upperArmOpening;
 };
 
 #endif // ARM_H

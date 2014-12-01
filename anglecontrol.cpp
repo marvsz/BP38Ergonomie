@@ -8,11 +8,14 @@ AngleControl::AngleControl(QString* descVarConText, Variant* variant, VariantSpe
     QWidget(parent)
 {
     QVBoxLayout* mainVLayout = new QVBoxLayout;
-    mist = new QWidget(this);
+    content = new QWidget(this);
     mainHLayout = new QHBoxLayout;
     subVariantsLayout = new QVBoxLayout;
 
-    this->variantCon = new VariantCon(descVarConText, this);
+    this->descLbl = new QLabel(this);
+    descLbl->setText((*descVarConText));
+
+    this->variantCon = new VariantCon(this);
     this->variantCon->setVariantSpecification(varSpeci);
 
     this->ownCons = new QVector<OwnCon*>();
@@ -20,9 +23,10 @@ AngleControl::AngleControl(QString* descVarConText, Variant* variant, VariantSpe
 
     this->ownConSeperator = new QVector<Seperator*>();
 
-    this->expandBtn = new QPushButton(this);
-    this->setMinimumSize(,50);
-    connect(expandBtn, SIGNAL(pressed()), this, SLOT(expand()));
+    this->showHideBtn = new QPushButton(this);
+    this->showHideBtn->setText("-");
+    this->showHideBtn->setMinimumSize(40,40);
+    connect(showHideBtn, SIGNAL(pressed()), this, SLOT(showHideBtnPressed()));
 
     this->addVariant(variant);
     this->selectedVariantChanged(0);
@@ -34,12 +38,12 @@ AngleControl::AngleControl(QString* descVarConText, Variant* variant, VariantSpe
     mainHLayout->addWidget(new Seperator(Qt::Vertical, 3, this));
     subVariantsLayout->addWidget(ownCons->at(0));
     mainHLayout->addLayout(subVariantsLayout);
-    mainVLayout->addWidget(mist);
-    mainVLayout->addWidget(expandBtn, 0 , Qt::AlignRight);
+    mainVLayout->addWidget(descLbl);
+    mainVLayout->addWidget(content);
+    mainVLayout->addWidget(showHideBtn, 0 , Qt::AlignRight);
     mainVLayout->addWidget(new Seperator(Qt::Horizontal, 3, this));
-    mist->setLayout(mainHLayout);
+    content->setLayout(mainHLayout);
     this->setLayout(mainVLayout);
-    expand();
 }
 
 void AngleControl::addVariant(Variant* variant){
@@ -78,16 +82,24 @@ void AngleControl::selectVariant(int id){
     variantCon->selectID(id);
 }
 
-void AngleControl::expand(){
-    if(mist->isVisible()){
-        mist->hide();
-        this->expandBtn->setText("+");
-    }
-    else{
-        mist->show();
-        this->expandBtn->setText("-");
-    }
+void AngleControl::showHideBtnPressed(){
+    if(showHideBtn->text().compare(QString("+"), Qt::CaseSensitive) == 0)
+        this->showContent();
+    else
+        this->hideContent();
+}
 
+void AngleControl::showContent(){
+    content->show();
+    this->showHideBtn->setText("-");
+    //this->setMinimumHeight(360*ownCons->length());
+    QApplication::processEvents();
+}
+
+void AngleControl::hideContent(){
+    content->hide();
+    this->showHideBtn->setText("+");
+    //this->setMinimumHeight(150);
     QApplication::processEvents();
 }
 

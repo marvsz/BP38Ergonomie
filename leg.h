@@ -5,13 +5,13 @@
 class Leg
 {
 public:
-    Leg(Angle hip, Angle knee, Angle ankle);
+    Leg(Angle* hip, Angle* knee, Angle* ankle);
     ~Leg();
 
 private:
-    Angle hip;
-    Angle knee;
-    Angle ankle;
+    Angle* hip;
+    Angle* knee;
+    Angle* ankle;
 };
 
 #endif // LEG_H
