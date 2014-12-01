@@ -8,7 +8,7 @@ public:
     ~Angle();
 
     int getDegree() const;
-    void setDegree(int degree) const;
+    void setDegree(int d);
 
 private:
     int degree;

@@ -5,7 +5,7 @@
 class Arm
 {
 public:
-    Arm(Angle upperArmPosition, Angle lowerArmPosition, Angle upperArmRotation, Angle lowerArmRotation, Angle upperArmOpening);
+    Arm(Angle* upperArmPosition, Angle* lowerArmPosition, Angle* upperArmRotation, Angle* lowerArmRotation, Angle* upperArmOpening);
     ~Arm();
 
 private:

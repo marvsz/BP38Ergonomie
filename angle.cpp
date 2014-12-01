@@ -2,7 +2,7 @@
 
 Angle::Angle(int degree)
 {
-    this->degree = degree;
+    this->setDegree(degree);
 }
 
 Angle::~Angle(){
@@ -13,6 +13,6 @@ int Angle::getDegree() const{
     return this->degree;
 }
 
-void Angle::setDegree(int degree) const{
-    this->degree = degree;
+void Angle::setDegree(int d) {
+    this->degree = d;
 }
