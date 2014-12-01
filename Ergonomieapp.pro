@@ -29,7 +29,13 @@ HEADERS += \
     viewcontroller.h \
     textqpushbutton.h \
     textcon.h \
-    seperator.h
+    seperator.h \
+    angle.h \
+    arm.h \
+    leg.h \
+    head.h \
+    torso.h \
+    body.h
 
 SOURCES += \
     anglecontrol.cpp \
@@ -50,7 +56,13 @@ SOURCES += \
     viewcontroller.cpp \
     textqpushbutton.cpp \
     textcon.cpp \
-    seperator.cpp
+    seperator.cpp \
+    angle.cpp \
+    arm.cpp \
+    leg.cpp \
+    head.cpp \
+    torso.cpp \
+    body.cpp
 
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
