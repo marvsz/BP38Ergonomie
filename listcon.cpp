@@ -3,7 +3,7 @@
 #include <QHBoxLayout>
 #include <QErrorMessage>
 
-ListCon::ListCon(QString name, QString opt1Name, QString opt2Name, QWidget *parent) :
+ListCon::ListCon(QString name, QVector<QString> *optionNames, QWidget *parent) :
     QGroupBox(parent)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -11,53 +11,59 @@ ListCon::ListCon(QString name, QString opt1Name, QString opt2Name, QWidget *pare
     QVBoxLayout *listLayout = new QVBoxLayout;
     QHBoxLayout *listHLayout = new QHBoxLayout;
     QHBoxLayout *newNameLayout = new QHBoxLayout;
-    QHBoxLayout *opt1Layout = new QHBoxLayout;
-    QHBoxLayout *opt2Layout = new QHBoxLayout;
-    QHBoxLayout *optLayout = new QHBoxLayout;
     QVBoxLayout *newLayout = new QVBoxLayout;
+    QHBoxLayout *addRemLayout = new QHBoxLayout;
 
     currentToolId = -1;
+
+    this->currentOptions = QVector<bool>();
+    this->optionsTrueBtns = new QVector<TextQPushButton*>;
+    this->optionsFalseBtns = new QVector<TextQPushButton*>;
+
     this->name = new QLabel(this);
     this->name->setText(name);
     this->newName = new QLabel(this);
     this->newName->setText("Bezeichnung");
     this->newNameEdit = new QLineEdit(this);
     this->newNameEdit->setPlaceholderText("Neues Hilfsmittel");
-    this->opt1 = new QLabel(this);
-    this->opt1->setText(opt1Name);
-    this->opt2 = new QLabel(this);
-    this->opt2->setText(opt2Name);
-    this->opt1TrueBtn = new TextQPushButton(0, "Ja", this);
-    this->opt1FalseBtn = new TextQPushButton(1, "Nein", this);
-    this->opt2TrueBtn = new TextQPushButton(2, "Ja", this);
-    this->opt2FalseBtn = new TextQPushButton(3, "Nein", this);
-    this->opt1TrueBtn->setFixedSize(100, 60);
-    this->opt1FalseBtn->setFixedSize(100, 60);
-    this->opt2TrueBtn->setFixedSize(100, 60);
-    this->opt2FalseBtn->setFixedSize(100, 60);
+    this->newNameEdit->setMinimumHeight(60);
     this->addBtn = new TextQPushButton(4, "Hilfsmittel hinzufügen", this);
-    this->addBtn->setMinimumHeight(100);
-    this->addBtn->setMaximumWidth(400);
+    this->addBtn->setMinimumHeight(60);
+    this->addBtn->setMaximumWidth(300);
+    this->remBtn = new TextQPushButton(5, "Hilfsmittel entfernen", this);
+    this->remBtn->setMinimumHeight(60);
+    this->remBtn->setMaximumWidth(300);
 
-    this->tools = QList<Tool*>();
-    if(!tools.isEmpty()){
-        for(int i = 0; i < tools.length(); i++){
-            listLayout->addWidget(tools.at(i));
-            connect(tools.at(i), SIGNAL(pressedWithID(int)), this, SLOT(toolChanged(int)));
-        }
+    this->options = new QVector<QLabel*>();
+    for(int i = 0; i < optionNames->length(); i++){
+        QLabel* option = new QLabel(this);
+        option->setText(optionNames->at(i));
+        options->append(option);
 
-        setCurrentToolId(0);
-        opt1TrueBtn->setSelected(tools.at(0)->getOpt1());
-        opt1FalseBtn->setSelected(!tools.at(0)->getOpt1());
-        opt2TrueBtn->setSelected(tools.at(0)->getOpt2());
-        opt2TrueBtn->setSelected(!tools.at(0)->getOpt2());
+        TextQPushButton* trueButton = new TextQPushButton(i, "Ja", this);
+        trueButton->setFixedSize(100, 60);
+        optionsTrueBtns->append(trueButton);
+        connect(trueButton, SIGNAL(pressedWithID(int)), this, SLOT(optionTruePressed(int)));
+
+        TextQPushButton* falseButton = new TextQPushButton(i, "Nein", this);
+        falseButton->setFixedSize(100, 60);
+        optionsFalseBtns->append(falseButton);
+        connect(falseButton, SIGNAL(pressedWithID(int)), this, SLOT(optionFalsePressed(int)));
+
+        currentOptions.append(false);
     }
 
-    connect(opt1TrueBtn, SIGNAL(clicked()), this, SLOT(opt1TruePressed()));
-    connect(opt1FalseBtn, SIGNAL(clicked()), this, SLOT(opt1FalsePressed()));
-    connect(opt2TrueBtn, SIGNAL(clicked()), this, SLOT(opt2TruePressed()));
-    connect(opt2FalseBtn, SIGNAL(clicked()), this, SLOT(opt2FalsePressed()));
+    this->tools = new QList<Tool*>();
+
+    if(!tools->isEmpty()){
+        for(int i = 0; i < tools->length(); i++){
+            listLayout->addWidget(tools->at(i));
+            connect(tools->at(i), SIGNAL(pressedWithID(int)), this, SLOT(toolChanged(int)));
+        }
+    }
+
     connect(addBtn, SIGNAL(clicked()), this, SLOT(addTool()));
+    connect(remBtn, SIGNAL(clicked()), this, SLOT(removeTool()));
     connect(newNameEdit, SIGNAL(textChanged(QString)), this, SLOT(disableSelection()));
 
     listHLayout->addWidget(this->name, 0, Qt::AlignCenter);
@@ -66,18 +72,20 @@ ListCon::ListCon(QString name, QString opt1Name, QString opt2Name, QWidget *pare
     newNameLayout->addWidget(newName);
     newNameLayout->addWidget(newNameEdit);
 
-    opt1Layout->addWidget(opt1);
-    opt1Layout->addWidget(opt1TrueBtn);
-    opt1Layout->addWidget(opt1FalseBtn);
-    opt2Layout->addWidget(opt2);
-    opt2Layout->addWidget(opt2TrueBtn);
-    opt2Layout->addWidget(opt2FalseBtn);
-    optLayout->addLayout(opt1Layout);
-    optLayout->addLayout(opt2Layout);
+    QVBoxLayout *optionListLayout = new QVBoxLayout;
+    for(int i = 0; i < options->length(); i++){
+        QHBoxLayout *optionLayout = new QHBoxLayout;
+        optionLayout->addWidget(options->at(i));
+        optionLayout->addWidget(optionsTrueBtns->at(i));
+        optionLayout->addWidget(optionsFalseBtns->at(i));
+        optionListLayout->addLayout(optionLayout);
+    }
 
+    addRemLayout->addWidget(addBtn);
+    addRemLayout->addWidget(remBtn);
     newLayout->addLayout(newNameLayout);
-    newLayout->addLayout(optLayout);
-    newLayout->addWidget(addBtn);
+    newLayout->addLayout(optionListLayout);
+    newLayout->addLayout(addRemLayout);
 
     mainLayout->addLayout(listHLayout);
     mainLayout->addLayout(newLayout);
@@ -86,95 +94,99 @@ ListCon::ListCon(QString name, QString opt1Name, QString opt2Name, QWidget *pare
 
 }
 
-void ListCon::opt1TruePressed()
-{
-    if(currentToolId > -1)
-        tools.at(currentToolId)->setOpt1(true);
-    currOpt1 = true;
-    opt1Changed();
+
+void ListCon::optionTruePressed(int index){
+    if(currentToolId > - 1)
+        tools->at(currentToolId)->setOption(index, true);
+    currentOptions.replace(index, true);
+    optionChanged(index);
 }
 
-void ListCon::opt1FalsePressed()
-{
-    if(currentToolId > -1)
-        tools.at(currentToolId)->setOpt1(false);
-    currOpt1 = false;
-    opt1Changed();
+void ListCon::optionFalsePressed(int index){
+    if(currentToolId > - 1)
+        tools->at(currentToolId)->setOption(index, false);
+    currentOptions.replace(index, false);
+    optionChanged(index);
 }
 
-void ListCon::opt2TruePressed()
-{
-    if(currentToolId > -1)
-        tools.at(currentToolId)->setOpt2(true);
-    currOpt2 = true;
-    opt2Changed();
+void ListCon::optionChanged(int index){
+    optionsTrueBtns->at(index)->setSelected(currentOptions.at(index));
+    optionsFalseBtns->at(index)->setSelected(!currentOptions.at(index));
 }
 
-void ListCon::opt2FalsePressed(){
-    if(currentToolId > -1)
-        tools.at(currentToolId)->setOpt2(false);
-    currOpt2 = false;
-    opt2Changed();
-}
-
-void ListCon::opt1Changed()
-{
-    opt1TrueBtn->setSelected(currOpt1);
-    opt1FalseBtn->setSelected(!currOpt1);
-}
-
-void ListCon::opt2Changed()
-{
-    opt2TrueBtn->setSelected(currOpt2);
-    opt2FalseBtn->setSelected(!currOpt2);
-}
 
 void ListCon::toolChanged(int id)
 {
    setCurrentToolId(id);
-   opt1TrueBtn->setSelected(tools.at(id)->getOpt1());
-   opt1FalseBtn->setSelected(!tools.at(id)->getOpt1());
-   opt2TrueBtn->setSelected(tools.at(id)->getOpt2());
-   opt2FalseBtn->setSelected(!tools.at(id)->getOpt2());
-
+   for(int i = 0; i < options->length(); i++){
+       optionsTrueBtns->at(i)->setSelected(tools->at(id)->getOption(i));
+       optionsFalseBtns->at(i)->setSelected(!tools->at(id)->getOption(i));
+   }
 }
 
 void ListCon::setCurrentToolId(int id)
 {
     if(currentToolId > -1)
-        tools.at(currentToolId)->setSelected(false);
+        tools->at(currentToolId)->setSelected(false);
     currentToolId = id;
     if(currentToolId > -1)
-        tools.at(id)->setSelected(true);
+        tools->at(id)->setSelected(true);
 }
 
 void ListCon::disableSelection(){
-    if(currentToolId > -1 && !tools.isEmpty() && (newNameEdit->text() != "")){
-        tools.at(currentToolId)->setSelected(false);
-        opt1TrueBtn->setSelected(false);
-        opt1FalseBtn->setSelected(false);
-        opt2TrueBtn->setSelected(false);
-        opt2FalseBtn->setSelected(false);
+    if(currentToolId > -1 && !tools->isEmpty() && (newNameEdit->text() != "")){
+        tools->at(currentToolId)->setSelected(false);
+        for(int i = 0; i < options->length(); i++){
+            optionsTrueBtns->at(i)->setSelected(false);
+            optionsFalseBtns->at(i)->setSelected(false);
+        }
     }
     setCurrentToolId(-1);
 }
 
+bool ListCon::isOptionChosen(){
+    bool optionChosen = false;
+    for(int i = 0; i < options->length(); i++){
+        optionChosen = (optionsFalseBtns->at(i)->isSelected() || optionsTrueBtns->at(i)->isSelected());
+        if(optionChosen == false)
+            return false;
+    }
+    return true;
+}
+
 void ListCon::addTool()
 {
-    if(newNameEdit->text() != ""){
-        Tool *t = new Tool(tools.length(), newNameEdit->text(), currOpt1, currOpt2, this);
+    if(newNameEdit->text() != "" && isOptionChosen()){
+
+        Tool *t = new Tool(tools->length(), newNameEdit->text(), currentOptions, this);
         t->setMinimumSize(100, 60);
-        tools.append(t);
+        tools->append(t);
         connect(t, SIGNAL(pressedWithID(int)), this, SLOT(toolChanged(int)));
         this->layout()->itemAt(0)->layout()->itemAt(1)->layout()->addWidget(t);
         newNameEdit->clear();
-        opt1TrueBtn->setSelected(false);
-        opt1FalseBtn->setSelected(false);
-        opt2TrueBtn->setSelected(false);
-        opt2FalseBtn->setSelected(false);
+
+        for(int i = 0; i < options->length(); i++){
+            optionsTrueBtns->at(i)->setSelected(false);
+            optionsFalseBtns->at(i)->setSelected(false);
+        }
+
     }
     else {
         QErrorMessage *e = new QErrorMessage(this);
-        e->showMessage("Sie müssen einen Namen für das Hilfsmittel eingeben", "OK");
+        e->showMessage("Sie müssen einen Namen und Attribute für das Hilfsmittel eingeben", "OK");
     }
+}
+
+void ListCon::removeTool(){
+    if(currentToolId > -1){
+        this->layout()->itemAt(0)->layout()->itemAt(1)->layout()->removeWidget(tools->at(currentToolId));
+        delete tools->at(currentToolId);
+        for(int i = 0; i < options->length(); i++){
+            optionsTrueBtns->at(i)->setSelected(false);
+            optionsFalseBtns->at(i)->setSelected(false);
+        }
+        setCurrentToolId(-1);
+    }
+
+
 }

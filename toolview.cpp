@@ -44,7 +44,10 @@ ToolView::ToolView(QString windowName, QWidget *parent) :
     weg->setText("Weg [m]:");
     hand = new TextCon(3, new QString[3]{"Beide", "Links", "Rechts"}, categoryScrollArea);
     hand->setText("Benutzte Hand:");
-    tools = new ListCon("Hilfsmittel", "Bockrollen", "Bremsen", this);
+    QVector<QString>* options = new QVector<QString>();
+    options->append("Bockrollen");
+    options->append("Bremsen");
+    tools = new ListCon("Hilfsmittel", options, this);
 
     categoryLayout->addWidget(backButton);
     categoryLayout->addWidget(label);

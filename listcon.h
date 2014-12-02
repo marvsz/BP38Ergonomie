@@ -2,6 +2,7 @@
 #define LISTCON_H
 
 #include <QGroupBox>
+#include <QVector>
 #include <QLabel>
 #include <QList>
 #include <QString>
@@ -15,37 +16,35 @@ class ListCon : public QGroupBox
 {
     Q_OBJECT
 public:
-    explicit ListCon(QString name = "", QString opt1Name="", QString opt2Name="", QWidget *parent = 0);
+    explicit ListCon(QString name = "", QVector<QString> *optionNames = NULL, QWidget *parent = 0);
 
 signals:
 
 public slots:
-    void opt1TruePressed();
-    void opt1FalsePressed();
-    void opt2TruePressed();
-    void opt2FalsePressed();
+
+private slots:
+    void setCurrentToolId(int id);
+    void optionTruePressed(int index);
+    void optionFalsePressed(int index);
+    void optionChanged(int index);
     void toolChanged(int id);
     void addTool();
-    void opt1Changed();
-    void opt2Changed();
-    void setCurrentToolId(int id);
+    void removeTool();
     void disableSelection();
 
 private:
     int currentToolId;
-    bool currOpt1;
-    bool currOpt2;
+    QVector<bool> currentOptions;
     QLabel *name;
-    QList<Tool*> tools;
+    QList<Tool*>* tools;
     QLabel *newName;
     QLineEdit *newNameEdit;
-    QLabel *opt1;
-    QLabel *opt2;
-    TextQPushButton *opt1TrueBtn;
-    TextQPushButton *opt1FalseBtn;
-    TextQPushButton *opt2TrueBtn;
-    TextQPushButton *opt2FalseBtn;
+    QVector<QLabel*> *options;
+    QVector<TextQPushButton*>* optionsTrueBtns;
+    QVector<TextQPushButton*>* optionsFalseBtns;
     TextQPushButton *addBtn;
+    TextQPushButton *remBtn;
+    bool isOptionChosen();
 };
 
 #endif // LISTCON_H

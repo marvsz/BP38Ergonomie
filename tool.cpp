@@ -1,33 +1,22 @@
 #include "tool.h"
 #include "textqpushbutton.h"
 
-Tool::Tool(int id, QString name, bool opt1, bool opt2, QWidget *parent) :
+Tool::Tool(int id, QString name, QVector<bool> opts, QWidget *parent) :
     TextQPushButton(id, name, parent)
 {
     this->id = id;
     this->setName(name);
-    this->setOpt1(opt1);
-    this->setOpt2(opt2);
+    this->options = opts;
 }
 
-bool Tool::getOpt1()
+bool Tool::getOption(int index)
 {
-    return this->opt1;
+    return this->options.at(index);
 }
 
-bool Tool::getOpt2()
+void Tool::setOption(int index, bool b)
 {
-    return this->opt2;
-}
-
-void Tool::setOpt1(bool b)
-{
-    this->opt1 = b;
-}
-
-void Tool::setOpt2(bool b)
-{
-    this->opt2 = b;
+    this->options.replace(index, b);
 }
 
 void Tool::setName(QString name)
