@@ -1,52 +1,58 @@
-#ifndef OWNCON_H
-#define OWNCON_H
+#ifndef ValueControl_H
+#define ValueControl_H
 
 #include <QWidget>
 #include <QLineEdit>
 #include <QSlider>
-#include <QGroupBox>
 #include <QVector>
 #include <QString>
 #include <QLabel>
 #include <QHBoxLayout>
-#include "ownqpushbutton.h"
+#include "selectablevaluebutton.h"
+#include "enum.h"
 
-class OwnCon : public QWidget
+class ValueControl : public QWidget
 {
     Q_OBJECT
 public:
-    explicit OwnCon(QWidget *parent = 0);
+    explicit ValueControl(QString unit, QWidget *parent = 0);
+
     void setValues(int min, int max, QVector<int>* btnValues, QString* iconSetPath);
+
     void setText(QString text);
     QString getText() const;
 
+
 signals:
+    void valueChanged(int value);
 
 public slots:
+    void setValue(int value);
 
 private slots:
-    void txtBxAngleHasChanged();
-    void sldrAngleHasChanged();
-    void btnAngleHasClicked(int id);
+    void txtBxValueHasChanged();
+    void sldrValueHasChanged();
+    void btnValueHasClicked(int id);
     void btnPlusClicked();
     void btnMinusClicked();
 
 private:
-    int btnCount;
-    int min;
-    int max;
-    QLineEdit *txtBxAngle;
-    QSlider *sldrAngle;
+    QVector<int> *btnRanges;
+    QString unit;
+    int currentSelectedBtnID;
+
+    QLineEdit *txtBxValue;
+    QSlider *sldrValue;
     QPushButton *btnPlus;
     QPushButton *btnMinus;
     QLabel *lblText;
     QLabel *lblMin;
     QLabel *lblMax;
-    QVector<OwnQPushButton*> *btnAngles;
+    QVector<SelectableValueButton*> *btnValues;
     QHBoxLayout *btnLineLayout;
 
     void btnHighlight(int value);
 
 };
 
-#endif // OWNCON_H
+#endif // ValueControl_H

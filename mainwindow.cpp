@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "owncon.h"
 #include <QPushButton>
 #include <QGroupBox>
 #include <QDebug>

@@ -6,8 +6,8 @@
 #include <QString>
 #include <QLabel>
 #include <QGroupBox>
-#include "buttonwithid.h"
 #include <QVBoxLayout>
+#include "selectablevaluebutton.h"
 #include "variantspecification.h"
 #include "variant.h"
 
@@ -37,8 +37,8 @@ private:
     QVBoxLayout *varSpeciLayout;
     QVBoxLayout *varLayout;
     VariantSpecification *varSpeci;
-    QVector<ButtonWithID*> *varSpeciBtns;
-    QVector<ButtonWithID*> *variantBtns;
+    QVector<SelectableValueButton*> *varSpeciBtns;
+    QVector<SelectableValueButton*> *variantBtns;
     QVector<Variant*> *variants;
 
 

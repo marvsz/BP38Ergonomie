@@ -34,12 +34,12 @@ ToolView::ToolView(QString windowName, QWidget *parent) :
     type->setText("Lastenhandhabungsart:");
     QVector<int>* lastValues = new QVector<int>;
     (*lastValues)<<2<<3<<5<<10<<20;
-    last = new OwnCon();
+    last = new ValueControl("kg", categoryScrollArea);
     last->setValues(1, 100, lastValues, new QString());
     last->setText("Last [kg]:");
     QVector<int>* wegValues = new QVector<int>;
     (*wegValues)<<2<<3<<5<<10<<20;
-    weg = new OwnCon(categoryScrollArea);
+    weg = new ValueControl("m", categoryScrollArea);
     weg->setValues(0, 20, wegValues, new QString());
     weg->setText("Weg [m]:");
     hand = new TextCon(3, new QString[3]{"Beide", "Links", "Rechts"}, categoryScrollArea);

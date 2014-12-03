@@ -1,6 +1,5 @@
 #include "variantcon.h"
 #include <QLabel>
-#include "buttonwithid.h"
 
 VariantCon::VariantCon(QWidget *parent) :
     QWidget(parent)
@@ -16,8 +15,8 @@ VariantCon::VariantCon(QWidget *parent) :
     mainLayout->addLayout(varSpeciLayout);
     mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
-    variantBtns = new QVector<ButtonWithID*>();
-    varSpeciBtns = new QVector<ButtonWithID*>();
+    variantBtns = new QVector<SelectableValueButton*>();
+    varSpeciBtns = new QVector<SelectableValueButton*>();
     variants = new QVector<Variant*>();
 
     currentSelVarSpeciBtnID = 0;
@@ -45,7 +44,7 @@ void VariantCon::setVariantSpecification(VariantSpecification* varSpeci){
         this->varSpeci = varSpeci;
         QVector<QString*>* vs = varSpeci->getSpecificationDesc();
         for(int i = 0; i < vs->size(); i++){
-            ButtonWithID *newBtn = new ButtonWithID(i, this);
+            SelectableValueButton *newBtn = new SelectableValueButton(i,0, this);
             newBtn->setMinimumSize(200, 60);
             newBtn->setText((* vs->at(i)));
             connect(newBtn, SIGNAL(pressedWithID(int)), this, SLOT(variantSpeciBtnPressed(int)));
@@ -59,7 +58,7 @@ void VariantCon::setVariantSpecification(VariantSpecification* varSpeci){
 
 void VariantCon::addVariant(Variant* variant){
     variants->append(variant);
-    ButtonWithID *newBtn = new ButtonWithID(variantBtns->length(), this);
+    SelectableValueButton *newBtn = new SelectableValueButton(variantBtns->length(), 0, this);
     newBtn->setMinimumSize(200, 60);
     newBtn->setText((*variant->getDescription()));
     connect(newBtn, SIGNAL(pressedWithID(int)), this, SLOT(variantBtnPressed(int)));

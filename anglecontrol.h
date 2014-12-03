@@ -8,7 +8,7 @@
 #include <QVector>
 #include <QString>
 #include <QLabel>
-#include "owncon.h"
+#include "valuecontrol.h"
 #include "variantcon.h"
 #include "variant.h"
 #include "seperator.h"
@@ -37,7 +37,7 @@ private:
 
     QLabel *descLbl;
     QPushButton *showHideBtn;
-    QVector<OwnCon*> *ownCons;
+    QVector<ValueControl*> *valueControls;
     QVector<Seperator*> *ownConSeperator;
     QHBoxLayout *mainHLayout;
     QVBoxLayout *subVariantsLayout;

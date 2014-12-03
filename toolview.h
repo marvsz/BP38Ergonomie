@@ -5,7 +5,7 @@
 #include <QWidget>
 #include <QMainWindow>
 #include <QPushButton>
-#include "owncon.h"
+#include "valuecontrol.h"
 #include "textcon.h"
 #include "textqpushbutton.h"
 #include "ownqpushbutton.h"
@@ -34,8 +34,8 @@ private:
     QLabel *label;
     QLabel *lblViewName;
     TextCon *type;
-    OwnCon *last;
-    OwnCon *weg;
+    ValueControl *last;
+    ValueControl *weg;
     TextCon *hand;
     QWidget *main;
     QWidget *control;

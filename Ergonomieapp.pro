@@ -11,13 +11,10 @@ RESOURCES += \
 
 HEADERS += \
     anglecontrol.h \
-    buttonwithid.h \
     enum.h \
-    enums.h \
     listcon.h \
     mainmenu.h \
     mainwindow.h \
-    owncon.h \
     ownqpushbutton.h \
     stopwatch.h \
     subvariant.h \
@@ -35,16 +32,16 @@ HEADERS += \
     leg.h \
     head.h \
     torso.h \
-    body.h
+    body.h \
+    selectablevaluebutton.h \
+    valuecontrol.h
 
 SOURCES += \
     anglecontrol.cpp \
-    buttonwithid.cpp \
     listcon.cpp \
     main.cpp \
     mainmenu.cpp \
     mainwindow.cpp \
-    owncon.cpp \
     ownqpushbutton.cpp \
     stopwatch.cpp \
     subvariant.cpp \
@@ -62,7 +59,9 @@ SOURCES += \
     leg.cpp \
     head.cpp \
     torso.cpp \
-    body.cpp
+    body.cpp \
+    selectablevaluebutton.cpp \
+    valuecontrol.cpp
 
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
