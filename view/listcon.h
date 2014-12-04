@@ -7,10 +7,11 @@
 #include <QList>
 #include <QString>
 #include <QLineEdit>
-#include "tool.h"
-#include "textqpushbutton.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+
+#include "tool.h"
+#include "selectablevaluebutton.h"
 
 
 class ListCon : public QGroupBox
@@ -42,10 +43,10 @@ private:
     QLabel *newName;
     QLineEdit *newNameEdit;
     QVector<QLabel*> *options;
-    QVector<TextQPushButton*>* optionsTrueBtns;
-    QVector<TextQPushButton*>* optionsFalseBtns;
-    TextQPushButton *addBtn;
-    TextQPushButton *remBtn;
+    QVector<SelectableValueButton*>* optionsTrueBtns;
+    QVector<SelectableValueButton*>* optionsFalseBtns;
+    SelectableValueButton *addBtn;
+    SelectableValueButton *remBtn;
     bool isOptionChosen();
     Tool* toolWidthId(int id);
     int toolIndex(int toolId);

@@ -1,10 +1,10 @@
 #ifndef TOOL_H
 #define TOOL_H
 
-#include "textqpushbutton.h"
 #include <QString>
+#include "selectablevaluebutton.h"
 
-class Tool : public TextQPushButton
+class Tool : public SelectableValueButton
 {
     Q_OBJECT
 public:

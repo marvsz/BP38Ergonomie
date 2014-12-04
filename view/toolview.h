@@ -6,8 +6,6 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include "valuecontrol.h"
-#include "textcon.h"
-#include "textqpushbutton.h"
 #include "listcon.h"
 
 namespace Ui {

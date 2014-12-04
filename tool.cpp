@@ -1,10 +1,9 @@
 #include "tool.h"
-#include "textqpushbutton.h"
 
 int Tool::idCounter = 0;
 
 Tool::Tool(QString name, QVector<bool> opts, QWidget *parent) :
-    TextQPushButton(idCounter++, name, parent)
+    SelectableValueButton(idCounter++, 0, parent)
 {
     this->setName(name);
     this->options = opts;

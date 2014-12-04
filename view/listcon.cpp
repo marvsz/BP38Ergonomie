@@ -18,20 +18,22 @@ ListCon::ListCon(QString name, QVector<QString> *optionNames, QWidget *parent) :
     currentToolId = -1;
 
     this->currentOptions = QVector<bool>();
-    this->optionsTrueBtns = new QVector<TextQPushButton*>;
-    this->optionsFalseBtns = new QVector<TextQPushButton*>;
+    this->optionsTrueBtns = new QVector<SelectableValueButton*>;
+    this->optionsFalseBtns = new QVector<SelectableValueButton*>;
 
     this->name = new QLabel(this);
     this->name->setText(name);
     this->newName = new QLabel(this);
     this->newName->setText("Bezeichnung");
     this->newNameEdit = new QLineEdit(this);
-    this->newNameEdit->setPlaceholderText("Neues Hilfsmittel");
+    this->newNameEdit->setPlaceholderText("Neues Transportmittel");
     this->newNameEdit->setMinimumHeight(60);
-    this->addBtn = new TextQPushButton(4, "Hilfsmittel hinzufügen", this);
+    this->addBtn = new SelectableValueButton(-1, 0, this);
     this->addBtn->setMinimumHeight(60);
+    this->addBtn->setText("Transportmittel erstellen");
     this->addBtn->setMaximumWidth(300);
-    this->remBtn = new TextQPushButton(5, "Hilfsmittel entfernen", this);
+    this->remBtn = new SelectableValueButton(-2, 0, this);
+    this->remBtn->setText("Transportmittel entfernen");
     this->remBtn->setMinimumHeight(60);
     this->remBtn->setMaximumWidth(300);
 
@@ -41,12 +43,14 @@ ListCon::ListCon(QString name, QVector<QString> *optionNames, QWidget *parent) :
         option->setText(optionNames->at(i));
         options->append(option);
 
-        TextQPushButton* trueButton = new TextQPushButton(i, "Ja", this);
+        SelectableValueButton* trueButton = new SelectableValueButton(i, 1, this);
+        trueButton->setText("Ja");
         trueButton->setFixedSize(100, 60);
         optionsTrueBtns->append(trueButton);
         connect(trueButton, SIGNAL(pressedWithID(int)), this, SLOT(optionTruePressed(int)));
 
-        TextQPushButton* falseButton = new TextQPushButton(i, "Nein", this);
+        SelectableValueButton* falseButton = new SelectableValueButton(i, 0, this);
+        falseButton->setText("Nein");
         falseButton->setFixedSize(100, 60);
         optionsFalseBtns->append(falseButton);
         connect(falseButton, SIGNAL(pressedWithID(int)), this, SLOT(optionFalsePressed(int)));
