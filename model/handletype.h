@@ -11,8 +11,8 @@ public:
     HandleType(string handleType);
     ~HandleType();
 
+    string getHandleType();
     void setHandleType(string h);
-    string getHandleType() const;
 
 private:
     string handleType;

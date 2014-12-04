@@ -9,10 +9,10 @@ HandleType::~HandleType(){
 
 }
 
-string HandleType::getHandleType() const{
+string HandleType::getHandleType(){
     return this->handleType;
 }
 
 void HandleType::setHandleType(string h){
-    this->handleType = h;
+    this->handleType=h;
 }
