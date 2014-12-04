@@ -20,7 +20,6 @@ public slots:
 
 private:
     static int idCounter;
-    int id;
     QString name;
     QVector<bool> options;
 };

@@ -4,9 +4,8 @@
 int Tool::idCounter = 0;
 
 Tool::Tool(QString name, QVector<bool> opts, QWidget *parent) :
-    TextQPushButton(id, name, parent)
+    TextQPushButton(idCounter++, name, parent)
 {
-    this->id = idCounter++;
     this->setName(name);
     this->options = opts;
 }
