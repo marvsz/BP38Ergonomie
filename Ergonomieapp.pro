@@ -1,3 +1,4 @@
+include(view/view.pri)
 QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -10,19 +11,13 @@ RESOURCES += \
     resrc.qrc
 
 HEADERS += \
-    anglecontrol.h \
     enum.h \
     listcon.h \
     mainmenu.h \
     mainwindow.h \
-    ownqpushbutton.h \
     stopwatch.h \
-    subvariant.h \
     tool.h \
     toolview.h \
-    variant.h \
-    variantcon.h \
-    variantspecification.h \
     viewcontroller.h \
     textqpushbutton.h \
     textcon.h \
@@ -32,36 +27,25 @@ HEADERS += \
     leg.h \
     head.h \
     torso.h \
-    body.h \
-    selectablevaluebutton.h \
-    valuecontrol.h
+    body.h
 
 SOURCES += \
-    anglecontrol.cpp \
     listcon.cpp \
     main.cpp \
     mainmenu.cpp \
     mainwindow.cpp \
-    ownqpushbutton.cpp \
     stopwatch.cpp \
-    subvariant.cpp \
     tool.cpp \
     toolview.cpp \
-    variant.cpp \
-    variantcon.cpp \
-    variantspecification.cpp \
     viewcontroller.cpp \
     textqpushbutton.cpp \
     textcon.cpp \
-    seperator.cpp \
     angle.cpp \
     arm.cpp \
     leg.cpp \
     head.cpp \
     torso.cpp \
     body.cpp \
-    selectablevaluebutton.cpp \
-    valuecontrol.cpp
 
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
@@ -78,3 +62,6 @@ unix {
         QMAKE_LFLAGS += -mmacosx-version-min=10.7
     }
 }
+
+OTHER_FILES += \
+    View/view.pri

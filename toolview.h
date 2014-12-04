@@ -8,7 +8,6 @@
 #include "valuecontrol.h"
 #include "textcon.h"
 #include "textqpushbutton.h"
-#include "ownqpushbutton.h"
 #include "listcon.h"
 
 namespace Ui {

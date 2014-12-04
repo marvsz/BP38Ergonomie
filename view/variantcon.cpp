@@ -70,6 +70,7 @@ void VariantCon::addVariant(Variant* variant){
 Variant* VariantCon::getVariantByID(int id) const{
     if(id > -1 && id < variants->length())
         return variants->at(id);
+    return NULL;
 }
 
 void VariantCon::selectID(int id){

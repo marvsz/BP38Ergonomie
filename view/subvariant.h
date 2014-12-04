@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <list>
-#include "enums.h"
+#include "enum.h"
 #include <QString>
 
 

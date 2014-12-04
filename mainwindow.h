@@ -4,11 +4,11 @@
 #include <QMainWindow>
 #include <QResizeEvent>
 #include <QVector>
-#include "anglecontrol.h"
-#include "variant.h"
-#include "subvariant.h"
-#include "variantspecification.h"
-#include "enums.h"
+#include "view/anglecontrol.h"
+#include "view/variant.h"
+#include "view/subvariant.h"
+#include "view/variantspecification.h"
+#include "enum.h"
 #include "stopwatch.h"
 #include <QPushButton>
 #include <QLabel>
