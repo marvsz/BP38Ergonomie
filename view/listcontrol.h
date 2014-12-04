@@ -1,5 +1,5 @@
-#ifndef LISTCON_H
-#define LISTCON_H
+#ifndef LISTCONTROL_H
+#define LISTCONTROL_H
 
 #include <QGroupBox>
 #include <QVector>
@@ -14,11 +14,11 @@
 #include "selectablevaluebutton.h"
 
 
-class ListCon : public QGroupBox
+class ListControl : public QGroupBox
 {
     Q_OBJECT
 public:
-    explicit ListCon(QString name = "", QVector<QString> *optionNames = NULL, QWidget *parent = 0);
+    explicit ListControl(QString name = "", QVector<QString> *optionNames = NULL, QWidget *parent = 0);
 
 signals:
 
@@ -52,4 +52,4 @@ private:
     int toolIndex(int toolId);
 };
 
-#endif // LISTCON_H
+#endif // LISTCONTROL_H

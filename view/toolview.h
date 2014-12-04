@@ -6,7 +6,7 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include "valuecontrol.h"
-#include "listcon.h"
+#include "listcontrol.h"
 
 namespace Ui {
 class ToolView;
@@ -36,7 +36,7 @@ private:
     ValueControl *hand;
     QWidget *main;
     QWidget *control;
-    ListCon *tools;
+    ListControl *tools;
 };
 
 #endif // ToolView_H

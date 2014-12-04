@@ -1,10 +1,10 @@
-#include "listcon.h"
+    #include "listcontrol.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QErrorMessage>
+#include <QMessageBox>
 #include <QDebug>
 
-ListCon::ListCon(QString name, QVector<QString> *optionNames, QWidget *parent) :
+ListControl::ListControl(QString name, QVector<QString> *optionNames, QWidget *parent) :
     QGroupBox(parent)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -100,27 +100,27 @@ ListCon::ListCon(QString name, QVector<QString> *optionNames, QWidget *parent) :
 }
 
 
-void ListCon::optionTruePressed(int index){
+void ListControl::optionTruePressed(int index){
     if(currentToolId > - 1)
         toolWidthId(currentToolId)->setOption(index, true);
     currentOptions.replace(index, true);
     optionChanged(index);
 }
 
-void ListCon::optionFalsePressed(int index){
+void ListControl::optionFalsePressed(int index){
     if(currentToolId > - 1)
         toolWidthId(currentToolId)->setOption(index, false);
     currentOptions.replace(index, false);
     optionChanged(index);
 }
 
-void ListCon::optionChanged(int index){
+void ListControl::optionChanged(int index){
     optionsTrueBtns->at(index)->setSelected(currentOptions.at(index));
     optionsFalseBtns->at(index)->setSelected(!currentOptions.at(index));
 }
 
 
-void ListCon::toolChanged(int id)
+void ListControl::toolChanged(int id)
 {
    setCurrentToolId(id);
    for(int i = 0; i < options->length(); i++){
@@ -129,7 +129,7 @@ void ListCon::toolChanged(int id)
    }
 }
 
-void ListCon::setCurrentToolId(int id)
+void ListControl::setCurrentToolId(int id)
 {
     if(currentToolId > -1 && toolWidthId(currentToolId) != NULL)
         toolWidthId(currentToolId)->setSelected(false);
@@ -138,7 +138,7 @@ void ListCon::setCurrentToolId(int id)
         toolWidthId(currentToolId)->setSelected(true);
 }
 
-void ListCon::disableSelection(){
+void ListControl::disableSelection(){
     if(currentToolId > -1 && !tools->isEmpty() && (newNameEdit->text() != "")){
         toolWidthId(currentToolId)->setSelected(false);
         for(int i = 0; i < options->length(); i++){
@@ -149,7 +149,7 @@ void ListCon::disableSelection(){
     setCurrentToolId(-1);
 }
 
-bool ListCon::isOptionChosen(){
+bool ListControl::isOptionChosen(){
     bool optionChosen = false;
     for(int i = 0; i < options->length(); i++){
         optionChosen = (optionsFalseBtns->at(i)->isSelected() || optionsTrueBtns->at(i)->isSelected());
@@ -159,7 +159,7 @@ bool ListCon::isOptionChosen(){
     return true;
 }
 
-void ListCon::addTool()
+void ListControl::addTool()
 {
     if(newNameEdit->text() != "" && isOptionChosen()){
 
@@ -176,13 +176,9 @@ void ListCon::addTool()
         }
 
     }
-    else {
-        QErrorMessage *e = new QErrorMessage(this);
-        e->showMessage("Sie müssen einen Namen und Attribute für das Hilfsmittel eingeben", "OK");
-    }
 }
 
-void ListCon::removeTool(){
+void ListControl::removeTool(){
     if(!tools->isEmpty() && currentToolId > -1){
         int indexToRemove = toolIndex(currentToolId);
         delete toolWidthId(currentToolId);
@@ -197,14 +193,14 @@ void ListCon::removeTool(){
     }
 }
 
-Tool* ListCon::toolWidthId(int id){
+Tool* ListControl::toolWidthId(int id){
     for(int i = 0; i < tools->length(); i++)
         if(tools->at(i)->getID() == id)
             return tools->at(i);
     return NULL;
 }
 
-int ListCon::toolIndex(int toolId){
+int ListControl::toolIndex(int toolId){
     for(int i = 0; i < tools->length(); i++)
         if(tools->at(i)->getID() == toolId)
             return i;

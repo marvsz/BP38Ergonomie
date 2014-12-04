@@ -59,7 +59,7 @@ ToolView::ToolView(QString windowName, QWidget *parent) :
     QVector<QString>* options = new QVector<QString>();
     options->append("Bockrollen");
     options->append("Bremsen");
-    tools = new ListCon("Hilfsmittel", options, this);
+    tools = new ListControl("Transportmittel", options, this);
 
     categoryLayout->addWidget(backButton);
     categoryLayout->addWidget(label);
