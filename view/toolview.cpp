@@ -6,7 +6,7 @@
 #include <QGridLayout>
 #include <QScrollArea>
 #include <QScroller>
-#include "textcon.h"
+#include "valuecontrol.h"
 
 ToolView::ToolView(QString windowName, QWidget *parent) :
     QMainWindow(parent)
@@ -30,22 +30,32 @@ ToolView::ToolView(QString windowName, QWidget *parent) :
     QScrollArea *categoryScrollArea = new QScrollArea;
 
 
-    type = new TextCon(4, new QString[4]{"Halten", "Umsetzen", "Tragen", "Ziehen und Schieben"}, categoryScrollArea);
+    QVector<QString*>* typeValues = new QVector<QString*>();
+    (*typeValues) << new QString("Halten") << new QString("Umsetzen") << new QString("Tragen") << new QString("Ziehen und Schieben");
+    type = new ValueControl(TEXT_CONTROL, categoryScrollArea);
+    type->setValues(typeValues, new QString());
     type->setText("Lastenhandhabungsart:");
+
     QVector<int>* lastValues = new QVector<int>;
     (*lastValues)<<2<<3<<5<<10<<20;
     last = new ValueControl(VALUE_CONTROL, categoryScrollArea);
     last->setUnit("kg");
     last->setValues(1, 100, lastValues, new QString());
     last->setText("Last");
+
     QVector<int>* wegValues = new QVector<int>;
     (*wegValues)<<2<<3<<5<<10<<20;
     weg = new ValueControl(VALUE_CONTROL, categoryScrollArea);
     weg->setValues(0, 20, wegValues, new QString());
     weg->setText("Weg");
     weg->setUnit("m");
-    hand = new TextCon(3, new QString[3]{"Beide", "Links", "Rechts"}, categoryScrollArea);
+
+    QVector<QString*>* handValues = new QVector<QString*>();
+    (*handValues) << new QString("Links") << new QString("Beide") << new QString("Rechts");
+    hand = new ValueControl(TEXT_CONTROL, categoryScrollArea);
+    hand->setValues(handValues, new QString());
     hand->setText("Benutzte Hand:");
+
     QVector<QString>* options = new QVector<QString>();
     options->append("Bockrollen");
     options->append("Bremsen");

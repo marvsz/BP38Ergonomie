@@ -32,10 +32,10 @@ private:
     QPushButton *backButton;
     QLabel *label;
     QLabel *lblViewName;
-    TextCon *type;
+    ValueControl *type;
     ValueControl *last;
     ValueControl *weg;
-    TextCon *hand;
+    ValueControl *hand;
     QWidget *main;
     QWidget *control;
     ListCon *tools;
