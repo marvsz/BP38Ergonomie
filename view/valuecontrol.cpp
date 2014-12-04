@@ -152,7 +152,10 @@ void ValueControl::btnMinusClicked(){
 }
 
 void ValueControl::setText(QString text){
-    this->lblText->setText(text);
+    if(unit != NULL)
+        this->lblText->setText(text.append(" [").append(unit).append("]:"));
+    else
+        this->lblText->setText(text);
 }
 
 QString ValueControl::getText() const{
