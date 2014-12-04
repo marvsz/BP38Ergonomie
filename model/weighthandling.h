@@ -5,11 +5,11 @@
 #include "weight.h"
 #include "way.h"
 #include "usedhand.h"
-#include "tool.h"
+#include "transportation.h"
 class WeightHandling
 {
 public:
-    WeightHandling(HandleType* handleType, Weight* weight, Way* way, UsedHand* hand, Tool* tool);
+    WeightHandling(HandleType* handleType, Weight* weight, Way* way, UsedHand* hand, Transportation* transportation);
     ~WeightHandling();
 
 private:
@@ -17,7 +17,7 @@ private:
     Weight* weight;
     Way* way;
     UsedHand* hand;
-    Tool* tool;
+    Transportation* transportation;
 };
 
 #endif // WEIGHTHANDLING_H

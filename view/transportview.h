@@ -1,5 +1,5 @@
-#ifndef TOOLVIEW_H
-#define TOOLVIEW_H
+#ifndef TRANSPORTVIEW_H
+#define TRANSPORTVIEW_H
 
 #include <QLabel>
 #include <QWidget>
@@ -7,18 +7,22 @@
 #include <QPushButton>
 #include "valuecontrol.h"
 #include "listcontrol.h"
+#include "anglecontrol.h"
+#include "variantspecification.h"
+#include "variant.h"
+#include "subvariant.h"
 
 namespace Ui {
-class ToolView;
+class TransportView;
 }
 
-class ToolView : public QMainWindow
+class TransportView : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit ToolView(QString windowName = "", QWidget *parent = 0);
-    ~ToolView();
+    explicit TransportView(QString windowName = "", QWidget *parent = 0);
+    ~TransportView();
 
 signals:
     void menuViewSelected();
@@ -30,6 +34,14 @@ private:
     QPushButton *backButton;
     QLabel *label;
     QLabel *lblViewName;
+
+    /*AngleControl *control;
+    VariantSpecification *type;
+    Variant *var;
+    SubVariant *last;
+    SubVariant *weg;
+    SubVariant *hand;*/
+
     ValueControl *type;
     ValueControl *last;
     ValueControl *weg;
@@ -39,4 +51,4 @@ private:
     ListControl *tools;
 };
 
-#endif // ToolView_H
+#endif // TransportView_H

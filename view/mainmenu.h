@@ -18,7 +18,7 @@ signals:
 
 public slots:
     void openAngleView();
-    void openToolView();
+    void openTransportView();
     void openActionForceView();
 
 private:

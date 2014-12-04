@@ -2,9 +2,9 @@
 #define VIEWCONTROLLER_H
 
 #include <QStackedWidget>
-#include "mainwindow.h"
+#include "angleview.h"
 #include "mainmenu.h"
-#include "toolview.h"
+#include "transportview.h"
 #include "actionforceview.h"
 
 class ViewController : public QStackedWidget
@@ -22,13 +22,13 @@ signals:
 public slots:
     void setMenuView();
     void setAngleView();
-    void setToolView();
+    void setTransportView();
     void setActionForceView();
 
 private:
     MainMenu *menuView;
-    MainWindow *anglesView;
-    ToolView *toolView;
+    AngleView *anglesView;
+    TransportView *toolView;
     ActionForceView *actionForceView;
 };
 

@@ -10,8 +10,9 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
-#include "tool.h"
+#include "transportation.h"
 #include "selectablevaluebutton.h"
+#include "valuecontrol.h"
 
 
 class ListControl : public QGroupBox
@@ -25,31 +26,32 @@ signals:
 public slots:
 
 private slots:
-    void setCurrentToolId(int id);
+    void setCurrentTransportationId(int id);
     void optionTruePressed(int index);
     void optionFalsePressed(int index);
     void optionChanged(int index);
-    void toolChanged(int id);
-    void addTool();
-    void removeTool();
+    void transportationChanged(int id);
+    void addTransportation();
+    void removeTransportation();
     void disableSelection();
 
 
 private:
-    int currentToolId;
+    int currentTransportationId;
     QVector<bool> currentOptions;
     QLabel *name;
-    QList<Tool*>* tools;
+    QList<Transportation*>* transportations;
     QLabel *newName;
     QLineEdit *newNameEdit;
     QVector<QLabel*> *options;
+    ValueControl *transportationWeight;
     QVector<SelectableValueButton*>* optionsTrueBtns;
     QVector<SelectableValueButton*>* optionsFalseBtns;
     SelectableValueButton *addBtn;
     SelectableValueButton *remBtn;
     bool isOptionChosen();
-    Tool* toolWidthId(int id);
-    int toolIndex(int toolId);
+    Transportation* transportationWidthId(int id);
+    int transportationIndex(int transportationId);
 };
 
 #endif // LISTCONTROL_H

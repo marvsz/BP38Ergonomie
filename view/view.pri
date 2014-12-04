@@ -11,8 +11,8 @@ $$CURRENT_DIR/anglecontrol.h\
 $$CURRENT_DIR/valuecontrol.h\
 $$CURRENT_DIR/seperator.h\
 $$CURRENT_DIR/mainmenu.h\
-$$CURRENT_DIR/mainwindow.h\
-$$CURRENT_DIR/toolview.h\
+$$CURRENT_DIR/angleview.h\
+$$CURRENT_DIR/transportview.h\
 $$CURRENT_DIR/viewcontroller.h\
 $$CURRENT_DIR/listcontrol.h \
     $$PWD/actionforceview.h
@@ -26,10 +26,10 @@ $$CURRENT_DIR/selectablevaluebutton.cpp\
 $$CURRENT_DIR/anglecontrol.cpp\
 $$CURRENT_DIR/valuecontrol.cpp\
 $$CURRENT_DIR/seperator.cpp\
-$$CURRENT_DIR/toolview.cpp\
+$$CURRENT_DIR/transportview.cpp\
 $$CURRENT_DIR/viewcontroller.cpp\
 $$CURRENT_DIR/listcontrol.cpp\
 $$CURRENT_DIR/mainmenu.cpp\
-$$CURRENT_DIR/mainwindow.cpp \
+$$CURRENT_DIR/angleview.cpp \
     $$PWD/actionforceview.cpp
 

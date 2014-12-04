@@ -15,7 +15,7 @@ ListControl::ListControl(QString name, QVector<QString> *optionNames, QWidget *p
     QVBoxLayout *newLayout = new QVBoxLayout;
     QHBoxLayout *addRemLayout = new QHBoxLayout;
 
-    currentToolId = -1;
+    currentTransportationId = -1;
 
     this->currentOptions = QVector<bool>();
     this->optionsTrueBtns = new QVector<SelectableValueButton*>;
@@ -58,17 +58,17 @@ ListControl::ListControl(QString name, QVector<QString> *optionNames, QWidget *p
         currentOptions.append(false);
     }
 
-    this->tools = new QList<Tool*>();
+    this->transportations = new QList<Transportation*>();
 
-    if(!tools->isEmpty()){
-        for(int i = 0; i < tools->length(); i++){
-            listLayout->addWidget(tools->at(i));
-            connect(tools->at(i), SIGNAL(pressedWithID(int)), this, SLOT(toolChanged(int)));
+    if(!transportations->isEmpty()){
+        for(int i = 0; i < transportations->length(); i++){
+            listLayout->addWidget(transportations->at(i));
+            connect(transportations->at(i), SIGNAL(pressedWithID(int)), this, SLOT(transportationChanged(int)));
         }
     }
 
-    connect(addBtn, SIGNAL(clicked()), this, SLOT(addTool()));
-    connect(remBtn, SIGNAL(clicked()), this, SLOT(removeTool()));
+    connect(addBtn, SIGNAL(clicked()), this, SLOT(addTransportation()));
+    connect(remBtn, SIGNAL(clicked()), this, SLOT(removeTransportation()));
     connect(newNameEdit, SIGNAL(textChanged(QString)), this, SLOT(disableSelection()));
 
     listHLayout->addWidget(this->name, 0, Qt::AlignCenter);
@@ -86,6 +86,14 @@ ListControl::ListControl(QString name, QVector<QString> *optionNames, QWidget *p
         optionListLayout->addLayout(optionLayout);
     }
 
+    QVector<int>* weightValues = new QVector<int>;
+    (*weightValues)<<2<<10<<50<<100<<1000;
+    transportationWeight = new ValueControl(VALUE_CONTROL, this);
+    transportationWeight->setValues(0, 2000, weightValues, new QString());
+    transportationWeight->setUnit("kg");
+    transportationWeight->setText("Leergewicht");
+    optionListLayout->addWidget(transportationWeight);
+
     addRemLayout->addWidget(addBtn);
     addRemLayout->addWidget(remBtn);
     newLayout->addLayout(newNameLayout);
@@ -101,15 +109,15 @@ ListControl::ListControl(QString name, QVector<QString> *optionNames, QWidget *p
 
 
 void ListControl::optionTruePressed(int index){
-    if(currentToolId > - 1)
-        toolWidthId(currentToolId)->setOption(index, true);
+    if(currentTransportationId > - 1)
+        transportationWidthId(currentTransportationId)->setOption(index, true);
     currentOptions.replace(index, true);
     optionChanged(index);
 }
 
 void ListControl::optionFalsePressed(int index){
-    if(currentToolId > - 1)
-        toolWidthId(currentToolId)->setOption(index, false);
+    if(currentTransportationId > - 1)
+        transportationWidthId(currentTransportationId)->setOption(index, false);
     currentOptions.replace(index, false);
     optionChanged(index);
 }
@@ -120,33 +128,33 @@ void ListControl::optionChanged(int index){
 }
 
 
-void ListControl::toolChanged(int id)
+void ListControl::transportationChanged(int id)
 {
-   setCurrentToolId(id);
+   setCurrentTransportationId(id);
    for(int i = 0; i < options->length(); i++){
-       optionsTrueBtns->at(i)->setSelected(toolWidthId(id)->getOption(i));
-       optionsFalseBtns->at(i)->setSelected(!toolWidthId(id)->getOption(i));
+       optionsTrueBtns->at(i)->setSelected(transportationWidthId(id)->getOption(i));
+       optionsFalseBtns->at(i)->setSelected(!transportationWidthId(id)->getOption(i));
    }
 }
 
-void ListControl::setCurrentToolId(int id)
+void ListControl::setCurrentTransportationId(int id)
 {
-    if(currentToolId > -1 && toolWidthId(currentToolId) != NULL)
-        toolWidthId(currentToolId)->setSelected(false);
-    currentToolId = id;
-    if(currentToolId > -1 && toolWidthId(currentToolId) != NULL)
-        toolWidthId(currentToolId)->setSelected(true);
+    if(currentTransportationId > -1 && transportationWidthId(currentTransportationId) != NULL)
+        transportationWidthId(currentTransportationId)->setSelected(false);
+    currentTransportationId = id;
+    if(currentTransportationId > -1 && transportationWidthId(currentTransportationId) != NULL)
+        transportationWidthId(currentTransportationId)->setSelected(true);
 }
 
 void ListControl::disableSelection(){
-    if(currentToolId > -1 && !tools->isEmpty() && (newNameEdit->text() != "")){
-        toolWidthId(currentToolId)->setSelected(false);
+    if(currentTransportationId > -1 && !transportations->isEmpty() && (newNameEdit->text() != "")){
+        transportationWidthId(currentTransportationId)->setSelected(false);
         for(int i = 0; i < options->length(); i++){
             optionsTrueBtns->at(i)->setSelected(false);
             optionsFalseBtns->at(i)->setSelected(false);
         }
     }
-    setCurrentToolId(-1);
+    setCurrentTransportationId(-1);
 }
 
 bool ListControl::isOptionChosen(){
@@ -159,14 +167,14 @@ bool ListControl::isOptionChosen(){
     return true;
 }
 
-void ListControl::addTool()
+void ListControl::addTransportation()
 {
     if(newNameEdit->text() != "" && isOptionChosen()){
 
-        Tool *t = new Tool(newNameEdit->text(), currentOptions, this);
+        Transportation *t = new Transportation(newNameEdit->text(), currentOptions, 0, this);
         t->setMinimumSize(100, 60);
-        tools->append(t);
-        connect(t, SIGNAL(pressedWithID(int)), this, SLOT(toolChanged(int)));
+        transportations->append(t);
+        connect(t, SIGNAL(pressedWithID(int)), this, SLOT(transportationChanged(int)));
         this->layout()->itemAt(0)->layout()->itemAt(1)->layout()->addWidget(t);
         newNameEdit->clear();
 
@@ -178,31 +186,31 @@ void ListControl::addTool()
     }
 }
 
-void ListControl::removeTool(){
-    if(!tools->isEmpty() && currentToolId > -1){
-        int indexToRemove = toolIndex(currentToolId);
-        delete toolWidthId(currentToolId);
-        tools->removeAt(indexToRemove);
+void ListControl::removeTransportation(){
+    if(!transportations->isEmpty() && currentTransportationId > -1){
+        int indexToRemove = transportationIndex(currentTransportationId);
+        delete transportationWidthId(currentTransportationId);
+        transportations->removeAt(indexToRemove);
 
         for(int i = 0; i < options->length(); i++){
             optionsTrueBtns->at(i)->setSelected(false);
             optionsFalseBtns->at(i)->setSelected(false);
         }
 
-        setCurrentToolId(-1);
+        setCurrentTransportationId(-1);
     }
 }
 
-Tool* ListControl::toolWidthId(int id){
-    for(int i = 0; i < tools->length(); i++)
-        if(tools->at(i)->getID() == id)
-            return tools->at(i);
+Transportation* ListControl::transportationWidthId(int id){
+    for(int i = 0; i < transportations->length(); i++)
+        if(transportations->at(i)->getID() == id)
+            return transportations->at(i);
     return NULL;
 }
 
-int ListControl::toolIndex(int toolId){
-    for(int i = 0; i < tools->length(); i++)
-        if(tools->at(i)->getID() == toolId)
+int ListControl::transportationIndex(int transportationId){
+    for(int i = 0; i < transportations->length(); i++)
+        if(transportations->at(i)->getID() == transportationId)
             return i;
     return -1;
 }

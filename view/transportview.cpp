@@ -1,4 +1,4 @@
-#include "toolview.h"
+#include "transportview.h"
 
 #include <QWidget>
 #include <QVBoxLayout>
@@ -8,7 +8,8 @@
 #include <QScroller>
 #include "valuecontrol.h"
 
-ToolView::ToolView(QString windowName, QWidget *parent) :
+
+TransportView::TransportView(QString windowName, QWidget *parent) :
     QMainWindow(parent)
 {
 
@@ -29,7 +30,6 @@ ToolView::ToolView(QString windowName, QWidget *parent) :
     QVBoxLayout *categoryLayout = new QVBoxLayout;
     QScrollArea *categoryScrollArea = new QScrollArea;
 
-
     QVector<QString*>* typeValues = new QVector<QString*>();
     (*typeValues) << new QString("Halten") << new QString("Umsetzen") << new QString("Tragen") << new QString("Ziehen und Schieben");
     type = new ValueControl(TEXT_CONTROL, categoryScrollArea);
@@ -47,8 +47,8 @@ ToolView::ToolView(QString windowName, QWidget *parent) :
     (*wegValues)<<2<<3<<5<<10<<20;
     weg = new ValueControl(VALUE_CONTROL, categoryScrollArea);
     weg->setValues(0, 20, wegValues, new QString());
-    weg->setText("Weg");
     weg->setUnit("m");
+    weg->setText("Weg");
 
     QVector<QString*>* handValues = new QVector<QString*>();
     (*handValues) << new QString("Links") << new QString("Beide") << new QString("Rechts");
@@ -84,10 +84,10 @@ ToolView::ToolView(QString windowName, QWidget *parent) :
     this->setCentralWidget(main);
 }
 
-ToolView::~ToolView()
+TransportView::~TransportView()
 {
 }
 
-void ToolView::openMenuView(){
+void TransportView::openMenuView(){
     emit menuViewSelected();
 }

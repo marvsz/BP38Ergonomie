@@ -4,12 +4,12 @@ ViewController::ViewController(QWidget *parent) :
     QStackedWidget(parent)
 {
     menuView = new MainMenu;
-    anglesView = new MainWindow;
-    toolView = new ToolView;
+    anglesView = new AngleView;
+    toolView = new TransportView;
     actionForceView = new ActionForceView;
 
     connect(menuView, SIGNAL(angleViewSelected()), this, SLOT(setAngleView()));
-    connect(menuView, SIGNAL(toolViewSelected()), this, SLOT(setToolView()));
+    connect(menuView, SIGNAL(toolViewSelected()), this, SLOT(setTransportView()));
     connect(menuView, SIGNAL(actionForceViewSelected()), this, SLOT(setActionForceView()));
     connect(anglesView, SIGNAL(menuViewSelected()),this, SLOT(setMenuView()));
     connect(toolView, SIGNAL(menuViewSelected()),this, SLOT(setMenuView()));
@@ -31,7 +31,7 @@ void ViewController::setAngleView(){
     setCurrentIndex(ViewController::ANGLE_VIEW);
 }
 
-void ViewController::setToolView(){
+void ViewController::setTransportView(){
     setCurrentIndex(ViewController::TOOL_VIEW);
 }
 

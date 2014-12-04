@@ -18,7 +18,7 @@ MainMenu::MainMenu(QWidget *parent) :
     toolView = new QPushButton(this);
     toolView->setText("Lastenhandhabung");
     toolView->setMinimumSize(300, 100);
-    connect(toolView, SIGNAL(clicked()), this, SLOT(openToolView()));
+    connect(toolView, SIGNAL(clicked()), this, SLOT(openTransportView()));
 
     actionForceView = new QPushButton(this);
     actionForceView->setText("Aktionskraft");
@@ -40,7 +40,7 @@ void MainMenu::openAngleView(){
     emit angleViewSelected();
 }
 
-void MainMenu::openToolView(){
+void MainMenu::openTransportView(){
     emit toolViewSelected();
 }
 
