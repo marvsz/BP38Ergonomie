@@ -1,4 +1,5 @@
 include(view/view.pri)
+include(model/model.pri)
 QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -13,24 +14,12 @@ RESOURCES += \
 HEADERS += \
     enum.h \
     stopwatch.h \
-    tool.h \
-    angle.h \
-    arm.h \
-    leg.h \
-    head.h \
-    torso.h \
-    body.h
+    tool.h
 
 SOURCES += \
     main.cpp \
     stopwatch.cpp \
-    tool.cpp \
-    angle.cpp \
-    arm.cpp \
-    leg.cpp \
-    head.cpp \
-    torso.cpp \
-    body.cpp
+    tool.cpp
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
