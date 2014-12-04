@@ -20,6 +20,8 @@ ActionForceView::ActionForceView(QWidget *parent) :
     connect(btnBack, SIGNAL(clicked()), this, SLOT(openMenuView()));
 
 
+    textsDirection = new QVector<QString*>();
+    (*textsDirection)<<new QString("Links")<<new QString("Rechts")<<new QString("Oben")<<new QString("Unten")<<new QString("Vorne")<<new QString("Hinten");
     textsOrgan = new QVector<QString*>();
     (*textsOrgan)<<new QString("Finger")<<new QString("Hand")<<new QString("Arm")<<new QString("Fuß/Bein")<<new QString("Ganzkörper");
     textsUsedHand = new QVector<QString*>();
@@ -32,6 +34,10 @@ ActionForceView::ActionForceView(QWidget *parent) :
     valConIntensity->setUnit("N");
     valConIntensity->setText("Intensität");
 
+    valConDirection = new ValueControl(TEXT_CONTROL, this);
+    valConDirection->setValues(textsDirection, new QString(""));
+    valConDirection->setText("Richtung:");
+
     valConOrgan = new ValueControl(TEXT_CONTROL, this);
     valConOrgan->setValues(textsOrgan,new QString(""));
     valConOrgan->setText("Organ:");
@@ -41,6 +47,8 @@ ActionForceView::ActionForceView(QWidget *parent) :
     valConUsedHand->setText("Benutzte Hand:");
 
     lytMainContent->addWidget(valConIntensity);
+    lytMainContent->addWidget(new Seperator(Qt::Horizontal, 3, this));
+    lytMainContent->addWidget(valConDirection);
     lytMainContent->addWidget(new Seperator(Qt::Horizontal, 3, this));
     lytMainContent->addWidget(valConOrgan);
     lytMainContent->addWidget(new Seperator(Qt::Horizontal, 3, this));

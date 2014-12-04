@@ -192,9 +192,9 @@ void ValueControl::btnMinusClicked(){
 // Private functions
 void ValueControl::btnHighlight(int value){
     this->btnValues->at(currentSelectedBtnID)->setSelected(false);
-    for(int i = 0; i < btnValues->length(); ++i){
-        if(btnValues->at(i)->getValue() >= value){
-            currentSelectedBtnID = i;
+    for(int i = 1; i < btnRanges->length(); ++i){
+        if(btnRanges->at(i) >= value){
+            currentSelectedBtnID = i-1;
             break;
         }
     }
