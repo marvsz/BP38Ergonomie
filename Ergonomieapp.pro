@@ -45,7 +45,7 @@ SOURCES += \
     leg.cpp \
     head.cpp \
     torso.cpp \
-    body.cpp \
+    body.cpp
 
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
