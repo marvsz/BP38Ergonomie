@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 
     a.setStyleSheet("QWidget {background-color: #efeff4;}"
                         "QMainWindow {background-color: #efeff4;margin: 0 0;}"
-                        "Seperator {background-color: #c8c7cc; margin: 5px 5px 5px 5px;}"
+                        "Separator {background-color: #c8c7cc; margin: 5px 5px 5px 5px;}"
                         "QLabel {font: 100 26px \"Serif\"; color: #8e8e93;}"
                         "QGroupBox {border:2px solid #c8c7cc; background-color: #efeff4; border-radius: 10px;}"
                         "QLineEdit {font: 100 26px \"Serif\";border: 2px solid #007aff; border-radius: 10px; background: #f5f5f5; color: #8e8e93;}"

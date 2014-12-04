@@ -9,7 +9,7 @@ $$CURRENT_DIR/variantspecification.h\
 $$CURRENT_DIR/selectablevaluebutton.h\
 $$CURRENT_DIR/anglecontrol.h\
 $$CURRENT_DIR/valuecontrol.h\
-$$CURRENT_DIR/seperator.h\
+$$CURRENT_DIR/separator.h\
 $$CURRENT_DIR/mainmenu.h\
 $$CURRENT_DIR/angleview.h\
 $$CURRENT_DIR/transportview.h\
@@ -25,7 +25,7 @@ $$CURRENT_DIR/variantspecification.cpp\
 $$CURRENT_DIR/selectablevaluebutton.cpp\
 $$CURRENT_DIR/anglecontrol.cpp\
 $$CURRENT_DIR/valuecontrol.cpp\
-$$CURRENT_DIR/seperator.cpp\
+$$CURRENT_DIR/separator.cpp\
 $$CURRENT_DIR/transportview.cpp\
 $$CURRENT_DIR/viewcontroller.cpp\
 $$CURRENT_DIR/listcontrol.cpp\

@@ -1,5 +1,5 @@
 #include "actionforceview.h"
-#include "seperator.h"
+#include "separator.h"
 #include <QScroller>
 
 ActionForceView::ActionForceView(QWidget *parent) :
@@ -47,11 +47,11 @@ ActionForceView::ActionForceView(QWidget *parent) :
     valConUsedHand->setText("Benutzte Hand:");
 
     lytMainContent->addWidget(valConIntensity);
-    lytMainContent->addWidget(new Seperator(Qt::Horizontal, 3, this));
+    lytMainContent->addWidget(new Separator(Qt::Horizontal, 3, this));
     lytMainContent->addWidget(valConDirection);
-    lytMainContent->addWidget(new Seperator(Qt::Horizontal, 3, this));
+    lytMainContent->addWidget(new Separator(Qt::Horizontal, 3, this));
     lytMainContent->addWidget(valConOrgan);
-    lytMainContent->addWidget(new Seperator(Qt::Horizontal, 3, this));
+    lytMainContent->addWidget(new Separator(Qt::Horizontal, 3, this));
     lytMainContent->addWidget(valConUsedHand);
     wdgtMainContent->setLayout(lytMainContent);
 

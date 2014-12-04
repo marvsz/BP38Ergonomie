@@ -7,7 +7,7 @@
 #include <QScrollArea>
 #include <QScroller>
 #include "valuecontrol.h"
-#include "seperator.h"
+#include "separator.h"
 
 
 TransportView::TransportView(QString windowName, QWidget *parent) :
@@ -66,11 +66,11 @@ TransportView::TransportView(QString windowName, QWidget *parent) :
     tools = new ListControl("Transportmittel", options, this);
 
     topGroupLayout->addWidget(type);
-    topGroupLayout->addWidget(new Seperator(Qt::Horizontal, 3, this));
+    topGroupLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     topGroupLayout->addWidget(last);
-    topGroupLayout->addWidget(new Seperator(Qt::Horizontal, 3, this));
+    topGroupLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     topGroupLayout->addWidget(weg);
-    topGroupLayout->addWidget(new Seperator(Qt::Horizontal, 3, this));
+    topGroupLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     topGroupLayout->addWidget(hand);
     topGroup->setLayout(topGroupLayout);
 

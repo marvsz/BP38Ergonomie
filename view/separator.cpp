@@ -1,6 +1,6 @@
-#include "seperator.h"
+#include "separator.h"
 
-Seperator::Seperator(Qt::Orientation orientation, int thickness, QWidget *parent) :
+Separator::Separator(Qt::Orientation orientation, int thickness, QWidget *parent) :
     QFrame(parent)
 {
     if(orientation == Qt::Horizontal){

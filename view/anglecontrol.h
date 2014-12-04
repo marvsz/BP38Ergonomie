@@ -11,7 +11,7 @@
 #include "valuecontrol.h"
 #include "variantcon.h"
 #include "variant.h"
-#include "seperator.h"
+#include "separator.h"
 #include "variantspecification.h"
 
 class AngleControl : public QWidget
@@ -38,7 +38,7 @@ private:
     QLabel *descLbl;
     QPushButton *showHideBtn;
     QVector<ValueControl*> *valueControls;
-    QVector<Seperator*> *ownConSeperator;
+    QVector<Separator*> *ownConSeparator;
     QHBoxLayout *mainHLayout;
     QVBoxLayout *subVariantsLayout;
     QWidget *content;

@@ -2,7 +2,7 @@
 #include <QApplication>
 #include <QHBoxLayout>
 #include <QDebug>
-#include "seperator.h"
+#include "separator.h"
 
 AngleControl::AngleControl(QString* descVarConText, Variant* variant, VariantSpecification* varSpeci, QWidget *parent) :
     QWidget(parent)
@@ -22,7 +22,7 @@ AngleControl::AngleControl(QString* descVarConText, Variant* variant, VariantSpe
     this->valueControls = new QVector<ValueControl*>();
     this->valueControls->append(new ValueControl(VALUE_CONTROL, this));
 
-    this->ownConSeperator = new QVector<Seperator*>();
+    this->ownConSeparator = new QVector<Separator*>();
 
     this->showHideBtn = new QPushButton(this);
     this->showHideBtn->setText("-");
@@ -35,7 +35,7 @@ AngleControl::AngleControl(QString* descVarConText, Variant* variant, VariantSpe
 
 
     mainHLayout->addWidget(variantCon, 0, Qt::AlignTop);
-    mainHLayout->addWidget(new Seperator(Qt::Vertical, 3, this));
+    mainHLayout->addWidget(new Separator(Qt::Vertical, 3, this));
     subVariantsLayout->addWidget(valueControls->at(0));
     mainHLayout->addLayout(subVariantsLayout);
 
@@ -45,7 +45,7 @@ AngleControl::AngleControl(QString* descVarConText, Variant* variant, VariantSpe
 
     mainVLayout->addLayout(firstLineLayout);
     mainVLayout->addWidget(content);
-    mainVLayout->addWidget(new Seperator(Qt::Horizontal, 3, this));
+    mainVLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
 
     content->setLayout(mainHLayout);
     this->setLayout(mainVLayout);
@@ -64,9 +64,9 @@ void AngleControl::selectedVariantChanged(int id){
         VariantControl controlType = sv->getControlType();
         if(i >= valueControls->size()){
             valueControls->append(new ValueControl(controlType, this));
-            Seperator* sep = new Seperator(Qt::Horizontal, 3, this);
+            Separator* sep = new Separator(Qt::Horizontal, 3, this);
             if(i != 0){
-                this->ownConSeperator->append(sep);
+                this->ownConSeparator->append(sep);
                 subVariantsLayout->addWidget(sep);
             }
             subVariantsLayout->addWidget(valueControls->at(i));
@@ -75,10 +75,10 @@ void AngleControl::selectedVariantChanged(int id){
             subVariantsLayout->removeWidget(valueControls->at(i));
             valueControls->at(i)->setParent(NULL);
             valueControls->remove(i);
-            if(i < ownConSeperator->size()){
-                subVariantsLayout->removeWidget(ownConSeperator->at(i));
-                ownConSeperator->at(i)->setParent(NULL);
-                ownConSeperator->remove(i);
+            if(i < ownConSeparator->size()){
+                subVariantsLayout->removeWidget(ownConSeparator->at(i));
+                ownConSeparator->at(i)->setParent(NULL);
+                ownConSeparator->remove(i);
             }
             i--;
             continue;
@@ -97,9 +97,9 @@ void AngleControl::selectedVariantChanged(int id){
         subVariantsLayout->removeWidget(valueControls->at(i));
         valueControls->at(i)->setParent(NULL);
         valueControls->remove(i);
-        subVariantsLayout->removeWidget(ownConSeperator->at(i-1));
-        ownConSeperator->at(i-1)->setParent(NULL);
-        ownConSeperator->remove(i-1);
+        subVariantsLayout->removeWidget(ownConSeparator->at(i-1));
+        ownConSeparator->at(i-1)->setParent(NULL);
+        ownConSeparator->remove(i-1);
     }
 }
 
