@@ -5,6 +5,7 @@
 #include <QWidget>
 #include <QMainWindow>
 #include <QPushButton>
+#include <QGroupBox>
 #include "valuecontrol.h"
 #include "listcontrol.h"
 #include "anglecontrol.h"
@@ -34,13 +35,6 @@ private:
     QPushButton *backButton;
     QLabel *label;
     QLabel *lblViewName;
-
-    /*AngleControl *control;
-    VariantSpecification *type;
-    Variant *var;
-    SubVariant *last;
-    SubVariant *weg;
-    SubVariant *hand;*/
 
     ValueControl *type;
     ValueControl *last;

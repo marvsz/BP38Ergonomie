@@ -7,6 +7,7 @@
 #include <QScrollArea>
 #include <QScroller>
 #include "valuecontrol.h"
+#include "seperator.h"
 
 
 TransportView::TransportView(QString windowName, QWidget *parent) :
@@ -25,6 +26,8 @@ TransportView::TransportView(QString windowName, QWidget *parent) :
     label = new QLabel(this);
     label->setText(windowName);
 
+    QGroupBox *topGroup = new QGroupBox;
+    QVBoxLayout *topGroupLayout = new QVBoxLayout;
     QHBoxLayout *menuLineLayout = new QHBoxLayout;
     QVBoxLayout *mainLayout = new QVBoxLayout;
     QVBoxLayout *categoryLayout = new QVBoxLayout;
@@ -59,14 +62,21 @@ TransportView::TransportView(QString windowName, QWidget *parent) :
     QVector<QString>* options = new QVector<QString>();
     options->append("Bockrollen");
     options->append("Bremsen");
+
     tools = new ListControl("Transportmittel", options, this);
+
+    topGroupLayout->addWidget(type);
+    topGroupLayout->addWidget(new Seperator(Qt::Horizontal, 3, this));
+    topGroupLayout->addWidget(last);
+    topGroupLayout->addWidget(new Seperator(Qt::Horizontal, 3, this));
+    topGroupLayout->addWidget(weg);
+    topGroupLayout->addWidget(new Seperator(Qt::Horizontal, 3, this));
+    topGroupLayout->addWidget(hand);
+    topGroup->setLayout(topGroupLayout);
 
     categoryLayout->addWidget(backButton);
     categoryLayout->addWidget(label);
-    categoryLayout->addWidget(type);
-    categoryLayout->addWidget(last);
-    categoryLayout->addWidget(weg);
-    categoryLayout->addWidget(hand);
+    categoryLayout->addWidget(topGroup);
     categoryLayout->addWidget(tools);
     control->setLayout(categoryLayout);
 

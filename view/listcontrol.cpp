@@ -2,7 +2,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QMessageBox>
-#include <QDebug>
+#include "seperator.h"
 
 ListControl::ListControl(QString name, QVector<QString> *optionNames, QWidget *parent) :
     QGroupBox(parent)
@@ -78,12 +78,14 @@ ListControl::ListControl(QString name, QVector<QString> *optionNames, QWidget *p
     newNameLayout->addWidget(newNameEdit);
 
     QVBoxLayout *optionListLayout = new QVBoxLayout;
+    optionListLayout->addWidget(new Seperator(Qt::Horizontal, 3, this));
     for(int i = 0; i < options->length(); i++){
         QHBoxLayout *optionLayout = new QHBoxLayout;
         optionLayout->addWidget(options->at(i));
         optionLayout->addWidget(optionsTrueBtns->at(i));
         optionLayout->addWidget(optionsFalseBtns->at(i));
         optionListLayout->addLayout(optionLayout);
+        optionListLayout->addWidget(new Seperator(Qt::Horizontal, 3, this));
     }
 
     QVector<int>* weightValues = new QVector<int>;
@@ -93,6 +95,7 @@ ListControl::ListControl(QString name, QVector<QString> *optionNames, QWidget *p
     transportationWeight->setUnit("kg");
     transportationWeight->setText("Leergewicht");
     optionListLayout->addWidget(transportationWeight);
+    optionListLayout->addWidget(new Seperator(Qt::Horizontal, 3, this));
 
     QVector<int>* maxLoadValues = new QVector<int>;
     (*maxLoadValues)<<100<<500<<2500<<500<<10000;
@@ -105,8 +108,8 @@ ListControl::ListControl(QString name, QVector<QString> *optionNames, QWidget *p
     addRemLayout->addWidget(addBtn);
     addRemLayout->addWidget(remBtn);
     newLayout->addLayout(newNameLayout);
-    newLayout->addLayout(optionListLayout);
     newLayout->addLayout(addRemLayout);
+    newLayout->addLayout(optionListLayout);
 
     mainLayout->addLayout(listHLayout);
     mainLayout->addLayout(newLayout);

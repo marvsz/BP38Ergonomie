@@ -14,7 +14,6 @@
 #include "selectablevaluebutton.h"
 #include "valuecontrol.h"
 
-
 class ListControl : public QGroupBox
 {
     Q_OBJECT
