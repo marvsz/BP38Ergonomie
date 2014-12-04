@@ -15,6 +15,8 @@ public:
     void setName(QString name);
     int getWeight();
     void setWeight(int weight);
+    int getMaxLoad();
+    void setMaxLoad(int maxLoad);
 
 signals:
 
@@ -26,6 +28,7 @@ private:
     QString name;
     QVector<bool> options;
     int weight;
+    int maxLoad;
 };
 
 #endif // TRANSPORTATION_H

@@ -33,3 +33,11 @@ void Transportation::setWeight(int weight){
 int Transportation::getWeight(){
     return this->weight;
 }
+
+void Transportation::setMaxLoad(int maxLoad){
+    this->maxLoad = maxLoad;
+}
+
+int Transportation::getMaxLoad(){
+    return this->maxLoad;
+}

@@ -45,12 +45,13 @@ private:
     QLineEdit *newNameEdit;
     QVector<QLabel*> *options;
     ValueControl *transportationWeight;
+    ValueControl *transportationMaxLoad;
     QVector<SelectableValueButton*>* optionsTrueBtns;
     QVector<SelectableValueButton*>* optionsFalseBtns;
     SelectableValueButton *addBtn;
     SelectableValueButton *remBtn;
     bool isOptionChosen();
-    Transportation* transportationWidthId(int id);
+    Transportation* transportationWithId(int id);
     int transportationIndex(int transportationId);
 };
 
