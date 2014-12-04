@@ -14,14 +14,17 @@ public:
 signals:
     void angleViewSelected();
     void toolViewSelected();
+    void actionForceViewSelected();
 
 public slots:
     void openAngleView();
     void openToolView();
+    void openActionForceView();
 
 private:
     QPushButton *angleView;
     QPushButton *toolView;
+    QPushButton *actionForceView;
 };
 
 #endif // MAINMENU_H

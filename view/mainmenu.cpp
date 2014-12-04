@@ -20,10 +20,17 @@ MainMenu::MainMenu(QWidget *parent) :
     toolView->setMinimumSize(300, 100);
     connect(toolView, SIGNAL(clicked()), this, SLOT(openToolView()));
 
+    actionForceView = new QPushButton(this);
+    actionForceView->setText("Aktionskraft");
+    actionForceView->setMinimumSize(300, 100);
+    connect(actionForceView, SIGNAL(clicked()), this, SLOT(openActionForceView()));
+
     groupLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
     groupLayout->addWidget(angleView, 0, Qt::AlignCenter);
     groupLayout->addSpacerItem(new QSpacerItem(0,60, QSizePolicy::Minimum, QSizePolicy::Fixed));
     groupLayout->addWidget(toolView, 0, Qt::AlignCenter);
+    groupLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
+    groupLayout->addWidget(actionForceView, 0, Qt::AlignCenter);
     groupLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
     buttonGroup->setLayout(groupLayout);
     this->setCentralWidget(buttonGroup);
@@ -35,4 +42,8 @@ void MainMenu::openAngleView(){
 
 void MainMenu::openToolView(){
     emit toolViewSelected();
+}
+
+void MainMenu::openActionForceView(){
+    emit actionForceViewSelected();
 }
