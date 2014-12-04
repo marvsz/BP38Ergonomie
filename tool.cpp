@@ -1,10 +1,12 @@
 #include "tool.h"
 #include "textqpushbutton.h"
 
-Tool::Tool(int id, QString name, QVector<bool> opts, QWidget *parent) :
+int Tool::idCounter = 0;
+
+Tool::Tool(QString name, QVector<bool> opts, QWidget *parent) :
     TextQPushButton(id, name, parent)
 {
-    this->id = id;
+    this->id = idCounter++;
     this->setName(name);
     this->options = opts;
 }

@@ -12,6 +12,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
+
 class ListCon : public QGroupBox
 {
     Q_OBJECT
@@ -32,6 +33,7 @@ private slots:
     void removeTool();
     void disableSelection();
 
+
 private:
     int currentToolId;
     QVector<bool> currentOptions;
@@ -45,6 +47,8 @@ private:
     TextQPushButton *addBtn;
     TextQPushButton *remBtn;
     bool isOptionChosen();
+    Tool* toolWidthId(int id);
+    int toolIndex(int toolId);
 };
 
 #endif // LISTCON_H

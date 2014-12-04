@@ -8,7 +8,7 @@ class Tool : public TextQPushButton
 {
     Q_OBJECT
 public:
-    explicit Tool(int id = 0, QString text = "", QVector<bool> options = QVector<bool>(), QWidget *parent = 0);
+    explicit Tool(QString text = "", QVector<bool> options = QVector<bool>(), QWidget *parent = 0);
 
     bool getOption(int index);
     void setOption(int index, bool b);
@@ -19,6 +19,7 @@ signals:
 public slots:
 
 private:
+    static int idCounter;
     int id;
     QString name;
     QVector<bool> options;

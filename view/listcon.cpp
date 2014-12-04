@@ -2,6 +2,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QErrorMessage>
+#include <QDebug>
 
 ListCon::ListCon(QString name, QVector<QString> *optionNames, QWidget *parent) :
     QGroupBox(parent)
@@ -97,14 +98,14 @@ ListCon::ListCon(QString name, QVector<QString> *optionNames, QWidget *parent) :
 
 void ListCon::optionTruePressed(int index){
     if(currentToolId > - 1)
-        tools->at(currentToolId)->setOption(index, true);
+        toolWidthId(currentToolId)->setOption(index, true);
     currentOptions.replace(index, true);
     optionChanged(index);
 }
 
 void ListCon::optionFalsePressed(int index){
     if(currentToolId > - 1)
-        tools->at(currentToolId)->setOption(index, false);
+        toolWidthId(currentToolId)->setOption(index, false);
     currentOptions.replace(index, false);
     optionChanged(index);
 }
@@ -119,23 +120,23 @@ void ListCon::toolChanged(int id)
 {
    setCurrentToolId(id);
    for(int i = 0; i < options->length(); i++){
-       optionsTrueBtns->at(i)->setSelected(tools->at(id)->getOption(i));
-       optionsFalseBtns->at(i)->setSelected(!tools->at(id)->getOption(i));
+       optionsTrueBtns->at(i)->setSelected(toolWidthId(id)->getOption(i));
+       optionsFalseBtns->at(i)->setSelected(!toolWidthId(id)->getOption(i));
    }
 }
 
 void ListCon::setCurrentToolId(int id)
 {
-    if(currentToolId > -1)
-        tools->at(currentToolId)->setSelected(false);
+    if(currentToolId > -1 && toolWidthId(currentToolId) != NULL)
+        toolWidthId(currentToolId)->setSelected(false);
     currentToolId = id;
-    if(currentToolId > -1)
-        tools->at(id)->setSelected(true);
+    if(currentToolId > -1 && toolWidthId(currentToolId) != NULL)
+        toolWidthId(currentToolId)->setSelected(true);
 }
 
 void ListCon::disableSelection(){
     if(currentToolId > -1 && !tools->isEmpty() && (newNameEdit->text() != "")){
-        tools->at(currentToolId)->setSelected(false);
+        toolWidthId(currentToolId)->setSelected(false);
         for(int i = 0; i < options->length(); i++){
             optionsTrueBtns->at(i)->setSelected(false);
             optionsFalseBtns->at(i)->setSelected(false);
@@ -158,7 +159,7 @@ void ListCon::addTool()
 {
     if(newNameEdit->text() != "" && isOptionChosen()){
 
-        Tool *t = new Tool(tools->length(), newNameEdit->text(), currentOptions, this);
+        Tool *t = new Tool(newNameEdit->text(), currentOptions, this);
         t->setMinimumSize(100, 60);
         tools->append(t);
         connect(t, SIGNAL(pressedWithID(int)), this, SLOT(toolChanged(int)));
@@ -178,15 +179,30 @@ void ListCon::addTool()
 }
 
 void ListCon::removeTool(){
-    if(currentToolId > -1){
-        this->layout()->itemAt(0)->layout()->itemAt(1)->layout()->removeWidget(tools->at(currentToolId));
-        delete tools->at(currentToolId);
+    if(!tools->isEmpty() && currentToolId > -1){
+        int indexToRemove = toolIndex(currentToolId);
+        delete toolWidthId(currentToolId);
+        tools->removeAt(indexToRemove);
+
         for(int i = 0; i < options->length(); i++){
             optionsTrueBtns->at(i)->setSelected(false);
             optionsFalseBtns->at(i)->setSelected(false);
         }
+
         setCurrentToolId(-1);
     }
+}
 
+Tool* ListCon::toolWidthId(int id){
+    for(int i = 0; i < tools->length(); i++)
+        if(tools->at(i)->getID() == id)
+            return tools->at(i);
+    return NULL;
+}
 
+int ListCon::toolIndex(int toolId){
+    for(int i = 0; i < tools->length(); i++)
+        if(tools->at(i)->getID() == toolId)
+            return i;
+    return -1;
 }
