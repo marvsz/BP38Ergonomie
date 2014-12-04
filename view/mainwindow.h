@@ -32,16 +32,10 @@ private slots:
     void openMenuView();
 
 private:
-    AngleControl *ac1;
-    AngleControl *ac2;
-    AngleControl *ac3;
-    AngleControl *ac4;
-
-
-
-
-
-
+    AngleControl *acTorso;
+    AngleControl *acArms;
+    AngleControl *acLegs;
+    AngleControl *acHead;
 
     QVector<int>* angleTorsoFlextion;
     QVector<int>* angleTorsoTilt;
@@ -56,10 +50,12 @@ private:
     QVector<int>* angleUpperArmRotation;
     QVector<int>* angleUnderArmRotation;
     QVector<int>* angleUpperArmOpening;
+    QVector<QString*> *textsWrist;
 
     QVector<int>* angleLegHip;
     QVector<int>* angleLegKnee;
     QVector<int>* angleLegAnkle;
+    QVector<QString*>* textsLegPosition;
 
     VariantSpecification* varSpeciArms;
     VariantSpecification* varSpeciLegs;
@@ -77,11 +73,12 @@ private:
     Variant* armsRotation;
     SubVariant* armsUnderRotation;
     Variant* armsOpening;
+    Variant* armsWrist;
 
+    Variant* legPosition;
     Variant* legAngle;
     SubVariant* legKnee;
     SubVariant* legAnkle;
-
 
     QPushButton *btnBack;
     QLabel *lblViewName;

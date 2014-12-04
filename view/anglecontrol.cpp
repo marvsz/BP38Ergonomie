@@ -20,7 +20,7 @@ AngleControl::AngleControl(QString* descVarConText, Variant* variant, VariantSpe
     this->variantCon->setVariantSpecification(varSpeci);
 
     this->valueControls = new QVector<ValueControl*>();
-    this->valueControls->append(new ValueControl("°", this));
+    this->valueControls->append(new ValueControl(VALUE_CONTROL, this));
 
     this->ownConSeperator = new QVector<Seperator*>();
 
@@ -30,7 +30,6 @@ AngleControl::AngleControl(QString* descVarConText, Variant* variant, VariantSpe
     connect(showHideBtn, SIGNAL(pressed()), this, SLOT(showHideBtnPressed()));
 
     this->addVariant(variant);
-    //this->selectedVariantChanged(0);
 
     connect(variantCon, SIGNAL(selectedVariantChanged(int)), this, SLOT(selectedVariantChanged(int)));
 
@@ -60,17 +59,37 @@ void AngleControl::selectedVariantChanged(int id){
     Variant* v = this->variantCon->getVariantByID(id);
     std::vector<SubVariant*>* subVariants = v->getSubVariants();
     int svSize = subVariants->size();
-    int vcSize = valueControls->size();
-    for(int i = 0; i < svSize; i++){
-        if(i >= vcSize){
-            valueControls->append(new ValueControl("°", this));
+    for(int i = 0; i < svSize; ++i){
+        SubVariant *sv = subVariants->at(i);
+        VariantControl controlType = sv->getControlType();
+        if(i >= valueControls->size()){
+            valueControls->append(new ValueControl(controlType, this));
             Seperator* sep = new Seperator(Qt::Horizontal, 3, this);
-            this->ownConSeperator->append(sep);
-            subVariantsLayout->addWidget(sep);
+            if(i != 0){
+                this->ownConSeperator->append(sep);
+                subVariantsLayout->addWidget(sep);
+            }
             subVariantsLayout->addWidget(valueControls->at(i));
         }
-        SubVariant *sv = subVariants->at(i);
-        valueControls->at(i)->setValues(sv->getMin(), sv->getMax(), sv->getBtnValues(), sv->getIconPath());
+        else if(valueControls->at(i)->getControlType() != controlType){
+            subVariantsLayout->removeWidget(valueControls->at(i));
+            valueControls->at(i)->setParent(NULL);
+            valueControls->remove(i);
+            if(i < ownConSeperator->size()){
+                subVariantsLayout->removeWidget(ownConSeperator->at(i));
+                ownConSeperator->at(i)->setParent(NULL);
+                ownConSeperator->remove(i);
+            }
+            i--;
+            continue;
+        }
+        if(controlType == VALUE_CONTROL) {
+            valueControls->at(i)->setValues(sv->getMin(), sv->getMax(), sv->getBtnValues(), sv->getIconPath());
+            valueControls->at(i)->setUnit("°");
+        }
+        else
+            valueControls->at(i)->setValues(sv->getBtnTexts(), sv->getIconPath());
+
         valueControls->at(i)->setText((*sv->getDescription()));
     }
 

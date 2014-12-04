@@ -15,12 +15,18 @@ class ValueControl : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ValueControl(QString unit, QWidget *parent = 0);
+    explicit ValueControl(VariantControl controlType, QWidget *parent = 0);
 
     void setValues(int min, int max, QVector<int>* btnValues, QString* iconSetPath);
+    void setValues(QVector<QString*> *btnTexts, QString* iconSetPath);
+
+    VariantControl getControlType() const;
 
     void setText(QString text);
     QString getText() const;
+
+    void setUnit(QString unit);
+    QString getUnit() const;
 
 
 signals:
@@ -33,6 +39,7 @@ private slots:
     void txtBxValueHasChanged();
     void sldrValueHasChanged();
     void btnValueHasClicked(int id);
+    void btnTextHasClicked(int id);
     void btnPlusClicked();
     void btnMinusClicked();
 
@@ -40,6 +47,7 @@ private:
     QVector<int> *btnRanges;
     QString unit;
     int currentSelectedBtnID;
+    VariantControl conType;
 
     QLineEdit *txtBxValue;
     QSlider *sldrValue;
