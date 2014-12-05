@@ -52,6 +52,7 @@ private:
     bool isOptionChosen();
     Transportation* transportationWithId(int id);
     int transportationIndex(int transportationId);
+    QVBoxLayout *listLayout;
 };
 
 #endif // LISTCONTROL_H

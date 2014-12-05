@@ -9,8 +9,7 @@ ListControl::ListControl(QString name, QVector<QString> *optionNames, QWidget *p
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
 
-    QVBoxLayout *listLayout = new QVBoxLayout;
-    QHBoxLayout *listHLayout = new QHBoxLayout;
+    listLayout = new QVBoxLayout;
     QHBoxLayout *newNameLayout = new QHBoxLayout;
     QVBoxLayout *newLayout = new QVBoxLayout;
     QHBoxLayout *addRemLayout = new QHBoxLayout;
@@ -23,19 +22,21 @@ ListControl::ListControl(QString name, QVector<QString> *optionNames, QWidget *p
 
     this->name = new QLabel(this);
     this->name->setText(name);
+
     this->newName = new QLabel(this);
     this->newName->setText("Bezeichnung");
     this->newNameEdit = new QLineEdit(this);
+    this->newNameEdit->setAlignment(Qt::AlignHCenter);
     this->newNameEdit->setPlaceholderText("Neues Transportmittel");
-    this->newNameEdit->setMinimumHeight(60);
+    this->newNameEdit->setMinimumSize(400, 60);
+
+
     this->addBtn = new SelectableValueButton(-1, 0, this);
-    this->addBtn->setMinimumHeight(60);
     this->addBtn->setText("Transportmittel erstellen");
-    this->addBtn->setMaximumWidth(300);
+    this->addBtn->setMinimumSize(300, 60);
     this->remBtn = new SelectableValueButton(-2, 0, this);
     this->remBtn->setText("Transportmittel entfernen");
-    this->remBtn->setMinimumHeight(60);
-    this->remBtn->setMaximumWidth(300);
+    this->remBtn->setMinimumSize(300, 60);
 
     this->options = new QVector<QLabel*>();
     for(int i = 0; i < optionNames->length(); i++){
@@ -71,11 +72,9 @@ ListControl::ListControl(QString name, QVector<QString> *optionNames, QWidget *p
     connect(remBtn, SIGNAL(clicked()), this, SLOT(removeTransportation()));
     connect(newNameEdit, SIGNAL(textChanged(QString)), this, SLOT(disableSelection()));
 
-    listHLayout->addWidget(this->name, 0, Qt::AlignCenter);
-    listHLayout->addLayout(listLayout);
-
-    newNameLayout->addWidget(newName);
-    newNameLayout->addWidget(newNameEdit);
+    listLayout->addWidget(this->name, 0, Qt::AlignCenter);
+    newNameLayout->addWidget(newName, 1, Qt::AlignLeft);
+    newNameLayout->addWidget(newNameEdit, 0, Qt::AlignCenter);
 
     QVBoxLayout *optionListLayout = new QVBoxLayout;
     optionListLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
@@ -105,13 +104,13 @@ ListControl::ListControl(QString name, QVector<QString> *optionNames, QWidget *p
     transportationMaxLoad->setText("Maximale Last");
     optionListLayout->addWidget(transportationMaxLoad);
 
-    addRemLayout->addWidget(addBtn);
-    addRemLayout->addWidget(remBtn);
+    addRemLayout->addWidget(addBtn, 0, Qt::AlignLeft);
+    addRemLayout->addWidget(remBtn, 0, Qt::AlignRight);
     newLayout->addLayout(newNameLayout);
     newLayout->addLayout(addRemLayout);
     newLayout->addLayout(optionListLayout);
 
-    mainLayout->addLayout(listHLayout);
+    mainLayout->addLayout(listLayout);
     mainLayout->addLayout(newLayout);
     mainLayout->setAlignment(this, Qt::AlignHCenter);
     this->setLayout(mainLayout);
@@ -186,7 +185,7 @@ void ListControl::addTransportation()
         t->setMinimumSize(100, 60);
         transportations->append(t);
         connect(t, SIGNAL(pressedWithID(int)), this, SLOT(transportationChanged(int)));
-        this->layout()->itemAt(0)->layout()->itemAt(1)->layout()->addWidget(t);
+        this->listLayout->addWidget(t);
         newNameEdit->clear();
 
         for(int i = 0; i < options->length(); i++){
