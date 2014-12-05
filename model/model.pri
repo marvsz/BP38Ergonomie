@@ -30,7 +30,15 @@ HEADERS += $$CURRENT_DIR/angle.h \
     $$PWD/analyst.h \
     $$PWD/company.h \
     $$PWD/factory.h \
-    $$PWD/headdata.h
+    $$PWD/headdata.h \
+    $$PWD/workplace.h \
+    $$PWD/line.h \
+    $$PWD/shiftdata.h \
+    $$PWD/workerdata.h \
+    $$PWD/remarks.h \
+    $$PWD/shift.h \
+    $$PWD/pause.h \
+    $$PWD/targettime.h
 
 
 SOURCES += $$CURRENT_DIR/angle.cpp \
@@ -61,4 +69,12 @@ SOURCES += $$CURRENT_DIR/angle.cpp \
     $$PWD/analyst.cpp \
     $$PWD/company.cpp \
     $$PWD/factory.cpp \
-    $$PWD/headdata.cpp
+    $$PWD/headdata.cpp \
+    $$PWD/workplace.cpp \
+    $$PWD/line.cpp \
+    $$PWD/shiftdata.cpp \
+    $$PWD/workerdata.cpp \
+    $$PWD/remarks.cpp \
+    $$PWD/shift.cpp \
+    $$PWD/pause.cpp \
+    $$PWD/targettime.cpp

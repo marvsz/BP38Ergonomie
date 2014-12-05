@@ -24,7 +24,7 @@ SOURCES += \
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 ios {
-    QMAKE_INFO_PLIST = ios/Info.plist
+   QMAKE_INFO_PLIST = ios/Info.plist
 }
 
 unix {
