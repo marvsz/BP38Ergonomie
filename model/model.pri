@@ -26,7 +26,11 @@ HEADERS += $$CURRENT_DIR/angle.h \
     $$PWD/workcondition.h \
     $$PWD/general.h \
     $$PWD/supply.h \
-    $$PWD/executioncondition.h
+    $$PWD/executioncondition.h \
+    $$PWD/analyst.h \
+    $$PWD/company.h \
+    $$PWD/factory.h \
+    $$PWD/headdata.h
 
 
 SOURCES += $$CURRENT_DIR/angle.cpp \
@@ -53,4 +57,8 @@ SOURCES += $$CURRENT_DIR/angle.cpp \
     $$PWD/workcondition.cpp \
     $$PWD/general.cpp \
     $$PWD/supply.cpp \
-    $$PWD/executioncondition.cpp
+    $$PWD/executioncondition.cpp \
+    $$PWD/analyst.cpp \
+    $$PWD/company.cpp \
+    $$PWD/factory.cpp \
+    $$PWD/headdata.cpp
