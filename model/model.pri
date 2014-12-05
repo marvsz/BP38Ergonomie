@@ -10,7 +10,7 @@ HEADERS += $$CURRENT_DIR/angle.h \
     $$CURRENT_DIR/body.h \
     $$CURRENT_DIR/weight.h \
     $$CURRENT_DIR/weighthandling.h \
-    $$CURRENT_DIR/actingforce.h \
+    $$CURRENT_DIR/appliedforce.h \
     $$CURRENT_DIR/direction.h \
     $$CURRENT_DIR/handletype.h \
     $$CURRENT_DIR/organ.h \
@@ -49,7 +49,7 @@ SOURCES += $$CURRENT_DIR/angle.cpp \
     $$CURRENT_DIR/body.cpp \
     $$CURRENT_DIR/weight.cpp \
     $$CURRENT_DIR/weighthandling.cpp \
-    $$CURRENT_DIR/actingforce.cpp \
+    $$CURRENT_DIR/appliedforce.cpp \
     $$CURRENT_DIR/direction.cpp \
     $$CURRENT_DIR/handletype.cpp \
     $$CURRENT_DIR/organ.cpp \

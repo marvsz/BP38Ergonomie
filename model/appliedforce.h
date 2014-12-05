@@ -1,16 +1,16 @@
-#ifndef ACTINGFORCE_H
-#define ACTINGFORCE_H
+#ifndef APPLIEDFORCE_H
+#define APPLIEDFORCE_H
 
 #include "intensity.h"
 #include "direction.h"
 #include "organ.h"
 #include "usedhand.h"
 
-class ActingForce
+class AppliedForce
 {
 public:
-    ActingForce(Intensity* intensity, Direction* direction, Organ* organ, UsedHand* hand);
-    ~ActingForce();
+    AppliedForce(Intensity* intensity, Direction* direction, Organ* organ, UsedHand* hand);
+    ~AppliedForce();
 
 private:
     Intensity* intensity;
@@ -19,4 +19,4 @@ private:
     UsedHand* hand;
 };
 
-#endif // ACTINGFORCE_H
+#endif // APPLIEDFORCE_H
