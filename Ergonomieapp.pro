@@ -6,6 +6,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Ergonomieapp
 TEMPLATE = app
+CONFIG += c++11
 
 RESOURCES += \
     btnIcons.qrc \
@@ -31,8 +32,8 @@ unix {
     macx{
         QMAKE_CXXFLAGS += -stdlib=libc++
         QMAKE_CXXFLAGS += -std=c++11
-        QMAKE_CXXFLAGS += -mmacosx-version-min=10.7
-        QMAKE_LFLAGS += -mmacosx-version-min=10.7
+        QMAKE_CXXFLAGS += -mmacosx-version-min=10.8
+        QMAKE_LFLAGS += -mmacosx-version-min=10.8
     }
 }
 
