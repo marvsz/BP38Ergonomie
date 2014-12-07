@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleIdentifier</key>
-	<string>de.mariusgassen.lastenhandhabung</string>
+	<string>de.mariusgassen.ergonomieapp</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
 	<string>lshh</string>
 	<key>CFBundleExecutable</key>
-	<string>Lastenhandhabung</string>
+	<string>Ergonomieapp</string>
 	<key>CFBundleDisplayName</key>
-	<string>Lastenhandhabung</string>
+	<string>Ergonomieapp</string>
 	<key>CFBundleName</key>
-	<string>Lastenhandhabung</string>
+	<string>Ergonomieapp</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>

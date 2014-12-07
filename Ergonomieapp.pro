@@ -6,6 +6,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Ergonomieapp
 TEMPLATE = app
+
 CONFIG += c++11
 
 RESOURCES += \
@@ -25,6 +26,9 @@ SOURCES += \
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 ios {
+   ICON_FILES.files = $$system("find $$PWD/ios/icons/ -name '*.png'")
+   ICON_FILES.path = ./
+   QMAKE_BUNDLE_DATA += ICON_FILES
    QMAKE_INFO_PLIST = ios/Info.plist
 }
 
