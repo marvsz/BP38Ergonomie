@@ -1,5 +1,8 @@
 #include "product.h"
 
-Product::Product()
+Product::Product(TextField* productName, NumberField* productNumber, NumberField* productoinPercentage)
 {
+    this->productName=productName;
+    this->productNumber=productNumber;
+    this->productoinPercentage=productoinPercentage;
 }
