@@ -8,7 +8,7 @@ class Transportation : public SelectableValueButton
 {
     Q_OBJECT
 public:
-    explicit Transportation(QString text = "", QVector<bool> options = QVector<bool>(), int weight = 0, QWidget *parent = 0);
+    explicit Transportation(QString text = "", QVector<bool> options = QVector<bool>(), int weight = 0, int maxLoad = 0, QWidget *parent = 0);
 
     bool getOption(int index);
     void setOption(int index, bool b);

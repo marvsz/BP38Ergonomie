@@ -1,8 +1,9 @@
-    #include "listcontrol.h"
+#include "listcontrol.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QMessageBox>
 #include "separator.h"
+#include <QDebug>
 
 ListControl::ListControl(QString name, QVector<QString> *optionNames, QWidget *parent) :
     QGroupBox(parent)
@@ -14,7 +15,9 @@ ListControl::ListControl(QString name, QVector<QString> *optionNames, QWidget *p
     QVBoxLayout *newLayout = new QVBoxLayout;
     QHBoxLayout *addRemLayout = new QHBoxLayout;
 
-    currentTransportationId = -1;
+    this->currentTransportationId = -1;
+    this->currentWeight = 0;
+    this->currentMaxLoad = 0;
 
     this->currentOptions = QVector<bool>();
     this->optionsTrueBtns = new QVector<SelectableValueButton*>;
@@ -97,12 +100,15 @@ ListControl::ListControl(QString name, QVector<QString> *optionNames, QWidget *p
     optionListLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
 
     QVector<int>* maxLoadValues = new QVector<int>;
-    (*maxLoadValues)<<100<<500<<2500<<500<<10000;
+    (*maxLoadValues)<<100<<500<<2500<<5000<<10000;
     transportationMaxLoad = new ValueControl(VALUE_CONTROL, this);
     transportationMaxLoad->setValues(0, 50000, maxLoadValues, new QString());
     transportationMaxLoad->setUnit("kg");
     transportationMaxLoad->setText("Maximale Last");
     optionListLayout->addWidget(transportationMaxLoad);
+
+    connect(transportationWeight, SIGNAL(valueChanged(int)), this, SLOT(weightChanged(int)));
+    connect(transportationMaxLoad, SIGNAL(valueChanged(int)), this, SLOT(maxLoadChanged(int)));
 
     addRemLayout->addWidget(addBtn, 0, Qt::AlignLeft);
     addRemLayout->addWidget(remBtn, 0, Qt::AlignRight);
@@ -137,13 +143,27 @@ void ListControl::optionChanged(int index){
     optionsFalseBtns->at(index)->setSelected(!currentOptions.at(index));
 }
 
+void ListControl::weightChanged(int newWeight){
+    currentWeight = newWeight;
+    if(currentTransportationId > -1)
+        transportationWithId(currentTransportationId)->setWeight(newWeight);
+}
+
+void ListControl::maxLoadChanged(int newMaxLoad){
+    currentMaxLoad = newMaxLoad;
+    if(currentTransportationId > -1)
+        transportationWithId(currentTransportationId)->setMaxLoad(newMaxLoad);
+}
+
 
 void ListControl::transportationChanged(int id)
 {
    setCurrentTransportationId(id);
+   Transportation* t = transportationWithId(id);
    for(int i = 0; i < options->length(); i++){
-       optionsTrueBtns->at(i)->setSelected(transportationWithId(id)->getOption(i));
-       optionsFalseBtns->at(i)->setSelected(!transportationWithId(id)->getOption(i));
+       optionsTrueBtns->at(i)->setSelected(t->getOption(i));
+       optionsFalseBtns->at(i)->setSelected(!t->getOption(i));
+       transportationWeight->setValue(t->getWeight());
    }
 }
 
@@ -181,7 +201,7 @@ void ListControl::addTransportation()
 {
     if(newNameEdit->text() != "" && isOptionChosen()){
 
-        Transportation *t = new Transportation(newNameEdit->text(), currentOptions, 0, this);
+        Transportation *t = new Transportation(newNameEdit->text(), currentOptions, currentWeight, currentMaxLoad, this);
         t->setMinimumSize(100, 60);
         transportations->append(t);
         connect(t, SIGNAL(pressedWithID(int)), this, SLOT(transportationChanged(int)));
@@ -192,6 +212,9 @@ void ListControl::addTransportation()
             optionsTrueBtns->at(i)->setSelected(false);
             optionsFalseBtns->at(i)->setSelected(false);
         }
+
+        this->transportationWeight->setValue(0);
+        this->transportationMaxLoad->setValue(0);
 
     }
 }
@@ -208,6 +231,8 @@ void ListControl::removeTransportation(){
         }
 
         setCurrentTransportationId(-1);
+        this->transportationWeight->setValue(0);
+        this->transportationMaxLoad->setValue(0);
     }
 }
 

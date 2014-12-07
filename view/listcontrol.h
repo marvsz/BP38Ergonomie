@@ -33,11 +33,15 @@ private slots:
     void addTransportation();
     void removeTransportation();
     void disableSelection();
-
+    void weightChanged(int newWeight);
+    void maxLoadChanged(int newWeight);
 
 private:
     int currentTransportationId;
     QVector<bool> currentOptions;
+    int currentWeight;
+    int currentMaxLoad;
+
     QLabel *name;
     QList<Transportation*>* transportations;
     QLabel *newName;
