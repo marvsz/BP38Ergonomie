@@ -5,6 +5,7 @@
 #include "separator.h"
 #include <QDebug>
 
+
 ListControl::ListControl(QString name, QVector<QString> *optionNames, QWidget *parent) :
     QGroupBox(parent)
 {

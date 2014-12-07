@@ -15,16 +15,19 @@ signals:
     void angleViewSelected();
     void toolViewSelected();
     void actionForceViewSelected();
+    void executionConditionViewSelected();
 
 public slots:
     void openAngleView();
     void openTransportView();
     void openActionForceView();
+    void openExecutionConditionView();
 
 private:
     QPushButton *angleView;
     QPushButton *toolView;
     QPushButton *actionForceView;
+    QPushButton *executionConditionView;
 };
 
 #endif // MAINMENU_H

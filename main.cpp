@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
                         "QSlider::add-page:horizontal {background: #b5b6b5;}"
                         "QSlider::sub-page:horizontal {background: #007aff;}"
                         "QPushButton {font: 100 26px \"Serif\";color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}"
-                        "QScrollArea {background-color: #efeff4; margin: 0 0;}"
+                        "QScrollArea {background-color: #efeff4; margin: 0 0; border: none;}"
                         "QScrollBar:vertical {border: 0px solid #007aff; margin: 0px 0px 0px 0px; background: #efeff4;}"
                         "QScrollBar::handle:vertical {background: #007aff; min-width: 60px; border-radius: 5px;}"
                         "QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical  {border: 0px solid #007aff; background: #efeff4;}"

@@ -25,12 +25,19 @@ MainMenu::MainMenu(QWidget *parent) :
     actionForceView->setMinimumSize(300, 100);
     connect(actionForceView, SIGNAL(clicked()), this, SLOT(openActionForceView()));
 
+    executionConditionView = new QPushButton(this);
+    executionConditionView->setText("Ausführungsbedingungen");
+    executionConditionView->setMinimumSize(300, 100);
+    connect(executionConditionView, SIGNAL(clicked()), this, SLOT(openExecutionConditionView()));
+
     groupLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
     groupLayout->addWidget(angleView, 0, Qt::AlignCenter);
     groupLayout->addSpacerItem(new QSpacerItem(0,60, QSizePolicy::Minimum, QSizePolicy::Fixed));
     groupLayout->addWidget(toolView, 0, Qt::AlignCenter);
     groupLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
     groupLayout->addWidget(actionForceView, 0, Qt::AlignCenter);
+    groupLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
+    groupLayout->addWidget(executionConditionView, 0, Qt::AlignCenter);
     groupLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
     buttonGroup->setLayout(groupLayout);
     this->setCentralWidget(buttonGroup);
@@ -46,4 +53,8 @@ void MainMenu::openTransportView(){
 
 void MainMenu::openActionForceView(){
     emit actionForceViewSelected();
+}
+
+void MainMenu::openExecutionConditionView(){
+    emit executionConditionViewSelected();
 }

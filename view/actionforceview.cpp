@@ -1,5 +1,6 @@
 #include "actionforceview.h"
 #include "separator.h"
+#include "flickcharm.h"
 #include <QScroller>
 
 ActionForceView::ActionForceView(QWidget *parent) :
@@ -57,7 +58,9 @@ ActionForceView::ActionForceView(QWidget *parent) :
 
     scMainContent->setWidget(wdgtMainContent);
     scMainContent->setWidgetResizable(true);
-    QScroller::grabGesture(scMainContent->viewport(), QScroller::LeftMouseButtonGesture);
+    //QScroller::grabGesture(scMainContent->viewport(), QScroller::LeftMouseButtonGesture);
+    FlickCharm *flickCharm = new FlickCharm(this);
+    flickCharm->activateOn(scMainContent);
 
     mainLayout->addWidget(btnBack, 0, 0, 1, 1, 0);
     mainLayout->addWidget(lblViewName, 0, 1, 1, 1, Qt::AlignCenter);

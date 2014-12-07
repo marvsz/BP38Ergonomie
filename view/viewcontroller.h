@@ -6,6 +6,7 @@
 #include "mainmenu.h"
 #include "transportview.h"
 #include "actionforceview.h"
+#include "executionconditionview.h"
 
 class ViewController : public QStackedWidget
 {
@@ -16,6 +17,7 @@ public:
     static const int ANGLE_VIEW = 1;
     static const int TOOL_VIEW = 2;
     static const int ACTION_FORCE_VIEW = 3;
+    static const int EXECUTION_CONDITION_VIEW = 4;
 
 signals:
 
@@ -24,12 +26,15 @@ public slots:
     void setAngleView();
     void setTransportView();
     void setActionForceView();
+    void setExecutionConditionView();
 
 private:
     MainMenu *menuView;
     AngleView *anglesView;
     TransportView *toolView;
     ActionForceView *actionForceView;
+    ExecutionConditionView *executionConditionView;
+
 };
 
 #endif // VIEWCONTROLLER_H

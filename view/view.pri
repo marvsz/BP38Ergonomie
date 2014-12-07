@@ -15,7 +15,11 @@ $$CURRENT_DIR/angleview.h\
 $$CURRENT_DIR/transportview.h\
 $$CURRENT_DIR/viewcontroller.h\
 $$CURRENT_DIR/listcontrol.h \
-    $$PWD/actionforceview.h
+    $$PWD/actionforceview.h \
+    $$PWD/moreexecutioncondition.h \
+    $$PWD/optionselectioncontrol.h \
+    $$PWD/executionconditionview.h \
+    $$PWD/flickcharm.h
 
 
 SOURCES += $$CURRENT_DIR/variant.cpp\
@@ -31,5 +35,9 @@ $$CURRENT_DIR/viewcontroller.cpp\
 $$CURRENT_DIR/listcontrol.cpp\
 $$CURRENT_DIR/mainmenu.cpp\
 $$CURRENT_DIR/angleview.cpp \
-    $$PWD/actionforceview.cpp
+    $$PWD/actionforceview.cpp \
+    $$PWD/moreexecutioncondition.cpp \
+    $$PWD/optionselectioncontrol.cpp \
+    $$PWD/executionconditionview.cpp \
+    $$PWD/flickcharm.cpp
 

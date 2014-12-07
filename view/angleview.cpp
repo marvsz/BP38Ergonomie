@@ -1,4 +1,5 @@
 #include "angleview.h"
+#include "flickcharm.h"
 #include <QPushButton>
 #include <QGroupBox>
 #include <QDebug>
@@ -116,7 +117,9 @@ AngleView::AngleView(QWidget *parent) :
 
     categoryScrollArea->setWidget(control);
     categoryScrollArea->setWidgetResizable(true);
-    QScroller::grabGesture(categoryScrollArea->viewport(), QScroller::LeftMouseButtonGesture);
+    //QScroller::grabGesture(categoryScrollArea->viewport(), QScroller::LeftMouseButtonGesture);
+    FlickCharm *flickCharm = new FlickCharm(this);
+    flickCharm->activateOn(categoryScrollArea);
 
     mainLayout->addWidget(btnBack, 0, 0, 1, 1, 0);
     mainLayout->addWidget(lblViewName, 0, 1, 1, 1, 0);

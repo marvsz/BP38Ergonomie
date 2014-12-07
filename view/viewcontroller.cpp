@@ -7,18 +7,22 @@ ViewController::ViewController(QWidget *parent) :
     anglesView = new AngleView;
     toolView = new TransportView;
     actionForceView = new ActionForceView;
+    executionConditionView = new ExecutionConditionView;
 
     connect(menuView, SIGNAL(angleViewSelected()), this, SLOT(setAngleView()));
     connect(menuView, SIGNAL(toolViewSelected()), this, SLOT(setTransportView()));
     connect(menuView, SIGNAL(actionForceViewSelected()), this, SLOT(setActionForceView()));
+    connect(menuView, SIGNAL(executionConditionViewSelected()), this, SLOT(setExecutionConditionView()));
     connect(anglesView, SIGNAL(menuViewSelected()),this, SLOT(setMenuView()));
     connect(toolView, SIGNAL(menuViewSelected()),this, SLOT(setMenuView()));
     connect(actionForceView, SIGNAL(menuViewSelected()), this, SLOT(setMenuView()));
+    connect(executionConditionView, SIGNAL(menuViewSelected()), this, SLOT(setMenuView()));
 
     this->addWidget(menuView);
     this->addWidget(anglesView);
     this->addWidget(toolView);
     this->addWidget(actionForceView);
+    this->addWidget(executionConditionView);
 
     setCurrentIndex(ViewController::MENU_VIEW);
 }
@@ -37,4 +41,8 @@ void ViewController::setTransportView(){
 
 void ViewController::setActionForceView(){
     setCurrentIndex(ViewController::ACTION_FORCE_VIEW);
+}
+
+void ViewController::setExecutionConditionView(){
+    setCurrentIndex(ViewController::EXECUTION_CONDITION_VIEW);
 }
