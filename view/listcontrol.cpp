@@ -185,6 +185,8 @@ void ListControl::disableSelection(){
             optionsFalseBtns->at(i)->setSelected(false);
         }
     }
+    this->transportationWeight->setValue(0);
+    this->transportationMaxLoad->setValue(0);
     setCurrentTransportationId(-1);
 }
 
