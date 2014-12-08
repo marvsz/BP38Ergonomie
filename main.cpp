@@ -1,5 +1,7 @@
 #include <QApplication>
 #include "viewcontroller.h"
+#include "documentationview.h"
+
 #if defined(Q_OS_IOS)
 extern "C" int qtmn(int argc, char **argv)
 #else
@@ -24,11 +26,18 @@ int main(int argc, char *argv[])
                         "QScrollBar::handle:vertical {background: #007aff; min-width: 60px; border-radius: 5px;}"
                         "QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical  {border: 0px solid #007aff; background: #efeff4;}"
                         "QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {width: 0px; height: 0px;}"
-                        "OwnCon {background-color: #efeff4;}");
+                        "OwnCon {background-color: #efeff4;}"
+                        "QTabWidget::pane {border-top: 2px solid #c8c7cc;}"
+                        "QTabBar::tab {font: 100 13px \"Serif\"; border: 2px solid #007aff; border-top-left-radius: 4px; border-top-right-radius: 4px; padding: 8px} QTabBar::tab:selected{color: #ffffff; #background: #007aff:} QTabBar::tab:!selected{color: #ffffff; #background: #efeff4;}"
+                        );
 
-    ViewController v;
+    /*ViewController v;
 
-    v.show();
+    v.show();*/
+
+    DocumentationView d;
+
+    d.show();
 
     return a.exec();
 }

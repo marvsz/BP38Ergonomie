@@ -10,21 +10,12 @@
 #include "separator.h"
 
 
-TransportView::TransportView(QString windowName, QWidget *parent) :
+TransportView::TransportView(QWidget *parent) :
     QMainWindow(parent)
 {
 
     main = new QWidget(this);
     control = new QWidget(this);
-    lblViewName = new QLabel("Lastenhandhabung");
-
-    backButton = new QPushButton(this);
-    backButton->setText("< Zurück");
-    backButton->setFixedSize(120, 45);
-    connect(backButton, SIGNAL(clicked()), this, SLOT(openMenuView()));
-
-    label = new QLabel(this);
-    label->setText(windowName);
 
     QGroupBox *topGroup = new QGroupBox;
     QVBoxLayout *topGroupLayout = new QVBoxLayout;
@@ -74,8 +65,6 @@ TransportView::TransportView(QString windowName, QWidget *parent) :
     topGroupLayout->addWidget(hand);
     topGroup->setLayout(topGroupLayout);
 
-    categoryLayout->addWidget(backButton);
-    categoryLayout->addWidget(label);
     categoryLayout->addWidget(topGroup);
     categoryLayout->addWidget(tools);
     control->setLayout(categoryLayout);
@@ -83,9 +72,6 @@ TransportView::TransportView(QString windowName, QWidget *parent) :
     categoryScrollArea->setWidget(control);
     categoryScrollArea->setWidgetResizable(true);
     QScroller::grabGesture(categoryScrollArea->viewport(), QScroller::LeftMouseButtonGesture);
-
-    menuLineLayout->addWidget(backButton);
-    menuLineLayout->addWidget(lblViewName,0,Qt::AlignCenter);
 
     mainLayout->addLayout(menuLineLayout);
     mainLayout->addWidget(categoryScrollArea);
@@ -96,8 +82,4 @@ TransportView::TransportView(QString windowName, QWidget *parent) :
 
 TransportView::~TransportView()
 {
-}
-
-void TransportView::openMenuView(){
-    emit menuViewSelected();
 }

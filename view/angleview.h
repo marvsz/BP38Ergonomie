@@ -9,9 +9,9 @@
 #include "subvariant.h"
 #include "variantspecification.h"
 #include "enum.h"
-#include "stopwatch.h"
 #include <QPushButton>
 #include <QLabel>
+
 namespace Ui {
 class AngleView;
 }
@@ -24,12 +24,9 @@ public:
     explicit AngleView(QWidget *parent = 0);
     ~AngleView();
 
-
 signals:
-    void menuViewSelected();
 
 private slots:
-    void openMenuView();
 
 private:
     AngleControl *acTorso;
@@ -79,13 +76,6 @@ private:
     Variant* legAngle;
     SubVariant* legKnee;
     SubVariant* legAnkle;
-
-    QPushButton *btnBack;
-    QLabel *lblViewName;
-
-    StopWatch *stopWatch;
-    QWidget *control;
-    QWidget *timer;
 
     QWidget *main;
 

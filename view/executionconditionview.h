@@ -19,25 +19,18 @@ public:
     explicit ExecutionConditionView(QWidget *parent = 0);
 
 signals:
-    void menuViewSelected();
 
 public slots:
-    void openMenuView();
 
 private slots:
     void moreExecutionConditionSelected();
 
 private:
-    QWidget *main;
     QWidget *mainContent;
     QScrollArea *scMainContent;
-    QGridLayout *mainLayout;
     QVBoxLayout *lytOptions;
     QHBoxLayout *mainContentLayout;
 
-
-    QPushButton *btnBack;
-    QLabel *lblViewName;
 
     MoreExecutionCondition *moreExecutionCondition;
 

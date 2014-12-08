@@ -12,14 +12,10 @@
 AngleView::AngleView(QWidget *parent) :
     QMainWindow(parent)
 {
-    main = new QWidget(this);
-    control = new QWidget();
-    timer = new QWidget();
+    main = new QWidget();
+
     QVBoxLayout *categoryLayout = new QVBoxLayout;
     QScrollArea *categoryScrollArea = new QScrollArea;
-
-    QGridLayout *mainLayout = new QGridLayout;
-
 
     angleTorsoFlextion = new QVector<int>();
     (*angleTorsoFlextion)<<-45<<-20<<0<<20<<45<<90<<110;
@@ -103,40 +99,23 @@ AngleView::AngleView(QWidget *parent) :
     acHead->addVariant(headTilt);
     acHead->addVariant(headSidewiseTilt);
 
-    btnBack = new QPushButton("< Zurück");
-    btnBack->setFixedSize(120,45);
-    lblViewName = new QLabel("Körperhaltung");
-
-    stopWatch = new StopWatch(timer);
-
     categoryLayout->addWidget(acTorso);
     categoryLayout->addWidget(acArms);
     categoryLayout->addWidget(acLegs);
     categoryLayout->addWidget(acHead);
-    control->setLayout(categoryLayout);
+    main->setLayout(categoryLayout);
 
-    categoryScrollArea->setWidget(control);
+    categoryScrollArea->setWidget(main);
     categoryScrollArea->setWidgetResizable(true);
     //QScroller::grabGesture(categoryScrollArea->viewport(), QScroller::LeftMouseButtonGesture);
     FlickCharm *flickCharm = new FlickCharm(this);
     flickCharm->activateOn(categoryScrollArea);
-
-    mainLayout->addWidget(btnBack, 0, 0, 1, 1, 0);
-    mainLayout->addWidget(lblViewName, 0, 1, 1, 1, 0);
-    mainLayout->addWidget(categoryScrollArea, 1, 0, 1, 2, 0);
-    mainLayout->addWidget(stopWatch, 2, 0, 1, 2, 0);
-    mainLayout->setAlignment(lblViewName, Qt::AlignCenter);
-
-    main->setLayout(mainLayout);
-
-    this->setCentralWidget(main);
+    this->setCentralWidget(categoryScrollArea);
 
     acTorso->showContent();
     acArms->hideContent();
     acLegs->hideContent();
     acHead->hideContent();
-
-    connect(btnBack, SIGNAL(clicked()) , SLOT(openMenuView()));
 }
 
 AngleView::~AngleView()
@@ -160,6 +139,3 @@ AngleView::~AngleView()
 
 }
 
-    void AngleView::openMenuView(){
-        emit menuViewSelected();
-    }
