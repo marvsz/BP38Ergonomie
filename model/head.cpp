@@ -1,6 +1,6 @@
 #include "head.h"
 
-Head::Head(Angle* rotation, Angle* tilt, Angle* sidewiseTilt)
+Head::Head(int* rotation, int* tilt, int* sidewiseTilt)
 {
     this->rotation = rotation;
     this->sidewiseTilt = sidewiseTilt;

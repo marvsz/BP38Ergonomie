@@ -1,6 +1,6 @@
 #include "arm.h"
 
-Arm::Arm(Angle *upperArmPosition, Angle *lowerArmPosition, Angle *upperArmRotation, Angle *lowerArmRotation, Angle *upperArmOpening)
+Arm::Arm(int* upperArmPosition, int* lowerArmPosition, int* upperArmRotation, int* lowerArmRotation, int* upperArmOpening)
 {
     this->upperArmPosition = upperArmPosition;
     this->lowerArmPosition = lowerArmPosition;

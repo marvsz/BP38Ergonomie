@@ -1,7 +1,7 @@
 #include "weighthandling.h"
 
 
-WeightHandling::WeightHandling(HandleType* handleType, Weight* weight, Way* way, UsedHand* hand, Transportation* transportation)
+WeightHandling::WeightHandling(HandleType* handleType, int* weight, int* way, UsedHand* hand, Transportation* transportation)
 {
     this->handleType = handleType;
     this->weight = weight;

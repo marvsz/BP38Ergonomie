@@ -1,17 +1,24 @@
 #ifndef TORSO_H
 #define TORSO_H
 
-#include "angle.h"
 class Torso
 {
 public:
-    Torso(Angle* flextion, Angle* tilt, Angle* rotation);
+    Torso(int* flextion, int* tilt, int* rotation);
     ~Torso();
 
+    void setFextion(int* f);
+    void setTilt(int* t);
+    void setRotation(int* r);
+
+    int getFlextion();
+    int getTilt();
+    int getRotation();
+
 private:
-    Angle* flextion;
-    Angle* tilt;
-    Angle* rotation;
+    int* flextion;
+    int* tilt;
+    int* rotation;
 };
 
 #endif // TORSO_H

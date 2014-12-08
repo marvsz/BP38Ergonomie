@@ -9,6 +9,8 @@ public:
     UsedHand(QString* hand);
     ~UsedHand();
 
+    void setHand(QString* h);
+    QString getHand();
 
 
 private:

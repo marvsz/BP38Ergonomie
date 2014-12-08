@@ -9,6 +9,8 @@ public:
     Organ(QString* organ);
     ~Organ();
 
+    void setOrgan(QString* o);
+    QString getOrgan();
 
 private:
     QString* organ;

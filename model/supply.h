@@ -9,6 +9,18 @@ public:
     Supply(QString* description, QString* recoilIntensity, int* recoilCount, QString* vibrationIntensity, int* vibrationCount);
     ~Supply();
 
+    void setDescription(QString* d);
+    void setRecoilIntensity(QString* ri);
+    void setRecoilCount(int rc);
+    void setViprationIntensity(QString* vi);
+    void setVibrationCount(int vc);
+
+    QString getDescription();
+    QString getRecoilIntensity();
+    int getRecoilCount();
+    QString getVibrationIntensity();
+    int getVibrationCount();
+
 private:
     QString* description;
     QString* recoilIntensity;

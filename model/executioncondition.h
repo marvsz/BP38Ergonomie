@@ -11,6 +11,10 @@ public:
     ExecutionCondition(General* general, Supply* supply, WorkCondition* condition);
     ~ExecutionCondition();
 
+    void setGeneral(General* g);
+    void setSupply(Supply* s);
+    void setWorkCondition(WorkCondition* c);
+
 private:
     General* general;
     Supply* supply;

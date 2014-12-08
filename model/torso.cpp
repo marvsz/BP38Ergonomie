@@ -1,6 +1,6 @@
 #include "torso.h"
 
-Torso::Torso(Angle* flextion, Angle* tilt, Angle* rotation)
+Torso::Torso(int* flextion, int* tilt, int* rotation)
 {
     this->flextion = flextion;
     this->rotation = rotation;

@@ -1,8 +1,8 @@
 #include "product.h"
 
-Product::Product(QString* productName, int* productNumber, int* productoinPercentage)
+Product::Product(QString* productName, int* productNumber, int* productionPercentage)
 {
     this->productName=productName;
     this->productNumber=productNumber;
-    this->productoinPercentage=productoinPercentage;
+    this->productionPercentage=productionPercentage;
 }

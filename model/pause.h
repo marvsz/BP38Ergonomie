@@ -8,6 +8,15 @@ class Pause
 public:
     Pause(int* interruptions, QTime* start, QTime* end);
 
+    void setInterruptions(int* i);
+    void setStart(QTime* s);
+    void setEnd(QTime* e);
+
+    int getInterruptions();
+    QTime getStart();
+    QTime getEnd();
+
+
 private:
     int* interruptions;
     QTime* start;
