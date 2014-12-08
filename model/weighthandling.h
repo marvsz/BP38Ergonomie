@@ -9,13 +9,25 @@
 class WeightHandling
 {
 public:
-    WeightHandling(HandleType* handleType, Weight* weight, Way* way, UsedHand* hand, Transportation* transportation);
+    WeightHandling(HandleType* handleType, int* weight, int* way, UsedHand* hand, Transportation* transportation);
     ~WeightHandling();
+
+    void setHandleType(HandleType* ht);
+    void setWeight(int* we);
+    void setWay(int* wa);
+    void setHand(UsedHand* ha);
+    void setTransportation(Transportation* t);
+
+    HandleType* getHandleType();
+    int getWeight();
+    int getWay();
+    UsedHand getUsedHand();
+    Transportation getTransportation();
 
 private:
     HandleType* handleType;
-    Weight* weight;
-    Way* way;
+    int* weight;
+    int* way;
     UsedHand* hand;
     Transportation* transportation;
 };

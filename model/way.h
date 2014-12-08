@@ -7,6 +7,7 @@ public:
     Way(int* meter);
     ~Way();
 
+
 private:
     int* meter;
 };

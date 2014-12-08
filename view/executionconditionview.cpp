@@ -6,14 +6,6 @@
 ExecutionConditionView::ExecutionConditionView(QWidget *parent) :
     QMainWindow(parent)
 {
-    btnBack = new QPushButton(this);
-    btnBack->setText("< Zurück");
-    btnBack->setFixedSize(120, 45);
-    connect(btnBack, SIGNAL(clicked()), this, SLOT(openMenuView()));
-
-    lblViewName = new QLabel(this);
-    lblViewName->setText("Ausführungsbedingungen");
-
     btnMoreExecutionCondition = new SelectableValueButton(2, 2, this);
     btnMoreExecutionCondition->setText("Weitere");
     btnMoreExecutionCondition->setMinimumWidth(200);
@@ -44,22 +36,10 @@ ExecutionConditionView::ExecutionConditionView(QWidget *parent) :
     mainContent->setLayout(mainContentLayout);
 
 
-    mainLayout = new QGridLayout;
-    mainLayout->addWidget(btnBack, 0, 0, 1, 1, 0);
-    mainLayout->addWidget(lblViewName, 0, 1, 1, 1, Qt::AlignCenter);
-    mainLayout->addWidget(mainContent, 1, 0, 1, 2, 0);
-
-    main = new QWidget(this);
-    main->setLayout(mainLayout);
-    this->setCentralWidget(main);
+    this->setCentralWidget(mainContent);
 
     currentSelectedBtn = btnMoreExecutionCondition;
     generalExecutionConditionSelected();
-}
-
-//public slots
-void ExecutionConditionView::openMenuView(){
-    emit menuViewSelected();
 }
 
 //private slots

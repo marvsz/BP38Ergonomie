@@ -6,13 +6,17 @@
 class Product
 {
 public:
-    Product(QString* productName, int* productNumber, int* productoinPercentage);
+    Product(QString* productName, int* productNumber, int* productionPercentage);
     ~Product();
+
+    void setProductName(QString* pna);
+    void setProductNumber(int* pnu);
+    void seProductionPercentage(int ppe);
 
 private:
     QString* productName;
     int* productNumber;
-    int* productoinPercentage;
+    int* productionPercentage;
 };
 
 #endif // PRODUCT_H

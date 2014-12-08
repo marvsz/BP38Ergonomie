@@ -22,20 +22,14 @@ class TransportView : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit TransportView(QString windowName = "", QWidget *parent = 0);
+    explicit TransportView(QWidget *parent = 0);
     ~TransportView();
 
 signals:
-    void menuViewSelected();
 
 private slots:
-    void openMenuView();
 
 private:
-    QPushButton *backButton;
-    QLabel *label;
-    QLabel *lblViewName;
-
     ValueControl *type;
     ValueControl *last;
     ValueControl *weg;

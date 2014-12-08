@@ -9,6 +9,8 @@ public:
     HandleType(QString* handleType);
     ~HandleType();
 
+    void setHandleType(QString* h);
+    QString getHandleType();
 
 private:
     QString* handleType;

@@ -1,17 +1,25 @@
 #ifndef HEAD_H
 #define HEAD_H
 
-#include "angle.h"
+
 class Head
 {
 public:
-    Head(Angle* rotation, Angle* tilt, Angle* sidewiseTilt);
+    Head(int* rotation, int* tilt, int* sidewiseTilt);
     ~Head();
 
+    void setRotation(int* r);
+    void setTilt(int* t);
+    void setSidewiseTilt(int* s);
+
+    int getRotation();
+    int getTilt();
+    int getSidewiseTilt();
+
 private:
-    Angle* rotation;
-    Angle* tilt;
-    Angle* sidewiseTilt;
+    int* rotation;
+    int* tilt;
+    int* sidewiseTilt;
 };
 
 #endif // HEAD_H

@@ -9,6 +9,9 @@ public:
     Company(QString* name);
     ~Company();
 
+    void setName(QString* n);
+    QString getName();
+
 private:
     QString* name;
 

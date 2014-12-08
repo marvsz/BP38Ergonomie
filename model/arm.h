@@ -1,19 +1,31 @@
 #ifndef ARM_H
 #define ARM_H
 
-#include "angle.h"
+
 class Arm
 {
 public:
-    Arm(Angle* upperArmPosition, Angle* lowerArmPosition, Angle* upperArmRotation, Angle* lowerArmRotation, Angle* upperArmOpening);
+    Arm(int* upperArmPosition, int* lowerArmPosition, int* upperArmRotation, int* lowerArmRotation, int* upperArmOpening);
     ~Arm();
 
+    void setUpperArmPosition(int* uap);
+    void setLowerArmPosition(int* lap);
+    void setUpperArmRotation(int* uar);
+    void setLowerArmRotation(int* lar);
+    void setUpperArmOpening(int* uao);
+
+    int getUpperArmPosition();
+    int getLowerArmPosition();
+    int getUpperArmRotation();
+    int getLowerArmRotation();
+    int getUpperArmOpening();
+
 private:
-    Angle* upperArmPosition;
-    Angle* lowerArmPosition;
-    Angle* upperArmRotation;
-    Angle* lowerArmRotation;
-    Angle* upperArmOpening;
+    int* upperArmPosition;
+    int* lowerArmPosition;
+    int* upperArmRotation;
+    int* lowerArmRotation;
+    int* upperArmOpening;
 };
 
 #endif // ARM_H

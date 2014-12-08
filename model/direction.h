@@ -9,6 +9,9 @@ public:
     Direction(QString* direction);
     ~Direction();
 
+    void setDirection(QString* d);
+    QString getDirection();
+
 private:
     QString* direction;
 };

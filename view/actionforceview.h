@@ -14,17 +14,13 @@ public:
     explicit ActionForceView(QWidget *parent = 0);
 
 signals:
-    void menuViewSelected();
 
 public slots:
-    void openMenuView();
 
 private:
     QWidget*wdgtMainContent;
     QScrollArea* scMainContent;
     QVBoxLayout* lytMainContent;
-    QPushButton* btnBack;
-    QLabel* lblViewName;
 
     QVector<QString*> *textsOrgan;
     QVector<QString*> *textsUsedHand;

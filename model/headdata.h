@@ -12,6 +12,12 @@ public:
     HeadData(Analyst* analyst, Factory* factory, Company* company, QDate* begin, QDate* end);
     ~HeadData();
 
+    void setAnalyst(Analyst* a);
+    void setFacotry(Factory* f);
+    void setCompany(Company* c);
+    void setBegin(QDate* b);
+    void setEnd(QDate* e);
+
 private:
     Analyst* analyst;
     Factory* factory;
