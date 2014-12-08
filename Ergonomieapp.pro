@@ -11,7 +11,8 @@ CONFIG += c++11
 
 RESOURCES += \
     btnIcons.qrc \
-    resrc.qrc
+    resrc.qrc \
+    timerIcons.qrc
 
 HEADERS += \
     enum.h \

@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/timer">
+        <file>icons/Timer/pause.png</file>
+        <file>icons/Timer/reset.png</file>
+        <file>icons/Timer/start.png</file>
+        <file>icons/Timer/stop.png</file>
+    </qresource>
+</RCC>
