@@ -11,7 +11,6 @@ CONFIG += c++11
 
 RESOURCES += \
     btnIcons.qrc \
-    resrc.qrc \
     timerIcons.qrc
 
 HEADERS += \
