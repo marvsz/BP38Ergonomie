@@ -11,6 +11,7 @@
 
 #include "selectablevaluebutton.h"
 #include "moreexecutioncondition.h"
+#include "generalexecutioncondition.h"
 
 class ExecutionConditionView : public QMainWindow
 {
@@ -26,6 +27,7 @@ public slots:
 
 private slots:
     void moreExecutionConditionSelected();
+    void generalExecutionConditionSelected();
 
 private:
     QWidget *main;
@@ -40,8 +42,10 @@ private:
     QLabel *lblViewName;
 
     MoreExecutionCondition *moreExecutionCondition;
+    GeneralExecutionCondition *generalExecutionCondition;
 
     SelectableValueButton *btnMoreExecutionCondition;
+    SelectableValueButton *btnGeneralExecutionCondition;
 
     SelectableValueButton *currentSelectedBtn;
 

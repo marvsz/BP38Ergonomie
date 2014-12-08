@@ -16,16 +16,25 @@ ExecutionConditionView::ExecutionConditionView(QWidget *parent) :
 
     btnMoreExecutionCondition = new SelectableValueButton(2, 2, this);
     btnMoreExecutionCondition->setText("Weitere");
+    btnMoreExecutionCondition->setMinimumWidth(200);
     moreExecutionCondition = new MoreExecutionCondition(this);
+    connect(btnMoreExecutionCondition, SIGNAL(clicked()), this, SLOT(moreExecutionConditionSelected()));
+
+    btnGeneralExecutionCondition = new SelectableValueButton(0, 0, this);
+    btnGeneralExecutionCondition->setText("Allgemein");
+    btnGeneralExecutionCondition->setMinimumWidth(200);
+    generalExecutionCondition = new GeneralExecutionCondition(this);
+    connect(btnGeneralExecutionCondition, SIGNAL(clicked()), this, SLOT(generalExecutionConditionSelected()));
 
     scMainContent = new QScrollArea(this);
     scMainContent->setWidgetResizable(true);
-    //QScroller::grabGesture(scMainContent->viewport(), QScroller::LeftMouseButtonGesture);
     FlickCharm *flickCharm = new FlickCharm(this);
     flickCharm->activateOn(scMainContent);
 
     lytOptions = new QVBoxLayout;
+    lytOptions->addWidget(btnGeneralExecutionCondition, 0, Qt::AlignTop);
     lytOptions->addWidget(btnMoreExecutionCondition, 0, Qt::AlignTop);
+    lytOptions->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
     mainContentLayout = new QHBoxLayout;
     mainContentLayout->addLayout(lytOptions);
@@ -45,7 +54,7 @@ ExecutionConditionView::ExecutionConditionView(QWidget *parent) :
     this->setCentralWidget(main);
 
     currentSelectedBtn = btnMoreExecutionCondition;
-    moreExecutionConditionSelected();
+    generalExecutionConditionSelected();
 }
 
 //public slots
@@ -59,4 +68,11 @@ void ExecutionConditionView::moreExecutionConditionSelected(){
     btnMoreExecutionCondition->setSelected(true);
     scMainContent->setWidget(moreExecutionCondition);
     currentSelectedBtn = btnMoreExecutionCondition;
+}
+
+void ExecutionConditionView::generalExecutionConditionSelected(){
+    currentSelectedBtn->setSelected(false);
+    btnGeneralExecutionCondition->setSelected(true);
+    scMainContent->setWidget(generalExecutionCondition);
+    currentSelectedBtn = btnGeneralExecutionCondition;
 }

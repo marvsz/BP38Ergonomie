@@ -20,14 +20,14 @@ ValueControl::ValueControl(VariantControl controlType, QWidget *parent) :
 
     lblText = new QLabel(this);
     lblText->setText("");
-    lblText->setMinimumSize(300,60);
+    lblText->setMinimumWidth(300);
 
 
     txtBxValue = new QLineEdit(this);
     txtBxValue->setAlignment(Qt::AlignCenter);
     if(controlType == VALUE_CONTROL){
         txtBxValue->setInputMask("#000");
-        txtBxValue->setFixedSize(100,60);
+        txtBxValue->setFixedSize(100, 60);
         connect(txtBxValue, SIGNAL(editingFinished()), this, SLOT(txtBxValueHasChanged()));
         connect(txtBxValue, SIGNAL(editingFinished()), QGuiApplication::inputMethod(), SLOT(hide()));
 
@@ -48,7 +48,7 @@ ValueControl::ValueControl(VariantControl controlType, QWidget *parent) :
     }
     else{
         txtBxValue->setEnabled(false);
-        txtBxValue->setMinimumSize(250, 60);
+        txtBxValue->setMinimumSize(300, 60);
     }
 
     txtEditLineLayout->addWidget(lblText, 0, Qt::AlignLeft);
@@ -70,10 +70,10 @@ ValueControl::ValueControl(VariantControl controlType, QWidget *parent) :
         connect(sldrValue, SIGNAL(valueChanged(int)), this, SLOT(sldrValueHasChanged()));
 
         lblMin = new QLabel(this);
-        lblMin->setFixedSize(90,60);
+        lblMin->setFixedWidth(90);
 
         lblMax = new QLabel(this);
-        lblMax->setFixedSize(90,60);
+        lblMax->setFixedWidth(90);
 
         QHBoxLayout *sldrLineLayout = new QHBoxLayout;
         sldrLineLayout->addWidget(lblMin);
@@ -84,8 +84,14 @@ ValueControl::ValueControl(VariantControl controlType, QWidget *parent) :
     }
 
     this->setLayout(mainLayout);
-    this->setMinimumSize(600, 250);
-    this->setMaximumHeight(300);
+    if(controlType == VALUE_CONTROL){
+        this->setMinimumSize(600, 220);
+        this->setMaximumHeight(250);
+    }
+    else {
+        this->setMinimumSize(600, 150);
+        this->setMaximumHeight(200);
+    }
 }
 
 //Public slots
@@ -120,7 +126,7 @@ void ValueControl::setValues(int min, int max, QVector<int>* btnValues, QString*
         this->btnValues->append(currentBtn);
         connect(currentBtn, SIGNAL(pressedWithID(int)), this, SLOT(btnValueHasClicked(int)));
         btnLineLayout->addWidget(currentBtn);
-        currentBtn->setMinimumSize(50,60);
+        currentBtn->setMinimumSize(50, 60);
     }
 
 
@@ -215,11 +221,15 @@ QString ValueControl::getText() const{
     return lblText->text();
 }
 
+void ValueControl::setTextHint(const QString &text){
+    txtBxValue->setPlaceholderText(text);
+}
+
 VariantControl ValueControl::getControlType() const{
     return conType;
 }
 
-void ValueControl::setUnit(QString unit){
+void ValueControl::setUnit(const QString &unit){
     if(unit != NULL)
         this->unit = unit;
 }

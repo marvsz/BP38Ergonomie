@@ -25,7 +25,9 @@ public:
     void setText(QString text);
     QString getText() const;
 
-    void setUnit(QString unit);
+    void setTextHint(const QString &text);
+
+    void setUnit(const QString &unit);
     QString getUnit() const;
 
 
