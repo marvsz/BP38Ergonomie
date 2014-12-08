@@ -1,6 +1,6 @@
 #include "pause.h"
 
-Pause::Pause(NumberButton* interruptions, QTime* start, QTime* end)
+Pause::Pause(int* interruptions, QTime* start, QTime* end)
 {
     this->end=end;
     this->interruptions=interruptions;

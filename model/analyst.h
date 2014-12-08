@@ -1,19 +1,19 @@
 #ifndef ANALYST_H
 #define ANALYST_H
 
-#include "textfield.h"
+#include <QString>
 
 class Analyst
 {
 public:
-    Analyst(TextField* lastName, TextField* firstName, TextField* employer, TextField* experience);
+    Analyst(QString* lastName, QString* firstName, QString* employer, QString* experience);
     ~Analyst();
 
 private:
-    TextField* lastName;
-    TextField* firstName;
-    TextField* employer;
-    TextField* experience;
+    QString* lastName;
+    QString* firstName;
+    QString* employer;
+    QString* experience;
 };
 
 #endif // ANALYST_H

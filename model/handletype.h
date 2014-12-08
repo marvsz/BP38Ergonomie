@@ -1,21 +1,17 @@
 #ifndef HANDLETYPE_H
 #define HANDLETYPE_H
 
-#include <string>
-#include <iostream>
-using namespace std;
+#include "QString"
 
 class HandleType
 {
 public:
-    HandleType(string handleType);
+    HandleType(QString* handleType);
     ~HandleType();
 
-    string getHandleType();
-    void setHandleType(string h);
 
 private:
-    string handleType;
+    QString* handleType;
 };
 
 #endif // HANDLETYPE_H

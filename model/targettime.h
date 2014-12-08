@@ -1,7 +1,7 @@
 #ifndef TARGETTIME_H
 #define TARGETTIME_H
 
-#import <QTime>
+#include <QTime>
 
 class TargetTime
 {

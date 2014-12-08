@@ -1,21 +1,18 @@
 #ifndef USEDHAND_H
 #define USEDHAND_H
 
-#include <string>
-#include <iostream>
-using namespace std;
+#include <QString>
 
 class UsedHand
 {
 public:
-    UsedHand(string hand);
+    UsedHand(QString* hand);
     ~UsedHand();
 
-    void setHand(string h);
-    string getHand() const;
+
 
 private:
-    string hand;
+    QString* hand;
 };
 
 #endif // USEDHAND_H

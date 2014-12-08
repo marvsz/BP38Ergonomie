@@ -1,30 +1,28 @@
 #ifndef WORKCONDITION_H
 #define WORKCONDITION_H
 
-#include "numberbutton.h"
-#include "boolbutton.h"
 
 class WorkCondition
 {
 public:
-    WorkCondition(BoolButton* torsoSupport, BoolButton* armSupport, NumberButton* neededPrecision, NumberButton* neededVelocity, NumberButton* neededAcceleration, NumberButton* givenVibration, NumberButton* gripCondition, NumberButton* accessibility, NumberButton* terrain, NumberButton* lighting, NumberButton* clima, NumberButton* wind, NumberButton* clothing, NumberButton* mobility);
+    WorkCondition(bool* torsoSupport, bool* armSupport, int* neededPrecision, int* neededVelocity, int* neededAcceleration, int* givenVibration, int* gripCondition, int* accessibility, int* terrain, int* lighting, int* clima, int* wind, int* clothing, int* mobility);
     ~WorkCondition();
 
 private:
-    BoolButton* torsoSupport;
-    BoolButton* armSupport;
-    NumberButton* neededPrecision;
-    NumberButton* neededVelocity;
-    NumberButton* neededAcceleration;
-    NumberButton* givenVibration;
-    NumberButton* gripCondition;
-    NumberButton* accessibility;
-    NumberButton* terrain;
-    NumberButton* lighting;
-    NumberButton* clima;
-    NumberButton* wind;
-    NumberButton* clothing;
-    NumberButton* mobility;
+    bool* torsoSupport;
+    bool* armSupport;
+    int* neededPrecision;
+    int* neededVelocity;
+    int* neededAcceleration;
+    int* givenVibration;
+    int* gripCondition;
+    int* accessibility;
+    int* terrain;
+    int* lighting;
+    int* clima;
+    int* wind;
+    int* clothing;
+    int* mobility;
 };
 
 #endif // WORKCONDITION_H

@@ -1,23 +1,23 @@
 #ifndef FACTORY_H
 #define FACTORY_H
 
-#include "textfield.h"
-#include "numberfield.h"
+#include <QString>
+
 
 class Factory
 {
 public:
-    Factory(TextField* factory, TextField* street, TextField* city, NumberField* plz, TextField* country, TextField* contact, NumberField* employees);
+    Factory(QString* factory, QString* street, QString* city, int* plz, QString* country, QString* contact, int* employees);
     ~Factory();
 
 private:
-    TextField* factory;
-    TextField* street;
-    TextField* city;
-    NumberField* plz;
-    TextField* country;
-    TextField* contact;
-    NumberField* employees;
+    QString* factory;
+    QString* street;
+    QString* city;
+    int* plz;
+    QString* country;
+    QString* contact;
+    int* employees;
 };
 
 #endif // FACTORY_H

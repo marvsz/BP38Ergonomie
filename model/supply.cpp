@@ -1,6 +1,6 @@
 #include "supply.h"
 
-Supply::Supply(TextField* description, TextField* recoilIntensity, NumberField* recoilCount, TextField* vibrationIntensity, NumberField* vibrationCount)
+Supply::Supply(QString* description, QString* recoilIntensity, int* recoilCount, QString* vibrationIntensity, int* vibrationCount)
 {
     this->description = description;
     this->recoilCount = recoilCount;

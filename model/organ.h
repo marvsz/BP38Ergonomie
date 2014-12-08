@@ -1,21 +1,17 @@
 #ifndef ORGAN_H
 #define ORGAN_H
 
-#include <iostream>
-#include <string>
-using namespace std;
+#include <QString>
 
 class Organ
 {
 public:
-    Organ(string organ);
+    Organ(QString* organ);
     ~Organ();
 
-    void setOrgan(string o);
-    string getOrgan();
 
 private:
-    string organ;
+    QString* organ;
 };
 
 #endif // ORGAN_H

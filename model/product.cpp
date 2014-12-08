@@ -1,6 +1,6 @@
 #include "product.h"
 
-Product::Product(TextField* productName, NumberField* productNumber, NumberField* productoinPercentage)
+Product::Product(QString* productName, int* productNumber, int* productoinPercentage)
 {
     this->productName=productName;
     this->productNumber=productNumber;

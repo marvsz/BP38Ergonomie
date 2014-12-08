@@ -1,20 +1,10 @@
 #include "intensity.h"
 
-Intensity::Intensity(int newton)
+Intensity::Intensity(int* newton)
 {
-    this->setIntensity(newton);
+    this->newton=newton;
 }
 
 Intensity::~Intensity(){
 
 }
-
-int Intensity::getIntensity() const{
-    return this->newton;
-}
-
-void Intensity::setIntensity(int i){
-    this->newton = i;
-}
-
-

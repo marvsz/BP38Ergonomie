@@ -1,19 +1,18 @@
 #ifndef PRODUCT_H
 #define PRODUCT_H
 
-#import "textfield.h"
-#import "numberfield.h"
+#include <QString>
 
 class Product
 {
 public:
-    Product(TextField* productName, NumberField* productNumber, NumberField* productoinPercentage);
+    Product(QString* productName, int* productNumber, int* productoinPercentage);
     ~Product();
 
 private:
-    TextField* productName;
-    NumberField* productNumber;
-    NumberField* productoinPercentage;
+    QString* productName;
+    int* productNumber;
+    int* productoinPercentage;
 };
 
 #endif // PRODUCT_H

@@ -1,18 +1,17 @@
 #ifndef LINE_H
 #define LINE_H
 
-#include "textfield.h"
-#include "numberfield.h"
+#include <QString>
 
 class Line
 {
 public:
-    Line(TextField* name, NumberField* workstationQuantity, TextField* description);
+    Line(QString* name, int* workstationQuantity, QString* description);
 
 private:
-    TextField* name;
-    NumberField* workstationQuantity;
-    TextField* description;
+    QString* name;
+    int* workstationQuantity;
+    QString* description;
 };
 
 #endif // LINE_H

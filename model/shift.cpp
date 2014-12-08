@@ -1,6 +1,6 @@
 #include "shift.h"
 
-Shift::Shift(NumberButton* shiftType, QTime* start, QTime* end, QTime* cycle, NumberField* quantity)
+Shift::Shift(int* shiftType, QTime* start, QTime* end, QTime* cycle, int* quantity)
 {
     this->cycle=cycle;
     this->end=end;

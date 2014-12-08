@@ -1,18 +1,10 @@
 #include "weight.h"
 
-Weight::Weight(int weight)
+Weight::Weight(int* weight)
 {
-    this->setWeight(weight);
+    this->weight = weight;
 }
 
 Weight::~Weight(){
 
-}
-
-int Weight::getWeight() const{
-    return this->weight;
-}
-
-void Weight::setWeight(int w){
-    this->weight = w;
 }

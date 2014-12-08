@@ -1,27 +1,26 @@
 #ifndef GENERAL_H
 #define GENERAL_H
 
-#include "textfield.h"
-#include "numberfield.h"
+#include <QString>
 #include "product.h"
 
 class General
 {
 public:
-    General(TextField* description, TextField* mtmCode, TextField* activity, TextField* subActivity, Product* product, NumberField* workingHeight, NumberField* distance, TextField* gripType, TextField* momentumIntensity, NumberField* momentumCount);
+    General(QString* description, QString* mtmCode, QString* activity, QString* subActivity, Product* product, int* workingHeight, int* distance, QString* gripType, QString* momentumIntensity, int* momentumCount);
     ~General();
 
 private:
-    TextField* description;
-    TextField* mtmCode;
-    TextField* activity;
-    TextField* subActivity;
+    QString* description;
+    QString* mtmCode;
+    QString* activity;
+    QString* subActivity;
     Product* product;
-    NumberField* workingHeight;
-    NumberField* distance;
-    TextField* gripType;
-    TextField* momentumIntensity;
-    NumberField* momentumCount;
+    int* workingHeight;
+    int* distance;
+    QString* gripType;
+    QString* momentumIntensity;
+    int* momentumCount;
 };
 
 #endif // GENERAL_H

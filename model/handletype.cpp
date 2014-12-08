@@ -1,18 +1,11 @@
 #include "handletype.h"
 
-HandleType::HandleType(string handleType)
+HandleType::HandleType(QString* handleType)
 {
-    this->setHandleType(handleType);
+    this->handleType=handleType;
 }
 
 HandleType::~HandleType(){
 
 }
 
-string HandleType::getHandleType(){
-    return this->handleType;
-}
-
-void HandleType::setHandleType(string h){
-    this->handleType=h;
-}

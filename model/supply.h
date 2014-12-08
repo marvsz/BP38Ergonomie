@@ -1,21 +1,20 @@
 #ifndef SUPPLY_H
 #define SUPPLY_H
 
-#include "numberfield.h"
-#include "textfield.h"
+#include <QString>
 
 class Supply
 {
 public:
-    Supply(TextField* description, TextField* recoilIntensity, NumberField* recoilCount, TextField* vibrationIntensity, NumberField* vibrationCount);
+    Supply(QString* description, QString* recoilIntensity, int* recoilCount, QString* vibrationIntensity, int* vibrationCount);
     ~Supply();
 
 private:
-    TextField* description;
-    TextField* recoilIntensity;
-    NumberField* recoilCount;
-    TextField* vibrationIntensity;
-    NumberField* vibrationCount;
+    QString* description;
+    QString* recoilIntensity;
+    int* recoilCount;
+    QString* vibrationIntensity;
+    int* vibrationCount;
 };
 
 #endif // SUPPLY_H

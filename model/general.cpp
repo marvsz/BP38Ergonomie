@@ -1,6 +1,6 @@
 #include "general.h"
 
-General::General(TextField* description, TextField* mtmCode, TextField* activity, TextField* subActivity, Product* product, NumberField* workingHeight, NumberField* distance, TextField* gripType, TextField* momentumIntensity, NumberField* momentumCount)
+General::General(QString* description, QString* mtmCode, QString* activity, QString* subActivity, Product* product, int* workingHeight, int* distance, QString* gripType, QString* momentumIntensity, int* momentumCount)
 {
     this->activity=activity;
     this->description=description;

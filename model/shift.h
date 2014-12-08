@@ -1,22 +1,20 @@
 #ifndef SHIFT_H
 #define SHIFT_H
 
-#include "numberbutton.h"
-#include "numberfield.h"
 #include <QTime>
 
 class Shift
 {
 public:
-    Shift(NumberButton* shiftType, QTime* start, QTime* end, QTime* cycle, NumberField* quantity);
+    Shift(int* shiftType, QTime* start, QTime* end, QTime* cycle, int* quantity);
 
 
 private:
-    NumberButton* shiftType;
+    int* shiftType;
     QTime* start;
     QTime* end;
     QTime* cycle;
-    NumberField* quantity;
+    int* quantity;
 };
 
 #endif // SHIFT_H

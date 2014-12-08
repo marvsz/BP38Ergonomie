@@ -1,18 +1,10 @@
 #include "organ.h"
 
-Organ::Organ(string organ)
+Organ::Organ(QString* organ)
 {
-    this->setOrgan(organ);
+    this->organ=organ;
 }
 
 Organ::~Organ(){
 
-}
-
-void Organ::setOrgan(string o){
-    this->organ = o;
-}
-
-string Organ::getOrgan(){
-    return organ;
 }

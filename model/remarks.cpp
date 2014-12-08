@@ -1,6 +1,6 @@
 #include "remarks.h"
 
-Remarks::Remarks(TextField* problemId, TextField* problemDescription, TextField* sanctionId, TextField* sanctionDescription, TextField* factoryPerception)
+Remarks::Remarks(QString* problemId, QString* problemDescription, QString* sanctionId, QString* sanctionDescription, QString* factoryPerception)
 {
     this->factoryPerception=factoryPerception;
     this->problemDescription=problemDescription;

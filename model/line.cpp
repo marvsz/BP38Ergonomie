@@ -1,6 +1,6 @@
 #include "line.h"
 
-Line::Line(TextField* name, NumberField* workstationQuantity, TextField* description)
+Line::Line(QString* name, int* workstationQuantity, QString* description)
 {
     this->description=description;
     this->name=name;

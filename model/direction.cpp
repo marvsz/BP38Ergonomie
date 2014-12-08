@@ -1,18 +1,11 @@
 #include "direction.h"
 
-Direction::Direction(string direction)
+Direction::Direction(QString* direction)
 {
-    this->setDirection(direction);
+    this->direction;
 }
 
 Direction::~Direction(){
 
 }
 
-void Direction::setDirection(string d){
-    this->direction = d;
-}
-
-string Direction::getDirection(){
-    return direction;
-}

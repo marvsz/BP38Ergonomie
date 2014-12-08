@@ -1,6 +1,6 @@
 #include "workerdata.h"
 
-WorkerData::WorkerData(TextField* gender, NumberField* age, NumberField* height, TextField* remarks, NumberField* personalID)
+WorkerData::WorkerData(QString* gender, int* age, int* height, QString* remarks, int* personalID)
 {
     this->age=age;
     this->gender=gender;

@@ -1,6 +1,6 @@
 #include "factory.h"
 
-Factory::Factory(TextField* factory, TextField* street, TextField* city, NumberField* plz, TextField* country, TextField* contact, NumberField* employees)
+Factory::Factory(QString* factory, QString* street, QString* city, int* plz, QString* country, QString* contact, int* employees)
 {
     this->city=city;
     this->contact=contact;

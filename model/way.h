@@ -4,14 +4,11 @@
 class Way
 {
 public:
-    Way(int meter);
+    Way(int* meter);
     ~Way();
 
-    int getMeter() const;
-    void setMeter(int m);
-
 private:
-    int meter;
+    int* meter;
 };
 
 #endif // WAY_H

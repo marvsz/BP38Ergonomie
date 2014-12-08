@@ -1,20 +1,20 @@
 #ifndef REMARKS_H
 #define REMARKS_H
 
-#import "textfield.h"
+#include <QString>
 
 class Remarks
 {
 public:
-    Remarks(TextField* problemId, TextField* problemDescription, TextField* sanctionId, TextField* sanctionDescription, TextField* factoryPerception);
+    Remarks(QString* problemId, QString* problemDescription, QString* sanctionId, QString* sanctionDescription, QString* factoryPerception);
     ~Remarks();
 
 private:
-    TextField* problemId;
-    TextField* problemDescription;
-    TextField* sanctionId;
-    TextField* sanctionDescription;
-    TextField* factoryPerception;
+    QString* problemId;
+    QString* problemDescription;
+    QString* sanctionId;
+    QString* sanctionDescription;
+    QString* factoryPerception;
 };
 
 

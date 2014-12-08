@@ -1,6 +1,6 @@
 #include "workcondition.h"
 
-WorkCondition::WorkCondition(BoolButton* torsoSupport, BoolButton* armSupport, NumberButton* neededPrecision, NumberButton* neededVelocity, NumberButton* neededAcceleration, NumberButton* givenVibration, NumberButton* gripCondition, NumberButton* accessibility, NumberButton* terrain, NumberButton* lighting, NumberButton* clima, NumberButton* wind, NumberButton* clothing, NumberButton* mobility)
+WorkCondition::WorkCondition(bool* torsoSupport, bool* armSupport, int* neededPrecision, int* neededVelocity, int* neededAcceleration, int* givenVibration, int* gripCondition, int* accessibility, int* terrain, int* lighting, int* clima, int* wind, int* clothing, int* mobility)
 {
     this->accessibility = accessibility;
     this->armSupport = armSupport;

@@ -17,12 +17,7 @@ HEADERS += $$CURRENT_DIR/angle.h \
     $$CURRENT_DIR/usedhand.h \
     $$CURRENT_DIR/way.h \
     $$CURRENT_DIR/intensity.h \
-    $$PWD/boolbutton.h \
-    $$PWD/numberbutton.h \
-    $$PWD/numberfield.h \
     $$PWD/product.h \
-    $$PWD/textfield.h \
-    $$PWD/timestamp.h \
     $$PWD/workcondition.h \
     $$PWD/general.h \
     $$PWD/supply.h \
@@ -56,12 +51,7 @@ SOURCES += $$CURRENT_DIR/angle.cpp \
     $$CURRENT_DIR/usedhand.cpp \
     $$CURRENT_DIR/way.cpp \
     $$CURRENT_DIR/intensity.cpp \
-    $$PWD/boolbutton.cpp \
-    $$PWD/numberbutton.cpp \
-    $$PWD/numberfield.cpp \
     $$PWD/product.cpp \
-    $$PWD/textfield.cpp \
-    $$PWD/timestamp.cpp \
     $$PWD/workcondition.cpp \
     $$PWD/general.cpp \
     $$PWD/supply.cpp \

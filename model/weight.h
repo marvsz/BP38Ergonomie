@@ -4,14 +4,11 @@
 class Weight
 {
 public:
-    Weight(int weight);
+    Weight(int* weight);
     ~Weight();
 
-    int getWeight() const;
-    void setWeight(int w);
-
 private:
-    int weight;
+    int* weight;
 };
 
 #endif // WEIGHT_H

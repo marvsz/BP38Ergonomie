@@ -1,16 +1,17 @@
 #ifndef COMPANY_H
 #define COMPANY_H
 
-#include "textfield.h"
+#include <QString>
 
 class Company
 {
 public:
-    Company(TextField* name);
+    Company(QString* name);
     ~Company();
 
 private:
-    TextField* name;
+    QString* name;
+
 };
 
 #endif // COMPANY_H

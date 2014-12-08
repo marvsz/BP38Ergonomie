@@ -1,18 +1,10 @@
 #include "usedhand.h"
 
-UsedHand::UsedHand(string hand)
+UsedHand::UsedHand(QString* hand)
 {
-    this->setHand(hand);
+    this->hand=hand;
 }
 
 UsedHand::~UsedHand(){
 
-}
-
-string UsedHand::getHand() const{
-    return this->hand;
-}
-
-void UsedHand::setHand(string h){
-    this->hand = h;
 }

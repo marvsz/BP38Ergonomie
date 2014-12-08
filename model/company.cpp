@@ -1,6 +1,6 @@
 #include "company.h"
 
-Company::Company(TextField* name)
+Company::Company(QString* name)
 {
     this->name = name;
 }
