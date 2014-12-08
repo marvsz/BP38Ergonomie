@@ -107,7 +107,6 @@ AngleView::AngleView(QWidget *parent) :
 
     categoryScrollArea->setWidget(main);
     categoryScrollArea->setWidgetResizable(true);
-    //QScroller::grabGesture(categoryScrollArea->viewport(), QScroller::LeftMouseButtonGesture);
     FlickCharm *flickCharm = new FlickCharm(this);
     flickCharm->activateOn(categoryScrollArea);
     this->setCentralWidget(categoryScrollArea);

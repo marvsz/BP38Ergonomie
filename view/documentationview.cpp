@@ -6,7 +6,7 @@
 #include "executionconditionview.h"
 
 DocumentationView::DocumentationView(QWidget *parent) :
-    QDialog(parent)
+    QWidget(parent)
 {
     this->tabs = new QTabWidget;
     this->timer = new StopWatch;

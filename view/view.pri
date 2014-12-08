@@ -20,7 +20,8 @@ $$CURRENT_DIR/listcontrol.h \
     $$PWD/optionselectioncontrol.h \
     $$PWD/executionconditionview.h \
     $$PWD/flickcharm.h \
-    $$PWD/generalexecutioncondition.h
+    $$PWD/generalexecutioncondition.h \
+    $$PWD/documentationview.h
 
 
 SOURCES += $$CURRENT_DIR/variant.cpp\
@@ -41,5 +42,6 @@ $$CURRENT_DIR/angleview.cpp \
     $$PWD/optionselectioncontrol.cpp \
     $$PWD/executionconditionview.cpp \
     $$PWD/flickcharm.cpp \
-    $$PWD/generalexecutioncondition.cpp
+    $$PWD/generalexecutioncondition.cpp \
+    $$PWD/documentationview.cpp
 

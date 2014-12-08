@@ -45,7 +45,7 @@ AngleControl::AngleControl(QString* descVarConText, Variant* variant, VariantSpe
 
     mainVLayout->addLayout(firstLineLayout);
     mainVLayout->addWidget(content);
-    //mainVLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
+    mainVLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
 
     content->setLayout(mainHLayout);
     this->setLayout(mainVLayout);

@@ -1,11 +1,11 @@
 #ifndef DOCUMENTATIONVIEW_H
 #define DOCUMENTATIONVIEW_H
 
-#include <QDialog>
+#include <QWidget>
 #include <QTabWidget>
 #include "stopwatch.h"
 
-class DocumentationView : public QDialog
+class DocumentationView : public QWidget
 {
     Q_OBJECT
 public:
