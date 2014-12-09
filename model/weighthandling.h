@@ -19,10 +19,10 @@ public:
     void setTransportation(Transportation* t);
 
     HandleType* getHandleType();
-    int getWeight();
-    int getWay();
-    UsedHand getUsedHand();
-    Transportation getTransportation();
+    int* getWeight();
+    int* getWay();
+    UsedHand* getUsedHand();
+    Transportation* getTransportation();
 
 private:
     HandleType* handleType;

@@ -7,6 +7,8 @@ public:
     Way(int* meter);
     ~Way();
 
+    int* getWay();
+    void setWay(int* m);
 
 private:
     int* meter;

@@ -1,6 +1,6 @@
 #include "angle.h"
 
-Angle::Angle(int degree)
+Angle::Angle(int* degree)
 {
     this->setDegree(degree);
 }
@@ -9,10 +9,10 @@ Angle::~Angle(){
 
 }
 
-int Angle::getDegree() const{
+int* Angle::getDegree() const{
     return this->degree;
 }
 
-void Angle::setDegree(int d) {
+void Angle::setDegree(int* d) {
     this->degree = d;
 }

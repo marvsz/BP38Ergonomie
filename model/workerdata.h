@@ -10,16 +10,16 @@ public:
     ~WorkerData();
 
     void setGender(QString* g);
-    void setAnge(int* a);
+    void setAge(int* a);
     void setHeight(int* h);
     void setRemarks(QString* r);
-    void setPersonalId(QString* p);
+    void setPersonalId(int* p);
 
-    QString getGender();
-    int getAge();
-    int getHeight();
-    QString getRemarks();
-    QString getPersonalId();
+    QString* getGender();
+    int* getAge();
+    int* getHeight();
+    QString* getRemarks();
+    int* getPersonalId();
 
 private:
     QString* gender;

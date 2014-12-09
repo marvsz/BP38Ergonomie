@@ -18,6 +18,13 @@ public:
     void setRightLeg(Leg* rl);
     void setLeftLeg(Leg* ll);
 
+    Head* getHead();
+    Torso* getTorso();
+    Arm* getRightArm();
+    Arm* getLeftArm();
+    Leg* getRightLeg();
+    Leg* getLeftLeg();
+
 private:
     Head* head;
     Torso* torso;

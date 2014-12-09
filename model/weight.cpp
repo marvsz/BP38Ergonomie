@@ -2,9 +2,17 @@
 
 Weight::Weight(int* weight)
 {
-    this->weight = weight;
+    this->setWeight(weight);
 }
 
 Weight::~Weight(){
 
+}
+
+int* Weight::getWeight(){
+    return this->weight;
+}
+
+void Weight::setWeight(int* w){
+    this->weight=w;
 }

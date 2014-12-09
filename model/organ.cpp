@@ -8,3 +8,11 @@ Organ::Organ(QString* organ)
 Organ::~Organ(){
 
 }
+
+QString* Organ::getOrgan(){
+    return this->organ;
+}
+
+void Organ::setOrgan(QString* o){
+    this->organ=o;
+}

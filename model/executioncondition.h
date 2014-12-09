@@ -15,6 +15,10 @@ public:
     void setSupply(Supply* s);
     void setWorkCondition(WorkCondition* c);
 
+    General* getGeneral();
+    Supply* getSupply();
+    WorkCondition* getWorkcondition();
+
 private:
     General* general;
     Supply* supply;

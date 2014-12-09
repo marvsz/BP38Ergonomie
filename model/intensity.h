@@ -7,7 +7,7 @@ public:
     Intensity(int* newton);
     ~Intensity();
 
-    int getIntensity() const;
+    int* getIntensity();
     void setIntensity(int* i);
 
 private:

@@ -24,15 +24,15 @@ public:
     void setProduct(Product* p);
     void setRemarks(Remarks* r);
 
-    QString getName();
-    QString getDescription();
-    QString getCode();
-    QString getPopulation();
-    Line getLine();
-    ShiftData getShiftData();
-    WorkerData getWorkerData();
-    Product getProduct();
-    Remarks getRemarks();
+    QString* getName();
+    QString* getDescription();
+    QString* getCode();
+    QString* getPopulation();
+    Line* getLine();
+    ShiftData* getShiftData();
+    WorkerData* getWorkerData();
+    Product* getProduct();
+    Remarks* getRemarks();
 
 private:
     QString* name;

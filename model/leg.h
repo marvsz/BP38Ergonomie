@@ -11,9 +11,9 @@ public:
     void setKnee(int* k);
     void setAnkle(int* a);
 
-    int getHip();
-    int getKnee();
-    int getAnkle();
+    int* getHip();
+    int* getKnee();
+    int* getAnkle();
 private:
     int* hip;
     int* knee;

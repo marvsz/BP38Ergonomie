@@ -12,9 +12,9 @@ public:
     void setTilt(int* t);
     void setSidewiseTilt(int* s);
 
-    int getRotation();
-    int getTilt();
-    int getSidewiseTilt();
+    int* getRotation();
+    int* getTilt();
+    int* getSidewiseTilt();
 
 private:
     int* rotation;

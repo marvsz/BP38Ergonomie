@@ -10,7 +10,7 @@ public:
     ~Organ();
 
     void setOrgan(QString* o);
-    QString getOrgan();
+    QString* getOrgan();
 
 private:
     QString* organ;

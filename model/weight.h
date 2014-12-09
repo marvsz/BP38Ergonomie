@@ -7,6 +7,9 @@ public:
     Weight(int* weight);
     ~Weight();
 
+    void setWeight(int* w);
+    int* getWeight();
+
 private:
     int* weight;
 };

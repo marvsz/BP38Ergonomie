@@ -15,11 +15,11 @@ public:
     void setSanctionDescription(QString* sd);
     void setFactoryPerception(QString* fp);
 
-    QString getProblemId();
-    QString getProblemDescription();
-    QString getSanctionId();
-    QString getSanctionDescription();
-    QString getFactoryPerception();
+    QString* getProblemId();
+    QString* getProblemDescription();
+    QString* getSanctionId();
+    QString* getSanctionDescription();
+    QString* getFactoryPerception();
 
 private:
     QString* problemId;

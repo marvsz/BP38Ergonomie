@@ -10,7 +10,7 @@ public:
     ~Company();
 
     void setName(QString* n);
-    QString getName();
+    QString* getName();
 
 private:
     QString* name;

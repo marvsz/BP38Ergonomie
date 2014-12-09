@@ -11,15 +11,15 @@ public:
 
     void setDescription(QString* d);
     void setRecoilIntensity(QString* ri);
-    void setRecoilCount(int rc);
+    void setRecoilCount(int* rc);
     void setViprationIntensity(QString* vi);
-    void setVibrationCount(int vc);
+    void setVibrationCount(int* vc);
 
-    QString getDescription();
-    QString getRecoilIntensity();
-    int getRecoilCount();
-    QString getVibrationIntensity();
-    int getVibrationCount();
+    QString* getDescription();
+    QString* getRecoilIntensity();
+    int* getRecoilCount();
+    QString* getVibrationIntensity();
+    int* getVibrationCount();
 
 private:
     QString* description;

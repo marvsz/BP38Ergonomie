@@ -10,7 +10,7 @@ public:
     ~UsedHand();
 
     void setHand(QString* h);
-    QString getHand();
+    QString* getHand();
 
 
 private:

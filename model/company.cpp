@@ -2,8 +2,16 @@
 
 Company::Company(QString* name)
 {
-    this->name = name;
+    this->setName(name);
 }
 Company::~Company(){
 
+}
+
+QString* Company::getName(){
+    return this->name;
+}
+
+void Company::setName(QString* n){
+    this->name=n;
 }

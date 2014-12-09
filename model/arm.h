@@ -14,11 +14,11 @@ public:
     void setLowerArmRotation(int* lar);
     void setUpperArmOpening(int* uao);
 
-    int getUpperArmPosition();
-    int getLowerArmPosition();
-    int getUpperArmRotation();
-    int getLowerArmRotation();
-    int getUpperArmOpening();
+    int* getUpperArmPosition();
+    int* getLowerArmPosition();
+    int* getUpperArmRotation();
+    int* getLowerArmRotation();
+    int* getUpperArmOpening();
 
 private:
     int* upperArmPosition;

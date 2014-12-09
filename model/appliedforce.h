@@ -17,10 +17,10 @@ public:
     void setOrgan(Organ* o);
     void setHand(UsedHand* h);
 
-    /*Intensity getIntensity();
-    Direction getDirection();
-    Organ getOrgan();
-    UsedHand getHand();*/
+    Intensity* getIntensity();
+    Direction* getDirection();
+    Organ* getOrgan();
+    UsedHand* getHand();
 
 private:
     Intensity* intensity;

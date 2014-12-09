@@ -11,7 +11,11 @@ public:
 
     void setProductName(QString* pna);
     void setProductNumber(int* pnu);
-    void seProductionPercentage(int ppe);
+    void seProductionPercentage(int* ppe);
+
+    QString* getProductName();
+    int* getProductNumber();
+    int* getProductionPercentage();
 
 private:
     QString* productName;

@@ -23,20 +23,20 @@ public:
     void setClothing(int* clo);
     void setMobility(int* mo);
 
-    bool isTorsoSupported();
-    bool isArmSupported();
-    int getNeededPrecision();
-    int getNeededVelocity();
-    int getNeededAcceleration();
-    int getGivenVibration();
-    int getGripCondition();
-    int getAccessibility();
-    int getTerrain();
-    int getLighting();
-    int getClima();
-    int getWind();
-    int getClothing();
-    int getMobility();
+    bool* isTorsoSupported();
+    bool* isArmSupported();
+    int* getNeededPrecision();
+    int* getNeededVelocity();
+    int* getNeededAcceleration();
+    int* getGivenVibration();
+    int* getGripCondition();
+    int* getAccessibility();
+    int* getTerrain();
+    int* getLighting();
+    int* getClima();
+    int* getWind();
+    int* getClothing();
+    int* getMobility();
 
 private:
     bool* torsoSupport;

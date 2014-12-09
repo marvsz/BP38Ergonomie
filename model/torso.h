@@ -11,9 +11,9 @@ public:
     void setTilt(int* t);
     void setRotation(int* r);
 
-    int getFlextion();
-    int getTilt();
-    int getRotation();
+    int* getFlextion();
+    int* getTilt();
+    int* getRotation();
 
 private:
     int* flextion;

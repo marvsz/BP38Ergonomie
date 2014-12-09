@@ -19,17 +19,18 @@ public:
     void setDistance(int* di);
     void setGripType(QString* g);
     void setMomentumIntensity(QString* mi);
-    void setMomentumCount(QString* mc);
+    void setMomentumCount(int* mc);
 
-    QString getDescription();
-    QString getMtmCode();
-    QString getActivity();
-    QString getSubActivity();
-    int getWorkingHeight();
-    int getDistance();
-    QString getGripType();
-    QString getMomentumIntensity();
-
+    QString* getDescription();
+    QString* getMtmCode();
+    QString* getActivity();
+    QString* getSubActivity();
+    int* getWorkingHeight();
+    int* getDistance();
+    QString* getGripType();
+    QString* getMomentumIntensity();
+    int* getMomentumCount();
+    Product* getProduct();
 
 private:
     QString* description;

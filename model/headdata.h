@@ -18,6 +18,12 @@ public:
     void setBegin(QDate* b);
     void setEnd(QDate* e);
 
+    Analyst* getAnalyst();
+    Factory* getFactory();
+    Company* getCompany();
+    QDate* getBegin();
+    QDate* getEnd();
+
 private:
     Analyst* analyst;
     Factory* factory;

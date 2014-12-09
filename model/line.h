@@ -7,14 +7,15 @@ class Line
 {
 public:
     Line(QString* name, int* workstationQuantity, QString* description);
+    ~Line();
 
     void setName(QString* n);
     void setWorkstationQuantity(int* w);
     void setDescription(QString* d);
 
-    QString getName();
-    int getWorkstationQuantity();
-    QString getDescription();
+    QString* getName();
+    int* getWorkstationQuantity();
+    QString* getDescription();
 
 private:
     QString* name;

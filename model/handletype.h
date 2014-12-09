@@ -10,7 +10,7 @@ public:
     ~HandleType();
 
     void setHandleType(QString* h);
-    QString getHandleType();
+    QString* getHandleType();
 
 private:
     QString* handleType;

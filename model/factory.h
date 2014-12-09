@@ -18,13 +18,13 @@ public:
     void setContact(QString* con);
     void setEmployees(int* e);
 
-    QString getFactory();
-    QString getStreet();
-    QString getCity();
-    int getPlz();
-    QString setCountry();
-    QString setContact();
-    int getEmployees();
+    QString* getFactory();
+    QString* getStreet();
+    QString* getCity();
+    int* getPlz();
+    QString* getCountry();
+    QString* getContact();
+    int* getEmployees();
 
 private:
     QString* factory;

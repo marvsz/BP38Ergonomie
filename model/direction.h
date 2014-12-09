@@ -10,7 +10,7 @@ public:
     ~Direction();
 
     void setDirection(QString* d);
-    QString getDirection();
+    QString* getDirection();
 
 private:
     QString* direction;

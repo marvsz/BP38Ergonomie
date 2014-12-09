@@ -15,9 +15,9 @@ public:
     void setTargetTime(TargetTime* t);
     void setPause(Pause* p);
 
-    Shift getShift();
-    TargetTime getTargetTime();
-    Pause getPause();
+    Shift* getShift();
+    TargetTime* getTargetTime();
+    Pause* getPause();
 
 
 private:
