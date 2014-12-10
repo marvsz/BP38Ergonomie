@@ -8,6 +8,7 @@
 #include <QScroller>
 #include "valuecontrol.h"
 #include "separator.h"
+#include "flickcharm.h"
 
 
 TransportView::TransportView(QWidget *parent) :
@@ -71,7 +72,8 @@ TransportView::TransportView(QWidget *parent) :
 
     categoryScrollArea->setWidget(control);
     categoryScrollArea->setWidgetResizable(true);
-    QScroller::grabGesture(categoryScrollArea->viewport(), QScroller::LeftMouseButtonGesture);
+    FlickCharm *flickCharm = new FlickCharm(this);
+    flickCharm->activateOn(categoryScrollArea);
 
     mainLayout->addLayout(menuLineLayout);
     mainLayout->addWidget(categoryScrollArea);

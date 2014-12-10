@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
                         "QSlider::handle:horizontal {border: 2px solid #007aff; width: 38px; height: 38px; border-radius: 20px; background: #efeff4; margin: -20px 0;}"
                         "QSlider::add-page:horizontal {background: #b5b6b5;}"
                         "QSlider::sub-page:horizontal {background: #007aff;}"
-                        "QPushButton {font: 100 20px \"Serif\";color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}"
+                        "QPushButton {font: 100 20px \"Serif\";color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5; padding: 4px;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}"
                         "QScrollArea {background-color: #efeff4; margin: 0 0; border: none;}"
                         "QScrollBar:vertical {border: 0px solid #007aff; margin: 0px 0px 0px 0px; background: #efeff4;}"
                         "QScrollBar::handle:vertical {background: #007aff; min-width: 60px; border-radius: 5px;}"

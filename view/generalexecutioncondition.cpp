@@ -1,5 +1,6 @@
 #include "generalexecutioncondition.h"
 #include "separator.h"
+#include "subactivitycontrol.h"
 
 GeneralExecutionCondition::GeneralExecutionCondition(QWidget *parent) :
     QWidget(parent),
@@ -40,18 +41,20 @@ GeneralExecutionCondition::GeneralExecutionCondition(QWidget *parent) :
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 1, 0, 1, 2, 0);
     mainLayout->addWidget(valConMtmCode, 2, 0, 1, 2, 0);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 3, 0, 1, 2, 0);
-    mainLayout->addWidget(new QLabel("Produziertes Produkt:"), 4, 0, 1, 1, 0);
-    mainLayout->addWidget(new QLabel("Arbeitshöhe [cm]:"), 5, 0, 1, 1, 0);
-    mainLayout->addWidget(txtbxWorkingHeight, 5, 1, 1, 1, 0);
-    mainLayout->addWidget(new QLabel("Abstand [cm]:"), 6, 0, 1, 1, 0);
-    mainLayout->addWidget(txtbxDistance, 6, 1, 1, 1, 0);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 7, 0, 1, 2, 0);
-    mainLayout->addWidget(valConGrabType, 8, 0, 1, 2, 0);
+    mainLayout->addWidget(new SubActivityControl(this), 4, 0, 1, 2, 0);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 5, 0, 1, 2, 0);
+    mainLayout->addWidget(new QLabel("Produziertes Produkt:"), 6, 0, 1, 1, 0);
+    mainLayout->addWidget(new QLabel("Arbeitshöhe [cm]:"), 7, 0, 1, 1, 0);
+    mainLayout->addWidget(txtbxWorkingHeight, 7, 1, 1, 1, 0);
+    mainLayout->addWidget(new QLabel("Abstand [cm]:"), 8, 0, 1, 1, 0);
+    mainLayout->addWidget(txtbxDistance, 8, 1, 1, 1, 0);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 9, 0, 1, 2, 0);
-    mainLayout->addWidget(new QLabel("Impulsintensität:"), 10, 0, 1, 1, 0);
-    mainLayout->addWidget(oscImpulseIntensity, 10, 1, 1, 1, 0);
-    mainLayout->addWidget(new QLabel("Impulsanzahl:"), 11, 0, 1, 1, 0);
-    mainLayout->addWidget(txtbxImpulseCount, 11, 1, 1, 1, 0);
+    mainLayout->addWidget(valConGrabType, 9, 0, 1, 2, 0);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 10, 0, 1, 2, 0);
+    mainLayout->addWidget(new QLabel("Impulsintensität:"), 11, 0, 1, 1, 0);
+    mainLayout->addWidget(oscImpulseIntensity, 11, 1, 1, 1, 0);
+    mainLayout->addWidget(new QLabel("Impulsanzahl:"), 12, 0, 1, 1, 0);
+    mainLayout->addWidget(txtbxImpulseCount, 12, 1, 1, 1, 0);
 
     this->setLayout(mainLayout);
 

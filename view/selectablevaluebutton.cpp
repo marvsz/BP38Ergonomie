@@ -1,8 +1,9 @@
 #include "selectablevaluebutton.h"
 #include <QWidget>
 
-const QString SelectableValueButton::qssSelected = "QPushButton {font: 100 20px \"Serif\";color: #FFFFFF; border: 2px solid #007aff; border-radius: 10px; background-color: #007aff;padding:4px;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
-const QString SelectableValueButton::qssNotSelected = "QPushButton {font: 100 20px \"Serif\";color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5;padding: 4px;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
+const QString SelectableValueButton::qssHead = "QPushButton {font: 100 ";
+const QString SelectableValueButton::qssSelected     = "px \"Serif\"; color: #FFFFFF; border: 2px solid #007aff; border-radius: 10px; background-color: #007aff; padding: 4px;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
+const QString SelectableValueButton::qssNotSelected  = "px \"Serif\"; color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5; padding: 4px;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
 
 
 SelectableValueButton::SelectableValueButton(int id, int value, QWidget *parent) :
@@ -18,13 +19,17 @@ SelectableValueButton::SelectableValueButton(int id, int value, QWidget *parent)
 void SelectableValueButton::setSelected(bool isSelected){
     this->isSel = isSelected;
     if(isSel)
-        this->setStyleSheet(this->qssSelected);
+        this->setStyleSheet(qssHead + QString().number(20) + qssSelected);
     else
-        this->setStyleSheet(this->qssNotSelected);
+        this->setStyleSheet(qssHead + QString().number(20) + qssNotSelected);
 }
 
 bool SelectableValueButton::isSelected() const{
     return this->isSel;
+}
+
+void SelectableValueButton::setID(int id){
+    this->id = id;
 }
 
 int SelectableValueButton::getID() const{
@@ -41,5 +46,21 @@ int SelectableValueButton::getValue(){
 
 void SelectableValueButton::setValue(int value){
     this->value = value;
+}
+
+
+int SelectableValueButton::getMaxFontSize(){
+    int width = size().width() - 10;
+    int fontSize = 5;
+    QFont font = QFont("Serif", fontSize, 100, false);
+    for(int i = fontSize; i < 20; ++i){
+        font.setPointSize(i);
+        QFontMetrics fm(font);
+        int t_w = fm.width(this->text());
+        if(t_w > width){
+            return --i;
+        }
+    }
+    return 20;
 }
 

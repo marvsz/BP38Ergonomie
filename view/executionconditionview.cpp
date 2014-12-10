@@ -6,22 +6,33 @@
 ExecutionConditionView::ExecutionConditionView(QWidget *parent) :
     QMainWindow(parent)
 {
+
     btnMoreExecutionCondition = new SelectableValueButton(2, 2, this);
     btnMoreExecutionCondition->setText("Weitere");
     btnMoreExecutionCondition->setMinimumWidth(150);
-    moreExecutionCondition = new MoreExecutionCondition(this);
     connect(btnMoreExecutionCondition, SIGNAL(clicked()), this, SLOT(moreExecutionConditionSelected()));
 
     btnGeneralExecutionCondition = new SelectableValueButton(0, 0, this);
     btnGeneralExecutionCondition->setText("Allgemein");
     btnGeneralExecutionCondition->setMinimumWidth(150);
-    generalExecutionCondition = new GeneralExecutionCondition(this);
     connect(btnGeneralExecutionCondition, SIGNAL(clicked()), this, SLOT(generalExecutionConditionSelected()));
+
+    QWidget *executionConditionContent = new QWidget(this);
+    QVBoxLayout *eccLayout = new QVBoxLayout;
+    generalExecutionCondition = new GeneralExecutionCondition(executionConditionContent);
+    moreExecutionCondition = new MoreExecutionCondition(executionConditionContent);
+    eccLayout->addWidget(generalExecutionCondition);
+    eccLayout->addWidget(moreExecutionCondition);
+    generalExecutionCondition->hide();
+    moreExecutionCondition->hide();
+    executionConditionContent->setLayout(eccLayout);
 
     scMainContent = new QScrollArea(this);
     scMainContent->setWidgetResizable(true);
     FlickCharm *flickCharm = new FlickCharm(this);
     flickCharm->activateOn(scMainContent);
+    scMainContent->setWidget(executionConditionContent);
+
 
     lytOptions = new QVBoxLayout;
     lytOptions->addWidget(btnGeneralExecutionCondition, 0, Qt::AlignTop);
@@ -46,13 +57,15 @@ ExecutionConditionView::ExecutionConditionView(QWidget *parent) :
 void ExecutionConditionView::moreExecutionConditionSelected(){
     currentSelectedBtn->setSelected(false);
     btnMoreExecutionCondition->setSelected(true);
-    scMainContent->setWidget(new MoreExecutionCondition(this));
+    moreExecutionCondition->show();
+    generalExecutionCondition->hide();
     currentSelectedBtn = btnMoreExecutionCondition;
 }
 
 void ExecutionConditionView::generalExecutionConditionSelected(){
     currentSelectedBtn->setSelected(false);
     btnGeneralExecutionCondition->setSelected(true);
-    scMainContent->setWidget(new GeneralExecutionCondition(this));
+    generalExecutionCondition->show();
+    moreExecutionCondition->hide();
     currentSelectedBtn = btnGeneralExecutionCondition;
 }
