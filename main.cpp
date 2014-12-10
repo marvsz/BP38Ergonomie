@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
                         "QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {width: 0px; height: 0px;}"
                         "OwnCon {background-color: #efeff4;}"
                         "QTabWidget::pane {border-top: 2px solid #c8c7cc;}"
-                        "QTabBar::tab {font: 100 13px \"Serif\"; border: 2px solid #007aff; border-top-left-radius: 4px; border-top-right-radius: 4px; padding: 8px} QTabBar::tab:selected{color: #ffffff; #background: #007aff:} QTabBar::tab:!selected{color: #ffffff; #background: #efeff4;}"
+                        "QTabBar::Tab {border: 1px solid #007aff; border-top-left-radius: 4px; border-top-right-radius: 4px; padding: 4px; margin-bottom: -1px;} QTabBar::Tab:selected {color: #ffffff; background-color: #007aff;} QTabBar::Tab:!selected {color: #007aff; background-color: #f5f5f5;}"
                         );
 
     /*ViewController v;
