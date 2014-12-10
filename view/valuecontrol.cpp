@@ -27,18 +27,18 @@ ValueControl::ValueControl(VariantControl controlType, QWidget *parent) :
     txtBxValue->setAlignment(Qt::AlignCenter);
     if(controlType == VALUE_CONTROL){
         txtBxValue->setInputMask("#000");
-        txtBxValue->setFixedSize(100, 60);
+        txtBxValue->setFixedSize(100, 40);
         connect(txtBxValue, SIGNAL(editingFinished()), this, SLOT(txtBxValueHasChanged()));
         connect(txtBxValue, SIGNAL(editingFinished()), QGuiApplication::inputMethod(), SLOT(hide()));
 
         btnPlus = new QPushButton (this);
         btnPlus->setText("+");
-        btnPlus->setFixedSize(60,60);
+        btnPlus->setFixedSize(txtBxValue->height(), txtBxValue->height());
         connect(btnPlus, SIGNAL(pressed()), this, SLOT(btnPlusClicked()));
 
         btnMinus = new QPushButton (this);
         btnMinus->setText("-");
-        btnMinus->setFixedSize(60,60);
+        btnMinus->setFixedSize(txtBxValue->height(),txtBxValue->height());
         connect(btnMinus, SIGNAL(pressed()), this, SLOT(btnMinusClicked()));
 
         txtEditLayout->addWidget(btnMinus);
@@ -48,7 +48,7 @@ ValueControl::ValueControl(VariantControl controlType, QWidget *parent) :
     }
     else{
         txtBxValue->setEnabled(false);
-        txtBxValue->setMinimumSize(300, 60);
+        txtBxValue->setMinimumSize(300, 40);
     }
 
     txtEditLineLayout->addWidget(lblText, 0, Qt::AlignLeft);
@@ -65,7 +65,7 @@ ValueControl::ValueControl(VariantControl controlType, QWidget *parent) :
     if(controlType == VALUE_CONTROL){
         sldrValue = new QSlider(this);
         sldrValue->setOrientation(Qt::Horizontal);
-        sldrValue->setMinimumSize(400, 60);
+        sldrValue->setMinimumSize(400, 45);
         sldrValue->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
         connect(sldrValue, SIGNAL(valueChanged(int)), this, SLOT(sldrValueHasChanged()));
 
@@ -85,7 +85,7 @@ ValueControl::ValueControl(VariantControl controlType, QWidget *parent) :
 
     this->setLayout(mainLayout);
     if(controlType == VALUE_CONTROL){
-        this->setMinimumSize(600, 220);
+        this->setMinimumSize(600, 200);
         this->setMaximumHeight(250);
     }
     else {
@@ -155,7 +155,7 @@ void ValueControl::setValues(QVector<QString *> *btnTexts, QString *iconSetPath)
         this->btnValues->append(currentBtn);
         connect(currentBtn, SIGNAL(pressedWithID(int)), this, SLOT(btnTextHasClicked(int)));
         btnLineLayout->addWidget(currentBtn);
-        currentBtn->setMinimumSize(50,60);
+        currentBtn->setMinimumSize(50, 60);
     }
     currentSelectedBtnID = 0;
 }

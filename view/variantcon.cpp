@@ -45,7 +45,7 @@ void VariantCon::setVariantSpecification(VariantSpecification* varSpeci){
         QVector<QString*>* vs = varSpeci->getSpecificationDesc();
         for(int i = 0; i < vs->size(); i++){
             SelectableValueButton *newBtn = new SelectableValueButton(i,0, this);
-            newBtn->setMinimumSize(200, 60);
+            newBtn->setMinimumSize(200, 40);
             newBtn->setText((* vs->at(i)));
             connect(newBtn, SIGNAL(pressedWithID(int)), this, SLOT(variantSpeciBtnPressed(int)));
             varSpeciBtns->append(newBtn);
@@ -59,7 +59,7 @@ void VariantCon::setVariantSpecification(VariantSpecification* varSpeci){
 void VariantCon::addVariant(Variant* variant){
     variants->append(variant);
     SelectableValueButton *newBtn = new SelectableValueButton(variantBtns->length(), 0, this);
-    newBtn->setMinimumSize(200, 60);
+    newBtn->setMinimumSize(200, 40);
     newBtn->setText((*variant->getDescription()));
     connect(newBtn, SIGNAL(pressedWithID(int)), this, SLOT(variantBtnPressed(int)));
     variantBtns->append(newBtn);

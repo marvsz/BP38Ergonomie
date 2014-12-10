@@ -41,8 +41,7 @@ MoreExecutionCondition::MoreExecutionCondition(QWidget *parent) :
     resultedMecLayout->addRow("Klima:", new OptionSelectionControl(noLowHighSelectionStrings, this));
     resultedMecLayout->addRow("Wind:", new OptionSelectionControl(noLowHighSelectionStrings, this));
     resultedMecLayout->addRow("Kleidung:", new OptionSelectionControl(noLowHighSelectionStrings, this));
-    resultedMecLayout->addRow("", new OptionSelectionControl(noLowHighSelectionStrings, this));
-    resultedMecLayout->addRow("", new OptionSelectionControl(noLowHighSelectionStrings, this));
+    resultedMecLayout->addRow("Bewegungsfreiheit:", new OptionSelectionControl(noLowHighSelectionStrings, this));
 
     mainLayout->addLayout(resultedMecLayout);
 
