@@ -1,8 +1,8 @@
 #include "selectablevaluebutton.h"
 #include <QWidget>
 
-const QString SelectableValueButton::qssSelected = "QPushButton {font: 100 20px \"Serif\";color: #FFFFFF; border: 2px solid #007aff; border-radius: 10px; background-color: #007aff;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
-const QString SelectableValueButton::qssNotSelected = "QPushButton {font: 100 20px \"Serif\";color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
+const QString SelectableValueButton::qssSelected = "QPushButton {font: 100 20px \"Serif\";color: #FFFFFF; border: 2px solid #007aff; border-radius: 10px; background-color: #007aff;padding:4px;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
+const QString SelectableValueButton::qssNotSelected = "QPushButton {font: 100 20px \"Serif\";color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5;padding: 4px;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
 
 
 SelectableValueButton::SelectableValueButton(int id, int value, QWidget *parent) :

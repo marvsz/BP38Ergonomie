@@ -46,13 +46,13 @@ ExecutionConditionView::ExecutionConditionView(QWidget *parent) :
 void ExecutionConditionView::moreExecutionConditionSelected(){
     currentSelectedBtn->setSelected(false);
     btnMoreExecutionCondition->setSelected(true);
-    scMainContent->setWidget(moreExecutionCondition);
+    scMainContent->setWidget(new MoreExecutionCondition(this));
     currentSelectedBtn = btnMoreExecutionCondition;
 }
 
 void ExecutionConditionView::generalExecutionConditionSelected(){
     currentSelectedBtn->setSelected(false);
     btnGeneralExecutionCondition->setSelected(true);
-    scMainContent->setWidget(generalExecutionCondition);
+    scMainContent->setWidget(new GeneralExecutionCondition(this));
     currentSelectedBtn = btnGeneralExecutionCondition;
 }

@@ -32,6 +32,7 @@ MoreExecutionCondition::MoreExecutionCondition(QWidget *parent) :
     mecLayout->addRow("Vorhandene Vibrationen:", new OptionSelectionControl(noMiddleStrongSelectionStrings, this));
 
     mainLayout->addLayout(mecLayout);
+    mainLayout->addSpacerItem(new QSpacerItem(0, 30, QSizePolicy::Fixed, QSizePolicy::Fixed));
     mainLayout->addWidget(new QLabel("Resultierende Einschränkungen auf den Arbeitsvorgang durch:"), 0, Qt::AlignLeft);
 
     resultedMecLayout->addRow("Greifbedingung:", new OptionSelectionControl(noLowHighSelectionStrings, this));
