@@ -8,13 +8,13 @@ ExecutionConditionView::ExecutionConditionView(QWidget *parent) :
 {
     btnMoreExecutionCondition = new SelectableValueButton(2, 2, this);
     btnMoreExecutionCondition->setText("Weitere");
-    btnMoreExecutionCondition->setMinimumWidth(200);
+    btnMoreExecutionCondition->setMinimumWidth(150);
     moreExecutionCondition = new MoreExecutionCondition(this);
     connect(btnMoreExecutionCondition, SIGNAL(clicked()), this, SLOT(moreExecutionConditionSelected()));
 
     btnGeneralExecutionCondition = new SelectableValueButton(0, 0, this);
     btnGeneralExecutionCondition->setText("Allgemein");
-    btnGeneralExecutionCondition->setMinimumWidth(200);
+    btnGeneralExecutionCondition->setMinimumWidth(150);
     generalExecutionCondition = new GeneralExecutionCondition(this);
     connect(btnGeneralExecutionCondition, SIGNAL(clicked()), this, SLOT(generalExecutionConditionSelected()));
 
