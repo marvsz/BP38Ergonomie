@@ -11,7 +11,9 @@ CONFIG += c++11
 
 RESOURCES += \
     btnIcons.qrc \
-    timerIcons.qrc
+    timerIcons.qrc \
+    specialPurposeButtons.qrc \
+    camera/declarative-camera.qrc
 
 HEADERS += \
     enum.h \

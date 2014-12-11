@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QTabWidget>
+#include <QTabBar>
 #include "stopwatch.h"
 
 class DocumentationView : public QWidget
@@ -18,6 +19,8 @@ public slots:
 private:
     QTabWidget *tabs;
     StopWatch *timer;
+    QPushButton* backButton;
+    QPushButton* cameraButton;
 };
 
 #endif // DOCUMENTATIONVIEW_H
