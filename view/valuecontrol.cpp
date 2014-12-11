@@ -162,6 +162,7 @@ void ValueControl::setValues(QVector<QString *> *btnTexts, QVector<QString*> *bt
         connect(currentBtn, SIGNAL(pressedWithID(int)), this, SLOT(btnTextHasClicked(int)));
         btnLineLayout->addWidget(currentBtn);
         currentBtn->setMinimumSize(width, 60);
+        //currentBtn->setFontSize(currentBtn->getMaxFontSize());
     }
     currentSelectedBtnID = 0;
 }

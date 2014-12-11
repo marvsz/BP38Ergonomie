@@ -10,6 +10,7 @@ SelectableValueButton::SelectableValueButton(int id, int value, QWidget *parent)
     QPushButton(parent)
 {
     this->id = id;
+    this->fontSize = 20;
     this->setSelected(false);
     this->setValue(value);
     connect(this, SIGNAL(pressed()), this, SLOT(qpbtnPressed()));
@@ -19,9 +20,9 @@ SelectableValueButton::SelectableValueButton(int id, int value, QWidget *parent)
 void SelectableValueButton::setSelected(bool isSelected){
     this->isSel = isSelected;
     if(isSel)
-        this->setStyleSheet(qssHead + QString().number(20) + qssSelected);
+        this->setStyleSheet(qssHead + QString::number(fontSize) + qssSelected);
     else
-        this->setStyleSheet(qssHead + QString().number(20) + qssNotSelected);
+        this->setStyleSheet(qssHead + QString::number(fontSize) + qssNotSelected);
 }
 
 bool SelectableValueButton::isSelected() const{
@@ -48,8 +49,12 @@ void SelectableValueButton::setValue(int value){
     this->value = value;
 }
 
+void SelectableValueButton::setFontSize(int fontSize){
+    this->fontSize = fontSize;
+    setSelected(isSelected());
+}
 
-int SelectableValueButton::getMaxFontSize(){
+int SelectableValueButton::getMaxFontSize() const{
     int width = size().width() - 10;
     int fontSize = 5;
     QFont font = QFont("Serif", fontSize, 100, false);
