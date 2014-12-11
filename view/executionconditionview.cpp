@@ -26,10 +26,13 @@ ExecutionConditionView::ExecutionConditionView(QWidget *parent) :
     QWidget *executionConditionContent = new QWidget(this);
     QVBoxLayout *eccLayout = new QVBoxLayout;
     generalExecutionCondition = new GeneralExecutionCondition(executionConditionContent);
+    utilitiesExecutionCondition = new UtilityListControl("Betriebsmittel", executionConditionContent);
     moreExecutionCondition = new MoreExecutionCondition(executionConditionContent);
     eccLayout->addWidget(generalExecutionCondition);
+    eccLayout->addWidget(utilitiesExecutionCondition);
     eccLayout->addWidget(moreExecutionCondition);
     generalExecutionCondition->hide();
+    utilitiesExecutionCondition->hide();
     moreExecutionCondition->hide();
     executionConditionContent->setLayout(eccLayout);
 
@@ -64,8 +67,9 @@ ExecutionConditionView::ExecutionConditionView(QWidget *parent) :
 void ExecutionConditionView::moreExecutionConditionSelected(){
     currentSelectedBtn->setSelected(false);
     btnMoreExecutionCondition->setSelected(true);
-    moreExecutionCondition->show();
     generalExecutionCondition->hide();
+    utilitiesExecutionCondition->hide();
+    moreExecutionCondition->show();
     currentSelectedBtn = btnMoreExecutionCondition;
 }
 
@@ -73,6 +77,7 @@ void ExecutionConditionView::generalExecutionConditionSelected(){
     currentSelectedBtn->setSelected(false);
     btnGeneralExecutionCondition->setSelected(true);
     generalExecutionCondition->show();
+    utilitiesExecutionCondition->hide();
     moreExecutionCondition->hide();
     currentSelectedBtn = btnGeneralExecutionCondition;
 }
@@ -80,6 +85,8 @@ void ExecutionConditionView::generalExecutionConditionSelected(){
 void ExecutionConditionView::utilitiesExecutionConditionSelected(){
     currentSelectedBtn->setSelected(false);
     btnUtilitiesExecutionCondition->setSelected(true);
-    scMainContent->setWidget(new UtilityListControl("Betriebsmittel", this));
+    generalExecutionCondition->hide();
+    utilitiesExecutionCondition->show();
+    moreExecutionCondition->hide();
     currentSelectedBtn = btnUtilitiesExecutionCondition;
 }
