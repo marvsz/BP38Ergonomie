@@ -1,27 +1,17 @@
 #include "utilityoption.h"
 #include <QHBoxLayout>
 #include "numberlineedit.h"
-UtilityOption::UtilityOption(QString* name, UtilityOptionType optionType, QWidget *parent) :
+UtilityOption::UtilityOption(UtilityOptionType optionType, QWidget *parent) :
     QWidget(parent)
 {
-    QHBoxLayout* layout = new QHBoxLayout;
-
     this->optionType = optionType;
-
-    this->nameLabel = new QLabel();
-    this->nameLabel->setText(*name);
 
     if(optionType == TEXT_OPTION)
         this->inputTextField = new TextLineEdit(this);
     else
         this->inputTextField = new NumberLineEdit(this);
+
     connect(this->inputTextField, SIGNAL(textChanged(QString)), this, SLOT(textChanged()));
-
-    layout->addWidget(this->nameLabel);
-    layout->addWidget(this->inputTextField);
-
-    this->setLayout(layout);
-
 }
 
 QString UtilityOption::getTextValue(){

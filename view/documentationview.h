@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QTabWidget>
 #include <QTabBar>
+#include <QQuickView>
+#include <QQmlEngine>
 #include "stopwatch.h"
 
 class DocumentationView : public QWidget
@@ -16,11 +18,16 @@ signals:
 
 public slots:
 
+private slots:
+    void showCamera();
+    void hideCamera();
 private:
     QTabWidget *tabs;
     StopWatch *timer;
-    QPushButton* backButton;
+    //QPushButton* backButton;
     QPushButton* cameraButton;
+    QQuickView view;
+
 };
 
 #endif // DOCUMENTATIONVIEW_H

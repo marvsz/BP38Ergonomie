@@ -31,31 +31,31 @@ UtilityListControl::UtilityListControl(QString name, QWidget *parent) :
     buttonLayout->addWidget(addBtn, 0, Qt::AlignLeft);
     buttonLayout->addWidget(remBtn, 0, Qt::AlignRight);
 
-    this->utilityName = new UtilityOption(new QString("Bezeichnung"), TEXT_OPTION, this);
+    this->utilityName = new UtilityOption(TEXT_OPTION, this);
     this->utilityName->setPlaceholder("Bezeichnung des Betriebsmittels");
     connect(this->utilityName, SIGNAL(valueChanged(QString)), this, SLOT(disableSelection()));
 
-    this->recoilIntensity = new UtilityOption(new QString("Rückschlagintensität"), VALUE_OPTION, this);
+    this->recoilIntensity = new UtilityOption(VALUE_OPTION, this);
     this->recoilIntensity->setPlaceholder("Rückschlagintensität");
     connect(this->recoilIntensity, SIGNAL(valueChanged(int)), this, SLOT(recoilIntensityChanged(int)));
 
 
-    this->recoilCount = new UtilityOption(new QString("Rückschlaganzahl"), VALUE_OPTION, this);
+    this->recoilCount = new UtilityOption(VALUE_OPTION, this);
     this->recoilCount->setPlaceholder("Rückschlaganzahl");
     connect(this->recoilCount, SIGNAL(valueChanged(int)), this, SLOT(recoilCountChanged(int)));
 
-    this->vibrationIntensity = new UtilityOption(new QString("Vibrationsintensität"), VALUE_OPTION, this);
+    this->vibrationIntensity = new UtilityOption(VALUE_OPTION, this);
     this->vibrationIntensity->setPlaceholder("Vibrationsintensität");
     connect(this->vibrationIntensity, SIGNAL(valueChanged(int)), this, SLOT(vibrationIntensityChanged(int)));
 
-    this->vibrationCount = new UtilityOption(new QString("Vibrationsanzahl"), VALUE_OPTION, this);
+    this->vibrationCount = new UtilityOption(VALUE_OPTION, this);
     this->vibrationCount->setPlaceholder("Vibrationsanzahl");
     connect(this->vibrationCount, SIGNAL(valueChanged(int)), this, SLOT(vibrationCountChanged(int)));
 
-    optionLayout->addRow(this->recoilIntensity);
-    optionLayout->addRow(this->recoilCount);
-    optionLayout->addRow(this->vibrationIntensity);
-    optionLayout->addRow(this->vibrationCount);
+    optionLayout->addRow("Rückschlagintensität: [N]", this->recoilIntensity);
+    optionLayout->addRow("Rückschlaganzahl:",this->recoilCount);
+    optionLayout->addRow("Vibrationsintensität [N]:",this->vibrationIntensity);
+    optionLayout->addRow("Vibrationsanzahl:",this->vibrationCount);
 
     mainLayout->addLayout(listLayout);
     mainLayout->addWidget(utilityName);

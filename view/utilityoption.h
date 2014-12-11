@@ -9,7 +9,7 @@ class UtilityOption : public QWidget
 {
     Q_OBJECT
 public:
-    explicit UtilityOption(QString* name, UtilityOptionType optionType, QWidget *parent = 0);
+    explicit UtilityOption(UtilityOptionType optionType, QWidget *parent = 0);
 
     QString getTextValue();
     int getIntValue();
@@ -26,7 +26,6 @@ private slots:
     void textChanged();
 
 private:
-    QLabel* nameLabel;
     QLineEdit* inputTextField;
     UtilityOptionType optionType;
 };

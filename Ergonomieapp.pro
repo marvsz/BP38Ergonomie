@@ -1,6 +1,6 @@
 include(view/view.pri)
 include(model/model.pri)
-QT       += core gui
+QT       += core gui quick qml multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,8 +12,8 @@ CONFIG += c++11
 RESOURCES += \
     btnIcons.qrc \
     timerIcons.qrc \
-    specialPurposeButtons.qrc \
-    camera/declarative-camera.qrc
+    declarative-camera.qrc \
+    specialIcons.qrc
 
 HEADERS += \
     enum.h \
