@@ -23,15 +23,9 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/flickcharm.h \
     $$PWD/generalexecutioncondition.h \
     $$PWD/documentationview.h \
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
     $$PWD/utilitylistcontrol.h \
     $$PWD/utilitylistelement.h \
-    $$PWD/utilityoption.h
-=======
->>>>>>> FETCH_HEAD
->>>>>>> Stashed changes
+    $$PWD/utilityoption.h \
     $$PWD/subactivitycontrol.h
 
 
@@ -56,14 +50,8 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/flickcharm.cpp \
     $$PWD/generalexecutioncondition.cpp \
     $$PWD/documentationview.cpp \
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
     $$PWD/utilitylistcontrol.cpp \
     $$PWD/utilitylistelement.cpp \
-    $$PWD/utilityoption.cpp
-=======
->>>>>>> FETCH_HEAD
->>>>>>> Stashed changes
+    $$PWD/utilityoption.cpp \
     $$PWD/subactivitycontrol.cpp
 
