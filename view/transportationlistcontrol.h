@@ -1,5 +1,5 @@
-#ifndef LISTCONTROL_H
-#define LISTCONTROL_H
+#ifndef TRANSPORTATIONLISTCONTROL_H
+#define TRANSPORTATIONLISTCONTROL_H
 
 #include <QGroupBox>
 #include <QVector>
@@ -10,15 +10,15 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
-#include "transportation.h"
+#include "transportationlistelement.h"
 #include "selectablevaluebutton.h"
 #include "valuecontrol.h"
 
-class ListControl : public QGroupBox
+class TransportationListControl : public QGroupBox
 {
     Q_OBJECT
 public:
-    explicit ListControl(QString name = "", QVector<QString> *optionNames = NULL, QWidget *parent = 0);
+    explicit TransportationListControl(QString name = "", QVector<QString> *optionNames = NULL, QWidget *parent = 0);
 
 signals:
 
@@ -43,7 +43,7 @@ private:
     int currentMaxLoad;
 
     QLabel *name;
-    QList<Transportation*>* transportations;
+    QList<TransportationListElement*>* transportations;
     QLabel *newName;
     QLineEdit *newNameEdit;
     QVector<QLabel*> *options;
@@ -54,9 +54,9 @@ private:
     SelectableValueButton *addBtn;
     SelectableValueButton *remBtn;
     bool isOptionChosen();
-    Transportation* transportationWithId(int id);
+    TransportationListElement* transportationWithId(int id);
     int transportationIndex(int transportationId);
     QVBoxLayout *listLayout;
 };
 
-#endif // LISTCONTROL_H
+#endif // TRANSPORTATIONLISTCONTROL_H

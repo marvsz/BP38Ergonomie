@@ -14,7 +14,8 @@ $$CURRENT_DIR/mainmenu.h\
 $$CURRENT_DIR/angleview.h\
 $$CURRENT_DIR/transportview.h\
 $$CURRENT_DIR/viewcontroller.h\
-$$CURRENT_DIR/listcontrol.h \
+$$CURRENT_DIR/transportationlistcontrol.h \
+$$CURRENT_DIR/transportationlistelement.h \
     $$PWD/actionforceview.h \
     $$PWD/moreexecutioncondition.h \
     $$PWD/optionselectioncontrol.h \
@@ -22,6 +23,15 @@ $$CURRENT_DIR/listcontrol.h \
     $$PWD/flickcharm.h \
     $$PWD/generalexecutioncondition.h \
     $$PWD/documentationview.h \
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+    $$PWD/utilitylistcontrol.h \
+    $$PWD/utilitylistelement.h \
+    $$PWD/utilityoption.h
+=======
+>>>>>>> FETCH_HEAD
+>>>>>>> Stashed changes
     $$PWD/subactivitycontrol.h
 
 
@@ -35,9 +45,10 @@ $$CURRENT_DIR/valuecontrol.cpp\
 $$CURRENT_DIR/separator.cpp\
 $$CURRENT_DIR/transportview.cpp\
 $$CURRENT_DIR/viewcontroller.cpp\
-$$CURRENT_DIR/listcontrol.cpp\
 $$CURRENT_DIR/mainmenu.cpp\
 $$CURRENT_DIR/angleview.cpp \
+$$CURRENT_DIR/transportationlistcontrol.cpp\
+$$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/actionforceview.cpp \
     $$PWD/moreexecutioncondition.cpp \
     $$PWD/optionselectioncontrol.cpp \
@@ -45,5 +56,14 @@ $$CURRENT_DIR/angleview.cpp \
     $$PWD/flickcharm.cpp \
     $$PWD/generalexecutioncondition.cpp \
     $$PWD/documentationview.cpp \
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+    $$PWD/utilitylistcontrol.cpp \
+    $$PWD/utilitylistelement.cpp \
+    $$PWD/utilityoption.cpp
+=======
+>>>>>>> FETCH_HEAD
+>>>>>>> Stashed changes
     $$PWD/subactivitycontrol.cpp
 

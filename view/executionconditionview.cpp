@@ -12,6 +12,12 @@ ExecutionConditionView::ExecutionConditionView(QWidget *parent) :
     btnMoreExecutionCondition->setMinimumWidth(150);
     connect(btnMoreExecutionCondition, SIGNAL(clicked()), this, SLOT(moreExecutionConditionSelected()));
 
+    btnUtilitiesExecutionCondition = new SelectableValueButton(1, 1, this);
+    btnUtilitiesExecutionCondition->setText("Betriebsmittel");
+    btnUtilitiesExecutionCondition->setMinimumWidth(150);
+    utilitiesExecutionCondition = new UtilityListControl("Betriebsmittel", this);
+    connect(btnUtilitiesExecutionCondition, SIGNAL(clicked()), this, SLOT(utilitiesExecutionConditionSelected()));
+
     btnGeneralExecutionCondition = new SelectableValueButton(0, 0, this);
     btnGeneralExecutionCondition->setText("Allgemein");
     btnGeneralExecutionCondition->setMinimumWidth(150);
@@ -36,6 +42,7 @@ ExecutionConditionView::ExecutionConditionView(QWidget *parent) :
 
     lytOptions = new QVBoxLayout;
     lytOptions->addWidget(btnGeneralExecutionCondition, 0, Qt::AlignTop);
+    lytOptions->addWidget(btnUtilitiesExecutionCondition, 0, Qt::AlignTop);
     lytOptions->addWidget(btnMoreExecutionCondition, 0, Qt::AlignTop);
     lytOptions->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
@@ -68,4 +75,11 @@ void ExecutionConditionView::generalExecutionConditionSelected(){
     generalExecutionCondition->show();
     moreExecutionCondition->hide();
     currentSelectedBtn = btnGeneralExecutionCondition;
+}
+
+void ExecutionConditionView::utilitiesExecutionConditionSelected(){
+    currentSelectedBtn->setSelected(false);
+    btnUtilitiesExecutionCondition->setSelected(true);
+    scMainContent->setWidget(new UtilityListControl("Betriebsmittel", this));
+    currentSelectedBtn = btnUtilitiesExecutionCondition;
 }

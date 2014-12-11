@@ -55,7 +55,7 @@ TransportView::TransportView(QWidget *parent) :
     options->append("Bockrollen");
     options->append("Bremsen");
 
-    tools = new ListControl("Transportmittel", options, this);
+    tools = new TransportationListControl("Transportmittel", options, this);
 
     topGroupLayout->addWidget(type);
     topGroupLayout->addWidget(new Separator(Qt::Horizontal, 3, this));

@@ -1,7 +1,7 @@
 #include "weighthandling.h"
 
 
-WeightHandling::WeightHandling(HandleType* handleType, int* weight, int* way, UsedHand* hand, Transportation* transportation)
+WeightHandling::WeightHandling(HandleType* handleType, int* weight, int* way, UsedHand* hand, TransportationListElement* transportation)
 {
     this->setHand(hand);
     this->setHandleType(handleType);
@@ -18,7 +18,7 @@ HandleType* WeightHandling::getHandleType(){
     return this->handleType;
 }
 
-Transportation* WeightHandling::getTransportation(){
+TransportationListElement* WeightHandling::getTransportation(){
     return this->transportation;
 }
 
@@ -42,7 +42,7 @@ void WeightHandling::setHandleType(HandleType *ht){
     this->handleType=ht;
 }
 
-void WeightHandling::setTransportation(Transportation *t){
+void WeightHandling::setTransportation(TransportationListElement *t){
     this->transportation=t;
 }
 

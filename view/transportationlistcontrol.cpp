@@ -1,4 +1,4 @@
-#include "listcontrol.h"
+#include "transportationlistcontrol.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QMessageBox>
@@ -6,7 +6,7 @@
 #include <QDebug>
 
 
-ListControl::ListControl(QString name, QVector<QString> *optionNames, QWidget *parent) :
+TransportationListControl::TransportationListControl(QString name, QVector<QString> *optionNames, QWidget *parent) :
     QGroupBox(parent)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -63,7 +63,7 @@ ListControl::ListControl(QString name, QVector<QString> *optionNames, QWidget *p
         currentOptions.append(false);
     }
 
-    this->transportations = new QList<Transportation*>();
+    this->transportations = new QList<TransportationListElement*>();
 
     if(!transportations->isEmpty()){
         for(int i = 0; i < transportations->length(); i++){
@@ -125,50 +125,51 @@ ListControl::ListControl(QString name, QVector<QString> *optionNames, QWidget *p
 }
 
 
-void ListControl::optionTruePressed(int index){
+void TransportationListControl::optionTruePressed(int index){
     if(currentTransportationId > - 1)
         transportationWithId(currentTransportationId)->setOption(index, true);
     currentOptions.replace(index, true);
     optionChanged(index);
 }
 
-void ListControl::optionFalsePressed(int index){
+void TransportationListControl::optionFalsePressed(int index){
     if(currentTransportationId > - 1)
         transportationWithId(currentTransportationId)->setOption(index, false);
     currentOptions.replace(index, false);
     optionChanged(index);
 }
 
-void ListControl::optionChanged(int index){
+void TransportationListControl::optionChanged(int index){
     optionsTrueBtns->at(index)->setSelected(currentOptions.at(index));
     optionsFalseBtns->at(index)->setSelected(!currentOptions.at(index));
 }
 
-void ListControl::weightChanged(int newWeight){
+void TransportationListControl::weightChanged(int newWeight){
     currentWeight = newWeight;
     if(currentTransportationId > -1)
         transportationWithId(currentTransportationId)->setWeight(newWeight);
 }
 
-void ListControl::maxLoadChanged(int newMaxLoad){
+void TransportationListControl::maxLoadChanged(int newMaxLoad){
     currentMaxLoad = newMaxLoad;
     if(currentTransportationId > -1)
         transportationWithId(currentTransportationId)->setMaxLoad(newMaxLoad);
 }
 
 
-void ListControl::transportationChanged(int id)
+void TransportationListControl::transportationChanged(int id)
 {
    setCurrentTransportationId(id);
-   Transportation* t = transportationWithId(id);
+   TransportationListElement* t = transportationWithId(id);
    for(int i = 0; i < options->length(); i++){
        optionsTrueBtns->at(i)->setSelected(t->getOption(i));
        optionsFalseBtns->at(i)->setSelected(!t->getOption(i));
        transportationWeight->setValue(t->getWeight());
+       transportationMaxLoad->setValue(t->getMaxLoad());
    }
 }
 
-void ListControl::setCurrentTransportationId(int id)
+void TransportationListControl::setCurrentTransportationId(int id)
 {
     if(currentTransportationId > -1 && transportationWithId(currentTransportationId) != NULL)
         transportationWithId(currentTransportationId)->setSelected(false);
@@ -177,7 +178,7 @@ void ListControl::setCurrentTransportationId(int id)
         transportationWithId(currentTransportationId)->setSelected(true);
 }
 
-void ListControl::disableSelection(){
+void TransportationListControl::disableSelection(){
     if(currentTransportationId > -1 && !transportations->isEmpty() && (newNameEdit->text() != "")){
         transportationWithId(currentTransportationId)->setSelected(false);
         for(int i = 0; i < options->length(); i++){
@@ -190,7 +191,7 @@ void ListControl::disableSelection(){
     setCurrentTransportationId(-1);
 }
 
-bool ListControl::isOptionChosen(){
+bool TransportationListControl::isOptionChosen(){
     bool optionChosen = false;
     for(int i = 0; i < options->length(); i++){
         optionChosen = (optionsFalseBtns->at(i)->isSelected() || optionsTrueBtns->at(i)->isSelected());
@@ -200,11 +201,11 @@ bool ListControl::isOptionChosen(){
     return true;
 }
 
-void ListControl::addTransportation()
+void TransportationListControl::addTransportation()
 {
     if(newNameEdit->text() != "" && isOptionChosen()){
 
-        Transportation *t = new Transportation(newNameEdit->text(), currentOptions, currentWeight, currentMaxLoad, this);
+        TransportationListElement *t = new TransportationListElement(newNameEdit->text(), currentOptions, currentWeight, currentMaxLoad, this);
         t->setMinimumSize(100, 60);
         transportations->append(t);
         connect(t, SIGNAL(pressedWithID(int)), this, SLOT(transportationChanged(int)));
@@ -222,7 +223,7 @@ void ListControl::addTransportation()
     }
 }
 
-void ListControl::removeTransportation(){
+void TransportationListControl::removeTransportation(){
     if(!transportations->isEmpty() && currentTransportationId > -1){
         int indexToRemove = transportationIndex(currentTransportationId);
         delete transportationWithId(currentTransportationId);
@@ -239,14 +240,14 @@ void ListControl::removeTransportation(){
     }
 }
 
-Transportation* ListControl::transportationWithId(int id){
+TransportationListElement* TransportationListControl::transportationWithId(int id){
     for(int i = 0; i < transportations->length(); i++)
         if(transportations->at(i)->getID() == id)
             return transportations->at(i);
     return NULL;
 }
 
-int ListControl::transportationIndex(int transportationId){
+int TransportationListControl::transportationIndex(int transportationId){
     for(int i = 0; i < transportations->length(); i++)
         if(transportations->at(i)->getID() == transportationId)
             return i;

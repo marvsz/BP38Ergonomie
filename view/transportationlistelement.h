@@ -1,14 +1,14 @@
-#ifndef TRANSPORTATION_H
-#define TRANSPORTATION_H
+#ifndef TRANSPORTATIONLISTELEMENT_H
+#define TRANSPORTATIONLISTELEMENT_H
 
 #include <QString>
 #include "selectablevaluebutton.h"
 
-class Transportation : public SelectableValueButton
+class TransportationListElement : public SelectableValueButton
 {
     Q_OBJECT
 public:
-    explicit Transportation(QString text = "", QVector<bool> options = QVector<bool>(), int weight = 0, int maxLoad = 0, QWidget *parent = 0);
+    explicit TransportationListElement(QString text = "", QVector<bool> options = QVector<bool>(), int weight = 0, int maxLoad = 0, QWidget *parent = 0);
 
     bool getOption(int index);
     void setOption(int index, bool b);
@@ -31,4 +31,4 @@ private:
     int maxLoad;
 };
 
-#endif // TRANSPORTATION_H
+#endif // TRANSPORTATIONLISTELEMENT_H

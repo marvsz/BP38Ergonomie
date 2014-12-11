@@ -7,7 +7,7 @@
 #include <QPushButton>
 #include <QGroupBox>
 #include "valuecontrol.h"
-#include "listcontrol.h"
+#include "transportationlistcontrol.h"
 #include "anglecontrol.h"
 #include "variantspecification.h"
 #include "variant.h"
@@ -36,7 +36,7 @@ private:
     ValueControl *hand;
     QWidget *main;
     QWidget *control;
-    ListControl *tools;
+    TransportationListControl *tools;
 };
 
 #endif // TransportView_H
