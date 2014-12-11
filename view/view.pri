@@ -26,7 +26,8 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/utilitylistcontrol.h \
     $$PWD/utilitylistelement.h \
     $$PWD/utilityoption.h \
-    $$PWD/subactivitycontrol.h
+    $$PWD/subactivitycontrol.h \
+    $$PWD/buttontimelineview.h
 
 
 SOURCES += $$CURRENT_DIR/variant.cpp\
@@ -53,5 +54,6 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/utilitylistcontrol.cpp \
     $$PWD/utilitylistelement.cpp \
     $$PWD/utilityoption.cpp \
-    $$PWD/subactivitycontrol.cpp
+    $$PWD/subactivitycontrol.cpp \
+    $$PWD/buttontimelineview.cpp
 

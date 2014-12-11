@@ -8,6 +8,8 @@
 #include <QScrollArea>
 #include <QScroller>
 #include <QScrollBar>
+#include <QFile>
+#include <QIODevice>
 
 
 StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
@@ -36,6 +38,7 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
   , btnSetAv(new QPushButton("AV"))
   , btnSetLeft(new QPushButton("L"))
   , btnSetRight(new QPushButton("R"))
+  , btnSaveGraph(new QPushButton("Graph"))
   , graph(new QLabel(""))
   , picture()
   , painter()
@@ -47,7 +50,13 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
   , lstRightAVs(new QStringList)
   , avPressed(false)
   , graphArea(new QScrollArea)
+  , leftAVButtons(new QVector<SelectableValueButton*>)
+  , rightAVButtons(new QVector<SelectableValueButton*>)
+  , avButtons(new QVector<SelectableValueButton*>)
+  , stopped(false)
+  , btnView(new ButtonTimelineView)
 {
+
     QHBoxLayout *mainLayout = new QHBoxLayout(this);
     QVBoxLayout *mainTimerLayout = new QVBoxLayout();
     QHBoxLayout *timerBtnLayout = new QHBoxLayout();
@@ -66,6 +75,7 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
 
     avLeftRightLayout->addWidget(btnAVLeft);
     avLeftRightLayout->addWidget(btnAVRight);
+    avLeftRightLayout->addWidget(btnSaveGraph);
     avSelLayout->addWidget(btnPrevAV);
     avSelLayout->addWidget(btnAV);
     avSelLayout->addWidget(btnNextAV);
@@ -102,11 +112,13 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
     btnSetAv->setFixedSize(80,60);
     btnSetLeft->setFixedSize(80,60);
     btnSetRight->setFixedSize(80,60);
-    btnAVLeft->setFixedSize(120, 60);
-    btnAVRight->setFixedSize(120, 60);
+    btnAVLeft->setFixedSize(100, 60);
+    btnAVRight->setFixedSize(100, 60);
     btnAV->setFixedSize(160, 60);
     avTime->setFixedSize(140,60);
     avTime->setInputMask("00:99");
+
+    btnSaveGraph->setFixedHeight(60);
 
     btnStartPause->setIcon(QIcon(":/timer/icons/Timer/start.png"));
     btnStartPause->setIconSize(QSize(40,40));
@@ -134,10 +146,13 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
     btnMinus->setEnabled(false);
     btnNextAV->setEnabled(false);
     btnPrevAV->setEnabled(false);
+    btnSaveGraph->setEnabled(false);
 
+    btnView->btnPlus->setEnabled(false);
+    btnView->btnMinus->setEnabled(false);
 
     connect(btnStartPause, SIGNAL(clicked()), SLOT(btnStartPauseClicked()));
-    connect(btnStopReset, SIGNAL(clicked()), SLOT(btnResetClicked()));
+    connect(btnStopReset, SIGNAL(clicked()), SLOT(btnStopResetClicked()));
     connect(btnSetAv, SIGNAL(clicked()), SLOT(btnSetAVClicked()));
     connect(btnAV, SIGNAL(clicked()), SLOT(btnAVClicked()));
     connect(btnAVLeft, SIGNAL(clicked()), SLOT(btnAVLeftClicked()));
@@ -148,6 +163,7 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
     connect(btnPrevAV, SIGNAL(clicked()), SLOT(btnPrevAVClicked()));
     connect(btnSetLeft, SIGNAL(clicked()), SLOT(btnSetLeftClicked()));
     connect(btnSetRight, SIGNAL(clicked()), SLOT(btnSetRightClicked()));
+    connect(btnSaveGraph, SIGNAL(clicked()), SLOT(getButtonView()));
 
 }
     const QString StopWatch::qssSelected = "QPushButton {font: 100 26px \"Serif\";color: #FFFFFF; border: 2px solid #007aff; border-radius: 10px; background-color: #007aff;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
@@ -177,7 +193,7 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
             currentAVTime = startTime;
     }
 
-    void StopWatch::btnResetClicked(){
+    void StopWatch::btnStopResetClicked(){
         running = false;
         btnStartPause->setIcon(QIcon(":/timer/icons/Timer/start.png"));
         btnStartPause->setToolTip("Start");
@@ -186,11 +202,18 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
             btnStopReset->setIcon(QIcon(":/timer/icons/Timer/reset.png"));
             btnStopReset->setToolTip("Reset");
             btnStartPause->setEnabled(false);
+            btnSaveGraph->setEnabled(true);
+            stopped = true;
+            lstAV->append("true");
+            lstLeftAVs->append("false");
+            lstRightAVs->append("false");
         }
         else {
             btnStopReset->setEnabled(false);
             btnSetAv->setEnabled(false);
             btnStartPause->setEnabled(true);
+            btnSaveGraph->setEnabled(false);
+            stopped = false;
             totalTime = 0;
             sessionTime = 0;
             timer->setText("00:00");
@@ -198,6 +221,22 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
             lstLeftAVs->clear();
             lstRightAVs->clear();
             updateGraph();
+            avTime->setText("00:00");
+            btnAV->setText("leer");
+            btnAV->setEnabled(false);
+            btnAVLeft->setEnabled(false);
+            btnAVRight->setEnabled(false);
+            btnPlus->setEnabled(false);
+            btnMinus->setEnabled(false);
+            btnNextAV->setEnabled(false);
+            btnPrevAV->setEnabled(false);
+            totalAV = 0;
+            currentAV = 0;
+            totalLeftAV = 0;
+            totalRightAV = 0;
+            btnSetLeft->setStyleSheet(this->qssNotSelected);
+            btnSetRight->setStyleSheet(this->qssNotSelected);
+            btnAV->setStyleSheet(this->qssNotSelected);
         }
 
 
@@ -212,7 +251,7 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
         str.append(QString("%1").arg(currentAV));
         btnAV->setText("AV " + str);
 
-        lstAVTime->append(getTime());
+        lstAVTime->append(getTime(currentAV));
 
         int t = lstAVTime->at(currentAV -1);
 
@@ -246,7 +285,7 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
         if(leftPressed){
             leftPressed = false;
             btnSetLeft->setStyleSheet(this->qssNotSelected);
-
+            totalLeftAV++;
         }
         else {
             leftPressed = true;
@@ -258,6 +297,7 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
         if(rightPressed){
             rightPressed = false;
             btnSetRight->setStyleSheet(this->qssNotSelected);
+            totalRightAV++;
         }
         else {
             rightPressed = true;
@@ -352,6 +392,11 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
         avTime->setText(diff);
     }
 
+    /*void StopWatch::btnSaveGraphClicked(){
+        QFile file("graph.png");
+        file.open(QIODevice::WriteOnly);
+        picture.save(&file);
+    }*/
 
     void StopWatch::timerEvent(QTimerEvent *){
         if(running){
@@ -367,12 +412,18 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
             if(counter != s){
                 updateAVs();
                 updateGraph();
+                //getButtonView();
             }
             counter = s;
         }
     }
 
     void StopWatch::updateAVs(){
+        if(stopped){
+           lstAV->append("true");
+           lstLeftAVs->append("false");
+           lstRightAVs->append("false");
+        }
         if(avPressed){
             lstAV->append("true");
             avPressed = false;
@@ -395,14 +446,12 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
         painter.setRenderHint(QPainter::Antialiasing);
 
         paintX = 10;
-        //painter.drawLine(-20, 85, -20, -85);
         for(int i = 0; i < lstLeftAVs->count(); ++i){
             QString s = lstLeftAVs->at(i);
 
             painter.setPen(QPen(Qt::blue, 3, Qt::SolidLine, Qt::RoundCap));
             if(s == "true"){
                 if(i > 0 && lstLeftAVs->at(i -1) == "false"){
-                    totalLeftAV++;
                     painter.drawLine(paintX -10, -60, paintX -10, -80);
                     painter.drawLine(paintX -10, -80, paintX, -80);
                 }
@@ -426,7 +475,6 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
             painter.setPen(QPen(Qt::green, 3, Qt::SolidLine, Qt::RoundCap));
             if(s == "true"){
                 if(i > 0 && lstRightAVs->at(i -1) == "false"){
-                    totalRightAV++;
                     painter.drawLine(paintX -10, 0, paintX -10, -20);
                     painter.drawLine(paintX -10, -20, paintX, -20);
                 }
@@ -485,13 +533,14 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
         painter.end();
 
         graph->setPicture(picture);
+        graph->repaint();
         graph->adjustSize();
 
         graphArea->horizontalScrollBar()->setValue(graphArea->horizontalScrollBar()->maximum());
 
     }
 
-    int StopWatch::getTime(){
+    int StopWatch::getTime(int currentAV){
         int avCount = 0;
         int secs = 0;
         for(int i = 1; i < lstAV->count(); ++i){
@@ -510,4 +559,99 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
            }
         }
         return secs +1;
+    }
+
+    int StopWatch::getLeftRightTime(int currentAV, QString leftright){
+        int avCount = 0;
+        int secs = 0;
+        if(leftright == "left"){
+            for(int i = 1; i < lstLeftAVs->count(); ++i){
+                QString s = lstLeftAVs->at(i);
+                if(avCount == (currentAV -1)){
+                    if(s == "true" && lstLeftAVs->at(i +1) == "false"){
+                        avCount++;
+                    }
+                    else if(s == "true")
+                        secs++;
+
+                }
+                else if(s == "true" && lstLeftAVs->at(i +1) == "false")
+                    avCount++;
+            }
+        }
+        else {
+            for(int i = 1; i < lstRightAVs->count(); ++i){
+                QString s = lstRightAVs->at(i);
+                if(avCount == (currentAV -1)){
+                    if(s == "true" && lstRightAVs->at(i +1) == "false"){
+                        avCount++;
+                    }
+                    else if(s == "true")
+                        secs++;
+
+                }
+                else if(s == "true" && lstRightAVs->at(i +1) == "false")
+                    avCount++;
+            }
+        }
+        return secs +1;
+    }
+
+    void StopWatch::getButtonView(){
+        btnView->btnPlus->setEnabled(true);
+        btnView->btnMinus->setEnabled(true);
+
+        int currentAV = 0;
+        for(int i = 0; i < lstLeftAVs->count(); ++i){
+            if(btnView->leftButtonLayout->itemAt(i) == 0){
+                if(lstLeftAVs->at(i) == "false"){
+                    btnView->leftButtonLayout->addItem(new QSpacerItem(100, 60));
+                }
+                else {
+                    if(i > 0 && lstLeftAVs->at(i -1) == "false"){
+                        currentAV++;
+                        QString btn = "L ";
+                        int time = getLeftRightTime(currentAV, "left");
+                        btn.append(QString("%1: %2s").arg(currentAV).arg(time));
+                        leftAVButtons->append((new SelectableValueButton(currentAV, time)));
+                        leftAVButtons->at(currentAV -1)->setFixedSize(time*100, 60);
+                        leftAVButtons->at(currentAV -1)->setText(btn);
+                        btnView->leftButtonLayout->addWidget(leftAVButtons->at(currentAV -1));
+                    }
+                }
+            }
+        }
+
+        currentAV = 0;
+        for(int i = 0; i < lstRightAVs->count(); ++i){
+            if(btnView->rightButtonLayout->itemAt(i) == 0){
+                if(lstRightAVs->at(i) == "false"){
+                    btnView->rightButtonLayout->addItem(new QSpacerItem(100, 60));
+                }
+                else {
+                    if(i > 0 && lstRightAVs->at(i -1) == "false"){
+                        currentAV++;
+                        QString btn = "R ";
+                        int time = getLeftRightTime(currentAV, "right");
+                        btn.append(QString("%1: %2s").arg(currentAV).arg(time));
+                        rightAVButtons->append((new SelectableValueButton(currentAV, time)));
+                        rightAVButtons->at(currentAV -1)->setFixedSize(time*100, 60);
+                        rightAVButtons->at(currentAV -1)->setText(btn);
+                        btnView->rightButtonLayout->addWidget(rightAVButtons->at(currentAV -1));
+                    }
+                }
+            }
+        }
+
+        for(int i = 1; i <= totalAV; ++i){
+            if(btnView->avButtonLayout->itemAt(i) == 0){
+                QString btn = "Av_";
+                int time = getTime(i);
+                btn.append(QString("%1: %2s").arg(i).arg(time));
+                avButtons->append(new SelectableValueButton(i, time));
+                avButtons->at(i -1)->setFixedSize(time*100,60);
+                avButtons->at(i -1)->setText(btn);
+                btnView->avButtonLayout->addWidget(avButtons->at(i -1));
+            }
+        }
     }

@@ -15,6 +15,7 @@ DocumentationView::DocumentationView(QWidget *parent) :
     tabs->addTab(new TransportView, "Lastenhandhabung");
     tabs->addTab(new ActionForceView, "Aktionskraft");
     tabs->addTab(new ExecutionConditionView, "Ausführungsbedingungen");
+    tabs->addTab(timer->btnView, "AV anzeigen");
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
 

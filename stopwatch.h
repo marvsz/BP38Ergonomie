@@ -11,6 +11,9 @@
 #include <QPicture>
 #include <QScrollArea>
 
+#include <selectablevaluebutton.h>
+#include <buttontimelineview.h>
+
 
 class StopWatch : public QWidget
 {
@@ -18,9 +21,11 @@ class StopWatch : public QWidget
 public:
     explicit StopWatch(QWidget *parent = 0);
 
+      ButtonTimelineView *btnView;
+
 private slots:
     void btnStartPauseClicked();
-    void btnResetClicked();
+    void btnStopResetClicked();
     void btnSetAVClicked();
     void btnAVClicked();
     void btnAVLeftClicked();
@@ -33,7 +38,9 @@ private slots:
     void updateAVs();
     void btnSetLeftClicked();
     void btnSetRightClicked();
-    int getTime();
+    int getTime(int currentAV);
+    int getLeftRightTime(int currentAV, QString leftright);
+    void getButtonView();
 
 
 protected:
@@ -74,6 +81,14 @@ private:
     QStringList *lstRightAVs;
 
     QScrollArea *graphArea;
+
+    QVector<SelectableValueButton*> *leftAVButtons;
+    QVector<SelectableValueButton*> *rightAVButtons;
+    QVector<SelectableValueButton*> *avButtons;
+    bool stopped;
+
+
+    QPushButton *btnSaveGraph;
 
     int paintX;
     int counter;
