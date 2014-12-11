@@ -17,7 +17,6 @@ public:
     void setValue(QString text);
     void clear();
     void setPlaceholder(QString placeholder);
-    void setInputMask(QString inputMask);
 
 signals:
     void valueChanged(int value);

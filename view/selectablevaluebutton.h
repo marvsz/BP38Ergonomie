@@ -14,9 +14,11 @@ public:
     void setID(int id);
     void setSelected(bool isSelected);
     bool isSelected() const;
-
+    void setFontSize(int fontSize);
     int getValue();
     void setValue(int value);
+
+        int getMaxFontSize() const;
 
 signals:
     void pressedWithID(int id);
@@ -30,12 +32,13 @@ private:
     int id;
     bool isSel;
     int value;
+    int fontSize;
 
     static const QString qssHead;
     static const QString qssSelected;
     static const QString qssNotSelected;
 
-    int getMaxFontSize();
+
 };
 
 #endif // SelectableValueButton_H

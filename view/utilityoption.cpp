@@ -1,5 +1,6 @@
 #include "utilityoption.h"
 #include <QHBoxLayout>
+#include "numberlineedit.h"
 UtilityOption::UtilityOption(QString* name, UtilityOptionType optionType, QWidget *parent) :
     QWidget(parent)
 {
@@ -10,7 +11,10 @@ UtilityOption::UtilityOption(QString* name, UtilityOptionType optionType, QWidge
     this->nameLabel = new QLabel();
     this->nameLabel->setText(*name);
 
-    this->inputTextField = new QLineEdit;
+    if(optionType == TEXT_OPTION)
+        this->inputTextField = new TextLineEdit(this);
+    else
+        this->inputTextField = new NumberLineEdit(this);
     connect(this->inputTextField, SIGNAL(textChanged(QString)), this, SLOT(textChanged()));
 
     layout->addWidget(this->nameLabel);
@@ -52,9 +56,6 @@ void UtilityOption::setPlaceholder(QString placeholder){
     this->inputTextField->setPlaceholderText(placeholder);
 }
 
-void UtilityOption::setInputMask(QString inputMask){
-    this->inputTextField->setInputMask(inputMask);
-}
 
 void UtilityOption::textChanged(){
     if(optionType == TEXT_OPTION)

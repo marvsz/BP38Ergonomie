@@ -18,7 +18,7 @@ public:
     explicit ValueControl(VariantControl controlType, QWidget *parent = 0);
 
     void setValues(int min, int max, QVector<int>* btnValues, QString* iconSetPath);
-    void setValues(QVector<QString*> *btnTexts, QString* iconSetPath);
+    void setValues(QVector<QString*> *btnTexts, QVector<QString *> *btnTextValues, QString* iconSetPath);
 
     VariantControl getControlType() const;
 
@@ -29,6 +29,9 @@ public:
 
     void setUnit(const QString &unit);
     QString getUnit() const;
+
+    QString getTextValue() const;
+    int getValue() const;
 
 
 signals:
@@ -47,6 +50,7 @@ private slots:
 
 private:
     QVector<int> *btnRanges;
+    QVector<QString*> *btnTextValues;
     QString unit;
     int currentSelectedBtnID;
     VariantControl conType;

@@ -30,6 +30,7 @@ private:
 
     QVector<QString*> *grabTypeTexts;
     QVector<QString*> *mtmCodeTexts;
+    QVector<QString*> *mtmCodeValueTexts;
     QVector<QString*> *impulseIntensityTexts;
 
 };
