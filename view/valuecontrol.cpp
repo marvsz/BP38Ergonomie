@@ -1,7 +1,7 @@
 #include "valuecontrol.h"
 #include <QGuiApplication>
 #include <QVBoxLayout>
-
+#include "numberlineedit.h"
 #include "selectablevaluebutton.h"
 
 ValueControl::ValueControl(VariantControl controlType, QWidget *parent) :
@@ -23,13 +23,13 @@ ValueControl::ValueControl(VariantControl controlType, QWidget *parent) :
     lblText->setMinimumWidth(300);
 
 
-    txtBxValue = new QLineEdit(this);
-    txtBxValue->setAlignment(Qt::AlignCenter);
+
+
     if(controlType == VALUE_CONTROL){
-        txtBxValue->setInputMask("#000");
+        txtBxValue = new NumberLineEdit(this);
+        txtBxValue->setAlignment(Qt::AlignCenter);
         txtBxValue->setFixedSize(100, 40);
         connect(txtBxValue, SIGNAL(editingFinished()), this, SLOT(txtBxValueHasChanged()));
-        connect(txtBxValue, SIGNAL(editingFinished()), QGuiApplication::inputMethod(), SLOT(hide()));
 
         btnPlus = new QPushButton (this);
         btnPlus->setText("+");
@@ -47,6 +47,8 @@ ValueControl::ValueControl(VariantControl controlType, QWidget *parent) :
         txtEdit->setLayout(txtEditLayout);
     }
     else{
+        txtBxValue = new TextLineEdit(this);
+        txtBxValue->setAlignment(Qt::AlignCenter);
         txtBxValue->setEnabled(false);
         txtBxValue->setMinimumSize(300, 40);
     }
@@ -137,12 +139,16 @@ void ValueControl::setValues(int min, int max, QVector<int>* btnValues, QString*
     sldrValueHasChanged();
 }
 
-void ValueControl::setValues(QVector<QString *> *btnTexts, QString *iconSetPath){
+void ValueControl::setValues(QVector<QString *> *btnTexts, QVector<QString*> *btnTextValues, QString *iconSetPath){
+    this->btnTextValues = btnTextValues;
+
     for(int i = 0; i < this->btnValues->length(); i++){
         btnLineLayout->removeWidget(this->btnValues->at(i));
         delete this->btnValues->at(i);
     }
     this->btnValues->clear();
+
+    int width = this->width() / btnTexts->length();
 
     for(int i = 0; i < btnTexts->length(); i++){
         SelectableValueButton *currentBtn = new SelectableValueButton(i, i, this);
@@ -155,7 +161,7 @@ void ValueControl::setValues(QVector<QString *> *btnTexts, QString *iconSetPath)
         this->btnValues->append(currentBtn);
         connect(currentBtn, SIGNAL(pressedWithID(int)), this, SLOT(btnTextHasClicked(int)));
         btnLineLayout->addWidget(currentBtn);
-        currentBtn->setMinimumSize(50, 60);
+        currentBtn->setMinimumSize(width, 60);
     }
     currentSelectedBtnID = 0;
 }
@@ -180,7 +186,7 @@ void ValueControl::btnValueHasClicked(int id){
 }
 
 void ValueControl::btnTextHasClicked(int id){
-    txtBxValue->setText(btnValues->at(id)->text());
+    txtBxValue->setText((*btnTextValues->at(id)));
     btnValues->at(currentSelectedBtnID)->setSelected(false);
     btnValues->at(id)->setSelected(true);
     currentSelectedBtnID = id;
@@ -215,6 +221,16 @@ void ValueControl::setText(QString text){
         this->lblText->setText(text.append(" [").append(unit).append("]:"));
     else
         this->lblText->setText(text);
+}
+
+QString ValueControl::getTextValue() const{
+    return txtBxValue->text();
+}
+
+int ValueControl::getValue() const{
+    if(conType == VALUE_CONTROL)
+        return sldrValue->value();
+    return 0;
 }
 
 QString ValueControl::getText() const{

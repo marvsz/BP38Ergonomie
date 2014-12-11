@@ -26,7 +26,9 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/utilitylistcontrol.h \
     $$PWD/utilitylistelement.h \
     $$PWD/utilityoption.h \
-    $$PWD/subactivitycontrol.h
+    $$PWD/subactivitycontrol.h \
+    $$PWD/numberlineedit.h \
+    $$PWD/textlineedit.h
 
 
 SOURCES += $$CURRENT_DIR/variant.cpp\
@@ -53,5 +55,7 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/utilitylistcontrol.cpp \
     $$PWD/utilitylistelement.cpp \
     $$PWD/utilityoption.cpp \
-    $$PWD/subactivitycontrol.cpp
+    $$PWD/subactivitycontrol.cpp \
+    $$PWD/numberlineedit.cpp \
+    $$PWD/textlineedit.cpp
 

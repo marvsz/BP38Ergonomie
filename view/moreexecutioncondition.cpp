@@ -1,5 +1,5 @@
 #include "moreexecutioncondition.h"
-
+#include "numberlineedit.h"
 #include <QLabel>
 #include "optionselectioncontrol.h"
 

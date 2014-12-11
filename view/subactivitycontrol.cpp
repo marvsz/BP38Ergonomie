@@ -1,12 +1,13 @@
 #include "subactivitycontrol.h"
-
+#include "numberlineedit.h"
+#include <QGuiApplication>
 #include "separator.h"
 
 SubActivityControl::SubActivityControl(QWidget *parent) :
     QWidget(parent),
     btnAdd(new QPushButton(this)),
     btnDelete(new QPushButton(this)),
-    txtbxDescription(new QLineEdit(this)),
+    txtbxDescription(new TextLineEdit(this)),
     btnList(new QVector<SelectableValueButton*>()),
     btnListLayout(new QVBoxLayout),
     selectedBtn(NULL)
@@ -27,6 +28,7 @@ SubActivityControl::SubActivityControl(QWidget *parent) :
 
     txtbxDescription->setPlaceholderText("Beschreibung der Teiltätigkeit");
     txtbxDescription->setMinimumWidth(300);
+    connect(txtbxDescription, SIGNAL(editingFinished()), QGuiApplication::inputMethod(), SLOT(hide()));
 
     mainLayout->addWidget(new QLabel("Teiltätigkeiten"), 0, 0, 1, 2, Qt::AlignLeft);
     mainLayout->addLayout(btnListLayout, 1, 0, 1, 2, 0);

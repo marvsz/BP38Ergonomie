@@ -28,7 +28,7 @@ TransportView::TransportView(QWidget *parent) :
     QVector<QString*>* typeValues = new QVector<QString*>();
     (*typeValues) << new QString("Halten") << new QString("Umsetzen") << new QString("Tragen") << new QString("Ziehen und Schieben");
     type = new ValueControl(TEXT_CONTROL, categoryScrollArea);
-    type->setValues(typeValues, new QString());
+    type->setValues(typeValues, typeValues,  new QString());
     type->setText("Lastenhandhabungsart:");
 
     QVector<int>* lastValues = new QVector<int>;
@@ -48,7 +48,7 @@ TransportView::TransportView(QWidget *parent) :
     QVector<QString*>* handValues = new QVector<QString*>();
     (*handValues) << new QString("Links") << new QString("Beide") << new QString("Rechts");
     hand = new ValueControl(TEXT_CONTROL, categoryScrollArea);
-    hand->setValues(handValues, new QString());
+    hand->setValues(handValues, handValues, new QString());
     hand->setText("Benutzte Hand:");
 
     QVector<QString>* options = new QVector<QString>();

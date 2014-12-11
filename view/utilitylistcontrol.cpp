@@ -37,23 +37,19 @@ UtilityListControl::UtilityListControl(QString name, QWidget *parent) :
 
     this->recoilIntensity = new UtilityOption(new QString("Rückschlagintensität"), VALUE_OPTION, this);
     this->recoilIntensity->setPlaceholder("Rückschlagintensität");
-    this->recoilIntensity->setInputMask("99999999");
     connect(this->recoilIntensity, SIGNAL(valueChanged(int)), this, SLOT(recoilIntensityChanged(int)));
 
 
     this->recoilCount = new UtilityOption(new QString("Rückschlaganzahl"), VALUE_OPTION, this);
     this->recoilCount->setPlaceholder("Rückschlaganzahl");
-    this->recoilCount->setInputMask("99999999");
     connect(this->recoilCount, SIGNAL(valueChanged(int)), this, SLOT(recoilCountChanged(int)));
 
     this->vibrationIntensity = new UtilityOption(new QString("Vibrationsintensität"), VALUE_OPTION, this);
     this->vibrationIntensity->setPlaceholder("Vibrationsintensität");
-    this->vibrationIntensity->setInputMask("99999999");
     connect(this->vibrationIntensity, SIGNAL(valueChanged(int)), this, SLOT(vibrationIntensityChanged(int)));
 
     this->vibrationCount = new UtilityOption(new QString("Vibrationsanzahl"), VALUE_OPTION, this);
     this->vibrationCount->setPlaceholder("Vibrationsanzahl");
-    this->vibrationCount->setInputMask("99999999");
     connect(this->vibrationCount, SIGNAL(valueChanged(int)), this, SLOT(vibrationCountChanged(int)));
 
     optionLayout->addRow(this->recoilIntensity);
