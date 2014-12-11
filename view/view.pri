@@ -27,12 +27,9 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/utilitylistelement.h \
     $$PWD/utilityoption.h \
     $$PWD/subactivitycontrol.h \
-<<<<<<< HEAD
-    $$PWD/buttontimelineview.h
-=======
+    $$PWD/buttontimelineview.h \
     $$PWD/numberlineedit.h \
     $$PWD/textlineedit.h
->>>>>>> origin/master
 
 
 SOURCES += $$CURRENT_DIR/variant.cpp\
@@ -60,10 +57,8 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/utilitylistelement.cpp \
     $$PWD/utilityoption.cpp \
     $$PWD/subactivitycontrol.cpp \
-<<<<<<< HEAD
-    $$PWD/buttontimelineview.cpp
-=======
+    $$PWD/buttontimelineview.cpp \
     $$PWD/numberlineedit.cpp \
     $$PWD/textlineedit.cpp
->>>>>>> origin/master
+
 
