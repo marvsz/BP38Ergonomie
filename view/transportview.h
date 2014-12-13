@@ -28,6 +28,7 @@ public:
 signals:
 
 private slots:
+    void typeChanged(QString);
 
 private:
     ValueControl *type;
@@ -37,6 +38,8 @@ private:
     QWidget *main;
     QWidget *control;
     TransportationListControl *tools;
+    QVector<int>* lastValues;
+    QVector<int>* heavyLastValues;
 };
 
 #endif // TransportView_H

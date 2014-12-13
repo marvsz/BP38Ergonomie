@@ -36,6 +36,7 @@ public:
 
 signals:
     void valueChanged(int value);
+    void valueChanged(QString text);
 
 public slots:
     void setValue(int value);
@@ -47,6 +48,7 @@ private slots:
     void btnTextHasClicked(int id);
     void btnPlusClicked();
     void btnMinusClicked();
+    void txtChanged(QString value);
 
 private:
     QVector<int> *btnRanges;
