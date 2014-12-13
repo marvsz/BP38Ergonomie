@@ -182,6 +182,7 @@ void TransportationListControl::disableSelection(){
     if(currentTransportationId > -1 && !transportations->isEmpty() && (newNameEdit->text() != "")){
         transportationWithId(currentTransportationId)->setSelected(false);
         for(int i = 0; i < options->length(); i++){
+            currentOptions.replace(i, false);
             optionsTrueBtns->at(i)->setSelected(false);
             optionsFalseBtns->at(i)->setSelected(false);
         }
@@ -191,19 +192,9 @@ void TransportationListControl::disableSelection(){
     setCurrentTransportationId(-1);
 }
 
-bool TransportationListControl::isOptionChosen(){
-    bool optionChosen = false;
-    for(int i = 0; i < options->length(); i++){
-        optionChosen = (optionsFalseBtns->at(i)->isSelected() || optionsTrueBtns->at(i)->isSelected());
-        if(optionChosen == false)
-            return false;
-    }
-    return true;
-}
-
 void TransportationListControl::addTransportation()
 {
-    if(newNameEdit->text() != "" && isOptionChosen()){
+    if(newNameEdit->text() != ""){
 
         TransportationListElement *t = new TransportationListElement(newNameEdit->text(), currentOptions, currentWeight, currentMaxLoad, this);
         t->setMinimumSize(100, 60);
