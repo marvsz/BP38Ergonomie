@@ -5,7 +5,15 @@
 #include "separator.h"
 #include <QDebug>
 
-
+/**
+ * @brief Constructs a TransportationListControl widget which is a child of parent.
+ * @param name A QString describing the header of the list.
+ * @param optionNames a QVector pointer of QStrings containing the names of the
+ * desired boolean options to be displayed.
+ * @param parent If parent is 0, the new widget becomes a window.
+ * If parent is another widget, this widget becomes a child window inside parent.
+ * The new widget is deleted when its parent is deleted.
+ */
 TransportationListControl::TransportationListControl(QString name, QVector<QString> *optionNames, QWidget *parent) :
     QGroupBox(parent)
 {
@@ -16,17 +24,23 @@ TransportationListControl::TransportationListControl(QString name, QVector<QStri
     QVBoxLayout *newLayout = new QVBoxLayout;
     QHBoxLayout *addRemLayout = new QHBoxLayout;
 
+    // VALID IDs START AT 0
     this->currentTransportationId = -1;
+
+    // INIT VALUES
     this->currentWeight = 0;
     this->currentMaxLoad = 0;
 
+    // INITIALIZE OPTIONS & BUTTONS
     this->currentOptions = QVector<bool>();
     this->optionsTrueBtns = new QVector<SelectableValueButton*>;
     this->optionsFalseBtns = new QVector<SelectableValueButton*>;
 
+    // SET THE NAME OF THE LIST
     this->name = new QLabel(this);
     this->name->setText(name);
 
+    // ADD A ROW FOR NEW TRANSPORTATION FUNCTIONALITY
     this->newName = new QLabel(this);
     this->newName->setText("Bezeichnung");
     this->newNameEdit = new QLineEdit(this);
@@ -34,7 +48,7 @@ TransportationListControl::TransportationListControl(QString name, QVector<QStri
     this->newNameEdit->setPlaceholderText("Neues Transportmittel");
     this->newNameEdit->setMinimumSize(400, 60);
 
-
+    // BUTTONS FOR ADDING/REMOVING
     this->addBtn = new SelectableValueButton(-1, 0, this);
     this->addBtn->setText("Transportmittel erstellen");
     this->addBtn->setMinimumSize(300, 60);
@@ -42,6 +56,7 @@ TransportationListControl::TransportationListControl(QString name, QVector<QStri
     this->remBtn->setText("Transportmittel entfernen");
     this->remBtn->setMinimumSize(300, 60);
 
+    // ADD A ROW WITH DESCRIPTION FOR EACH OPTION SPECIFIED IN THE VECTOR OF STRINGS
     this->options = new QVector<QLabel*>();
     for(int i = 0; i < optionNames->length(); i++){
         QLabel* option = new QLabel(this);
@@ -63,8 +78,8 @@ TransportationListControl::TransportationListControl(QString name, QVector<QStri
         currentOptions.append(false);
     }
 
+    // ADD INITIAL TRANSPORTATIONS TO THE LIST, IF AVAILABLE
     this->transportations = new QList<TransportationListElement*>();
-
     if(!transportations->isEmpty()){
         for(int i = 0; i < transportations->length(); i++){
             listLayout->addWidget(transportations->at(i));
@@ -72,6 +87,7 @@ TransportationListControl::TransportationListControl(QString name, QVector<QStri
         }
     }
 
+    // CONNECT BUTTONS AND LINEEDIT WITH DESIRED FUNCTIONALITY
     connect(addBtn, SIGNAL(clicked()), this, SLOT(addTransportation()));
     connect(remBtn, SIGNAL(clicked()), this, SLOT(removeTransportation()));
     connect(newNameEdit, SIGNAL(textChanged(QString)), this, SLOT(disableSelection()));
@@ -80,6 +96,7 @@ TransportationListControl::TransportationListControl(QString name, QVector<QStri
     newNameLayout->addWidget(newName, 1, Qt::AlignLeft);
     newNameLayout->addWidget(newNameEdit, 0, Qt::AlignCenter);
 
+    // ADD BUTTONS FOR EACH OPTION AND A SEPARATOR BETWEEN EACH TWO
     QVBoxLayout *optionListLayout = new QVBoxLayout;
     optionListLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     for(int i = 0; i < options->length(); i++){
@@ -91,6 +108,7 @@ TransportationListControl::TransportationListControl(QString name, QVector<QStri
         optionListLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     }
 
+    // VALUECONTROL FOR WEIGHT
     QVector<int>* weightValues = new QVector<int>;
     (*weightValues)<<2<<10<<50<<100<<1000;
     transportationWeight = new ValueControl(VALUE_CONTROL, this);
@@ -100,6 +118,7 @@ TransportationListControl::TransportationListControl(QString name, QVector<QStri
     optionListLayout->addWidget(transportationWeight);
     optionListLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
 
+    // VALUECONTROL FOR MAXLOAD
     QVector<int>* maxLoadValues = new QVector<int>;
     (*maxLoadValues)<<100<<500<<2500<<5000<<10000;
     transportationMaxLoad = new ValueControl(VALUE_CONTROL, this);
@@ -111,6 +130,7 @@ TransportationListControl::TransportationListControl(QString name, QVector<QStri
     connect(transportationWeight, SIGNAL(valueChanged(int)), this, SLOT(weightChanged(int)));
     connect(transportationMaxLoad, SIGNAL(valueChanged(int)), this, SLOT(maxLoadChanged(int)));
 
+    // LAYOUT
     addRemLayout->addWidget(addBtn, 0, Qt::AlignLeft);
     addRemLayout->addWidget(remBtn, 0, Qt::AlignRight);
     newLayout->addLayout(newNameLayout);
@@ -124,7 +144,12 @@ TransportationListControl::TransportationListControl(QString name, QVector<QStri
 
 }
 
+// PRIVATE SLOTS
 
+/**
+ * @brief A slot that is called, when a true button for an option is pressed.
+ * @param index
+ */
 void TransportationListControl::optionTruePressed(int index){
     if(currentTransportationId > - 1)
         transportationWithId(currentTransportationId)->setOption(index, true);
@@ -231,6 +256,8 @@ void TransportationListControl::removeTransportation(){
     }
 }
 
+
+// PRIVATE FUNCTIONS
 TransportationListElement* TransportationListControl::transportationWithId(int id){
     for(int i = 0; i < transportations->length(); i++)
         if(transportations->at(i)->getID() == id)

@@ -5,6 +5,11 @@
 #include <QLabel>
 #include <QLineEdit>
 #include "enum.h"
+
+/**
+ * @brief provides a template for an option of a utility which is a QWidget
+ * containing a special textfield NumberLineEdit or QLineEdit
+ */
 class UtilityOption : public QWidget
 {
     Q_OBJECT

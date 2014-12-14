@@ -8,6 +8,13 @@
 #include <QQmlEngine>
 #include "stopwatch.h"
 
+/**
+ * @brief The DocumentationView contains all view elements needed when
+ * documenting a workflow.
+ * A StopWatch is always present in the bottom area, the top area
+ * contains a QTabWidget with the different criteria views as tabs:
+ * AngleView, TransportView, ActionForceView, ExecutionConditionView.
+ */
 class DocumentationView : public QWidget
 {
     Q_OBJECT

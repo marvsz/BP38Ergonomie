@@ -60,10 +60,10 @@ private:
     QVector<SelectableValueButton*>* optionsFalseBtns;
     SelectableValueButton *addBtn;
     SelectableValueButton *remBtn;
+    QVBoxLayout *listLayout;    
 
     TransportationListElement* transportationWithId(int id);
     int transportationIndex(int transportationId);
-    QVBoxLayout *listLayout;
 };
 
 #endif // TRANSPORTATIONLISTCONTROL_H
