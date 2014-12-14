@@ -47,7 +47,7 @@ Rectangle {
     width: 800
     height: 480
 
-    color: "black"
+    color: "#efeff4"
     state: "PhotoCapture"
 
     states: [

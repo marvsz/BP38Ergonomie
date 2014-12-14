@@ -57,7 +57,7 @@ FocusScope {
         height: parent.height
         anchors.top: parent.top
         anchors.right: parent.right
-        color: Qt.rgba(0.08, 0.08, 0.08, 1)
+        color: "#efeff4"
 
         Column {
             anchors {
@@ -75,7 +75,7 @@ FocusScope {
             }
 
             CameraButton {
-                text: "Record"
+                text: "Aufnahme"
                 visible: camera.videoRecorder.recorderStatus == CameraRecorder.LoadedStatus
                 onClicked: camera.videoRecorder.record()
             }
@@ -88,7 +88,7 @@ FocusScope {
             }
 
             CameraButton {
-                text: "View"
+                text: "Vorschau"
                 onClicked: captureControls.previewSelected()
                 //don't show View button during recording
                 visible: camera.videoRecorder.actualLocation && !stopButton.visible
@@ -111,13 +111,13 @@ FocusScope {
             }
 
             CameraButton {
-                text: "Switch to Photo"
+                text: "Foto"
                 onClicked: captureControls.photoModeSelected()
             }
 
             CameraButton {
                 id: quitButton
-                text: "Quit"
+                text: "Kamera schließen"
                 onClicked: Qt.quit()
             }
         }

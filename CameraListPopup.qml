@@ -76,10 +76,10 @@ Popup {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 elide: Text.ElideRight
-                color: "white"
-                font.bold: true
-                style: Text.Raised
-                styleColor: "black"
+                color: "#007aff"
+                font.bold: false
+                style: Text.Normal
+                styleColor: "white"
                 font.pixelSize: 14
             }
             MouseArea {

@@ -12,11 +12,14 @@ DocumentationView::DocumentationView(QWidget *parent) :
     QWidget(parent)
 {
     QHBoxLayout* tabBarLayout = new QHBoxLayout;
+    tabBarLayout->setAlignment(tabBarLayout, Qt::AlignBottom);
+
     //backButton = new QPushButton("< Zurück");
     cameraButton = new QPushButton;
     cameraButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     cameraButton->setIcon(QIcon(":/icons/camera.png"));
-    cameraButton->setIconSize(QSize(50,50));
+    cameraButton->setIconSize(QSize(30,30));
+    cameraButton->setObjectName("cameraButton");
 
     this->tabs = new QTabWidget(this);
     this->timer = new StopWatch;

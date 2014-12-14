@@ -57,7 +57,7 @@ FocusScope {
         height: parent.height
         anchors.top: parent.top
         anchors.right: parent.right
-        color: Qt.rgba(0.08, 0.08, 0.08, 1)
+        color: "#efeff4"
 
         Column {
             anchors {
@@ -75,7 +75,7 @@ FocusScope {
             }
 
             CameraButton {
-                text: "Capture"
+                text: "Aufnahme"
                 visible: camera.imageCapture.ready
                 onClicked: camera.imageCapture.capture()
             }
@@ -114,7 +114,7 @@ FocusScope {
             }
 
             CameraButton {
-                text: "View"
+                text: "Vorschau"
                 onClicked: captureControls.previewSelected()
                 visible: captureControls.previewAvailable
             }
@@ -136,13 +136,13 @@ FocusScope {
             }
 
             CameraButton {
-                text: "Switch to Video"
+                text: "Video"
                 onClicked: captureControls.videoModeSelected()
             }
 
             CameraButton {
                 id: quitButton
-                text: "Quit"
+                text: "Kamera schließen"
                 onClicked: Qt.quit()
             }
         }
