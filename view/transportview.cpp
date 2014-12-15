@@ -11,6 +11,12 @@
 #include "flickcharm.h"
 #include <QDebug>
 
+/**
+ * @brief Constructs a new Transportview
+ * @param parent If parent is 0, the new widget becomes a window.
+ * If parent is another widget, this widget becomes a child window inside parent.
+ * The new widget is deleted when its parent is deleted.
+ */
 TransportView::TransportView(QWidget *parent) :
     QMainWindow(parent)
 {

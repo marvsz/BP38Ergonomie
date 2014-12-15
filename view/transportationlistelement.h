@@ -4,6 +4,11 @@
 #include <QString>
 #include "selectablevaluebutton.h"
 
+/**
+ * @brief A class providing functionality for a list element of the
+ * TransportationListControl. A TransportationListElement is a SelectableValueButton
+ * which has multiple options, a weight and a max load.
+ */
 class TransportationListElement : public SelectableValueButton
 {
     Q_OBJECT

@@ -148,7 +148,10 @@ TransportationListControl::TransportationListControl(QString name, QVector<QStri
 
 /**
  * @brief A slot that is called, when a true button for an option is pressed.
- * @param index
+ * When pushing the button, the current selected id currentTransportationId is
+ * changed  to the button's id, and the method <optionChanged>"("int")" is called.
+ * The value of the option with the index is changed to true, if the index is valid
+ * @param index The index of the button pressed.
  */
 void TransportationListControl::optionTruePressed(int index){
     if(currentTransportationId > - 1)
@@ -157,6 +160,13 @@ void TransportationListControl::optionTruePressed(int index){
     optionChanged(index);
 }
 
+/**
+ * @brief A slot that is called, when a false button for an option is pressed.
+ * When pushing the button, the current selected id currentTransportationId is
+ * changed  to the button's id, and the method <optionChanged>"("int")" is called.
+ * The value of the option with the index is changed to false, if the index is valid
+ * @param index The index of the button pressed.
+*/
 void TransportationListControl::optionFalsePressed(int index){
     if(currentTransportationId > - 1)
         transportationWithId(currentTransportationId)->setOption(index, false);
@@ -164,24 +174,47 @@ void TransportationListControl::optionFalsePressed(int index){
     optionChanged(index);
 }
 
+/**
+ * @brief A slot that is called when an option changed. The slot changes the
+ * true and false buttons selection state, based on the current option
+ * at the selected index
+ * @param index The index of the changed option
+ */
 void TransportationListControl::optionChanged(int index){
     optionsTrueBtns->at(index)->setSelected(currentOptions.at(index));
     optionsFalseBtns->at(index)->setSelected(!currentOptions.at(index));
 }
 
+/**
+ * @brief A slot that is called when the weight changed. The current weight
+ * is then set to the newWeight value. The transportation the the current
+ * selected id is then set to this weight, if the index is valid (> -1).
+ * @param newWeight The value of the changed weight.
+ */
 void TransportationListControl::weightChanged(int newWeight){
     currentWeight = newWeight;
     if(currentTransportationId > -1)
         transportationWithId(currentTransportationId)->setWeight(newWeight);
 }
 
+/**
+ * @brief A slot that is called when the max load changed. The current max load
+ * is then set to the newMaxLoad value. The transportation with the current
+ * selected id is then set to this max load, if the index is valid (> -1).
+ * @param newMaxLoad The value of the changed max load.
+ */
 void TransportationListControl::maxLoadChanged(int newMaxLoad){
     currentMaxLoad = newMaxLoad;
     if(currentTransportationId > -1)
         transportationWithId(currentTransportationId)->setMaxLoad(newMaxLoad);
 }
 
-
+/**
+ * @brief A slot that is called when the selected transportation changed.
+ * The slot handles the displaying of the correct values for the selected
+ * TransportationListElement (options, weight and max load).
+ * @param id The id of the TransportationListElement selected.
+ */
 void TransportationListControl::transportationChanged(int id)
 {
    setCurrentTransportationId(id);
@@ -194,6 +227,13 @@ void TransportationListControl::transportationChanged(int id)
    }
 }
 
+/**
+ * @brief A slot that is called to change the current selected transportation.
+ * If the id is valid, the before selected transportation is unselected and the
+ * newly selected transportation is set selected. The currentTransportationId is set
+ * to the id of the newly selected TransportationListElement.
+ * @param id The id of the newly selected TransportationListElement
+ */
 void TransportationListControl::setCurrentTransportationId(int id)
 {
     if(currentTransportationId > -1 && transportationWithId(currentTransportationId) != NULL)
@@ -203,6 +243,12 @@ void TransportationListControl::setCurrentTransportationId(int id)
         transportationWithId(currentTransportationId)->setSelected(true);
 }
 
+/**
+ * @brief A slot that is called to unselect all buttons and set the values of
+ * all currently saved options to the default value (false) and set weight
+ * and max load to the default value (0).
+ * The currentTransportationId is set to -1 (no Transportation selected).
+ */
 void TransportationListControl::disableSelection(){
     if(currentTransportationId > -1 && !transportations->isEmpty() && (newNameEdit->text() != "")){
         transportationWithId(currentTransportationId)->setSelected(false);
@@ -217,6 +263,14 @@ void TransportationListControl::disableSelection(){
     setCurrentTransportationId(-1);
 }
 
+/**
+ * @brief A slot that is called to add a TransportationListElement to the
+ * list of transportations. The TransportationListElement is initialized with
+ * the current selected values, if no options are selected, the default values
+ * are false for options and 0 for weight and max load.
+ * The textfield for entering a new name is cleared and all selections are disabled
+ * after adding the TransportationListElement.
+ */
 void TransportationListControl::addTransportation()
 {
     if(newNameEdit->text() != ""){
@@ -239,6 +293,12 @@ void TransportationListControl::addTransportation()
     }
 }
 
+/**
+ * @brief A slot that is called to remove a TransportationListElement from the
+ * list of transportations. The TransportationListElement is removed from the list
+ * and all options are reset to the default values (false), weight and max load
+ * are reset to 0, all selections are disabled.
+ */
 void TransportationListControl::removeTransportation(){
     if(!transportations->isEmpty() && currentTransportationId > -1){
         int indexToRemove = transportationIndex(currentTransportationId);
@@ -258,6 +318,13 @@ void TransportationListControl::removeTransportation(){
 
 
 // PRIVATE FUNCTIONS
+/**
+ * @brief A function to find the TransportationListElement with a certain id
+ * in the list of known transportations.
+ * @param id The id of the desired TransportationListElement.
+ * @return A pointer to the TransportationListElement with the id. NULL, if
+ * the TransportationListElement is not in the list
+ */
 TransportationListElement* TransportationListControl::transportationWithId(int id){
     for(int i = 0; i < transportations->length(); i++)
         if(transportations->at(i)->getID() == id)
@@ -265,6 +332,13 @@ TransportationListElement* TransportationListControl::transportationWithId(int i
     return NULL;
 }
 
+/**
+ * @brief A function to find the index of a TransportationListElement in the list
+ * of known transportations.
+ * @param transportationId The id of the TransportationListElement.
+ * @return The index in the list of transportations, -1 (invalid index),
+ * if the TransportationListElement is not in the list.
+ */
 int TransportationListControl::transportationIndex(int transportationId){
     for(int i = 0; i < transportations->length(); i++)
         if(transportations->at(i)->getID() == transportationId)

@@ -17,6 +17,12 @@ namespace Ui {
 class TransportView;
 }
 
+/**
+ * @brief A class providing a view for transporthandling. The class contains
+ * different ValueControl for the type, of handling the weight to be handled,
+ * the way to go and the hand used. Furthermore there is a TransportationListControl
+ * with the list of transportations available.
+ */
 class TransportView : public QMainWindow
 {
     Q_OBJECT
@@ -28,7 +34,13 @@ public:
 signals:
 
 private slots:
-    void typeChanged(QString);
+    /**
+     * @brief A slot that is called, whenever the type of handling changes.
+     * Depending of the new type the ValueControl ranges of the weight
+     * to be handled are adapted.
+     * @param type The new type selected.
+     */
+    void typeChanged(QString type);
 
 private:
     ValueControl *type;
