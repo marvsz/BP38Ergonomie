@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QTabWidget>
+#include <QStackedWidget>
+#include <QComboBox>
 #include <QTabBar>
 #include <QQuickView>
 #include <QQmlEngine>
@@ -29,11 +31,16 @@ private slots:
     void showCamera();
     void hideCamera();
 private:
-    QTabWidget *tabs;
-    StopWatch *timer;
-    //QPushButton* backButton;
+    // TAB SOLUTION
+    // QTabWidget *tabs;
+
+    // COMBOBOX SOLUTION
+    QPushButton* backButton;
+    QComboBox *views;
     QPushButton* cameraButton;
-    QQuickView view;
+    QStackedWidget *mainContent;
+    QQuickView cameraView;
+    StopWatch *timer;
 
 };
 

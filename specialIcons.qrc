@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>icons/camera.png</file>
-        <file>icons/camera50.png</file>
-    </qresource>
-</RCC>

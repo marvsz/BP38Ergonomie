@@ -13,7 +13,7 @@ RESOURCES += \
     btnIcons.qrc \
     timerIcons.qrc \
     declarative-camera.qrc \
-    specialIcons.qrc
+    specialPurposeIcons.qrc
 
 HEADERS += \
     enum.h \

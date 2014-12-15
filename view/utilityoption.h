@@ -7,8 +7,8 @@
 #include "enum.h"
 
 /**
- * @brief provides a template for an option of a utility which is a QWidget
- * containing a special textfield NumberLineEdit or QLineEdit
+ * @brief A class prividing functionality for an option of a utility which is a QWidget
+ * containing a special textfield NumberLineEdit or TextLineEdit, depending on the type.
  */
 class UtilityOption : public QWidget
 {
