@@ -16,7 +16,7 @@ DocumentationView::DocumentationView(QWidget *parent) :
     cameraButton = new QPushButton;
     cameraButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     cameraButton->setIcon(QIcon(":/icons/camera.png"));
-    cameraButton->setIconSize(QSize(50,50));
+    cameraButton->setIconSize(QSize(30,30));
 
     this->tabs = new QTabWidget(this);
     this->timer = new StopWatch;
