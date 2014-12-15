@@ -27,10 +27,7 @@ DocumentationView::DocumentationView(QWidget *parent) :
     cameraButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     cameraButton->setIcon(QIcon(":/icons/camera.png"));
     cameraButton->setIconSize(QSize(30,30));
-<<<<<<< HEAD
-=======
     cameraButton->setObjectName("cameraButton");
->>>>>>> origin/master
 
     // ADD QTABWIDGET AND STOPWATCH
     this->tabs = new QTabWidget(this);

@@ -28,13 +28,8 @@ int main(int argc, char *argv[])
                         "QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical  {border: 0px solid #007aff; background: #efeff4;}"
                         "QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {width: 0px; height: 0px;}"
                         "OwnCon {background-color: #efeff4;}"
-<<<<<<< HEAD
                         "QTabWidget::pane {border-top: 2px solid #c8c7cc; margin-top: -35px;}"
                         "QTabWidget::tab-bar {alignment: center; }"
-=======
-                        "QTabWidget::pane {border-top: 2px solid #c8c7cc;}"
-                        "QTabWidget::tab-bar {alignment: center;}"
->>>>>>> origin/master
                         "QTabBar::Tab {border: 1px solid #007aff; border-top-left-radius: 4px; border-top-right-radius: 4px; padding: 6px; margin-bottom: -1px;}"
                         "QTabBar::Tab:selected {color: #ffffff; background-color: #007aff; margin-left: -4px; margin-right: -4px}"
                         "QTabBar::Tab:first:selected {margin-left: 0px}"
