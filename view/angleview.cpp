@@ -111,30 +111,43 @@ AngleView::AngleView(QWidget *parent) :
     flickCharm->activateOn(categoryScrollArea);
     this->setCentralWidget(categoryScrollArea);
 
+    connect(acTorso, SIGNAL(contentIsShown()), this, SLOT(showTorso()));
+    connect(acArms, SIGNAL(contentIsShown()), this, SLOT(showArms()));
+    connect(acLegs, SIGNAL(contentIsShown()), this, SLOT(showLegs()));
+    connect(acHead, SIGNAL(contentIsShown()), this, SLOT(showHead()));
+    showTorso();
+}
+
+AngleView::~AngleView()
+{
+}
+
+//private slots
+
+void AngleView::showTorso(){
     acTorso->showContent();
     acArms->hideContent();
     acLegs->hideContent();
     acHead->hideContent();
 }
+void AngleView::showArms(){
+    acTorso->hideContent();
+    acArms->showContent();
+    acLegs->hideContent();
+    acHead->hideContent();
+}
 
-AngleView::~AngleView()
-{
-    delete headRotation;
-    delete headSidewiseTilt;
-    delete headTilt;
-    delete torsoFlextion;
-    delete torsoRotation;
-    delete torsoTilt;
-    delete armsUnderPosition;
-    delete armsUnderRotation;
-    delete armsRotation;
-    delete armsPosition;
-    delete armsOpening;
-    delete legAnkle;
-    delete legKnee;
-    delete legAngle;
-    delete varSpeciArms;
-    delete varSpeciLegs;
+void AngleView::showLegs(){
+    acTorso->hideContent();
+    acArms->hideContent();
+    acLegs->showContent();
+    acHead->hideContent();
+}
 
+void AngleView::showHead(){
+    acTorso->hideContent();
+    acArms->hideContent();
+    acLegs->hideContent();
+    acHead->showContent();
 }
 

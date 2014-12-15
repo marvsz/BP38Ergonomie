@@ -7,7 +7,6 @@
 #include <QPushButton>
 #include <QVector>
 #include <QString>
-#include <QLabel>
 #include "valuecontrol.h"
 #include "variantcon.h"
 #include "variant.h"
@@ -23,6 +22,8 @@ public:
     void selectVariant(int id);
 
 signals:
+    void contentIsShown();
+    void contentIsHidden();
 
 public slots:
     void showContent();
@@ -35,8 +36,7 @@ private slots:
 private:
     VariantCon *variantCon;
 
-    QLabel *descLbl;
-    QPushButton *showHideBtn;
+    QPushButton *btnDescription;
     QVector<ValueControl*> *valueControls;
     QVector<Separator*> *ownConSeparator;
     QHBoxLayout *mainHLayout;
