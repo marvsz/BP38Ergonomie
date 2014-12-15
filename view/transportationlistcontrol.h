@@ -14,6 +14,13 @@
 #include "selectablevaluebutton.h"
 #include "valuecontrol.h"
 
+/**
+ * @brief A Class providing functionality for displaying and handling different TransportationListElement.
+ * TransportationListElement can be add and deleted over buttons. Each transportation
+ * has a name and multiple boolean options which can be adjusted over buttons.
+ * Furthermore a transportation holds two values for weight and max load of the
+ * transportation. These values can be adjusted with two ValueControl.
+ */
 class TransportationListControl : public QGroupBox
 {
     Q_OBJECT
@@ -53,10 +60,10 @@ private:
     QVector<SelectableValueButton*>* optionsFalseBtns;
     SelectableValueButton *addBtn;
     SelectableValueButton *remBtn;
-    bool isOptionChosen();
+    QVBoxLayout *listLayout;
+
     TransportationListElement* transportationWithId(int id);
     int transportationIndex(int transportationId);
-    QVBoxLayout *listLayout;
 };
 
 #endif // TRANSPORTATIONLISTCONTROL_H

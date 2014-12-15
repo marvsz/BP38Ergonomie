@@ -27,6 +27,10 @@ public:
 signals:
 
 private slots:
+    void showTorso();
+    void showArms();
+    void showLegs();
+    void showHead();
 
 private:
     AngleControl *acTorso;

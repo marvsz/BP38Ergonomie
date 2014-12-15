@@ -51,6 +51,7 @@ ValueControl::ValueControl(VariantControl controlType, QWidget *parent) :
         txtBxValue->setAlignment(Qt::AlignCenter);
         txtBxValue->setEnabled(false);
         txtBxValue->setMinimumSize(300, 40);
+        connect(txtBxValue, SIGNAL(textChanged(QString)), this, SLOT(txtChanged(QString)));
     }
 
     txtEditLineLayout->addWidget(lblText, 0, Qt::AlignLeft);
@@ -100,6 +101,7 @@ ValueControl::ValueControl(VariantControl controlType, QWidget *parent) :
 void ValueControl::setValue(int value){
     sldrValue->setValue(value);
 }
+
 
 //Public functions
 void ValueControl::setValues(int min, int max, QVector<int>* btnValues, QString* iconSetPath){
@@ -201,6 +203,9 @@ void ValueControl::btnMinusClicked(){
     sldrValue->setValue(sldrValue->value() - 1);
 }
 
+void ValueControl::txtChanged(QString value){
+    emit valueChanged(value);
+}
 
 // Private functions
 void ValueControl::btnHighlight(int value){

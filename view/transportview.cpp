@@ -9,8 +9,14 @@
 #include "valuecontrol.h"
 #include "separator.h"
 #include "flickcharm.h"
+#include <QDebug>
 
-
+/**
+ * @brief Constructs a new Transportview
+ * @param parent If parent is 0, the new widget becomes a window.
+ * If parent is another widget, this widget becomes a child window inside parent.
+ * The new widget is deleted when its parent is deleted.
+ */
 TransportView::TransportView(QWidget *parent) :
     QMainWindow(parent)
 {
@@ -30,9 +36,12 @@ TransportView::TransportView(QWidget *parent) :
     type = new ValueControl(TEXT_CONTROL, categoryScrollArea);
     type->setValues(typeValues, typeValues,  new QString());
     type->setText("Lastenhandhabungsart:");
+    connect(type, SIGNAL(valueChanged(QString)), this, SLOT(typeChanged(QString)));
 
-    QVector<int>* lastValues = new QVector<int>;
+    lastValues = new QVector<int>;
     (*lastValues)<<2<<3<<5<<10<<20;
+    heavyLastValues = new QVector<int>;
+    (*heavyLastValues)<<100<<500<<1000<<1500<<2000;
     last = new ValueControl(VALUE_CONTROL, categoryScrollArea);
     last->setUnit("kg");
     last->setValues(1, 100, lastValues, new QString());
@@ -41,8 +50,8 @@ TransportView::TransportView(QWidget *parent) :
     QVector<int>* wegValues = new QVector<int>;
     (*wegValues)<<2<<3<<5<<10<<20;
     weg = new ValueControl(VALUE_CONTROL, categoryScrollArea);
-    weg->setValues(0, 20, wegValues, new QString());
     weg->setUnit("m");
+    weg->setValues(0, 20, wegValues, new QString());
     weg->setText("Weg");
 
     QVector<QString*>* handValues = new QVector<QString*>();
@@ -80,6 +89,14 @@ TransportView::TransportView(QWidget *parent) :
 
     main->setLayout(mainLayout);
     this->setCentralWidget(main);
+}
+
+void TransportView::typeChanged(QString newType){
+    qDebug() << newType;
+    if(newType == "Ziehen und Schieben")
+        last->setValues(1, 2000, heavyLastValues, new QString());
+    else
+        last->setValues(1, 100, lastValues, new QString());
 }
 
 TransportView::~TransportView()

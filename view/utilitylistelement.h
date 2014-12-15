@@ -3,6 +3,11 @@
 #include <QString>
 #include "selectablevaluebutton.h"
 
+/**
+ * @brief A class providing functionality for a list element of the
+ * UtiliyListControl. A UtilityListElement is a SelectableValueButton
+ * which has a recoil intensity and count and a vibration intensity and count.
+ */
 class UtilityListElement : public SelectableValueButton
 {
 public:

@@ -45,8 +45,8 @@ Item {
     property alias value : popup.currentValue
     property alias model : popup.model
 
-    width : 144
-    height: 70
+    width : 200
+    height: 60
     visible: model.length > 0
 
     BorderImage {

@@ -11,6 +11,11 @@
 #include "utilityoption.h"
 #include "selectablevaluebutton.h"
 
+/**
+ * @brief A Class providing functionality for displaying and handling different UtilityListElement.
+ * UtilityListElement can be add and deleted over buttons. Each utility
+ * has a name and multiple UtilityOption to adjust the current recoil and vibration values.
+ */
 class UtilityListControl : public QGroupBox
 {
     Q_OBJECT

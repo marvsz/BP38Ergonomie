@@ -13,8 +13,10 @@ AngleControl::AngleControl(QString* descVarConText, Variant* variant, VariantSpe
     mainHLayout = new QHBoxLayout;
     subVariantsLayout = new QVBoxLayout;
 
-    this->descLbl = new QLabel(this);
-    descLbl->setText((*descVarConText));
+    btnDescription = new QPushButton(this);
+    btnDescription->setText((*descVarConText));
+    btnDescription->setMinimumWidth(100);
+    connect(btnDescription, SIGNAL(clicked()), this, SLOT(showHideBtnPressed()));
 
     this->variantCon = new VariantCon(this);
     this->variantCon->setVariantSpecification(varSpeci);
@@ -23,11 +25,6 @@ AngleControl::AngleControl(QString* descVarConText, Variant* variant, VariantSpe
     this->valueControls->append(new ValueControl(VALUE_CONTROL, this));
 
     this->ownConSeparator = new QVector<Separator*>();
-
-    this->showHideBtn = new QPushButton(this);
-    this->showHideBtn->setText("-");
-    this->showHideBtn->setMinimumSize(40,40);
-    connect(showHideBtn, SIGNAL(pressed()), this, SLOT(showHideBtnPressed()));
 
     this->addVariant(variant);
 
@@ -39,9 +36,8 @@ AngleControl::AngleControl(QString* descVarConText, Variant* variant, VariantSpe
     subVariantsLayout->addWidget(valueControls->at(0));
     mainHLayout->addLayout(subVariantsLayout);
 
-    firstLineLayout->addWidget(descLbl, 0, Qt::AlignLeft);
+    firstLineLayout->addWidget(btnDescription, 0, Qt::AlignLeft);
     firstLineLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding,QSizePolicy::Expanding));
-    firstLineLayout->addWidget(showHideBtn, 0, Qt::AlignRight);
 
     mainVLayout->addLayout(firstLineLayout);
     mainVLayout->addWidget(content);
@@ -108,21 +104,21 @@ void AngleControl::selectVariant(int id){
 }
 
 void AngleControl::showHideBtnPressed(){
-    if(showHideBtn->text().compare(QString("+"), Qt::CaseSensitive) == 0)
+    if(content->isHidden()){
         this->showContent();
-    else
+        emit contentIsShown();
+    }
+    else {
         this->hideContent();
+        emit contentIsHidden();
+    }
 }
 
 void AngleControl::showContent(){
     content->show();
-    this->showHideBtn->setText("-");
-    QApplication::processEvents();
 }
 
 void AngleControl::hideContent(){
     content->hide();
-    this->showHideBtn->setText("+");
-    QApplication::processEvents();
 }
 

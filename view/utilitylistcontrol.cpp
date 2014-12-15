@@ -1,5 +1,14 @@
 #include "utilitylistcontrol.h"
 #include <QLabel>
+/**
+ * @brief Constructs a TransportationListControl widget which is a child of parent.
+ * The values for recoil and vibration are set to the default values 0.
+ * The default selection is none.
+ * @param name A QString describing the header of the list.
+ * @param parent If parent is 0, the new widget becomes a window.
+ * If parent is another widget, this widget becomes a child window inside parent.
+ * The new widget is deleted when its parent is deleted.
+ */
 UtilityListControl::UtilityListControl(QString name, QWidget *parent) :
     QGroupBox(parent)
 {
@@ -65,6 +74,13 @@ UtilityListControl::UtilityListControl(QString name, QWidget *parent) :
 }
 
 // private slots
+/**
+ * @brief A slot that is called to change the current selected utility.
+ * If the id is valid (> -1), the before selected utility is unselected and the
+ * newly selected utility is set selected. The currentUtilityId is set
+ * to the id of the newly selected UtilityListElement.
+ * @param id The id of the newly selected UtilityListElement
+ */
 void UtilityListControl::setCurrentUtilityId(int id){
     if(currentUtilityId > -1 && utilityWithId(currentUtilityId) != NULL)
         utilityWithId(currentUtilityId)->setSelected(false);
@@ -73,6 +89,13 @@ void UtilityListControl::setCurrentUtilityId(int id){
         utilityWithId(currentUtilityId)->setSelected(true);
 }
 
+/**
+ * @brief A slot that is called to add a UtilityListElement to the
+ * list of utilities. The UtilityListElement is initialized with
+ * the current selected values, the default values are 0.
+ * The textfield for entering a new name is cleared and all selections are disabled
+ * after adding the UtilityListElement.
+ */
 void UtilityListControl::addUtility(){
     if(utilityName->getTextValue() != ""){
         UtilityListElement* u = new UtilityListElement(utilityName->getTextValue(), recoilIntensity->getIntValue(), recoilCount->getIntValue(), vibrationIntensity->getIntValue(), vibrationCount->getIntValue(), this);
@@ -86,6 +109,12 @@ void UtilityListControl::addUtility(){
     }
 }
 
+/**
+ * @brief A slot that is called to remove a UtilityListElement from the
+ * list of utilities. The UtilityListElement is removed from the list
+ * and all values are reset to default values (0).
+ * All selections are disabled.
+ */
 void UtilityListControl::removeUtility(){
     if(!utilites->isEmpty() && currentUtilityId > -1){
         int indexToRemove = utilityIndex(currentUtilityId);
@@ -97,6 +126,12 @@ void UtilityListControl::removeUtility(){
     clearValues();
 }
 
+/**
+ * @brief A slot that is called when the selected utility changed.
+ * The slot handles the displaying of the correct values for the selected
+ * UtilityListElement (recoil and vibration)
+ * @param id The id of the UtilityListElement selected.
+ */
 void UtilityListControl::utilityChanged(int id){
     setCurrentUtilityId(id);
     UtilityListElement* u = utilityWithId(currentUtilityId);
@@ -108,6 +143,11 @@ void UtilityListControl::utilityChanged(int id){
 
 }
 
+/**
+ * @brief A slot that is called to unselect all buttons and set the values of
+ * all currently saved values to default (0).
+ * The currentUtilityId is set to  -1 (no Utility selected).
+ */
 void UtilityListControl::disableSelection(){
     if(currentUtilityId > -1 && !utilites->isEmpty() && utilityName->getTextValue() != ""){
         utilityWithId(currentUtilityId)->setSelected(false);
@@ -116,24 +156,48 @@ void UtilityListControl::disableSelection(){
     }
 }
 
+/**
+ * @brief A slot that is called when the recoil intensity changed. The
+ * current recoil intensity is set to the rI value. The utility with the
+ * current selected id is then set to this recoil intensity, if the index is valid (> -1)
+ * @param rI The value of the changed recoil intensity
+ */
 void UtilityListControl::recoilIntensityChanged(int rI){
     currentRecoilIntensity = rI;
     if(currentUtilityId > -1)
         utilityWithId(currentUtilityId)->setRecoilIntensity(rI);
 }
 
+/**
+ * @brief A slot that is called when the recoil count changed. The
+ * current recoil count is set to the rC value. The utility with the
+ * current selected id is then set to this recoil count, if the index is valid (> -1)
+ * @param rC The value of the changed recoil count
+ */
 void UtilityListControl::recoilCountChanged(int rC){
     currentRecoilIntensity = rC;
     if(currentUtilityId > -1)
         utilityWithId(currentUtilityId)->setRecoilCount(rC);
 }
 
+/**
+ * @brief A slot that is called when the vibration intensity changed. The
+ * current vibration intensity is set to the vI value. The utility with the
+ * current selected id is then set to this vibration intensity, if the index is valid (> -1)
+ * @param vI The value of the changed vibration intensity.
+ */
 void UtilityListControl::vibrationIntensityChanged(int vI){
     currentVibrationIntensity = vI;
     if(currentUtilityId > -1)
         utilityWithId(currentUtilityId)->setVibrationIntensity(vI);
 }
 
+/**
+ * @brief A slot that is called when the vibration count changed. The
+ * current vibration count is set to the vC value. The utility with the
+ * current selected id is then set to this vibration count, if the index is valid (> -1)
+ * @param vI The value of the changed vibration count.
+ */
 void UtilityListControl::vibrationCountChanged(int vC){
     currentVibrationIntensity = vC;
     if(currentUtilityId > -1)
@@ -141,6 +205,13 @@ void UtilityListControl::vibrationCountChanged(int vC){
 }
 
 // private
+/**
+ * @brief A function to find the UtilityListElement with a certain id
+ * in the list of known utilities.
+ * @param id The id of the desired UtilityListElement.
+ * @return A pointer to the UtilityListElement with the id. NULL, if
+ * the UtilityListElement is not in the list.
+ */
 UtilityListElement* UtilityListControl::utilityWithId(int id){
     for(int i = 0; i < utilites->length(); i++)
         if(utilites->at(i)->getID() == id)
@@ -148,6 +219,13 @@ UtilityListElement* UtilityListControl::utilityWithId(int id){
     return NULL;
 }
 
+/**
+ * @brief A function to find the index of a UtilityListElement in the list
+ * of known utilities.
+ * @param utilityId The id of the UtilityListElement.
+ * @return The index in the list of utilities, -1 (invalid index),
+ * if the UtilityListElement is not in the list.
+ */
 int UtilityListControl::utilityIndex(int utilityId){
     for(int i = 0; i < utilites->length(); i++)
         if(utilites->at(i)->getID() == utilityId)
@@ -155,6 +233,10 @@ int UtilityListControl::utilityIndex(int utilityId){
     return -1;
 }
 
+/**
+ * @brief A function to clear all textfields of the UtilityListControl.
+ * The saved values are set to the default values (0), the name field is set to an empty QString.
+ */
 void UtilityListControl::clearValues(){
     this->utilityName->clear();
     this->currentName = "";
