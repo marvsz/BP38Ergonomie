@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
                         "QSlider::sub-page:horizontal {background: #007aff;}"
                         "QPushButton {font: 100 20px \"Serif\";color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5; padding: 4px;}"
                         "QPushButton:pressed {color: #ffffff; background-color: #007aff;}"
-                        "QPushButton#cameraButton {image: url(:/icons/specialPurposeIcons/camera.png); width: 30px; height: 30px; border: 0px; background-color: #efeff4;}"
+                        "QPushButton#cameraButton {image: url(:/icons/specialPurposeIcons/camera.png); width: 50px; height: 50px; border: 0px; background-color: #efeff4;}"
                         "QPushButton#backButton {border: 0px; background-color: #efeff4}"
                         "QScrollArea {background-color: #efeff4; margin: 0 0; border: none;}"
                         "QScrollBar:vertical {border: 0px solid #007aff; margin: 0px 0px 0px 0px; background: #efeff4;}"

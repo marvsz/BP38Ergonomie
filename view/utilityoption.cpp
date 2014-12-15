@@ -14,6 +14,8 @@
 UtilityOption::UtilityOption(UtilityOptionType optionType, QWidget *parent) :
     QWidget(parent)
 {
+    QHBoxLayout *layout = new QHBoxLayout;
+
     this->optionType = optionType;
     if(optionType == TEXT_OPTION)
         this->inputTextField = new TextLineEdit(this);
@@ -21,6 +23,9 @@ UtilityOption::UtilityOption(UtilityOptionType optionType, QWidget *parent) :
         this->inputTextField = new NumberLineEdit(this);
 
     connect(this->inputTextField, SIGNAL(textChanged(QString)), this, SLOT(textChanged()));
+
+    layout->addWidget(this->inputTextField, 1, Qt::AlignCenter);
+    this->setLayout(layout);
 }
 
 // public functions
@@ -95,5 +100,29 @@ void UtilityOption::textChanged(){
         emit valueChanged(this->inputTextField->text());
     else if (optionType == VALUE_OPTION)
         emit valueChanged(this->inputTextField->text().toInt());
+}
+
+void UtilityOption::setMinimumHeight(int minh){
+    this->inputTextField->setMinimumHeight(minh);
+}
+
+void UtilityOption::setMinimumWidth(int minw){
+    this->inputTextField->setMinimumWidth(minw);
+}
+
+void UtilityOption::setMinimumSize(int minw, int minh){
+    this->inputTextField->setMinimumSize(minw, minh);
+}
+
+void UtilityOption::setMaximumHeight(int maxh){
+    this->inputTextField->setMaximumHeight(maxh);
+}
+
+void UtilityOption::setMaximumWidth(int maxw){
+    this->inputTextField->setMaximumWidth(maxw);
+}
+
+void UtilityOption::setMaximumSize(int maxw, int maxh){
+    this->inputTextField->setMaximumSize(maxw, maxh);
 }
 

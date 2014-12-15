@@ -1,7 +1,7 @@
 #ifndef TRANSPORTATIONLISTCONTROL_H
 #define TRANSPORTATIONLISTCONTROL_H
 
-#include <QGroupBox>
+#include <QWidget>
 #include <QVector>
 #include <QLabel>
 #include <QList>
@@ -21,11 +21,11 @@
  * Furthermore a transportation holds two values for weight and max load of the
  * transportation. These values can be adjusted with two ValueControl.
  */
-class TransportationListControl : public QGroupBox
+class TransportationListControl : public QWidget
 {
     Q_OBJECT
 public:
-    explicit TransportationListControl(QString name = "", QVector<QString> *optionNames = NULL, QWidget *parent = 0);
+    explicit TransportationListControl(QVector<QString> *optionNames = NULL, QWidget *parent = 0);
 
 signals:
 
@@ -49,7 +49,6 @@ private:
     int currentWeight;
     int currentMaxLoad;
 
-    QLabel *name;
     QList<TransportationListElement*>* transportations;
     QLabel *newName;
     QLineEdit *newNameEdit;

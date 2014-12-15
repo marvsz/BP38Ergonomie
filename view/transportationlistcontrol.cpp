@@ -1,4 +1,5 @@
 #include "transportationlistcontrol.h"
+#include <QGridLayout>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QMessageBox>
@@ -14,16 +15,12 @@
  * If parent is another widget, this widget becomes a child window inside parent.
  * The new widget is deleted when its parent is deleted.
  */
-TransportationListControl::TransportationListControl(QString name, QVector<QString> *optionNames, QWidget *parent) :
-    QGroupBox(parent)
+TransportationListControl::TransportationListControl(QVector<QString> *optionNames, QWidget *parent) :
+    QWidget(parent)
 {
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QGridLayout *mainLayout = new QGridLayout;
 
     listLayout = new QVBoxLayout;
-    QHBoxLayout *newNameLayout = new QHBoxLayout;
-    QVBoxLayout *newLayout = new QVBoxLayout;
-    QHBoxLayout *addRemLayout = new QHBoxLayout;
-
     // VALID IDs START AT 0
     this->currentTransportationId = -1;
 
@@ -36,25 +33,21 @@ TransportationListControl::TransportationListControl(QString name, QVector<QStri
     this->optionsTrueBtns = new QVector<SelectableValueButton*>;
     this->optionsFalseBtns = new QVector<SelectableValueButton*>;
 
-    // SET THE NAME OF THE LIST
-    this->name = new QLabel(this);
-    this->name->setText(name);
-
     // ADD A ROW FOR NEW TRANSPORTATION FUNCTIONALITY
     this->newName = new QLabel(this);
     this->newName->setText("Bezeichnung");
     this->newNameEdit = new QLineEdit(this);
     this->newNameEdit->setAlignment(Qt::AlignHCenter);
     this->newNameEdit->setPlaceholderText("Neues Transportmittel");
-    this->newNameEdit->setMinimumSize(400, 60);
+    this->newNameEdit->setMinimumWidth(300);
 
     // BUTTONS FOR ADDING/REMOVING
     this->addBtn = new SelectableValueButton(-1, 0, this);
     this->addBtn->setText("Transportmittel erstellen");
-    this->addBtn->setMinimumSize(300, 60);
+    this->addBtn->setMaximumWidth(250);
     this->remBtn = new SelectableValueButton(-2, 0, this);
     this->remBtn->setText("Transportmittel entfernen");
-    this->remBtn->setMinimumSize(300, 60);
+    this->remBtn->setMaximumWidth(250);
 
     // ADD A ROW WITH DESCRIPTION FOR EACH OPTION SPECIFIED IN THE VECTOR OF STRINGS
     this->options = new QVector<QLabel*>();
@@ -92,10 +85,6 @@ TransportationListControl::TransportationListControl(QString name, QVector<QStri
     connect(remBtn, SIGNAL(clicked()), this, SLOT(removeTransportation()));
     connect(newNameEdit, SIGNAL(textChanged(QString)), this, SLOT(disableSelection()));
 
-    listLayout->addWidget(this->name, 0, Qt::AlignCenter);
-    newNameLayout->addWidget(newName, 1, Qt::AlignLeft);
-    newNameLayout->addWidget(newNameEdit, 0, Qt::AlignCenter);
-
     // ADD BUTTONS FOR EACH OPTION AND A SEPARATOR BETWEEN EACH TWO
     QVBoxLayout *optionListLayout = new QVBoxLayout;
     optionListLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
@@ -131,15 +120,13 @@ TransportationListControl::TransportationListControl(QString name, QVector<QStri
     connect(transportationMaxLoad, SIGNAL(valueChanged(int)), this, SLOT(maxLoadChanged(int)));
 
     // LAYOUT
-    addRemLayout->addWidget(addBtn, 0, Qt::AlignLeft);
-    addRemLayout->addWidget(remBtn, 0, Qt::AlignRight);
-    newLayout->addLayout(newNameLayout);
-    newLayout->addLayout(addRemLayout);
-    newLayout->addLayout(optionListLayout);
-
-    mainLayout->addLayout(listLayout);
-    mainLayout->addLayout(newLayout);
-    mainLayout->setAlignment(this, Qt::AlignHCenter);
+    mainLayout->addWidget(new QLabel("Transportmittel"), 0, 0, 1, 3, Qt::AlignCenter);
+    mainLayout->addLayout(listLayout, 1, 0, 1, 3, Qt::AlignCenter);
+    mainLayout->addWidget(newName, 3, 0, 1, 1, Qt::AlignLeft);
+    mainLayout->addWidget(newNameEdit, 3, 1, 1, 1, Qt::AlignCenter);
+    mainLayout->addWidget(addBtn, 4, 0, 1, 1, Qt::AlignLeft);
+    mainLayout->addWidget(remBtn, 4, 2, 1, 1, Qt::AlignRight);
+    mainLayout->addLayout(optionListLayout, 5, 0, 1, 3, Qt::AlignCenter);
     this->setLayout(mainLayout);
 
 }
@@ -264,6 +251,7 @@ void TransportationListControl::disableSelection(){
 }
 
 /**
+
  * @brief A slot that is called to add a TransportationListElement to the
  * list of transportations. The TransportationListElement is initialized with
  * the current selected values, if no options are selected, the default values
@@ -276,7 +264,7 @@ void TransportationListControl::addTransportation()
     if(newNameEdit->text() != ""){
 
         TransportationListElement *t = new TransportationListElement(newNameEdit->text(), currentOptions, currentWeight, currentMaxLoad, this);
-        t->setMinimumSize(100, 60);
+        t->setMinimumSize(300, 60);
         transportations->append(t);
         connect(t, SIGNAL(pressedWithID(int)), this, SLOT(transportationChanged(int)));
         this->listLayout->addWidget(t);

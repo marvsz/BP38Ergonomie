@@ -24,7 +24,7 @@ TransportView::TransportView(QWidget *parent) :
     main = new QWidget(this);
     control = new QWidget(this);
 
-    QGroupBox *topGroup = new QGroupBox;
+    QWidget *topGroup = new QWidget;
     QVBoxLayout *topGroupLayout = new QVBoxLayout;
     QHBoxLayout *menuLineLayout = new QHBoxLayout;
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -64,18 +64,19 @@ TransportView::TransportView(QWidget *parent) :
     options->append("Bockrollen");
     options->append("Bremsen");
 
-    tools = new TransportationListControl("Transportmittel", options, this);
+    tools = new TransportationListControl(options, this);
 
     topGroupLayout->addWidget(type);
-    topGroupLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
+    topGroupLayout->addWidget(new Separator(Qt::Horizontal, 3, topGroup));
     topGroupLayout->addWidget(last);
-    topGroupLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
+    topGroupLayout->addWidget(new Separator(Qt::Horizontal, 3, topGroup));
     topGroupLayout->addWidget(weg);
-    topGroupLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
+    topGroupLayout->addWidget(new Separator(Qt::Horizontal, 3, topGroup));
     topGroupLayout->addWidget(hand);
     topGroup->setLayout(topGroupLayout);
 
     categoryLayout->addWidget(topGroup);
+    categoryLayout->addWidget(new Separator(Qt::Horizontal, 3, control));
     categoryLayout->addWidget(tools);
     control->setLayout(categoryLayout);
 

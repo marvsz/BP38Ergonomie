@@ -15,7 +15,6 @@ ExecutionConditionView::ExecutionConditionView(QWidget *parent) :
     btnUtilitiesExecutionCondition = new SelectableValueButton(1, 1, this);
     btnUtilitiesExecutionCondition->setText("Betriebsmittel");
     btnUtilitiesExecutionCondition->setMinimumWidth(150);
-    utilitiesExecutionCondition = new UtilityListControl("Betriebsmittel", this);
     connect(btnUtilitiesExecutionCondition, SIGNAL(clicked()), this, SLOT(utilitiesExecutionConditionSelected()));
 
     btnGeneralExecutionCondition = new SelectableValueButton(0, 0, this);
@@ -26,7 +25,7 @@ ExecutionConditionView::ExecutionConditionView(QWidget *parent) :
     QWidget *executionConditionContent = new QWidget(this);
     QVBoxLayout *eccLayout = new QVBoxLayout;
     generalExecutionCondition = new GeneralExecutionCondition(executionConditionContent);
-    utilitiesExecutionCondition = new UtilityListControl("Betriebsmittel", executionConditionContent);
+    utilitiesExecutionCondition = new UtilityListControl(executionConditionContent);
     moreExecutionCondition = new MoreExecutionCondition(executionConditionContent);
     eccLayout->addWidget(generalExecutionCondition);
     eccLayout->addWidget(utilitiesExecutionCondition);

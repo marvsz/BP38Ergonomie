@@ -1,9 +1,10 @@
 #ifndef UTILITYLISTCONTROL_H
 #define UTILITYLISTCONTROL_H
 
-#include <QGroupBox>
+#include <QWidget>
 #include <QList>
 #include <QVector>
+#include <QGridLayout>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QFormLayout>
@@ -16,11 +17,11 @@
  * UtilityListElement can be add and deleted over buttons. Each utility
  * has a name and multiple UtilityOption to adjust the current recoil and vibration values.
  */
-class UtilityListControl : public QGroupBox
+class UtilityListControl : public QWidget
 {
     Q_OBJECT
 public:
-    explicit UtilityListControl(QString name = "", QWidget *parent = 0);
+    explicit UtilityListControl(QWidget *parent = 0);
 
 signals:
 
@@ -42,7 +43,6 @@ private slots:
 private:
     int currentUtilityId;
 
-    QLabel* nameLabel;
     QList<UtilityListElement*>* utilites;
     SelectableValueButton *addBtn;
     SelectableValueButton *remBtn;
@@ -59,10 +59,9 @@ private:
     UtilityOption* vibrationIntensity;
     UtilityOption* vibrationCount;
     
-    QVBoxLayout *mainLayout;
+    QGridLayout *mainLayout;
     QVBoxLayout *listLayout;
-    QFormLayout *optionLayout;
-    QHBoxLayout *buttonLayout;
+    QGridLayout *optionLayout;
 
     UtilityListElement* utilityWithId(int id);
     int utilityIndex(int utilityId);

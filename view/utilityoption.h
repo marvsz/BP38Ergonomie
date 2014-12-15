@@ -23,6 +23,13 @@ public:
     void clear();
     void setPlaceholder(QString placeholder);
 
+    void setMinimumHeight(int minh);
+    void setMinimumWidth(int minw);
+    void setMinimumSize(int minw, int minh);
+    void setMaximumHeight(int maxh);
+    void setMaximumWidth(int maxw);
+    void setMaximumSize(int maxw, int maxh);
+
 signals:
     void valueChanged(int value);
     void valueChanged(QString text);
