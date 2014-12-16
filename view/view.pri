@@ -29,7 +29,8 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/subactivitycontrol.h \
     $$PWD/buttontimelineview.h \
     $$PWD/numberlineedit.h \
-    $$PWD/textlineedit.h
+    $$PWD/textlineedit.h \
+    $$PWD/producedproductexecutioncondition.h
 
 
 SOURCES += $$CURRENT_DIR/variant.cpp\
@@ -59,6 +60,7 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/subactivitycontrol.cpp \
     $$PWD/buttontimelineview.cpp \
     $$PWD/numberlineedit.cpp \
-    $$PWD/textlineedit.cpp
+    $$PWD/textlineedit.cpp \
+    $$PWD/producedproductexecutioncondition.cpp
 
 

@@ -86,7 +86,7 @@ DocumentationView::DocumentationView(QWidget *parent) :
     mainLayout->addWidget(views, 0, 1, 1, 1, Qt::AlignHCenter);
     mainLayout->addWidget(cameraButton, 0, 2, 1, 1, Qt::AlignRight);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 1, 0, 1, 3, Qt::AlignTop);
-    mainLayout->addWidget(mainContent, 2, 0, 1, 3, Qt::AlignTop);
+    mainLayout->addWidget(mainContent, 2, 0, 1, 3, 0);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 3, 0, 1, 3, Qt::AlignBottom);
     mainLayout->addWidget(timer, 4, 0, 1, 3,Qt::AlignBottom);
     setLayout(mainLayout);

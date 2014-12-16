@@ -4,7 +4,9 @@
 #include <QString>
 #include <QVector>
 #include "subvariant.h"
-
+/**
+ * @brief The Variant class
+ */
 class Variant
 {
 public:

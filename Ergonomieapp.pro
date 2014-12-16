@@ -43,3 +43,5 @@ unix {
 
 OTHER_FILES += \
     View/view.pri
+
+TRANSLATIONS = ergo_trans_de.ts
