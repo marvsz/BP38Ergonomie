@@ -15,21 +15,71 @@ class ValueControl : public QWidget
 {
     Q_OBJECT
 public:
+    /**
+     * @brief ValueControl Creates a new Value Control
+     * @param controlType Type of the value Control, remember you can not change the type
+     * @param parent Parent widget which holds the value control or if 0 then a standalone window
+     */
     explicit ValueControl(VariantControl controlType, QWidget *parent = 0);
 
+    /**
+     * @brief setValues Sets the values of the control, is only appliable if the control type is VALUE_CONTROL
+     * @param min Minimum value
+     * @param max Maximum value
+     * @param btnValues The predefinied values for the Buttons, there will be shown as many buttons as the length of the vector
+     * @param iconSetPath The path to the icons, the names of the icons muss be the values in btnValues and the filetype png
+     */
     void setValues(int min, int max, QVector<int>* btnValues, QString* iconSetPath);
+
+    /**
+     * @brief setValues Sets the values of the control, is only appliable if the control type is TEXT_CONTROL
+     * @param btnTexts The predefinied texts for the buttons, there will be shown as many buttons as the length of the vector
+     * @param btnTextValues The predefinied text values for a button, if a button gets selected this is the text that will be shown in the QLineEdit
+     * @param iconSetPath The path to the icons, the names of the icons muss be the texts in btnTexts and the filetype png
+     */
     void setValues(QVector<QString*> *btnTexts, QVector<QString *> *btnTextValues, QString* iconSetPath);
 
+    /**
+     * @brief getControlType Returns the type of the control, which is applied the instantiation
+     * @return the control type
+     */
     VariantControl getControlType() const;
 
+    /**
+     * @brief setText Sets the description label of the control
+     * @param text the text to be set, note that the displayed text is: "text [unit]:" if and only if unit is set otherwise
+     * it is: "text:"
+     */
     void setText(QString text);
+
+    /**
+     * @brief getText returns the description text of the control
+     * @return the text which was set with setText, not the actually displayed text in the control
+     */
     QString getText() const;
 
+    /**
+     * @brief setTextHint Sets a text placeholder for the TextLineEdit, note only appliable if control type is TEXT_CONTROL
+     * @param text The placeholder text
+     */
     void setTextHint(const QString &text);
 
+    /**
+     * @brief setUnit The unit that will be displayed in the control description and on the buttons after the value, only appliable if control type is VALUE_CONTROL
+     * @param unit the unit of the values
+     */
     void setUnit(const QString &unit);
+
+    /**
+     * @brief getUnit returns the set unit
+     * @return returns the unit if the unit was not set than the emtpy QString
+     */
     QString getUnit() const;
 
+    /**
+     * @brief getTextValue Is only appliable if the control type
+     * @return
+     */
     QString getTextValue() const;
     int getValue() const;
 

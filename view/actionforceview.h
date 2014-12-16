@@ -25,6 +25,7 @@ private:
     QVector<QString*> *textsOrgan;
     QVector<QString*> *textsUsedHand;
     QVector<QString*> *textsDirection;
+    QVector<QString*> *textsDirectionValues;
     QVector<int> *valuesIntensity;
 
     ValueControl* valConIntensity;

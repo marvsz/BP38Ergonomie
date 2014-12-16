@@ -11,7 +11,9 @@ ActionForceView::ActionForceView(QWidget *parent) :
     lytMainContent = new QVBoxLayout;
 
     textsDirection = new QVector<QString*>();
-    (*textsDirection)<<new QString("Links")<<new QString("Rechts")<<new QString("Oben")<<new QString("Unten")<<new QString("Vorne")<<new QString("Hinten");
+    (*textsDirection)<<new QString("Oben")<<new QString("Unten")<<new QString("Vorne")<<new QString("Hinten")<<new QString("Rechts")<<new QString("Links");
+    textsDirectionValues = new QVector<QString*>();
+    (*textsDirectionValues)<<new QString("+A")<<new QString("-A")<<new QString("+B")<<new QString("-B")<<new QString("+C")<<new QString("-C");
     textsOrgan = new QVector<QString*>();
     (*textsOrgan)<<new QString("Finger")<<new QString("Hand")<<new QString("Arm")<<new QString("Fuß/Bein")<<new QString("Ganzkörper");
     textsUsedHand = new QVector<QString*>();
@@ -25,7 +27,7 @@ ActionForceView::ActionForceView(QWidget *parent) :
     valConIntensity->setText("Intensität");
 
     valConDirection = new ValueControl(TEXT_CONTROL, this);
-    valConDirection->setValues(textsDirection, textsDirection, new QString(""));
+    valConDirection->setValues(textsDirection, textsDirectionValues, new QString(""));
     valConDirection->setText("Richtung:");
 
     valConOrgan = new ValueControl(TEXT_CONTROL, this);
