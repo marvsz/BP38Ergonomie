@@ -21,8 +21,8 @@
 DocumentationView::DocumentationView(QWidget *parent) :
     QWidget(parent)
 {
-    //QHBoxLayout* tabBarLayout = new QHBoxLayout;
-    QGridLayout *mainLayout = new QGridLayout;
+    //QGridLayout *mainLayout = new QGridLayout;
+    QVBoxLayout *mainLayout = new QVBoxLayout;
 
     // CAMERA BUTTON INITIALIZATION
     cameraButton = new QPushButton;
@@ -33,19 +33,7 @@ DocumentationView::DocumentationView(QWidget *parent) :
     backButton->setMaximumSize(100, 40);
     backButton->setObjectName("backButton");
 
-
-    // TAB SOLUTION
-    /*
-    // ADD QTABWIDGET
-    this->tabs = new QTabWidget(this);
-    // ADD TABS
-    tabs->addTab(new AngleView, "Körperhaltung");
-    tabs->addTab(new TransportView, "Lastenhandhabung");
-    tabs->addTab(new ActionForceView, "Aktionskraft");
-    tabs->addTab(new ExecutionConditionView, "Ausführungsbedingungen");
-    tabs->addTab(timer->btnView, "AV anzeigen");*/
-
-    // COMBOBOX SOLUTON
+    // INIT COMBOBOX
     QList<QString> viewNames = QList<QString>();
     viewNames.append("Körperhaltung");
     viewNames.append("Lastenhandhabung");
@@ -55,53 +43,69 @@ DocumentationView::DocumentationView(QWidget *parent) :
     this->views->setMinimumSize(280, 40);
     this->views->addItems(QStringList(viewNames));
 
+    // ADD DIFFERENT VIEWS TO STACKEDWIDGET
     mainContent = new QStackedWidget;
     mainContent->addWidget(new AngleView);
     mainContent->addWidget(new TransportView);
     mainContent->addWidget(new ActionForceView);
     mainContent->addWidget(new ExecutionConditionView);
 
+    // CONNECT THE COMBOBOX TO THE STACKEDWIDGET
     connect(views, SIGNAL(currentIndexChanged(int)), mainContent, SLOT(setCurrentIndex(int)));
 
     // INCLUDE QML-CAMERA
-    this->cameraView.setResizeMode(QQuickView::SizeRootObjectToView);
-    this->cameraView.setSource(QUrl("qrc:///declarative-camera.qml"));
-    this->cameraView.setFlags(Qt::FramelessWindowHint);
-
-    connect(cameraView.engine(), SIGNAL(quit()), this, SLOT(hideCamera()));
     connect(cameraButton, SIGNAL(clicked()), this, SLOT(showCamera()));
 
     // ADD TIMER
     this->timer = new StopWatch;
 
-    /*
-    //LAYOUT
-    //tabBarLayout->addWidget(backButton);
-    tabBarLayout->addWidget(this->tabs->tabBar());
-    tabBarLayout->addWidget(cameraButton);
-    mainLayout->addLayout(tabBarLayout);*/
-
     // GRID LAYOUT
-    mainLayout->addWidget(backButton, 0, 0, 1, 1, Qt::AlignLeft);
+    /*mainLayout->addWidget(backButton, 0, 0, 1, 1, Qt::AlignLeft);
     mainLayout->addWidget(views, 0, 1, 1, 1, Qt::AlignHCenter);
     mainLayout->addWidget(cameraButton, 0, 2, 1, 1, Qt::AlignRight);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 1, 0, 1, 3, Qt::AlignTop);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 1, 0, 1, 3, 0);
     mainLayout->addWidget(mainContent, 2, 0, 1, 3, Qt::AlignTop);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 3, 0, 1, 3, Qt::AlignBottom);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 3, 0, 1, 3, 0);
     mainLayout->addWidget(timer, 4, 0, 1, 3,Qt::AlignBottom);
-    setLayout(mainLayout);
+    setLayout(mainLayout);*/
+
+    QGridLayout *topLayout = new QGridLayout;
+    topLayout->addWidget(backButton, 0, 0, 1, 1, Qt::AlignLeft);
+    topLayout->addWidget(views, 0, 1, 1, 1, Qt::AlignHCenter);
+    topLayout->addWidget(cameraButton, 0, 2, 1, 1, Qt::AlignRight);
+
+    QVBoxLayout *centerLayout = new QVBoxLayout;
+    centerLayout->addWidget(new Separator(Qt::Horizontal, 3, mainContent));
+    centerLayout->addWidget(mainContent);
+
+    QVBoxLayout *bottomLayout = new QVBoxLayout;
+    bottomLayout->addWidget(new Separator(Qt::Horizontal, 3, timer));
+    bottomLayout->addWidget(timer);
+
+    mainLayout->addLayout(topLayout);
+    mainLayout->addLayout(centerLayout);
+    mainLayout->addLayout(bottomLayout);
+
+    this->setLayout(mainLayout);
+
 }
 
 /**
  * @brief Opens a view for the the QML-Camera
  */
 void DocumentationView::showCamera(){
-    this->cameraView.show();
+
+    this->cameraView = new QQuickView();
+    this->cameraView->setSource(QUrl("qrc:///declarative-camera.qml"));
+    this->cameraView->setResizeMode(QQuickView::SizeRootObjectToView);
+    this->cameraView->setFlags(Qt::FramelessWindowHint);
+    connect(cameraView->engine(), SIGNAL(quit()), this, SLOT(hideCamera()));
+    this->cameraView->show();
 }
 
 /**
  * @brief Closes the view for the the QML-Camera
  */
 void DocumentationView::hideCamera(){
-    this->cameraView.hide();
+    this->cameraView->destroy();
 }

@@ -1,4 +1,5 @@
 #include <QApplication>
+#include <QTranslator>
 #include "viewcontroller.h"
 #include "documentationview.h"
 
@@ -43,9 +44,10 @@ int main(int argc, char *argv[])
                         "QComboBox::down-arrow:on {image: url(:/icons/specialPurposeIcons/downarrowon.png);}"
                         );
 
-    /*ViewController v;
 
-    v.show();*/
+    QTranslator translator;
+    bool b = translator.load("ergo_trans_de");
+    a.installTranslator(&translator);
 
     DocumentationView d;
 

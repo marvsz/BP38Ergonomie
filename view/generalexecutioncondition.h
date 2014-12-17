@@ -5,7 +5,6 @@
 #include <QGridLayout>
 #include <QLineEdit>
 #include "valuecontrol.h"
-#include "optionselectioncontrol.h"
 
 class GeneralExecutionCondition : public QWidget
 {
@@ -21,17 +20,10 @@ private:
     QGridLayout *mainLayout;
 
     QLineEdit *txtbxDescription;
-    QLineEdit *txtbxWorkingHeight;
-    QLineEdit *txtbxDistance;
-    QLineEdit *txtbxImpulseCount;
     ValueControl *valConMtmCode;
-    ValueControl *valConGrabType;
-    OptionSelectionControl *oscImpulseIntensity;
 
-    QVector<QString*> *grabTypeTexts;
     QVector<QString*> *mtmCodeTexts;
     QVector<QString*> *mtmCodeValueTexts;
-    QVector<QString*> *impulseIntensityTexts;
 
 };
 
