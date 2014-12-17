@@ -42,6 +42,7 @@ unix {
 }
 
 OTHER_FILES += \
-    View/view.pri
+    View/view.pri \
+    android/AndroidManifest.xml
 
 TRANSLATIONS = ergo_trans_de.ts
