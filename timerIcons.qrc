@@ -4,5 +4,7 @@
         <file>icons/Timer/reset.png</file>
         <file>icons/Timer/start.png</file>
         <file>icons/Timer/stop.png</file>
+	<file>icons/Timer/minimize.png</file>
+	<file>icons/Timer/maximize.png</file>
     </qresource>
 </RCC>

@@ -15,18 +15,21 @@
 #include <buttontimelineview.h>
 
 
-class StopWatch : public QWidget
+class StopWatch : public QMainWindow
 {
     Q_OBJECT
 public:
     explicit StopWatch(QWidget *parent = 0);
 
       ButtonTimelineView *btnView;
+      //QHBoxLayout *minimizedLayout;
+      //QHBoxLayout *mainLayout;
 
 private slots:
     void btnStartPauseClicked();
     void btnStopResetClicked();
     void btnSetAVClicked();
+    void btnSelAVClicked();
     void btnAVClicked();
     void btnAVLeftClicked();
     void btnAVRightClicked();
@@ -43,6 +46,9 @@ private slots:
     void getButtonView();
     void btnBothAVClicked();
 
+    void btnMinimizeClicked();
+    void btnMaximizeClicked();
+
 
 protected:
     void timerEvent(QTimerEvent *);
@@ -55,12 +61,18 @@ private:
     int totalLeftAV;
     int totalRightAV;
     int currentAV;
+    int currentLeftAV;
+    int currentRightAV;
+    QLabel *timerTitle;
     QLabel *timer;
     QLineEdit *avTime;
     QDateTime startTime;
     QDateTime currentAVTime;
     QStringList *lstAV;
     QList<int> *lstAVTime;
+    QList<int> *lstLeftAVTime;
+    QList<int> *lstRightAVTime;
+    QPushButton *btnSelAV;
     QPushButton *btnAV;
     QPushButton *btnAVLeft;
     QPushButton *btnAVRight;
@@ -88,9 +100,15 @@ private:
     QVector<SelectableValueButton*> *rightAVButtons;
     QVector<SelectableValueButton*> *avButtons;
     bool stopped;
+    bool windowMinimized;
 
+    //QWidget *main;
+    //QWidget *mini;
 
     QPushButton *btnSaveGraph;
+
+    QPushButton *btnMinimize;
+    QPushButton *btnMaximize;
 
     int paintX;
     int counter;
@@ -100,6 +118,10 @@ private:
 
     static const QString qssSelected;
     static const QString qssNotSelected;
+
+    bool leftSelected;
+    bool rightSelected;
+    bool avSelected;
 
 };
 

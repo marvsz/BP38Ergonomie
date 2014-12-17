@@ -12,23 +12,29 @@
 #include <QIODevice>
 
 
-StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
+StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
   , running(false)
   , timerStarted(false)
   , totalAV(0)
   , totalLeftAV(0)
   , totalRightAV(0)
   , currentAV(0)
+  , currentLeftAV(0)
+  , currentRightAV(0)
   , startTime()
   , currentAVTime()
+  , timerTitle(new QLabel("Gesamtlaufzeit:"))
   , timer(new QLabel("00:00"))
   , avTime(new QLineEdit("00:00"))
   , totalTime(0)
   , lstAV(new QStringList)
   , lstAVTime(new QList<int>)
-  , btnAV(new QPushButton("leer"))
-  , btnAVLeft(new QPushButton("Left"))
-  , btnAVRight(new QPushButton("Right"))
+  , lstLeftAVTime(new QList<int>)
+  , lstRightAVTime(new QList<int>)
+  , btnSelAV(new QPushButton("leer"))
+  , btnAV(new QPushButton("AV"))
+  , btnAVLeft(new QPushButton("Links"))
+  , btnAVRight(new QPushButton("Rechts"))
   , btnPlus(new QPushButton("+"))
   , btnMinus(new QPushButton("-"))
   , btnNextAV(new QPushButton(">"))
@@ -39,7 +45,9 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
   , btnSetLeft(new QPushButton("L"))
   , btnSetRight(new QPushButton("R"))
   , btnSaveGraph(new QPushButton("Graph"))
-  , btnBothAV(new QPushButton("L&&R"))
+  , btnBothAV(new QPushButton("L/R"))
+  , btnMinimize(new QPushButton())
+  , btnMaximize(new QPushButton())
   , graph(new QLabel(""))
   , picture()
   , painter()
@@ -56,9 +64,16 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
   , avButtons(new QVector<SelectableValueButton*>)
   , stopped(false)
   , btnView(new ButtonTimelineView)
+  , leftSelected(false)
+  , rightSelected(false)
+  , avSelected(true)
+  , windowMinimized(false)
 {
 
-    QHBoxLayout *mainLayout = new QHBoxLayout(this);
+    QWidget *main = new QWidget();
+    //mini = new QWidget();
+
+    QHBoxLayout *mainLayout = new QHBoxLayout();
     QVBoxLayout *mainTimerLayout = new QVBoxLayout();
     QVBoxLayout *timerBtnLayout = new QVBoxLayout();
     QVBoxLayout *mainAVLayout = new QVBoxLayout();
@@ -68,18 +83,24 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
     QVBoxLayout *avSetLayout = new QVBoxLayout();
     QHBoxLayout *timerBtnLayout2 = new QHBoxLayout();
 
+
+
     QScroller::grabGesture(graphArea->viewport(), QScroller::LeftMouseButtonGesture);
 
-    graphArea->setMaximumHeight(210);
+    graphArea->setMaximumHeight(160);
     graphArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     graphArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     graphArea->setWidget(graph);
 
+
+    avLeftRightLayout->addWidget(btnMinimize);
+    //avLeftRightLayout->addWidget(btnMaximize);
+
     avLeftRightLayout->addWidget(btnAVLeft);
     avLeftRightLayout->addWidget(btnAVRight);
-    avLeftRightLayout->addWidget(btnSaveGraph);
+    avLeftRightLayout->addWidget(btnAV);
     avSelLayout->addWidget(btnPrevAV);
-    avSelLayout->addWidget(btnAV);
+    avSelLayout->addWidget(btnSelAV);
     avSelLayout->addWidget(btnNextAV);
     avTimeLayout->addWidget(btnMinus);
     avTimeLayout->addWidget(avTime);
@@ -98,6 +119,7 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
     timerBtnLayout2->addWidget(btnBothAV);
     timerBtnLayout2->addLayout(timerBtnLayout);
     mainTimerLayout->addLayout(timerBtnLayout2);
+    mainTimerLayout->addWidget(timerTitle);
     mainTimerLayout->addWidget(timer);
     mainTimerLayout->setAlignment(timer, Qt::AlignCenter);
 
@@ -106,36 +128,49 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
     mainLayout->addLayout(avSetLayout);
     mainLayout->addLayout(mainTimerLayout);
 
-    this->setMaximumHeight(225);
+    this->setMaximumHeight(175);
 
-    btnPlus->setFixedSize(60,60);
-    btnMinus->setFixedSize(60,60);
-    btnNextAV->setFixedSize(60,60);
-    btnPrevAV->setFixedSize(60,60);
-    btnStartPause->setFixedSize(60,60);
-    btnStopReset->setFixedSize(60,60);
-    btnSetAv->setFixedSize(60,60);
-    btnSetLeft->setFixedSize(60,60);
-    btnSetRight->setFixedSize(60,60);
-    btnBothAV->setFixedSize(60, 130);
-    btnAVLeft->setFixedSize(100, 60);
-    btnAVRight->setFixedSize(100, 60);
-    btnAV->setFixedSize(160, 60);
-    avTime->setFixedSize(140,60);
+    main->setLayout(mainLayout);
+    this->setCentralWidget(main);
+
+    btnMinimize->setFixedSize(45,45);
+    btnMaximize->setFixedSize(45,45);
+
+    btnPlus->setFixedSize(45,45);
+    btnMinus->setFixedSize(45,45);
+    btnNextAV->setFixedSize(45,45);
+    btnPrevAV->setFixedSize(45,45);
+    btnStartPause->setFixedSize(45,45);
+    btnStopReset->setFixedSize(45,45);
+    btnSetAv->setFixedSize(45,45);
+    btnSetLeft->setFixedSize(45,45);
+    btnSetRight->setFixedSize(45,45);
+    btnBothAV->setFixedSize(45, 100);
+    btnAVLeft->setFixedSize(70, 45);
+    btnAVRight->setFixedSize(70, 45);
+    btnAV->setFixedSize(70, 45);
+    btnSelAV->setFixedSize(105, 45);
+    avTime->setFixedSize(105,45);
     avTime->setInputMask("00:99");
+    avTime->setAlignment(Qt::AlignCenter);
 
-    btnSaveGraph->setFixedHeight(60);
+    btnSaveGraph->setFixedHeight(45);
 
     btnStartPause->setIcon(QIcon(":/timer/icons/Timer/start.png"));
-    btnStartPause->setIconSize(QSize(40,40));
+    btnStartPause->setIconSize(QSize(25,25));
     btnStartPause->setToolTip("Start");
     btnStopReset->setIcon(QIcon(":/timer/icons/Timer/reset.png"));
-    btnStopReset->setIconSize(QSize(40,40));
+    btnStopReset->setIconSize(QSize(25,25));
     btnStopReset->setToolTip("Reset");
+    btnMinimize->setIcon(QIcon(":/timer/icons/Timer/minimize.png"));
+    btnMinimize->setIconSize(QSize(25,25));
+    btnMaximize->setIcon(QIcon(":/timer/icons/Timer/maximize.png"));
+    btnMaximize->setIconSize(QSize(25,25));
 
-    graph->setFixedHeight(200);
+    graph->setFixedHeight(150);
 
-    timer->setStyleSheet("font: 36pt");
+    timerTitle->setStyleSheet("font: 12px");
+    timer->setStyleSheet("font: 15pt");
 
     startTimer(0);
     lstAV->clear();
@@ -144,6 +179,7 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
     btnStartPause->setEnabled(true);
     btnStopReset->setEnabled(false);
     btnSetAv->setEnabled(false);
+    btnSelAV->setEnabled(false);
     btnAV->setEnabled(false);
     btnAVLeft->setEnabled(false);
     btnAVRight->setEnabled(false);
@@ -160,6 +196,7 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
     connect(btnStartPause, SIGNAL(clicked()), SLOT(btnStartPauseClicked()));
     connect(btnStopReset, SIGNAL(clicked()), SLOT(btnStopResetClicked()));
     connect(btnSetAv, SIGNAL(clicked()), SLOT(btnSetAVClicked()));
+    connect(btnSelAV, SIGNAL(clicked()), SLOT(btnSelAVClicked()));
     connect(btnAV, SIGNAL(clicked()), SLOT(btnAVClicked()));
     connect(btnAVLeft, SIGNAL(clicked()), SLOT(btnAVLeftClicked()));
     connect(btnAVRight, SIGNAL(clicked()), SLOT(btnAVRightClicked()));
@@ -172,9 +209,12 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
     connect(btnSaveGraph, SIGNAL(clicked()), SLOT(getButtonView()));
     connect(btnBothAV, SIGNAL(clicked()), SLOT(btnBothAVClicked()));
 
+    connect(btnMinimize, SIGNAL(clicked()), SLOT(btnMinimizeClicked()));
+    connect(btnMaximize, SIGNAL(clicked()), SLOT(btnMaximizeClicked()));
+
 }
-    const QString StopWatch::qssSelected = "QPushButton {font: 100 26px \"Serif\";color: #FFFFFF; border: 2px solid #007aff; border-radius: 10px; background-color: #007aff;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
-    const QString StopWatch::qssNotSelected = "QPushButton {font: 100 26px \"Serif\";color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
+    const QString StopWatch::qssSelected = "QPushButton {font: 100 20px \"Serif\";color: #FFFFFF; border: 2px solid #007aff; border-radius: 10px; background-color: #007aff;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
+    const QString StopWatch::qssNotSelected = "QPushButton {font: 100 20px \"Serif\";color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
 
 
     void StopWatch::btnStartPauseClicked(){
@@ -184,10 +224,12 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
             timerStarted = true;
             btnStartPause->setIcon(QIcon(":/timer/icons/Timer/pause.png"));
             btnStartPause->setToolTip("Pause");
-            btnStopReset->setIcon(QIcon(":/timer/icons/Timer/stop.png"));
-            btnStopReset->setToolTip("Stop");
-            btnStopReset->setEnabled(true);
-            btnSetAv->setEnabled(true);
+            if(!windowMinimized){
+                btnStopReset->setIcon(QIcon(":/timer/icons/Timer/stop.png"));
+                btnStopReset->setToolTip("Stop");
+                btnStopReset->setEnabled(true);
+                btnSetAv->setEnabled(true);
+            }
         }
         else {
             running = false;
@@ -227,9 +269,13 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
             lstAV->clear();
             lstLeftAVs->clear();
             lstRightAVs->clear();
+            lstAVTime->clear();
+            lstLeftAVTime->clear();
+            lstRightAVTime->clear();
             updateGraph();
             avTime->setText("00:00");
-            btnAV->setText("leer");
+            btnSelAV->setText("leer");
+            btnSelAV->setEnabled(false);
             btnAV->setEnabled(false);
             btnAVLeft->setEnabled(false);
             btnAVRight->setEnabled(false);
@@ -239,10 +285,17 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
             btnPrevAV->setEnabled(false);
             totalAV = 0;
             currentAV = 0;
+            currentLeftAV = 0;
+            currentRightAV = 0;
             totalLeftAV = 0;
             totalRightAV = 0;
+            counter = 0;
             btnSetLeft->setStyleSheet(this->qssNotSelected);
             btnSetRight->setStyleSheet(this->qssNotSelected);
+            btnBothAV->setStyleSheet(this->qssNotSelected);
+            btnSelAV->setStyleSheet(this->qssNotSelected);
+            btnAVLeft->setStyleSheet(this->qssNotSelected);
+            btnAVRight->setStyleSheet(this->qssNotSelected);
             btnAV->setStyleSheet(this->qssNotSelected);
         }
 
@@ -256,7 +309,7 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
 
         QString str;
         str.append(QString("%1").arg(currentAV));
-        btnAV->setText("AV " + str);
+        btnSelAV->setText("AV " + str);
 
         lstAVTime->append(getTime(currentAV));
 
@@ -269,23 +322,25 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
         .arg(s, 2, 10, QChar('0'));
         avTime->setText(diff);
 
+        btnSelAV->setEnabled(true);
         btnAV->setEnabled(true);
-        btnAVLeft->setEnabled(true);
-        btnAVRight->setEnabled(true);
         avTime->setEnabled(true);
         btnPlus->setEnabled(true);
         btnMinus->setEnabled(true);
+
+        avSelected = true;
+        leftSelected = false;
+        rightSelected = false;
+
+        btnAV->setStyleSheet(qssSelected);
+        btnAVLeft->setStyleSheet(qssNotSelected);
+        btnAVRight->setStyleSheet(qssNotSelected);
 
         if(totalAV > 1)
             btnPrevAV->setEnabled(true);
         btnNextAV->setEnabled(false);
 
         avPressed = true;
-        leftPressed = false;
-        btnSetLeft->setStyleSheet(this->qssNotSelected);
-        rightPressed = false;
-        btnSetRight->setStyleSheet(this->qssNotSelected);
-
     }
 
     void StopWatch::btnSetLeftClicked(){
@@ -293,11 +348,16 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
             leftPressed = false;
             btnSetLeft->setStyleSheet(this->qssNotSelected);
             totalLeftAV++;
+            currentLeftAV = totalLeftAV;
+            lstLeftAVTime->append(getLeftRightTime(currentLeftAV, "left"));
+            btnAVLeft->setEnabled(true);
             btnBothAV->setStyleSheet(this->qssNotSelected);
         }
         else {
             leftPressed = true;
             btnSetLeft->setStyleSheet(this->qssSelected);
+            if(rightPressed)
+                btnBothAV->setStyleSheet(this->qssSelected);
         }
     }
 
@@ -306,11 +366,16 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
             rightPressed = false;
             btnSetRight->setStyleSheet(this->qssNotSelected);
             totalRightAV++;
+            currentRightAV = totalRightAV;
+            lstRightAVTime->append(getLeftRightTime(currentRightAV, "right"));
+            btnAVRight->setEnabled(true);
             btnBothAV->setStyleSheet(this->qssNotSelected);
         }
         else {
             rightPressed = true;
             btnSetRight->setStyleSheet(this->qssSelected);
+            if(leftPressed)
+                btnBothAV->setStyleSheet(this->qssSelected);
         }
     }
 
@@ -320,9 +385,15 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
             leftPressed = false;
             btnSetRight->setStyleSheet(this->qssNotSelected);
             totalRightAV++;
+            currentRightAV = totalRightAV;
+            lstRightAVTime->append(getLeftRightTime(currentRightAV, "right"));
             btnSetLeft->setStyleSheet(this->qssNotSelected);
             totalLeftAV++;
+            currentLeftAV = totalLeftAV;
+            lstLeftAVTime->append(getLeftRightTime(currentLeftAV, "left"));
             btnBothAV->setStyleSheet(this->qssNotSelected);
+            btnAVLeft->setEnabled(true);
+            btnAVRight->setEnabled(true);
         }
         else {
             rightPressed = true;
@@ -333,19 +404,92 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
         }
     }
 
+    void StopWatch::btnSelAVClicked(){
+        //TODO
+    }
+
     void StopWatch::btnAVClicked(){
+        currentAV = 1;
+        btnPrevAV->setEnabled(false);
+        if(currentAV == totalAV)
+            btnNextAV->setEnabled(false);
+        else
+            btnNextAV->setEnabled(true);
+        QString str;
+        str.append(QString("%1").arg(currentAV));
+        btnSelAV->setText("AV " + str);
+
+        if(!windowMinimized){
+            int t = lstAVTime->at(currentAV -1);
+
+            unsigned int m = (t/ 60);
+            unsigned int s = (t - 60*m);
+            const QString diff = QString("%1:%2")
+            .arg(m, 2, 10, QChar('0'))
+            .arg(s, 2, 10, QChar('0'));
+            avTime->setText(diff);
+        }
+        avSelected = true;
+        leftSelected = false;
+        rightSelected = false;
         btnAV->setStyleSheet(this->qssSelected);
         btnAVLeft->setStyleSheet(this->qssNotSelected);
         btnAVRight->setStyleSheet(this->qssNotSelected);
     }
 
     void StopWatch::btnAVLeftClicked(){
+        currentLeftAV = 1;
+        btnPrevAV->setEnabled(false);
+        if(currentLeftAV == totalLeftAV)
+            btnNextAV->setEnabled(false);
+        else
+            btnNextAV->setEnabled(true);
+        QString str;
+        str.append(QString("%1").arg(currentLeftAV));
+        btnSelAV->setText("L_AV " + str);
+
+        if(!windowMinimized){
+            int t = lstLeftAVTime->at(currentLeftAV -1);
+
+            unsigned int m = (t/ 60);
+            unsigned int s = (t - 60*m);
+            const QString diff = QString("%1:%2")
+            .arg(m, 2, 10, QChar('0'))
+            .arg(s, 2, 10, QChar('0'));
+            avTime->setText(diff);
+        }
+        avSelected = false;
+        leftSelected = true;
+        rightSelected = false;
         btnAV->setStyleSheet(this->qssNotSelected);
         btnAVLeft->setStyleSheet(this->qssSelected);
         btnAVRight->setStyleSheet(this->qssNotSelected);
     }
 
     void StopWatch::btnAVRightClicked(){
+        currentRightAV = 1;
+        btnPrevAV->setEnabled(false);
+        if(currentRightAV == totalRightAV)
+            btnNextAV->setEnabled(false);
+        else
+            btnNextAV->setEnabled(true);
+        QString str;
+        str.append(QString("%1").arg(currentRightAV));
+        btnSelAV->setText("R_AV " + str);
+
+        if(!windowMinimized){
+            int t = lstRightAVTime->at(currentRightAV -1);
+
+            unsigned int m = (t/ 60);
+            unsigned int s = (t - 60*m);
+            const QString diff = QString("%1:%2")
+            .arg(m, 2, 10, QChar('0'))
+            .arg(s, 2, 10, QChar('0'));
+            avTime->setText(diff);
+        }
+        avSelected = false;
+        leftSelected = false;
+        rightSelected = true;
         btnAV->setStyleSheet(this->qssNotSelected);
         btnAVLeft->setStyleSheet(this->qssNotSelected);
         btnAVRight->setStyleSheet(this->qssSelected);
@@ -353,71 +497,173 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
 
 
     void StopWatch::btnPlusClicked(){
-        int o = lstAVTime->at(currentAV -1) +1;
-        lstAVTime->replace(currentAV -1, o);
+        if(avSelected){
+           int o = lstAVTime->at(currentAV -1) +1;
+           lstAVTime->replace(currentAV -1, o);
 
+           int t = lstAVTime->at(currentAV -1);
 
-        int t = lstAVTime->at(currentAV -1);
+           unsigned int m = (t/ 60);
+           unsigned int s = (t - 60*m);
+           const QString diff = QString("%1:%2")
+           .arg(m, 2, 10, QChar('0'))
+           .arg(s, 2, 10, QChar('0'));
+           avTime->setText(diff);
+        }
+        else if(leftSelected){
 
-        unsigned int m = (t/ 60);
-        unsigned int s = (t - 60*m);
-        const QString diff = QString("%1:%2")
-        .arg(m, 2, 10, QChar('0'))
-        .arg(s, 2, 10, QChar('0'));
-        avTime->setText(diff);
+        }
+        else {
+
+        }
     }
 
     void StopWatch::btnMinusClicked(){
-        int o = lstAVTime->at(currentAV -1) -1;
-        lstAVTime->replace(currentAV -1, o);
+        if(avSelected){
+           int o = lstAVTime->at(currentAV -1) -1;
+           lstAVTime->replace(currentAV -1, o);
 
+           int t = lstAVTime->at(currentAV -1);
 
-        int t = lstAVTime->at(currentAV -1);
+           unsigned int m = (t/ 60);
+           unsigned int s = (t - 60*m);
+           const QString diff = QString("%1:%2")
+           .arg(m, 2, 10, QChar('0'))
+           .arg(s, 2, 10, QChar('0'));
+           avTime->setText(diff);
+        }
+        else if(leftSelected){
 
-        unsigned int m = (t/ 60);
-        unsigned int s = (t - 60*m);
-        const QString diff = QString("%1:%2")
-        .arg(m, 2, 10, QChar('0'))
-        .arg(s, 2, 10, QChar('0'));
-        avTime->setText(diff);
+        }
+        else {
+
+        }
     }
 
     void StopWatch::btnNextAVClicked(){
-        currentAV++;
-        QString str;
-        str.append(QString("%1").arg(currentAV));
-        btnAV->setText("AV " + str);
-        btnPrevAV->setEnabled(true);
-        if(currentAV  == totalAV)
-            btnNextAV->setEnabled(false);
+        if(avSelected){
+            currentAV++;
+            QString str;
+            str.append(QString("%1").arg(currentAV));
+            btnSelAV->setText("AV " + str);
+            btnPrevAV->setEnabled(true);
+            if(currentAV  == totalAV)
+                btnNextAV->setEnabled(false);
 
-        int t = lstAVTime->at(currentAV -1);
+            if(!windowMinimized){
+                int t = lstAVTime->at(currentAV -1);
 
-        unsigned int m = (t/ 60);
-        unsigned int s = (t - 60*m);
-        const QString diff = QString("%1:%2")
-        .arg(m, 2, 10, QChar('0'))
-        .arg(s, 2, 10, QChar('0'));
-        avTime->setText(diff);
+                unsigned int m = (t/ 60);
+                unsigned int s = (t - 60*m);
+                const QString diff = QString("%1:%2")
+                .arg(m, 2, 10, QChar('0'))
+                .arg(s, 2, 10, QChar('0'));
+                avTime->setText(diff);
+            }
+        }
+        else if(leftSelected){
+            currentLeftAV++;
+            QString str;
+            str.append(QString("%1").arg(currentLeftAV));
+            btnSelAV->setText("L_AV " + str);
+            btnPrevAV->setEnabled(true);
+            if(currentLeftAV  == totalLeftAV)
+                btnNextAV->setEnabled(false);
+
+            if(!windowMinimized){
+                int t = lstLeftAVTime->at(currentLeftAV -1);
+
+                unsigned int m = (t/ 60);
+                unsigned int s = (t - 60*m);
+                const QString diff = QString("%1:%2")
+                .arg(m, 2, 10, QChar('0'))
+                .arg(s, 2, 10, QChar('0'));
+                avTime->setText(diff);
+            }
+        }
+        else {
+            currentRightAV++;
+            QString str;
+            str.append(QString("%1").arg(currentRightAV));
+            btnSelAV->setText("R_AV " + str);
+            btnPrevAV->setEnabled(true);
+            if(currentRightAV  == totalRightAV)
+                btnNextAV->setEnabled(false);
+
+            if(!windowMinimized){
+                int t = lstRightAVTime->at(currentRightAV -1);
+
+                unsigned int m = (t/ 60);
+                unsigned int s = (t - 60*m);
+                const QString diff = QString("%1:%2")
+                .arg(m, 2, 10, QChar('0'))
+                .arg(s, 2, 10, QChar('0'));
+                avTime->setText(diff);
+            }
+        }
     }
 
     void StopWatch::btnPrevAVClicked(){
-        currentAV--;
-        QString str;
-        str.append(QString("%1").arg(currentAV));
-        btnAV->setText("AV " + str);
-        btnNextAV->setEnabled(true);
-        if(currentAV == 1)
-            btnPrevAV->setEnabled(false);
+        if(avSelected){
+            currentAV--;
+            QString str;
+            str.append(QString("%1").arg(currentAV));
+            btnSelAV->setText("AV " + str);
+            btnNextAV->setEnabled(true);
+            if(currentAV == 1)
+                btnPrevAV->setEnabled(false);
 
-        int t = lstAVTime->at(currentAV -1);
+            if(!windowMinimized){
+                int t = lstAVTime->at(currentAV -1);
 
-        unsigned int m = (t/ 60);
-        unsigned int s = (t - 60*m);
-        const QString diff = QString("%1:%2")
-        .arg(m, 2, 10, QChar('0'))
-        .arg(s, 2, 10, QChar('0'));
-        avTime->setText(diff);
+                unsigned int m = (t/ 60);
+                unsigned int s = (t - 60*m);
+                const QString diff = QString("%1:%2")
+                .arg(m, 2, 10, QChar('0'))
+                .arg(s, 2, 10, QChar('0'));
+                avTime->setText(diff);
+            }
+        }
+        else if(leftSelected){
+            currentLeftAV--;
+            QString str;
+            str.append(QString("%1").arg(currentLeftAV));
+            btnSelAV->setText("L_AV " + str);
+            btnNextAV->setEnabled(true);
+            if(currentLeftAV == 1)
+                btnPrevAV->setEnabled(false);
+
+            if(!windowMinimized){
+                int t = lstLeftAVTime->at(currentLeftAV -1);
+
+                unsigned int m = (t/ 60);
+                unsigned int s = (t - 60*m);
+                const QString diff = QString("%1:%2")
+                .arg(m, 2, 10, QChar('0'))
+                .arg(s, 2, 10, QChar('0'));
+                avTime->setText(diff);
+            }
+        }
+        else {
+            currentRightAV--;
+            QString str;
+            str.append(QString("%1").arg(currentRightAV));
+            btnSelAV->setText("R_AV " + str);
+            btnNextAV->setEnabled(true);
+            if(currentRightAV == 1)
+                btnPrevAV->setEnabled(false);
+
+            if(!windowMinimized){
+                int t = lstRightAVTime->at(currentRightAV -1);
+
+                unsigned int m = (t/ 60);
+                unsigned int s = (t - 60*m);
+                const QString diff = QString("%1:%2")
+                .arg(m, 2, 10, QChar('0'))
+                .arg(s, 2, 10, QChar('0'));
+                avTime->setText(diff);
+            }
+        }
     }
 
     /*void StopWatch::btnSaveGraphClicked(){
@@ -439,7 +685,8 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
             timer->setText(diff);
             if(counter != s){
                 updateAVs();
-                updateGraph();
+                if(!windowMinimized)
+                    updateGraph();
                 //getButtonView();
             }
             counter = s;
@@ -472,13 +719,15 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
     void StopWatch::updateGraph(){
         painter.begin(&picture);
         painter.setRenderHint(QPainter::Antialiasing);
+        painter.setPen(QPen(Qt::gray, 0, Qt::SolidLine, Qt::RoundCap));
+        painter.drawLine(0, -40, 0, -40);
 
         paintX = 10;
         for(int i = 0; i < lstLeftAVs->count(); ++i){
             QString s = lstLeftAVs->at(i);
             painter.setPen(QPen(Qt::black, 6, Qt::SolidLine, Qt::RoundCap));
             if(s == "true")
-                painter.drawLine(paintX -10, -60, paintX, -60);
+                painter.drawLine(paintX -10, -40, paintX, -40);
             paintX = paintX +10;
 
         }
@@ -497,7 +746,7 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
             for(int i = 0; i < (lstAV->count() + 5); ++i){
                 painter.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::RoundCap));
                 if(i%5 == 0){
-                    painter.drawLine(paintX -10, 70, paintX -10, 80);
+                    painter.drawLine(paintX -10, 55, paintX -10, 65);
                     unsigned int m = (i/ 60);
                     unsigned int s = (i - 60*m);
                     const QString diff = QString("%1:%2")
@@ -506,10 +755,10 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
                     QFont font=painter.font() ;
                     font.setPointSize(7);
                     painter.setFont(font);
-                    painter.drawText(QPoint(paintX -26, 93), diff);
+                    painter.drawText(QPoint(paintX -26, 78), diff);
                 }
                 else
-                    painter.drawLine(paintX -10, 74, paintX -10, 78);
+                    painter.drawLine(paintX -10, 58, paintX -10, 62);
                 paintX = paintX +10;
             }
         }
@@ -521,12 +770,12 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
             painter.setPen(QPen(Qt::black, 6, Qt::SolidLine, Qt::RoundCap));
             if(s == "true"){
                 painter.setPen(QPen(Qt::red, 2, Qt::SolidLine, Qt::RoundCap));
-                painter.drawLine(paintX -10, 85, paintX -10, -85);
+                painter.drawLine(paintX -10, 30, paintX -10, 50);
                 painter.setPen(QPen(Qt::black, 6, Qt::SolidLine, Qt::RoundCap));
-                painter.drawLine(paintX - 10, 50, paintX, 50);
+                painter.drawLine(paintX - 10, 40, paintX, 40);
             }
             else
-                painter.drawLine(paintX - 10, 50, paintX, 50);
+                painter.drawLine(paintX - 10, 40, paintX, 40);
             paintX = paintX +10;
         }
 
@@ -566,7 +815,7 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
         int avCount = 0;
         int secs = 0;
         if(leftright == "left"){
-            for(int i = 1; i < lstLeftAVs->count(); ++i){
+            for(int i = 1; i < lstLeftAVs->count() -1; ++i){
                 QString s = lstLeftAVs->at(i);
                 if(avCount == (currentAV -1)){
                     if(s == "true" && lstLeftAVs->at(i +1) == "false"){
@@ -581,7 +830,7 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
             }
         }
         else {
-            for(int i = 1; i < lstRightAVs->count(); ++i){
+            for(int i = 1; i < lstRightAVs->count() -1; ++i){
                 QString s = lstRightAVs->at(i);
                 if(avCount == (currentAV -1)){
                     if(s == "true" && lstRightAVs->at(i +1) == "false"){
@@ -655,4 +904,35 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
                 btnView->avButtonLayout->addWidget(avButtons->at(i -1));
             }
         }
+    }
+
+    void StopWatch::btnMinimizeClicked(){
+        windowMinimized = true;
+
+        QWidget *mini = new QWidget();
+
+        QBoxLayout *minimizedLayout = new QHBoxLayout();
+
+        minimizedLayout->addWidget(btnMaximize);
+        minimizedLayout->addItem(new QSpacerItem(70, 45));
+        minimizedLayout->addWidget(btnAVLeft);
+        minimizedLayout->addWidget(btnAVRight);
+        minimizedLayout->addWidget(btnAV);
+        minimizedLayout->addItem(new QSpacerItem(70, 45));
+        minimizedLayout->addWidget(btnPrevAV);
+        minimizedLayout->addWidget(btnSelAV);
+        minimizedLayout->addWidget(btnNextAV);
+        minimizedLayout->addWidget(timer);
+        minimizedLayout->addWidget(btnStartPause);
+        minimizedLayout->setAlignment(timer, Qt::AlignRight);
+        minimizedLayout->setAlignment(btnStartPause, Qt::AlignRight);
+
+
+        mini->setLayout(minimizedLayout);
+        this->setCentralWidget(mini);
+        this->setMaximumHeight(65);
+    }
+
+    void StopWatch::btnMaximizeClicked(){
+        //windowMinimized = false;
     }
