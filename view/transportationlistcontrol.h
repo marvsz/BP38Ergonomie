@@ -7,6 +7,8 @@
 #include <QList>
 #include <QString>
 #include <QLineEdit>
+#include <QPushButton>
+#include <QGridLayout>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
@@ -50,15 +52,17 @@ private:
     int currentMaxLoad;
 
     QList<TransportationListElement*>* transportations;
-    QLabel *newName;
     QLineEdit *newNameEdit;
     QVector<QLabel*> *options;
     ValueControl *transportationWeight;
     ValueControl *transportationMaxLoad;
     QVector<SelectableValueButton*>* optionsTrueBtns;
     QVector<SelectableValueButton*>* optionsFalseBtns;
-    SelectableValueButton *addBtn;
-    SelectableValueButton *remBtn;
+    QPushButton *addBtn;
+    QPushButton *remBtn;
+
+    QGridLayout *mainLayout;
+    QHBoxLayout *buttonLayout;
     QVBoxLayout *listLayout;
 
     TransportationListElement* transportationWithId(int id);

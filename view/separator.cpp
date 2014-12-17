@@ -12,5 +12,4 @@ Separator::Separator(Qt::Orientation orientation, int thickness, QWidget *parent
         this->setFixedWidth(thickness);
     }
 
-    this->setStyleSheet("QWidget {background-color: #c8c7cc; margin: 5px 5px 5px 5px;}");
 }

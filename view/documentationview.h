@@ -14,8 +14,10 @@
  * @brief The DocumentationView contains all view elements needed when
  * documenting a workflow.
  * A StopWatch is always present in the bottom area, the top area
- * contains a QTabWidget with the different criteria views as tabs:
+ * contains a QCombobox with the different criteria views as options:
  * AngleView, TransportView, ActionForceView, ExecutionConditionView.
+ * The main content of the different view is in the mid area on a
+ * QStackedWidget.
  */
 class DocumentationView : public QWidget
 {
@@ -31,15 +33,12 @@ private slots:
     void showCamera();
     void hideCamera();
 private:
-    // TAB SOLUTION
-    // QTabWidget *tabs;
 
-    // COMBOBOX SOLUTION
     QPushButton* backButton;
     QComboBox *views;
     QPushButton* cameraButton;
     QStackedWidget *mainContent;
-    QQuickView cameraView;
+    QQuickView *cameraView;
     StopWatch *timer;
 
 };

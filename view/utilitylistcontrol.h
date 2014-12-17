@@ -3,14 +3,17 @@
 
 #include <QWidget>
 #include <QList>
+#include <QSize>
 #include <QVector>
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QFormLayout>
+#include <QPushButton>
+
+#include <QLineEdit>
 #include "utilitylistelement.h"
-#include "utilityoption.h"
-#include "selectablevaluebutton.h"
+#include "numberlineedit.h"
 
 /**
  * @brief A Class providing functionality for displaying and handling different UtilityListElement.
@@ -35,17 +38,17 @@ private slots:
 
     void utilityChanged(int id);
 
-    void recoilIntensityChanged(int rI);
-    void recoilCountChanged(int rC);
-    void vibrationIntensityChanged(int vI);
-    void vibrationCountChanged(int vC);
+    void recoilIntensityChanged(QString rI);
+    void recoilCountChanged(QString rC);
+    void vibrationIntensityChanged(QString vI);
+    void vibrationCountChanged(QString vC);
 
 private:
     int currentUtilityId;
 
     QList<UtilityListElement*>* utilites;
-    SelectableValueButton *addBtn;
-    SelectableValueButton *remBtn;
+    QPushButton *addBtn;
+    QPushButton *remBtn;
 
     QString currentName;
     int currentRecoilIntensity;
@@ -53,21 +56,20 @@ private:
     int currentVibrationIntensity;
     int currentVibrationCount;
 
-    UtilityOption* utilityName;
-    UtilityOption* recoilIntensity;
-    UtilityOption* recoilCount;
-    UtilityOption* vibrationIntensity;
-    UtilityOption* vibrationCount;
+    QLineEdit* utilityName;
+    NumberLineEdit* recoilIntensity;
+    NumberLineEdit* recoilCount;
+    NumberLineEdit* vibrationIntensity;
+    NumberLineEdit* vibrationCount;
     
     QGridLayout *mainLayout;
     QVBoxLayout *listLayout;
-    QGridLayout *optionLayout;
+    QFormLayout *optionLayout;
+    QHBoxLayout *buttonLayout;
 
     UtilityListElement* utilityWithId(int id);
     int utilityIndex(int utilityId);
     void clearValues();
-
-
 };
 
 #endif // UTILITYLISTCONTROL_H
