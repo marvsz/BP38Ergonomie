@@ -15,7 +15,8 @@ UtilityListControl::UtilityListControl(QWidget *parent) :
 {
     mainLayout = new QGridLayout;
     listLayout = new QVBoxLayout;
-    optionLayout = new QGridLayout;
+    optionLayout = new QFormLayout;
+    buttonLayout = new QHBoxLayout;
 
     // INITIALIZE VARIABLES
     this->utilites = new QList<UtilityListElement*>;
@@ -28,61 +29,57 @@ UtilityListControl::UtilityListControl(QWidget *parent) :
     this->currentVibrationIntensity = 0;
 
     // BUTTONS
-    this->addBtn = new SelectableValueButton(-1, 0, this);
+    this->addBtn = new QPushButton(this);
     this->addBtn->setText("Betriebsmittel hinzufügen");
-    this->addBtn->setMinimumWidth(250);
+    this->addBtn->setMaximumWidth(300);
     connect(this->addBtn, SIGNAL(clicked()), this, SLOT(addUtility()));
-    this->remBtn = new SelectableValueButton(-2, 0, this);
+
+    this->remBtn = new QPushButton(this);
     this->remBtn->setText("Betriebsmittel entfernen");
-    this->remBtn->setMinimumWidth(250);
-    connect(this->remBtn, SIGNAL(pressedWithID(int)), this, SLOT(removeUtility()));
+    this->remBtn->setMaximumWidth(300);
+    connect(this->remBtn, SIGNAL(clicked()), this, SLOT(removeUtility()));
 
     // OPTIONS
-    this->utilityName = new UtilityOption(TEXT_OPTION, this);
-    this->utilityName->setMinimumSize(350, 40);
-    this->utilityName->setPlaceholder("Bezeichnung des Betriebsmittels");
-    connect(this->utilityName, SIGNAL(valueChanged(QString)), this, SLOT(disableSelection()));
+    this->utilityName = new QLineEdit(this);
+    this->utilityName->setPlaceholderText("Neues Betriebsmittel");
+    this->utilityName->setMinimumWidth(300);
+    connect(this->utilityName, SIGNAL(textChanged(QString)), this, SLOT(disableSelection()));
 
-    this->recoilIntensity = new UtilityOption(VALUE_OPTION, this);
-    this->recoilIntensity->setPlaceholder("Rückschlagintensität");
-    this->recoilIntensity->setMinimumWidth(500);
-    connect(this->recoilIntensity, SIGNAL(valueChanged(int)), this, SLOT(recoilIntensityChanged(int)));
+    this->recoilIntensity = new NumberLineEdit(this);
+    this->recoilIntensity->setPlaceholderText("Rückschlagintensität");
+    connect(this->recoilIntensity, SIGNAL(textChanged(QString)), this, SLOT(recoilIntensityChanged(QString)));
 
+    this->recoilCount = new NumberLineEdit(this);
+    this->recoilCount->setPlaceholderText("Rückschlaganzahl");
+    connect(this->recoilCount, SIGNAL(textChanged(QString)), this, SLOT(recoilCountChanged(QString)));
 
-    this->recoilCount = new UtilityOption(VALUE_OPTION, this);
-    this->recoilCount->setPlaceholder("Rückschlaganzahl");
-    this->recoilCount->setMinimumWidth(500);
-    connect(this->recoilCount, SIGNAL(valueChanged(int)), this, SLOT(recoilCountChanged(int)));
+    this->vibrationIntensity = new NumberLineEdit(this);
+    this->vibrationIntensity->setPlaceholderText("Vibrationsintensität");
+    connect(this->vibrationIntensity, SIGNAL(textChanged(QString)), this, SLOT(vibrationIntensityChanged(QString)));
 
-    this->vibrationIntensity = new UtilityOption(VALUE_OPTION, this);
-    this->vibrationIntensity->setPlaceholder("Vibrationsintensität");
-    this->vibrationIntensity->setMinimumWidth(500);
-    connect(this->vibrationIntensity, SIGNAL(valueChanged(int)), this, SLOT(vibrationIntensityChanged(int)));
+    this->vibrationCount = new NumberLineEdit(this);
+    this->vibrationCount->setPlaceholderText("Vibrationsanzahl");
+    connect(this->vibrationCount, SIGNAL(textChanged(QString)), this, SLOT(vibrationCountChanged(QString)));
 
-    this->vibrationCount = new UtilityOption(VALUE_OPTION, this);
-    this->vibrationCount->setPlaceholder("Vibrationsanzahl");
-    this->vibrationCount->setMinimumWidth(500);
-    connect(this->vibrationCount, SIGNAL(valueChanged(int)), this, SLOT(vibrationCountChanged(int)));
+    // BUTTON LAYOUT
+    buttonLayout->addWidget(addBtn);
+    buttonLayout->addWidget(remBtn);
 
     // OPTION LAYOUT
-    optionLayout->addWidget(new QLabel("Rückschlagintensität: [N]", this), 0, 0, 1, 1, Qt::AlignLeft);
-    optionLayout->addWidget(this->recoilIntensity, 0, 1, 1, 1, Qt::AlignLeft);
-    optionLayout->addWidget(new QLabel("Rückschlaganzahl:", this), 1, 0, 1, 1, Qt::AlignLeft);
-    optionLayout->addWidget(this->recoilCount, 1, 1, 1, 1, Qt::AlignLeft);
-    optionLayout->addWidget(new QLabel("Vibrationsintensität [N]:", this), 2, 0, 1, 1, Qt::AlignLeft);
-    optionLayout->addWidget(this->vibrationIntensity, 2, 1, 1, 1, Qt::AlignLeft);
-    optionLayout->addWidget(new QLabel("Vibrationsanzahl:", this), 3, 0, 1, 1, Qt::AlignLeft);
-    optionLayout->addWidget(this->vibrationCount, 3, 1, 1, 1, Qt::AlignLeft);
+    optionLayout->addRow("Rückschlagintensität: [N]", this->recoilIntensity);
+    optionLayout->addRow("Rückschlaganzahl:", this->recoilCount);
+    optionLayout->addRow("Vibrationsintensität: [N]", this->vibrationIntensity);
+    optionLayout->addRow("Vibrationsanzahl", this->vibrationCount);
 
     // MAIN LAYOUT
-    mainLayout->addWidget(new QLabel("Betriebsmittel"), 0, 0, 1, 3, Qt::AlignCenter);
-    mainLayout->addLayout(listLayout, 1, 0, 1, 3, Qt::AlignCenter);
-    mainLayout->addWidget(new QLabel("Bezeichnung:"), 2, 0, 1, 1, Qt::AlignLeft);
-    mainLayout->addWidget(utilityName, 2, 0, 1, 3, Qt::AlignCenter);
-    mainLayout->addWidget(addBtn, 3, 0, 1, 1, Qt::AlignLeft);
-    mainLayout->addWidget(remBtn, 3, 2, 1, 1, Qt::AlignRight);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 4, 0, 1, 3);
-    mainLayout->addLayout(optionLayout, 5, 0, 1, 3, Qt::AlignLeft);
+    mainLayout->addWidget(new QLabel("Betriebsmittel"), 0, 0, 1, 2, Qt::AlignLeft);
+    mainLayout->addLayout(listLayout, 1, 0, 1, 2, 0);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 2, 0, 1, 2, 0);
+    mainLayout->addWidget(new QLabel("Beschreibung:"), 3, 0, 1, 1, Qt::AlignLeft);
+    mainLayout->addWidget(utilityName, 3, 0, 1, 2, Qt::AlignHCenter);
+    mainLayout->addLayout(buttonLayout, 4, 0, 1, 2, 0);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 5, 0, 1, 2, 0);
+    mainLayout->addLayout(optionLayout, 6, 0, 1, 2, 0);
     this->setLayout(mainLayout);
 }
 
@@ -110,10 +107,9 @@ void UtilityListControl::setCurrentUtilityId(int id){
  * after adding the UtilityListElement.
  */
 void UtilityListControl::addUtility(){
-    if(utilityName->getTextValue() != ""){
-        UtilityListElement* u = new UtilityListElement(utilityName->getTextValue(), recoilIntensity->getIntValue(), recoilCount->getIntValue(), vibrationIntensity->getIntValue(), vibrationCount->getIntValue(), this);
-        u->setMinimumSize(300, 50);
-        u->setMaximumSize(300, 50);
+    if(utilityName->text() != ""){
+        UtilityListElement* u = new UtilityListElement(utilityName->text(), recoilIntensity->text().toInt(), recoilCount->text().toInt(), vibrationIntensity->text().toInt(), vibrationCount->text().toInt(), this);
+        u->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
         utilites->append(u);
         connect(u, SIGNAL(pressedWithID(int)), this, SLOT(utilityChanged(int)));
         this->listLayout->addWidget(u);
@@ -150,10 +146,10 @@ void UtilityListControl::utilityChanged(int id){
     setCurrentUtilityId(id);
     UtilityListElement* u = utilityWithId(currentUtilityId);
 
-    recoilIntensity->setValue(u->getRecoilIntensity());
-    recoilCount->setValue(u->getRecoilCount());
-    vibrationIntensity->setValue(u->getVibrationIntensity());
-    vibrationCount->setValue(u->getVibrationCount());
+    recoilIntensity->setText(QString::number(u->getRecoilIntensity()));
+    recoilCount->setText(QString::number(u->getRecoilCount()));
+    vibrationIntensity->setText(QString::number(u->getVibrationIntensity()));
+    vibrationCount->setText(QString::number(u->getVibrationCount()));
 
 }
 
@@ -163,7 +159,7 @@ void UtilityListControl::utilityChanged(int id){
  * The currentUtilityId is set to  -1 (no Utility selected).
  */
 void UtilityListControl::disableSelection(){
-    if(currentUtilityId > -1 && !utilites->isEmpty() && utilityName->getTextValue() != ""){
+    if(currentUtilityId > -1 && !utilites->isEmpty() && utilityName->text() != ""){
         utilityWithId(currentUtilityId)->setSelected(false);
         currentUtilityId = -1;
         clearValues();
@@ -176,10 +172,10 @@ void UtilityListControl::disableSelection(){
  * current selected id is then set to this recoil intensity, if the index is valid (> -1)
  * @param rI The value of the changed recoil intensity
  */
-void UtilityListControl::recoilIntensityChanged(int rI){
-    currentRecoilIntensity = rI;
+void UtilityListControl::recoilIntensityChanged(QString rI){
+    currentRecoilIntensity = rI.toInt();
     if(currentUtilityId > -1)
-        utilityWithId(currentUtilityId)->setRecoilIntensity(rI);
+        utilityWithId(currentUtilityId)->setRecoilIntensity(currentRecoilIntensity);
 }
 
 /**
@@ -188,10 +184,10 @@ void UtilityListControl::recoilIntensityChanged(int rI){
  * current selected id is then set to this recoil count, if the index is valid (> -1)
  * @param rC The value of the changed recoil count
  */
-void UtilityListControl::recoilCountChanged(int rC){
-    currentRecoilIntensity = rC;
+void UtilityListControl::recoilCountChanged(QString rC){
+    currentRecoilCount = rC.toInt();
     if(currentUtilityId > -1)
-        utilityWithId(currentUtilityId)->setRecoilCount(rC);
+        utilityWithId(currentUtilityId)->setRecoilCount(currentRecoilCount);
 }
 
 /**
@@ -200,10 +196,10 @@ void UtilityListControl::recoilCountChanged(int rC){
  * current selected id is then set to this vibration intensity, if the index is valid (> -1)
  * @param vI The value of the changed vibration intensity.
  */
-void UtilityListControl::vibrationIntensityChanged(int vI){
-    currentVibrationIntensity = vI;
+void UtilityListControl::vibrationIntensityChanged(QString vI){
+    currentVibrationIntensity = vI.toInt();
     if(currentUtilityId > -1)
-        utilityWithId(currentUtilityId)->setVibrationIntensity(vI);
+        utilityWithId(currentUtilityId)->setVibrationIntensity(currentVibrationIntensity);
 }
 
 /**
@@ -212,10 +208,10 @@ void UtilityListControl::vibrationIntensityChanged(int vI){
  * current selected id is then set to this vibration count, if the index is valid (> -1)
  * @param vI The value of the changed vibration count.
  */
-void UtilityListControl::vibrationCountChanged(int vC){
-    currentVibrationIntensity = vC;
+void UtilityListControl::vibrationCountChanged(QString vC){
+    currentVibrationCount = vC.toInt();
     if(currentUtilityId > -1)
-        utilityWithId(currentUtilityId)->setVibrationCount(vC);
+        utilityWithId(currentUtilityId)->setVibrationCount(currentVibrationCount);
 }
 
 // private

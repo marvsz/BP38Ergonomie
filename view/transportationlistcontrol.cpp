@@ -1,10 +1,7 @@
 #include "transportationlistcontrol.h"
-#include <QGridLayout>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QMessageBox>
 #include "separator.h"
-#include <QDebug>
 
 /**
  * @brief Constructs a TransportationListControl widget which is a child of parent.
@@ -18,9 +15,10 @@
 TransportationListControl::TransportationListControl(QVector<QString> *optionNames, QWidget *parent) :
     QWidget(parent)
 {
-    QGridLayout *mainLayout = new QGridLayout;
-
+    mainLayout = new QGridLayout;
     listLayout = new QVBoxLayout;
+    buttonLayout = new QHBoxLayout;
+
     // VALID IDs START AT 0
     this->currentTransportationId = -1;
 
@@ -33,21 +31,22 @@ TransportationListControl::TransportationListControl(QVector<QString> *optionNam
     this->optionsTrueBtns = new QVector<SelectableValueButton*>;
     this->optionsFalseBtns = new QVector<SelectableValueButton*>;
 
-    // ADD A ROW FOR NEW TRANSPORTATION FUNCTIONALITY
-    this->newName = new QLabel(this);
-    this->newName->setText("Bezeichnung");
+    // ADD A QLINEEDIT FOR NEW TRANSPORTATION FUNCTIONALITY
     this->newNameEdit = new QLineEdit(this);
-    this->newNameEdit->setAlignment(Qt::AlignHCenter);
     this->newNameEdit->setPlaceholderText("Neues Transportmittel");
     this->newNameEdit->setMinimumWidth(300);
+    connect(newNameEdit, SIGNAL(textChanged(QString)), this, SLOT(disableSelection()));
 
     // BUTTONS FOR ADDING/REMOVING
-    this->addBtn = new SelectableValueButton(-1, 0, this);
+    this->addBtn = new QPushButton(this);
     this->addBtn->setText("Transportmittel erstellen");
-    this->addBtn->setMaximumWidth(250);
-    this->remBtn = new SelectableValueButton(-2, 0, this);
+    this->addBtn->setMaximumWidth(300);
+    connect(addBtn, SIGNAL(clicked()), this, SLOT(addTransportation()));
+
+    this->remBtn = new QPushButton(this);
     this->remBtn->setText("Transportmittel entfernen");
-    this->remBtn->setMaximumWidth(250);
+    this->remBtn->setMaximumWidth(300);
+    connect(remBtn, SIGNAL(clicked()), this, SLOT(removeTransportation()));
 
     // ADD A ROW WITH DESCRIPTION FOR EACH OPTION SPECIFIED IN THE VECTOR OF STRINGS
     this->options = new QVector<QLabel*>();
@@ -80,14 +79,9 @@ TransportationListControl::TransportationListControl(QVector<QString> *optionNam
         }
     }
 
-    // CONNECT BUTTONS AND LINEEDIT WITH DESIRED FUNCTIONALITY
-    connect(addBtn, SIGNAL(clicked()), this, SLOT(addTransportation()));
-    connect(remBtn, SIGNAL(clicked()), this, SLOT(removeTransportation()));
-    connect(newNameEdit, SIGNAL(textChanged(QString)), this, SLOT(disableSelection()));
 
     // ADD BUTTONS FOR EACH OPTION AND A SEPARATOR BETWEEN EACH TWO
     QVBoxLayout *optionListLayout = new QVBoxLayout;
-    optionListLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     for(int i = 0; i < options->length(); i++){
         QHBoxLayout *optionLayout = new QHBoxLayout;
         optionLayout->addWidget(options->at(i));
@@ -106,6 +100,7 @@ TransportationListControl::TransportationListControl(QVector<QString> *optionNam
     transportationWeight->setText("Leergewicht");
     optionListLayout->addWidget(transportationWeight);
     optionListLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
+    connect(transportationWeight, SIGNAL(valueChanged(int)), this, SLOT(weightChanged(int)));
 
     // VALUECONTROL FOR MAXLOAD
     QVector<int>* maxLoadValues = new QVector<int>;
@@ -115,20 +110,22 @@ TransportationListControl::TransportationListControl(QVector<QString> *optionNam
     transportationMaxLoad->setUnit("kg");
     transportationMaxLoad->setText("Maximale Last");
     optionListLayout->addWidget(transportationMaxLoad);
-
-    connect(transportationWeight, SIGNAL(valueChanged(int)), this, SLOT(weightChanged(int)));
     connect(transportationMaxLoad, SIGNAL(valueChanged(int)), this, SLOT(maxLoadChanged(int)));
 
-    // LAYOUT
-    mainLayout->addWidget(new QLabel("Transportmittel"), 0, 0, 1, 3, Qt::AlignCenter);
-    mainLayout->addLayout(listLayout, 1, 0, 1, 3, Qt::AlignCenter);
-    mainLayout->addWidget(newName, 3, 0, 1, 1, Qt::AlignLeft);
-    mainLayout->addWidget(newNameEdit, 3, 1, 1, 1, Qt::AlignCenter);
-    mainLayout->addWidget(addBtn, 4, 0, 1, 1, Qt::AlignLeft);
-    mainLayout->addWidget(remBtn, 4, 2, 1, 1, Qt::AlignRight);
-    mainLayout->addLayout(optionListLayout, 5, 0, 1, 3, Qt::AlignCenter);
-    this->setLayout(mainLayout);
+    // BUTTON LAYOUT
+    buttonLayout->addWidget(addBtn);
+    buttonLayout->addWidget(remBtn);
 
+    // LAYOUT
+    mainLayout->addWidget(new QLabel("Transportmittel"), 0, 0, 1, 2, Qt::AlignLeft);
+    mainLayout->addLayout(listLayout, 1, 0, 1, 2, 0);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 2, 0, 1, 2, 0);
+    mainLayout->addWidget(new QLabel("Bezeichnung"), 3, 0, 1, 1, Qt::AlignLeft);
+    mainLayout->addWidget(newNameEdit, 3, 0, 1, 2, Qt::AlignHCenter);
+    mainLayout->addLayout(buttonLayout, 4, 0, 1, 2, 0);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 5, 0, 1, 2, 0);
+    mainLayout->addLayout(optionListLayout, 6, 0, 1, 2, 0);
+    this->setLayout(mainLayout);
 }
 
 // PRIVATE SLOTS
@@ -264,7 +261,7 @@ void TransportationListControl::addTransportation()
     if(newNameEdit->text() != ""){
 
         TransportationListElement *t = new TransportationListElement(newNameEdit->text(), currentOptions, currentWeight, currentMaxLoad, this);
-        t->setMinimumSize(300, 60);
+        t->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
         transportations->append(t);
         connect(t, SIGNAL(pressedWithID(int)), this, SLOT(transportationChanged(int)));
         this->listLayout->addWidget(t);

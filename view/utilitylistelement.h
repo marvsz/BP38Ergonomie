@@ -11,7 +11,7 @@
 class UtilityListElement : public SelectableValueButton
 {
 public:
-    explicit UtilityListElement(QString name = "new QString()""", int recoilIntensity = 0, int recoilCount = 0, int vibrationIntensity = 0, int vibrationCount = 0, QWidget* parent = 0);
+    explicit UtilityListElement(QString name = "", int recoilIntensity = 0, int recoilCount = 0, int vibrationIntensity = 0, int vibrationCount = 0, QWidget* parent = 0);
 
     QString getName();
     int getRecoilIntensity();

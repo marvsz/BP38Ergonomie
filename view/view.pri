@@ -25,11 +25,11 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/documentationview.h \
     $$PWD/utilitylistcontrol.h \
     $$PWD/utilitylistelement.h \
-    $$PWD/utilityoption.h \
     $$PWD/subactivitycontrol.h \
     $$PWD/buttontimelineview.h \
     $$PWD/numberlineedit.h \
-    $$PWD/textlineedit.h
+    $$PWD/textlineedit.h \
+    $$PWD/producedproductexecutioncondition.h
 
 
 SOURCES += $$CURRENT_DIR/variant.cpp\
@@ -55,10 +55,10 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/documentationview.cpp \
     $$PWD/utilitylistcontrol.cpp \
     $$PWD/utilitylistelement.cpp \
-    $$PWD/utilityoption.cpp \
     $$PWD/subactivitycontrol.cpp \
     $$PWD/buttontimelineview.cpp \
     $$PWD/numberlineedit.cpp \
-    $$PWD/textlineedit.cpp
+    $$PWD/textlineedit.cpp \
+    $$PWD/producedproductexecutioncondition.cpp
 
 
