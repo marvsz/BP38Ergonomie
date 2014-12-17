@@ -1,14 +1,14 @@
 #include "optionselectioncontrol.h"
 
-OptionSelectionControl::OptionSelectionControl(QVector<QString*> *options, QWidget *parent) :
+OptionSelectionControl::OptionSelectionControl(const QVector<QString> &options, QWidget *parent) :
     QWidget(parent)
 {
     mainLayout = new QHBoxLayout;
     btnOptions = new QVector<SelectableValueButton*>();
 
-    for(int i=0; i < options->length(); ++i){
+    for(int i=0; i < options.length(); ++i){
         SelectableValueButton *btn = new SelectableValueButton(i, i, this);
-        btn->setText((*options->at(i)));
+        btn->setText(options.at(i));
         btnOptions->append(btn);
         mainLayout->addWidget(btn);
         connect(btn, SIGNAL(pressedWithID(int)), this, SLOT(setSelectedValue(int)));

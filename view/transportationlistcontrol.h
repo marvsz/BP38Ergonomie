@@ -67,6 +67,9 @@ private:
 
     TransportationListElement* transportationWithId(int id);
     int transportationIndex(int transportationId);
+
+    const QVector<int> maxLoadValues = QVector<int>()<<100<<500<<2500<<5000<<10000;
+    const QVector<int> weightValues = QVector<int>()<<2<<10<<50<<100<<1000;
 };
 
 #endif // TRANSPORTATIONLISTCONTROL_H

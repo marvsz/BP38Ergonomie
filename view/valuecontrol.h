@@ -29,7 +29,7 @@ public:
      * @param btnValues The predefinied values for the Buttons, there will be shown as many buttons as the length of the vector
      * @param iconSetPath The path to the icons, the names of the icons muss be the values in btnValues and the filetype png
      */
-    void setValues(int min, int max, QVector<int>* btnValues, QString* iconSetPath);
+    void setValues(int min, int max, const QVector<int> &btnValues, QString* iconSetPath);
 
     /**
      * @brief setValues Sets the values of the control, is only appliable if the control type is TEXT_CONTROL
@@ -37,7 +37,7 @@ public:
      * @param btnTextValues The predefinied text values for a button, if a button gets selected this is the text that will be shown in the QLineEdit
      * @param iconSetPath The path to the icons, the names of the icons muss be the texts in btnTexts and the filetype png
      */
-    void setValues(QVector<QString*> *btnTexts, QVector<QString *> *btnTextValues, QString* iconSetPath);
+    void setValues(const QVector<QString> &btnTexts, const QVector<QString> &btnTextValues, QString* iconSetPath);
 
     /**
      * @brief getControlType Returns the type of the control, which is applied the instantiation
@@ -102,7 +102,7 @@ private slots:
 
 private:
     QVector<int> *btnRanges;
-    QVector<QString*> *btnTextValues;
+    QVector<QString> btnTextValues;
     QString unit;
     int currentSelectedBtnID;
     VariantControl conType;
@@ -114,7 +114,7 @@ private:
     QLabel *lblText;
     QLabel *lblMin;
     QLabel *lblMax;
-    QVector<SelectableValueButton*> *btnValues;
+    QVector<SelectableValueButton*> *btnList;
     QHBoxLayout *btnLineLayout;
 
     void btnHighlight(int value);

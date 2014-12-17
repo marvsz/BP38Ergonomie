@@ -4,17 +4,13 @@
 #include "separator.h"
 #include "numberlineedit.h"
 
-producedProductExecutionCondition::producedProductExecutionCondition(QWidget *parent) :
+ProducedProductExecutionCondition::ProducedProductExecutionCondition(QWidget *parent) :
     QWidget(parent),
     txtbxDistance(new NumberLineEdit(this)),
     txtbxImpulseCount(new NumberLineEdit(this)),
     txtbxWorkingHeight(new NumberLineEdit(this)),
     valConGrabType(new ValueControl(TEXT_CONTROL, this))
 {
-    grabTypeTexts = new QVector<QString*>();
-    (*grabTypeTexts)<<new QString("Daumenkontaktgriff")<<new QString("Zeigefingerkontaktgriff")<<new QString("Handkontaktgriff")<<new QString("Daumen auf 2 Finger")<<new QString("Fingerzufassungsgriff")<<new QString("Daumen-Zeigefingergriff")<<new QString("Zange")<<new QString("Umfassungsgriff");
-    impulseIntensityTexts = new QVector<QString*>();
-    (*impulseIntensityTexts)<<new QString("klein")<<new QString("mittel")<<new QString("stark");
 
     valConGrabType->setValues(grabTypeTexts, grabTypeTexts, new QString(":/Icon/Icon/grabType/grabType_"));
     valConGrabType->setText("Greifart: [EAWS V 1.3.2c]");

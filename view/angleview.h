@@ -22,15 +22,14 @@ class AngleView : public QMainWindow
 
 public:
     explicit AngleView(QWidget *parent = 0);
-    ~AngleView();
 
-signals:
-
-private slots:
+public slots:
     void showTorso();
     void showArms();
     void showLegs();
     void showHead();
+
+signals:
 
 private:
     AngleControl *acTorso;
@@ -38,25 +37,25 @@ private:
     AngleControl *acLegs;
     AngleControl *acHead;
 
-    QVector<int>* angleTorsoFlextion;
-    QVector<int>* angleTorsoTilt;
-    QVector<int>* angleTorsoRotation;
+    const QVector<int> angleTorsoFlextion = QVector<int>()<<-45<<-20<<0<<20<<45<<90<<110;
+    const QVector<int> angleTorsoTilt = QVector<int>()<<0<<20<<45<<60<<90;
+    const QVector<int> angleTorsoRotation = QVector<int>()<<0<<20<<45<<60<<90;
 
-    QVector<int>* angleHeadTilt;
-    QVector<int>* angleHeadRotation;
-    QVector<int>* angleHeadSidewiseTilt;
+    const QVector<int> angleHeadTilt = QVector<int>()<<-90<<-45<<0<<45<<90;
+    const QVector<int> angleHeadRotation = QVector<int>()<<0<<20<<45;
+    const QVector<int> angleHeadSidewiseTilt = QVector<int>()<<0<<20<<45;
 
-    QVector<int>* angleUpperArmPosition;
-    QVector<int>* angleUnderArmPosition;
-    QVector<int>* angleUpperArmRotation;
-    QVector<int>* angleUnderArmRotation;
-    QVector<int>* angleUpperArmOpening;
-    QVector<QString*> *textsWrist;
+    const QVector<int> angleUpperArmPosition = QVector<int>()<<-90<<0<<45<<90<<135<<180;
+    const QVector<int> angleUnderArmPosition = QVector<int>()<<0<<45<<90<<135<<180;
+    const QVector<int> angleUpperArmRotation = QVector<int>()<<-45<<0<<45<<90;
+    const QVector<int> angleUnderArmRotation = QVector<int>()<<-90<<-45<<0<<45<<90;
+    const QVector<int> angleUpperArmOpening = QVector<int>()<<-90<<-45<<0<<45<<90;
+    const QVector<QString> textsWrist = QVector<QString>()<<"Plamarflexion"<<"Dorsalextension"<<"Ularabduktion"<<"Radialabduktion";
 
-    QVector<int>* angleLegHip;
-    QVector<int>* angleLegKnee;
-    QVector<int>* angleLegAnkle;
-    QVector<QString*>* textsLegPosition;
+    const QVector<int> angleLegHip = QVector<int>()<<45<<90<<135<<180;
+    const QVector<int> angleLegKnee = QVector<int>()<<0<<45<<90<<135<<180;
+    const QVector<int> angleLegAnkle = QVector<int>()<<90<<135<<180;
+    const QVector<QString> textsLegPosition = QVector<QString>()<<"stehend"<<"sitzend"<<"gehend"<<"laufend"<<"kniend&&hockend"<<"liegend"<<"kletternd";
 
     VariantSpecification* varSpeciArms;
     VariantSpecification* varSpeciLegs;

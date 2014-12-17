@@ -13,7 +13,7 @@ ValueControl::ValueControl(VariantControl controlType, QWidget *parent) :
     QHBoxLayout *txtEditLayout = new QHBoxLayout;
     btnLineLayout = new QHBoxLayout;
 
-    this->btnValues = new QVector<SelectableValueButton*>();
+    this->btnList = new QVector<SelectableValueButton*>();
     this->btnRanges = new QVector<int>();
     this->unit = QString("");
     this->conType = controlType;
@@ -104,30 +104,30 @@ void ValueControl::setValue(int value){
 
 
 //Public functions
-void ValueControl::setValues(int min, int max, QVector<int>* btnValues, QString* iconSetPath){
+void ValueControl::setValues(int min, int max, const QVector<int> &btnValues, QString* iconSetPath){
     btnRanges = new QVector<int>();
     btnRanges->append(min);
-    for(int i = 0; i < btnValues->length() - 1; ++i)
-        btnRanges->append(btnValues->at(i) + (btnValues->at(i+1) - btnValues->at(i))/2);
+    for(int i = 0; i < btnValues.length() - 1; ++i)
+        btnRanges->append(btnValues.at(i) + (btnValues.at(i+1) - btnValues.at(i))/2);
     btnRanges->append(max+1);
 
 
-    for(int i = 0; i < this->btnValues->length(); i++){
-        btnLineLayout->removeWidget(this->btnValues->at(i));
-        delete this->btnValues->at(i);
+    for(int i = 0; i < btnList->length(); i++){
+        btnLineLayout->removeWidget(btnList->at(i));
+        delete btnList->at(i);
     }
-    this->btnValues->clear();
+    btnList->clear();
 
-    for(int i = 0; i < btnValues->length(); i++){
-        SelectableValueButton *currentBtn = new SelectableValueButton(i, btnValues->at(i), this);
-        currentBtn->setText((QString().number(btnValues->at(i))).append(unit));
+    for(int i = 0; i < btnValues.length(); i++){
+        SelectableValueButton *currentBtn = new SelectableValueButton(i, btnValues.at(i), this);
+        currentBtn->setText((QString().number(btnValues.at(i))).append(unit));
         try{
             QString s = (*iconSetPath);
-            s.append(QString::number(btnValues->at(i))+".png");
+            s.append(QString::number(btnValues.at(i))+".png");
             currentBtn->setIcon(QIcon(s));
             currentBtn->setIconSize(QSize(50,50));
         }catch(...){}
-        this->btnValues->append(currentBtn);
+        btnList->append(currentBtn);
         connect(currentBtn, SIGNAL(pressedWithID(int)), this, SLOT(btnValueHasClicked(int)));
         btnLineLayout->addWidget(currentBtn);
         currentBtn->setMinimumSize(50, 60);
@@ -141,30 +141,30 @@ void ValueControl::setValues(int min, int max, QVector<int>* btnValues, QString*
     sldrValueHasChanged();
 }
 
-void ValueControl::setValues(QVector<QString *> *btnTexts, QVector<QString*> *btnTextValues, QString *iconSetPath){
+void ValueControl::setValues(const QVector<QString> &btnTexts, const QVector<QString> &btnTextValues, QString *iconSetPath){
     this->btnTextValues = btnTextValues;
 
-    for(int i = 0; i < this->btnValues->length(); i++){
-        btnLineLayout->removeWidget(this->btnValues->at(i));
-        delete this->btnValues->at(i);
+    for(int i = 0; i < btnList->length(); i++){
+        btnLineLayout->removeWidget(btnList->at(i));
+        delete btnList->at(i);
     }
-    this->btnValues->clear();
+    btnList->clear();
 
-    int width = this->width() / btnTexts->length();
+    int width = this->width() / btnTexts.length();
 
-    for(int i = 0; i < btnTexts->length(); i++){
+    for(int i = 0; i < btnTexts.length(); i++){
         SelectableValueButton *currentBtn = new SelectableValueButton(i, i, this);
-        currentBtn->setText((*btnTexts->at(i)));
+        currentBtn->setText(btnTexts.at(i));
         try{
             QString s = (*iconSetPath);
-            currentBtn->setIcon(QIcon(s.append((*btnTexts->at(i))).append(".png")));
+            currentBtn->setIcon(QIcon(s.append(btnTexts.at(i)).append(".png")));
             currentBtn->setIconSize(QSize(50,50));
+            currentBtn->setMinimumHeight(60);
         }catch(...){}
-        this->btnValues->append(currentBtn);
+        btnList->append(currentBtn);
         connect(currentBtn, SIGNAL(pressedWithID(int)), this, SLOT(btnTextHasClicked(int)));
         btnLineLayout->addWidget(currentBtn);
-        currentBtn->setMinimumSize(width, 60);
-        //currentBtn->setFontSize(currentBtn->getMaxFontSize());
+        currentBtn->setMinimumWidth(width);
     }
     currentSelectedBtnID = 0;
 }
@@ -183,15 +183,15 @@ void ValueControl::sldrValueHasChanged(){
 }
 
 void ValueControl::btnValueHasClicked(int id){
-    SelectableValueButton *btn = this->btnValues->at(id);
+    SelectableValueButton *btn = btnList->at(id);
     btnHighlight(btn->getValue());
     sldrValue->setValue(btn->getValue());
 }
 
 void ValueControl::btnTextHasClicked(int id){
-    txtBxValue->setText((*btnTextValues->at(id)));
-    btnValues->at(currentSelectedBtnID)->setSelected(false);
-    btnValues->at(id)->setSelected(true);
+    txtBxValue->setText(btnTextValues.at(id));
+    btnList->at(currentSelectedBtnID)->setSelected(false);
+    btnList->at(id)->setSelected(true);
     currentSelectedBtnID = id;
 }
 
@@ -209,14 +209,14 @@ void ValueControl::txtChanged(QString value){
 
 // Private functions
 void ValueControl::btnHighlight(int value){
-    this->btnValues->at(currentSelectedBtnID)->setSelected(false);
+    btnList->at(currentSelectedBtnID)->setSelected(false);
     for(int i = 1; i < btnRanges->length(); ++i){
         if(btnRanges->at(i) >= value){
             currentSelectedBtnID = i-1;
             break;
         }
     }
-    this->btnValues->at(currentSelectedBtnID)->setSelected(true);
+    btnList->at(currentSelectedBtnID)->setSelected(true);
 
 }
 

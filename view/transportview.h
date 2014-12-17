@@ -50,8 +50,12 @@ private:
     QWidget *main;
     QWidget *control;
     TransportationListControl *tools;
-    QVector<int>* lastValues;
-    QVector<int>* heavyLastValues;
+
+    const QVector<int> lastValues = QVector<int>()<<2<<3<<5<<10<<20;
+    const QVector<int> heavyLastValues = QVector<int>()<<100<<500<<1000<<1500<<2000;
+    const QVector<int> wegValues = QVector<int>()<<2<<3<<5<<10<<20;
+    const QVector<QString> typeValues = QVector<QString>()<<"Halten"<<"Umsetzen"<<"Tragen"<<"Ziehen und Schieben";
+    const QVector<QString> handValues = QVector<QString>()<<"Links"<<"Beide"<<"Rechts";
 };
 
 #endif // TransportView_H

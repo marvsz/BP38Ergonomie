@@ -10,18 +10,6 @@ MoreExecutionCondition::MoreExecutionCondition(QWidget *parent) :
     mecLayout = new QFormLayout;
     resultedMecLayout = new QFormLayout;
 
-    boolSelectionStrings = new QVector<QString*>();
-    (*boolSelectionStrings)<<new QString("Ja")<<new QString("Nein");
-
-    noMiddleHighSelectionStrings = new QVector<QString*>();
-    (*noMiddleHighSelectionStrings)<<new QString("keine")<<new QString("mittlere")<<new QString("hohe");
-
-    noMiddleStrongSelectionStrings = new QVector<QString*>();
-    (*noMiddleStrongSelectionStrings)<<new QString("keine")<<new QString("mittlere")<<new QString("starke");
-
-    noLowHighSelectionStrings = new QVector<QString*>();
-    (*noLowHighSelectionStrings)<<new QString("keine")<<new QString("geringe")<<new QString("hohe");
-
     mainLayout->addWidget(new QLabel("Weitere Ausführungsbedingungen"), 0, Qt::AlignCenter);
 
     mecLayout->addRow("Rumpfabstützung:", new OptionSelectionControl(boolSelectionStrings, this));

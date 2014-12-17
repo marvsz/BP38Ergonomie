@@ -20,12 +20,10 @@ private:
     QFormLayout *mecLayout;
     QFormLayout *resultedMecLayout;
 
-    QVector<QString*> *boolSelectionStrings;
-    QVector<QString*> *noMiddleHighSelectionStrings;
-    QVector<QString*> *noMiddleStrongSelectionStrings;
-    QVector<QString*> *noLowHighSelectionStrings;
-
-
+    const QVector<QString> boolSelectionStrings = QVector<QString>()<<"Ja"<<"Nein";
+    const QVector<QString> noMiddleHighSelectionStrings = QVector<QString>()<<"keine"<<"mittlere"<<"hohe";
+    const QVector<QString> noMiddleStrongSelectionStrings = QVector<QString>()<<"keine"<<"mittlere"<<"starke";
+    const QVector<QString> noLowHighSelectionStrings = QVector<QString>()<<"keine"<<"geringe"<<"hohe";
 };
 
 #endif // MOREEXECUTIONCONDITION_H

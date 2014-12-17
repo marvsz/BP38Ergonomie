@@ -9,7 +9,7 @@ class OptionSelectionControl : public QWidget
 {
     Q_OBJECT
 public:
-    explicit OptionSelectionControl(QVector<QString*> *options, QWidget *parent = 0);
+    explicit OptionSelectionControl(const QVector<QString> &options, QWidget *parent = 0);
 
     QString getSelectedValue();
     int getSelectedID();

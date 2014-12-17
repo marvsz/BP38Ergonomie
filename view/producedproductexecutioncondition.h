@@ -4,11 +4,11 @@
 #include <QWidget>
 #include "valuecontrol.h"
 #include "optionselectioncontrol.h"
-class producedProductExecutionCondition : public QWidget
+class ProducedProductExecutionCondition : public QWidget
 {
     Q_OBJECT
 public:
-    explicit producedProductExecutionCondition(QWidget *parent = 0);
+    explicit ProducedProductExecutionCondition(QWidget *parent = 0);
 
 private:
     QLineEdit *txtbxWorkingHeight;
@@ -17,8 +17,9 @@ private:
     ValueControl *valConGrabType;
     OptionSelectionControl *oscImpulseIntensity;
 
-    QVector<QString*> *grabTypeTexts;
-    QVector<QString*> *impulseIntensityTexts;
+    const QVector<QString> grabTypeTexts = QVector<QString>()<<"Daumenkontaktgriff"<<"Zeigefingerkontaktgriff"<<"Handkontaktgriff"<<"Daumen auf 2 Finger"<<"Fingerzufassungsgriff"<<"Daumen-Zeigefingergriff"<<"Zange"<<"Umfassungsgriff";
+    const QVector<QString> impulseIntensityTexts = QVector<QString>()<<"klein"<<"mittel"<<"stark";
+
 };
 
 #endif // PRODUCEDPRODUCTEXECUTIONCONDITION_H

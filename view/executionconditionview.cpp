@@ -22,15 +22,23 @@ ExecutionConditionView::ExecutionConditionView(QWidget *parent) :
     btnGeneralExecutionCondition->setMinimumWidth(150);
     connect(btnGeneralExecutionCondition, SIGNAL(clicked()), this, SLOT(generalExecutionConditionSelected()));
 
+    btnProducedProductExecutionCondition = new SelectableValueButton(0, 0, this);
+    btnProducedProductExecutionCondition->setText("Produkt");
+    btnProducedProductExecutionCondition->setMinimumWidth(150);
+    connect(btnProducedProductExecutionCondition, SIGNAL(pressed()), this, SLOT(producedProductExecutionConditionSelected()));
+
     QWidget *executionConditionContent = new QWidget(this);
     QVBoxLayout *eccLayout = new QVBoxLayout;
     generalExecutionCondition = new GeneralExecutionCondition(executionConditionContent);
     utilitiesExecutionCondition = new UtilityListControl(executionConditionContent);
     moreExecutionCondition = new MoreExecutionCondition(executionConditionContent);
+    producedProductExecutionCondition = new ProducedProductExecutionCondition(executionConditionContent);
     eccLayout->addWidget(generalExecutionCondition);
+    eccLayout->addWidget(producedProductExecutionCondition);
     eccLayout->addWidget(utilitiesExecutionCondition);
     eccLayout->addWidget(moreExecutionCondition);
     generalExecutionCondition->hide();
+    producedProductExecutionCondition->hide();
     utilitiesExecutionCondition->hide();
     moreExecutionCondition->hide();
     executionConditionContent->setLayout(eccLayout);
@@ -44,6 +52,7 @@ ExecutionConditionView::ExecutionConditionView(QWidget *parent) :
 
     lytOptions = new QVBoxLayout;
     lytOptions->addWidget(btnGeneralExecutionCondition, 0, Qt::AlignTop);
+    lytOptions->addWidget(btnProducedProductExecutionCondition, 0, Qt::AlignTop);
     lytOptions->addWidget(btnUtilitiesExecutionCondition, 0, Qt::AlignTop);
     lytOptions->addWidget(btnMoreExecutionCondition, 0, Qt::AlignTop);
     lytOptions->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Minimum, QSizePolicy::Expanding));
@@ -58,34 +67,34 @@ ExecutionConditionView::ExecutionConditionView(QWidget *parent) :
 
     this->setCentralWidget(mainContent);
 
-    currentSelectedBtn = btnMoreExecutionCondition;
+    currentSelectedBtn = btnGeneralExecutionCondition;
+    currentShownWidget = generalExecutionCondition;
     generalExecutionConditionSelected();
 }
 
 //private slots
 void ExecutionConditionView::moreExecutionConditionSelected(){
-    currentSelectedBtn->setSelected(false);
-    btnMoreExecutionCondition->setSelected(true);
-    generalExecutionCondition->hide();
-    utilitiesExecutionCondition->hide();
-    moreExecutionCondition->show();
-    currentSelectedBtn = btnMoreExecutionCondition;
+    showHide(btnMoreExecutionCondition, moreExecutionCondition);
 }
 
 void ExecutionConditionView::generalExecutionConditionSelected(){
-    currentSelectedBtn->setSelected(false);
-    btnGeneralExecutionCondition->setSelected(true);
-    generalExecutionCondition->show();
-    utilitiesExecutionCondition->hide();
-    moreExecutionCondition->hide();
-    currentSelectedBtn = btnGeneralExecutionCondition;
+    showHide(btnGeneralExecutionCondition, generalExecutionCondition);
 }
 
 void ExecutionConditionView::utilitiesExecutionConditionSelected(){
+    showHide(btnUtilitiesExecutionCondition, utilitiesExecutionCondition);
+}
+
+void ExecutionConditionView::producedProductExecutionConditionSelected(){
+    showHide(btnProducedProductExecutionCondition, producedProductExecutionCondition);
+}
+
+// private functions
+void ExecutionConditionView::showHide(SelectableValueButton *btn, QWidget *content){
     currentSelectedBtn->setSelected(false);
-    btnUtilitiesExecutionCondition->setSelected(true);
-    generalExecutionCondition->hide();
-    utilitiesExecutionCondition->show();
-    moreExecutionCondition->hide();
-    currentSelectedBtn = btnUtilitiesExecutionCondition;
+    btn->setSelected(true);
+    currentShownWidget->hide();
+    content->show();
+    currentSelectedBtn = btn;
+    currentShownWidget = content;
 }

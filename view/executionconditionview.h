@@ -13,6 +13,8 @@
 #include "moreexecutioncondition.h"
 #include "generalexecutioncondition.h"
 #include "utilitylistcontrol.h"
+#include "producedproductexecutioncondition.h"
+
 class ExecutionConditionView : public QMainWindow
 {
     Q_OBJECT
@@ -27,6 +29,7 @@ private slots:
     void moreExecutionConditionSelected();
     void utilitiesExecutionConditionSelected();
     void generalExecutionConditionSelected();
+    void producedProductExecutionConditionSelected();
 
 private:
     QWidget *mainContent;
@@ -38,12 +41,17 @@ private:
     MoreExecutionCondition *moreExecutionCondition;
     UtilityListControl *utilitiesExecutionCondition;
     GeneralExecutionCondition *generalExecutionCondition;
+    ProducedProductExecutionCondition *producedProductExecutionCondition;
 
     SelectableValueButton *btnMoreExecutionCondition;
     SelectableValueButton *btnUtilitiesExecutionCondition;
     SelectableValueButton *btnGeneralExecutionCondition;
+    SelectableValueButton *btnProducedProductExecutionCondition;
 
     SelectableValueButton *currentSelectedBtn;
+    QWidget *currentShownWidget;
+
+    void showHide(SelectableValueButton *btn, QWidget *content);
 
 
 };

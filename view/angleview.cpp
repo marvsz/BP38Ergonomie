@@ -9,6 +9,7 @@
 #include <QResizeEvent>
 #include <QScroller>
 
+
 AngleView::AngleView(QWidget *parent) :
     QMainWindow(parent)
 {
@@ -17,41 +18,11 @@ AngleView::AngleView(QWidget *parent) :
     QVBoxLayout *categoryLayout = new QVBoxLayout;
     QScrollArea *categoryScrollArea = new QScrollArea;
 
-    angleTorsoFlextion = new QVector<int>();
-    (*angleTorsoFlextion)<<-45<<-20<<0<<20<<45<<90<<110;
-    angleTorsoTilt = new QVector<int>();
-    (*angleTorsoTilt)<<0<<20<<45<<60<<90;
-    angleTorsoRotation = new QVector<int>();
-    (*angleTorsoRotation)<<0<<20<<45<<60<<90;
+    //textsWrist = new QVector<QString*>();
+    //(*textsWrist)<<new QString("Plamarflexion")<<new QString("Dorsalextension")<<new QString("Ularabduktion")<<new QString("Radialabduktion");
 
-    angleHeadTilt = new QVector<int>();
-    (*angleHeadTilt)<<-90<<-45<<0<<45<<90;
-    angleHeadRotation = new QVector<int>();
-    (*angleHeadRotation)<<0<<20<<45;
-    angleHeadSidewiseTilt = new QVector<int>();
-    (*angleHeadSidewiseTilt)<<0<<20<<45;
-
-    angleUpperArmPosition = new QVector<int>();
-    (*angleUpperArmPosition)<<-90<<0<<45<<90<<135<<180;
-    angleUnderArmPosition = new QVector<int>();
-    (*angleUnderArmPosition)<<0<<45<<90<<135<<180;
-    angleUpperArmRotation = new QVector<int>();
-    (*angleUpperArmRotation)<<-45<<0<<45<<90;
-    angleUnderArmRotation = new QVector<int>();
-    (*angleUnderArmRotation)<<-90<<-45<<0<<45<<90;
-    angleUpperArmOpening = new QVector<int>();
-    (*angleUpperArmOpening)<<-90<<-45<<0<<45<<90;
-    textsWrist = new QVector<QString*>();
-    (*textsWrist)<<new QString("Plamarflexion")<<new QString("Dorsalextension")<<new QString("Ularabduktion")<<new QString("Radialabduktion");
-
-    angleLegHip = new QVector<int>();
-    (*angleLegHip)<<45<<90<<135<<180;
-    angleLegKnee = new QVector<int>();
-    (*angleLegKnee)<<0<<45<<90<<135<<180;
-    angleLegAnkle = new QVector<int>();
-    (*angleLegAnkle)<<90<<135<<180;
-    textsLegPosition = new QVector<QString*>;
-    (*textsLegPosition)<<new QString("stehend")<<new QString("sitzend")<<new QString("gehend")<<new QString("laufend")<<new QString("kniend&&hockend")<<new QString("liegend")<<new QString("kletternd");
+    //textsLegPosition = new QVector<QString*>;
+    //(*textsLegPosition)<<new QString("stehend")<<new QString("sitzend")<<new QString("gehend")<<new QString("laufend")<<new QString("kniend&&hockend")<<new QString("liegend")<<new QString("kletternd");
 
     varSpeciArms = new VariantSpecification();
     varSpeciArms->addSpezification(new QString("Beide")); varSpeciArms->addSpezification(new QString("Links")); varSpeciArms->addSpezification(new QString("Rechts"));
@@ -118,9 +89,6 @@ AngleView::AngleView(QWidget *parent) :
     showTorso();
 }
 
-AngleView::~AngleView()
-{
-}
 
 //private slots
 

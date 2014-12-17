@@ -31,31 +31,25 @@ TransportView::TransportView(QWidget *parent) :
     QVBoxLayout *categoryLayout = new QVBoxLayout;
     QScrollArea *categoryScrollArea = new QScrollArea;
 
-    QVector<QString*>* typeValues = new QVector<QString*>();
-    (*typeValues) << new QString("Halten") << new QString("Umsetzen") << new QString("Tragen") << new QString("Ziehen und Schieben");
+
     type = new ValueControl(TEXT_CONTROL, categoryScrollArea);
     type->setValues(typeValues, typeValues,  new QString());
     type->setText("Lastenhandhabungsart:");
     connect(type, SIGNAL(valueChanged(QString)), this, SLOT(typeChanged(QString)));
 
-    lastValues = new QVector<int>;
-    (*lastValues)<<2<<3<<5<<10<<20;
-    heavyLastValues = new QVector<int>;
-    (*heavyLastValues)<<100<<500<<1000<<1500<<2000;
+
     last = new ValueControl(VALUE_CONTROL, categoryScrollArea);
     last->setUnit("kg");
     last->setValues(1, 100, lastValues, new QString());
     last->setText("Last");
 
-    QVector<int>* wegValues = new QVector<int>;
-    (*wegValues)<<2<<3<<5<<10<<20;
+
     weg = new ValueControl(VALUE_CONTROL, categoryScrollArea);
     weg->setUnit("m");
     weg->setValues(0, 20, wegValues, new QString());
     weg->setText("Weg");
 
-    QVector<QString*>* handValues = new QVector<QString*>();
-    (*handValues) << new QString("Links") << new QString("Beide") << new QString("Rechts");
+
     hand = new ValueControl(TEXT_CONTROL, categoryScrollArea);
     hand->setValues(handValues, handValues, new QString());
     hand->setText("Benutzte Hand:");

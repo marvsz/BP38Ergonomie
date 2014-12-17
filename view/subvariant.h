@@ -1,27 +1,25 @@
 #ifndef SUBVARIANT_H
 #define SUBVARIANT_H
 
-#include <QObject>
-#include <list>
 #include "enum.h"
 #include <QString>
-
+#include <QVector>
 
 
 class SubVariant
 {
 
 public:
-    SubVariant(QString *desc, int min, int max, QVector<int> *btnValues, QString* iconPath);
-    SubVariant(QString *desc, QVector<QString*> *btnTexts, QString* iconPath);
+    SubVariant(QString *desc, int min, int max, const QVector<int> &btnValues, QString* iconPath);
+    SubVariant(QString *desc, const QVector<QString> &btnTexts, QString* iconPath);
     ~SubVariant();
 
 
     QString *getDescription() const;
     int getMin() const;
     int getMax() const;
-    QVector<int> *getBtnValues() const;
-    QVector<QString*> *getBtnTexts() const;
+    const QVector<int> getBtnValues() const;
+    const QVector<QString> getBtnTexts() const;
     VariantControl getControlType() const;
     QString* getIconPath() const;
 
@@ -29,8 +27,8 @@ private:
     QString *desc;
     int min;
     int max;
-    QVector<QString*> *btnTexts;
-    QVector<int> *btnValues;
+    const QVector<QString> btnTexts;
+    const QVector<int> btnValues;
     QString* iconPath;
     VariantControl controlType;
 

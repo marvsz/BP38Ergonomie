@@ -92,8 +92,6 @@ TransportationListControl::TransportationListControl(QVector<QString> *optionNam
     }
 
     // VALUECONTROL FOR WEIGHT
-    QVector<int>* weightValues = new QVector<int>;
-    (*weightValues)<<2<<10<<50<<100<<1000;
     transportationWeight = new ValueControl(VALUE_CONTROL, this);
     transportationWeight->setValues(0, 2000, weightValues, new QString());
     transportationWeight->setUnit("kg");
@@ -103,8 +101,6 @@ TransportationListControl::TransportationListControl(QVector<QString> *optionNam
     connect(transportationWeight, SIGNAL(valueChanged(int)), this, SLOT(weightChanged(int)));
 
     // VALUECONTROL FOR MAXLOAD
-    QVector<int>* maxLoadValues = new QVector<int>;
-    (*maxLoadValues)<<100<<500<<2500<<5000<<10000;
     transportationMaxLoad = new ValueControl(VALUE_CONTROL, this);
     transportationMaxLoad->setValues(0, 50000, maxLoadValues, new QString());
     transportationMaxLoad->setUnit("kg");

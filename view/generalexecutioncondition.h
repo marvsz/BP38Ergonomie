@@ -22,8 +22,8 @@ private:
     QLineEdit *txtbxDescription;
     ValueControl *valConMtmCode;
 
-    QVector<QString*> *mtmCodeTexts;
-    QVector<QString*> *mtmCodeValueTexts;
+    const QVector<QString> mtmCodeTexts = QVector<QString>()<<"Aufnehmen/Plazieren"<<"Hilfsmittel handhaben"<<"Platzieren"<<"Betätigen"<<"Körperbewegung";
+    const QVector<QString> mtmCodeValueTexts = QVector<QString>()<<"A"<<"H"<<"P"<<"B"<<"K";
 
 };
 

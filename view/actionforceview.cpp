@@ -10,17 +10,6 @@ ActionForceView::ActionForceView(QWidget *parent) :
     scMainContent = new QScrollArea(this);
     lytMainContent = new QVBoxLayout;
 
-    textsDirection = new QVector<QString*>();
-    (*textsDirection)<<new QString("Oben")<<new QString("Unten")<<new QString("Vorne")<<new QString("Hinten")<<new QString("Rechts")<<new QString("Links");
-    textsDirectionValues = new QVector<QString*>();
-    (*textsDirectionValues)<<new QString("+A")<<new QString("-A")<<new QString("+B")<<new QString("-B")<<new QString("+C")<<new QString("-C");
-    textsOrgan = new QVector<QString*>();
-    (*textsOrgan)<<new QString("Finger")<<new QString("Hand")<<new QString("Arm")<<new QString("Fuß/Bein")<<new QString("Ganzkörper");
-    textsUsedHand = new QVector<QString*>();
-    (*textsUsedHand)<<new QString("Beide")<<new QString("Rechts")<<new QString("Links");
-    valuesIntensity = new QVector<int>();
-    (*valuesIntensity)<<5<<20<<50<<100<<150;
-
     valConIntensity = new ValueControl(VALUE_CONTROL, this);
     valConIntensity->setValues(0, 300, valuesIntensity, new QString(""));
     valConIntensity->setUnit("N");
@@ -49,7 +38,6 @@ ActionForceView::ActionForceView(QWidget *parent) :
 
     scMainContent->setWidget(wdgtMainContent);
     scMainContent->setWidgetResizable(true);
-    //QScroller::grabGesture(scMainContent->viewport(), QScroller::LeftMouseButtonGesture);
     FlickCharm *flickCharm = new FlickCharm(this);
     flickCharm->activateOn(scMainContent);
 

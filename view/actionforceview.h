@@ -22,11 +22,11 @@ private:
     QScrollArea* scMainContent;
     QVBoxLayout* lytMainContent;
 
-    QVector<QString*> *textsOrgan;
-    QVector<QString*> *textsUsedHand;
-    QVector<QString*> *textsDirection;
-    QVector<QString*> *textsDirectionValues;
-    QVector<int> *valuesIntensity;
+    const QVector<QString> textsOrgan = QVector<QString>()<<"Finger"<<"Hand"<<"Arm"<<"Fuß/Bein"<<"Ganzkörper";
+    const QVector<QString> textsUsedHand = QVector<QString>()<<"Beide"<<"Rechts"<<"Links";
+    const QVector<QString> textsDirection = QVector<QString>()<<"Oben"<<"Unten"<<"Vorne"<<"Hinten"<<"Rechts"<<"Links";
+    const QVector<QString> textsDirectionValues = QVector<QString>()<<"+A"<<"-A"<<"+B"<<"-B"<<"+C"<<"-C";
+    const QVector<int> valuesIntensity = QVector<int>()<<5<<20<<50<<100<<150;
 
     ValueControl* valConIntensity;
     ValueControl* valConDirection;

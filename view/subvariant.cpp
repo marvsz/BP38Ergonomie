@@ -1,18 +1,19 @@
 #include "subvariant.h"
 
-SubVariant::SubVariant(QString *desc, int min, int max, QVector<int> *btnValues, QString* iconPath)
+SubVariant::SubVariant(QString *desc, int min, int max, const QVector<int> &btnValues, QString* iconPath) :
+    btnValues(btnValues)
 {
     this->desc = desc;
     this->min = min;
     this->max = max;
-    this->btnValues = btnValues;
     this->controlType = VALUE_CONTROL;
     this->iconPath = iconPath;
 }
 
-SubVariant::SubVariant(QString *desc, QVector<QString*> *btnTexts, QString* iconPath){
+SubVariant::SubVariant(QString *desc, const QVector<QString> &btnTexts, QString* iconPath):
+    btnTexts(btnTexts)
+{
     this->desc = desc;
-    this->btnTexts = btnTexts;
     this->iconPath = iconPath;
     this->controlType = TEXT_CONTROL;
 }
@@ -37,16 +38,12 @@ int SubVariant::getMax() const{
     return 0;
 }
 
-QVector<int> *SubVariant::getBtnValues() const{
-    if(controlType == VALUE_CONTROL)
-        return this->btnValues;
-    return NULL;
+const QVector<int> SubVariant::getBtnValues() const{
+    return this->btnValues;
 }
 
-QVector<QString*> *SubVariant::getBtnTexts() const{
-    if(controlType == TEXT_CONTROL)
-        return this->btnTexts;
-    return NULL;
+const QVector<QString> SubVariant::getBtnTexts() const{
+    return this->btnTexts;
 }
 
 VariantControl SubVariant::getControlType() const{

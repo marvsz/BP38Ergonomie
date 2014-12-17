@@ -10,10 +10,6 @@ GeneralExecutionCondition::GeneralExecutionCondition(QWidget *parent) :
     txtbxDescription(new TextLineEdit(this)),
     valConMtmCode(new ValueControl(TEXT_CONTROL, this))
 {
-    mtmCodeTexts = new QVector<QString*>();
-    mtmCodeValueTexts = new QVector<QString*>();
-    (*mtmCodeTexts)<<new QString("Aufnehmen/Plazieren")<<new QString("Hilfsmittel handhaben")<<new QString("Platzieren")<<new QString("Betätigen")<<new QString("Körperbewegung");
-    (*mtmCodeValueTexts)<<new QString("A")<<new QString("H")<<new QString("P")<<new QString("B")<<new QString("K"); 
 
     valConMtmCode->setValues(mtmCodeTexts, mtmCodeValueTexts, new QString(":/Icon/Icon/mtmCode/mtmCode_"));
     valConMtmCode->setText("MTM Code:");
