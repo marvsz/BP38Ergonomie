@@ -41,6 +41,8 @@ ButtonTimelineView::ButtonTimelineView(QWidget *parent) :
    btnPlus->setFixedSize(60, 60);
    btnMinus->setFixedSize(60,60);
 
+   currentTime = 100;
+
    resizeLayout->addWidget(btnMinus);
    resizeLayout->addWidget(btnPlus);
 
@@ -53,9 +55,64 @@ ButtonTimelineView::ButtonTimelineView(QWidget *parent) :
 }
 
     void ButtonTimelineView::btnMinusClicked(){
-
+        if(currentTime -20 > 0){
+            int timeFactor = currentTime;
+            currentTime = currentTime -20;
+            for(int i = 0; i < leftButtonLayout->count(); ++i){
+                if(leftButtonLayout->itemAt(i)->widget() != 0){
+                    int oldW = leftButtonLayout->itemAt(i)->widget()->width();
+                    leftButtonLayout->itemAt(i)->widget()->setFixedWidth(oldW - (oldW/timeFactor)*20);
+                }
+                else
+                    leftButtonLayout->itemAt(i)->spacerItem()->changeSize(currentTime, 60);
+            }
+            for(int i = 0; i < rightButtonLayout->count(); ++i){
+                if(rightButtonLayout->itemAt(i)->widget() != 0){
+                    int oldW = rightButtonLayout->itemAt(i)->widget()->width();
+                    rightButtonLayout->itemAt(i)->widget()->setFixedWidth(oldW - (oldW/timeFactor)*20);
+                }
+                else
+                    rightButtonLayout->itemAt(i)->spacerItem()->changeSize(currentTime, 60);
+            }
+            for(int i = 0; i < avButtonLayout->count(); ++i){
+                if(avButtonLayout->itemAt(i)->widget() != 0){
+                    int oldW = avButtonLayout->itemAt(i)->widget()->width();
+                    avButtonLayout->itemAt(i)->widget()->setFixedWidth(oldW - (oldW/timeFactor)*20);
+                }
+                else
+                    avButtonLayout->itemAt(i)->spacerItem()->changeSize(currentTime, 60);
+            }
+       }
+        else
+            btnMinus->setEnabled(false);
     }
 
     void ButtonTimelineView::btnPlusClicked(){
-
+        btnMinus->setEnabled(true);
+        int timeFactor = currentTime;
+        currentTime = currentTime +20;
+        for(int i = 0; i < leftButtonLayout->count(); ++i){
+            if(leftButtonLayout->itemAt(i)->widget() != 0){
+                int oldW = leftButtonLayout->itemAt(i)->widget()->width();
+                leftButtonLayout->itemAt(i)->widget()->setFixedWidth(oldW + (oldW/timeFactor)*20);
+            }
+            else
+                leftButtonLayout->itemAt(i)->spacerItem()->changeSize(currentTime, 60);
+        }
+        for(int i = 0; i < rightButtonLayout->count(); ++i){
+            if(rightButtonLayout->itemAt(i)->widget() != 0){
+                int oldW = rightButtonLayout->itemAt(i)->widget()->width();
+                rightButtonLayout->itemAt(i)->widget()->setFixedWidth(oldW + (oldW/timeFactor)*20);
+            }
+            else
+                rightButtonLayout->itemAt(i)->spacerItem()->changeSize(currentTime, 60);
+        }
+        for(int i = 0; i < avButtonLayout->count(); ++i){
+            if(avButtonLayout->itemAt(i)->widget() != 0){
+                int oldW = avButtonLayout->itemAt(i)->widget()->width();
+                avButtonLayout->itemAt(i)->widget()->setFixedWidth(oldW + (oldW/timeFactor)*20);
+            }
+            else
+                avButtonLayout->itemAt(i)->spacerItem()->changeSize(currentTime, 60);
+        }
     }

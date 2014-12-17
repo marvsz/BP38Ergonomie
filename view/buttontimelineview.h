@@ -23,6 +23,8 @@ public:
     QPushButton *btnPlus;
     QPushButton *btnMinus;
 
+    int currentTime;
+
 private slots:
     void btnPlusClicked();
     void btnMinusClicked();

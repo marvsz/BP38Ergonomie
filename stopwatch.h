@@ -41,6 +41,7 @@ private slots:
     int getTime(int currentAV);
     int getLeftRightTime(int currentAV, QString leftright);
     void getButtonView();
+    void btnBothAVClicked();
 
 
 protected:
@@ -72,6 +73,7 @@ private:
     QPushButton *btnSetAv;
     QPushButton *btnSetLeft;
     QPushButton *btnSetRight;
+    QPushButton *btnBothAV;
     qint64 totalTime;
     qint64 sessionTime;
     QLabel *graph;

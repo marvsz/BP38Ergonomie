@@ -39,6 +39,7 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
   , btnSetLeft(new QPushButton("L"))
   , btnSetRight(new QPushButton("R"))
   , btnSaveGraph(new QPushButton("Graph"))
+  , btnBothAV(new QPushButton("L&&R"))
   , graph(new QLabel(""))
   , picture()
   , painter()
@@ -59,12 +60,13 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
 
     QHBoxLayout *mainLayout = new QHBoxLayout(this);
     QVBoxLayout *mainTimerLayout = new QVBoxLayout();
-    QHBoxLayout *timerBtnLayout = new QHBoxLayout();
+    QVBoxLayout *timerBtnLayout = new QVBoxLayout();
     QVBoxLayout *mainAVLayout = new QVBoxLayout();
     QHBoxLayout *avSelLayout = new QHBoxLayout();
     QHBoxLayout *avTimeLayout = new QHBoxLayout();
     QHBoxLayout *avLeftRightLayout = new QHBoxLayout();
     QVBoxLayout *avSetLayout = new QVBoxLayout();
+    QHBoxLayout *timerBtnLayout2 = new QHBoxLayout();
 
     QScroller::grabGesture(graphArea->viewport(), QScroller::LeftMouseButtonGesture);
 
@@ -92,7 +94,10 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
 
     timerBtnLayout->addWidget(btnStartPause);
     timerBtnLayout->addWidget(btnStopReset);
-    mainTimerLayout->addLayout(timerBtnLayout);
+
+    timerBtnLayout2->addWidget(btnBothAV);
+    timerBtnLayout2->addLayout(timerBtnLayout);
+    mainTimerLayout->addLayout(timerBtnLayout2);
     mainTimerLayout->addWidget(timer);
     mainTimerLayout->setAlignment(timer, Qt::AlignCenter);
 
@@ -107,11 +112,12 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
     btnMinus->setFixedSize(60,60);
     btnNextAV->setFixedSize(60,60);
     btnPrevAV->setFixedSize(60,60);
-    btnStartPause->setFixedSize(80,60);
-    btnStopReset->setFixedSize(80,60);
-    btnSetAv->setFixedSize(80,60);
-    btnSetLeft->setFixedSize(80,60);
-    btnSetRight->setFixedSize(80,60);
+    btnStartPause->setFixedSize(60,60);
+    btnStopReset->setFixedSize(60,60);
+    btnSetAv->setFixedSize(60,60);
+    btnSetLeft->setFixedSize(60,60);
+    btnSetRight->setFixedSize(60,60);
+    btnBothAV->setFixedSize(60, 130);
     btnAVLeft->setFixedSize(100, 60);
     btnAVRight->setFixedSize(100, 60);
     btnAV->setFixedSize(160, 60);
@@ -164,6 +170,7 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
     connect(btnSetLeft, SIGNAL(clicked()), SLOT(btnSetLeftClicked()));
     connect(btnSetRight, SIGNAL(clicked()), SLOT(btnSetRightClicked()));
     connect(btnSaveGraph, SIGNAL(clicked()), SLOT(getButtonView()));
+    connect(btnBothAV, SIGNAL(clicked()), SLOT(btnBothAVClicked()));
 
 }
     const QString StopWatch::qssSelected = "QPushButton {font: 100 26px \"Serif\";color: #FFFFFF; border: 2px solid #007aff; border-radius: 10px; background-color: #007aff;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
@@ -286,6 +293,7 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
             leftPressed = false;
             btnSetLeft->setStyleSheet(this->qssNotSelected);
             totalLeftAV++;
+            btnBothAV->setStyleSheet(this->qssNotSelected);
         }
         else {
             leftPressed = true;
@@ -298,10 +306,30 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
             rightPressed = false;
             btnSetRight->setStyleSheet(this->qssNotSelected);
             totalRightAV++;
+            btnBothAV->setStyleSheet(this->qssNotSelected);
         }
         else {
             rightPressed = true;
             btnSetRight->setStyleSheet(this->qssSelected);
+        }
+    }
+
+    void StopWatch::btnBothAVClicked(){
+        if(rightPressed && leftPressed){
+            rightPressed = false;
+            leftPressed = false;
+            btnSetRight->setStyleSheet(this->qssNotSelected);
+            totalRightAV++;
+            btnSetLeft->setStyleSheet(this->qssNotSelected);
+            totalLeftAV++;
+            btnBothAV->setStyleSheet(this->qssNotSelected);
+        }
+        else {
+            rightPressed = true;
+            leftPressed = true;
+            btnSetRight->setStyleSheet(this->qssSelected);
+            btnSetLeft->setStyleSheet(this->qssSelected);
+            btnBothAV->setStyleSheet(this->qssSelected);
         }
     }
 
@@ -448,22 +476,9 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
         paintX = 10;
         for(int i = 0; i < lstLeftAVs->count(); ++i){
             QString s = lstLeftAVs->at(i);
-
-            painter.setPen(QPen(Qt::blue, 3, Qt::SolidLine, Qt::RoundCap));
-            if(s == "true"){
-                if(i > 0 && lstLeftAVs->at(i -1) == "false"){
-                    painter.drawLine(paintX -10, -60, paintX -10, -80);
-                    painter.drawLine(paintX -10, -80, paintX, -80);
-                }
-                painter.drawLine(paintX -10, -80, paintX, -80);
-            }
-            else {
-                if(i > 0 && lstLeftAVs->at(i -1) == "true"){
-                    painter.drawLine(paintX -10, -80, paintX -10, -60);
-                    painter.drawLine(paintX -10, -60, paintX, -60);
-                }
+            painter.setPen(QPen(Qt::black, 6, Qt::SolidLine, Qt::RoundCap));
+            if(s == "true")
                 painter.drawLine(paintX -10, -60, paintX, -60);
-            }
             paintX = paintX +10;
 
         }
@@ -471,24 +486,10 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
         paintX = 10;
         for(int i = 0; i < lstRightAVs->count(); ++i){
             QString s = lstRightAVs->at(i);
-
-            painter.setPen(QPen(Qt::green, 3, Qt::SolidLine, Qt::RoundCap));
-            if(s == "true"){
-                if(i > 0 && lstRightAVs->at(i -1) == "false"){
-                    painter.drawLine(paintX -10, 0, paintX -10, -20);
-                    painter.drawLine(paintX -10, -20, paintX, -20);
-                }
-                painter.drawLine(paintX -10, -20, paintX, -20);
-            }
-            else {
-                if(i > 0 && lstRightAVs->at(i -1) == "true"){
-                    painter.drawLine(paintX -10, -20, paintX -10, 0);
-                    painter.drawLine(paintX -10, 0, paintX, 0);
-                }
+            painter.setPen(QPen(Qt::black, 6, Qt::SolidLine, Qt::RoundCap));
+            if(s == "true")
                 painter.drawLine(paintX -10, 0, paintX, 0);
-            }
             paintX = paintX +10;
-
         }
 
         paintX = 10;
@@ -517,11 +518,11 @@ StopWatch::StopWatch(QWidget *parent) : QWidget(parent)
         for(int i = 0; i < lstAV->count(); ++i){
             QString s = lstAV->at(i);
 
-            painter.setPen(QPen(Qt::black, 3, Qt::SolidLine, Qt::RoundCap));
+            painter.setPen(QPen(Qt::black, 6, Qt::SolidLine, Qt::RoundCap));
             if(s == "true"){
                 painter.setPen(QPen(Qt::red, 2, Qt::SolidLine, Qt::RoundCap));
                 painter.drawLine(paintX -10, 85, paintX -10, -85);
-                painter.setPen(QPen(Qt::black, 3, Qt::SolidLine, Qt::RoundCap));
+                painter.setPen(QPen(Qt::black, 6, Qt::SolidLine, Qt::RoundCap));
                 painter.drawLine(paintX - 10, 50, paintX, 50);
             }
             else
