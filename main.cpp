@@ -25,6 +25,8 @@ int main(int argc, char *argv[])
                         "QPushButton:pressed {color: #ffffff; background-color: #007aff;}"
                         "QPushButton#cameraButton {image: url(:/icons/specialPurposeIcons/camera.png); width: 50px; height: 50px; border: 0px; background-color: #efeff4;}"
                         "QPushButton#backButton {border: 0px; background-color: #efeff4}"
+                        "QPushButton#btnStartPause {border: 0px; background-color: #efeff4}"
+                        "QPushButton#btnStopReset {border: 0px; background-color: #efeff4}"
                         "QScrollArea {background-color: #efeff4; margin: 0 0; border: none;}"
                         "QScrollBar:vertical {border: 0px solid #007aff; margin: 0px 0px 0px 0px; background: #efeff4;}"
                         "QScrollBar::handle:vertical {background: #007aff; min-width: 60px; border-radius: 5px;}"
