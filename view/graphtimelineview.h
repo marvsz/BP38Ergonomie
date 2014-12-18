@@ -1,11 +1,10 @@
 #ifndef GRAPHTIMELINEVIEW_H
 #define GRAPHTIMELINEVIEW_H
 
-class GraphTimelineView : public QMainWindow
+class GraphTimelineView
 {
-    Q_OBJECT
 public:
-    GraphTimelineView(QWidget *parent = 0);
+    GraphTimelineView();
 };
 
 #endif // GRAPHTIMELINEVIEW_H
