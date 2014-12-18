@@ -5,13 +5,10 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QDateTime>
-#include <QLineEdit>
 
 #include <selectablevaluebutton.h>
 #include <buttontimelineview.h>
-#include <graphtimelineview.h>
 #include <avrecordcontrol.h>
-
 
 class StopWatch : public QMainWindow
 {
@@ -24,14 +21,6 @@ public:
 private slots:
     void btnStartPauseClicked();
     void btnStopResetClicked();
-    void btnSelAVClicked();
-    void btnAVClicked();
-    void btnAVLeftClicked();
-    void btnAVRightClicked();
-    void btnPlusClicked();
-    void btnMinusClicked();
-    void btnNextAVClicked();
-    void btnPrevAVClicked();
     void getButtonView();
     void btnMinimizeClicked();
     void btnMaximizeClicked();
@@ -42,28 +31,17 @@ protected:
 private:
     bool running;
     bool timerStarted;
-    bool windowMinimized;
     int counter;
 
     QLabel *timerTitle;
     QLabel *timer;
-    QLineEdit *avTime;
     QDateTime startTime;
     QDateTime currentAVTime;
     qint64 totalTime;
     qint64 sessionTime;
 
-    GraphTimelineView *graphView;
     AVRecordControl *avControl;
 
-    QPushButton *btnSelAV;
-    QPushButton *btnAV;
-    QPushButton *btnAVLeft;
-    QPushButton *btnAVRight;
-    QPushButton *btnPlus;
-    QPushButton *btnMinus;
-    QPushButton *btnNextAV;
-    QPushButton *btnPrevAV;
     QPushButton *btnStartPause;
     QPushButton *btnStopReset;
     QPushButton *btnMinimize;
