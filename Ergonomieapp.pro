@@ -29,7 +29,10 @@ ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 ios {
    ICON_FILES.files = $$system("find $$PWD/ios/icons/ -name '*.png'")
    ICON_FILES.path = ./
+   LAUNCH_FILES.files = $$system("find $$PWD/ios/launchimage/ -name '*.png'")
+   LAUNCH_FILES.path = ./
    QMAKE_BUNDLE_DATA += ICON_FILES
+   QMAKE_BUNDLE_DATA += LAUNCH_FILES
    QMAKE_INFO_PLIST = ios/Info.plist
 }
 

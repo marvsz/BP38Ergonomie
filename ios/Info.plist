@@ -44,5 +44,7 @@
 	</array>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>UILaunchImageFile~ipad</key>
+	<string>ios/launchimage/Default-Landscape.png</string>
 </dict>
 </plist>
