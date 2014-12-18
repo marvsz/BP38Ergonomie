@@ -44,7 +44,7 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
   , btnSetAv(new QPushButton("AV"))
   , btnSetLeft(new QPushButton("L"))
   , btnSetRight(new QPushButton("R"))
-  , btnSaveGraph(new QPushButton("Graph"))
+  //, btnSaveGraph(new QPushButton("Graph"))
   , btnBothAV(new QPushButton("L/R"))
   , btnMinimize(new QPushButton())
   , btnMaximize(new QPushButton())
@@ -69,21 +69,17 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
   , avSelected(true)
   , windowMinimized(false)
 {
+    main = new QWidget();
 
-    QWidget *main = new QWidget();
-    //mini = new QWidget();
-
-    QHBoxLayout *mainLayout = new QHBoxLayout();
-    QVBoxLayout *mainTimerLayout = new QVBoxLayout();
-    QVBoxLayout *timerBtnLayout = new QVBoxLayout();
-    QVBoxLayout *mainAVLayout = new QVBoxLayout();
-    QHBoxLayout *avSelLayout = new QHBoxLayout();
-    QHBoxLayout *avTimeLayout = new QHBoxLayout();
-    QHBoxLayout *avLeftRightLayout = new QHBoxLayout();
-    QVBoxLayout *avSetLayout = new QVBoxLayout();
-    QHBoxLayout *timerBtnLayout2 = new QHBoxLayout();
-
-
+    mainLayout = new QHBoxLayout();
+    mainTimerLayout = new QVBoxLayout();
+    timerBtnLayout = new QVBoxLayout();
+    mainAVLayout = new QVBoxLayout();
+    avSelLayout = new QHBoxLayout();
+    avTimeLayout = new QHBoxLayout();
+    avLeftRightLayout = new QHBoxLayout();
+    avSetLayout = new QVBoxLayout();
+    timerBtnLayout2 = new QHBoxLayout();
 
     QScroller::grabGesture(graphArea->viewport(), QScroller::LeftMouseButtonGesture);
 
@@ -92,9 +88,8 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
     graphArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     graphArea->setWidget(graph);
 
-
     avLeftRightLayout->addWidget(btnMinimize);
-    //avLeftRightLayout->addWidget(btnMaximize);
+    avLeftRightLayout->addWidget(btnMaximize);
 
     avLeftRightLayout->addWidget(btnAVLeft);
     avLeftRightLayout->addWidget(btnAVRight);
@@ -135,6 +130,7 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
 
     btnMinimize->setFixedSize(45,45);
     btnMaximize->setFixedSize(45,45);
+    btnMaximize->setVisible(false);
 
     btnPlus->setFixedSize(45,45);
     btnMinus->setFixedSize(45,45);
@@ -154,7 +150,7 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
     avTime->setInputMask("00:99");
     avTime->setAlignment(Qt::AlignCenter);
 
-    btnSaveGraph->setFixedHeight(45);
+    //btnSaveGraph->setFixedHeight(45);
 
     btnStartPause->setIcon(QIcon(":/timer/icons/Timer/start.png"));
     btnStartPause->setIconSize(QSize(25,25));
@@ -188,7 +184,7 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
     btnMinus->setEnabled(false);
     btnNextAV->setEnabled(false);
     btnPrevAV->setEnabled(false);
-    btnSaveGraph->setEnabled(false);
+    //btnSaveGraph->setEnabled(false);
 
     btnView->btnPlus->setEnabled(false);
     btnView->btnMinus->setEnabled(false);
@@ -206,17 +202,17 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
     connect(btnPrevAV, SIGNAL(clicked()), SLOT(btnPrevAVClicked()));
     connect(btnSetLeft, SIGNAL(clicked()), SLOT(btnSetLeftClicked()));
     connect(btnSetRight, SIGNAL(clicked()), SLOT(btnSetRightClicked()));
-    connect(btnSaveGraph, SIGNAL(clicked()), SLOT(getButtonView()));
+    //connect(btnSaveGraph, SIGNAL(clicked()), SLOT(getButtonView()));
     connect(btnBothAV, SIGNAL(clicked()), SLOT(btnBothAVClicked()));
-
     connect(btnMinimize, SIGNAL(clicked()), SLOT(btnMinimizeClicked()));
     connect(btnMaximize, SIGNAL(clicked()), SLOT(btnMaximizeClicked()));
-
 }
     const QString StopWatch::qssSelected = "QPushButton {font: 100 20px \"Serif\";color: #FFFFFF; border: 2px solid #007aff; border-radius: 10px; background-color: #007aff;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
     const QString StopWatch::qssNotSelected = "QPushButton {font: 100 20px \"Serif\";color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
 
-
+    /**
+     * @brief logic of the Start/Pause button
+     */
     void StopWatch::btnStartPauseClicked(){
         if(btnStartPause->toolTip() != "Pause"){
             startTime = QDateTime::currentDateTime();
@@ -242,6 +238,9 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
             currentAVTime = startTime;
     }
 
+    /**
+     * @brief logic of the Stop/Reset Button
+     */
     void StopWatch::btnStopResetClicked(){
         running = false;
         btnStartPause->setIcon(QIcon(":/timer/icons/Timer/start.png"));
@@ -251,7 +250,7 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
             btnStopReset->setIcon(QIcon(":/timer/icons/Timer/reset.png"));
             btnStopReset->setToolTip("Reset");
             btnStartPause->setEnabled(false);
-            btnSaveGraph->setEnabled(true);
+            //btnSaveGraph->setEnabled(true);
             stopped = true;
             lstAV->append("true");
             lstLeftAVs->append("false");
@@ -261,7 +260,7 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
             btnStopReset->setEnabled(false);
             btnSetAv->setEnabled(false);
             btnStartPause->setEnabled(true);
-            btnSaveGraph->setEnabled(false);
+            //btnSaveGraph->setEnabled(false);
             stopped = false;
             totalTime = 0;
             sessionTime = 0;
@@ -298,23 +297,21 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
             btnAVRight->setStyleSheet(this->qssNotSelected);
             btnAV->setStyleSheet(this->qssNotSelected);
         }
-
-
     }
 
+    /**
+     * @brief sets a new AV, saves the time and enables necessary buttons
+     */
     void StopWatch::btnSetAVClicked(){
         totalAV++;
         currentAV = totalAV;
 
-
         QString str;
         str.append(QString("%1").arg(currentAV));
         btnSelAV->setText("AV " + str);
-
         lstAVTime->append(getTime(currentAV));
 
         int t = lstAVTime->at(currentAV -1);
-
         unsigned int m = (t/ 60);
         unsigned int s = (t - 60*m);
         const QString diff = QString("%1:%2")
@@ -343,6 +340,10 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         avPressed = true;
     }
 
+    /**
+     * @brief sets a new left AV, saves the time and enables necessary buttons, if button was selected
+     * otherwise selects button
+     */
     void StopWatch::btnSetLeftClicked(){
         if(leftPressed){
             leftPressed = false;
@@ -352,6 +353,8 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
             lstLeftAVTime->append(getLeftRightTime(currentLeftAV, "left"));
             btnAVLeft->setEnabled(true);
             btnBothAV->setStyleSheet(this->qssNotSelected);
+            btnPlus->setEnabled(true);
+            btnMinus->setEnabled(true);
         }
         else {
             leftPressed = true;
@@ -361,6 +364,10 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         }
     }
 
+    /**
+     * @brief sets a new right AV, saves the time and enables necessary buttons, if button was selected
+     * otherwise, selects button
+     */
     void StopWatch::btnSetRightClicked(){
         if(rightPressed){
             rightPressed = false;
@@ -370,6 +377,8 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
             lstRightAVTime->append(getLeftRightTime(currentRightAV, "right"));
             btnAVRight->setEnabled(true);
             btnBothAV->setStyleSheet(this->qssNotSelected);
+            btnPlus->setEnabled(true);
+            btnMinus->setEnabled(true);
         }
         else {
             rightPressed = true;
@@ -379,6 +388,10 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         }
     }
 
+    /**
+     * @brief sets new left and right AVs, if buttons were selected,
+     * otherwise selects the buttons
+     */
     void StopWatch::btnBothAVClicked(){
         if(rightPressed && leftPressed){
             rightPressed = false;
@@ -408,6 +421,9 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         //TODO
     }
 
+    /**
+     * @brief StopWatch::btnAVClicked
+     */
     void StopWatch::btnAVClicked(){
         currentAV = 1;
         btnPrevAV->setEnabled(false);
@@ -437,6 +453,9 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         btnAVRight->setStyleSheet(this->qssNotSelected);
     }
 
+    /**
+     * @brief StopWatch::btnAVLeftClicked
+     */
     void StopWatch::btnAVLeftClicked(){
         currentLeftAV = 1;
         btnPrevAV->setEnabled(false);
@@ -466,6 +485,9 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         btnAVRight->setStyleSheet(this->qssNotSelected);
     }
 
+    /**
+     * @brief StopWatch::btnAVRightClicked
+     */
     void StopWatch::btnAVRightClicked(){
         currentRightAV = 1;
         btnPrevAV->setEnabled(false);
@@ -495,7 +517,9 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         btnAVRight->setStyleSheet(this->qssSelected);
     }
 
-
+    /**
+     * @brief increases the time of the selected AV by one
+     */
     void StopWatch::btnPlusClicked(){
         if(avSelected){
            int o = lstAVTime->at(currentAV -1) +1;
@@ -511,13 +535,36 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
            avTime->setText(diff);
         }
         else if(leftSelected){
+            int o = lstLeftAVTime->at(currentLeftAV -1) +1;
+            lstLeftAVTime->replace(currentLeftAV -1, o);
 
+            int t = lstLeftAVTime->at(currentLeftAV -1);
+
+            unsigned int m = (t/ 60);
+            unsigned int s = (t - 60*m);
+            const QString diff = QString("%1:%2")
+            .arg(m, 2, 10, QChar('0'))
+            .arg(s, 2, 10, QChar('0'));
+            avTime->setText(diff);
         }
         else {
+            int o = lstRightAVTime->at(currentRightAV -1) +1;
+            lstRightAVTime->replace(currentRightAV -1, o);
 
+            int t = lstRightAVTime->at(currentRightAV -1);
+
+            unsigned int m = (t/ 60);
+            unsigned int s = (t - 60*m);
+            const QString diff = QString("%1:%2")
+            .arg(m, 2, 10, QChar('0'))
+            .arg(s, 2, 10, QChar('0'));
+            avTime->setText(diff);
         }
     }
 
+    /**
+     * @brief decreases the time of the selected AV by one
+     */
     void StopWatch::btnMinusClicked(){
         if(avSelected){
            int o = lstAVTime->at(currentAV -1) -1;
@@ -533,13 +580,36 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
            avTime->setText(diff);
         }
         else if(leftSelected){
+            int o = lstLeftAVTime->at(currentLeftAV -1) -1;
+            lstLeftAVTime->replace(currentLeftAV -1, o);
 
+            int t = lstLeftAVTime->at(currentLeftAV -1);
+
+            unsigned int m = (t/ 60);
+            unsigned int s = (t - 60*m);
+            const QString diff = QString("%1:%2")
+            .arg(m, 2, 10, QChar('0'))
+            .arg(s, 2, 10, QChar('0'));
+            avTime->setText(diff);
         }
         else {
+            int o = lstRightAVTime->at(currentRightAV -1) -1;
+            lstRightAVTime->replace(currentRightAV -1, o);
 
+            int t = lstRightAVTime->at(currentRightAV -1);
+
+            unsigned int m = (t/ 60);
+            unsigned int s = (t - 60*m);
+            const QString diff = QString("%1:%2")
+            .arg(m, 2, 10, QChar('0'))
+            .arg(s, 2, 10, QChar('0'));
+            avTime->setText(diff);
         }
     }
 
+    /**
+     * @brief StopWatch::btnNextAVClicked
+     */
     void StopWatch::btnNextAVClicked(){
         if(avSelected){
             currentAV++;
@@ -603,6 +673,9 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         }
     }
 
+    /**
+     * @brief StopWatch::btnPrevAVClicked
+     */
     void StopWatch::btnPrevAVClicked(){
         if(avSelected){
             currentAV--;
@@ -672,6 +745,9 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         picture.save(&file);
     }*/
 
+    /**
+     * @brief logic of the Stopwatch, updates stopwatch time
+     */
     void StopWatch::timerEvent(QTimerEvent *){
         if(running){
             sessionTime = startTime.msecsTo(QDateTime::currentDateTime());
@@ -693,6 +769,9 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         }
     }
 
+    /**
+     * @brief updates the lists of the AVs
+     */
     void StopWatch::updateAVs(){
         if(stopped){
            lstAV->append("true");
@@ -716,6 +795,9 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
             lstRightAVs->append("false");
     }
 
+    /**
+     * @brief updates graph
+     */
     void StopWatch::updateGraph(){
         painter.begin(&picture);
         painter.setRenderHint(QPainter::Antialiasing);
@@ -787,9 +869,13 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         graph->adjustSize();
 
         graphArea->horizontalScrollBar()->setValue(graphArea->horizontalScrollBar()->maximum());
-
     }
 
+    /**
+     * @brief calculates the time of the given AV
+     * @param currentAV, the AV of which the time is to be returned
+     * @return time of currentAV
+     */
     int StopWatch::getTime(int currentAV){
         int avCount = 0;
         int secs = 0;
@@ -811,6 +897,12 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         return secs +1;
     }
 
+    /**
+     * @brief calculates the time of the given AV
+     * @param currentAV, the AV of which the time is to be returned
+     * @param leftright, "left" if currentAV is a left AV, "right" if currentAV is a right AVs
+     * @return time of currentAV
+     */
     int StopWatch::getLeftRightTime(int currentAV, QString leftright){
         int avCount = 0;
         int secs = 0;
@@ -823,7 +915,6 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
                     }
                     else if(s == "true")
                         secs++;
-
                 }
                 else if(s == "true" && lstLeftAVs->at(i +1) == "false")
                     avCount++;
@@ -838,7 +929,6 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
                     }
                     else if(s == "true")
                         secs++;
-
                 }
                 else if(s == "true" && lstRightAVs->at(i +1) == "false")
                     avCount++;
@@ -847,6 +937,9 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         return secs +1;
     }
 
+    /**
+     * @brief updates the button view, adds new buttons if necessary, otherwise, resizes existing buttons
+     */
     void StopWatch::getButtonView(){
         btnView->btnPlus->setEnabled(true);
         btnView->btnMinus->setEnabled(true);
@@ -906,12 +999,14 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         }
     }
 
+    /**
+     * @brief creates and shows layout of the minimized view
+     */
     void StopWatch::btnMinimizeClicked(){
         windowMinimized = true;
 
-        QWidget *mini = new QWidget();
-
-        QBoxLayout *minimizedLayout = new QHBoxLayout();
+        mini = new QWidget();
+        minimizedLayout = new QHBoxLayout();
 
         minimizedLayout->addWidget(btnMaximize);
         minimizedLayout->addItem(new QSpacerItem(70, 45));
@@ -924,15 +1019,106 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         minimizedLayout->addWidget(btnNextAV);
         minimizedLayout->addWidget(timer);
         minimizedLayout->addWidget(btnStartPause);
+
         minimizedLayout->setAlignment(timer, Qt::AlignRight);
         minimizedLayout->setAlignment(btnStartPause, Qt::AlignRight);
 
+        minimizedLayout->addWidget(btnMinus);
+        minimizedLayout->addWidget(btnPlus);
+        minimizedLayout->addWidget(avTime);
+        minimizedLayout->addWidget(btnSetLeft);
+        minimizedLayout->addWidget(btnSetRight);
+        minimizedLayout->addWidget(btnSetAv);
+        minimizedLayout->addWidget(btnStopReset);
+        minimizedLayout->addWidget(btnBothAV);
+        minimizedLayout->addWidget(graphArea);
+        minimizedLayout->addWidget(timerTitle);
+        minimizedLayout->addWidget(btnMinimize);
+
+        btnMaximize->setVisible(true);
+        btnMinus->setVisible(false);
+        btnPlus->setVisible(false);
+        avTime->setVisible(false);
+        btnSetLeft->setVisible(false);
+        btnSetRight->setVisible(false);
+        btnSetAv->setVisible(false);
+        btnStopReset->setVisible(false);
+        btnBothAV->setVisible(false);
+        graphArea->setVisible(false);
+        timerTitle->setVisible(false);
+        btnMinimize->setVisible(false);
 
         mini->setLayout(minimizedLayout);
         this->setCentralWidget(mini);
         this->setMaximumHeight(65);
     }
 
+    /**
+     * @brief creates and shows layout of the maximized view
+     */
     void StopWatch::btnMaximizeClicked(){
-        //windowMinimized = false;
+        windowMinimized = false;
+
+        main = new QWidget();
+        mainLayout = new QHBoxLayout();
+        mainTimerLayout = new QVBoxLayout();
+        timerBtnLayout = new QVBoxLayout();
+        mainAVLayout = new QVBoxLayout();
+        avSelLayout = new QHBoxLayout();
+        avTimeLayout = new QHBoxLayout();
+        avLeftRightLayout = new QHBoxLayout();
+        avSetLayout = new QVBoxLayout();
+        timerBtnLayout2 = new QHBoxLayout();
+
+        avLeftRightLayout->addWidget(btnMinimize);
+        avLeftRightLayout->addWidget(btnMaximize);
+
+        avLeftRightLayout->addWidget(btnAVLeft);
+        avLeftRightLayout->addWidget(btnAVRight);
+        avLeftRightLayout->addWidget(btnAV);
+        avSelLayout->addWidget(btnPrevAV);
+        avSelLayout->addWidget(btnSelAV);
+        avSelLayout->addWidget(btnNextAV);
+        avTimeLayout->addWidget(btnMinus);
+        avTimeLayout->addWidget(avTime);
+        avTimeLayout->addWidget(btnPlus);
+        mainAVLayout->addLayout(avLeftRightLayout);
+        mainAVLayout->addLayout(avSelLayout);
+        mainAVLayout->addLayout(avTimeLayout);
+
+        avSetLayout->addWidget(btnSetLeft);
+        avSetLayout->addWidget(btnSetRight);
+        avSetLayout->addWidget(btnSetAv);
+
+        timerBtnLayout->addWidget(btnStartPause);
+        timerBtnLayout->addWidget(btnStopReset);
+
+        timerBtnLayout2->addWidget(btnBothAV);
+        timerBtnLayout2->addLayout(timerBtnLayout);
+        mainTimerLayout->addLayout(timerBtnLayout2);
+        mainTimerLayout->addWidget(timerTitle);
+        mainTimerLayout->addWidget(timer);
+        mainTimerLayout->setAlignment(timer, Qt::AlignCenter);
+
+        btnMaximize->setVisible(false);
+        btnMinus->setVisible(true);
+        btnPlus->setVisible(true);
+        avTime->setVisible(true);
+        btnSetLeft->setVisible(true);
+        btnSetRight->setVisible(true);
+        btnSetAv->setVisible(true);
+        btnStopReset->setVisible(true);
+        btnBothAV->setVisible(true);
+        graphArea->setVisible(true);
+        timerTitle->setVisible(true);
+        btnMinimize->setVisible(true);
+
+        mainLayout->addLayout(mainAVLayout);
+        mainLayout->addWidget(graphArea);
+        mainLayout->addLayout(avSetLayout);
+        mainLayout->addLayout(mainTimerLayout);
+
+        main->setLayout(mainLayout);
+        this->setCentralWidget(main);
+        this->setMaximumHeight(175);
     }
