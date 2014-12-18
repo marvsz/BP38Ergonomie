@@ -1,5 +1,6 @@
 include(view/view.pri)
 include(model/model.pri)
+include(control/control.pri)
 QT       += core gui quick qml multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -43,6 +44,7 @@ unix {
 
 OTHER_FILES += \
     View/view.pri \
-    android/AndroidManifest.xml
+    android/AndroidManifest.xml \
+    controle/control.pri
 
 TRANSLATIONS = ergo_trans_de.ts

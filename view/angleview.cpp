@@ -18,12 +18,6 @@ AngleView::AngleView(QWidget *parent) :
     QVBoxLayout *categoryLayout = new QVBoxLayout;
     QScrollArea *categoryScrollArea = new QScrollArea;
 
-    //textsWrist = new QVector<QString*>();
-    //(*textsWrist)<<new QString("Plamarflexion")<<new QString("Dorsalextension")<<new QString("Ularabduktion")<<new QString("Radialabduktion");
-
-    //textsLegPosition = new QVector<QString*>;
-    //(*textsLegPosition)<<new QString("stehend")<<new QString("sitzend")<<new QString("gehend")<<new QString("laufend")<<new QString("kniend&&hockend")<<new QString("liegend")<<new QString("kletternd");
-
     varSpeciArms = new VariantSpecification();
     varSpeciArms->addSpezification(new QString("Beide")); varSpeciArms->addSpezification(new QString("Links")); varSpeciArms->addSpezification(new QString("Rechts"));
     varSpeciLegs = new VariantSpecification();
