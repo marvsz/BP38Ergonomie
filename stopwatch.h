@@ -7,12 +7,10 @@
 #include <QDateTime>
 #include <QLineEdit>
 #include <QStringList>
-#include <QPainter>
-#include <QPicture>
-#include <QScrollArea>
 
 #include <selectablevaluebutton.h>
 #include <buttontimelineview.h>
+#include <graphtimelineview.h>
 
 
 class StopWatch : public QMainWindow
@@ -38,7 +36,7 @@ private slots:
     void btnMinusClicked();
     void btnNextAVClicked();
     void btnPrevAVClicked();
-    void updateGraph();
+    //void updateGraph();
     void updateAVs();
     int getTime(int currentAV);
     int getLeftRightTime(int currentAV, QString leftright);
@@ -67,7 +65,6 @@ private:
     int currentAV;
     int currentLeftAV;
     int currentRightAV;
-    int paintX;
     int counter;
 
     QLabel *timerTitle;
@@ -83,10 +80,8 @@ private:
     QList<int> *lstRightAVTime;
     qint64 totalTime;
     qint64 sessionTime;
-    QLabel *graph;
-    QPicture picture;
-    QPainter painter;
-    QScrollArea *graphArea;
+
+    GraphTimelineView *graphView;
 
     QPushButton *btnSelAV;
     QPushButton *btnAV;
@@ -121,8 +116,6 @@ private:
     QHBoxLayout *timerBtnLayout2;
     QWidget *main;
     QWidget *mini;
-
-    //QPushButton *btnSaveGraph;
 
     static const QString qssSelected;
     static const QString qssNotSelected;

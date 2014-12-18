@@ -44,21 +44,15 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
   , btnSetAv(new QPushButton("AV"))
   , btnSetLeft(new QPushButton("L"))
   , btnSetRight(new QPushButton("R"))
-  //, btnSaveGraph(new QPushButton("Graph"))
   , btnBothAV(new QPushButton("L/R"))
   , btnMinimize(new QPushButton())
   , btnMaximize(new QPushButton())
-  , graph(new QLabel(""))
-  , picture()
-  , painter()
-  , paintX(10)
   , counter(0)
   , leftPressed(false)
   , rightPressed(false)
   , lstLeftAVs(new QStringList)
   , lstRightAVs(new QStringList)
   , avPressed(false)
-  , graphArea(new QScrollArea)
   , leftAVButtons(new QVector<SelectableValueButton*>)
   , rightAVButtons(new QVector<SelectableValueButton*>)
   , avButtons(new QVector<SelectableValueButton*>)
@@ -68,6 +62,7 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
   , rightSelected(false)
   , avSelected(true)
   , windowMinimized(false)
+  , graphView(new GraphTimelineView)
 {
     main = new QWidget();
 
@@ -80,13 +75,6 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
     avLeftRightLayout = new QHBoxLayout();
     avSetLayout = new QVBoxLayout();
     timerBtnLayout2 = new QHBoxLayout();
-
-    QScroller::grabGesture(graphArea->viewport(), QScroller::LeftMouseButtonGesture);
-
-    graphArea->setMaximumHeight(160);
-    graphArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    graphArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    graphArea->setWidget(graph);
 
     avLeftRightLayout->addWidget(btnMinimize);
     avLeftRightLayout->addWidget(btnMaximize);
@@ -119,7 +107,7 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
     mainTimerLayout->setAlignment(timer, Qt::AlignCenter);
 
     mainLayout->addLayout(mainAVLayout);
-    mainLayout->addWidget(graphArea);
+    mainLayout->addWidget(graphView);
     mainLayout->addLayout(avSetLayout);
     mainLayout->addLayout(mainTimerLayout);
 
@@ -150,8 +138,6 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
     avTime->setInputMask("00:99");
     avTime->setAlignment(Qt::AlignCenter);
 
-    //btnSaveGraph->setFixedHeight(45);
-
     btnStartPause->setIcon(QIcon(":/timer/icons/Timer/start.png"));
     btnStartPause->setIconSize(QSize(25,25));
     btnStartPause->setToolTip("Start");
@@ -162,8 +148,6 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
     btnMinimize->setIconSize(QSize(25,25));
     btnMaximize->setIcon(QIcon(":/timer/icons/Timer/maximize.png"));
     btnMaximize->setIconSize(QSize(25,25));
-
-    graph->setFixedHeight(150);
 
     timerTitle->setStyleSheet("font: 12px");
     timer->setStyleSheet("font: 15pt");
@@ -184,7 +168,6 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
     btnMinus->setEnabled(false);
     btnNextAV->setEnabled(false);
     btnPrevAV->setEnabled(false);
-    //btnSaveGraph->setEnabled(false);
 
     btnView->btnPlus->setEnabled(false);
     btnView->btnMinus->setEnabled(false);
@@ -202,7 +185,6 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
     connect(btnPrevAV, SIGNAL(clicked()), SLOT(btnPrevAVClicked()));
     connect(btnSetLeft, SIGNAL(clicked()), SLOT(btnSetLeftClicked()));
     connect(btnSetRight, SIGNAL(clicked()), SLOT(btnSetRightClicked()));
-    //connect(btnSaveGraph, SIGNAL(clicked()), SLOT(getButtonView()));
     connect(btnBothAV, SIGNAL(clicked()), SLOT(btnBothAVClicked()));
     connect(btnMinimize, SIGNAL(clicked()), SLOT(btnMinimizeClicked()));
     connect(btnMaximize, SIGNAL(clicked()), SLOT(btnMaximizeClicked()));
@@ -250,7 +232,6 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
             btnStopReset->setIcon(QIcon(":/timer/icons/Timer/reset.png"));
             btnStopReset->setToolTip("Reset");
             btnStartPause->setEnabled(false);
-            //btnSaveGraph->setEnabled(true);
             stopped = true;
             lstAV->append("true");
             lstLeftAVs->append("false");
@@ -260,7 +241,6 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
             btnStopReset->setEnabled(false);
             btnSetAv->setEnabled(false);
             btnStartPause->setEnabled(true);
-            //btnSaveGraph->setEnabled(false);
             stopped = false;
             totalTime = 0;
             sessionTime = 0;
@@ -271,7 +251,7 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
             lstAVTime->clear();
             lstLeftAVTime->clear();
             lstRightAVTime->clear();
-            updateGraph();
+            graphView->updateGraph(lstAV, lstLeftAVs, lstRightAVs);
             avTime->setText("00:00");
             btnSelAV->setText("leer");
             btnSelAV->setEnabled(false);
@@ -739,12 +719,6 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         }
     }
 
-    /*void StopWatch::btnSaveGraphClicked(){
-        QFile file("graph.png");
-        file.open(QIODevice::WriteOnly);
-        picture.save(&file);
-    }*/
-
     /**
      * @brief logic of the Stopwatch, updates stopwatch time
      */
@@ -762,7 +736,7 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
             if(counter != s){
                 updateAVs();
                 if(!windowMinimized)
-                    updateGraph();
+                    graphView->updateGraph(lstAV, lstLeftAVs, lstRightAVs);
                 //getButtonView();
             }
             counter = s;
@@ -793,82 +767,6 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
             lstRightAVs->append("true");
         else
             lstRightAVs->append("false");
-    }
-
-    /**
-     * @brief updates graph
-     */
-    void StopWatch::updateGraph(){
-        painter.begin(&picture);
-        painter.setRenderHint(QPainter::Antialiasing);
-        painter.setPen(QPen(Qt::gray, 0, Qt::SolidLine, Qt::RoundCap));
-        painter.drawLine(0, -40, 0, -40);
-
-        paintX = 10;
-        for(int i = 0; i < lstLeftAVs->count(); ++i){
-            QString s = lstLeftAVs->at(i);
-            painter.setPen(QPen(Qt::black, 6, Qt::SolidLine, Qt::RoundCap));
-            if(s == "true")
-                painter.drawLine(paintX -10, -40, paintX, -40);
-            paintX = paintX +10;
-
-        }
-
-        paintX = 10;
-        for(int i = 0; i < lstRightAVs->count(); ++i){
-            QString s = lstRightAVs->at(i);
-            painter.setPen(QPen(Qt::black, 6, Qt::SolidLine, Qt::RoundCap));
-            if(s == "true")
-                painter.drawLine(paintX -10, 0, paintX, 0);
-            paintX = paintX +10;
-        }
-
-        paintX = 10;
-        if(lstAV->empty()== false){
-            for(int i = 0; i < (lstAV->count() + 5); ++i){
-                painter.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::RoundCap));
-                if(i%5 == 0){
-                    painter.drawLine(paintX -10, 55, paintX -10, 65);
-                    unsigned int m = (i/ 60);
-                    unsigned int s = (i - 60*m);
-                    const QString diff = QString("%1:%2")
-                    .arg(m, 2, 10, QChar('0'))
-                    .arg(s, 2, 10, QChar('0'));
-                    QFont font=painter.font() ;
-                    font.setPointSize(7);
-                    painter.setFont(font);
-                    painter.drawText(QPoint(paintX -26, 78), diff);
-                }
-                else
-                    painter.drawLine(paintX -10, 58, paintX -10, 62);
-                paintX = paintX +10;
-            }
-        }
-
-        paintX = 10;
-        for(int i = 0; i < lstAV->count(); ++i){
-            QString s = lstAV->at(i);
-
-            painter.setPen(QPen(Qt::black, 6, Qt::SolidLine, Qt::RoundCap));
-            if(s == "true"){
-                painter.setPen(QPen(Qt::red, 2, Qt::SolidLine, Qt::RoundCap));
-                painter.drawLine(paintX -10, 30, paintX -10, 50);
-                painter.setPen(QPen(Qt::black, 6, Qt::SolidLine, Qt::RoundCap));
-                painter.drawLine(paintX - 10, 40, paintX, 40);
-            }
-            else
-                painter.drawLine(paintX - 10, 40, paintX, 40);
-            paintX = paintX +10;
-        }
-
-
-        painter.end();
-
-        graph->setPicture(picture);
-        graph->repaint();
-        graph->adjustSize();
-
-        graphArea->horizontalScrollBar()->setValue(graphArea->horizontalScrollBar()->maximum());
     }
 
     /**
@@ -1031,7 +929,7 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         minimizedLayout->addWidget(btnSetAv);
         minimizedLayout->addWidget(btnStopReset);
         minimizedLayout->addWidget(btnBothAV);
-        minimizedLayout->addWidget(graphArea);
+        minimizedLayout->addWidget(graphView);
         minimizedLayout->addWidget(timerTitle);
         minimizedLayout->addWidget(btnMinimize);
 
@@ -1044,7 +942,7 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         btnSetAv->setVisible(false);
         btnStopReset->setVisible(false);
         btnBothAV->setVisible(false);
-        graphArea->setVisible(false);
+        graphView->setVisible(false);
         timerTitle->setVisible(false);
         btnMinimize->setVisible(false);
 
@@ -1109,12 +1007,12 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         btnSetAv->setVisible(true);
         btnStopReset->setVisible(true);
         btnBothAV->setVisible(true);
-        graphArea->setVisible(true);
+        graphView->setVisible(true);
         timerTitle->setVisible(true);
         btnMinimize->setVisible(true);
 
         mainLayout->addLayout(mainAVLayout);
-        mainLayout->addWidget(graphArea);
+        mainLayout->addWidget(graphView);
         mainLayout->addLayout(avSetLayout);
         mainLayout->addLayout(mainTimerLayout);
 
