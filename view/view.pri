@@ -29,7 +29,8 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/buttontimelineview.h \
     $$PWD/numberlineedit.h \
     $$PWD/textlineedit.h \
-    $$PWD/producedproductexecutioncondition.h
+    $$PWD/producedproductexecutioncondition.h \
+    $$PWD/graphtimelineview.h
 
 
 SOURCES += $$CURRENT_DIR/variant.cpp\
@@ -59,6 +60,7 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/buttontimelineview.cpp \
     $$PWD/numberlineedit.cpp \
     $$PWD/textlineedit.cpp \
-    $$PWD/producedproductexecutioncondition.cpp
+    $$PWD/producedproductexecutioncondition.cpp \
+    $$PWD/graphtimelineview.cpp
 
 

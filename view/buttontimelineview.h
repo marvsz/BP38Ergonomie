@@ -4,6 +4,7 @@
 #include <QBoxLayout>
 #include <QPushButton>
 #include <QMainWindow>
+#include <QLineEdit>
 
 namespace Ui {
 class ButtonTimelineView;
@@ -19,13 +20,14 @@ public:
     QHBoxLayout *leftButtonLayout;
     QHBoxLayout *rightButtonLayout;
     QHBoxLayout *avButtonLayout;
-
     QPushButton *btnPlus;
     QPushButton *btnMinus;
 
     int currentTime;
 
 private slots:
+    void btnZoomInClicked();
+    void btnZoomOutClicked();
     void btnPlusClicked();
     void btnMinusClicked();
 
@@ -33,6 +35,11 @@ private:
     QWidget *main;
     QWidget *mainButton;
 
+    QLineEdit *occurrences;
+    QPushButton *btnZoomIn;
+    QPushButton *btnZoomOut;
+
+    int count;
 };
 
 #endif // BUTTONTIMELINEVIEW_H

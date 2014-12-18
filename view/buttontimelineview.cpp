@@ -36,15 +36,25 @@ ButtonTimelineView::ButtonTimelineView(QWidget *parent) :
    mainLayout->addWidget(scrollArea);
    mainLayout->addLayout(resizeLayout);
 
+   occurrences = new QLineEdit("0");
+   occurrences->setFixedSize(80,60);
+   occurrences->setAlignment(Qt::AlignCenter);
    btnPlus = new QPushButton("+");
    btnMinus = new QPushButton("-");
-   btnPlus->setFixedSize(60, 60);
+   btnPlus->setFixedSize(60,60);
    btnMinus->setFixedSize(60,60);
+   btnZoomIn = new QPushButton();
+   btnZoomOut = new QPushButton();
+   btnZoomIn->setFixedSize(60,60);
+   btnZoomOut->setFixedSize(60,60);
 
    currentTime = 100;
 
    resizeLayout->addWidget(btnMinus);
+   resizeLayout->addWidget(occurrences);
    resizeLayout->addWidget(btnPlus);
+   resizeLayout->addWidget(btnZoomOut);
+   resizeLayout->addWidget(btnZoomIn);
 
    main->setLayout(mainLayout);
 
@@ -52,9 +62,25 @@ ButtonTimelineView::ButtonTimelineView(QWidget *parent) :
 
    connect(btnPlus, SIGNAL(clicked()), SLOT(btnPlusClicked()));
    connect(btnMinus, SIGNAL(clicked()), SLOT(btnMinusClicked()));
+   connect(btnZoomIn, SIGNAL(clicked()), SLOT(btnZoomInClicked()));
+   connect(btnZoomOut, SIGNAL(clicked()), SLOT(btnZoomOutClicked()));
 }
 
     void ButtonTimelineView::btnMinusClicked(){
+        if(count > 0){
+            count--;
+            const QString str = QString("%1").arg(count);
+            occurrences->setText(str);
+        }
+    }
+
+    void ButtonTimelineView::btnPlusClicked(){
+        count++;
+        const QString str = QString("%1").arg(count);
+        occurrences->setText(str);
+    }
+
+    void ButtonTimelineView::btnZoomOutClicked(){
         if(currentTime -20 > 0){
             int timeFactor = currentTime;
             currentTime = currentTime -20;
@@ -87,32 +113,33 @@ ButtonTimelineView::ButtonTimelineView(QWidget *parent) :
             btnMinus->setEnabled(false);
     }
 
-    void ButtonTimelineView::btnPlusClicked(){
-        btnMinus->setEnabled(true);
+
+    void ButtonTimelineView::btnZoomInClicked(){
+        btnZoomIn->setEnabled(true);
         int timeFactor = currentTime;
         currentTime = currentTime +20;
         for(int i = 0; i < leftButtonLayout->count(); ++i){
-            if(leftButtonLayout->itemAt(i)->widget() != 0){
+             if(leftButtonLayout->itemAt(i)->widget() != 0){
                 int oldW = leftButtonLayout->itemAt(i)->widget()->width();
                 leftButtonLayout->itemAt(i)->widget()->setFixedWidth(oldW + (oldW/timeFactor)*20);
-            }
-            else
+             }
+             else
                 leftButtonLayout->itemAt(i)->spacerItem()->changeSize(currentTime, 60);
         }
         for(int i = 0; i < rightButtonLayout->count(); ++i){
-            if(rightButtonLayout->itemAt(i)->widget() != 0){
+             if(rightButtonLayout->itemAt(i)->widget() != 0){
                 int oldW = rightButtonLayout->itemAt(i)->widget()->width();
                 rightButtonLayout->itemAt(i)->widget()->setFixedWidth(oldW + (oldW/timeFactor)*20);
-            }
-            else
+             }
+             else
                 rightButtonLayout->itemAt(i)->spacerItem()->changeSize(currentTime, 60);
         }
         for(int i = 0; i < avButtonLayout->count(); ++i){
-            if(avButtonLayout->itemAt(i)->widget() != 0){
+             if(avButtonLayout->itemAt(i)->widget() != 0){
                 int oldW = avButtonLayout->itemAt(i)->widget()->width();
                 avButtonLayout->itemAt(i)->widget()->setFixedWidth(oldW + (oldW/timeFactor)*20);
-            }
-            else
+             }
+             else
                 avButtonLayout->itemAt(i)->spacerItem()->changeSize(currentTime, 60);
         }
     }
