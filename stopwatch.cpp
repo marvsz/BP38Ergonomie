@@ -95,17 +95,19 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
     btnStartPause->setFixedSize(45,45);
     btnStopReset->setFixedSize(45,45);
 
-    btnStartPause->setIcon(QIcon(":/timer/icons/Timer/start.png"));
-    btnStartPause->setObjectName("btnStartPause");
+    btnStartPause->setIcon(QIcon(":/timer/icons/Timer/record.png"));
+    btnStartPause->setObjectName("timerStartPauseButton");
     btnStartPause->setIconSize(QSize(45,45));
     btnStartPause->setToolTip("Start");
     btnStopReset->setIcon(QIcon(":/timer/icons/Timer/reset.png"));
-    btnStopReset->setObjectName("btnStopReset");
+    btnStopReset->setObjectName("timerStopResetButton");
     btnStopReset->setIconSize(QSize(45,45));
     btnStopReset->setToolTip("Reset");
     btnMinimize->setIcon(QIcon(":/timer/icons/Timer/minimize.png"));
+    btnMinimize->setObjectName("timerMinimizeButton");
     btnMinimize->setIconSize(QSize(45,45));
     btnMaximize->setIcon(QIcon(":/timer/icons/Timer/maximize.png"));
+    btnMaximize->setObjectName("timerMaximizeButton");
     btnMaximize->setIconSize(QSize(45,45));
 
     timerTitle->setStyleSheet("font: 12px");
@@ -159,7 +161,7 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
      */
     void StopWatch::btnStopResetClicked(){
         running = false;
-        btnStartPause->setIcon(QIcon(":/timer/icons/Timer/start.png"));
+        btnStartPause->setIcon(QIcon(":/timer/icons/Timer/record.png"));
         btnStartPause->setToolTip("Start");
 
         if(btnStopReset->toolTip() != "Reset"){
@@ -295,7 +297,7 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
 
         for(int i = 1; i <= avControl->totalAV; ++i){
             if(btnView->avButtonLayout->itemAt(i) == 0){
-                QString btn = "Av_";
+                QString btn = "AV ";
                 int time = avControl->getTime(i);
                 btn.append(QString("%1: %2s").arg(i).arg(time));
                 avButtons->append(new SelectableValueButton(i, time));

@@ -32,8 +32,10 @@ ButtonTimelineView::ButtonTimelineView(QWidget *parent) :
    btnZoomOut->setFixedSize(60,60);
 
    btnZoomIn->setIcon(QIcon(":/timer/icons/Timer/zoomIn.png"));
+   btnZoomIn->setObjectName("timerZoomInButton");
    btnZoomIn->setIconSize(QSize(45,45));
    btnZoomOut->setIcon(QIcon(":/timer/icons/Timer/zoomOut.png"));
+   btnZoomOut->setObjectName("timerZoomOutButton");
    btnZoomOut->setIconSize(QSize(45,45));
 
    leftButtonLayout = new QHBoxLayout();
