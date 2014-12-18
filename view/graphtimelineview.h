@@ -14,7 +14,7 @@ public:
     explicit GraphTimelineView(QWidget *parent = 0);
 
 public slots:
-    void updateGraph(QStringList *lstAV, QStringList *lstLeftAVs, QStringList *lstRightAVs);
+    void updateGraph(QList<bool> *lstAV, QList<bool> *lstLeftAVs, QList<bool> *lstRightAVs);
 
 private:
     int paintX;

@@ -12,9 +12,9 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
   , btnSetLeft(new QPushButton("L"))
   , btnSetRight(new QPushButton("R"))
   , btnSetLeftRight(new QPushButton("L/R"))
-  , lstAV(new QStringList)
-  , lstLeftAVs(new QStringList)
-  , lstRightAVs(new QStringList)
+  , lstAV(new QList<bool>)
+  , lstLeftAVs(new QList<bool>)
+  , lstRightAVs(new QList<bool>)
   , lstAVTime(new QList<int>)
   , lstLeftAVTime(new QList<int>)
   , lstRightAVTime(new QList<int>)
@@ -227,25 +227,25 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
      */
     void AVRecordControl::updateAVs(){
         if(stopped){
-           lstAV->append("true");
-           lstLeftAVs->append("false");
-           lstRightAVs->append("false");
+           lstAV->append(true);
+           lstLeftAVs->append(false);
+           lstRightAVs->append(false);
         }
         if(avPressed){
-            lstAV->append("true");
+            lstAV->append(true);
             avPressed = false;
         }
         else
-            lstAV->append("false");
+            lstAV->append(false);
 
         if(leftPressed)
-            lstLeftAVs->append("true");
+            lstLeftAVs->append(true);
         else
-            lstLeftAVs->append("false");
+            lstLeftAVs->append(false);
         if(rightPressed)
-            lstRightAVs->append("true");
+            lstRightAVs->append(true);
         else
-            lstRightAVs->append("false");
+            lstRightAVs->append(false);
     }
 
     /**
@@ -265,16 +265,16 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
         int avCount = 0;
         int secs = 0;
         for(int i = 1; i < lstAV->count(); ++i){
-           QString s = lstAV->at(i);
+           bool s = lstAV->at(i);
            if(avCount == (currentAV -1)){
-               if(s == "true"){
+               if(s == true){
                   avCount++;
                }
                else
                    secs++;
            }
            else {
-              if(s == "true")
+              if(s == true)
                   avCount++;
            }
         }
@@ -292,29 +292,29 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
         int secs = 0;
         if(leftright == "left"){
             for(int i = 1; i < lstLeftAVs->count() -1; ++i){
-                QString s = lstLeftAVs->at(i);
+                bool s = lstLeftAVs->at(i);
                 if(avCount == (currentAV -1)){
-                    if(s == "true" && lstLeftAVs->at(i +1) == "false"){
+                    if(s == true && lstLeftAVs->at(i +1) == false){
                         avCount++;
                     }
-                    else if(s == "true")
+                    else if(s == true)
                         secs++;
                 }
-                else if(s == "true" && lstLeftAVs->at(i +1) == "false")
+                else if(s == true && lstLeftAVs->at(i +1) == false)
                     avCount++;
             }
         }
         else {
             for(int i = 1; i < lstRightAVs->count() -1; ++i){
-                QString s = lstRightAVs->at(i);
+                bool s = lstRightAVs->at(i);
                 if(avCount == (currentAV -1)){
-                    if(s == "true" && lstRightAVs->at(i +1) == "false"){
+                    if(s == true && lstRightAVs->at(i +1) == false){
                         avCount++;
                     }
-                    else if(s == "true")
+                    else if(s == true)
                         secs++;
                 }
-                else if(s == "true" && lstRightAVs->at(i +1) == "false")
+                else if(s == true && lstRightAVs->at(i +1) == false)
                     avCount++;
             }
         }

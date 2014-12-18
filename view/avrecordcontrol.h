@@ -27,9 +27,9 @@ public:
         QPushButton *btnSetRight;
         QPushButton *btnSetLeftRight;
 
-        QStringList *lstAV;
-        QStringList *lstLeftAVs;
-        QStringList *lstRightAVs;
+        QList<bool> *lstAV;
+        QList<bool> *lstLeftAVs;
+        QList<bool> *lstRightAVs;
         QList<int> *lstAVTime;
         QList<int> *lstLeftAVTime;
         QList<int> *lstRightAVTime;

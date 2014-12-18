@@ -34,6 +34,8 @@ private:
     bool timerStarted;
     bool standardView;
     int counter;
+    int currentLeftAV;
+    int currentRightAV;
 
     QLabel *timerTitle;
     QLabel *timer;

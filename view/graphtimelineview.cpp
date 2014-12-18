@@ -33,7 +33,7 @@ GraphTimelineView::GraphTimelineView(QWidget *parent) : QMainWindow(parent)
  * @param lstLeftAVs, list of the left AVs: "false" at position i means no left AV at position i
  * @param lstRightAVs, list of the right AVs: "false" at position i means no right AV at position i
  */
-void GraphTimelineView::updateGraph(QStringList *lstAV, QStringList *lstLeftAVs, QStringList *lstRightAVs){
+void GraphTimelineView::updateGraph(QList<bool> *lstAV, QList<bool> *lstLeftAVs, QList<bool> *lstRightAVs){
     painter.begin(&picture);
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setPen(QPen(Qt::gray, 0, Qt::SolidLine, Qt::RoundCap));
@@ -41,9 +41,9 @@ void GraphTimelineView::updateGraph(QStringList *lstAV, QStringList *lstLeftAVs,
 
     paintX = 10;
     for(int i = 0; i < lstLeftAVs->count(); ++i){
-        QString s = lstLeftAVs->at(i);
+        bool s = lstLeftAVs->at(i);
         painter.setPen(QPen(Qt::black, 6, Qt::SolidLine, Qt::RoundCap));
-        if(s == "true")
+        if(s == true)
             painter.drawLine(paintX -10, -40, paintX, -40);
         paintX = paintX +10;
 
@@ -51,9 +51,9 @@ void GraphTimelineView::updateGraph(QStringList *lstAV, QStringList *lstLeftAVs,
 
     paintX = 10;
     for(int i = 0; i < lstRightAVs->count(); ++i){
-        QString s = lstRightAVs->at(i);
+        bool s = lstRightAVs->at(i);
         painter.setPen(QPen(Qt::black, 6, Qt::SolidLine, Qt::RoundCap));
-        if(s == "true")
+        if(s == true)
             painter.drawLine(paintX -10, 0, paintX, 0);
         paintX = paintX +10;
     }
@@ -82,10 +82,10 @@ void GraphTimelineView::updateGraph(QStringList *lstAV, QStringList *lstLeftAVs,
 
     paintX = 10;
     for(int i = 0; i < lstAV->count(); ++i){
-        QString s = lstAV->at(i);
+        bool s = lstAV->at(i);
 
         painter.setPen(QPen(Qt::black, 6, Qt::SolidLine, Qt::RoundCap));
-        if(s == "true"){
+        if(s == true){
             painter.setPen(QPen(Qt::red, 2, Qt::SolidLine, Qt::RoundCap));
             painter.drawLine(paintX -10, 30, paintX -10, 50);
             painter.setPen(QPen(Qt::black, 6, Qt::SolidLine, Qt::RoundCap));

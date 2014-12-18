@@ -5,6 +5,7 @@
 #include <QTimer>
 #include <QTimerEvent>
 #include <QStackedWidget>
+#include <QDebug>
 
 StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
   , running(false)
@@ -20,6 +21,8 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
   , btnMinimize(new QPushButton())
   , btnMaximize(new QPushButton())
   , counter(0)
+  , currentLeftAV(0)
+  , currentRightAV(0)
   , leftAVButtons(new QVector<SelectableValueButton*>)
   , rightAVButtons(new QVector<SelectableValueButton*>)
   , avButtons(new QVector<SelectableValueButton*>)
@@ -237,46 +240,53 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         btnView->btnPlus->setEnabled(true);
         btnView->btnMinus->setEnabled(true);
 
-        int currentAV = 0;
-        for(int i = 0; i < avControl->lstLeftAVs->count(); ++i){
+        int time = 0;
+        for(int i = btnView->leftButtonLayout->count(); i < avControl->lstLeftAVs->count(); ++i){
             if(btnView->leftButtonLayout->itemAt(i) == 0){
-                if(avControl->lstLeftAVs->at(i) == "false"){
-                    btnView->leftButtonLayout->addItem(new QSpacerItem(100, 60));
+                if(i > 0 && avControl->lstLeftAVs->at(i) == false && avControl->lstLeftAVs->at(i -1) == true && currentLeftAV < avControl->totalLeftAV){
+                    currentLeftAV++;
+
+                    QString btn = "L ";
+                    btn.append(QString("%1: %2s").arg(currentLeftAV).arg(time));
+                    leftAVButtons->append((new SelectableValueButton(currentLeftAV, time)));
+                    leftAVButtons->at(currentLeftAV -1)->setFixedSize(time*100, 60);
+                    leftAVButtons->at(currentLeftAV -1)->setText(btn);
+                    btnView->leftButtonLayout->removeItem(btnView->leftButtonLayout->itemAt(i -1));
+                    btnView->leftButtonLayout->addWidget(leftAVButtons->at(currentLeftAV -1));
+                }
+                else if(avControl->lstLeftAVs->at(i) == false){
+                        btnView->leftButtonLayout->addItem(new QSpacerItem(100, 60));
                 }
                 else {
-                    if(i > 0 && avControl->lstLeftAVs->at(i -1) == "false"){
-                        currentAV++;
-                        QString btn = "L ";
-                        int time = avControl->getLeftRightTime(currentAV, "left");
-                        btn.append(QString("%1: %2s").arg(currentAV).arg(time));
-                        leftAVButtons->append((new SelectableValueButton(currentAV, time)));
-                        leftAVButtons->at(currentAV -1)->setFixedSize(time*100, 60);
-                        leftAVButtons->at(currentAV -1)->setText(btn);
-                        btnView->leftButtonLayout->addWidget(leftAVButtons->at(currentAV -1));
-                    }
+                    if(i > 0 && avControl->lstLeftAVs->at(i -1) == false)
+                        time = 1;
+                    else
+                        time++;
                 }
             }
         }
 
-        currentAV = 0;
-        for(int i = 0; i < avControl->lstRightAVs->count(); ++i){
-            if(btnView->rightButtonLayout->itemAt(i) == 0){
-                if(avControl->lstRightAVs->at(i) == "false"){
-                    btnView->rightButtonLayout->addItem(new QSpacerItem(100, 60));
+
+        time = 0;
+        for(int i = btnView->rightButtonLayout->count(); i < avControl->lstRightAVs->count(); ++i){
+                if(i > 0 && avControl->lstRightAVs->at(i) == false && avControl->lstRightAVs->at(i -1) == true && currentRightAV < avControl->currentRightAV){
+                    currentRightAV++;
+                    QString btn = "R ";
+                    btn.append(QString("%1: %2s").arg(currentRightAV).arg(time));
+                    rightAVButtons->append((new SelectableValueButton(currentRightAV, time)));
+                    rightAVButtons->at(currentRightAV -1)->setFixedSize(time*100, 60);
+                    rightAVButtons->at(currentRightAV -1)->setText(btn);
+                    btnView->rightButtonLayout->removeItem(btnView->rightButtonLayout->itemAt(i -1));
+                    btnView->rightButtonLayout->addWidget(rightAVButtons->at(currentRightAV -1));
                 }
+                else if(avControl->lstRightAVs->at(i) == false)
+                        btnView->rightButtonLayout->addItem(new QSpacerItem(100, 60));
                 else {
-                    if(i > 0 && avControl->lstRightAVs->at(i -1) == "false"){
-                        currentAV++;
-                        QString btn = "R ";
-                        int time = avControl->getLeftRightTime(currentAV, "right");
-                        btn.append(QString("%1: %2s").arg(currentAV).arg(time));
-                        rightAVButtons->append((new SelectableValueButton(currentAV, time)));
-                        rightAVButtons->at(currentAV -1)->setFixedSize(time*100, 60);
-                        rightAVButtons->at(currentAV -1)->setText(btn);
-                        btnView->rightButtonLayout->addWidget(rightAVButtons->at(currentAV -1));
-                    }
+                    if(i > 0 && avControl->lstRightAVs->at(i -1) == false)
+                        time = 1;
+                    else
+                        time++;
                 }
-            }
         }
 
         for(int i = 1; i <= avControl->totalAV; ++i){
@@ -361,7 +371,6 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
     void StopWatch::btnMaximizeClicked(){
         if(standardView){
             standardView = false;
-            //getButtonView();
             btnView->setVisible(true);
             separator->setVisible(true);
             btnMaximize->setVisible(false);
