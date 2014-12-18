@@ -4,6 +4,7 @@
 #include <QPushButton>
 #include <QTimer>
 #include <QTimerEvent>
+#include <QStackedWidget>
 
 StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
   , running(false)
@@ -37,6 +38,7 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
     avLeftRightLayout = new QHBoxLayout();
     timerBtnLayout2 = new QHBoxLayout();
     sizeLayout = new QVBoxLayout();
+    separator = new Separator(Qt::Horizontal, 3, this);
 
     sizeLayout->addWidget(btnMaximize);
     sizeLayout->addWidget(btnMinimize);
@@ -71,9 +73,11 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
     mainHLayout->setAlignment(mainTimerLayout, Qt::AlignRight);
 
     mainVLayout->addWidget(btnView);
+    mainVLayout->addWidget(separator);
     mainVLayout->addLayout(mainHLayout);
 
     btnView->setVisible(false);
+    separator->setVisible(false);
 
     this->setMaximumHeight(175);
 
@@ -323,6 +327,7 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
             minimizedLayout->addWidget(timerTitle);
             minimizedLayout->addWidget(btnMinimize);
             minimizedLayout->addWidget(btnView);
+            minimizedLayout->addWidget(separator);
 
             btnMaximize->setVisible(true);
             avControl->btnMinus->setVisible(false);
@@ -334,6 +339,7 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
             timerTitle->setVisible(false);
             btnMinimize->setVisible(false);
             btnView->setVisible(false);
+            separator->setVisible(false);
 
             mini->setLayout(minimizedLayout);
             this->setCentralWidget(mini);
@@ -343,6 +349,8 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
             standardView = true;
             btnMaximize->setVisible(true);
             btnView->setVisible(false);
+            separator->setVisible(false);
+            this->parentWidget()->findChild<QStackedWidget*>()->setVisible(true);
             this->setMaximumHeight(175);
         }
     }
@@ -355,7 +363,9 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
             standardView = false;
             //getButtonView();
             btnView->setVisible(true);
+            separator->setVisible(true);
             btnMaximize->setVisible(false);
+            this->parentWidget()->findChild<QStackedWidget*>()->setVisible(false);
             this->setMaximumHeight(2000);
         }
         else {
@@ -416,9 +426,11 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
             mainHLayout->setAlignment(mainTimerLayout, Qt::AlignRight);
 
             mainVLayout->addWidget(btnView);
+            mainVLayout->addWidget(separator);
             mainVLayout->addLayout(mainHLayout);
 
             btnView->setVisible(false);
+            separator->setVisible(false);
 
             main->setLayout(mainVLayout);
             this->setCentralWidget(main);

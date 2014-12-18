@@ -9,6 +9,7 @@
 #include <selectablevaluebutton.h>
 #include <buttontimelineview.h>
 #include <avrecordcontrol.h>
+#include <separator.h>
 
 class StopWatch : public QMainWindow
 {
@@ -63,6 +64,7 @@ private:
     QHBoxLayout *avLeftRightLayout;
     QHBoxLayout *timerBtnLayout2;
     QVBoxLayout *sizeLayout;
+    Separator *separator;
 
     QWidget *main;
     QWidget *mini;
