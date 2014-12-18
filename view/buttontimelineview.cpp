@@ -12,30 +12,13 @@ ButtonTimelineView::ButtonTimelineView(QWidget *parent) :
    QVBoxLayout *mainLayout = new QVBoxLayout;
    QVBoxLayout *mainButtonLayout = new QVBoxLayout;
    QScrollArea *scrollArea = new QScrollArea;
+   QVBoxLayout *occurrenceLayoutV = new QVBoxLayout;
+   QHBoxLayout *occurrenceLayoutH = new QHBoxLayout;
    QHBoxLayout *resizeLayout = new QHBoxLayout;
 
    QScroller::grabGesture(scrollArea->viewport(), QScroller::LeftMouseButtonGesture);
 
-
-   leftButtonLayout = new QHBoxLayout();
-   rightButtonLayout = new QHBoxLayout();
-   avButtonLayout = new QHBoxLayout();
-
-   mainButtonLayout->addLayout(leftButtonLayout);
-   mainButtonLayout->addLayout(rightButtonLayout);
-   mainButtonLayout->addLayout(avButtonLayout);
-   mainButtonLayout->setAlignment(leftButtonLayout, Qt::AlignLeft);
-   mainButtonLayout->setAlignment(rightButtonLayout, Qt::AlignLeft);
-   mainButtonLayout->setAlignment(avButtonLayout, Qt::AlignLeft);
-
-   mainButton->setLayout(mainButtonLayout);
-   scrollArea->setWidget(mainButton);
-
-   scrollArea->setWidgetResizable(true);
-
-   mainLayout->addWidget(scrollArea);
-   mainLayout->addLayout(resizeLayout);
-
+   lblOccurrences = new QLabel("Häufigkeit:");
    occurrences = new QLineEdit("0");
    occurrences->setFixedSize(80,60);
    occurrences->setAlignment(Qt::AlignCenter);
@@ -48,13 +31,43 @@ ButtonTimelineView::ButtonTimelineView(QWidget *parent) :
    btnZoomIn->setFixedSize(60,60);
    btnZoomOut->setFixedSize(60,60);
 
-   currentTime = 100;
+   btnZoomIn->setIcon(QIcon(":/timer/icons/Timer/zoomIn.png"));
+   btnZoomIn->setIconSize(QSize(45,45));
+   btnZoomOut->setIcon(QIcon(":/timer/icons/Timer/zoomOut.png"));
+   btnZoomOut->setIconSize(QSize(45,45));
 
-   resizeLayout->addWidget(btnMinus);
-   resizeLayout->addWidget(occurrences);
-   resizeLayout->addWidget(btnPlus);
+   leftButtonLayout = new QHBoxLayout();
+   rightButtonLayout = new QHBoxLayout();
+   avButtonLayout = new QHBoxLayout();
+
+   mainButtonLayout->addLayout(leftButtonLayout);
+   mainButtonLayout->addLayout(rightButtonLayout);
+   mainButtonLayout->addLayout(avButtonLayout);
+   mainButtonLayout->setAlignment(leftButtonLayout, Qt::AlignLeft);
+   mainButtonLayout->setAlignment(rightButtonLayout, Qt::AlignLeft);
+   mainButtonLayout->setAlignment(avButtonLayout, Qt::AlignLeft);
+
+   occurrenceLayoutH->addWidget(btnMinus);
+   occurrenceLayoutH->addWidget(occurrences);
+   occurrenceLayoutH->addWidget(btnPlus);
+   occurrenceLayoutV->addWidget(lblOccurrences);
+   occurrenceLayoutV->addLayout(occurrenceLayoutH);
+   occurrenceLayoutV->setAlignment(lblOccurrences, Qt::AlignCenter);
+
+   resizeLayout->addLayout(occurrenceLayoutV);
    resizeLayout->addWidget(btnZoomOut);
    resizeLayout->addWidget(btnZoomIn);
+   resizeLayout->setAlignment(occurrenceLayoutV, Qt::AlignLeft);
+
+   mainButton->setLayout(mainButtonLayout);
+   scrollArea->setWidget(mainButton);
+
+   scrollArea->setWidgetResizable(true);
+
+   mainLayout->addWidget(scrollArea);
+   mainLayout->addLayout(resizeLayout);
+
+   currentTime = 100;
 
    main->setLayout(mainLayout);
 

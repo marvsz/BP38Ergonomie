@@ -8,6 +8,7 @@
 StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
   , running(false)
   , timerStarted(false)
+  , standardView(true)
   , startTime()
   , currentAVTime()
   , timerTitle(new QLabel("Gesamtlaufzeit:"))
@@ -26,7 +27,8 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
 {
     main = new QWidget();
 
-    mainLayout = new QHBoxLayout();
+    mainVLayout = new QVBoxLayout();
+    mainHLayout = new QHBoxLayout();
     mainTimerLayout = new QVBoxLayout();
     timerBtnLayout = new QVBoxLayout();
     mainAVLayout = new QVBoxLayout();
@@ -34,9 +36,10 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
     avTimeLayout = new QHBoxLayout();
     avLeftRightLayout = new QHBoxLayout();
     timerBtnLayout2 = new QHBoxLayout();
+    sizeLayout = new QVBoxLayout();
 
-    avLeftRightLayout->addWidget(btnMinimize);
-    avLeftRightLayout->addWidget(btnMaximize);
+    sizeLayout->addWidget(btnMaximize);
+    sizeLayout->addWidget(btnMinimize);
 
     avLeftRightLayout->addWidget(avControl->btnAVLeft);
     avLeftRightLayout->addWidget(avControl->btnAVRight);
@@ -61,19 +64,24 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
     mainTimerLayout->addWidget(timer);
     mainTimerLayout->setAlignment(timer, Qt::AlignCenter);
 
-    mainLayout->addLayout(mainAVLayout);
-    mainLayout->addWidget(avControl);
-    mainLayout->addLayout(mainTimerLayout);
-    mainLayout->setAlignment(mainTimerLayout, Qt::AlignRight);
+    mainHLayout->addLayout(sizeLayout);
+    mainHLayout->addLayout(mainAVLayout);
+    mainHLayout->addWidget(avControl);
+    mainHLayout->addLayout(mainTimerLayout);
+    mainHLayout->setAlignment(mainTimerLayout, Qt::AlignRight);
+
+    mainVLayout->addWidget(btnView);
+    mainVLayout->addLayout(mainHLayout);
+
+    btnView->setVisible(false);
 
     this->setMaximumHeight(175);
 
-    main->setLayout(mainLayout);
+    main->setLayout(mainVLayout);
     this->setCentralWidget(main);
 
     btnMinimize->setFixedSize(45,45);
     btnMaximize->setFixedSize(45,45);
-    btnMaximize->setVisible(false);
 
     btnStartPause->setFixedSize(45,45);
     btnStopReset->setFixedSize(45,45);
@@ -212,7 +220,7 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
                 avControl->updateAVs();
                 if(!avControl->windowMinimized)
                     avControl->updateGraph();
-                //getButtonView();
+                getButtonView();
             }
             counter = s;
         }
@@ -284,108 +292,136 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
      * @brief creates and shows layout of the minimized view
      */
     void StopWatch::btnMinimizeClicked(){
-        avControl->windowMinimized = true;
+        if(standardView){
+            standardView = false;
+            avControl->windowMinimized = true;
 
-        mini = new QWidget();
-        minimizedLayout = new QHBoxLayout();
+            mini = new QWidget();
+            minimizedLayout = new QHBoxLayout();
 
-        minimizedLayout->addWidget(btnMaximize);
-        minimizedLayout->addItem(new QSpacerItem(70, 45));
-        minimizedLayout->addWidget(avControl->btnAVLeft);
-        minimizedLayout->addWidget(avControl->btnAVRight);
-        minimizedLayout->addWidget(avControl->btnAV);
-        minimizedLayout->addItem(new QSpacerItem(70, 45));
-        minimizedLayout->addWidget(avControl->btnPrevAV);
-        minimizedLayout->addWidget(avControl->btnSelAV);
-        minimizedLayout->addWidget(avControl->btnNextAV);
-        minimizedLayout->addWidget(timer);
-        minimizedLayout->addWidget(btnStartPause);
+            minimizedLayout->addWidget(btnMaximize);
+            minimizedLayout->addItem(new QSpacerItem(70, 45));
+            minimizedLayout->addWidget(avControl->btnAVLeft);
+            minimizedLayout->addWidget(avControl->btnAVRight);
+            minimizedLayout->addWidget(avControl->btnAV);
+            minimizedLayout->addItem(new QSpacerItem(70, 45));
+            minimizedLayout->addWidget(avControl->btnPrevAV);
+            minimizedLayout->addWidget(avControl->btnSelAV);
+            minimizedLayout->addWidget(avControl->btnNextAV);
+            minimizedLayout->addWidget(timer);
+            minimizedLayout->addWidget(btnStartPause);
 
-        minimizedLayout->setAlignment(timer, Qt::AlignRight);
-        minimizedLayout->setAlignment(btnStartPause, Qt::AlignRight);
+            minimizedLayout->setAlignment(timer, Qt::AlignRight);
+            minimizedLayout->setAlignment(btnStartPause, Qt::AlignRight);
 
-        minimizedLayout->addWidget(avControl->btnMinus);
-        minimizedLayout->addWidget(avControl->btnPlus);
-        minimizedLayout->addWidget(avControl->avTime);
-        minimizedLayout->addWidget(avControl);
-        minimizedLayout->addWidget(btnStopReset);
-        minimizedLayout->addWidget(avControl->btnSetLeftRight);
-        minimizedLayout->addWidget(timerTitle);
-        minimizedLayout->addWidget(btnMinimize);
+            minimizedLayout->addWidget(avControl->btnMinus);
+            minimizedLayout->addWidget(avControl->btnPlus);
+            minimizedLayout->addWidget(avControl->avTime);
+            minimizedLayout->addWidget(avControl);
+            minimizedLayout->addWidget(btnStopReset);
+            minimizedLayout->addWidget(avControl->btnSetLeftRight);
+            minimizedLayout->addWidget(timerTitle);
+            minimizedLayout->addWidget(btnMinimize);
+            minimizedLayout->addWidget(btnView);
 
-        btnMaximize->setVisible(true);
-        avControl->btnMinus->setVisible(false);
-        avControl->btnPlus->setVisible(false);
-        avControl->avTime->setVisible(false);
-        avControl->setVisible(false);
-        btnStopReset->setVisible(false);
-        avControl->btnSetLeftRight->setVisible(false);
-        timerTitle->setVisible(false);
-        btnMinimize->setVisible(false);
+            btnMaximize->setVisible(true);
+            avControl->btnMinus->setVisible(false);
+            avControl->btnPlus->setVisible(false);
+            avControl->avTime->setVisible(false);
+            avControl->setVisible(false);
+            btnStopReset->setVisible(false);
+            avControl->btnSetLeftRight->setVisible(false);
+            timerTitle->setVisible(false);
+            btnMinimize->setVisible(false);
+            btnView->setVisible(false);
 
-        mini->setLayout(minimizedLayout);
-        this->setCentralWidget(mini);
-        this->setMaximumHeight(65);
+            mini->setLayout(minimizedLayout);
+            this->setCentralWidget(mini);
+            this->setMaximumHeight(65);
+        }
+        else {
+            standardView = true;
+            btnMaximize->setVisible(true);
+            btnView->setVisible(false);
+            this->setMaximumHeight(175);
+        }
     }
 
     /**
      * @brief creates and shows layout of the maximized view
      */
     void StopWatch::btnMaximizeClicked(){
-        avControl->windowMinimized = false;
+        if(standardView){
+            standardView = false;
+            //getButtonView();
+            btnView->setVisible(true);
+            btnMaximize->setVisible(false);
+            this->setMaximumHeight(2000);
+        }
+        else {
+            standardView = true;
+            avControl->windowMinimized = false;
 
-        main = new QWidget();
-        mainLayout = new QHBoxLayout();
-        mainTimerLayout = new QVBoxLayout();
-        timerBtnLayout = new QVBoxLayout();
-        mainAVLayout = new QVBoxLayout();
-        avSelLayout = new QHBoxLayout();
-        avTimeLayout = new QHBoxLayout();
-        avLeftRightLayout = new QHBoxLayout();
-        timerBtnLayout2 = new QHBoxLayout();
+            main = new QWidget();
+            mainVLayout = new QVBoxLayout();
+            mainHLayout = new QHBoxLayout();
+            mainTimerLayout = new QVBoxLayout();
+            timerBtnLayout = new QVBoxLayout();
+            mainAVLayout = new QVBoxLayout();
+            avSelLayout = new QHBoxLayout();
+            avTimeLayout = new QHBoxLayout();
+            avLeftRightLayout = new QHBoxLayout();
+            timerBtnLayout2 = new QHBoxLayout();
+            sizeLayout = new QVBoxLayout();
 
-        avLeftRightLayout->addWidget(btnMinimize);
-        avLeftRightLayout->addWidget(btnMaximize);
+            sizeLayout->addWidget(btnMaximize);
+            sizeLayout->addWidget(btnMinimize);
 
-        avLeftRightLayout->addWidget(avControl->btnAVLeft);
-        avLeftRightLayout->addWidget(avControl->btnAVRight);
-        avLeftRightLayout->addWidget(avControl->btnAV);
-        avSelLayout->addWidget(avControl->btnPrevAV);
-        avSelLayout->addWidget(avControl->btnSelAV);
-        avSelLayout->addWidget(avControl->btnNextAV);
-        avTimeLayout->addWidget(avControl->btnMinus);
-        avTimeLayout->addWidget(avControl->avTime);
-        avTimeLayout->addWidget(avControl->btnPlus);
-        mainAVLayout->addLayout(avLeftRightLayout);
-        mainAVLayout->addLayout(avSelLayout);
-        mainAVLayout->addLayout(avTimeLayout);
+            avLeftRightLayout->addWidget(avControl->btnAVLeft);
+            avLeftRightLayout->addWidget(avControl->btnAVRight);
+            avLeftRightLayout->addWidget(avControl->btnAV);
+            avSelLayout->addWidget(avControl->btnPrevAV);
+            avSelLayout->addWidget(avControl->btnSelAV);
+            avSelLayout->addWidget(avControl->btnNextAV);
+            avTimeLayout->addWidget(avControl->btnMinus);
+            avTimeLayout->addWidget(avControl->avTime);
+            avTimeLayout->addWidget(avControl->btnPlus);
+            mainAVLayout->addLayout(avLeftRightLayout);
+            mainAVLayout->addLayout(avSelLayout);
+            mainAVLayout->addLayout(avTimeLayout);
 
-        timerBtnLayout->addWidget(btnStartPause);
-        timerBtnLayout->addWidget(btnStopReset);
+            timerBtnLayout->addWidget(btnStartPause);
+            timerBtnLayout->addWidget(btnStopReset);
 
-        timerBtnLayout2->addWidget(avControl->btnSetLeftRight);
-        timerBtnLayout2->addLayout(timerBtnLayout);
-        mainTimerLayout->addLayout(timerBtnLayout2);
-        mainTimerLayout->addWidget(timerTitle);
-        mainTimerLayout->addWidget(timer);
-        mainTimerLayout->setAlignment(timer, Qt::AlignCenter);
+            timerBtnLayout2->addWidget(avControl->btnSetLeftRight);
+            timerBtnLayout2->addLayout(timerBtnLayout);
+            mainTimerLayout->addLayout(timerBtnLayout2);
+            mainTimerLayout->addWidget(timerTitle);
+            mainTimerLayout->addWidget(timer);
+            mainTimerLayout->setAlignment(timer, Qt::AlignCenter);
 
-        btnMaximize->setVisible(false);
-        avControl->btnMinus->setVisible(true);
-        avControl->btnPlus->setVisible(true);
-        avControl->avTime->setVisible(true);
-        avControl->setVisible(true);
-        btnStopReset->setVisible(true);
-        avControl->btnSetLeftRight->setVisible(true);
-        timerTitle->setVisible(true);
-        btnMinimize->setVisible(true);
+            avControl->btnMinus->setVisible(true);
+            avControl->btnPlus->setVisible(true);
+            avControl->avTime->setVisible(true);
+            avControl->setVisible(true);
+            btnStopReset->setVisible(true);
+            avControl->btnSetLeftRight->setVisible(true);
+            timerTitle->setVisible(true);
+            btnMinimize->setVisible(true);
 
-        mainLayout->addLayout(mainAVLayout);
-        mainLayout->addWidget(avControl);
-        mainLayout->addLayout(mainTimerLayout);
-        mainLayout->setAlignment(mainTimerLayout, Qt::AlignRight);
+            mainHLayout->addLayout(sizeLayout);
+            mainHLayout->addLayout(mainAVLayout);
+            mainHLayout->addWidget(avControl);
+            mainHLayout->addLayout(mainTimerLayout);
+            mainHLayout->setAlignment(mainTimerLayout, Qt::AlignRight);
 
-        main->setLayout(mainLayout);
-        this->setCentralWidget(main);
-        this->setMaximumHeight(175);
+            mainVLayout->addWidget(btnView);
+            mainVLayout->addLayout(mainHLayout);
+
+            btnView->setVisible(false);
+
+            main->setLayout(mainVLayout);
+            this->setCentralWidget(main);
+            this->setMaximumHeight(175);
+        }
     }

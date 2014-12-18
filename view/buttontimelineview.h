@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QMainWindow>
 #include <QLineEdit>
+#include <QLabel>
 
 namespace Ui {
 class ButtonTimelineView;
@@ -35,6 +36,7 @@ private:
     QWidget *main;
     QWidget *mainButton;
 
+    QLabel *lblOccurrences;
     QLineEdit *occurrences;
     QPushButton *btnZoomIn;
     QPushButton *btnZoomOut;

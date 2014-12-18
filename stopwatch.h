@@ -31,6 +31,7 @@ protected:
 private:
     bool running;
     bool timerStarted;
+    bool standardView;
     int counter;
 
     QLabel *timerTitle;
@@ -52,7 +53,8 @@ private:
     QVector<SelectableValueButton*> *avButtons;
 
     QHBoxLayout *minimizedLayout;
-    QHBoxLayout *mainLayout;
+    QVBoxLayout *mainVLayout;
+    QHBoxLayout *mainHLayout;
     QVBoxLayout *mainTimerLayout;
     QVBoxLayout *timerBtnLayout;
     QVBoxLayout *mainAVLayout;
@@ -60,6 +62,8 @@ private:
     QHBoxLayout *avTimeLayout;
     QHBoxLayout *avLeftRightLayout;
     QHBoxLayout *timerBtnLayout2;
+    QVBoxLayout *sizeLayout;
+
     QWidget *main;
     QWidget *mini;
 

@@ -6,5 +6,7 @@
         <file>icons/Timer/stop.png</file>
 	<file>icons/Timer/minimize.png</file>
 	<file>icons/Timer/maximize.png</file>
+	<file>icons/Timer/zoomIn.png</file>
+	<file>icons/Timer/zoomOut.png</file>
     </qresource>
 </RCC>
