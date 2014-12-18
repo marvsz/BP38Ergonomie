@@ -94,15 +94,17 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
     btnStopReset->setFixedSize(45,45);
 
     btnStartPause->setIcon(QIcon(":/timer/icons/Timer/start.png"));
-    btnStartPause->setIconSize(QSize(25,25));
+    btnStartPause->setObjectName("btnStartPause");
+    btnStartPause->setIconSize(QSize(45,45));
     btnStartPause->setToolTip("Start");
     btnStopReset->setIcon(QIcon(":/timer/icons/Timer/reset.png"));
-    btnStopReset->setIconSize(QSize(25,25));
+    btnStopReset->setObjectName("btnStopReset");
+    btnStopReset->setIconSize(QSize(45,45));
     btnStopReset->setToolTip("Reset");
     btnMinimize->setIcon(QIcon(":/timer/icons/Timer/minimize.png"));
-    btnMinimize->setIconSize(QSize(25,25));
+    btnMinimize->setIconSize(QSize(45,45));
     btnMaximize->setIcon(QIcon(":/timer/icons/Timer/maximize.png"));
-    btnMaximize->setIconSize(QSize(25,25));
+    btnMaximize->setIconSize(QSize(45,45));
 
     timerTitle->setStyleSheet("font: 12px");
     timer->setStyleSheet("font: 15pt");
