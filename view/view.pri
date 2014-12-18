@@ -30,7 +30,8 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/numberlineedit.h \
     $$PWD/textlineedit.h \
     $$PWD/producedproductexecutioncondition.h \
-    $$PWD/graphtimelineview.h
+    $$PWD/graphtimelineview.h \
+    $$PWD/avrecordcontrol.h
 
 
 SOURCES += $$CURRENT_DIR/variant.cpp\
@@ -61,6 +62,7 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/numberlineedit.cpp \
     $$PWD/textlineedit.cpp \
     $$PWD/producedproductexecutioncondition.cpp \
-    $$PWD/graphtimelineview.cpp
+    $$PWD/graphtimelineview.cpp \
+    $$PWD/avrecordcontrol.cpp
 
 
