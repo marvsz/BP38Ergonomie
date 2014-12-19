@@ -15,16 +15,28 @@ class StopWatch : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit StopWatch(QWidget *parent = 0);
+    explicit StopWatch(ButtonTimelineView *buttonView, QWidget *parent = 0);
 
       ButtonTimelineView *btnView;
+
+signals:
+    void leftAvPressed();
+    void rightAvPressed();
+    void avPressed();
+    void minimizePressed();
+    void maximizePressed();
 
 private slots:
     void btnStartPauseClicked();
     void btnStopResetClicked();
-    void getButtonView();
+    void updateButtonView();
     void btnMinimizeClicked();
     void btnMaximizeClicked();
+    void selectLeftAV(int id);
+    void selectRightAV(int id);
+    void selectAV(int id);
+    void selectMinimize();
+    void selectMaximize();
 
 protected:
     void timerEvent(QTimerEvent *);
