@@ -37,7 +37,7 @@ void GraphTimelineView::updateGraph(QList<bool> *lstAV, QList<bool> *lstLeftAVs,
     painter.begin(&picture);
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setPen(QPen(Qt::gray, 0, Qt::SolidLine, Qt::FlatCap));
-    painter.drawLine(0, -40, 0, -40);
+    painter.drawLine(0, -40, 1, -40);
 
     paintX = 10;
     for(int i = 0; i < lstLeftAVs->count(); ++i){

@@ -321,7 +321,7 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
                     rightButton->setText(btn);
                     rightAVButtons->append(rightButton);
                     btnView->rightButtonLayout->addWidget(rightButton);
-                    btnView->leftButtonLayout->addSpacerItem(new QSpacerItem(100, 60));
+                    btnView->rightButtonLayout->addSpacerItem(new QSpacerItem(100, 60));
                 }
                 else if(avControl->lstRightAVs->at(i) == false)
                         btnView->rightButtonLayout->addSpacerItem(new QSpacerItem(100, 60));
