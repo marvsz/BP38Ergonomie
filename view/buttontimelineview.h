@@ -18,6 +18,8 @@ class ButtonTimelineView : public QMainWindow
 public:
     explicit ButtonTimelineView(QWidget *parent = 0);
 
+    void clearButtons();
+
     QHBoxLayout *leftButtonLayout;
     QHBoxLayout *rightButtonLayout;
     QHBoxLayout *avButtonLayout;

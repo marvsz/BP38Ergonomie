@@ -158,3 +158,20 @@ ButtonTimelineView::ButtonTimelineView(QWidget *parent) :
                 avButtonLayout->itemAt(i)->spacerItem()->changeSize(currentTime, 60);
         }
     }
+
+    void ButtonTimelineView::clearButtons(){
+        QLayoutItem *item;
+        while((item = leftButtonLayout->takeAt(0)) != NULL){
+            delete item->widget();
+            delete item;
+        }
+        while((item = rightButtonLayout->takeAt(0)) != NULL){
+            delete item->widget();
+            delete item;
+        }
+        while((item = avButtonLayout->takeAt(0)) != NULL){
+            delete item->widget();
+            delete item;
+        }
+
+    }

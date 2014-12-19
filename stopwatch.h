@@ -78,7 +78,6 @@ private:
     QHBoxLayout *avLeftRightLayout;
     QHBoxLayout *timerBtnLayout2;
     QVBoxLayout *sizeLayout;
-    Separator *separator;
 
     QWidget *main;
     QWidget *mini;

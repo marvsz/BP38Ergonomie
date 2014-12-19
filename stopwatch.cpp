@@ -45,7 +45,6 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
     avLeftRightLayout = new QHBoxLayout();
     timerBtnLayout2 = new QHBoxLayout();
     sizeLayout = new QVBoxLayout();
-    separator = new Separator(Qt::Horizontal, 3, this);
 
     //  MINIMIZE MAXIMIZE BUTTONS
     sizeLayout->addWidget(btnMaximize);
@@ -91,13 +90,7 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
     mainHLayout->setAlignment(mainTimerLayout, Qt::AlignRight);
 
     // ADD THE BUTTON VIEW AND THE TIMER LAYOUT TO THE MAIN LAYOUT
-    //mainVLayout->addWidget(btnView);
-    //mainVLayout->addWidget(separator);
     mainVLayout->addLayout(mainHLayout);
-
-    // HIDE THE BUTTON VIEW INITIALLY
-    //btnView->hide();
-    //separator->hide();
 
     this->setMaximumHeight(175);
 
@@ -133,10 +126,6 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
     startTimer(0);
     btnStartPause->setEnabled(true);
     btnStopReset->setEnabled(false);
-
-    // DISBALE AV NAVIGATION BUTTONS
-    //btnView->btnPlus->setEnabled(false);
-    //btnView->btnMinus->setEnabled(false);
 
     // CONNECT BUTTONS TO SLOTS
     connect(btnStartPause, SIGNAL(clicked()), SLOT(btnStartPauseClicked()));
@@ -266,16 +255,7 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
             currentLeftAV = 0;
             currentRightAV = 0;
             // clear the button lists
-            avButtons->clear();
-            leftAVButtons->clear();
-            rightAVButtons->clear();
-            // delete the button view time line and create a new one
-            //delete this->btnView;
-            //this->btnView = new ButtonTimelineView();
-            //mainVLayout->insertWidget(0, btnView);
-            // if the view is in standard: hide the button timeline view
-            //if(standardView)
-                //btnView->hide();
+            btnView->clearButtons();
         }
     }
 
@@ -309,11 +289,7 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
      * needed or adapted.
      */
     void StopWatch::updateButtonView(){
-        // enable the occurence buttons
-        //btnView->btnPlus->setEnabled(true);
-        //btnView->btnMinus->setEnabled(true);
 
-        //
         int i = avControl->lstLeftAVs->count() -1;
                 if(i > 0 && avControl->lstLeftAVs->at(i) == false && avControl->lstLeftAVs->at(i -1) == true && currentLeftAV < avControl->totalLeftAV) {
                     currentLeftAV++;
@@ -325,10 +301,9 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
                     leftButton->setText(btn);
                     leftAVButtons->append(leftButton);
                     btnView->leftButtonLayout->addWidget(leftButton);
-                    //btnView->leftButtonLayout->addItem(new QSpacerItem(100, 60));
                 }
                 else if(avControl->lstLeftAVs->at(i) == false)
-                        btnView->leftButtonLayout->addItem(new QSpacerItem(100, 60));
+                        btnView->leftButtonLayout->addSpacerItem(new QSpacerItem(100, 60));
                 else if(i > 0 && avControl->lstLeftAVs->at(i -1) == false)
                         currentLeftTime = 1;
                 else
@@ -345,10 +320,9 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
                     rightButton->setText(btn);
                     rightAVButtons->append(rightButton);
                     btnView->rightButtonLayout->addWidget(rightButton);
-                    //btnView->rightButtonLayout->addItem(new QSpacerItem(100, 60));
                 }
                 else if(avControl->lstRightAVs->at(i) == false)
-                        btnView->rightButtonLayout->addItem(new QSpacerItem(100, 60));
+                        btnView->rightButtonLayout->addSpacerItem(new QSpacerItem(100, 60));
                 else if(i > 0 && avControl->lstRightAVs->at(i -1) == false)
                         currentRightTime = 1;
                 else
@@ -382,11 +356,11 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
             minimizedLayout = new QHBoxLayout();
 
             minimizedLayout->addWidget(btnMaximize);
-            minimizedLayout->addItem(new QSpacerItem(70, 45));
+            minimizedLayout->addSpacerItem(new QSpacerItem(70, 45));
             minimizedLayout->addWidget(avControl->btnAVLeft);
             minimizedLayout->addWidget(avControl->btnAVRight);
             minimizedLayout->addWidget(avControl->btnAV);
-            minimizedLayout->addItem(new QSpacerItem(70, 45));
+            minimizedLayout->addSpacerItem(new QSpacerItem(70, 45));
             minimizedLayout->addWidget(avControl->btnPrevAV);
             minimizedLayout->addWidget(avControl->btnSelAV);
             minimizedLayout->addWidget(avControl->btnNextAV);
@@ -404,8 +378,6 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
             minimizedLayout->addWidget(avControl->btnSetLeftRight);
             minimizedLayout->addWidget(timerTitle);
             minimizedLayout->addWidget(btnMinimize);
-            //minimizedLayout->addWidget(btnView);
-            //minimizedLayout->addWidget(separator);
 
             btnMaximize->show();
             avControl->btnMinus->hide();
@@ -416,8 +388,6 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
             avControl->btnSetLeftRight->hide();
             timerTitle->hide();
             btnMinimize->hide();
-            //btnView->hide();
-            //separator->hide();
 
             mini->setLayout(minimizedLayout);
             this->setCentralWidget(mini);
@@ -426,10 +396,6 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
         else {
             standardView = true;
             btnMaximize->show();
-            /*btnView->show();
-            separator->show();
-            this->parentWidget()->findChild<QStackedWidget*>()->show();
-            this->setMaximumHeight(175);*/
             emit minimizePressed();
         }
     }
@@ -441,10 +407,6 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
         if(standardView){
             standardView = false;
             btnMaximize->hide();
-            /*btnView->show();
-            separator->show();
-            this->parentWidget()->findChild<QStackedWidget*>()->hide();
-            this->setMaximumHeight(2000);*/
             emit maximizePressed();
         }
         else {
@@ -504,12 +466,7 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
             mainHLayout->addLayout(mainTimerLayout);
             mainHLayout->setAlignment(mainTimerLayout, Qt::AlignRight);
 
-            //mainVLayout->addWidget(btnView);
-            mainVLayout->addWidget(separator);
             mainVLayout->addLayout(mainHLayout);
-
-            //btnView->hide();
-            //separator->hide();
 
             main->setLayout(mainVLayout);
             this->setCentralWidget(main);
@@ -518,16 +475,19 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
     }
 
     void StopWatch::selectLeftAV(int id){
-
+        standardView = true;
+        btnMaximize->show();
         emit leftAvPressed();
     }
 
     void StopWatch::selectRightAV(int id){
-
+        standardView = true;
+        btnMaximize->show();
         emit rightAvPressed();
     }
 
     void StopWatch::selectAV(int id){
-
+        standardView = true;
+        btnMaximize->show();
         emit avPressed();
     }
