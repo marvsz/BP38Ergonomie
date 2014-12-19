@@ -5,7 +5,6 @@
 #include <QPushButton>
 #include <QLineEdit>
 #include <QBoxLayout>
-#include <graphtimelineview.h>
 #include <selectablevaluebutton.h>
 
 class AVRecordControl : public QMainWindow
@@ -55,14 +54,11 @@ public:
         int currentLeftAV;
         int currentRightAV;
 
-        QVBoxLayout *avSetLayout;
-        GraphTimelineView *graphView;
 
 public slots:
     int getTime(int currentAV);
     int getLeftRightTime(int currentAV, QString leftright);
     void updateAVs();
-    void updateGraph();
 
 private slots:
     void btnSetAVClicked();

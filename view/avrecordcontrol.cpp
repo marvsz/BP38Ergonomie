@@ -41,24 +41,7 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
   , btnMinus(new QPushButton("-"))
   , btnNextAV(new QPushButton(">"))
   , btnPrevAV(new QPushButton("<"))
-  , graphView(new GraphTimelineView)
 {
-    QWidget *main = new QWidget();
-
-    QHBoxLayout *mainLayout = new QHBoxLayout();
-    avSetLayout = new QVBoxLayout();
-
-    avSetLayout->addWidget(btnSetLeft);
-    avSetLayout->addWidget(btnSetRight);
-    avSetLayout->addWidget(btnSetAv);
-
-    //mainLayout->addWidget(graphView);
-    //mainLayout->addLayout(avSetLayout);
-
-    //main->setLayout(mainLayout);
-    //this->setCentralWidget(main);
-    //this->setFixedHeight(175);
-
     btnSetAv->setFixedSize(45,45);
     btnSetLeft->setFixedSize(45,45);
     btnSetRight->setFixedSize(45,45);
@@ -253,14 +236,6 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
             lstRightAVs->append(true);
         else
             lstRightAVs->append(false);
-    }
-
-    /**
-     * @brief relays the necessary inforamtion to the graph, in order
-     * for it to update
-     */
-    void AVRecordControl::updateGraph(){
-        graphView->updateGraph(lstAV, lstLeftAVs, lstRightAVs);
     }
 
     /**

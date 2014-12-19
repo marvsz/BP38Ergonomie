@@ -10,6 +10,7 @@
 #include <buttontimelineview.h>
 #include <avrecordcontrol.h>
 #include <separator.h>
+#include <graphtimelineview.h>
 
 class StopWatch : public QMainWindow
 {
@@ -78,9 +79,12 @@ private:
     QHBoxLayout *avLeftRightLayout;
     QHBoxLayout *timerBtnLayout2;
     QVBoxLayout *sizeLayout;
+    QVBoxLayout *avSetLayout;
 
     QWidget *main;
     QWidget *mini;
+
+    GraphTimelineView *graphView;
 
     static const QString qssSelected;
     static const QString qssNotSelected;

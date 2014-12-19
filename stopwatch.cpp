@@ -30,6 +30,7 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
   , avButtons(new QVector<SelectableValueButton*>)
   , btnView(buttonView)
   , avControl(new AVRecordControl(this))
+  , graphView(new GraphTimelineView)
 {
 
     // LAYOUTS
@@ -45,6 +46,7 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
     avLeftRightLayout = new QHBoxLayout();
     timerBtnLayout2 = new QHBoxLayout();
     sizeLayout = new QVBoxLayout();
+    avSetLayout = new QVBoxLayout();
 
     //  MINIMIZE MAXIMIZE BUTTONS
     sizeLayout->addWidget(btnMaximize);
@@ -82,11 +84,16 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
     mainTimerLayout->addWidget(timer);
     mainTimerLayout->setAlignment(timer, Qt::AlignCenter);
 
+    // SET AV SET BUTTONS
+    avSetLayout->addWidget(avControl->btnSetLeft);
+    avSetLayout->addWidget(avControl->btnSetRight);
+    avSetLayout->addWidget(avControl->btnSetAv);
+
     // ALIGN ALL LAYOUTS HORIZONTALLY
     mainHLayout->addLayout(sizeLayout);
     mainHLayout->addLayout(mainAVLayout);
-    mainHLayout->addWidget(avControl->graphView);
-    mainHLayout->addLayout(avControl->avSetLayout);
+    mainHLayout->addWidget(graphView);
+    mainHLayout->addLayout(avSetLayout);
     mainHLayout->addLayout(mainTimerLayout);
     mainHLayout->setAlignment(mainTimerLayout, Qt::AlignRight);
 
@@ -222,7 +229,7 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
             avControl->lstLeftAVTime->clear();
             avControl->lstRightAVTime->clear();
             // update the graph timeline (delete)
-            avControl->updateGraph();
+            graphView->updateGraph(avControl->lstAV, avControl->lstLeftAVs, avControl->lstRightAVs);
             // disable all buttons
             avControl->avTime->setText("00:00");
             avControl->btnSelAV->setText("leer");
@@ -278,7 +285,7 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
             if(counter != s){
                 avControl->updateAVs();
                 if(!avControl->windowMinimized)
-                    avControl->updateGraph();
+                    graphView->updateGraph(avControl->lstAV, avControl->lstLeftAVs, avControl->lstRightAVs);
                 updateButtonView();
             }
             counter = s;
@@ -373,7 +380,10 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
             minimizedLayout->addWidget(avControl->btnMinus);
             minimizedLayout->addWidget(avControl->btnPlus);
             minimizedLayout->addWidget(avControl->avTime);
-            minimizedLayout->addWidget(avControl);
+            minimizedLayout->addWidget(graphView);
+            minimizedLayout->addWidget(avControl->btnSetAv);
+            minimizedLayout->addWidget(avControl->btnSetLeft);
+            minimizedLayout->addWidget(avControl->btnSetRight);
             minimizedLayout->addWidget(btnStopReset);
             minimizedLayout->addWidget(avControl->btnSetLeftRight);
             minimizedLayout->addWidget(timerTitle);
@@ -383,7 +393,10 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
             avControl->btnMinus->hide();
             avControl->btnPlus->hide();
             avControl->avTime->hide();
-            avControl->hide();
+            graphView->hide();
+            avControl->btnSetAv->hide();
+            avControl->btnSetLeft->hide();
+            avControl->btnSetRight->hide();
             btnStopReset->hide();
             avControl->btnSetLeftRight->hide();
             timerTitle->hide();
@@ -424,6 +437,7 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
             avLeftRightLayout = new QHBoxLayout();
             timerBtnLayout2 = new QHBoxLayout();
             sizeLayout = new QVBoxLayout();
+            avSetLayout = new QVBoxLayout();
 
             sizeLayout->addWidget(btnMaximize);
             sizeLayout->addWidget(btnMinimize);
@@ -451,10 +465,17 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
             mainTimerLayout->addWidget(timer);
             mainTimerLayout->setAlignment(timer, Qt::AlignCenter);
 
+            avSetLayout->addWidget(avControl->btnSetLeft);
+            avSetLayout->addWidget(avControl->btnSetRight);
+            avSetLayout->addWidget(avControl->btnSetAv);
+
             avControl->btnMinus->show();
             avControl->btnPlus->show();
             avControl->avTime->show();
-            avControl->show();
+            graphView->show();
+            avControl->btnSetAv->show();
+            avControl->btnSetLeft->show();
+            avControl->btnSetRight->show();
             btnStopReset->show();
             avControl->btnSetLeftRight->show();
             timerTitle->show();
@@ -462,7 +483,8 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
 
             mainHLayout->addLayout(sizeLayout);
             mainHLayout->addLayout(mainAVLayout);
-            mainHLayout->addWidget(avControl);
+            mainHLayout->addWidget(graphView);
+            mainHLayout->addLayout(avSetLayout);
             mainHLayout->addLayout(mainTimerLayout);
             mainHLayout->setAlignment(mainTimerLayout, Qt::AlignRight);
 
