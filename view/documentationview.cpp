@@ -6,7 +6,6 @@
 #include <QUrl>
 #include <QList>
 #include <QStringList>
-#include "angleview.h"
 #include "transportview.h"
 #include "actionforceview.h"
 #include "executionconditionview.h"
@@ -45,10 +44,13 @@ DocumentationView::DocumentationView(QWidget *parent) :
 
     // ADD DIFFERENT VIEWS TO STACKEDWIDGET
     mainContent = new QStackedWidget;
-    mainContent->addWidget(new AngleView);
+    angleView = new AngleView;
+    btnTimeLineView = new ButtonTimelineView;
+    mainContent->addWidget(angleView);
     mainContent->addWidget(new TransportView);
     mainContent->addWidget(new ActionForceView);
     mainContent->addWidget(new ExecutionConditionView);
+    mainContent->addWidget(btnTimeLineView);
 
     // CONNECT THE COMBOBOX TO THE STACKEDWIDGET
     connect(views, SIGNAL(currentIndexChanged(int)), mainContent, SLOT(setCurrentIndex(int)));
@@ -57,7 +59,13 @@ DocumentationView::DocumentationView(QWidget *parent) :
     connect(cameraButton, SIGNAL(clicked()), this, SLOT(showCamera()));
 
     // ADD TIMER
-    this->timer = new StopWatch;
+    this->timer = new StopWatch(btnTimeLineView);
+    connect(timer, SIGNAL(leftAvPressed()), this, SLOT(leftAvPressed()));
+    connect(timer, SIGNAL(rightAvPressed()), this, SLOT(rightAvPressed()));
+    connect(timer, SIGNAL(avPressed()), this, SLOT(avPressed()));
+    connect(timer, SIGNAL(maximizePressed()), this, SLOT(maximizeBtnTimeLineView()));
+    connect(timer, SIGNAL(minimizePressed()), this, SLOT(minimizeBtnTimeLineView()));
+    indexBeforeTimeLineView = 0;
 
     // GRID LAYOUT
     /*mainLayout->addWidget(backButton, 0, 0, 1, 1, Qt::AlignLeft);
@@ -108,4 +116,28 @@ void DocumentationView::showCamera(){
  */
 void DocumentationView::hideCamera(){
     this->cameraView->destroy();
+}
+
+void DocumentationView::leftAvPressed(){
+    mainContent->setCurrentIndex(0);
+    angleView->selectLeftAV();
+}
+
+void DocumentationView::rightAvPressed(){
+    mainContent->setCurrentIndex(0);
+    angleView->selectRightAV();
+}
+
+void DocumentationView::avPressed(){
+    mainContent->setCurrentIndex(0);
+    angleView->selectAV();
+}
+
+void DocumentationView::maximizeBtnTimeLineView(){
+    indexBeforeTimeLineView = mainContent->currentIndex();
+    mainContent->setCurrentIndex(4);
+}
+
+void DocumentationView::minimizeBtnTimeLineView(){
+    mainContent->setCurrentIndex(indexBeforeTimeLineView);
 }

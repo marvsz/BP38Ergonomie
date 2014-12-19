@@ -33,7 +33,7 @@ TransportView::TransportView(QWidget *parent) :
 
 
     type = new ValueControl(TEXT_CONTROL, categoryScrollArea);
-    type->setValues(typeValues, typeValues,  new QString());
+    type->setValues(true, typeValues, typeValues,  new QString());
     type->setText("Lastenhandhabungsart:");
     connect(type, SIGNAL(valueChanged(QString)), this, SLOT(typeChanged(QString)));
 
@@ -51,7 +51,7 @@ TransportView::TransportView(QWidget *parent) :
 
 
     hand = new ValueControl(TEXT_CONTROL, categoryScrollArea);
-    hand->setValues(handValues, handValues, new QString());
+    hand->setValues(true, handValues, handValues, new QString());
     hand->setText("Benutzte Hand:");
 
     QVector<QString>* options = new QVector<QString>();

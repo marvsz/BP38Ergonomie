@@ -141,7 +141,7 @@ void ValueControl::setValues(int min, int max, const QVector<int> &btnValues, QS
     sldrValueHasChanged();
 }
 
-void ValueControl::setValues(const QVector<QString> &btnTexts, const QVector<QString> &btnTextValues, QString *iconSetPath){
+void ValueControl::setValues(bool showText, const QVector<QString> &btnTexts, const QVector<QString> &btnTextValues, QString *iconSetPath){
     this->btnTextValues = btnTextValues;
 
     for(int i = 0; i < btnList->length(); i++){
@@ -150,14 +150,15 @@ void ValueControl::setValues(const QVector<QString> &btnTexts, const QVector<QSt
     }
     btnList->clear();
 
-    int width = this->width() / btnTexts.length();
+    int width = this->width() / btnTextValues.length();
 
-    for(int i = 0; i < btnTexts.length(); i++){
+    for(int i = 0; i < btnTextValues.length(); i++){
         SelectableValueButton *currentBtn = new SelectableValueButton(i, i, this);
-        currentBtn->setText(btnTexts.at(i));
+        if(showText)
+            currentBtn->setText(btnTexts.at(i));
         try{
             QString s = (*iconSetPath);
-            currentBtn->setIcon(QIcon(s.append(btnTexts.at(i)).append(".png")));
+            currentBtn->setIcon(QIcon(s.append(btnTextValues.at(i)).append(".png")));
             currentBtn->setIconSize(QSize(50,50));
             currentBtn->setMinimumHeight(60);
         }catch(...){}

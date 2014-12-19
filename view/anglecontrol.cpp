@@ -84,7 +84,7 @@ void AngleControl::selectedVariantChanged(int id){
             valueControls->at(i)->setUnit("°");
         }
         else
-            valueControls->at(i)->setValues(sv->getBtnTexts(), sv->getBtnTexts(), sv->getIconPath());
+            valueControls->at(i)->setValues(sv->getShowText(), sv->getBtnTexts(), sv->getBtnTexts(), sv->getIconPath());
 
         valueControls->at(i)->setText((*sv->getDescription()));
     }
@@ -120,5 +120,9 @@ void AngleControl::showContent(){
 
 void AngleControl::hideContent(){
     content->hide();
+}
+
+void AngleControl::selectSpecification(int id){
+    variantCon->selectSpecification(id);
 }
 

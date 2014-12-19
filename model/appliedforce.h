@@ -1,32 +1,29 @@
 #ifndef APPLIEDFORCE_H
 #define APPLIEDFORCE_H
 
-#include "intensity.h"
-#include "direction.h"
-#include "organ.h"
-#include "usedhand.h"
+#include <QString>
 
 class AppliedForce
 {
 public:
-    AppliedForce(Intensity* intensity, Direction* direction, Organ* organ, UsedHand* hand);
-    ~AppliedForce();
+    AppliedForce(QString *organ, QString *direction);
 
-    void setIntensity(Intensity* i);
-    void setDirection(Direction* d);
-    void setOrgan(Organ* o);
-    void setHand(UsedHand* h);
+    int getID() const;
 
-    Intensity* getIntensity();
-    Direction* getDirection();
-    Organ* getOrgan();
-    UsedHand* getHand();
+    QString* getOrgan() const;
+    void setOrgan(QString *organ);
+
+    QString* getDirection() const;
+    void setDirection(QString *direction);
+
+    int getIntensity() const;
+    void setIntensity(int intensity);
 
 private:
-    Intensity* intensity;
-    Direction* direction;
-    Organ* organ;
-    UsedHand* hand;
+    int id;
+    QString *organ;
+    QString *direction;
+    int intensity;
 };
 
 #endif // APPLIEDFORCE_H

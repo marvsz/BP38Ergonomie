@@ -1,36 +1,29 @@
 #include "head.h"
 
-Head::Head(int* rotation, int* tilt, int* sidewiseTilt)
+Head::Head()
 {
-    this->setRotation(rotation);
-    this->setSidewiseTilt(sidewiseTilt);
-    this->setTilt(tilt);
+    setTiltAngle(0);
+    setTiltSidewaysAngle(0);
+    setTwistAngle(0);
 }
 
-Head::~Head(){
-
+int Head::getTiltAngle() const{
+    return tiltAngle;
+}
+void Head::setTiltAngle(int angle){
+    tiltAngle = angle;
 }
 
-int* Head::getRotation(){
-    return this->rotation;
+int Head::getTiltSidewaysAngle() const{
+    return tiltSidewaysAngle;
+}
+void Head::setTiltSidewaysAngle(int angle){
+    tiltSidewaysAngle = angle;
 }
 
-int* Head::getSidewiseTilt(){
-    return this->sidewiseTilt;
+int Head::getTwistAngle() const{
+    return twistAngle;
 }
-
-int* Head::getTilt(){
-    return this->tilt;
-}
-
-void Head::setRotation(int* r){
-    this->rotation=r;
-}
-
-void Head::setSidewiseTilt(int* s){
-    this->sidewiseTilt=s;
-}
-
-void Head::setTilt(int* t){
-    this->tilt=t;
+void Head::setTwistAngle(int angle){
+    twistAngle = angle;
 }

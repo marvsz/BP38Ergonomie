@@ -10,12 +10,13 @@ SubVariant::SubVariant(QString *desc, int min, int max, const QVector<int> &btnV
     this->iconPath = iconPath;
 }
 
-SubVariant::SubVariant(QString *desc, const QVector<QString> &btnTexts, QString* iconPath):
+SubVariant::SubVariant(QString *desc, bool showText, const QVector<QString> &btnTexts, QString* iconPath):
     btnTexts(btnTexts)
 {
     this->desc = desc;
     this->iconPath = iconPath;
     this->controlType = TEXT_CONTROL;
+    this->showText = showText;
 }
 
 SubVariant::~SubVariant(){
@@ -38,6 +39,10 @@ int SubVariant::getMax() const{
     return 0;
 }
 
+bool SubVariant::getShowText() const{
+    return this->showText;
+}
+
 const QVector<int> SubVariant::getBtnValues() const{
     return this->btnValues;
 }
@@ -45,6 +50,7 @@ const QVector<int> SubVariant::getBtnValues() const{
 const QVector<QString> SubVariant::getBtnTexts() const{
     return this->btnTexts;
 }
+
 
 VariantControl SubVariant::getControlType() const{
     return this->controlType;

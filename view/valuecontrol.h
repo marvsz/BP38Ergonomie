@@ -37,7 +37,7 @@ public:
      * @param btnTextValues The predefinied text values for a button, if a button gets selected this is the text that will be shown in the QLineEdit
      * @param iconSetPath The path to the icons, the names of the icons muss be the texts in btnTexts and the filetype png
      */
-    void setValues(const QVector<QString> &btnTexts, const QVector<QString> &btnTextValues, QString* iconSetPath);
+    void setValues(bool showText, const QVector<QString> &btnTexts, const QVector<QString> &btnTextValues, QString* iconSetPath);
 
     /**
      * @brief getControlType Returns the type of the control, which is applied the instantiation

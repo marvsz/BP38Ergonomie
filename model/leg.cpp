@@ -1,36 +1,30 @@
 #include "leg.h"
 
-Leg::Leg(int* hip, int* knee, int* ankle)
+Leg::Leg()
 {
-    this->setHip(hip);
-    this->setKnee(knee);
-    this->setAnkle(ankle);
+    setHipAngle(0);
+    setKneeAngle(0);
+    setAnkleAngle(0);
 }
 
-Leg::~Leg(){
 
+int Leg::getHipAngle() const{
+    return hipAngle;
+}
+void Leg::setHipAngle(int angle){
+    hipAngle = angle;
 }
 
-int* Leg::getAnkle(){
-    return this->ankle;
+int Leg::getKneeAngle() const{
+    return kneeAngle;
+}
+void Leg::setKneeAngle(int angle){
+    kneeAngle = angle;
 }
 
-int* Leg::getHip(){
-    return this->hip;
+int Leg::getAnkleAngle() const{
+    return ankleAngle;
 }
-
-int* Leg::getKnee(){
-    return this->knee;
-}
-
-void Leg::setAnkle(int* a){
-    this->ankle=a;
-}
-
-void Leg::setHip(int* h){
-    this->hip=h;
-}
-
-void Leg::setKnee(int* k){
-    this->knee=k;
+void Leg::setAnkleAngle(int angle){
+    ankleAngle = angle;
 }

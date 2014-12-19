@@ -1,45 +1,36 @@
 #include "appliedforce.h"
 
-AppliedForce::AppliedForce(Intensity* intensity, Direction* direction, Organ* organ, UsedHand* hand)
+AppliedForce::AppliedForce(QString *organ, QString *direction)
 {
-    this->direction = direction;
-    this->hand = hand;
-    this->intensity = intensity;
+    id = -1;
+    setOrgan(organ);
+    setDirection(direction);
+    setIntensity(0);
+}
+
+
+int AppliedForce::getID() const{
+    return id;
+}
+
+QString* AppliedForce::getOrgan() const{
+    return organ;
+}
+void AppliedForce::setOrgan(QString *organ){
     this->organ = organ;
 }
 
-AppliedForce::~AppliedForce(){
-
+QString* AppliedForce::getDirection() const{
+    return direction;
+}
+void AppliedForce::setDirection(QString *direction){
+    this->direction = direction;
 }
 
-Direction* AppliedForce::getDirection(){
-    return this->direction;
+int AppliedForce::getIntensity() const{
+    return intensity;
+}
+void AppliedForce::setIntensity(int intensity){
+    this->intensity = intensity;
 }
 
-UsedHand* AppliedForce::getHand(){
-    return this->hand;
-}
-
-Intensity* AppliedForce::getIntensity(){
-    return this->intensity;
-}
-
-Organ* AppliedForce::getOrgan(){
-    return this->organ;
-}
-
-void AppliedForce::setDirection(Direction* d){
-    this->direction=d;
-}
-
-void AppliedForce::setHand(UsedHand* h){
-    this->hand=h;
-}
-
-void AppliedForce::setIntensity(Intensity* i){
-    this->intensity=i;
-}
-
-void AppliedForce::setOrgan(Organ* o){
-    this->organ=o;
-}

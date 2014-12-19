@@ -4,20 +4,21 @@
 class Leg
 {
 public:
-    Leg(int* hip, int* knee, int* ankle);
-    ~Leg();
+    Leg();
 
-    void setHip(int* h);
-    void setKnee(int* k);
-    void setAnkle(int* a);
+    int getHipAngle() const;
+    void setHipAngle(int angle);
 
-    int* getHip();
-    int* getKnee();
-    int* getAnkle();
+    int getKneeAngle() const;
+    void setKneeAngle(int angle);
+
+    int getAnkleAngle() const;
+    void setAnkleAngle(int angle);
+
 private:
-    int* hip;
-    int* knee;
-    int* ankle;
+    int hipAngle;
+    int kneeAngle;
+    int ankleAngle;
 };
 
 #endif // LEG_H

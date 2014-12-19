@@ -9,6 +9,8 @@
 #include <QQuickView>
 #include <QQmlEngine>
 #include "stopwatch.h"
+#include "angleview.h"
+#include "buttontimelineview.h"
 
 /**
  * @brief The DocumentationView contains all view elements needed when
@@ -32,15 +34,22 @@ public slots:
 private slots:
     void showCamera();
     void hideCamera();
-private:
+    void leftAvPressed();
+    void rightAvPressed();
+    void avPressed();
+    void maximizeBtnTimeLineView();
+    void minimizeBtnTimeLineView();
 
+private:
+    int indexBeforeTimeLineView;
     QPushButton* backButton;
     QComboBox *views;
     QPushButton* cameraButton;
     QStackedWidget *mainContent;
     QQuickView *cameraView;
     StopWatch *timer;
-
+    ButtonTimelineView *btnTimeLineView;
+    AngleView *angleView;
 };
 
 #endif // DOCUMENTATIONVIEW_H

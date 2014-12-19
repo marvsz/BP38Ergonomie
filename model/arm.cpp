@@ -1,54 +1,53 @@
 #include "arm.h"
 
-Arm::Arm(int* upperArmPosition, int* lowerArmPosition, int* upperArmRotation, int* lowerArmRotation, int* upperArmOpening)
+Arm::Arm()
 {
-    this->setLowerArmPosition(lowerArmPosition);
-    this->setLowerArmRotation(lowerArmRotation);
-    this->setUpperArmOpening(upperArmOpening);
-    this->setUpperArmPosition(upperArmPosition);
-    this->setUpperArmRotation(upperArmRotation);
+    setOpeningAngle(0);
+    setUpperArmAngle(0);
+    setUpperArmTwist(0);
+    setForeArmAngle(0);
+    setForeArmTwist(0);
+    setWristMovement(new QString(""));
 }
 
-Arm::~Arm(){
-
+int Arm::getOpeningAngle() const{
+    return openingAngle;
+}
+void Arm::setOpeningAngle(int angle){
+    openingAngle = angle;
 }
 
-int* Arm::getLowerArmPosition(){
-    return this->lowerArmPosition;
+int Arm::getUpperArmAngle() const{
+    return upperArmAngle;
+}
+void Arm::setUpperArmAngle(int angle){
+    upperArmAngle = angle;
 }
 
-int* Arm::getLowerArmRotation(){
-    return this->lowerArmRotation;
+int Arm::getUpperArmTwist() const{
+    return upperArmTwist;
+}
+void Arm::setUpperArmTwist(int angle){
+    upperArmTwist = angle;
 }
 
-int* Arm::getUpperArmOpening(){
-    return this->upperArmOpening;
+int Arm::getForeArmAngle() const{
+    return foreArmAngle;
+}
+void Arm::setForeArmAngle(int angle){
+    foreArmAngle = angle;
 }
 
-int* Arm::getUpperArmPosition(){
-    return this->upperArmPosition;
+int Arm::getForeArmTwist() const{
+    return foreArmTwist;
+}
+void Arm::setForeArmTwist(int angle){
+    foreArmTwist = angle;
 }
 
-int* Arm::getUpperArmRotation(){
-    return this->upperArmRotation;
+QString* Arm::getWristMovement() const{
+    return wristMovement;
 }
-
-void Arm::setLowerArmPosition(int* lap){
-    this->lowerArmPosition=lap;
-}
-
-void Arm::setLowerArmRotation(int* lar){
-    this->lowerArmRotation=lar;
-}
-
-void Arm::setUpperArmOpening(int* uao){
-    this->upperArmOpening=uao;
-}
-
-void Arm::setUpperArmPosition(int* uap){
-    this->upperArmPosition=uap;
-}
-
-void Arm::setUpperArmRotation(int* uar){
-    this->upperArmRotation=uar;
+void Arm::setWristMovement(QString* wristMovement){
+    this->wristMovement = wristMovement;
 }

@@ -34,14 +34,14 @@ AngleView::AngleView(QWidget *parent) :
     armsPosition = new Variant(new QString("Stellung"), new SubVariant(new QString("Oberarmwinkel"), -90, 180, angleUpperArmPosition, new QString(":/Icons/UpperArmPosition/UpperArmPosition_")));
     armsUnderPosition = new SubVariant(new QString("Unterarmwinkel"), 0, 180, angleUnderArmPosition, new QString(":/Icons/UnderArmPosition/UnderArmPosition_"));
     armsRotation = new Variant(new QString("Drehung"), new SubVariant(new QString("Oberarmdrehungswinkel"), -45, 90, angleUpperArmRotation, new QString(":/Icons/UpperArmRotation/UpperArmRotation_")));
-    armsUnderRotation = new SubVariant(new QString("Underarmdrehungswinkel"), -90, 90, angleUnderArmRotation, new QString(":/Icons/UnderArmRotation/UnderArmRotation_"));
+    armsUnderRotation = new SubVariant(new QString("Underarmdrehungswinkel"), -90, 90, angleUnderArmRotation, new QString(":/icons/UnderArmRotation/UnderArmRotation_"));
     armsOpening = new Variant(new QString("Öffnung"), new SubVariant(new QString("Oberarmöffnungswinkel"), -90, 90, angleUpperArmOpening, new QString(":/Icons/UpperArmOpening/UpperArmOpening_")));
-    armsWrist = new Variant(new QString("Handgelenk"), new SubVariant(new QString("Handgelenkbewegung"), textsWrist, new QString(":/Icons/ArmsWrist/ArmsWrist_")));
+    armsWrist = new Variant(new QString("Handgelenk"), new SubVariant(new QString("Handgelenkbewegung"), true, textsWrist, new QString(":/icons/ArmsWrist/ArmsWrist_")));
 
     legAngle = new Variant(new QString("Beinwinkel"), new SubVariant(new QString("Hüftwinkel"), 45, 180, angleLegHip, new QString(":/Icons/LegHip/LegHip_")));
     legKnee = new SubVariant(new QString("Kniewinkel"), 0, 180, angleLegKnee, new QString(":/Icons/LegKnee/LegKnee_"));
     legAnkle = new SubVariant(new QString("Sprunggelenkwinkel"), 90, 180, angleLegAnkle, new QString(":/Icons/LegAnkle/LegAnkle_"));
-    legPosition = new Variant(new QString("Haltung"), new SubVariant(new QString("Beinhaltung:"), textsLegPosition, new QString(":/Icons/LegPosition/LegPosition_")));
+    legPosition = new Variant(new QString("Haltung"), new SubVariant(new QString("Beinhaltung:"), false, textsLegPosition, new QString(":/icons/LegPosition/LegPosition_")));
 
     acTorso = new AngleControl(new QString("Rumpf"), torsoFlextion, NULL, categoryScrollArea);
     acTorso->addVariant(torsoTilt);
@@ -80,11 +80,29 @@ AngleView::AngleView(QWidget *parent) :
     connect(acArms, SIGNAL(contentIsShown()), this, SLOT(showArms()));
     connect(acLegs, SIGNAL(contentIsShown()), this, SLOT(showLegs()));
     connect(acHead, SIGNAL(contentIsShown()), this, SLOT(showHead()));
-    showTorso();
+    selectAV();
 }
 
 
-//private slots
+//public slots
+
+void AngleView::selectLeftAV(){
+    showArms();
+    acArms->selectSpecification(1);
+    acLegs->selectSpecification(1);
+}
+
+void AngleView::selectRightAV(){
+    showArms();
+    acArms->selectSpecification(2);
+    acLegs->selectSpecification(2);
+}
+
+void AngleView::selectAV(){
+    showTorso();
+    acArms->selectSpecification(0);
+    acLegs->selectSpecification(0);
+}
 
 void AngleView::showTorso(){
     acTorso->showContent();

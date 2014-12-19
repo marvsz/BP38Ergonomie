@@ -76,3 +76,7 @@ Variant* VariantCon::getVariantByID(int id) const{
 void VariantCon::selectID(int id){
     variantBtnPressed(id);
 }
+
+void VariantCon::selectSpecification(int id){
+    variantSpeciBtnPressed(id);
+}

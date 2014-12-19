@@ -11,7 +11,7 @@ GeneralExecutionCondition::GeneralExecutionCondition(QWidget *parent) :
     valConMtmCode(new ValueControl(TEXT_CONTROL, this))
 {
 
-    valConMtmCode->setValues(mtmCodeTexts, mtmCodeValueTexts, new QString(":/Icon/Icon/mtmCode/mtmCode_"));
+    valConMtmCode->setValues(true, mtmCodeTexts, mtmCodeValueTexts, new QString(":/Icon/Icon/mtmCode/mtmCode_"));
     valConMtmCode->setText("MTM Code:");
     valConMtmCode->setTextHint("MTM Code des Arbeitsvorganges");
 

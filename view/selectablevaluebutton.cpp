@@ -10,7 +10,7 @@ SelectableValueButton::SelectableValueButton(int id, int value, QWidget *parent)
     QPushButton(parent)
 {
     this->id = id;
-    this->fontSize = 20;
+    this->fontSize = 18;
     this->setSelected(false);
     this->setValue(value);
     connect(this, SIGNAL(pressed()), this, SLOT(qpbtnPressed()));

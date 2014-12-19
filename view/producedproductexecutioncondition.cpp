@@ -12,7 +12,7 @@ ProducedProductExecutionCondition::ProducedProductExecutionCondition(QWidget *pa
     valConGrabType(new ValueControl(TEXT_CONTROL, this))
 {
 
-    valConGrabType->setValues(grabTypeTexts, grabTypeTexts, new QString(":/Icon/Icon/grabType/grabType_"));
+    valConGrabType->setValues(false, grabTypeTexts, grabTypeTexts, new QString(":/icons/GrabType/GrabType_"));
     valConGrabType->setText("Greifart: [EAWS V 1.3.2c]");
     valConGrabType->setTextHint("Greifart");
 

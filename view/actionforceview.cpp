@@ -16,15 +16,15 @@ ActionForceView::ActionForceView(QWidget *parent) :
     valConIntensity->setText("Intensität");
 
     valConDirection = new ValueControl(TEXT_CONTROL, this);
-    valConDirection->setValues(textsDirection, textsDirectionValues, new QString(""));
+    valConDirection->setValues(true, textsDirection, textsDirectionValues, new QString(""));
     valConDirection->setText("Richtung:");
 
     valConOrgan = new ValueControl(TEXT_CONTROL, this);
-    valConOrgan->setValues(textsOrgan, textsOrgan, new QString(""));
+    valConOrgan->setValues(true, textsOrgan, textsOrgan, new QString(""));
     valConOrgan->setText("Organ:");
 
     valConUsedHand = new ValueControl(TEXT_CONTROL, this);
-    valConUsedHand->setValues(textsUsedHand, textsUsedHand, new QString(""));
+    valConUsedHand->setValues(true, textsUsedHand, textsUsedHand, new QString(""));
     valConUsedHand->setText("Benutzte Hand:");
 
     lytMainContent->addWidget(valConIntensity);

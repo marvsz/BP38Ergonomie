@@ -26,6 +26,7 @@ signals:
 
 public slots:
      void selectID(int ID);
+     void selectSpecification(int id);
 
 private slots:
     void variantBtnPressed(int id);

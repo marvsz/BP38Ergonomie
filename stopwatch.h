@@ -35,8 +35,6 @@ private slots:
     void selectLeftAV(int id);
     void selectRightAV(int id);
     void selectAV(int id);
-    void selectMinimize();
-    void selectMaximize();
 
 protected:
     void timerEvent(QTimerEvent *);

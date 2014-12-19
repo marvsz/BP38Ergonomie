@@ -1,25 +1,24 @@
 #ifndef HEAD_H
 #define HEAD_H
 
-
 class Head
 {
 public:
-    Head(int* rotation, int* tilt, int* sidewiseTilt);
-    ~Head();
+    Head();
 
-    void setRotation(int* r);
-    void setTilt(int* t);
-    void setSidewiseTilt(int* s);
+    int getTiltAngle() const;
+    void setTiltAngle(int angle);
 
-    int* getRotation();
-    int* getTilt();
-    int* getSidewiseTilt();
+    int getTiltSidewaysAngle() const;
+    void setTiltSidewaysAngle(int angle);
+
+    int getTwistAngle() const;
+    void setTwistAngle(int angle);
 
 private:
-    int* rotation;
-    int* tilt;
-    int* sidewiseTilt;
+    int tiltAngle;
+    int tiltSidewaysAngle;
+    int twistAngle;
 };
 
 #endif // HEAD_H

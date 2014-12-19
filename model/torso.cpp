@@ -1,36 +1,29 @@
 #include "torso.h"
 
-Torso::Torso(int* flextion, int* tilt, int* rotation)
+Torso::Torso()
 {
-    this->setFextion(flextion);
-    this->setRotation(rotation);
-    this->setTilt(tilt);
+    setTiltAngle(0);
+    setTiltSidewaysAngle(0);
+    setTwistAngle(0);
 }
 
-Torso::~Torso(){
-
+int Torso::getTiltAngle() const{
+    return tiltAngle;
+}
+void Torso::setTiltAngle(int angle){
+    tiltAngle = angle;
 }
 
-int* Torso::getFlextion(){
-    return this->flextion;
+int Torso::getTiltSidewaysAngle() const{
+    return tiltSidewaysAngle;
+}
+void Torso::setTiltSidewaysAngle(int angle){
+    tiltSidewaysAngle = angle;
 }
 
-int* Torso::getRotation(){
-    return this->rotation;
+int Torso::getTwistAngle() const{
+    return twistAngle;
 }
-
-int* Torso::getTilt(){
-    return this->tilt;
-}
-
-void Torso::setFextion(int *f){
-    this->flextion=f;
-}
-
-void Torso::setRotation(int *r){
-    this->rotation=r;
-}
-
-void Torso::setTilt(int *t){
-    this->tilt=t;
+void Torso::setTwistAngle(int angle){
+    twistAngle = angle;
 }

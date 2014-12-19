@@ -28,6 +28,7 @@ signals:
 public slots:
     void showContent();
     void hideContent();
+    void selectSpecification(int id);
 
 private slots:
     void selectedVariantChanged(int id);

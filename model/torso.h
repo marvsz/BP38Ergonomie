@@ -4,21 +4,21 @@
 class Torso
 {
 public:
-    Torso(int* flextion, int* tilt, int* rotation);
-    ~Torso();
+    Torso();
 
-    void setFextion(int* f);
-    void setTilt(int* t);
-    void setRotation(int* r);
+    int getTiltAngle() const;
+    void setTiltAngle(int angle);
 
-    int* getFlextion();
-    int* getTilt();
-    int* getRotation();
+    int getTiltSidewaysAngle() const;
+    void setTiltSidewaysAngle(int angle);
+
+    int getTwistAngle() const;
+    void setTwistAngle(int angle);
 
 private:
-    int* flextion;
-    int* tilt;
-    int* rotation;
+    int tiltAngle;
+    int tiltSidewaysAngle;
+    int twistAngle;
 };
 
 #endif // TORSO_H

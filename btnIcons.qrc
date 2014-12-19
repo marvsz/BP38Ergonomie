@@ -60,5 +60,29 @@
         <file>Icons/LegKnee/LegKnee_135.png</file>
         <file>Icons/LegKnee/LegKnee_180.png</file>
         <file>Icons/LegHip/LegHip_180.png</file>
+        <file>icons/UnderArmRotation/UnderArmRotation_0.png</file>
+        <file>icons/UnderArmRotation/UnderArmRotation_45.png</file>
+        <file>icons/UnderArmRotation/UnderArmRotation_-45.png</file>
+        <file>icons/UnderArmRotation/UnderArmRotation_90.png</file>
+        <file>icons/UnderArmRotation/UnderArmRotation_-90.png</file>
+        <file>icons/LegPosition/LegPosition_gehend.png</file>
+        <file>icons/LegPosition/LegPosition_kletternd.png</file>
+        <file>icons/LegPosition/LegPosition_laufend.png</file>
+        <file>icons/LegPosition/LegPosition_liegend.png</file>
+        <file>icons/LegPosition/LegPosition_sitzend.png</file>
+        <file>icons/LegPosition/LegPosition_stehend.png</file>
+        <file>icons/LegPosition/LegPosition_kniend&amp;&amp;hockend.png</file>
+        <file>icons/ArmsWrist/ArmsWrist_Dorsalextension.png</file>
+        <file>icons/ArmsWrist/ArmsWrist_Palmarflexion.png</file>
+        <file>icons/ArmsWrist/ArmsWrist_Radialabduktion.png</file>
+        <file>icons/ArmsWrist/ArmsWrist_Ularabduktion.png</file>
+        <file>icons/GrabType/GrabType_Daumen auf 2 Finger.png</file>
+        <file>icons/GrabType/GrabType_Daumenkontaktgriff.png</file>
+        <file>icons/GrabType/GrabType_Daumenzeigefingergriff.png</file>
+        <file>icons/GrabType/GrabType_Fingerzufassungsgriff.png</file>
+        <file>icons/GrabType/GrabType_Handkontaktgriff.png</file>
+        <file>icons/GrabType/GrabType_Umfassungsgriff.png</file>
+        <file>icons/GrabType/GrabType_Zange.png</file>
+        <file>icons/GrabType/GrabType_Zeigefingerkontaktgriff.png</file>
     </qresource>
 </RCC>

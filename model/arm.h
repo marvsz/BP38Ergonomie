@@ -1,31 +1,39 @@
 #ifndef ARM_H
 #define ARM_H
 
+#include <QString>
 
 class Arm
 {
 public:
-    Arm(int* upperArmPosition, int* lowerArmPosition, int* upperArmRotation, int* lowerArmRotation, int* upperArmOpening);
-    ~Arm();
+    Arm();
 
-    void setUpperArmPosition(int* uap);
-    void setLowerArmPosition(int* lap);
-    void setUpperArmRotation(int* uar);
-    void setLowerArmRotation(int* lar);
-    void setUpperArmOpening(int* uao);
+    int getOpeningAngle() const;
+    void setOpeningAngle(int angle);
 
-    int* getUpperArmPosition();
-    int* getLowerArmPosition();
-    int* getUpperArmRotation();
-    int* getLowerArmRotation();
-    int* getUpperArmOpening();
+    int getUpperArmAngle() const;
+    void setUpperArmAngle(int angle);
+
+    int getUpperArmTwist() const;
+    void setUpperArmTwist(int angle);
+
+    int getForeArmAngle() const;
+    void setForeArmAngle(int angle);
+
+    int getForeArmTwist() const;
+    void setForeArmTwist(int angle);
+
+    QString* getWristMovement() const;
+    void setWristMovement(QString* wristMovement);
+
 
 private:
-    int* upperArmPosition;
-    int* lowerArmPosition;
-    int* upperArmRotation;
-    int* lowerArmRotation;
-    int* upperArmOpening;
+    int openingAngle;
+    int upperArmAngle;
+    int upperArmTwist;
+    int foreArmAngle;
+    int foreArmTwist;
+    QString *wristMovement;
 };
 
 #endif // ARM_H

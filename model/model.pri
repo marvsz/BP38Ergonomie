@@ -1,70 +1,32 @@
-INCLUDEPATH +=$$PWD
-DEPENDPATH += $$PWD
-CURRENT_DIR = $$PWD
 
-HEADERS += $$CURRENT_DIR/angle.h \
-    $$CURRENT_DIR/arm.h \
-    $$CURRENT_DIR/leg.h \
-    $$CURRENT_DIR/head.h \
-    $$CURRENT_DIR/torso.h \
-    $$CURRENT_DIR/body.h \
-    $$CURRENT_DIR/weight.h \
-    $$CURRENT_DIR/weighthandling.h \
-    $$CURRENT_DIR/appliedforce.h \
-    $$CURRENT_DIR/direction.h \
-    $$CURRENT_DIR/handletype.h \
-    $$CURRENT_DIR/organ.h \
-    $$CURRENT_DIR/usedhand.h \
-    $$CURRENT_DIR/way.h \
-    $$CURRENT_DIR/intensity.h \
-    $$PWD/product.h \
+
+HEADERS += \
+    $$PWD/appliedforce.h \
+    $$PWD/bodyposture.h \
+    $$PWD/head.h \
+    $$PWD/torso.h \
+    $$PWD/arm.h \
+    $$PWD/leg.h \
+    $$PWD/equipment.h \
+    $$PWD/loadhandling.h \
+    $$PWD/transportation.h \
     $$PWD/workcondition.h \
-    $$PWD/general.h \
-    $$PWD/supply.h \
-    $$PWD/executioncondition.h \
-    $$PWD/analyst.h \
-    $$PWD/company.h \
-    $$PWD/factory.h \
-    $$PWD/headdata.h \
-    $$PWD/workplace.h \
-    $$PWD/line.h \
-    $$PWD/shiftdata.h \
-    $$PWD/workerdata.h \
-    $$PWD/remarks.h \
-    $$PWD/shift.h \
-    $$PWD/pause.h \
-    $$PWD/targettime.h
+    $$PWD/workprocess.h \
+    $$PWD/ergomodelif.h \
+    $$PWD/ergomodel.h
 
 
-SOURCES += $$CURRENT_DIR/angle.cpp \
-    $$CURRENT_DIR/arm.cpp \
-    $$CURRENT_DIR/leg.cpp \
-    $$CURRENT_DIR/head.cpp \
-    $$CURRENT_DIR/torso.cpp \
-    $$CURRENT_DIR/body.cpp \
-    $$CURRENT_DIR/weight.cpp \
-    $$CURRENT_DIR/weighthandling.cpp \
-    $$CURRENT_DIR/appliedforce.cpp \
-    $$CURRENT_DIR/direction.cpp \
-    $$CURRENT_DIR/handletype.cpp \
-    $$CURRENT_DIR/organ.cpp \
-    $$CURRENT_DIR/usedhand.cpp \
-    $$CURRENT_DIR/way.cpp \
-    $$CURRENT_DIR/intensity.cpp \
-    $$PWD/product.cpp \
+SOURCES += \
+    $$PWD/appliedforce.cpp \
+    $$PWD/bodyposture.cpp \
+    $$PWD/head.cpp \
+    $$PWD/torso.cpp \
+    $$PWD/arm.cpp \
+    $$PWD/leg.cpp \
+    $$PWD/equipment.cpp \
+    $$PWD/loadhandling.cpp \
+    $$PWD/transportation.cpp \
     $$PWD/workcondition.cpp \
-    $$PWD/general.cpp \
-    $$PWD/supply.cpp \
-    $$PWD/executioncondition.cpp \
-    $$PWD/analyst.cpp \
-    $$PWD/company.cpp \
-    $$PWD/factory.cpp \
-    $$PWD/headdata.cpp \
-    $$PWD/workplace.cpp \
-    $$PWD/line.cpp \
-    $$PWD/shiftdata.cpp \
-    $$PWD/workerdata.cpp \
-    $$PWD/remarks.cpp \
-    $$PWD/shift.cpp \
-    $$PWD/pause.cpp \
-    $$PWD/targettime.cpp
+    $$PWD/workprocess.cpp \
+    $$PWD/ergomodelif.cpp \
+    $$PWD/ergomodel.cpp

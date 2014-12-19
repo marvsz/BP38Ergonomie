@@ -1,58 +1,71 @@
 #ifndef WORKCONDITION_H
 #define WORKCONDITION_H
 
-
 class WorkCondition
 {
 public:
-    WorkCondition(bool* torsoSupport, bool* armSupport, int* neededPrecision, int* neededVelocity, int* neededAcceleration, int* givenVibration, int* gripCondition, int* accessibility, int* terrain, int* lighting, int* clima, int* wind, int* clothing, int* mobility);
-    ~WorkCondition();
+    WorkCondition();
 
-    void setTorsoSupport(bool* ts);
-    void setArmSupport(bool* as);
-    void setNeededPrecision(int* np);
-    void setNeededVelocity(int* nv);
-    void setNeededAccelaration(int* na);
-    void setGivenVibration(int* gv);
-    void setGripCondition(int* gc);
-    void setAccessibility(int* ac);
-    void setTerrain(int* te);
-    void setLighting(int* li);
-    void setClima(int* cl);
-    void setWind(int* wi);
-    void setClothing(int* clo);
-    void setMobility(int* mo);
+    int getID() const;
 
-    bool* isTorsoSupported();
-    bool* isArmSupported();
-    int* getNeededPrecision();
-    int* getNeededVelocity();
-    int* getNeededAcceleration();
-    int* getGivenVibration();
-    int* getGripCondition();
-    int* getAccessibility();
-    int* getTerrain();
-    int* getLighting();
-    int* getClima();
-    int* getWind();
-    int* getClothing();
-    int* getMobility();
+    bool getTorsoSupport() const;
+    void setTorsoSupport(bool support);
+
+    bool getArmSupport() const;
+    void setArmSupport(bool support);
+
+    int getPrecision() const;
+    void setPrecision(int precision);
+
+    int getVelocity() const;
+    void setVelocity(int velocity);
+
+    int getAcceleration() const;
+    void setAcceleration(int acceleration);
+
+    int getVibration() const;
+    void setVibration(int vibration);
+
+    int getGrabCondition() const;
+    void setGrabCondition(int grabCondition);
+
+    int getAccessibility() const;
+    void setAccessibility(int accessibility);
+
+    int getGround() const;
+    void setGround(int ground);
+
+    int getLighting() const;
+    void setLighting(int lighting);
+
+    int getClimate() const;
+    void setClimate(int climate);
+
+    int getWind() const;
+    void setWind(int wind);
+
+    int getClothing() const;
+    void setClothing(int clothing);
+
+    int getRoomToMove() const;
+    void setRoomToMove(int roomToMove);
 
 private:
-    bool* torsoSupport;
-    bool* armSupport;
-    int* neededPrecision;
-    int* neededVelocity;
-    int* neededAcceleration;
-    int* givenVibration;
-    int* gripCondition;
-    int* accessibility;
-    int* terrain;
-    int* lighting;
-    int* clima;
-    int* wind;
-    int* clothing;
-    int* mobility;
+    int id;
+    bool torsoSupport;
+    bool armSupport;
+    int precision;
+    int velocity;
+    int acceleration;
+    int vibration;
+    int grabCondition;
+    int accessibility;
+    int ground;
+    int lighting;
+    int climate;
+    int wind;
+    int clothing;
+    int roomToMove;
 };
 
 #endif // WORKCONDITION_H

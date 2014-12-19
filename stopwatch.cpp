@@ -91,13 +91,13 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
     mainHLayout->setAlignment(mainTimerLayout, Qt::AlignRight);
 
     // ADD THE BUTTON VIEW AND THE TIMER LAYOUT TO THE MAIN LAYOUT
-    mainVLayout->addWidget(btnView);
-    mainVLayout->addWidget(separator);
+    //mainVLayout->addWidget(btnView);
+    //mainVLayout->addWidget(separator);
     mainVLayout->addLayout(mainHLayout);
 
     // HIDE THE BUTTON VIEW INITIALLY
-    btnView->hide();
-    separator->hide();
+    //btnView->hide();
+    //separator->hide();
 
     this->setMaximumHeight(175);
 
@@ -135,8 +135,8 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
     btnStopReset->setEnabled(false);
 
     // DISBALE AV NAVIGATION BUTTONS
-    btnView->btnPlus->setEnabled(false);
-    btnView->btnMinus->setEnabled(false);
+    //btnView->btnPlus->setEnabled(false);
+    //btnView->btnMinus->setEnabled(false);
 
     // CONNECT BUTTONS TO SLOTS
     connect(btnStartPause, SIGNAL(clicked()), SLOT(btnStartPauseClicked()));
@@ -270,12 +270,12 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
             leftAVButtons->clear();
             rightAVButtons->clear();
             // delete the button view time line and create a new one
-            delete this->btnView;
-            this->btnView = new ButtonTimelineView();
-            mainVLayout->insertWidget(0, btnView);
+            //delete this->btnView;
+            //this->btnView = new ButtonTimelineView();
+            //mainVLayout->insertWidget(0, btnView);
             // if the view is in standard: hide the button timeline view
-            if(standardView)
-                btnView->hide();
+            //if(standardView)
+                //btnView->hide();
         }
     }
 
@@ -504,7 +504,7 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
             mainHLayout->addLayout(mainTimerLayout);
             mainHLayout->setAlignment(mainTimerLayout, Qt::AlignRight);
 
-            mainVLayout->addWidget(btnView);
+            //mainVLayout->addWidget(btnView);
             mainVLayout->addWidget(separator);
             mainVLayout->addLayout(mainHLayout);
 
