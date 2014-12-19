@@ -11,7 +11,7 @@ OptionSelectionControl::OptionSelectionControl(const QVector<QString> &options, 
         btn->setText(options.at(i));
         btnOptions->append(btn);
         mainLayout->addWidget(btn);
-        connect(btn, SIGNAL(pressedWithID(int)), this, SLOT(setSelectedValue(int)));
+        connect(btn, SIGNAL(clickedWithID(int)), this, SLOT(setSelectedValue(int)));
     }
     currentSelectedBtnID = 1;
     this->setLayout(mainLayout);

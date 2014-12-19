@@ -18,15 +18,15 @@ public:
     int getValue();
     void setValue(int value);
 
-        int getMaxFontSize() const;
+    int getMaxFontSize() const;
 
 signals:
-    void pressedWithID(int id);
+    void clickedWithID(int id);
 
 public slots:
 
 private slots:
-    void qpbtnPressed();
+    void qpbtnClicked();
 
 private:
     int id;

@@ -304,7 +304,7 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
                     QString btn = "L ";
                     btn.append(QString("%1: %2s").arg(currentLeftAV).arg(currentLeftTime));
                     SelectableValueButton *leftButton = (new SelectableValueButton(currentLeftAV, currentLeftTime));
-                    connect(leftButton, SIGNAL(pressedWithID(int)), this, SLOT(selectLeftAV(int)));
+                    connect(leftButton, SIGNAL(clickedWithID(int)), this, SLOT(selectLeftAV(int)));
                     leftButton->setFixedSize(currentLeftTime*100, 60);
                     leftButton->setText(btn);
                     leftAVButtons->append(leftButton);
@@ -324,7 +324,7 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
                     QString btn = "R ";
                     btn.append(QString("%1: %2s").arg(currentRightAV).arg(currentRightTime));
                     SelectableValueButton *rightButton = new SelectableValueButton(currentRightAV, currentLeftTime);
-                    connect(rightButton, SIGNAL(pressedWithID(int)), this, SLOT(selectRightAV(int)));
+                    connect(rightButton, SIGNAL(clickedWithID(int)), this, SLOT(selectRightAV(int)));
                     rightButton->setFixedSize(currentRightTime*100, 60);
                     rightButton->setText(btn);
                     rightAVButtons->append(rightButton);
@@ -345,7 +345,7 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
                 int time = avControl->getTime(i);
                 btn.append(QString("%1: %2s").arg(i).arg(time));
                 SelectableValueButton *avButton = new SelectableValueButton(i, time);
-                connect(avButton, SIGNAL(pressedWithID(int)), this, SLOT(selectAV(int)));
+                connect(avButton, SIGNAL(clickedWithID(int)), this, SLOT(selectAV(int)));
                 avButton->setFixedSize(time*100,60);
                 avButton->setText(btn);
                 avButtons->append(avButton);

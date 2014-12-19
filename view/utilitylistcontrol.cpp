@@ -111,7 +111,7 @@ void UtilityListControl::addUtility(){
         UtilityListElement* u = new UtilityListElement(utilityName->text(), recoilIntensity->text().toInt(), recoilCount->text().toInt(), vibrationIntensity->text().toInt(), vibrationCount->text().toInt(), this);
         u->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
         utilites->append(u);
-        connect(u, SIGNAL(pressedWithID(int)), this, SLOT(utilityChanged(int)));
+        connect(u, SIGNAL(clickedWithID(int)), this, SLOT(utilityChanged(int)));
         this->listLayout->addWidget(u);
 
         disableSelection();

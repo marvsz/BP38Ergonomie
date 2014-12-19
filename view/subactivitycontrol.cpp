@@ -45,7 +45,7 @@ void SubActivityControl::addSubActivity(){
     if(txtbxDescription->text() != QString("")){
         SelectableValueButton *btn = new SelectableValueButton(btnList->length(), 0, this);
         btn->setText(txtbxDescription->text());
-        connect(btn, SIGNAL(pressedWithID(int)), this, SLOT(subActivitySelected(int)));
+        connect(btn, SIGNAL(clickedWithID(int)), this, SLOT(subActivitySelected(int)));
         btnList->append(btn);
         btnListLayout->addWidget(btn);
         txtbxDescription->setText("");

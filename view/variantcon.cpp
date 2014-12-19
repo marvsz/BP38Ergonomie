@@ -47,7 +47,7 @@ void VariantCon::setVariantSpecification(VariantSpecification* varSpeci){
             SelectableValueButton *newBtn = new SelectableValueButton(i,0, this);
             newBtn->setMinimumSize(150, 40);
             newBtn->setText((* vs->at(i)));
-            connect(newBtn, SIGNAL(pressedWithID(int)), this, SLOT(variantSpeciBtnPressed(int)));
+            connect(newBtn, SIGNAL(clickedWithID(int)), this, SLOT(variantSpeciBtnPressed(int)));
             varSpeciBtns->append(newBtn);
             varSpeciLayout->addWidget(newBtn, 0, Qt::AlignTop);
         }
@@ -61,7 +61,7 @@ void VariantCon::addVariant(Variant* variant){
     SelectableValueButton *newBtn = new SelectableValueButton(variantBtns->length(), 0, this);
     newBtn->setMinimumSize(150, 40);
     newBtn->setText((*variant->getDescription()));
-    connect(newBtn, SIGNAL(pressedWithID(int)), this, SLOT(variantBtnPressed(int)));
+    connect(newBtn, SIGNAL(clickedWithID(int)), this, SLOT(variantBtnPressed(int)));
     variantBtns->append(newBtn);
     varLayout->addWidget(newBtn, 0, Qt::AlignTop);
     variantBtnPressed(0);

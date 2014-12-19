@@ -59,13 +59,13 @@ TransportationListControl::TransportationListControl(QVector<QString> *optionNam
         trueButton->setText("Ja");
         trueButton->setFixedSize(100, 60);
         optionsTrueBtns->append(trueButton);
-        connect(trueButton, SIGNAL(pressedWithID(int)), this, SLOT(optionTruePressed(int)));
+        connect(trueButton, SIGNAL(clickedWithID(int)), this, SLOT(optionTruePressed(int)));
 
         SelectableValueButton* falseButton = new SelectableValueButton(i, 0, this);
         falseButton->setText("Nein");
         falseButton->setFixedSize(100, 60);
         optionsFalseBtns->append(falseButton);
-        connect(falseButton, SIGNAL(pressedWithID(int)), this, SLOT(optionFalsePressed(int)));
+        connect(falseButton, SIGNAL(clickedWithID(int)), this, SLOT(optionFalsePressed(int)));
 
         currentOptions.append(false);
     }
@@ -75,7 +75,7 @@ TransportationListControl::TransportationListControl(QVector<QString> *optionNam
     if(!transportations->isEmpty()){
         for(int i = 0; i < transportations->length(); i++){
             listLayout->addWidget(transportations->at(i));
-            connect(transportations->at(i), SIGNAL(pressedWithID(int)), this, SLOT(transportationChanged(int)));
+            connect(transportations->at(i), SIGNAL(clickedWithID(int)), this, SLOT(transportationChanged(int)));
         }
     }
 
@@ -259,7 +259,7 @@ void TransportationListControl::addTransportation()
         TransportationListElement *t = new TransportationListElement(newNameEdit->text(), currentOptions, currentWeight, currentMaxLoad, this);
         t->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
         transportations->append(t);
-        connect(t, SIGNAL(pressedWithID(int)), this, SLOT(transportationChanged(int)));
+        connect(t, SIGNAL(clickedWithID(int)), this, SLOT(transportationChanged(int)));
         this->listLayout->addWidget(t);
         newNameEdit->clear();
 
