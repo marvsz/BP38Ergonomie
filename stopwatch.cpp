@@ -123,7 +123,7 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
     timer->setStyleSheet("font: 15pt");
 
     // RESET TIMER ENABLE START/DISABLE STOP BUTTON
-    startTimer(0);
+    startTimer(1000);
     btnStartPause->setEnabled(true);
     btnStopReset->setEnabled(false);
 

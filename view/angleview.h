@@ -58,7 +58,7 @@ private:
     const QVector<int> angleLegHip = QVector<int>()<<45<<90<<135<<180;
     const QVector<int> angleLegKnee = QVector<int>()<<0<<45<<90<<135<<180;
     const QVector<int> angleLegAnkle = QVector<int>()<<90<<135<<180;
-    const QVector<QString> textsLegPosition = QVector<QString>()<<"stehend"<<"sitzend"<<"gehend"<<"laufend"<<"kniend&&hockend"<<"liegend"<<"kletternd";
+    const QVector<QString> textsLegPosition = QVector<QString>()<<"stehend"<<"sitzend"<<"gehend"<<"laufend"<<"kniend und hockend"<<"liegend"<<"kletternd";
 
     VariantSpecification* varSpeciArms;
     VariantSpecification* varSpeciLegs;
