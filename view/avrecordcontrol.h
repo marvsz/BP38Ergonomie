@@ -55,6 +55,9 @@ public:
         int currentLeftAV;
         int currentRightAV;
 
+        QVBoxLayout *avSetLayout;
+        GraphTimelineView *graphView;
+
 public slots:
     int getTime(int currentAV);
     int getLeftRightTime(int currentAV, QString leftright);
@@ -76,9 +79,6 @@ private slots:
     void btnPrevAVClicked();
 
 private:
-
-
-    GraphTimelineView *graphView;
 };
 
 #endif // AVRECORDCONTROL_H

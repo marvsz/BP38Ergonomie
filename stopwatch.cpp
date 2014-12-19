@@ -85,7 +85,8 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
     // ALIGN ALL LAYOUTS HORIZONTALLY
     mainHLayout->addLayout(sizeLayout);
     mainHLayout->addLayout(mainAVLayout);
-    mainHLayout->addWidget(avControl);
+    mainHLayout->addWidget(avControl->graphView);
+    mainHLayout->addLayout(avControl->avSetLayout);
     mainHLayout->addLayout(mainTimerLayout);
     mainHLayout->setAlignment(mainTimerLayout, Qt::AlignRight);
 

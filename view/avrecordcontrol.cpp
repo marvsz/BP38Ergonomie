@@ -46,18 +46,18 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
     QWidget *main = new QWidget();
 
     QHBoxLayout *mainLayout = new QHBoxLayout();
-    QVBoxLayout *avSetLayout = new QVBoxLayout();
+    avSetLayout = new QVBoxLayout();
 
     avSetLayout->addWidget(btnSetLeft);
     avSetLayout->addWidget(btnSetRight);
     avSetLayout->addWidget(btnSetAv);
 
-    mainLayout->addWidget(graphView);
-    mainLayout->addLayout(avSetLayout);
+    //mainLayout->addWidget(graphView);
+    //mainLayout->addLayout(avSetLayout);
 
-    main->setLayout(mainLayout);
-    this->setCentralWidget(main);
-    this->setFixedHeight(175);
+    //main->setLayout(mainLayout);
+    //this->setCentralWidget(main);
+    //this->setFixedHeight(175);
 
     btnSetAv->setFixedSize(45,45);
     btnSetLeft->setFixedSize(45,45);
