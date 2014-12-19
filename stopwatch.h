@@ -36,6 +36,8 @@ private:
     int counter;
     int currentLeftAV;
     int currentRightAV;
+    int currentLeftTime;
+    int currentRightTime;
 
     QLabel *timerTitle;
     QLabel *timer;
