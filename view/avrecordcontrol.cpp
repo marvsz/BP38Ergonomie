@@ -8,10 +8,10 @@
  * @param parent
  */
 AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
-  , btnSetAv(new QPushButton("AV"))
-  , btnSetLeft(new QPushButton("L"))
-  , btnSetRight(new QPushButton("R"))
-  , btnSetLeftRight(new QPushButton("L/R"))
+  , btnSetAv(new SelectableValueButton(10,0))
+  , btnSetLeft(new SelectableValueButton(11,0))
+  , btnSetRight(new SelectableValueButton(12,0))
+  , btnSetLeftRight(new SelectableValueButton(13,0))
   , lstAV(new QList<bool>)
   , lstLeftAVs(new QList<bool>)
   , lstRightAVs(new QList<bool>)
@@ -33,10 +33,10 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
   , currentLeftAV(0)
   , currentRightAV(0)
   , avTime(new QLineEdit("00:00"))
-  , btnSelAV(new QPushButton("leer"))
-  , btnAV(new QPushButton("AV"))
-  , btnAVLeft(new QPushButton("Links"))
-  , btnAVRight(new QPushButton("Rechts"))
+  , btnSelAV(new SelectableValueButton(0,0))
+  , btnAV(new SelectableValueButton(1,0))
+  , btnAVLeft(new SelectableValueButton(2,0))
+  , btnAVRight(new SelectableValueButton(3,0))
   , btnPlus(new QPushButton("+"))
   , btnMinus(new QPushButton("-"))
   , btnNextAV(new QPushButton(">"))
@@ -78,6 +78,16 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
     avTime->setInputMask("00:99");
     avTime->setAlignment(Qt::AlignCenter);
 
+    btnSetAv->setText("AV");
+    btnSetLeft->setText("L");
+    btnSetRight->setText("R");
+    btnSetLeftRight->setText("L/R");
+
+    btnAV->setText("AV");
+    btnAVLeft->setText("Links");
+    btnAVRight->setText("Rechts");
+    btnSelAV->setText("leer");
+
     btnSelAV->setEnabled(false);
     btnAV->setEnabled(false);
     btnAVLeft->setEnabled(false);
@@ -101,9 +111,6 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
     connect(btnNextAV, SIGNAL(clicked()), SLOT(btnNextAVClicked()));
     connect(btnPrevAV, SIGNAL(clicked()), SLOT(btnPrevAVClicked()));
 }
-    const QString AVRecordControl::qssSelected = "QPushButton {font: 100 20px \"Serif\";color: #FFFFFF; border: 2px solid #007aff; border-radius: 10px; background-color: #007aff;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
-    const QString AVRecordControl::qssNotSelected = "QPushButton {font: 100 20px \"Serif\";color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5;} QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
-
     /**
      * @brief sets a new AV, saves the time and enables necessary buttons
      */
@@ -134,9 +141,9 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
         leftSelected = false;
         rightSelected = false;
 
-        btnAV->setStyleSheet(qssSelected);
-        btnAVLeft->setStyleSheet(qssNotSelected);
-        btnAVRight->setStyleSheet(qssNotSelected);
+        btnAV->setSelected(true);
+        btnAVLeft->setSelected(false);
+        btnAVRight->setSelected(false);
 
         if(totalAV > 1)
             btnPrevAV->setEnabled(true);
@@ -152,20 +159,20 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
     void AVRecordControl::btnSetLeftClicked(){
         if(leftPressed){
             leftPressed = false;
-            btnSetLeft->setStyleSheet(this->qssNotSelected);
+            btnSetLeft->setSelected(false);
             totalLeftAV++;
             currentLeftAV = totalLeftAV;
             lstLeftAVTime->append(getLeftRightTime(currentLeftAV, "left"));
             btnAVLeft->setEnabled(true);
-            btnSetLeftRight->setStyleSheet(this->qssNotSelected);
+            btnSetLeftRight->setSelected(false);
             btnPlus->setEnabled(true);
             btnMinus->setEnabled(true);
         }
         else {
             leftPressed = true;
-            btnSetLeft->setStyleSheet(this->qssSelected);
+            btnSetLeft->setSelected(true);
             if(rightPressed)
-                btnSetLeftRight->setStyleSheet(this->qssSelected);
+                btnSetLeftRight->setSelected(true);
         }
     }
 
@@ -176,20 +183,20 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
     void AVRecordControl::btnSetRightClicked(){
         if(rightPressed){
             rightPressed = false;
-            btnSetRight->setStyleSheet(this->qssNotSelected);
+            btnSetRight->setSelected(false);
             totalRightAV++;
             currentRightAV = totalRightAV;
             lstRightAVTime->append(getLeftRightTime(currentRightAV, "right"));
             btnAVRight->setEnabled(true);
-            btnSetLeftRight->setStyleSheet(this->qssNotSelected);
+            btnSetLeftRight->setSelected(false);
             btnPlus->setEnabled(true);
             btnMinus->setEnabled(true);
         }
         else {
             rightPressed = true;
-            btnSetRight->setStyleSheet(this->qssSelected);
+            btnSetRight->setSelected(true);
             if(leftPressed)
-                btnSetLeftRight->setStyleSheet(this->qssSelected);
+                btnSetLeftRight->setSelected(true);
         }
     }
 
@@ -201,24 +208,24 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
         if(rightPressed && leftPressed){
             rightPressed = false;
             leftPressed = false;
-            btnSetRight->setStyleSheet(this->qssNotSelected);
+            btnSetRight->setSelected(false);
             totalRightAV++;
             currentRightAV = totalRightAV;
             lstRightAVTime->append(getLeftRightTime(currentRightAV, "right"));
-            btnSetLeft->setStyleSheet(this->qssNotSelected);
+            btnSetLeft->setSelected(false);
             totalLeftAV++;
             currentLeftAV = totalLeftAV;
             lstLeftAVTime->append(getLeftRightTime(currentLeftAV, "left"));
-            btnSetLeftRight->setStyleSheet(this->qssNotSelected);
+            btnSetLeftRight->setSelected(false);
             btnAVLeft->setEnabled(true);
             btnAVRight->setEnabled(true);
         }
         else {
             rightPressed = true;
             leftPressed = true;
-            btnSetRight->setStyleSheet(this->qssSelected);
-            btnSetLeft->setStyleSheet(this->qssSelected);
-            btnSetLeftRight->setStyleSheet(this->qssSelected);
+            btnSetRight->setSelected(true);
+            btnSetLeft->setSelected(true);
+            btnSetLeftRight->setSelected(true);
         }
     }
 
@@ -355,9 +362,9 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
         avSelected = true;
         leftSelected = false;
         rightSelected = false;
-        btnAV->setStyleSheet(this->qssSelected);
-        btnAVLeft->setStyleSheet(this->qssNotSelected);
-        btnAVRight->setStyleSheet(this->qssNotSelected);
+        btnAV->setSelected(true);
+        btnAVLeft->setSelected(false);
+        btnAVRight->setSelected(false);
     }
 
     /**
@@ -372,7 +379,7 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
             btnNextAV->setEnabled(true);
         QString str;
         str.append(QString("%1").arg(currentLeftAV));
-        btnSelAV->setText("L_AV " + str);
+        btnSelAV->setText("L " + str);
 
         if(!windowMinimized){
             int t = lstLeftAVTime->at(currentLeftAV -1);
@@ -387,9 +394,9 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
         avSelected = false;
         leftSelected = true;
         rightSelected = false;
-        btnAV->setStyleSheet(this->qssNotSelected);
-        btnAVLeft->setStyleSheet(this->qssSelected);
-        btnAVRight->setStyleSheet(this->qssNotSelected);
+        btnAV->setSelected(false);
+        btnAVLeft->setSelected(true);
+        btnAVRight->setSelected(false);
     }
 
     /**
@@ -404,7 +411,7 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
             btnNextAV->setEnabled(true);
         QString str;
         str.append(QString("%1").arg(currentRightAV));
-        btnSelAV->setText("R_AV " + str);
+        btnSelAV->setText("R " + str);
 
         if(!windowMinimized){
             int t = lstRightAVTime->at(currentRightAV -1);
@@ -419,9 +426,9 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
         avSelected = false;
         leftSelected = false;
         rightSelected = true;
-        btnAV->setStyleSheet(this->qssNotSelected);
-        btnAVLeft->setStyleSheet(this->qssNotSelected);
-        btnAVRight->setStyleSheet(this->qssSelected);
+        btnAV->setSelected(false);
+        btnAVLeft->setSelected(false);
+        btnAVRight->setSelected(true);
     }
 
     /**
@@ -542,7 +549,7 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
             currentLeftAV++;
             QString str;
             str.append(QString("%1").arg(currentLeftAV));
-            btnSelAV->setText("L_AV " + str);
+            btnSelAV->setText("L " + str);
             btnPrevAV->setEnabled(true);
             if(currentLeftAV  == totalLeftAV)
                 btnNextAV->setEnabled(false);
@@ -562,7 +569,7 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
             currentRightAV++;
             QString str;
             str.append(QString("%1").arg(currentRightAV));
-            btnSelAV->setText("R_AV " + str);
+            btnSelAV->setText("R " + str);
             btnPrevAV->setEnabled(true);
             if(currentRightAV  == totalRightAV)
                 btnNextAV->setEnabled(false);
@@ -608,7 +615,7 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
             currentLeftAV--;
             QString str;
             str.append(QString("%1").arg(currentLeftAV));
-            btnSelAV->setText("L_AV " + str);
+            btnSelAV->setText("L " + str);
             btnNextAV->setEnabled(true);
             if(currentLeftAV == 1)
                 btnPrevAV->setEnabled(false);
@@ -628,7 +635,7 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
             currentRightAV--;
             QString str;
             str.append(QString("%1").arg(currentRightAV));
-            btnSelAV->setText("R_AV " + str);
+            btnSelAV->setText("R " + str);
             btnNextAV->setEnabled(true);
             if(currentRightAV == 1)
                 btnPrevAV->setEnabled(false);
@@ -647,15 +654,107 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
     }
 
     void AVRecordControl::btnAVClickedWithID(int id){
+        avSelected = true;
+        leftSelected = false;
+        rightSelected = false;
+
         currentAV = id;
+        btnAV->setSelected(true);
+        btnAVLeft->setSelected(false);
+        btnAVRight->setSelected(false);
+
+        QString str;
+        str.append(QString("%1").arg(currentAV));
+        btnSelAV->setText("AV " + str);
+
+        if(currentAV == 1)
+            btnPrevAV->setEnabled(false);
+        else
+            btnPrevAV->setEnabled(true);
+        if(currentAV  == totalAV)
+            btnNextAV->setEnabled(false);
+        else
+            btnNextAV->setEnabled(true);
+
+        if(!windowMinimized){
+            int t = lstAVTime->at(currentAV -1);
+
+            unsigned int m = (t/ 60);
+            unsigned int s = (t - 60*m);
+            const QString diff = QString("%1:%2")
+            .arg(m, 2, 10, QChar('0'))
+            .arg(s, 2, 10, QChar('0'));
+            avTime->setText(diff);
+        }
+
     }
 
     void AVRecordControl::btnLeftClickedWithID(int id){
+        avSelected = false;
+        leftSelected = true;
+        rightSelected = false;
 
+        currentLeftAV = id;
+        btnAV->setSelected(false);
+        btnAVLeft->setSelected(true);
+        btnAVRight->setSelected(false);
+
+        QString str;
+        str.append(QString("%1").arg(currentLeftAV));
+        btnSelAV->setText("L " + str);
+
+        if(currentLeftAV == 1)
+            btnPrevAV->setEnabled(false);
+        else
+            btnPrevAV->setEnabled(true);
+        if(currentLeftAV  == totalLeftAV)
+            btnNextAV->setEnabled(false);
+        else
+            btnNextAV->setEnabled(true);
+
+        if(!windowMinimized){
+            int t = lstLeftAVTime->at(currentLeftAV -1);
+
+            unsigned int m = (t/ 60);
+            unsigned int s = (t - 60*m);
+            const QString diff = QString("%1:%2")
+            .arg(m, 2, 10, QChar('0'))
+            .arg(s, 2, 10, QChar('0'));
+            avTime->setText(diff);
+        }
     }
 
     void AVRecordControl::btnRightClickedWithID(int id){
+        avSelected = false;
+        leftSelected = false;
+        rightSelected = true;
 
+        currentRightAV = id;
+        btnAV->setSelected(false);
+        btnAVLeft->setSelected(false);
+        btnAVRight->setSelected(true);
+
+        QString str;
+        str.append(QString("%1").arg(currentRightAV));
+        btnSelAV->setText("R " + str);
+
+        if(currentRightAV == 1)
+            btnPrevAV->setEnabled(false);
+        else
+            btnPrevAV->setEnabled(true);
+        if(currentRightAV  == totalRightAV)
+            btnNextAV->setEnabled(false);
+        else
+            btnNextAV->setEnabled(true);
+
+        if(!windowMinimized){
+            int t = lstRightAVTime->at(currentRightAV -1);
+
+            unsigned int m = (t/ 60);
+            unsigned int s = (t - 60*m);
+            const QString diff = QString("%1:%2")
+            .arg(m, 2, 10, QChar('0'))
+            .arg(s, 2, 10, QChar('0'));
+            avTime->setText(diff);
+        }
     }
-
-

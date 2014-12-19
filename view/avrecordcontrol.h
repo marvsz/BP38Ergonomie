@@ -6,6 +6,7 @@
 #include <QLineEdit>
 #include <QBoxLayout>
 #include <graphtimelineview.h>
+#include <selectablevaluebutton.h>
 
 class AVRecordControl : public QMainWindow
 {
@@ -18,18 +19,18 @@ public:
     void btnRightClickedWithID(int id);
 
         QLineEdit *avTime;
-        QPushButton *btnSelAV;
-        QPushButton *btnAV;
-        QPushButton *btnAVLeft;
-        QPushButton *btnAVRight;
+        SelectableValueButton *btnSelAV;
+        SelectableValueButton *btnAV;
+        SelectableValueButton *btnAVLeft;
+        SelectableValueButton *btnAVRight;
         QPushButton *btnPlus;
         QPushButton *btnMinus;
         QPushButton *btnNextAV;
         QPushButton *btnPrevAV;
-        QPushButton *btnSetAv;
-        QPushButton *btnSetLeft;
-        QPushButton *btnSetRight;
-        QPushButton *btnSetLeftRight;
+        SelectableValueButton *btnSetAv;
+        SelectableValueButton *btnSetLeft;
+        SelectableValueButton *btnSetRight;
+        SelectableValueButton *btnSetLeftRight;
 
         QList<bool> *lstAV;
         QList<bool> *lstLeftAVs;
@@ -78,9 +79,6 @@ private:
 
 
     GraphTimelineView *graphView;
-
-    static const QString qssSelected;
-    static const QString qssNotSelected;
 };
 
 #endif // AVRECORDCONTROL_H
