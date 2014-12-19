@@ -476,17 +476,20 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
     void StopWatch::selectLeftAV(int id){
         standardView = true;
         btnMaximize->show();
+        avControl->btnLeftClickedWithID(id);
         emit leftAvPressed();
     }
 
     void StopWatch::selectRightAV(int id){
         standardView = true;
         btnMaximize->show();
+        avControl->btnRightClickedWithID(id);
         emit rightAvPressed();
     }
 
     void StopWatch::selectAV(int id){
         standardView = true;
         btnMaximize->show();
+        avControl->btnAVClickedWithID(id);
         emit avPressed();
     }

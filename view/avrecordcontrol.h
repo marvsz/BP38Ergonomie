@@ -13,6 +13,10 @@ class AVRecordControl : public QMainWindow
 public:
     explicit AVRecordControl(QWidget *parent = 0);
 
+    void btnAVClickedWithID(int id);
+    void btnLeftClickedWithID(int id);
+    void btnRightClickedWithID(int id);
+
         QLineEdit *avTime;
         QPushButton *btnSelAV;
         QPushButton *btnAV;
@@ -55,9 +59,6 @@ public slots:
     int getLeftRightTime(int currentAV, QString leftright);
     void updateAVs();
     void updateGraph();
-    void btnAVClickedWithID(int id);
-    void btnLeftClickedWithID(int id);
-    void btnRightClickedWithID(int id);
 
 private slots:
     void btnSetAVClicked();
