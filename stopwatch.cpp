@@ -210,6 +210,18 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
             avControl->btnAVLeft->setStyleSheet(this->qssNotSelected);
             avControl->btnAVRight->setStyleSheet(this->qssNotSelected);
             avControl->btnAV->setStyleSheet(this->qssNotSelected);
+            currentLeftTime = 0;
+            currentRightTime = 0;
+            currentLeftAV = 0;
+            currentRightAV = 0;
+            avButtons->clear();
+            leftAVButtons->clear();
+            rightAVButtons->clear();
+            delete this->btnView;
+            this->btnView = new ButtonTimelineView();
+            mainVLayout->insertWidget(0, btnView);
+            if(standardView)
+                btnView->setVisible(false);
         }
     }
 
@@ -247,7 +259,7 @@ StopWatch::StopWatch(QWidget *parent) : QMainWindow(parent)
         int i = avControl->lstLeftAVs->count() -1;
                 if(i > 0 && avControl->lstLeftAVs->at(i) == false && avControl->lstLeftAVs->at(i -1) == true && currentLeftAV < avControl->totalLeftAV){
                     currentLeftAV++;
-                    QString btn = "R ";
+                    QString btn = "L ";
                     btn.append(QString("%1: %2s").arg(currentLeftAV).arg(currentLeftTime));
                     leftAVButtons->append((new SelectableValueButton(currentLeftAV, currentLeftTime)));
                     leftAVButtons->at(currentLeftAV -1)->setFixedSize(currentLeftTime*100, 60);
