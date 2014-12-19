@@ -645,3 +645,17 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
             }
         }
     }
+
+    void AVRecordControl::btnAVClickedWithID(int id){
+        currentAV = id;
+    }
+
+    void AVRecordControl::btnLeftClickedWithID(int id){
+
+    }
+
+    void AVRecordControl::btnRightClickedWithID(int id){
+
+    }
+
+

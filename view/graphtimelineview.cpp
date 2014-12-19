@@ -43,7 +43,7 @@ void GraphTimelineView::updateGraph(QList<bool> *lstAV, QList<bool> *lstLeftAVs,
     for(int i = 0; i < lstLeftAVs->count(); ++i){
         bool s = lstLeftAVs->at(i);
         painter.setPen(QPen(QColor(0, 122, 255), 6, Qt::SolidLine, Qt::FlatCap));
-        if(s == true)
+        if(s)
             painter.drawLine(paintX -10, -40, paintX, -40);
         paintX = paintX +10;
 
@@ -53,13 +53,13 @@ void GraphTimelineView::updateGraph(QList<bool> *lstAV, QList<bool> *lstLeftAVs,
     for(int i = 0; i < lstRightAVs->count(); ++i){
         bool s = lstRightAVs->at(i);
         painter.setPen(QPen(QColor(0, 122, 255), 6, Qt::SolidLine, Qt::FlatCap));
-        if(s == true)
+        if(s)
             painter.drawLine(paintX -10, 0, paintX, 0);
         paintX = paintX +10;
     }
 
     paintX = 10;
-    if(lstAV->empty()== false){
+    if(!lstAV->empty()){
         for(int i = 0; i < (lstAV->count() + 5); ++i){
             painter.setPen(QPen(Qt::gray, 1, Qt::SolidLine, Qt::FlatCap));
             if(i%5 == 0){
@@ -85,7 +85,7 @@ void GraphTimelineView::updateGraph(QList<bool> *lstAV, QList<bool> *lstLeftAVs,
         bool s = lstAV->at(i);
 
         painter.setPen(QPen(QColor(0, 122, 255), 6, Qt::SolidLine, Qt::FlatCap));
-        if(s == true){
+        if(s){
             painter.setPen(QPen(Qt::gray, 2, Qt::SolidLine, Qt::FlatCap));
             painter.drawLine(paintX -10, 30, paintX -10, 50);
             painter.setPen(QPen(QColor(0, 122, 255), 6, Qt::SolidLine, Qt::FlatCap));

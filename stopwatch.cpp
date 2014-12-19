@@ -291,7 +291,7 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
     void StopWatch::updateButtonView(){
 
         int i = avControl->lstLeftAVs->count() -1;
-                if(i > 0 && avControl->lstLeftAVs->at(i) == false && avControl->lstLeftAVs->at(i -1) == true && currentLeftAV < avControl->totalLeftAV) {
+                if(i > 0 && !avControl->lstLeftAVs->at(i)&& avControl->lstLeftAVs->at(i -1) && currentLeftAV < avControl->totalLeftAV) {
                     currentLeftAV++;
                     QString btn = "L ";
                     btn.append(QString("%1: %2s").arg(currentLeftAV).arg(currentLeftTime));
@@ -301,16 +301,17 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
                     leftButton->setText(btn);
                     leftAVButtons->append(leftButton);
                     btnView->leftButtonLayout->addWidget(leftButton);
+                    btnView->leftButtonLayout->addSpacerItem(new QSpacerItem(100, 60));
                 }
-                else if(avControl->lstLeftAVs->at(i) == false)
+                else if(!avControl->lstLeftAVs->at(i))
                         btnView->leftButtonLayout->addSpacerItem(new QSpacerItem(100, 60));
-                else if(i > 0 && avControl->lstLeftAVs->at(i -1) == false)
+                else if(i > 0 && !avControl->lstLeftAVs->at(i -1))
                         currentLeftTime = 1;
                 else
                         currentLeftTime++;
 
         i = avControl->lstRightAVs->count() -1;
-                if(i > 0 && avControl->lstRightAVs->at(i) == false && avControl->lstRightAVs->at(i -1) == true && currentRightAV < avControl->totalRightAV){
+                if(i > 0 && !avControl->lstRightAVs->at(i) && avControl->lstRightAVs->at(i -1) && currentRightAV < avControl->totalRightAV){
                     currentRightAV++;
                     QString btn = "R ";
                     btn.append(QString("%1: %2s").arg(currentRightAV).arg(currentRightTime));
@@ -320,6 +321,7 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
                     rightButton->setText(btn);
                     rightAVButtons->append(rightButton);
                     btnView->rightButtonLayout->addWidget(rightButton);
+                    btnView->leftButtonLayout->addSpacerItem(new QSpacerItem(100, 60));
                 }
                 else if(avControl->lstRightAVs->at(i) == false)
                         btnView->rightButtonLayout->addSpacerItem(new QSpacerItem(100, 60));
@@ -364,11 +366,8 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
             minimizedLayout->addWidget(avControl->btnPrevAV);
             minimizedLayout->addWidget(avControl->btnSelAV);
             minimizedLayout->addWidget(avControl->btnNextAV);
-            minimizedLayout->addWidget(timer);
-            minimizedLayout->addWidget(btnStartPause);
-
-            minimizedLayout->setAlignment(timer, Qt::AlignRight);
-            minimizedLayout->setAlignment(btnStartPause, Qt::AlignRight);
+            minimizedLayout->addWidget(timer, 0, Qt::AlignRight);
+            minimizedLayout->addWidget(btnStartPause, 0, Qt::AlignRight);
 
             minimizedLayout->addWidget(avControl->btnMinus);
             minimizedLayout->addWidget(avControl->btnPlus);

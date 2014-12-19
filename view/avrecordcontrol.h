@@ -55,6 +55,9 @@ public slots:
     int getLeftRightTime(int currentAV, QString leftright);
     void updateAVs();
     void updateGraph();
+    void btnAVClickedWithID(int id);
+    void btnLeftClickedWithID(int id);
+    void btnRightClickedWithID(int id);
 
 private slots:
     void btnSetAVClicked();
