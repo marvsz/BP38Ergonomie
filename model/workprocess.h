@@ -56,12 +56,15 @@ public:
     BodyPosture* getBodyPosture() const;
 
     Transportation* getTransportation() const;
+    void setTransportation(Transportation *trans);
 
     Equipment* getEquipment() const;
+    void setEquipment(Equipment *equipment);
 
     WorkCondition* getWorkCondition() const;
 
     AppliedForce* getAppliedForce() const;
+    void setAppliedForce(AppliedForce *appForce);
 
     LoadHandling* getLoadHandling() const;
 

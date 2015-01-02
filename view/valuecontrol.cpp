@@ -71,7 +71,6 @@ ValueControl::ValueControl(VariantControl controlType, QWidget *parent) :
         sldrValue->setMinimumSize(400, 45);
         sldrValue->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
         connect(sldrValue, SIGNAL(valueChanged(int)), this, SLOT(sldrValueHasChanged()));
-
         lblMin = new QLabel(this);
         lblMin->setFixedWidth(90);
 
@@ -220,6 +219,7 @@ void ValueControl::btnHighlight(int value){
     btnList->at(currentSelectedBtnID)->setSelected(true);
 
 }
+
 
 
 // Getter and Setter

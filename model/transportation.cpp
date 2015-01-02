@@ -9,6 +9,14 @@ Transportation::Transportation()
     setEmptyWeight(0);
     setMaxLoad(0);
 }
+Transportation::Transportation(QString *name, bool hasFixedRoller, bool hasBrakes, int emptyWeight, int maxLoad){
+    id = -1;
+    setName(name);
+    setHasFixedRoller(hasFixedRoller);
+    setHasBrakes(hasBrakes);
+    setEmptyWeight(emptyWeight);
+    setMaxLoad(maxLoad);
+}
 
 
 int Transportation::getID() const{

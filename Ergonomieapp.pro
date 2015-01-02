@@ -1,7 +1,7 @@
 include(view/view.pri)
 include(model/model.pri)
 include(control/control.pri)
-QT       += core gui quick qml multimedia
+QT       += core gui quick qml multimedia sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -14,7 +14,8 @@ RESOURCES += \
     btnIcons.qrc \
     timerIcons.qrc \
     declarative-camera.qrc \
-    specialPurposeIcons.qrc
+    specialPurposeIcons.qrc \
+    assets.qrc
 
 HEADERS += \
     enum.h \
@@ -46,8 +47,12 @@ unix {
 }
 
 OTHER_FILES += \
-    View/view.pri \
     android/AndroidManifest.xml \
-    controle/control.pri
+    controle/control.pri \
+    android/assets/ergoAppDB.sqlite
 
 TRANSLATIONS = ergo_trans_de.ts
+
+deployment.files += myfile.sqlite
+deployment.path = /assets
+INSTALLS += deployment

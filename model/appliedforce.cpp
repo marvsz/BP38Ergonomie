@@ -8,6 +8,13 @@ AppliedForce::AppliedForce(QString *organ, QString *direction)
     setIntensity(0);
 }
 
+AppliedForce::AppliedForce(){
+    id = -1;
+    setOrgan(new QString(""));
+    setDirection(new QString(""));
+    setIntensity(0);
+}
+
 
 int AppliedForce::getID() const{
     return id;

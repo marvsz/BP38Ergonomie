@@ -7,6 +7,7 @@ class Transportation
 {
 public:
     Transportation();
+    Transportation(QString *name, bool hasFixedRoller, bool hasBrakes, int emptyWeight, int maxLoad);
 
     int getID() const;
 

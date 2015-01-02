@@ -7,6 +7,7 @@ class LoadHandling
 {
 public:
     LoadHandling(QString *handlingType);
+    LoadHandling();
 
     int getID() const;
 

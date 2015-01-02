@@ -116,7 +116,7 @@ public:
     virtual void removeEquipment(int id);
 
     virtual QString* getEquipmentName(int id);
-    virtual void setEquipment(int id, QString* name);
+    virtual void setEquipmentName(int id, QString* name);
 
     virtual int getEquipmentRecoilCount(int id);
     virtual void setEquipmentRecoilCount(int id, int count);
@@ -172,12 +172,22 @@ public:
     virtual int getRoomToMove();
     virtual void setRoomToMove(int roomToMove);
 
+    virtual QString* getLoadHandlingType();
     virtual void setLoadHandlingType(QString *handlingtype);
+
+    virtual int getLoadHandlingLoad();
     virtual void setLoadHandlingLoad(int load);
+
+    virtual int getLoadHandlingDistance();
     virtual void setLoadHandlingDistance(int distance);
 
+    virtual QString* getAppliedForceOrgan();
     virtual void setAppliedForceOrgan(QString *organ);
+
+    virtual QString* getAppliedForceDirection();
     virtual void setAppliedForceDirection(QString *direction);
+
+    virtual int getAppliedForceIntensity();
     virtual void setAppliedForceIntensity(int intensity);
 
 };

@@ -17,6 +17,8 @@ WorkProcess::WorkProcess(int id, QTime *begin, int specification)
     this->bodyPosture = new BodyPosture();
     this->transportation = new Transportation();
     this->equipment = new Equipment();
+    this->appliedForce = new AppliedForce();
+    this->loadHandling = new LoadHandling();
     this->workCondition = new WorkCondition();
 }
 
@@ -113,9 +115,15 @@ BodyPosture* WorkProcess::getBodyPosture() const{
 Transportation* WorkProcess::getTransportation() const{
     return transportation;
 }
+void WorkProcess::setTransportation(Transportation *trans){
+    transportation = trans;
+}
 
 Equipment* WorkProcess::getEquipment() const{
     return equipment;
+}
+void WorkProcess::setEquipment(Equipment *equipment){
+    this->equipment = equipment;
 }
 
 WorkCondition* WorkProcess::getWorkCondition() const{
@@ -124,6 +132,9 @@ WorkCondition* WorkProcess::getWorkCondition() const{
 
 AppliedForce* WorkProcess::getAppliedForce() const{
     return appliedForce;
+}
+void WorkProcess::setAppliedForce(AppliedForce *appForce){
+    appliedForce = appForce;
 }
 
 LoadHandling* WorkProcess::getLoadHandling() const{

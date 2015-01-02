@@ -7,6 +7,7 @@ class Equipment
 {
 public:
     Equipment();
+    Equipment(QString *name, int recoilCount, int recoilIntensity, int vibrationCount, int vibrationIntensity);
 
     int getID() const;
 

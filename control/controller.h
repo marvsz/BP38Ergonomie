@@ -13,6 +13,8 @@ signals:
 
 public slots:
 
+private:
+
 };
 
 #endif // CONTROLLER_H

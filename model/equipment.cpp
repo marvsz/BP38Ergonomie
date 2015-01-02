@@ -10,6 +10,14 @@ Equipment::Equipment()
     setVibrationIntensity(-1);
 }
 
+Equipment::Equipment(QString *name, int recoilCount, int recoilIntensity, int vibrationCount, int vibrationIntensity){
+    id = -1;
+    setName(name);
+    setRecoilCount(recoilCount);
+    setRecoilIntensity(recoilIntensity);
+    setVibrationCount(vibrationCount);
+    setVibrationIntensity(vibrationIntensity);
+}
 
 int Equipment::getID() const{
     return id;

@@ -152,120 +152,344 @@ void ErgoModel::setUpperArmAngle(bool setLeft, int angle){
     getArm(setLeft)->setUpperArmAngle(angle);
 }
 
-int ErgoModel::getUpperArmTwist(bool getLeft){}
-void ErgoModel::setUpperArmTwist(bool setLeft, int angle){}
+int ErgoModel::getUpperArmTwist(bool getLeft){
+    return getArm(getLeft)->getUpperArmTwist();
+}
+void ErgoModel::setUpperArmTwist(bool setLeft, int angle){
+    getArm(setLeft)->setUpperArmTwist(angle);
+}
 
-int ErgoModel::getForeArmAngle(bool getLeft){}
-void ErgoModel::setForeArmAngle(bool setLeft, int angle){}
+int ErgoModel::getForeArmAngle(bool getLeft){
+    return getArm(getLeft)->getForeArmAngle();
+}
+void ErgoModel::setForeArmAngle(bool setLeft, int angle){
+    getArm(setLeft)->setForeArmAngle(angle);
+}
 
-int ErgoModel::getForeArmTwist(bool getLeft){}
-void ErgoModel::setForeArmTwist(bool setLeft, int angle){}
+int ErgoModel::getForeArmTwist(bool getLeft){
+    return getArm(getLeft)->getForeArmTwist();
+}
+void ErgoModel::setForeArmTwist(bool setLeft, int angle){
+    getArm(setLeft)->setForeArmTwist(angle);
+}
 
-QString* ErgoModel::getArmWristMovement(bool getLeft){}
-void ErgoModel::setArmWristMovement(bool setLeft, QString *angle){}
+QString* ErgoModel::getArmWristMovement(bool getLeft){
+    return getArm(getLeft)->getWristMovement();
+}
+void ErgoModel::setArmWristMovement(bool setLeft, QString *angle){
+    getArm(setLeft)->setWristMovement(angle);
+}
 
-int ErgoModel::getHipAngle(bool getLeft){}
-void ErgoModel::setHipAngle(bool setLeft, int angle){}
+Leg* ErgoModel::getLeg(bool left){
+    if(left)
+        return currentWorkProcess->getBodyPosture()->getLeftLeg();
+    else
+        return currentWorkProcess->getBodyPosture()->getRightLeg();
+}
 
-int ErgoModel::getKneeAngle(bool getLeft){}
-void ErgoModel::setKneeAngle(bool setLeft, int angle){}
 
-int ErgoModel::getAnkleAngle(bool getLeft){}
-void ErgoModel::setAnkleAngle(bool setLeft, int angle){}
+int ErgoModel::getHipAngle(bool getLeft){
+    return getLeg(getLeft)->getHipAngle();
+}
+void ErgoModel::setHipAngle(bool setLeft, int angle){
+    getLeg(setLeft)->setHipAngle(angle);
+}
 
-QString* ErgoModel::getLegPosture(){}
-void ErgoModel::setLegPosture(QString* posture){}
+int ErgoModel::getKneeAngle(bool getLeft){
+    return getLeg(getLeft)->getKneeAngle();
+}
+void ErgoModel::setKneeAngle(bool setLeft, int angle){
+    getLeg(setLeft)->setKneeAngle(angle);
+}
 
-void ErgoModel::setTransportation(int id){}
-int ErgoModel::getTransportation(){}
+int ErgoModel::getAnkleAngle(bool getLeft){
+    return getLeg(getLeft)->getAnkleAngle();
+}
+void ErgoModel::setAnkleAngle(bool setLeft, int angle){
+    return getLeg(setLeft)->setAnkleAngle(angle);
+}
 
-QVector<int> ErgoModel::getTransportationIDs(){}
-void ErgoModel::createTransportation(int id, QString *name, bool hasFixedRoller, bool hasBrakes, int emptyWeight, int maxLoad){}
-void ErgoModel::removeTransportation(int id){}
+QString* ErgoModel::getLegPosture(){
+    return currentWorkProcess->getBodyPosture()->getLegPosture();
+}
+void ErgoModel::setLegPosture(QString* posture){
+    currentWorkProcess->getBodyPosture()->setLegPosture(posture);
+}
 
-QString* ErgoModel::getTransportationName(int id){}
-void ErgoModel::setTransportationName(int id, QString* name){}
+void ErgoModel::setTransportation(int id){
+    currentWorkProcess->setTransportation(getTransportation(id));
+}
+int ErgoModel::getTransportation(){
+    return currentWorkProcess->getTransportation()->getID();
+}
 
-bool ErgoModel::getTransportationHasFixedRoller(int id){}
-void ErgoModel::setTransportationHasFixedRoller(int id, bool hasFixedRoller){}
+Transportation* ErgoModel::getTransportation(int id){
+    foreach(Transportation* trans, (*transportations))
+        if(trans->getID() == id)
+            return trans;
+    return NULL;
+}
 
-bool ErgoModel::getTransportationHasBrakes(int id){}
-void ErgoModel::setTransportationHasBrakes(int id, bool hasBrakes){}
+QVector<int>* ErgoModel::getTransportationIDs(){
+    QVector<int>* transIDs = new QVector<int>();
+    foreach(Transportation* trans, (*transportations))
+        transIDs->append(trans->getID());
+    return transIDs;
+}
+void ErgoModel::createTransportation(QString *name, bool hasFixedRoller, bool hasBrakes, int emptyWeight, int maxLoad){
+    transportations->append(new Transportation(name, hasFixedRoller, hasBrakes, emptyWeight, maxLoad));
+}
+void ErgoModel::removeTransportation(int id){
+    int i = -1;
+    foreach(Transportation *trans, (*transportations)){
+        ++i;
+        if(trans->getID() == id)
+            break;
+    }
+    if(i != -1)
+        transportations->remove(i);
+}
 
-int ErgoModel::getTransportationEmptyWeight(int id){}
-void ErgoModel::setTransportationEmptyWeight(int id, int weight){}
+QString* ErgoModel::getTransportationName(int id){
+    return getTransportation(id)->getName();
+}
+void ErgoModel::setTransportationName(int id, QString* name){
+    getTransportation(id)->setName(name);
+}
 
-int ErgoModel::getTransportationMaxLoad(int id){}
-void ErgoModel::setTransportationMaxLoad(int id, int load){}
+bool ErgoModel::getTransportationHasFixedRoller(int id){
+    return getTransportation(id)->getHasFixedRoller();
+}
+void ErgoModel::setTransportationHasFixedRoller(int id, bool hasFixedRoller){
+    getTransportation(id)->setHasFixedRoller(hasFixedRoller);
+}
 
-void ErgoModel::setEquipment(int id){}
-int ErgoModel::getEquipment(int id){}
+bool ErgoModel::getTransportationHasBrakes(int id){
+    return getTransportation(id)->getHasBrakes();
+}
+void ErgoModel::setTransportationHasBrakes(int id, bool hasBrakes){
+    getTransportation(id)->setHasBrakes(hasBrakes);
+}
 
-QVector<int> ErgoModel::getEquipmentIDs(){}
-void ErgoModel::createEquipment(int id, QString *name, int recoilCount, int recoilIntensity, int vibrationCount, int vibrationIntensity){}
-void ErgoModel::removeEquipment(int id){}
+int ErgoModel::getTransportationEmptyWeight(int id){
+    return getTransportation(id)->getEmptyWeight();
+}
+void ErgoModel::setTransportationEmptyWeight(int id, int weight){
+    getTransportation(id)->setEmptyWeight(weight);
+}
 
-QString* ErgoModel::getEquipmentName(int id){}
-void ErgoModel::setEquipment(int id, QString* name){}
+int ErgoModel::getTransportationMaxLoad(int id){
+    return getTransportation(id)->getMaxLoad();
+}
+void ErgoModel::setTransportationMaxLoad(int id, int load){
+    getTransportation(id)->setMaxLoad(load);
+}
 
-int ErgoModel::getEquipmentRecoilCount(int id){}
-void ErgoModel::setEquipmentRecoilCount(int id, int count){}
+void ErgoModel::setEquipment(int id){
+    currentWorkProcess->setEquipment(getEquipment(id));
+}
+int ErgoModel::getEquipment(){
+    return currentWorkProcess->getEquipment()->getID();
+}
 
-int ErgoModel::getEquipmentRecoilIntensity(int id){}
-void ErgoModel::setEquipmentRecoilIntensity(int id, int intensity){}
+Equipment* ErgoModel::getEquipment(int id){
+    foreach(Equipment *equip, (*equipment))
+        if(equip->getID() == id)
+            return equip;
+    return NULL;
+}
 
-int ErgoModel::getEquipmentVibrationCount(int id){}
-void ErgoModel::setEquipmentVibrationCount(int id, int count){}
+QVector<int> *ErgoModel::getEquipmentIDs(){
+    QVector<int> *equipIDs = new QVector<int>();
+    foreach(Equipment *equip, (*equipment))
+        equipIDs->append(equip->getID());
+    return equipIDs;
+}
+void ErgoModel::createEquipment(QString *name, int recoilCount, int recoilIntensity, int vibrationCount, int vibrationIntensity){
+    equipment->append(new Equipment(name, recoilCount, recoilIntensity, vibrationCount, vibrationIntensity));
+}
+void ErgoModel::removeEquipment(int id){
+    int i = -1;
+    foreach(Equipment *equip, (*equipment)){
+        ++i;
+        if(equip->getID() == id)
+            break;
+    }
+    if(i != -1)
+        equipment->remove(i);
+}
 
-int ErgoModel::getEquipmentVibrationIntensity(int id){}
-void ErgoModel::setEquipmentVibrationIntensity(int id, int intensity){}
+QString* ErgoModel::getEquipmentName(int id){
+    return getEquipment(id)->getName();
+}
+void ErgoModel::setEquipmentName(int id, QString* name){
+    getEquipment(id)->setName(name);
+}
 
-bool ErgoModel::getTorsoSupport(){}
-void ErgoModel::setTorsoSupport(bool torsoSupport){}
+int ErgoModel::getEquipmentRecoilCount(int id){
+    return getEquipment(id)->getRecoilCount();
+}
+void ErgoModel::setEquipmentRecoilCount(int id, int count){
+    getEquipment(id)->setRecoilCount(count);
+}
 
-bool ErgoModel::getArmSupport(){}
-void ErgoModel::setArmSupport(bool armSupport){}
+int ErgoModel::getEquipmentRecoilIntensity(int id){
+    return getEquipment(id)->getRecoilIntensity();
+}
+void ErgoModel::setEquipmentRecoilIntensity(int id, int intensity){
+    getEquipment(id)->setRecoilIntensity(intensity);
+}
 
-int ErgoModel::getPrecision(){}
-void ErgoModel::setPrecision(int precision){}
+int ErgoModel::getEquipmentVibrationCount(int id){
+    return getEquipment(id)->getVibrationCount();
+}
+void ErgoModel::setEquipmentVibrationCount(int id, int count){
+    getEquipment(id)->setVibrationCount(count);
+}
 
-int ErgoModel::getVelocity(){}
-void ErgoModel::setVelocity(int velocity){}
+int ErgoModel::getEquipmentVibrationIntensity(int id){
+    return getEquipment(id)->getVibrationIntensity();
+}
+void ErgoModel::setEquipmentVibrationIntensity(int id, int intensity){
+    getEquipment(id)->setVibrationIntensity(intensity);
+}
 
-int ErgoModel::getAcceleration(){}
-void ErgoModel::setAcceleration(int acceleration){}
+bool ErgoModel::getTorsoSupport(){
+    return currentWorkProcess->getWorkCondition()->getTorsoSupport();
+}
+void ErgoModel::setTorsoSupport(bool torsoSupport){
+    currentWorkProcess->getWorkCondition()->setTorsoSupport(torsoSupport);
+}
 
-int ErgoModel::getVibration(){}
-void ErgoModel::setVibration(int vibration){}
+bool ErgoModel::getArmSupport(){
+    return currentWorkProcess->getWorkCondition()->getArmSupport();
+}
+void ErgoModel::setArmSupport(bool armSupport){
+    currentWorkProcess->getWorkCondition()->setArmSupport(armSupport);
+}
 
-int ErgoModel::getGrabCondition(){}
-void ErgoModel::setGrabCondition(int grabCondition){}
+int ErgoModel::getPrecision(){
+    return currentWorkProcess->getWorkCondition()->getPrecision();
+}
+void ErgoModel::setPrecision(int precision){
+    currentWorkProcess->getWorkCondition()->setPrecision(precision);
+}
 
-int ErgoModel::getAccessibility(){}
-void ErgoModel::setAccessibility(int accessibility){}
+int ErgoModel::getVelocity(){
+    return currentWorkProcess->getWorkCondition()->getVelocity();
+}
+void ErgoModel::setVelocity(int velocity){
+    currentWorkProcess->getWorkCondition()->setVelocity(velocity);
+}
 
-int ErgoModel::getGround(){}
-void ErgoModel::setGround(int ground){}
+int ErgoModel::getAcceleration(){
+    return currentWorkProcess->getWorkCondition()->getAcceleration();
+}
+void ErgoModel::setAcceleration(int acceleration){
+    currentWorkProcess->getWorkCondition()->setAcceleration(acceleration);
+}
 
-int ErgoModel::getLighting(){}
-void ErgoModel::setLighting(int lighting){}
+int ErgoModel::getVibration(){
+    return currentWorkProcess->getWorkCondition()->getVibration();
+}
+void ErgoModel::setVibration(int vibration){
+    currentWorkProcess->getWorkCondition()->setVibration(vibration);
+}
 
-int ErgoModel::getClimate(){}
-void ErgoModel::setClimate(int climate){}
+int ErgoModel::getGrabCondition(){
+    return currentWorkProcess->getWorkCondition()->getGrabCondition();
+}
+void ErgoModel::setGrabCondition(int grabCondition){
+    currentWorkProcess->getWorkCondition()->setGrabCondition(grabCondition);
+}
 
-int ErgoModel::getWind(){}
-void ErgoModel::setWind(int wind){}
+int ErgoModel::getAccessibility(){
+    return currentWorkProcess->getWorkCondition()->getAccessibility();
+}
+void ErgoModel::setAccessibility(int accessibility){
+    currentWorkProcess->getWorkCondition()->setAccessibility(accessibility);
+}
 
-int ErgoModel::getClothing(){}
-void ErgoModel::setClothing(int clothing){}
+int ErgoModel::getGround(){
+    return currentWorkProcess->getWorkCondition()->getGround();
+}
+void ErgoModel::setGround(int ground){
+    currentWorkProcess->getWorkCondition()->setGround(ground);
+}
 
-int ErgoModel::getRoomToMove(){}
-void ErgoModel::setRoomToMove(int roomToMove){}
+int ErgoModel::getLighting(){
+    return currentWorkProcess->getWorkCondition()->getLighting();
+}
+void ErgoModel::setLighting(int lighting){
+    currentWorkProcess->getWorkCondition()->setLighting(lighting);
+}
 
-void ErgoModel::setLoadHandlingType(QString *handlingtype){}
-void ErgoModel::setLoadHandlingLoad(int load){}
-void ErgoModel::setLoadHandlingDistance(int distance){}
+int ErgoModel::getClimate(){
+    return currentWorkProcess->getWorkCondition()->getClimate();
+}
+void ErgoModel::setClimate(int climate){
+    currentWorkProcess->getWorkCondition()->setClimate(climate);
+}
 
-void ErgoModel::setAppliedForceOrgan(QString *organ){}
-void ErgoModel::setAppliedForceDirection(QString *direction){}
-void ErgoModel::setAppliedForceIntensity(int intensity){}
+int ErgoModel::getWind(){
+    return currentWorkProcess->getWorkCondition()->getWind();
+}
+void ErgoModel::setWind(int wind){
+    currentWorkProcess->getWorkCondition()->setWind(wind);
+}
+
+int ErgoModel::getClothing(){
+    return currentWorkProcess->getWorkCondition()->getClothing();
+}
+void ErgoModel::setClothing(int clothing){
+    currentWorkProcess->getWorkCondition()->setClothing(clothing);
+}
+
+int ErgoModel::getRoomToMove(){
+    return currentWorkProcess->getWorkCondition()->getRoomToMove();
+}
+void ErgoModel::setRoomToMove(int roomToMove){
+    currentWorkProcess->getWorkCondition()->setRoomToMove(roomToMove);
+}
+
+QString* ErgoModel::getLoadHandlingType(){
+    return currentWorkProcess->getLoadHandling()->getHandlingType();
+}
+void ErgoModel::setLoadHandlingType(QString *handlingtype){
+    currentWorkProcess->getLoadHandling()->setHandlingType(handlingtype);
+}
+
+int ErgoModel::getLoadHandlingLoad(){
+    return currentWorkProcess->getLoadHandling()->getLoad();
+}
+void ErgoModel::setLoadHandlingLoad(int load){
+    currentWorkProcess->getLoadHandling()->setLoad(load);
+}
+
+int ErgoModel::getLoadHandlingDistance(){
+    return currentWorkProcess->getLoadHandling()->getDistance();
+}
+void ErgoModel::setLoadHandlingDistance(int distance){
+    currentWorkProcess->getLoadHandling()->setDistance(distance);
+}
+
+QString* ErgoModel::getAppliedForceOrgan(){
+    return currentWorkProcess->getAppliedForce()->getOrgan();
+}
+void ErgoModel::setAppliedForceOrgan(QString *organ){
+    currentWorkProcess->getAppliedForce()->setOrgan(organ);
+}
+
+QString* ErgoModel::getAppliedForceDirection(){
+    return currentWorkProcess->getAppliedForce()->getDirection();
+}
+void ErgoModel::setAppliedForceDirection(QString *direction){
+    currentWorkProcess->getAppliedForce()->setDirection(direction);
+}
+
+int ErgoModel::getAppliedForceIntensity(){
+    return currentWorkProcess->getAppliedForce()->getIntensity();
+}
+void ErgoModel::setAppliedForceIntensity(int intensity){
+    currentWorkProcess->getAppliedForce()->setIntensity(intensity);
+}

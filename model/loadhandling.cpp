@@ -8,6 +8,13 @@ LoadHandling::LoadHandling(QString *handlingType)
     setHandlingType(handlingType);
 }
 
+LoadHandling::LoadHandling(){
+    id = -1;
+    setLoad(0);
+    setDistance(0);
+    setHandlingType(new QString(""));
+}
+
 
 int LoadHandling::getID() const{
     return id;

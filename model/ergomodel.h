@@ -91,8 +91,8 @@ public:
     void setTransportation(int id);
     int getTransportation();
 
-    QVector<int> getTransportationIDs();
-    void createTransportation(int id, QString *name, bool hasFixedRoller, bool hasBrakes, int emptyWeight, int maxLoad);
+    QVector<int> *getTransportationIDs();
+    void createTransportation(QString *name, bool hasFixedRoller, bool hasBrakes, int emptyWeight, int maxLoad);
     void removeTransportation(int id);
 
     QString* getTransportationName(int id);
@@ -111,14 +111,14 @@ public:
     void setTransportationMaxLoad(int id, int load);
 
     void setEquipment(int id);
-    int getEquipment(int id);
+    int getEquipment();
 
-    QVector<int> getEquipmentIDs();
-    void createEquipment(int id, QString *name, int recoilCount, int recoilIntensity, int vibrationCount, int vibrationIntensity);
+    QVector<int>* getEquipmentIDs();
+    void createEquipment(QString *name, int recoilCount, int recoilIntensity, int vibrationCount, int vibrationIntensity);
     void removeEquipment(int id);
 
     QString* getEquipmentName(int id);
-    void setEquipment(int id, QString* name);
+    void setEquipmentName(int id, QString* name);
 
     int getEquipmentRecoilCount(int id);
     void setEquipmentRecoilCount(int id, int count);
@@ -174,12 +174,22 @@ public:
     int getRoomToMove();
     void setRoomToMove(int roomToMove);
 
+    QString* getLoadHandlingType();
     void setLoadHandlingType(QString *handlingtype);
+
+    int getLoadHandlingLoad();
     void setLoadHandlingLoad(int load);
+
+    int getLoadHandlingDistance();
     void setLoadHandlingDistance(int distance);
 
+    QString* getAppliedForceOrgan();
     void setAppliedForceOrgan(QString *organ);
+
+    QString* getAppliedForceDirection();
     void setAppliedForceDirection(QString *direction);
+
+    int getAppliedForceIntensity();
     void setAppliedForceIntensity(int intensity);
 
 private:
@@ -190,6 +200,8 @@ private:
 
     Arm* getArm(bool left);
     Leg* getLeg(bool left);
+    Transportation* getTransportation(int id);
+    Equipment* getEquipment(int id);
 };
 
 #endif // ERGOMODEL_H

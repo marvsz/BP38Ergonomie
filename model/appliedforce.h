@@ -7,6 +7,7 @@ class AppliedForce
 {
 public:
     AppliedForce(QString *organ, QString *direction);
+    AppliedForce();
 
     int getID() const;
 

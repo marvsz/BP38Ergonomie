@@ -1,7 +1,11 @@
 #include <QApplication>
 #include <QTranslator>
-#include "viewcontroller.h"
 #include "documentationview.h"
+#include <QStandardPaths>
+#include <QFileInfo>
+#include <QFile>
+#include <QtSql>
+#include <QMessageBox>
 
 #if defined(Q_OS_IOS)
 extern "C" int qtmn(int argc, char **argv)
@@ -53,13 +57,46 @@ int main(int argc, char *argv[])
                         "QComboBox::down-arrow:on {image: url(:/icons/specialPurposeIcons/downarrowon.png);}"
                         );
 
+    QString tmpString = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+    QFileInfo databaseFileInfo(QString("%1/%2").arg(tmpString).arg("ergoAppDB.sqlite"));
+    QString databasePath = databaseFileInfo.absoluteFilePath();
+    if ( !databaseFileInfo.exists() )
+       {
+           bool copySuccess = QFile::copy( QString(":/android/assets/ergoAppDB.sqlite"), databasePath );
+           if ( !copySuccess )
+           {
+               QMessageBox::critical(0, "Error:", QString("Could not copy database from 'assets' to %1").arg(databasePath));
+               databasePath.clear();
+           }
+           else{
+                QMessageBox::information(0, "Error:", QString("Copy Successfull"));
+                QFile::setPermissions(databasePath,QFile::WriteOwner | QFile::ReadOwner);
+           }
+       }
+
+    QSqlDatabase myDB = QSqlDatabase::addDatabase("QSQLITE");
+    myDB.setDatabaseName(databasePath);
+    if (!myDB.open()){
+       QMessageBox::critical(0, "Error:", QString("Could not open database: %1").arg(databasePath));
+    }
+    QSqlQuery q ;
+    if(!q.exec("INSERT INTO Analyst VALUES(0, 'bla', 'bla', 'bla', 0, 0);"))
+         QMessageBox::critical(0, "Error:", QString("Could not insert into database: %1").arg(q.lastError().text()));
+    QSqlQuery q2;
+    if(!q2.exec("SELECT * FROM Analyst WHERE analyst_ID = 0;"))
+        QMessageBox::critical(0, "Error:", QString("Could not select into database: %1").arg(q2.lastError().text()));
+    q2.next();
+    QMessageBox::information(0, "Wuhhh:", QString("Analyst Last Name: %1").arg(q2.value("analyst_last_name").toString()));
+
+
+    myDB.close();
 
     QTranslator translator;
-    bool b = translator.load("ergo_trans_de");
+    translator.load("ergo_trans_de");
     a.installTranslator(&translator);
 
-    DocumentationView d;
 
+    DocumentationView d;
     d.show();
 
 
