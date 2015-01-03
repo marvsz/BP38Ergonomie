@@ -20,17 +20,17 @@
 DocumentationView::DocumentationView(QWidget *parent) :
     QWidget(parent)
 {
-    //QGridLayout *mainLayout = new QGridLayout;
     QVBoxLayout *mainLayout = new QVBoxLayout;
 
     // CAMERA BUTTON INITIALIZATION
     cameraButton = new QPushButton;
-    cameraButton->setObjectName("cameraButton");
+    cameraButton->setObjectName("btnCamera");
 
     // NO FUNCTION YET
     backButton = new QPushButton("< Zurück");
     backButton->setMaximumSize(100, 40);
-    backButton->setObjectName("backButton");
+    backButton->setObjectName("btnNavigation");
+    connect(backButton, SIGNAL(clicked()), this, SLOT(backButtonClicked()));
 
     // INIT COMBOBOX
     QList<QString> viewNames = QList<QString>();
@@ -66,16 +66,6 @@ DocumentationView::DocumentationView(QWidget *parent) :
     connect(timer, SIGNAL(maximizePressed()), this, SLOT(maximizeBtnTimeLineView()));
     connect(timer, SIGNAL(minimizePressed()), this, SLOT(minimizeBtnTimeLineView()));
     indexBeforeTimeLineView = 0;
-
-    // GRID LAYOUT
-    /*mainLayout->addWidget(backButton, 0, 0, 1, 1, Qt::AlignLeft);
-    mainLayout->addWidget(views, 0, 1, 1, 1, Qt::AlignHCenter);
-    mainLayout->addWidget(cameraButton, 0, 2, 1, 1, Qt::AlignRight);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 1, 0, 1, 3, 0);
-    mainLayout->addWidget(mainContent, 2, 0, 1, 3, Qt::AlignTop);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 3, 0, 1, 3, 0);
-    mainLayout->addWidget(timer, 4, 0, 1, 3,Qt::AlignBottom);
-    setLayout(mainLayout);*/
 
     QGridLayout *topLayout = new QGridLayout;
     topLayout->addWidget(backButton, 0, 0, 1, 1, Qt::AlignLeft);
@@ -140,4 +130,8 @@ void DocumentationView::maximizeBtnTimeLineView(){
 
 void DocumentationView::minimizeBtnTimeLineView(){
     mainContent->setCurrentIndex(indexBeforeTimeLineView);
+}
+
+void DocumentationView::backButtonClicked(){
+    emit showMainMenu();
 }

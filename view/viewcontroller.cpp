@@ -3,46 +3,31 @@
 ViewController::ViewController(QWidget *parent) :
     QStackedWidget(parent)
 {
-    menuView = new MainMenu;
-    anglesView = new AngleView;
-    toolView = new TransportView;
-    actionForceView = new ActionForceView;
-    executionConditionView = new ExecutionConditionView;
+    mainMenuView = new MainMenu;
+    metaDataView = new MetaDataView;
+    documentationView = new DocumentationView;
 
-    connect(menuView, SIGNAL(angleViewSelected()), this, SLOT(setAngleView()));
-    connect(menuView, SIGNAL(toolViewSelected()), this, SLOT(setTransportView()));
-    connect(menuView, SIGNAL(actionForceViewSelected()), this, SLOT(setActionForceView()));
-    connect(menuView, SIGNAL(executionConditionViewSelected()), this, SLOT(setExecutionConditionView()));
-    connect(anglesView, SIGNAL(menuViewSelected()),this, SLOT(setMenuView()));
-    connect(toolView, SIGNAL(menuViewSelected()),this, SLOT(setMenuView()));
-    connect(actionForceView, SIGNAL(menuViewSelected()), this, SLOT(setMenuView()));
-    connect(executionConditionView, SIGNAL(menuViewSelected()), this, SLOT(setMenuView()));
+    connect(mainMenuView, SIGNAL(metaDataViewSelected()), this, SLOT(setMetaDataView()));
+    connect(mainMenuView, SIGNAL(newRecordingViewSelected()), this, SLOT(setDocumentationView()));
 
-    this->addWidget(menuView);
-    this->addWidget(anglesView);
-    this->addWidget(toolView);
-    this->addWidget(actionForceView);
-    this->addWidget(executionConditionView);
+    connect(metaDataView, SIGNAL(showMainMenu()), this, SLOT(setMainMenuView()));
+    connect(documentationView, SIGNAL(showMainMenu()), this, SLOT(setMainMenuView()));
 
-    setCurrentIndex(ViewController::MENU_VIEW);
+    this->addWidget(mainMenuView);
+    this->addWidget(metaDataView);
+    this->addWidget(documentationView);
+
+    setCurrentIndex(ViewController::MAIN_MENU_VIEW);
 }
 
-void ViewController::setMenuView(){
-    setCurrentIndex(ViewController::MENU_VIEW);
+void ViewController::setMainMenuView(){
+    setCurrentIndex(ViewController::MAIN_MENU_VIEW);
 }
 
-void ViewController::setAngleView(){
-    setCurrentIndex(ViewController::ANGLE_VIEW);
+void ViewController::setMetaDataView(){
+    setCurrentIndex(ViewController::METADATA_VIEW);
 }
 
-void ViewController::setTransportView(){
-    setCurrentIndex(ViewController::TOOL_VIEW);
-}
-
-void ViewController::setActionForceView(){
-    setCurrentIndex(ViewController::ACTION_FORCE_VIEW);
-}
-
-void ViewController::setExecutionConditionView(){
-    setCurrentIndex(ViewController::EXECUTION_CONDITION_VIEW);
+void ViewController::setDocumentationView(){
+    setCurrentIndex(ViewController::DOCUMENTATION_VIEW);
 }

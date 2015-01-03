@@ -28,6 +28,7 @@ public:
     explicit DocumentationView(QWidget *parent = 0);
 
 signals:
+    void showMainMenu();
 
 public slots:
 
@@ -39,6 +40,7 @@ private slots:
     void avPressed();
     void maximizeBtnTimeLineView();
     void minimizeBtnTimeLineView();
+    void backButtonClicked();
 
 private:
     int indexBeforeTimeLineView;

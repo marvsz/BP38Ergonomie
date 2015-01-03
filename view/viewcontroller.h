@@ -2,39 +2,30 @@
 #define VIEWCONTROLLER_H
 
 #include <QStackedWidget>
-#include "angleview.h"
 #include "mainmenu.h"
-#include "transportview.h"
-#include "actionforceview.h"
-#include "executionconditionview.h"
+#include "metadataview.h"
+#include "documentationview.h"
 
 class ViewController : public QStackedWidget
 {
     Q_OBJECT
 public:
     explicit ViewController(QWidget *parent = 0);
-    static const int MENU_VIEW = 0;
-    static const int ANGLE_VIEW = 1;
-    static const int TOOL_VIEW = 2;
-    static const int ACTION_FORCE_VIEW = 3;
-    static const int EXECUTION_CONDITION_VIEW = 4;
+    static const int MAIN_MENU_VIEW = 0;
+    static const int METADATA_VIEW = 1;
+    static const int DOCUMENTATION_VIEW = 2;
 
 signals:
 
 public slots:
-    void setMenuView();
-    void setAngleView();
-    void setTransportView();
-    void setActionForceView();
-    void setExecutionConditionView();
+    void setMainMenuView();
+    void setMetaDataView();
+    void setDocumentationView();
 
 private:
-    MainMenu *menuView;
-    AngleView *anglesView;
-    TransportView *toolView;
-    ActionForceView *actionForceView;
-    ExecutionConditionView *executionConditionView;
-
+    MainMenu *mainMenuView;
+    MetaDataView *metaDataView;
+    DocumentationView *documentationView;
 };
 
 #endif // VIEWCONTROLLER_H

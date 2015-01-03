@@ -7,54 +7,44 @@
 MainMenu::MainMenu(QWidget *parent) :
     QMainWindow(parent)
 {
-    QGroupBox *buttonGroup = new QGroupBox(this);
     QVBoxLayout *groupLayout = new QVBoxLayout;
+    QWidget *mainWidget = new QWidget;
 
-    angleView = new QPushButton(this);
-    angleView->setText("Körperhaltung");
-    angleView->setMinimumSize(300, 100);
-    connect(angleView, SIGNAL(clicked()), this, SLOT(openAngleView()));
+    metaDataViewBtn = new QPushButton(this);
+    metaDataViewBtn->setText("Kopfdaten");
+    metaDataViewBtn->setMinimumSize(300, 60);
+    connect(metaDataViewBtn, SIGNAL(clicked()), this, SLOT(openMetaDataView()));
 
-    toolView = new QPushButton(this);
-    toolView->setText("Lastenhandhabung");
-    toolView->setMinimumSize(300, 100);
-    connect(toolView, SIGNAL(clicked()), this, SLOT(openTransportView()));
+    newWorkplaceBtn = new QPushButton(this);
+    newWorkplaceBtn->setText("Neuer Arbeitsplatz");
+    newWorkplaceBtn->setMinimumSize(300, 60);
+    connect(newWorkplaceBtn, SIGNAL(clicked()), this, SLOT(openNewWorkplaceView()));
 
-    actionForceView = new QPushButton(this);
-    actionForceView->setText("Aktionskraft");
-    actionForceView->setMinimumSize(300, 100);
-    connect(actionForceView, SIGNAL(clicked()), this, SLOT(openActionForceView()));
-
-    executionConditionView = new QPushButton(this);
-    executionConditionView->setText("Ausführungsbedingungen");
-    executionConditionView->setMinimumSize(300, 100);
-    connect(executionConditionView, SIGNAL(clicked()), this, SLOT(openExecutionConditionView()));
+    newRecordingBtn = new QPushButton(this);
+    newRecordingBtn->setText("Neue Aufnahme");
+    newRecordingBtn->setMinimumSize(300, 60);
+    connect(newRecordingBtn, SIGNAL(clicked()), this, SLOT(openNewRecordingView()));
 
     groupLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
-    groupLayout->addWidget(angleView, 0, Qt::AlignCenter);
+    groupLayout->addWidget(metaDataViewBtn, 0, Qt::AlignCenter);
     groupLayout->addSpacerItem(new QSpacerItem(0,60, QSizePolicy::Minimum, QSizePolicy::Fixed));
-    groupLayout->addWidget(toolView, 0, Qt::AlignCenter);
+    groupLayout->addWidget(newWorkplaceBtn, 0, Qt::AlignCenter);
     groupLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
-    groupLayout->addWidget(actionForceView, 0, Qt::AlignCenter);
-    groupLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
-    groupLayout->addWidget(executionConditionView, 0, Qt::AlignCenter);
-    groupLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
-    buttonGroup->setLayout(groupLayout);
-    this->setCentralWidget(buttonGroup);
+    groupLayout->addWidget(newRecordingBtn, 0, Qt::AlignCenter);
+    groupLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Expanding));
+
+    mainWidget->setLayout(groupLayout);
+    this->setCentralWidget(mainWidget);
 }
 
-void MainMenu::openAngleView(){
-    emit angleViewSelected();
+void MainMenu::openMetaDataView(){
+    emit metaDataViewSelected();
 }
 
-void MainMenu::openTransportView(){
-    emit toolViewSelected();
+void MainMenu::openNewWorkplaceView(){
+    emit newWorkplaceViewSelected();
 }
 
-void MainMenu::openActionForceView(){
-    emit actionForceViewSelected();
-}
-
-void MainMenu::openExecutionConditionView(){
-    emit executionConditionViewSelected();
+void MainMenu::openNewRecordingView(){
+    emit newRecordingViewSelected();
 }

@@ -12,22 +12,19 @@ public:
     explicit MainMenu(QWidget *parent = 0);
 
 signals:
-    void angleViewSelected();
-    void toolViewSelected();
-    void actionForceViewSelected();
-    void executionConditionViewSelected();
+    void metaDataViewSelected();
+    void newWorkplaceViewSelected();
+    void newRecordingViewSelected();
 
 public slots:
-    void openAngleView();
-    void openTransportView();
-    void openActionForceView();
-    void openExecutionConditionView();
+    void openMetaDataView();
+    void openNewWorkplaceView();
+    void openNewRecordingView();
 
 private:
-    QPushButton *angleView;
-    QPushButton *toolView;
-    QPushButton *actionForceView;
-    QPushButton *executionConditionView;
+    QPushButton *metaDataViewBtn;
+    QPushButton *newWorkplaceBtn;
+    QPushButton *newRecordingBtn;
 };
 
 #endif // MAINMENU_H

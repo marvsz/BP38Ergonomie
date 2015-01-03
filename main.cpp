@@ -1,11 +1,12 @@
 #include <QApplication>
 #include <QTranslator>
-#include "documentationview.h"
+#include "viewcontroller.h"
 #include <QStandardPaths>
 #include <QFileInfo>
 #include <QFile>
 #include <QtSql>
 #include <QMessageBox>
+#include <QDebug>
 
 #if defined(Q_OS_IOS)
 extern "C" int qtmn(int argc, char **argv)
@@ -27,8 +28,8 @@ int main(int argc, char *argv[])
                         "QSlider::sub-page:horizontal {background: #007aff;}"
                         "QPushButton {font: 100 18px \"Serif\";color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5; padding: 4px;}"
                         "QPushButton:pressed {color: #ffffff; background-color: #007aff;}"
-                        "QPushButton#cameraButton {image: url(:/icons/specialPurposeIcons/camera.png); width: 50px; height: 50px; border: 0px; background-color: #efeff4;}"
-                        "QPushButton#backButton {border: 0px; background-color: #efeff4}"
+                        "QPushButton#btnCamera {image: url(:/icons/specialPurposeIcons/camera.png); width: 50px; height: 50px; border: 0px; background-color: #efeff4;}"
+                        "QPushButton#btnNavigation {border: 0px; background-color: #efeff4}"
                         "QPushButton#timerStartPauseButton {border: 0px; background-color: #efeff4}"
                         "QPushButton#timerStopResetButton {border: 0px; background-color: #efeff4}"
                         "QPushButton#timerMinimizeButton {border: 0px; background-color: #efeff4}"
@@ -56,48 +57,47 @@ int main(int argc, char *argv[])
                         "QComboBox::down-arrow {image: url(:/icons/specialPurposeIcons/downarrow.png);}"
                         "QComboBox::down-arrow:on {image: url(:/icons/specialPurposeIcons/downarrowon.png);}"
                         );
+    QString tmpString;
+    QFileInfo databaseFileInfo;
+    QString databaseOriginPath;
 
-    QString tmpString = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
-    QFileInfo databaseFileInfo(QString("%1/%2").arg(tmpString).arg("ergoAppDB.sqlite"));
+    #if defined(Q_OS_ANDROID)
+        databaseOriginPath = QString(":/android/assets/ergoAppDB.sqlite");
+        tmpString = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+        databaseFileInfo = QFileInfo(QString("%1/%2").arg(tmpString).arg("ergoAppDB.sqlite"));
+    #endif
+
+
+    #if defined(Q_OS_IOS)
+        databaseOriginPath = QString("%1/%2/%3").arg(QStandardPaths::writableLocation(QStandardPaths::HomeLocation)).arg("Documents").arg("ergoAppDB.sqlite");
+        tmpString = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+        databaseFileInfo = QFileInfo(QString("%1/%2").arg(tmpString).arg("ergoAppDB.sqlite"));
+    #endif
+
     QString databasePath = databaseFileInfo.absoluteFilePath();
+
     if ( !databaseFileInfo.exists() )
        {
-           bool copySuccess = QFile::copy( QString(":/android/assets/ergoAppDB.sqlite"), databasePath );
+           bool copySuccess = QFile::copy( databaseOriginPath, databasePath );
            if ( !copySuccess )
            {
-               QMessageBox::critical(0, "Error:", QString("Could not copy database from 'assets' to %1").arg(databasePath));
+               QMessageBox::critical(0, "Error:", QString("Could not copy database from %1 to %2").arg(databaseOriginPath).arg(databasePath));
                databasePath.clear();
            }
            else{
-                QMessageBox::information(0, "Error:", QString("Copy Successfull"));
-                QFile::setPermissions(databasePath,QFile::WriteOwner | QFile::ReadOwner);
+                if(!QFile::setPermissions(databasePath,QFile::WriteOwner | QFile::ReadOwner)){
+                   QMessageBox::critical(0, "Error:", "Could not set permissions");
+                }
            }
        }
-
-    QSqlDatabase myDB = QSqlDatabase::addDatabase("QSQLITE");
-    myDB.setDatabaseName(databasePath);
-    if (!myDB.open()){
-       QMessageBox::critical(0, "Error:", QString("Could not open database: %1").arg(databasePath));
-    }
-    QSqlQuery q ;
-    if(!q.exec("INSERT INTO Analyst VALUES(0, 'bla', 'bla', 'bla', 0, 0);"))
-         QMessageBox::critical(0, "Error:", QString("Could not insert into database: %1").arg(q.lastError().text()));
-    QSqlQuery q2;
-    if(!q2.exec("SELECT * FROM Analyst WHERE analyst_ID = 0;"))
-        QMessageBox::critical(0, "Error:", QString("Could not select into database: %1").arg(q2.lastError().text()));
-    q2.next();
-    QMessageBox::information(0, "Wuhhh:", QString("Analyst Last Name: %1").arg(q2.value("analyst_last_name").toString()));
-
-
-    myDB.close();
 
     QTranslator translator;
     translator.load("ergo_trans_de");
     a.installTranslator(&translator);
 
 
-    DocumentationView d;
-    d.show();
+    ViewController vc;
+    vc.show();
 
 
     return a.exec();

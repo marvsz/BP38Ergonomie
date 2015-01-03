@@ -32,8 +32,11 @@ ios {
    ICON_FILES.path = ./
    LAUNCH_FILES.files = $$system("find $$PWD/ios/launchimage/ -name '*.png'")
    LAUNCH_FILES.path = ./
+   DATABASES.files = $$system("find $$PWD/android/assets/ -name '*.sqlite'")
+   DATABASES.path = Documents
    QMAKE_BUNDLE_DATA += ICON_FILES
    QMAKE_BUNDLE_DATA += LAUNCH_FILES
+   QMAKE_BUNDLE_DATA += DATABASES
    QMAKE_INFO_PLIST = ios/Info.plist
 }
 
