@@ -38,8 +38,8 @@ MetaDataView::MetaDataView(QWidget *parent) :
     txtBxFactoryContact(new TextLineEdit(this)),
     txtBxFactoryEmployeeCount(new NumberLineEdit(this)),
     lblRecordingDateTime(new QLabel("Aufnahme", this)),
-    dteRecordingBeginTime(new QDateTimeEdit(this)),
-    dteRecordingEndTime(new QDateTimeEdit(this))
+    dteRecordingTimeBegin(new QDateTimeEdit(this)),
+    dteRecordingTimeEnd(new QDateTimeEdit(this))
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
     QGridLayout *navigationBarLayout = new QGridLayout;
@@ -52,6 +52,7 @@ MetaDataView::MetaDataView(QWidget *parent) :
     connect(btnBack, SIGNAL(clicked()), this, SLOT(backButtonClicked()));
     btnForward->setObjectName("btnNavigation");
     txtBxCorpName->setMaximumWidth(350);
+
 
     navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
     navigationBarLayout->addWidget(lblViewDescription, 0, 1, 1, 1, Qt::AlignCenter);
@@ -91,8 +92,8 @@ MetaDataView::MetaDataView(QWidget *parent) :
     factoryLayout->addWidget(lblFactoryEmployeeCount, 2, 6, 1, 1, 0);
     factoryLayout->addWidget(txtBxFactoryEmployeeCount, 2, 7, 1, 1, 0);
 
-    recordingLayout->addWidget(dteRecordingBeginTime);
-    recordingLayout->addWidget(dteRecordingEndTime);
+    recordingLayout->addWidget(dteRecordingTimeBegin);
+    recordingLayout->addWidget(dteRecordingTimeEnd);
 
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
@@ -119,5 +120,93 @@ MetaDataView::MetaDataView(QWidget *parent) :
 }
 
 void MetaDataView::backButtonClicked(){
+    emit saveMetaData();
     emit showMainMenu();
+}
+
+
+// GETTER
+
+QString MetaDataView::getAnalystLastName() const {
+    return txtBxAnalystLastName->text();
+}
+
+QString MetaDataView::getAnalystFirstName() const {
+    return txtBxAnalystFirstName->text();
+}
+
+QString MetaDataView::getAnalystEmployer() const {
+    return txtBxAnalystEmployer->text();
+}
+
+QString MetaDataView::getAnalystExperience() const {
+    return txtBxAnalystExperience->text();
+}
+
+QString MetaDataView::getCorporationName() const {
+    return txtBxCorpName->text();
+}
+
+QString MetaDataView::getFactoryName() const {
+    return txtBxFactoryName->text();
+}
+
+QString MetaDataView::getFactoryStreet() const {
+    return txtBxFactoryStreet->text();
+}
+
+int MetaDataView::getFactoryZip() const {
+    return txtBxFactoryZip->getValue();
+}
+
+QString MetaDataView::getFactoryCity() const {
+    return txtBxFactoryCity->text();
+}
+
+QString MetaDataView::getFactoryCountry() const {
+    return txtBxFactoryCountry->text();
+}
+
+QString MetaDataView::getFactoryContact() const {
+    return txtBxFactoryContact->text();
+}
+
+int MetaDataView::getFactoryEmployeeCount() const {
+    return txtBxFactoryEmployeeCount->getValue();
+}
+
+QDateTime MetaDataView::getRecordTimeBegin() const {
+    return dteRecordingTimeBegin->dateTime();
+}
+
+QDateTime MetaDataView::getRecordTimeEnd() const {
+    return dteRecordingTimeEnd->dateTime();
+}
+
+// SETTER SLOTS
+
+void MetaDataView::setAnalyst(const QString &lastName, const QString &firstName, const QString &employer, const QString &experience){
+    txtBxAnalystLastName->setText(lastName);
+    txtBxAnalystFirstName->setText(firstName);
+    txtBxAnalystEmployer->setText(employer);
+    txtBxAnalystExperience->setText(experience);
+}
+
+void MetaDataView::setCorporation(const QString &name){
+    txtBxCorpName->setText(name);
+}
+
+void MetaDataView::setFactory(const QString &name, const QString &street, int zip, const QString &city, const QString &country, const QString &contact, int employeeCount){
+    txtBxFactoryName->setText(name);
+    txtBxFactoryStreet->setText(street);
+    txtBxFactoryZip->setValue(zip);
+    txtBxFactoryCity->setText(city);
+    txtBxFactoryCountry->setText(country);
+    txtBxFactoryContact->setText(contact);
+    txtBxFactoryEmployeeCount->setValue(employeeCount);
+}
+
+void MetaDataView::setRecordTime(const QDateTime &begin, const QDateTime &end){
+    dteRecordingTimeBegin->setDateTime(begin);
+    dteRecordingTimeEnd->setDateTime(end);
 }

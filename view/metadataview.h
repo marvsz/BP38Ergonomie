@@ -13,10 +13,33 @@ class MetaDataView : public QWidget
 public:
     explicit MetaDataView(QWidget *parent = 0);
 
+    QString getAnalystLastName() const;
+    QString getAnalystFirstName() const;
+    QString getAnalystEmployer() const;
+    QString getAnalystExperience() const;
+
+    QString getCorporationName() const;
+
+    QString getFactoryName() const;
+    QString getFactoryStreet() const;
+    int getFactoryZip() const;
+    QString getFactoryCity() const;
+    QString getFactoryCountry() const;
+    QString getFactoryContact() const;
+    int getFactoryEmployeeCount() const;
+
+    QDateTime getRecordTimeBegin() const;
+    QDateTime getRecordTimeEnd() const;
+
 signals:
     void showMainMenu();
+    void saveMetaData();
 
 public slots:
+    void setAnalyst(const QString &lastName, const QString &firstName, const QString &employer, const QString &experience);
+    void setCorporation(const QString &name);
+    void setFactory(const QString &name, const QString &street, int zip, const QString &city, const QString &country, const QString &contact, int employeeCount);
+    void setRecordTime(const QDateTime &begin, const QDateTime &end);
 
 private slots:
 
@@ -61,8 +84,8 @@ private:
     NumberLineEdit *txtBxFactoryEmployeeCount;
 
     QLabel *lblRecordingDateTime;
-    QDateTimeEdit *dteRecordingBeginTime;
-    QDateTimeEdit *dteRecordingEndTime;
+    QDateTimeEdit *dteRecordingTimeBegin;
+    QDateTimeEdit *dteRecordingTimeEnd;
 
 };
 

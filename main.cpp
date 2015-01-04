@@ -1,12 +1,6 @@
 #include <QApplication>
 #include <QTranslator>
-#include "viewcontroller.h"
-#include <QStandardPaths>
-#include <QFileInfo>
-#include <QFile>
-#include <QtSql>
-#include <QMessageBox>
-#include <QDebug>
+#include "control/controller.h"
 
 #if defined(Q_OS_IOS)
 extern "C" int qtmn(int argc, char **argv)
@@ -57,47 +51,14 @@ int main(int argc, char *argv[])
                         "QComboBox::down-arrow {image: url(:/icons/specialPurposeIcons/downarrow.png);}"
                         "QComboBox::down-arrow:on {image: url(:/icons/specialPurposeIcons/downarrowon.png);}"
                         );
-    QString tmpString;
-    QFileInfo databaseFileInfo;
-    QString databaseOriginPath;
 
-    #if defined(Q_OS_ANDROID)
-        databaseOriginPath = QString(":/android/assets/ergoAppDB.sqlite");
-        tmpString = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
-        databaseFileInfo = QFileInfo(QString("%1/%2").arg(tmpString).arg("ergoAppDB.sqlite"));
-    #endif
-
-
-    #if defined(Q_OS_IOS)
-        databaseOriginPath = QString("%1/%2/%3").arg(QStandardPaths::writableLocation(QStandardPaths::HomeLocation)).arg("Documents").arg("ergoAppDB.sqlite");
-        tmpString = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-        databaseFileInfo = QFileInfo(QString("%1/%2").arg(tmpString).arg("ergoAppDB.sqlite"));
-    #endif
-
-    QString databasePath = databaseFileInfo.absoluteFilePath();
-
-    if ( !databaseFileInfo.exists() )
-       {
-           bool copySuccess = QFile::copy( databaseOriginPath, databasePath );
-           if ( !copySuccess )
-           {
-               QMessageBox::critical(0, "Error:", QString("Could not copy database from %1 to %2").arg(databaseOriginPath).arg(databasePath));
-               databasePath.clear();
-           }
-           else{
-                if(!QFile::setPermissions(databasePath,QFile::WriteOwner | QFile::ReadOwner)){
-                   QMessageBox::critical(0, "Error:", "Could not set permissions");
-                }
-           }
-       }
 
     QTranslator translator;
     translator.load("ergo_trans_de");
     a.installTranslator(&translator);
 
 
-    ViewController vc;
-    vc.show();
+    Controller c;
 
 
     return a.exec();

@@ -9,6 +9,9 @@ class NumberLineEdit : public TextLineEdit
 public:
     explicit NumberLineEdit(QWidget *parent = 0);
 
+    int getValue() const;
+    void setValue(int value);
+
 signals:
 
 public slots:

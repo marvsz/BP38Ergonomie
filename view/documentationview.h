@@ -32,6 +32,7 @@ signals:
 
 public slots:
 
+
 private slots:
     void showCamera();
     void hideCamera();
