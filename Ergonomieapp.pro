@@ -51,10 +51,7 @@ unix {
 }
 
 OTHER_FILES += \
-    android/AndroidManifest.xml \
-    controle/control.pri \
-    android/assets/ergoAppDB.sqlite \
-    databaseHandler/databaseHandler.pri
+    android/AndroidManifest.xml
 
 TRANSLATIONS = ergo_trans_de.ts
 
