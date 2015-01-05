@@ -47,6 +47,22 @@ DBHandler::DBHandler()
     tmAnalyst->setTable(DBConstants::TBL_ANALYST);
     tmAnalyst->setEditStrategy(QSqlTableModel::OnRowChange);
 
+    tmEmployer = new QSqlTableModel(0, myDB);
+    tmEmployer->setTable(DBConstants::TBL_EMPLOYER);
+    tmEmployer->setEditStrategy(QSqlTableModel::OnRowChange);
+
+    tmCorporation = new QSqlTableModel(0, myDB);
+    tmCorporation->setTable(DBConstants::TBL_CORPORATION);
+    tmCorporation->setEditStrategy(QSqlTableModel::OnRowChange);
+
+    tmFactory = new QSqlTableModel(0, myDB);
+    tmFactory->setTable(DBConstants::TBL_FACTORY);
+    tmFactory->setEditStrategy(QSqlTableModel::OnRowChange);
+
+    tmRecording = new QSqlTableModel(0, myDB);
+    tmRecording->setTable(DBConstants::TBL_RECORDING);
+    tmRecording->setEditStrategy(QSqlTableModel::OnRowChange);
+
 }
 
 DBHandler::~DBHandler(){
@@ -102,6 +118,10 @@ int DBHandler::getNextID(DB_TABLES tbl, const QString &colName){
 QSqlTableModel *DBHandler::getTableModelRef(DB_TABLES tbl){
     switch(tbl){
     case DB_TABLES::ANALYST: return tmAnalyst; break;
+    case DB_TABLES::EMPLOYER: return tmEmployer; break;
+    case DB_TABLES::CORPORATION: return tmCorporation; break;
+    case DB_TABLES::FACTORY: return tmFactory; break;
+    case DB_TABLES::RECORDING: return tmRecording; break;
     default: return NULL; break;
     }
 }

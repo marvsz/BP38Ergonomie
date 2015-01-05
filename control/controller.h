@@ -23,9 +23,23 @@ private slots:
 private:
     DBHandler *dbHandler;
     ViewController *viewCon;
-    int analyst_ID;
+    int recording_ID;
 
-    int getAnalystID();
+    void updateAnalyst(int id);
+    int saveAnalyst();
+
+    void updateEmployer(int id);
+    int saveEmployer();
+
+    void updateCorporation(int id);
+    int saveCorporation();
+
+    void updateFactory(int id);
+    int saveFactory();
+
+    void updateRecording(int id);
+    int saveRecording();
+
 
 };
 
