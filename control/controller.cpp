@@ -22,9 +22,42 @@ void Controller::saveMetaData(){
     recording_ID = saveRecording();
 }
 
+
+int Controller::save(DB_TABLES tbl, const QString &filter, const QString &colID, const QStringList &colNames, const QList<QVariant::Type> &colTypes, QHash<QString, QVariant> &colMapNameValue){
+    dbHandler->select(tbl, filter);
+    int id;
+    QSqlRecord record;
+    bool toInsert = false;
+    if(dbHandler->rowCount(tbl) == 0){
+        toInsert = true;
+        id = dbHandler->getNextID(tbl, colID);
+        for(int i = 0; i < colNames.count(); ++i){
+            record.append(QSqlField(colNames.at(i), colTypes.at(i)));
+        }
+    }
+    else {
+        record = dbHandler->record(tbl, 0);
+        id = record.value(colID).toInt();
+    }
+
+    colMapNameValue.insert(colID, id);
+    for(int i = 0; i < colNames.count(); ++i){
+        QString colName = colNames.at(i);
+        record.setValue(colName, colMapNameValue.value(colName));
+    }
+
+    if(toInsert)
+        dbHandler->insertRow(tbl, record);
+    else
+        dbHandler->updateRow(tbl, 0, record);
+    return id;
+}
+
+
+
 void Controller::updateAnalyst(int id){
     if(id <= 0){
-        viewCon->setAnalyst("","","","");
+        viewCon->setAnalyst("","","");
     }
     else {
         dbHandler->select(DB_TABLES::ANALYST, QString("%1 = %2").arg(DBConstants::COL_ANALYST_ID).arg(QString::number(id)));
@@ -34,85 +67,38 @@ void Controller::updateAnalyst(int id){
 
         viewCon->setAnalyst(record.value(DBConstants::COL_ANALYST_LASTNAME).toString(),
                             record.value(DBConstants::COL_ANALYST_FIRSTNAME).toString(),
-                            viewCon->getAnalystEmployer(),
                             record.value(DBConstants::COL_ANALYST_EXPERIENCE).toString());
     }
 }
 
 int Controller::saveAnalyst(){
-    DB_TABLES tbl = DB_TABLES::ANALYST;
     QString filter = QString("%1 = '%2' AND %3 = '%4'").arg(DBConstants::COL_ANALYST_LASTNAME).arg(viewCon->getAnalystLastName()).arg(DBConstants::COL_ANALYST_FIRSTNAME).arg(viewCon->getAnalystFirstName());
-    dbHandler->select(tbl, filter);
-    int id;
-    QSqlRecord record;
-    bool toInsert = false;
-    if(dbHandler->rowCount(tbl) == 0){
-        toInsert = true;
-        id = dbHandler->getNextID(tbl, DBConstants::COL_ANALYST_ID);
-        record.append(QSqlField(DBConstants::COL_ANALYST_ID, QVariant::Int));
-        record.append(QSqlField(DBConstants::COL_ANALYST_LASTNAME, QVariant::String));
-        record.append(QSqlField(DBConstants::COL_ANALYST_FIRSTNAME, QVariant::String));
-        record.append(QSqlField(DBConstants::COL_ANALYST_EMPLOYER_ID, QVariant::Int));
-        record.append(QSqlField(DBConstants::COL_ANALYST_EXPERIENCE, QVariant::String));
-        record.append(QSqlField(DBConstants::COL_ANALYST_CORPORATION_ID, QVariant::Int));
-    }
-    else {
-        record = dbHandler->record(tbl, 0);
-        id = record.value(DBConstants::COL_ANALYST_ID).toInt();
-    }
-    record.setValue(DBConstants::COL_ANALYST_ID, id);
-    record.setValue(DBConstants::COL_ANALYST_LASTNAME, viewCon->getAnalystLastName());
-    record.setValue(DBConstants::COL_ANALYST_FIRSTNAME, viewCon->getAnalystFirstName());
-    record.setValue(DBConstants::COL_ANALYST_EMPLOYER_ID, saveEmployer());
-    record.setValue(DBConstants::COL_ANALYST_EXPERIENCE, viewCon->getAnalystExperience());
-    record.setNull(DBConstants::COL_ANALYST_CORPORATION_ID);
 
-    if(toInsert)
-        dbHandler->insertRow(tbl, record);
-    else
-        dbHandler->updateRow(tbl, 0, record);
-    return id;
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_ANALYST_LASTNAME, viewCon->getAnalystLastName());
+    values.insert(DBConstants::COL_ANALYST_FIRSTNAME, viewCon->getAnalystFirstName());
+    values.insert(DBConstants::COL_ANALYST_EXPERIENCE, viewCon->getAnalystExperience());
+    values.insert(DBConstants::COL_ANALYST_EMPLOYER_ID, saveEmployer());
+    return save(DB_TABLES::ANALYST, filter, DBConstants::COL_ANALYST_ID, DBConstants::LIST_ANALYST_COLS, DBConstants::LIST_ANALYST_TYPES, values);
 }
 
 void Controller::updateEmployer(int id){
     if(id <= 0){
-        viewCon->setAnalyst(viewCon->getAnalystLastName(), viewCon->getAnalystFirstName(), "", viewCon->getAnalystExperience());
+        viewCon->setEmployer("");
     }
     else{
         dbHandler->select(DB_TABLES::EMPLOYER, QString("%1 = %2").arg(DBConstants::COL_EMPLOYER_ID).arg(QString::number(id)));
         QSqlRecord record = dbHandler->record(DB_TABLES::EMPLOYER, 0);
-        viewCon->setAnalyst(viewCon->getAnalystLastName(),
-                            viewCon->getAnalystFirstName(),
-                            record.value(DBConstants::COL_EMPLOYER_NAME).toString(),
-                            viewCon->getAnalystExperience());
+        viewCon->setEmployer(record.value(DBConstants::COL_EMPLOYER_NAME).toString());
     }
 }
 
 int Controller::saveEmployer(){
-    DB_TABLES tbl = DB_TABLES::EMPLOYER;
     QString filter = QString("%1 = '%2'").arg(DBConstants::COL_EMPLOYER_NAME).arg(viewCon->getAnalystEmployer());
-    dbHandler->select(tbl, filter);
-    int id;
-    QSqlRecord record;
-    bool toInsert = false;
-    if(dbHandler->rowCount(tbl) == 0){
-        toInsert = true;
-        id = dbHandler->getNextID(tbl, DBConstants::COL_EMPLOYER_ID);
-        record.append(QSqlField(DBConstants::COL_EMPLOYER_ID, QVariant::Int));
-        record.append(QSqlField(DBConstants::COL_EMPLOYER_NAME, QVariant::String));
-    }
-    else {
-        record = dbHandler->record(tbl, 0);
-        id = record.value(DBConstants::COL_EMPLOYER_ID).toInt();
-    }
-    record.setValue(DBConstants::COL_EMPLOYER_ID, id);
-    record.setValue(DBConstants::COL_EMPLOYER_NAME, viewCon->getAnalystEmployer());
 
-    if(toInsert)
-        dbHandler->insertRow(tbl, record);
-    else
-        dbHandler->updateRow(tbl, 0, record);
-    return id;
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_EMPLOYER_NAME, viewCon->getAnalystEmployer());
+    return save(DB_TABLES::EMPLOYER, filter, DBConstants::COL_EMPLOYER_ID, DBConstants::LIST_EMPLOYER_COLS, DBConstants::LIST_EMPLOYER_TYPES, values);
 }
 
 void Controller::updateCorporation(int id){

@@ -5,6 +5,7 @@
 #include <databaseHandler/dbhandler.h>
 #include <view/viewcontroller.h>
 #include <QSqlField>
+#include <QHash>
 
 class Controller : QObject
 {
@@ -24,6 +25,8 @@ private:
     DBHandler *dbHandler;
     ViewController *viewCon;
     int recording_ID;
+
+    int save(DB_TABLES tbl, const QString &filter, const QString &colID, const QStringList &colNames, const QList<QVariant::Type> &colTypes, QHash<QString, QVariant> &colMapNameValue);
 
     void updateAnalyst(int id);
     int saveAnalyst();

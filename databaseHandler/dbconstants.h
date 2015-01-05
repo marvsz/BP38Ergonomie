@@ -2,6 +2,9 @@
 #define DBCONSTANTS_H
 
 #include <QString>
+#include <QStringList>
+#include <QList>
+#include <QVariant>
 
 enum DB_TABLES {ANALYST, EMPLOYER, CORPORATION, FACTORY, RECORDING};
 
@@ -18,11 +21,15 @@ public:
     static const QString COL_ANALYST_EXPERIENCE;
     static const QString COL_ANALYST_EMPLOYER_ID;
     static const QString COL_ANALYST_CORPORATION_ID;
+    static const QStringList LIST_ANALYST_COLS;
+    static const QList<QVariant::Type> LIST_ANALYST_TYPES;
 
     //Employer
     static const QString TBL_EMPLOYER;
     static const QString COL_EMPLOYER_ID;
     static const QString COL_EMPLOYER_NAME;
+    static const QStringList LIST_EMPLOYER_COLS;
+    static const QList<QVariant::Type> LIST_EMPLOYER_TYPES;
 
     //Corporation
     static const QString TBL_CORPORATION;
@@ -49,7 +56,6 @@ public:
     static const QString COL_RECORDING_END;
     static const QString COL_RECORDING_FACTORY_ID;
     static const QString COL_RECORDING_ANALYST_ID;
-
 
 };
 

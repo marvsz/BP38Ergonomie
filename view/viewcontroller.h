@@ -43,7 +43,8 @@ public slots:
     void setMetaDataView();
     void setDocumentationView();
 
-    void setAnalyst(const QString &lastName, const QString &firstName, const QString &employer, const QString &experience);
+    void setAnalyst(const QString &lastName, const QString &firstName, const QString &experience);
+    void setEmployer(const QString &employer);
     void setCorporation(const QString &name);
     void setFactory(const QString &name, const QString &street, int zip, const QString &city, const QString &country, const QString &contact, int employeeCount);
     void setRecordTime(const QDateTime &begin, const QDateTime &end);

@@ -1,5 +1,7 @@
 #include "dbconstants.h"
 
+
+
 //Analyst
 const QString DBConstants::TBL_ANALYST = "Analyst";
 const QString DBConstants::COL_ANALYST_ID = "analyst_ID";
@@ -8,11 +10,15 @@ const QString DBConstants::COL_ANALYST_FIRSTNAME = "analyst_first_name";
 const QString DBConstants::COL_ANALYST_EXPERIENCE = "analyst_experience";
 const QString DBConstants::COL_ANALYST_EMPLOYER_ID = "employer_ID";
 const QString DBConstants::COL_ANALYST_CORPORATION_ID = "corporation_ID";
+const QStringList DBConstants::LIST_ANALYST_COLS = QStringList()<<DBConstants::COL_ANALYST_ID<<DBConstants::COL_ANALYST_LASTNAME<<DBConstants::COL_ANALYST_FIRSTNAME<<DBConstants::COL_ANALYST_EXPERIENCE<<DBConstants::COL_ANALYST_EMPLOYER_ID;
+const QList<QVariant::Type> DBConstants::LIST_ANALYST_TYPES = QList<QVariant::Type>()<<QVariant::Int<<QVariant::String<<QVariant::String<<QVariant::String<<QVariant::Int;
 
 //Employer
 const QString DBConstants::TBL_EMPLOYER = "Employer";
 const QString DBConstants::COL_EMPLOYER_ID = "employer_ID";
 const QString DBConstants::COL_EMPLOYER_NAME = "employer_name";
+const QStringList DBConstants::LIST_EMPLOYER_COLS = QStringList()<<DBConstants::COL_EMPLOYER_ID<<DBConstants::COL_EMPLOYER_NAME;
+const QList<QVariant::Type> DBConstants::LIST_EMPLOYER_TYPES = QList<QVariant::Type>()<<QVariant::Int<<QVariant::String;
 
 //Corporation
 const QString DBConstants::TBL_CORPORATION = "Corporation";

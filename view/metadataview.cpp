@@ -25,8 +25,8 @@ MetaDataView::MetaDataView(QWidget *parent) :
     lblFactory(new QLabel("Werk", this)),
     lblFactoryName(new QLabel("Name:", this)),
     lblFactoryStreet(new QLabel("Straße:", this)),
-    lblFactoryCity(new QLabel("Stadt:", this)),
     lblFactoryZip(new QLabel("PLZ:", this)),
+    lblFactoryCity(new QLabel("Stadt:", this)),
     lblFactoryCountry(new QLabel("Land:", this)),
     lblFactoryContact(new QLabel("Kontakt:", this)),
     lblFactoryEmployeeCount(new QLabel("Mitarbeiter:", this)),
@@ -185,11 +185,14 @@ QDateTime MetaDataView::getRecordTimeEnd() const {
 
 // SETTER SLOTS
 
-void MetaDataView::setAnalyst(const QString &lastName, const QString &firstName, const QString &employer, const QString &experience){
+void MetaDataView::setAnalyst(const QString &lastName, const QString &firstName, const QString &experience){
     txtBxAnalystLastName->setText(lastName);
     txtBxAnalystFirstName->setText(firstName);
-    txtBxAnalystEmployer->setText(employer);
     txtBxAnalystExperience->setText(experience);
+}
+
+void MetaDataView::setEmployer(const QString &employer){
+    txtBxAnalystEmployer->setText(employer);
 }
 
 void MetaDataView::setCorporation(const QString &name){

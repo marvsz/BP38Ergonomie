@@ -101,8 +101,12 @@ QDateTime ViewController::getRecordTimeEnd() const {
 
 // SETTER SLOTS
 
-void ViewController::setAnalyst(const QString &lastName, const QString &firstName, const QString &employer, const QString &experience){
-    metaDataView->setAnalyst(lastName, firstName, employer, experience);
+void ViewController::setAnalyst(const QString &lastName, const QString &firstName, const QString &experience){
+    metaDataView->setAnalyst(lastName, firstName, experience);
+}
+
+void ViewController::setEmployer(const QString &employer){
+    metaDataView->setEmployer(employer);
 }
 
 void ViewController::setCorporation(const QString &name){
