@@ -4,6 +4,7 @@
 #include <QStackedWidget>
 #include "mainmenu.h"
 #include "metadataview.h"
+#include "workplacelistview.h"
 #include "documentationview.h"
 
 class ViewController : public QStackedWidget
@@ -14,7 +15,8 @@ public:
 
     static const int MAIN_MENU_VIEW = 0;
     static const int METADATA_VIEW = 1;
-    static const int DOCUMENTATION_VIEW = 2;
+    static const int WORKPLACELIST_VIEW = 2;
+    static const int DOCUMENTATION_VIEW = 3;
 
     QString getAnalystLastName() const;
     QString getAnalystFirstName() const;
@@ -37,11 +39,9 @@ public:
 signals:
     void saveMetaData();
     void updateMetaData();
+    void updateWorkplaceList();
 
 public slots:
-    void setMainMenuView();
-    void setMetaDataView();
-    void setDocumentationView();
 
     void setAnalyst(const QString &lastName, const QString &firstName, const QString &experience);
     void setEmployer(const QString &employer);
@@ -50,11 +50,20 @@ public slots:
     void setRecordTime(const QDateTime &begin, const QDateTime &end);
 
 private slots:
+    void setMainMenuView();
+    void setMetaDataView();
+    void setWorkplaceListView();
+    void setDocumentationView();
+    void setWorkplaceListPreviousView();
+
     void saveMetaDataRequested();
+    void saveWorkplaceListRequested();
 
 private:
+    int previousView;
     MainMenu *mainMenuView;
     MetaDataView *metaDataView;
+    WorkplaceListView *workplaceListView;
     DocumentationView *documentationView;
 };
 

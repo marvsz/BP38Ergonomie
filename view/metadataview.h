@@ -34,6 +34,7 @@ public:
 signals:
     void showMainMenu();
     void saveMetaData();
+    void showWorkplaceListView();
 
 public slots:
     void setAnalyst(const QString &lastName, const QString &firstName, const QString &experience);
@@ -45,6 +46,7 @@ public slots:
 private slots:
 
     void backButtonClicked();
+    void forwardButtonClicked();
 
 private:
 

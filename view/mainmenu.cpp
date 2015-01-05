@@ -15,10 +15,10 @@ MainMenu::MainMenu(QWidget *parent) :
     metaDataViewBtn->setMinimumSize(300, 60);
     connect(metaDataViewBtn, SIGNAL(clicked()), this, SLOT(openMetaDataView()));
 
-    newWorkplaceBtn = new QPushButton(this);
-    newWorkplaceBtn->setText("Neuer Arbeitsplatz");
-    newWorkplaceBtn->setMinimumSize(300, 60);
-    connect(newWorkplaceBtn, SIGNAL(clicked()), this, SLOT(openNewWorkplaceView()));
+    workplaceListBtn = new QPushButton(this);
+    workplaceListBtn->setText("Arbeitsplätze");
+    workplaceListBtn->setMinimumSize(300, 60);
+    connect(workplaceListBtn, SIGNAL(clicked()), this, SLOT(openWorkplaceListView()));
 
     newRecordingBtn = new QPushButton(this);
     newRecordingBtn->setText("Neue Aufnahme");
@@ -28,7 +28,7 @@ MainMenu::MainMenu(QWidget *parent) :
     groupLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
     groupLayout->addWidget(metaDataViewBtn, 0, Qt::AlignCenter);
     groupLayout->addSpacerItem(new QSpacerItem(0,60, QSizePolicy::Minimum, QSizePolicy::Fixed));
-    groupLayout->addWidget(newWorkplaceBtn, 0, Qt::AlignCenter);
+    groupLayout->addWidget(workplaceListBtn, 0, Qt::AlignCenter);
     groupLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
     groupLayout->addWidget(newRecordingBtn, 0, Qt::AlignCenter);
     groupLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Expanding));
@@ -41,8 +41,8 @@ void MainMenu::openMetaDataView(){
     emit metaDataViewSelected();
 }
 
-void MainMenu::openNewWorkplaceView(){
-    emit newWorkplaceViewSelected();
+void MainMenu::openWorkplaceListView(){
+    emit workplaceListViewSelected();
 }
 
 void MainMenu::openNewRecordingView(){

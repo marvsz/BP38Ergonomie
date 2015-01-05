@@ -20,6 +20,8 @@
 	<string>1.0</string>
 	<key>CFBundleGetInfoString</key>
 	<string>Lastenhandhabung</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
 	<key>CFBundleIconFiles</key>
 	<array>
 		<string>ios/icons/iTunesArtwork@2x.png</string>

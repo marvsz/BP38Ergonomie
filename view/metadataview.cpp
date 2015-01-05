@@ -51,6 +51,7 @@ MetaDataView::MetaDataView(QWidget *parent) :
     btnBack->setObjectName("btnNavigation");
     connect(btnBack, SIGNAL(clicked()), this, SLOT(backButtonClicked()));
     btnForward->setObjectName("btnNavigation");
+    connect(btnForward, SIGNAL(clicked()), this, SLOT(forwardButtonClicked()));
     txtBxCorpName->setMaximumWidth(350);
 
 
@@ -100,7 +101,6 @@ MetaDataView::MetaDataView(QWidget *parent) :
 
     mainLayout->addWidget(lblAnalyst);
     mainLayout->addLayout(analystLayout);
-    mainLayout->addLayout(analystLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
 
     mainLayout->addWidget(lblCorporation);
@@ -108,8 +108,6 @@ MetaDataView::MetaDataView(QWidget *parent) :
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
 
     mainLayout->addWidget(lblFactory);
-    mainLayout->addLayout(factoryLayout);
-    mainLayout->addLayout(factoryLayout);
     mainLayout->addLayout(factoryLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
 
@@ -124,6 +122,10 @@ void MetaDataView::backButtonClicked(){
     emit showMainMenu();
 }
 
+void MetaDataView::forwardButtonClicked(){
+    emit saveMetaData();
+    emit showWorkplaceListView();
+}
 
 // GETTER
 

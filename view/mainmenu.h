@@ -13,17 +13,17 @@ public:
 
 signals:
     void metaDataViewSelected();
-    void newWorkplaceViewSelected();
+    void workplaceListViewSelected();
     void newRecordingViewSelected();
 
 public slots:
     void openMetaDataView();
-    void openNewWorkplaceView();
+    void openWorkplaceListView();
     void openNewRecordingView();
 
 private:
     QPushButton *metaDataViewBtn;
-    QPushButton *newWorkplaceBtn;
+    QPushButton *workplaceListBtn;
     QPushButton *newRecordingBtn;
 };
 

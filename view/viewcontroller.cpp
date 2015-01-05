@@ -3,37 +3,67 @@
 ViewController::ViewController(QWidget *parent) :
     QStackedWidget(parent)
 {
+    previousView = ViewController::MAIN_MENU_VIEW;
     mainMenuView = new MainMenu;
     metaDataView = new MetaDataView;
+    workplaceListView = new WorkplaceListView;
     documentationView = new DocumentationView;
 
     connect(mainMenuView, SIGNAL(metaDataViewSelected()), this, SLOT(setMetaDataView()));
+    connect(mainMenuView, SIGNAL(workplaceListViewSelected()), this, SLOT(setWorkplaceListView()));
     connect(mainMenuView, SIGNAL(newRecordingViewSelected()), this, SLOT(setDocumentationView()));
 
     connect(metaDataView, SIGNAL(showMainMenu()), this, SLOT(setMainMenuView()));
+    connect(metaDataView, SIGNAL(showWorkplaceListView()), this, SLOT(setWorkplaceListView()));
     connect(metaDataView, SIGNAL(saveMetaData()), this, SLOT(saveMetaDataRequested()));
+
+    connect(workplaceListView, SIGNAL(showPreviousView()), this, SLOT(setWorkplaceListPreviousView()));
     connect(documentationView, SIGNAL(showMainMenu()), this, SLOT(setMainMenuView()));
 
     this->addWidget(mainMenuView);
     this->addWidget(metaDataView);
+    this->addWidget(workplaceListView);
     this->addWidget(documentationView);
 
     setCurrentIndex(ViewController::MAIN_MENU_VIEW);
 }
 
 void ViewController::setMainMenuView(){
+    previousView = currentIndex();
     setCurrentIndex(ViewController::MAIN_MENU_VIEW);
 }
 
 void ViewController::setMetaDataView(){
+    previousView = currentIndex();
     setCurrentIndex(ViewController::METADATA_VIEW);
     emit updateMetaData();
 }
 
+void ViewController::setWorkplaceListView(){
+    previousView = currentIndex();
+    setCurrentIndex(ViewController::WORKPLACELIST_VIEW);
+    if(previousView == ViewController::METADATA_VIEW)
+        emit updateMetaData();
+}
+
 void ViewController::setDocumentationView(){
+    previousView = currentIndex();
     setCurrentIndex(ViewController::DOCUMENTATION_VIEW);
 }
 
+void ViewController::setWorkplaceListPreviousView(){
+    if(previousView == ViewController::MAIN_MENU_VIEW){
+        setMainMenuView();
+    }
+    else if (previousView == ViewController::METADATA_VIEW){
+        setMetaDataView();
+    }
+}
+
+// WORKPLACELISTVIEW GETTER/SETTER
+void ViewController::saveWorkplaceListRequested(){
+
+}
 
 // METADATAVIEW GETTER/SETTER
 
