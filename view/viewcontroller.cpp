@@ -3,67 +3,72 @@
 ViewController::ViewController(QWidget *parent) :
     QStackedWidget(parent)
 {
-    previousView = ViewController::MAIN_MENU_VIEW;
+    previousViews = new QStack<int>();
     mainMenuView = new MainMenu;
     metaDataView = new MetaDataView;
     workplaceListView = new WorkplaceListView;
+    workplaceView = new WorkplaceView;
+    lineView = new LineView;
+    employeeView = new EmployeeView;
     documentationView = new DocumentationView;
 
-    connect(mainMenuView, SIGNAL(metaDataViewSelected()), this, SLOT(setMetaDataView()));
-    connect(mainMenuView, SIGNAL(workplaceListViewSelected()), this, SLOT(setWorkplaceListView()));
-    connect(mainMenuView, SIGNAL(newRecordingViewSelected()), this, SLOT(setDocumentationView()));
+    // MAIN MENU
+    connect(mainMenuView, SIGNAL(metaDataViewSelected()), this, SLOT(goToMetaDataView()));
+    connect(mainMenuView, SIGNAL(workplaceListViewSelected()), this, SLOT(goToWorkplaceListView()));
+    connect(mainMenuView, SIGNAL(newRecordingViewSelected()), this, SLOT(goToDocumentationView()));
 
-    connect(metaDataView, SIGNAL(showMainMenu()), this, SLOT(setMainMenuView()));
-    connect(metaDataView, SIGNAL(showWorkplaceListView()), this, SLOT(setWorkplaceListView()));
+    // METADATA VIEW
+    connect(metaDataView, SIGNAL(showMainMenu()), this, SLOT(backToView()));
+    connect(metaDataView, SIGNAL(showWorkplaceListView()), this, SLOT(goToWorkplaceListView()));
     connect(metaDataView, SIGNAL(saveMetaData()), this, SLOT(saveMetaDataRequested()));
 
-    connect(workplaceListView, SIGNAL(showPreviousView()), this, SLOT(setWorkplaceListPreviousView()));
-    connect(documentationView, SIGNAL(showMainMenu()), this, SLOT(setMainMenuView()));
+    // WORKPLACE LIST VIEW
+    connect(workplaceListView, SIGNAL(showPreviousView()), this, SLOT(backToView()));
+    connect(workplaceListView, SIGNAL(showNewWorkplaceView()), this, SLOT(goToWorkplaceView()));
 
+    // WORKPLACE VIEW
+    connect(workplaceView, SIGNAL(showPreviousView()), this, SLOT(backToView()));
+    connect(workplaceView, SIGNAL(showWorkprocessView()), this, SLOT(goToDocumentationView()));
+
+    // DOCUMENTATION VIEW
+    connect(documentationView, SIGNAL(showPreviousView()), this, SLOT(backToView()));
+
+    // ADD ALL VIEWS
     this->addWidget(mainMenuView);
     this->addWidget(metaDataView);
     this->addWidget(workplaceListView);
+    this->addWidget(workplaceView);
+    this->addWidget(lineView);
+    this->addWidget(employeeView);
     this->addWidget(documentationView);
 
     setCurrentIndex(ViewController::MAIN_MENU_VIEW);
 }
 
-void ViewController::setMainMenuView(){
-    previousView = currentIndex();
-    setCurrentIndex(ViewController::MAIN_MENU_VIEW);
+void ViewController::goToMetaDataView(){
+    goToView(ViewController::METADATA_VIEW);
 }
 
-void ViewController::setMetaDataView(){
-    previousView = currentIndex();
-    setCurrentIndex(ViewController::METADATA_VIEW);
-    emit updateMetaData();
+void ViewController::goToWorkplaceListView(){
+    goToView(ViewController::WORKPLACELIST_VIEW);
 }
 
-void ViewController::setWorkplaceListView(){
-    previousView = currentIndex();
-    setCurrentIndex(ViewController::WORKPLACELIST_VIEW);
-    if(previousView == ViewController::METADATA_VIEW)
-        emit updateMetaData();
+void ViewController::goToWorkplaceView(){
+    goToView(ViewController::WORKPLACE_VIEW);
 }
 
-void ViewController::setDocumentationView(){
-    previousView = currentIndex();
-    setCurrentIndex(ViewController::DOCUMENTATION_VIEW);
+void ViewController::goToLineView(){
+    goToView(ViewController::LINE_VIEW);
 }
 
-void ViewController::setWorkplaceListPreviousView(){
-    if(previousView == ViewController::MAIN_MENU_VIEW){
-        setMainMenuView();
-    }
-    else if (previousView == ViewController::METADATA_VIEW){
-        setMetaDataView();
-    }
+void ViewController::goToEmployeeView(){
+    goToView(ViewController::EMPLOYEE_VIEW);
 }
 
-// WORKPLACELISTVIEW GETTER/SETTER
-void ViewController::saveWorkplaceListRequested(){
-
+void ViewController::goToDocumentationView(){
+    goToView(ViewController::DOCUMENTATION_VIEW);
 }
+
 
 // METADATAVIEW GETTER/SETTER
 
@@ -149,4 +154,14 @@ void ViewController::setFactory(const QString &name, const QString &street, int 
 
 void ViewController::setRecordTime(const QDateTime &begin, const QDateTime &end){
     metaDataView->setRecordTime(begin, end);
+}
+
+// SET VIEWS AND PUSH/POP
+void ViewController::backToView(){
+    ViewController::setCurrentIndex(previousViews->pop());
+}
+
+void ViewController::goToView(int index){
+    previousViews->push(currentIndex());
+    setCurrentIndex(index);
 }

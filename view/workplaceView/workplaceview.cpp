@@ -7,7 +7,7 @@
 WorkplaceView::WorkplaceView(QWidget *parent) :
     QWidget(parent),
     id(-1),
-    lblViewDescription(new QLabel("Arbeitsplatz:")),
+    lblViewDescription(new QLabel("Arbeitsplatz")),
     lblName(new QLabel("Bezeichnung:")),
     lblDescription(new QLabel("Beschreibung:")),
     lblCode(new QLabel("Arbeitsplatz Code:")),
@@ -20,9 +20,14 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     btnSave(new QPushButton("Speichern")),
     btnGoOnWithWorkProcesses(new QPushButton("Weiter zu den Arbeitsvorgängen"))
 {
-    QHBoxLayout *navigationBarLayout = new QHBoxLayout;
-    navigationBarLayout->addWidget(btnCancel, 0, Qt::AlignLeft);
-    navigationBarLayout->addWidget(lblViewDescription, 0, Qt::AlignHCenter);
+    connect(btnCancel, SIGNAL(clicked()), this, SLOT(btnCancelClicked()));
+    connect(btnGoOnWithWorkProcesses, SIGNAL(clicked()), this, SLOT(btnGoOnWithWorkProcessesClicked()));
+    btnCancel->setObjectName("btnNavigation");
+
+    QGridLayout *navigationBarLayout = new QGridLayout;
+    navigationBarLayout->addWidget(btnCancel, 0, 0, 1, 1, Qt::AlignLeft);
+    navigationBarLayout->addWidget(lblViewDescription, 0, 1, 1, 1, Qt::AlignCenter);
+    navigationBarLayout->addWidget(new QLabel(), 0, 2, 1, 1, Qt::AlignRight);
 
     QGridLayout *workplaceMetaDataLayout = new QGridLayout;
     workplaceMetaDataLayout->addWidget(lblName, 0, 0, 1, 1, 0);
@@ -48,6 +53,7 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     mainLayout->addLayout(additionsLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(bottomLineLayout);
+    mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
     setLayout(mainLayout);
 }
@@ -74,9 +80,9 @@ void WorkplaceView::WorkplaceView::btnSaveClicked(){
 }
 
 void WorkplaceView::WorkplaceView::btnCancelClicked(){
-    emit cancle();
+    emit showPreviousView();
 }
 
 void WorkplaceView::WorkplaceView::btnGoOnWithWorkProcessesClicked(){
-    emit goOnToWorkProcesses();
+    emit showWorkprocessView();
 }

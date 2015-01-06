@@ -16,8 +16,8 @@ public:
 signals:
     void save(int id);
     void save();
-    void goOnToWorkProcesses();
-    void cancle();
+    void showWorkprocessView();
+    void showPreviousView();
 
 public slots:
     void setWorkplaceMetaData(const QString &name, const QString &description, const QString &code, int percentageWoman);

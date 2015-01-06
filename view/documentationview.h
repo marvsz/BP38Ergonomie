@@ -28,7 +28,7 @@ public:
     explicit DocumentationView(QWidget *parent = 0);
 
 signals:
-    void showMainMenu();
+    void showPreviousView();
 
 public slots:
 
