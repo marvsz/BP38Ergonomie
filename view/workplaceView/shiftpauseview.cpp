@@ -3,11 +3,11 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include "separator.h"
-#include "shiftandpausedata.h"
+#include "shiftpauseview.h"
 
 
 
-ShiftAndPauseData::ShiftAndPauseData(QWidget *parent) :
+ShiftPauseView::ShiftPauseView(QWidget *parent) :
     QWidget(parent),
     btnBack(new QPushButton("Zurück", this)),
     lblViewDescription(new QLabel("Schicht- & Pausendaten", this)),
@@ -61,8 +61,8 @@ ShiftAndPauseData::ShiftAndPauseData(QWidget *parent) :
     shiftLayout->addWidget(lblShiftEnd,1,2,1,1,0);
     shiftLayout->addWidget(timeShiftEnd,1,3,1,1,0);
     shiftLayout->addItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed), 1, 4, 1, 1, 0);
-    shiftLayout->addWidget(lblQuantity,1,5,1,1,0);
-    shiftLayout->addWidget(txtQuantity,1,6,1,1,0);
+    //shiftLayout->addWidget(lblQuantity,1,5,1,1,0);
+    //shiftLayout->addWidget(txtQuantity,1,6,1,1,0);
 
     allowedTimeLayout->addWidget(lblSetupTime);
     allowedTimeLayout->addWidget(timeSetupTime);
@@ -103,7 +103,7 @@ ShiftAndPauseData::ShiftAndPauseData(QWidget *parent) :
 
 }
 
-void ShiftAndPauseData::backButtonClicked(){
-    /*emit saveShiftAndPauseData();
+void ShiftPauseView::backButtonClicked(){
+    /*emit saveShiftPauseView();
     emit showMetadataView();*/
 }

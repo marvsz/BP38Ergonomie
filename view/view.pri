@@ -43,7 +43,6 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/workplaceView/commentview.h \
     $$PWD/workplaceView/productview.h \
     $$PWD/timelineedit.h \
-    $$PWD/detailedlistitem.h \
     $$PWD/workplaceView/shiftpauseview.h
 
 
@@ -87,7 +86,6 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/workplaceView/commentview.cpp \
     $$PWD/workplaceView/productview.cpp \
     $$PWD/timelineedit.cpp \
-    $$PWD/detailedlistitem.cpp \
     $$PWD/workplaceView/shiftpauseview.cpp
 
 

@@ -1,5 +1,5 @@
 #ifndef SHIFTPAUSEVIEW_H
-#define SHIFTPAUSEVIEW
+#define SHIFTPAUSEVIEW_H
 
 #include <QWidget>
 #include <QString>
