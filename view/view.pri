@@ -34,14 +34,16 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/avrecordcontrol.h \
     $$PWD/metadataview.h \
     $$PWD/workplacelistview.h \
-    $$PWD/workplaceView/workplaceview.h\
+    $$PWD/workplaceView/workplaceview.h \
     $$PWD/workplaceView/lineview.h \
     $$PWD/textedit.h \
-    $$PWD/workplaceView/employeeview.h\
+    $$PWD/workplaceView/employeeview.h \
     $$PWD/workplaceView/workplacelistview.h \
     $$PWD/detailedlistitem.h \
     $$PWD/workplaceView/commentview.h \
-    $$PWD/workplaceView/productview.h
+    $$PWD/workplaceView/productview.h \
+    $$PWD/timelineedit.h \
+    $$PWD/workplaceView/shiftandpausedata.h
 
 
 SOURCES += $$PWD/angleView/variant.cpp\
@@ -82,7 +84,9 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/workplaceView/employeeview.cpp\
     $$PWD/detailedlistitem.cpp \
     $$PWD/workplaceView/commentview.cpp \
-    $$PWD/workplaceView/productview.cpp
+    $$PWD/workplaceView/productview.cpp \
+    $$PWD/timelineedit.cpp \
+    $$PWD/workplaceView/shiftandpausedata.cpp
 
 
 

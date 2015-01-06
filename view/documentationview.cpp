@@ -133,5 +133,5 @@ void DocumentationView::minimizeBtnTimeLineView(){
 }
 
 void DocumentationView::backButtonClicked(){
-    emit showMainMenu();
+    emit showPreviousView();
 }

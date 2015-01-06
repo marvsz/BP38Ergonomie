@@ -2,9 +2,13 @@
 #define VIEWCONTROLLER_H
 
 #include <QStackedWidget>
+#include <QStack>
 #include "mainmenu.h"
 #include "metadataview.h"
 #include "workplaceView/workplacelistview.h"
+#include "workplaceView/workplaceview.h"
+#include "workplaceView/lineview.h"
+#include "workplaceView/employeeview.h"
 #include "documentationview.h"
 
 class ViewController : public QStackedWidget
@@ -16,7 +20,13 @@ public:
     static const int MAIN_MENU_VIEW = 0;
     static const int METADATA_VIEW = 1;
     static const int WORKPLACELIST_VIEW = 2;
-    static const int DOCUMENTATION_VIEW = 3;
+    static const int WORKPLACE_VIEW = 3;
+    static const int LINE_VIEW = 4;
+    static const int SHIFTPAUSE_VIEW = 5;
+    static const int EMPLOYEE_VIEW = 6;
+    static const int PRODUCT_VIEW = 7;
+    static const int COMMENT_VIEW = 8;
+    static const int DOCUMENTATION_VIEW = 9;
 
     QString getAnalystLastName() const;
     QString getAnalystFirstName() const;
@@ -50,21 +60,32 @@ public slots:
     void setRecordTime(const QDateTime &begin, const QDateTime &end);
 
 private slots:
-    void setMainMenuView();
-    void setMetaDataView();
-    void setWorkplaceListView();
-    void setDocumentationView();
-    void setWorkplaceListPreviousView();
+
+    void goToMetaDataView();
+    void goToWorkplaceListView();
+    void goToWorkplaceView();
+    void goToLineView();
+    void goToShiftAndPauseView();
+    void goToEmployeeView();
+    void goToProductView();
+    void goToCommentView();
+    void goToDocumentationView();
 
     void saveMetaDataRequested();
-    void saveWorkplaceListRequested();
+    void backToView();
 
 private:
-    int previousView;
+    QStack<int> *previousViews;
     MainMenu *mainMenuView;
     MetaDataView *metaDataView;
     WorkplaceListView *workplaceListView;
+    WorkplaceView *workplaceView;
+    LineView *lineView;
+
+    EmployeeView *employeeView;
     DocumentationView *documentationView;
+
+    void goToView(int index);
 };
 
 #endif // VIEWCONTROLLER_H

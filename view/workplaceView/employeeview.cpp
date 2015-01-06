@@ -2,6 +2,7 @@
 #include "QGridLayout"
 #include "QVBoxLayout"
 #include "QHBoxLayout"
+#include <QSpacerItem>
 #include "separator.h"
 
 EmployeeView::EmployeeView(QWidget *parent) : QWidget(parent),
@@ -9,7 +10,6 @@ EmployeeView::EmployeeView(QWidget *parent) : QWidget(parent),
     lblGender(new QLabel("Geschlecht:")),
     lblStaffNumber(new QLabel("Personalnummer:")),
     lblNote(new QLabel("Anmerkung:")),
-    oscGender(new OptionSelectionControl(genderTextValues)),
     vcAge(new ValueControl(VariantControl::VALUE_CONTROL)),
     vcHeight(new ValueControl(VariantControl::VALUE_CONTROL)),
     txtBxStaffNumber(new TextLineEdit()),
@@ -26,9 +26,12 @@ EmployeeView::EmployeeView(QWidget *parent) : QWidget(parent),
     vcHeight->setValues(100, 220, heightValues, new QString(""));
     vcHeight->setValue(175);
 
-    QHBoxLayout *navigationBarLayout = new QHBoxLayout();
-    navigationBarLayout->addWidget(btnBack, 0, Qt::AlignLeft);
-    navigationBarLayout->addWidget(lblViewName, 0, Qt::AlignHCenter);
+    oscGender= new OptionSelectionControl(genderTextValues);
+
+    QGridLayout *navigationBarLayout = new QGridLayout();
+    navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
+    navigationBarLayout->addWidget(lblViewName, 0, 1, 1, 1, Qt::AlignCenter);
+    navigationBarLayout->addItem(new QSpacerItem(10,0, QSizePolicy::Expanding, QSizePolicy::Fixed), 0, 2, 1, 1, 0);
 
     QGridLayout *employeeDataLayout = new QGridLayout();
     employeeDataLayout->addWidget(lblGender, 0, 0, 1, 1, 0);
@@ -47,7 +50,7 @@ EmployeeView::EmployeeView(QWidget *parent) : QWidget(parent),
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(employeeDataLayout);
-    mainLayout->addItem(new QSpacerItem(0, 10, QSizePolicy::Expanding, QSizePolicy::Expanding));
+    mainLayout->addSpacerItem(new QSpacerItem(0, 10, QSizePolicy::Expanding, QSizePolicy::Expanding));
 }
 
 EmployeeView::~EmployeeView()
