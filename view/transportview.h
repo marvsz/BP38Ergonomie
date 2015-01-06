@@ -8,10 +8,6 @@
 #include <QGroupBox>
 #include "valuecontrol.h"
 #include "transportationlistcontrol.h"
-#include "anglecontrol.h"
-#include "variantspecification.h"
-#include "variant.h"
-#include "subvariant.h"
 
 namespace Ui {
 class TransportView;

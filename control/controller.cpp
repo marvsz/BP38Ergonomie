@@ -10,7 +10,7 @@ Controller::Controller(QObject *parent) :
 
     connect(viewCon, SIGNAL(updateMetaData()), this, SLOT(updateMetaDataView()));
     connect(viewCon, SIGNAL(saveMetaData()), this, SLOT(saveMetaDataView()));
-    recording_ID = 0;
+    recording_ID = 1;
 }
 
 

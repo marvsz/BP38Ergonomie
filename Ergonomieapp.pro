@@ -1,7 +1,7 @@
 include(view/view.pri)
-include(model/model.pri)
 include(control/control.pri)
 include(databaseHandler/databaseHandler.pri)
+
 QT       += core gui quick qml multimedia sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets

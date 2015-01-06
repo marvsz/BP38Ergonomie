@@ -2,16 +2,16 @@ INCLUDEPATH +=$$PWD
 DEPENDPATH += $$PWD
 CURRENT_DIR = $$PWD
 
-HEADERS += $$CURRENT_DIR/variant.h\
-$$CURRENT_DIR/subvariant.h\
-$$CURRENT_DIR/variantcon.h\
-$$CURRENT_DIR/variantspecification.h\
+HEADERS += $$PWD/angleView/variant.h\
+$$PWD/angleView/subvariant.h\
+$$PWD/angleView/variantcon.h\
+$$PWD/angleView/variantspecification.h\
 $$CURRENT_DIR/selectablevaluebutton.h\
-$$CURRENT_DIR/anglecontrol.h\
+$$PWD/angleView/anglecontrol.h\
 $$CURRENT_DIR/valuecontrol.h\
 $$CURRENT_DIR/separator.h\
 $$CURRENT_DIR/mainmenu.h\
-$$CURRENT_DIR/angleview.h\
+$$PWD/angleView/angleview.h\
 $$CURRENT_DIR/transportview.h\
 $$CURRENT_DIR/viewcontroller.h\
 $$CURRENT_DIR/transportationlistcontrol.h \
@@ -33,21 +33,22 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/graphtimelineview.h \
     $$PWD/avrecordcontrol.h \
     $$PWD/metadataview.h \
-    $$PWD/workplacelistview.h
+    $$PWD/workplacelistview.h \
+    $$PWD/workplaceView/workplaceview.h
 
 
-SOURCES += $$CURRENT_DIR/variant.cpp\
-$$CURRENT_DIR/subvariant.cpp\
-$$CURRENT_DIR/variantcon.cpp\
-$$CURRENT_DIR/variantspecification.cpp\
+SOURCES += $$PWD/angleView/variant.cpp\
+$$PWD/angleView/subvariant.cpp\
+$$PWD/angleView/variantcon.cpp\
+$$PWD/angleView/variantspecification.cpp\
 $$CURRENT_DIR/selectablevaluebutton.cpp\
-$$CURRENT_DIR/anglecontrol.cpp\
+$$PWD/angleView/anglecontrol.cpp\
 $$CURRENT_DIR/valuecontrol.cpp\
 $$CURRENT_DIR/separator.cpp\
 $$CURRENT_DIR/transportview.cpp\
 $$CURRENT_DIR/viewcontroller.cpp\
 $$CURRENT_DIR/mainmenu.cpp\
-$$CURRENT_DIR/angleview.cpp \
+$$PWD/angleView/angleview.cpp \
 $$CURRENT_DIR/transportationlistcontrol.cpp\
 $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/actionforceview.cpp \
@@ -67,6 +68,7 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/graphtimelineview.cpp \
     $$PWD/avrecordcontrol.cpp \
     $$PWD/metadataview.cpp \
-    $$PWD/workplacelistview.cpp
+    $$PWD/workplacelistview.cpp \
+    $$PWD/workplaceView/workplaceview.cpp
 
 

@@ -26,11 +26,16 @@ public:
     
 private:
     QSqlDatabase myDB;
+
     QSqlTableModel *tmAnalyst;
     QSqlTableModel *tmEmployer;
     QSqlTableModel *tmCorporation;
     QSqlTableModel *tmFactory;
     QSqlTableModel *tmRecording;
+    QSqlTableModel *tmRecordingObservesLine;
+    QSqlTableModel *tmRecordingObservesWorkplace;
+    QSqlTableModel *tmWorkplace;
+    QSqlTableModel *tmLine;
 
     QSqlTableModel* getTableModelRef(DB_TABLES tbl);
 };
