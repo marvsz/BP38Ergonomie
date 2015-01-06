@@ -10,6 +10,8 @@
 #include "workplaceView/lineview.h"
 #include "workplaceView/employeeview.h"
 #include "documentationview.h"
+#include "workplaceView/shiftpauseview.h"
+#include "workplaceView/productview.h"
 
 class ViewController : public QStackedWidget
 {
@@ -81,8 +83,10 @@ private:
     WorkplaceListView *workplaceListView;
     WorkplaceView *workplaceView;
     LineView *lineView;
-
+    ShiftPauseView *shiftPauseView;
     EmployeeView *employeeView;
+    ProductView *productView;
+    //CommentView *commentView;
     DocumentationView *documentationView;
 
     void goToView(int index);

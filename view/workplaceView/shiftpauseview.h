@@ -1,5 +1,5 @@
-#ifndef SHIFTANDPAUSEDATA_H
-#define SHIFTANDPAUSEDATA_H
+#ifndef SHIFTPAUSEVIEW_H
+#define SHIFTPAUSEVIEW
 
 #include <QWidget>
 #include <QString>
@@ -10,12 +10,12 @@
 #include "timelineedit.h"
 #include "numberlineedit.h"
 
-class ShiftAndPauseData : public QWidget
+class ShiftPauseView : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit ShiftAndPauseData(QWidget *parent = 0);
+    explicit ShiftPauseView(QWidget *parent = 0);
 
     QDateTime getShiftBegin() const;
     QDateTime getShiftEnd() const;
@@ -37,7 +37,7 @@ public slots:
 
 signals:
     /*void showMetadataView();
-    void saveShiftAndPauseData();*/
+    void saveShiftPauseView();*/
 
 private slots:
     void backButtonClicked();
@@ -85,4 +85,4 @@ private:
 
 };
 
-#endif // SHIFTANDPAUSEDATA_H
+#endif // SHIFTPAUSEVIEW_H

@@ -9,6 +9,9 @@ ViewController::ViewController(QWidget *parent) :
     workplaceListView = new WorkplaceListView;
     workplaceView = new WorkplaceView;
     lineView = new LineView;
+    shiftPauseView = new ShiftPauseView;
+    productView = new ProductView;
+    // commentView = new CommentView;
     employeeView = new EmployeeView;
     documentationView = new DocumentationView;
 
@@ -29,6 +32,17 @@ ViewController::ViewController(QWidget *parent) :
     // WORKPLACE VIEW
     connect(workplaceView, SIGNAL(showPreviousView()), this, SLOT(backToView()));
     connect(workplaceView, SIGNAL(showWorkprocessView()), this, SLOT(goToDocumentationView()));
+    connect(workplaceView, SIGNAL(showLineView()), this, SLOT(goToLineView()));
+    connect(workplaceView, SIGNAL(showShiftAndPauseView()), this, SLOT(goToShiftAndPauseView()));
+    connect(workplaceView, SIGNAL(showEmployeeView()), this, SLOT(goToEmployeeView()));
+    connect(workplaceView, SIGNAL(showProductView()), this, SLOT(goToProductView()));
+    connect(workplaceView, SIGNAL(showCommentView()), this, SLOT(goToCommentView()));
+    // LINE VIEW
+    connect(lineView, SIGNAL(back()), this, SLOT(backToView()));
+    //connect(shiftPauseView, SIGNAL(back)), this, SLOT(backToView()));
+    connect(employeeView, SIGNAL(back()), this, SLOT(backToView()));
+    connect(productView, SIGNAL(back()), this, SLOT(backToView()));
+    //connect(commentView, SIGNAL(back()), this, SLOT(backToView()));
 
     // DOCUMENTATION VIEW
     connect(documentationView, SIGNAL(showPreviousView()), this, SLOT(backToView()));
@@ -39,7 +53,10 @@ ViewController::ViewController(QWidget *parent) :
     this->addWidget(workplaceListView);
     this->addWidget(workplaceView);
     this->addWidget(lineView);
+    this->addWidget(shiftPauseView);
     this->addWidget(employeeView);
+    this->addWidget(productView);
+    //this->addWidget(commentView);
     this->addWidget(documentationView);
 
     setCurrentIndex(ViewController::MAIN_MENU_VIEW);
@@ -74,7 +91,7 @@ void ViewController::goToProductView(){
 }
 
 void ViewController::goToCommentView(){
-    goToView(ViewController::COMMENT_VIEW);
+    //goToView(ViewController::COMMENT_VIEW);
 }
 
 void ViewController::goToDocumentationView(){
