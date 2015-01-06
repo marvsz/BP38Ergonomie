@@ -39,6 +39,8 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/textedit.h \
     $$PWD/workplaceView/employeeview.h\
     $$PWD/workplaceView/workplacelistview.h \
+    $$PWD/timelineedit.h \
+    $$PWD/workplaceView/shiftandpausedata.h \
     $$PWD/detailedlistitem.h
 
 
@@ -78,6 +80,8 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/workplaceView/lineview.cpp \
     $$PWD/textedit.cpp \
     $$PWD/workplaceView/employeeview.cpp\
+    $$PWD/timelineedit.cpp \
+    $$PWD/workplaceView/shiftandpausedata.cpp \
     $$PWD/detailedlistitem.cpp
 
 
