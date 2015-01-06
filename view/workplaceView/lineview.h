@@ -20,10 +20,10 @@ public:
     int getWorkplaceCount() const;
 
 signals:
-    back();
-    saveLine();
-    saveSelectedLine(int id);
-    deleteLine(int id);
+    void back();
+    void saveLine();
+    void saveSelectedLine(int id);
+    void deleteLine(int id);
 
 public slots:
     void setLine(const QString &name, const QString &description, int workplaceCount);
