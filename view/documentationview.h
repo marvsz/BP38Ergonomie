@@ -9,7 +9,7 @@
 #include <QQuickView>
 #include <QQmlEngine>
 #include "stopwatch.h"
-#include "angleview.h"
+#include "angleView/angleview.h"
 #include "buttontimelineview.h"
 
 /**

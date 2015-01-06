@@ -2,8 +2,8 @@
 #define CONTROLLER_H
 
 #include <QObject>
-#include <databaseHandler/dbhandler.h>
-#include <view/viewcontroller.h>
+#include "databaseHandler/dbhandler.h"
+#include "view/viewcontroller.h"
 #include <QSqlField>
 #include <QHash>
 
@@ -18,8 +18,17 @@ signals:
 public slots:
 
 private slots:
-    void updateMetaData();
-    void saveMetaData();
+    void updateMetaDataView();
+    void saveMetaDataView();
+
+    void updateWorkplacesView();
+
+    void updateWorkplaceView(int id);
+    void saveWorkplaceView();
+
+    void updateLine(int id);
+    int saveLine();
+
 
 private:
     DBHandler *dbHandler;
@@ -42,6 +51,12 @@ private:
 
     void updateRecording(int id);
     int saveRecording();
+
+    void updateWorkplace(int id);
+    int saveWorkingplace();
+
+    void saveRecordingObservesLine(int recID, int lineID);
+    void saveRecordingObservesWorkplace(int recID, int workplaceID);
 
 
 };

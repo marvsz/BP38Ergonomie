@@ -1,7 +1,7 @@
 include(view/view.pri)
-include(model/model.pri)
 include(control/control.pri)
 include(databaseHandler/databaseHandler.pri)
+
 QT       += core gui quick qml multimedia sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -51,10 +51,7 @@ unix {
 }
 
 OTHER_FILES += \
-    android/AndroidManifest.xml \
-    controle/control.pri \
-    android/assets/ergoAppDB.sqlite \
-    databaseHandler/databaseHandler.pri
+    android/AndroidManifest.xml
 
 TRANSLATIONS = ergo_trans_de.ts
 

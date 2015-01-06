@@ -63,6 +63,22 @@ DBHandler::DBHandler()
     tmRecording->setTable(DBConstants::TBL_RECORDING);
     tmRecording->setEditStrategy(QSqlTableModel::OnRowChange);
 
+    tmRecordingObservesLine = new QSqlTableModel(0, myDB);
+    tmRecordingObservesLine->setTable(DBConstants::TBL_RECORDING_OB_LINE);
+    tmRecordingObservesLine->setEditStrategy(QSqlTableModel::OnRowChange);
+
+    tmRecordingObservesWorkplace = new QSqlTableModel(0, myDB);
+    tmRecordingObservesWorkplace->setTable(DBConstants::TBL_RECORDING_OB_WORKPLACE);
+    tmRecordingObservesWorkplace->setEditStrategy(QSqlTableModel::OnRowChange);
+
+    tmLine = new QSqlTableModel(0, myDB);
+    tmLine->setTable(DBConstants::TBL_LINE);
+    tmLine->setEditStrategy(QSqlTableModel::OnRowChange);
+
+    tmWorkplace = new QSqlTableModel(0, myDB);
+    tmWorkplace->setTable(DBConstants::TBL_WORKPLACE);
+    tmWorkplace->setEditStrategy(QSqlTableModel::OnRowChange);
+
 }
 
 DBHandler::~DBHandler(){
@@ -122,6 +138,10 @@ QSqlTableModel *DBHandler::getTableModelRef(DB_TABLES tbl){
     case DB_TABLES::CORPORATION: return tmCorporation; break;
     case DB_TABLES::FACTORY: return tmFactory; break;
     case DB_TABLES::RECORDING: return tmRecording; break;
+    case DB_TABLES::RECORDING_OBSERVES_LINE: return tmRecordingObservesLine; break;
+    case DB_TABLES::RECORDING_OBSERVES_WORKPLACE: return tmRecordingObservesWorkplace; break;
+    case DB_TABLES::LINE: return tmLine; break;
+    case DB_TABLES::WORKPLACE: return tmWorkplace; break;
     default: return NULL; break;
     }
 }

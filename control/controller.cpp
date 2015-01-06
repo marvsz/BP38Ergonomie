@@ -8,21 +8,45 @@ Controller::Controller(QObject *parent) :
     viewCon = new ViewController();
     viewCon->show();
 
-    connect(viewCon, SIGNAL(updateMetaData()), this, SLOT(updateMetaData()));
-    connect(viewCon, SIGNAL(saveMetaData()), this, SLOT(saveMetaData()));
-    recording_ID = 0;
+    connect(viewCon, SIGNAL(updateMetaData()), this, SLOT(updateMetaDataView()));
+    connect(viewCon, SIGNAL(saveMetaData()), this, SLOT(saveMetaDataView()));
+    recording_ID = 1;
 }
 
 
-void Controller::updateMetaData(){
+//MetaDataView
+void Controller::updateMetaDataView(){
     updateRecording(recording_ID);
 }
 
-void Controller::saveMetaData(){
+void Controller::saveMetaDataView(){
     recording_ID = saveRecording();
 }
 
+//WorkplacesView
+void Controller::updateWorkplacesView(){
 
+}
+
+//WorkplaceView
+void Controller::updateWorkplaceView(int id){
+
+}
+
+void Controller::saveWorkplaceView(){
+
+}
+
+//Line
+void Controller::updateLine(int id){
+
+}
+
+int Controller::saveLine(){
+
+}
+
+//private methods
 int Controller::save(DB_TABLES tbl, const QString &filter, const QString &colID, const QStringList &colNames, const QList<QVariant::Type> &colTypes, QHash<QString, QVariant> &colMapNameValue){
     dbHandler->select(tbl, filter);
     int id;
@@ -113,32 +137,11 @@ void Controller::updateCorporation(int id){
 }
 
 int Controller::saveCorporation(){
-    DB_TABLES tbl = DB_TABLES::CORPORATION;
     QString filter = QString("%1 = '%2'").arg(DBConstants::COL_CORPORATION_NAME).arg(viewCon->getCorporationName());
-    dbHandler->select(tbl, filter);
-    int id;
-    QSqlRecord record;
-    bool toInsert = false;
-    if(dbHandler->rowCount(tbl) == 0){
-        toInsert = true;
-        id = dbHandler->getNextID(tbl, DBConstants::COL_CORPORATION_ID);
-        record.append(QSqlField(DBConstants::COL_CORPORATION_ID, QVariant::Int));
-        record.append(QSqlField(DBConstants::COL_CORPORATION_NAME, QVariant::String));
-        record.append(QSqlField(DBConstants::COL_CORPORATION_BRANCH_OF_INDUSTRY_ID, QVariant::String));
-    }
-    else {
-        record = dbHandler->record(tbl, 0);
-        id = record.value(DBConstants::COL_CORPORATION_ID).toInt();
-    }
-    record.setValue(DBConstants::COL_CORPORATION_ID, id);
-    record.setValue(DBConstants::COL_CORPORATION_NAME, viewCon->getCorporationName());
-    record.setNull(DBConstants::COL_CORPORATION_BRANCH_OF_INDUSTRY_ID);
 
-    if(toInsert)
-        dbHandler->insertRow(tbl, record);
-    else
-        dbHandler->updateRow(tbl, 0, record);
-    return id;
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_CORPORATION_NAME, viewCon->getCorporationName());
+    return save(DB_TABLES::CORPORATION, filter, DBConstants::COL_CORPORATION_ID, DBConstants::LIST_CORPORATION_COLS, DBConstants::LIST_CORPORATION_TYPES, values);
 }
 
 void Controller::updateFactory(int id){
@@ -161,44 +164,18 @@ void Controller::updateFactory(int id){
 }
 
 int Controller::saveFactory(){
-    DB_TABLES tbl = DB_TABLES::FACTORY;
     QString filter = QString("%1 = '%2' AND %3 = '%4'").arg(DBConstants::COL_FACTORY_NAME).arg(viewCon->getFactoryName()).arg(DBConstants::COL_FACTORY_STREET).arg(viewCon->getFactoryStreet());
-    dbHandler->select(tbl, filter);
-    int id;
-    QSqlRecord record;
-    bool toInsert = false;
-    if(dbHandler->rowCount(tbl) == 0){
-        toInsert = true;
-        id = dbHandler->getNextID(tbl, DBConstants::COL_FACTORY_ID);
-        record.append(QSqlField(DBConstants::COL_FACTORY_ID, QVariant::Int));
-        record.append(QSqlField(DBConstants::COL_FACTORY_NAME, QVariant::String));
-        record.append(QSqlField(DBConstants::COL_FACTORY_STREET, QVariant::String));
-        record.append(QSqlField(DBConstants::COL_FACTORY_ZIP, QVariant::Int));
-        record.append(QSqlField(DBConstants::COL_FACTORY_CITY, QVariant::String));
-        record.append(QSqlField(DBConstants::COL_FACTORY_COUNTRY, QVariant::String));
-        record.append(QSqlField(DBConstants::COL_FACTORY_CONTACT_PERSON, QVariant::String));
-        record.append(QSqlField(DBConstants::COL_FACTORY_HEADCOUNT, QVariant::Int));
-        record.append(QSqlField(DBConstants::COL_FACTORY_CORPORATION_ID, QVariant::Int));
-    }
-    else {
-        record = dbHandler->record(tbl, 0);
-        id = record.value(DBConstants::COL_FACTORY_ID).toInt();
-    }
-    record.setValue(DBConstants::COL_FACTORY_ID, id);
-    record.setValue(DBConstants::COL_FACTORY_NAME, viewCon->getFactoryName());
-    record.setValue(DBConstants::COL_FACTORY_STREET,viewCon->getFactoryStreet());
-    record.setValue(DBConstants::COL_FACTORY_ZIP,viewCon->getFactoryZip());
-    record.setValue(DBConstants::COL_FACTORY_CITY,viewCon->getFactoryCity());
-    record.setValue(DBConstants::COL_FACTORY_COUNTRY,viewCon->getFactoryCountry());
-    record.setValue(DBConstants::COL_FACTORY_CONTACT_PERSON,viewCon->getFactoryContact());
-    record.setValue(DBConstants::COL_FACTORY_HEADCOUNT,viewCon->getFactoryEmployeeCount());
-    record.setValue(DBConstants::COL_FACTORY_CORPORATION_ID, saveCorporation());
 
-    if(toInsert)
-        dbHandler->insertRow(tbl, record);
-    else
-        dbHandler->updateRow(tbl, 0, record);
-    return id;
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_FACTORY_NAME, viewCon->getFactoryName());
+    values.insert(DBConstants::COL_FACTORY_STREET, viewCon->getFactoryStreet());
+    values.insert(DBConstants::COL_FACTORY_ZIP, viewCon->getFactoryZip());
+    values.insert(DBConstants::COL_FACTORY_CITY, viewCon->getFactoryCity());
+    values.insert(DBConstants::COL_FACTORY_COUNTRY, viewCon->getFactoryCountry());
+    values.insert(DBConstants::COL_FACTORY_CONTACT_PERSON, viewCon->getFactoryContact());
+    values.insert(DBConstants::COL_FACTORY_HEADCOUNT, viewCon->getFactoryEmployeeCount());
+    values.insert(DBConstants::COL_FACTORY_CORPORATION_ID, saveCorporation());
+    return save(DB_TABLES::FACTORY, filter, DBConstants::COL_FACTORY_ID, DBConstants::LIST_FACTORY_COLS, DBConstants::LIST_FACTORY_TYPES, values);
 }
 
 void Controller::updateRecording(int id){
@@ -218,35 +195,29 @@ void Controller::updateRecording(int id){
 }
 
 int Controller::saveRecording(){
-    DB_TABLES tbl = DB_TABLES::RECORDING;
     QString filter = QString("");
-    dbHandler->select(tbl, filter);
-    int id;
-    QSqlRecord record;
-    bool toInsert = false;
-    if(dbHandler->rowCount(tbl) == 0){
-        toInsert = true;
-        id = dbHandler->getNextID(tbl, DBConstants::COL_RECORDING_ID);
-        record.append(QSqlField(DBConstants::COL_RECORDING_ID, QVariant::Int));
-        record.append(QSqlField(DBConstants::COL_RECORDING_START, QVariant::String));
-        record.append(QSqlField(DBConstants::COL_RECORDING_END, QVariant::String));
-        record.append(QSqlField(DBConstants::COL_RECORDING_FACTORY_ID, QVariant::Int));
-        record.append(QSqlField(DBConstants::COL_RECORDING_ANALYST_ID, QVariant::Int));
-       }
-    else {
-        record = dbHandler->record(tbl, 0);
-        id = record.value(DBConstants::COL_FACTORY_ID).toInt();
-    }
-    record.setValue(DBConstants::COL_RECORDING_ID, id);
-    record.setValue(DBConstants::COL_RECORDING_START, viewCon->getRecordTimeEnd().toString("dd.mm.yyyy hh:mm"));
-    record.setValue(DBConstants::COL_RECORDING_END,viewCon->getRecordTimeBegin().toString("dd.mm.yyyy hh:mm"));
-    record.setValue(DBConstants::COL_RECORDING_FACTORY_ID, saveFactory());
-    record.setValue(DBConstants::COL_RECORDING_ANALYST_ID, saveAnalyst());
+    QString dtFormat = "dd.mm.yyyy hh:mm";
 
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_RECORDING_START, viewCon->getRecordTimeBegin().toString(dtFormat));
+    values.insert(DBConstants::COL_RECORDING_END, viewCon->getRecordTimeEnd().toString(dtFormat));
+    values.insert(DBConstants::COL_RECORDING_FACTORY_ID, saveFactory());
+    values.insert(DBConstants::COL_RECORDING_ANALYST_ID, saveAnalyst());
+    return save(DB_TABLES::RECORDING, filter, DBConstants::COL_RECORDING_ID, DBConstants::LIST_RECORDING_COLS, DBConstants::LIST_RECORDING_TYPES, values);
+}
 
-    if(toInsert)
-        dbHandler->insertRow(tbl, record);
-    else
-        dbHandler->updateRow(tbl, 0, record);
-    return id;
+void Controller::saveRecordingObservesLine(int recID, int lineID){
+    QString filter = QString("%1 = %2 AND %3 = %4").arg(DBConstants::COL_RECORDING_OB_LINE_RECORDING_ID).arg(recID);
+
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_RECORDING_OB_LINE_LINE_ID, lineID);
+    save(DB_TABLES::RECORDING_OBSERVES_LINE, filter, DBConstants::COL_RECORDING_OB_LINE_LINE_ID, DBConstants::LIST_RECORDING_OB_LINE_COLS, DBConstants::LIST_RECORDING_OB_LINE_TYPES, values);
+}
+
+void Controller::saveRecordingObservesWorkplace(int recID, int workplaceID){
+    QString filter = QString("%1 = %2 AND %3 = %4").arg(DBConstants::COL_RECORDING_OB_WORKPLACE_RECORDING_ID).arg(recID);
+
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_RECORDING_OB_WORKPLACE_WORKPLACE_ID, workplaceID);
+    save(DB_TABLES::RECORDING_OBSERVES_WORKPLACE, filter, DBConstants::COL_RECORDING_OB_WORKPLACE_WORKPLACE_ID, DBConstants::LIST_RECORDING_OB_WORKPLACE_COLS, DBConstants::LIST_RECORDING_OB_WORKPLACE_TYPES, values);
 }
