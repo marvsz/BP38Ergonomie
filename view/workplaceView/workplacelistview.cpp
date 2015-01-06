@@ -30,6 +30,7 @@ WorkplaceListView::WorkplaceListView(QWidget *parent) :
     flickCharm->activateOn(scWorkplaces);
 
     // TEST
+    /*
     QStringList captionsOneRowOne;
     captionsOneRowOne << "Bezeichnung";
     QStringList captionsOneRowTwo;
@@ -69,7 +70,7 @@ WorkplaceListView::WorkplaceListView(QWidget *parent) :
     listItemTwo->setValues(valuesTwo);
 
     listContentLayout->addWidget(listItemOne);
-    listContentLayout->addWidget(listItemTwo);
+    listContentLayout->addWidget(listItemTwo);*/
     listContentLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
     navigationLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);

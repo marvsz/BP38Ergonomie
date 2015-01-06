@@ -33,11 +33,16 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/graphtimelineview.h \
     $$PWD/avrecordcontrol.h \
     $$PWD/metadataview.h \
+<<<<<<< Updated upstream
     $$PWD/workplacelistview.h \
     $$PWD/workplaceView/workplaceview.h\
     $$PWD/workplaceView/lineview.h \
     $$PWD/textedit.h \
     $$PWD/workplaceView/employeeview.h\
+=======
+    $$PWD/workplaceView/workplacelistview.h \
+    $$PWD/workplaceView/workplaceview.h \
+>>>>>>> Stashed changes
     $$PWD/detailedlistitem.h
 
 
@@ -72,7 +77,7 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/graphtimelineview.cpp \
     $$PWD/avrecordcontrol.cpp \
     $$PWD/metadataview.cpp \
-    $$PWD/workplacelistview.cpp \
+    $$PWD/workplaceView/workplacelistview.cpp \
     $$PWD/workplaceView/workplaceview.cpp \
     $$PWD/workplaceView/lineview.cpp \
     $$PWD/textedit.cpp \

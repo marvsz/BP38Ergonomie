@@ -4,7 +4,7 @@
 #include <QStackedWidget>
 #include "mainmenu.h"
 #include "metadataview.h"
-#include "workplacelistview.h"
+#include "workplaceView/workplacelistview.h"
 #include "documentationview.h"
 
 class ViewController : public QStackedWidget
