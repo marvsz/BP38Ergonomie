@@ -33,7 +33,8 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/graphtimelineview.h \
     $$PWD/avrecordcontrol.h \
     $$PWD/metadataview.h \
-    $$PWD/workplacelistview.h
+    $$PWD/workplacelistview.h \
+    $$PWD/detailedlistitem.h
 
 
 SOURCES += $$CURRENT_DIR/variant.cpp\
@@ -67,6 +68,7 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/graphtimelineview.cpp \
     $$PWD/avrecordcontrol.cpp \
     $$PWD/metadataview.cpp \
-    $$PWD/workplacelistview.cpp
+    $$PWD/workplacelistview.cpp \
+    $$PWD/detailedlistitem.cpp
 
 
