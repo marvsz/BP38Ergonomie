@@ -1,8 +1,9 @@
 #include "workplaceview.h"
 #include "separator.h"
-#include "QGridLayout"
-#include "QVBoxLayout"
-#include "QHBoxLayout"
+#include <QGridLayout>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QStringList>
 
 WorkplaceView::WorkplaceView(QWidget *parent) :
     QWidget(parent),
@@ -18,11 +19,54 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     numBxWomanPercentage(new NumberLineEdit()),
     btnCancel(new QPushButton("Abbruch")),
     btnSave(new QPushButton("Speichern")),
-    btnGoOnWithWorkProcesses(new QPushButton("Weiter zu den Arbeitsvorgängen"))
+    btnGoOnWithWorkProcesses(new QPushButton("Weiter zu den Arbeitsvorgängen")),
+    additions(new QList<DetailedListItem*>())
 {
     connect(btnCancel, SIGNAL(clicked()), this, SLOT(btnCancelClicked()));
     connect(btnGoOnWithWorkProcesses, SIGNAL(clicked()), this, SLOT(btnGoOnWithWorkProcessesClicked()));
     btnCancel->setObjectName("btnNavigation");
+
+    QList<QStringList> lineList;
+    QStringList lineListOne;
+    lineListOne << "Bezeichnung";
+    QStringList lineListTwo;
+    lineListTwo << "Beschreibung";
+    lineList << lineListOne << lineListTwo;
+
+    QList<QStringList> shiftList;
+    QStringList shiftListOne;
+    shiftListOne << "Schichtart" << "Stückzahl" << "Taktzeit";
+    QStringList shiftListTwo;
+    shiftListTwo << "Begin" << "Ende";
+    shiftList << shiftListOne << shiftListTwo;
+
+    QList<QStringList> employeeList;
+    QStringList employeeListOne;
+    employeeListOne << "Geschlecht" << "Alter" << "Größe";
+    QStringList employeeListTwo;
+    employeeListTwo << "Anmerkung";
+    employeeList << employeeListOne << employeeListTwo;
+
+    QList<QStringList> productList;
+
+    QList<QStringList> commentList;
+    QStringList commentListOne;
+    commentListOne << "Problembezeichnung";
+    QStringList commentListTwo;
+    commentListTwo << "Maßnahmenbezeichnung";
+    commentList << commentListOne << commentListTwo;
+
+    line = new DetailedListItem(this, "", "Linie", lineList, false);
+    shift = new DetailedListItem(this, "", "Schicht- und Pausendaten", shiftList, false);
+    employee = new DetailedListItem(this, "", "Mitarbeiterdaten", employeeList, false);
+    product = new DetailedListItem(this, "", "Produkte", productList, false);
+    comment = new DetailedListItem(this, "", "Bemerkungen", commentList, false);
+
+    additions->append(line);
+    additions->append(shift);
+    additions->append(employee);
+    additions->append(product);
+    additions->append(comment);
 
     QGridLayout *navigationBarLayout = new QGridLayout;
     navigationBarLayout->addWidget(btnCancel, 0, 0, 1, 1, Qt::AlignLeft);
@@ -40,6 +84,9 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     workplaceMetaDataLayout->addWidget(numBxWomanPercentage, 1, 3, 1, 1, 0);
 
     QVBoxLayout *additionsLayout = new QVBoxLayout;
+    for(int i = 0; i < additions->count(); ++i){
+        additionsLayout->addWidget(additions->at(i));
+    }
 
     QHBoxLayout *bottomLineLayout = new QHBoxLayout;
     bottomLineLayout->addWidget(btnSave, 0, Qt::AlignCenter);
@@ -72,17 +119,37 @@ void WorkplaceView::setWorkplaceMetaData(const QString &name, const QString &des
 
 
 //private slots
-void WorkplaceView::WorkplaceView::btnSaveClicked(){
+void WorkplaceView::btnSaveClicked(){
     if(id == -1)
         emit save();
     else
         emit save(id);
 }
 
-void WorkplaceView::WorkplaceView::btnCancelClicked(){
+void WorkplaceView::btnCancelClicked(){
     emit showPreviousView();
 }
 
-void WorkplaceView::WorkplaceView::btnGoOnWithWorkProcessesClicked(){
+void WorkplaceView::btnGoOnWithWorkProcessesClicked(){
     emit showWorkprocessView();
+}
+
+void WorkplaceView::lineViewSelected(){
+    emit showLineView();
+}
+
+void WorkplaceView::shiftAndPauseViewSelected(){
+    emit showShiftAndPauseView();
+}
+
+void WorkplaceView::employeeViewSelected(){
+    emit showEmployeeView();
+}
+
+void WorkplaceView::productViewSelected(){
+    emit showProductView();
+}
+
+void WorkplaceView::commentViewSelected(){
+    emit showCommentView();
 }

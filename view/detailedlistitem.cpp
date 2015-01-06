@@ -50,7 +50,7 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
 
     // ADD GENERAL ELEMENTS (OR SPACERS)
     layout->addWidget(lblIcon, 0, 0, layout->rowCount(), 1, Qt::AlignLeft);
-    layout->addWidget(lblName, 0, 1, 1, layout->columnCount()-1, Qt::AlignLeft);
+    layout->addWidget(lblName, 0, 1, 1, layout->columnCount(), Qt::AlignLeft);
 
     layout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 0, layout->columnCount(), layout->rowCount(), 1, 0);
     if(isDeletable){

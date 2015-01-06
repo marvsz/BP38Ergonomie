@@ -61,8 +61,20 @@ void ViewController::goToLineView(){
     goToView(ViewController::LINE_VIEW);
 }
 
+void ViewController::goToShiftAndPauseView(){
+    goToView(ViewController::SHIFTPAUSE_VIEW);
+}
+
 void ViewController::goToEmployeeView(){
     goToView(ViewController::EMPLOYEE_VIEW);
+}
+
+void ViewController::goToProductView(){
+    goToView(ViewController::PRODUCT_VIEW);
+}
+
+void ViewController::goToCommentView(){
+    goToView(ViewController::COMMENT_VIEW);
 }
 
 void ViewController::goToDocumentationView(){

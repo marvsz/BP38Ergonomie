@@ -22,8 +22,11 @@ public:
     static const int WORKPLACELIST_VIEW = 2;
     static const int WORKPLACE_VIEW = 3;
     static const int LINE_VIEW = 4;
-    static const int EMPLOYEE_VIEW = 5;
-    static const int DOCUMENTATION_VIEW = 6;
+    static const int SHIFTPAUSE_VIEW = 5;
+    static const int EMPLOYEE_VIEW = 6;
+    static const int PRODUCT_VIEW = 7;
+    static const int COMMENT_VIEW = 8;
+    static const int DOCUMENTATION_VIEW = 9;
 
     QString getAnalystLastName() const;
     QString getAnalystFirstName() const;
@@ -62,8 +65,12 @@ private slots:
     void goToWorkplaceListView();
     void goToWorkplaceView();
     void goToLineView();
+    void goToShiftAndPauseView();
     void goToEmployeeView();
+    void goToProductView();
+    void goToCommentView();
     void goToDocumentationView();
+
     void saveMetaDataRequested();
     void backToView();
 
@@ -74,6 +81,7 @@ private:
     WorkplaceListView *workplaceListView;
     WorkplaceView *workplaceView;
     LineView *lineView;
+
     EmployeeView *employeeView;
     DocumentationView *documentationView;
 
