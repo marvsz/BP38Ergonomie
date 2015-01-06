@@ -1,11 +1,10 @@
 #ifndef WORKPLACELISTVIEW_H
 #define WORKPLACELISTVIEW_H
 
+#include "detailedlistitem.h"
 #include <QWidget>
 #include <QPushButton>
-#include <QListView>
-#include <QStringList>
-#include <QStringListModel>
+#include <QScrollArea>
 
 class WorkplaceListView : public QWidget
 {
@@ -25,8 +24,8 @@ public slots:
 private:
     QPushButton *btnBack;
     QPushButton *btnForward;
-    QListView *workplaceListView;
-    QStringListModel *workplaceList;
+    QList<DetailedListItem> *workplaces;
+    QScrollArea *scWorkplaces;
 };
 
 #endif // WORKPLACELISTVIEW_H

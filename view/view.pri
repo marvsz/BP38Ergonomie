@@ -35,9 +35,13 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/metadataview.h \
     $$PWD/workplacelistview.h \
     $$PWD/workplaceView/workplaceview.h \
+<<<<<<< HEAD
     $$PWD/workplaceView/lineview.h \
     $$PWD/textedit.h \
     $$PWD/workplaceView/employeeview.h
+=======
+    $$PWD/detailedlistitem.h
+>>>>>>> origin/master
 
 
 SOURCES += $$PWD/angleView/variant.cpp\
@@ -73,8 +77,12 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/metadataview.cpp \
     $$PWD/workplacelistview.cpp \
     $$PWD/workplaceView/workplaceview.cpp \
+<<<<<<< HEAD
     $$PWD/workplaceView/lineview.cpp \
     $$PWD/textedit.cpp \
     $$PWD/workplaceView/employeeview.cpp
+=======
+    $$PWD/detailedlistitem.cpp
+>>>>>>> origin/master
 
 
