@@ -85,3 +85,11 @@ void DetailedListItem::setValues(const QList<QStringList> &values){
         }
     }
 }
+
+
+int DetailedListItem::getID() const{
+    return id;
+}
+void DetailedListItem::setID(int id){
+    this->id = id;
+}

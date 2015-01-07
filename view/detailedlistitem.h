@@ -14,6 +14,9 @@ class DetailedListItem : public QAbstractButton
 public:
     explicit DetailedListItem(QWidget *parent = 0, const QString &iconPath = "", const QString &name = "", const QList<QStringList> &scheme = QList<QStringList>(), bool isDeletable = false);
 
+    int getID() const;
+    void setID(int id);
+
 signals:
     void deleteItem(int id);
     void pressed(int id);

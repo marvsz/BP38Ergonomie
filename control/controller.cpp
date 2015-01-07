@@ -10,6 +10,7 @@ Controller::Controller(QObject *parent) :
 
     connect(viewCon, SIGNAL(updateMetaData()), this, SLOT(updateMetaDataView()));
     connect(viewCon, SIGNAL(saveMetaData()), this, SLOT(saveMetaDataView()));
+    connect(viewCon, SIGNAL(updateWorkplaceList()), this, SLOT(updateWorkplacesView()));
     recording_ID = 1;
 }
 
@@ -25,7 +26,13 @@ void Controller::saveMetaDataView(){
 
 //WorkplacesView
 void Controller::updateWorkplacesView(){
-
+    viewCon->clearWorkplaceList();
+    DB_TABLES tbl = DB_TABLES::WORKPLACE;
+    dbHandler->select(tbl, QString(""));
+    for(int i = 0; i < dbHandler->rowCount(tbl); ++i){
+        QSqlRecord record = dbHandler->record(tbl, i);
+        viewCon->addWorkplace(record.value(DBConstants::COL_WORKPLACE_ID).toInt(), record.value(DBConstants::COL_WORKPLACE_NAME).toString(), record.value(DBConstants::COL_WORKPLACE_DESCRIPTION).toString(), record.value(DBConstants::COL_WORKPLACE_CODE).toString());
+    }
 }
 
 //WorkplaceView

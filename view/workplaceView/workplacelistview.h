@@ -18,7 +18,7 @@ signals:
 
 public slots:
     void clear();
-    void addWorkplace(const QString &name, const QString &description, const QString &code);
+    void addWorkplace(int id, const QString &name, const QString &description, const QString &code);
 
     void backButtonClicked();
     void forwardButtonClicked();

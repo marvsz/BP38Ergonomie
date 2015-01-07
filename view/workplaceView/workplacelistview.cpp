@@ -53,10 +53,11 @@ void WorkplaceListView::clear(){
     }
 }
 
-void WorkplaceListView::addWorkplace(const QString &name, const QString &description, const QString &code){
+void WorkplaceListView::addWorkplace(int id, const QString &name, const QString &description, const QString &code){
     QList<QStringList> values = QList<QStringList>() << (QStringList() << description << code);
     DetailedListItem *newListItem = new DetailedListItem(this, "", name, workplaceCaptions, true);
     newListItem->setValues(values);
+    newListItem->setID(id);
     listContentLayout->addWidget(newListItem);
 }
 

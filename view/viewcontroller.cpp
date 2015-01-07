@@ -189,8 +189,8 @@ void ViewController::setRecordTime(const QDateTime &begin, const QDateTime &end)
 
 // WORKPLACE LIST VIEW SETTER
 
-void ViewController::addWorkplace(const QString &name, const QString &description, const QString &code){
-    workplaceListView->addWorkplace(name, description, code);
+void ViewController::addWorkplace(int id, const QString &name, const QString &description, const QString &code){
+    workplaceListView->addWorkplace(id, name, description, code);
 }
 
 void ViewController::clearWorkplaceList(){
