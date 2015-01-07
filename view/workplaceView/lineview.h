@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QListView>
+#include <QVBoxLayout>
 #include "numberlineedit.h"
 #include "textedit.h"
 
@@ -23,19 +24,24 @@ signals:
     void back();
     void saveLine();
     void saveSelectedLine(int id);
-    void deleteLine(int id);
+    void deleteLine();
+    void lineSelectedWithId(int);
 
 public slots:
     void setLine(const QString &name, const QString &description, int workplaceCount);
     void addLine(int id, const QString &name);
     void clearLines();
+    void setSelectedLine(int id);
 
 private slots:
     void btnBackClicked();
     void btnAddCicked();
+    void btnDeleteClicked();
     void selectedLineChanged(int id);
+    void lineClickedWithId(int id);
 
 private:
+    QVBoxLayout *listContentLayout;
     QLabel *lblViewName;
     QLabel *lblSelectLine;
     QLabel *lblAddLine;
@@ -49,6 +55,7 @@ private:
 
     QPushButton *btnBack;
     QPushButton *btnAdd;
+    QPushButton *btnDelete;
 };
 
 #endif // LINEVIEW_H

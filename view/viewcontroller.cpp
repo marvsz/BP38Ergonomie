@@ -211,19 +211,19 @@ void ViewController::deleteWorkplaceClicked(int id){
 
 // WORKPLACE VIEW GETTER/SETTER
 
-QString ViewController::getName() const {
+QString ViewController::getWorkplaceName() const {
     return workplaceView->getName();
 }
 
-QString ViewController::getDescription() const {
+QString ViewController::getWorkplaceDescription() const {
     return workplaceView->getDescription();
 }
 
-QString ViewController::getCode() const{
+QString ViewController::getWorkplaceCode() const{
     return workplaceView->getCode();
 }
 
-int ViewController::getWomanPercentage() const{
+int ViewController::getWorkplaceWomanPercentage() const{
     return workplaceView->getWomanPercentage();
 }
 
@@ -231,7 +231,51 @@ void ViewController::setWorkplaceMetaData(const QString &name, const QString &de
     workplaceView->setWorkplaceMetaData(name, description, code, percentageWoman);
 }
 
+// LINE VIEW GETTER/SETTER
 
+void ViewController::setLine(const QString &name, const QString &description, int workplaceCount){
+    lineView->setLine(name, description, workplaceCount);
+}
+
+void ViewController::addLine(int id, const QString &name){
+    lineView->addLine(id, name);
+}
+
+void ViewController::clearLines(){
+    lineView->clearLines();
+}
+
+// SHIFTPAUSE VIEW GETTER/SETTER
+
+// EMPLOYEE VIEW GETTER/SETTER
+
+// PRODUCT VIEW GETTER/SETTER
+
+// COMMENT VIEW GETTER/SETTER
+
+QString ViewController::getCommentProblemName() const{
+    return commentView->getProblemName();
+}
+
+QString ViewController::getCommentProblemDescription() const{
+    return commentView->getProblemDescription();
+}
+
+QString ViewController::getCommentMeasureName() const{
+    return commentView->getMeasureName();
+}
+
+QString ViewController::getCommentMeasureDescription() const{
+    return commentView->getMeasureDescription();
+}
+
+QString ViewController::getCommentWorkerPerception() const{
+    return commentView->getWorkerPerception();
+}
+
+void ViewController::setComment(const QString &problemName, const QString &problemDesc, const QString &measureName, const QString &measureDesc, const QString &workerPerception){
+    commentView->setComment(problemName, problemDesc, measureName, measureDesc, workerPerception);
+}
 
 // SET VIEWS AND PUSH/POP
 void ViewController::backToView(){

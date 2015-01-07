@@ -40,7 +40,6 @@ WorkplaceListView::WorkplaceListView(QWidget *parent) :
     mainLayout->addLayout(navigationLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
     mainLayout->addWidget(scWorkplaces);
-    mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
     this->setLayout(mainLayout);
 }
