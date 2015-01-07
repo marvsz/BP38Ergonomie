@@ -162,18 +162,18 @@ void WorkplaceView::commentViewSelected(){
 
 // GETTER
 
-QString WorkplaceView::getName(){
+QString WorkplaceView::getName() const{
     return txtBxName->text();
 }
 
-QString WorkplaceView::getDescription(){
+QString WorkplaceView::getDescription() const{
     return txtBxDescription->text();
 }
 
-QString WorkplaceView::getCode(){
+QString WorkplaceView::getCode() const{
     return txtBxCode->text();
 }
 
-int WorkplaceView::getWomanPercentage(){
+int WorkplaceView::getWomanPercentage() const{
     return numBxWomanPercentage->getValue();
 }

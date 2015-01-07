@@ -3,6 +3,8 @@
 #include <QFileInfo>
 #include <QMessageBox>
 #include <QStandardPaths>
+#include <QSqlError>
+#include <QDebug>
 
 DBHandler::DBHandler()
 {
@@ -118,6 +120,8 @@ QSqlRecord DBHandler::record(DB_TABLES tbl, int row){
 bool DBHandler::insertRow(DB_TABLES tbl, const QSqlRecord &record){
     QSqlTableModel* tm = getTableModelRef(tbl);
     bool success = tm->insertRecord(-1, record);
+    QSqlError e = tm->lastError();
+    qDebug()<< e;
     tm->submitAll();
     return success;
 }
@@ -143,18 +147,6 @@ int DBHandler::getNextID(DB_TABLES tbl, const QString &colName){
 
 
 QSqlTableModel *DBHandler::getTableModelRef(DB_TABLES tbl){
-    /*switch(tbl){
-    case DB_TABLES::ANALYST: return tmAnalyst; break;
-    case DB_TABLES::EMPLOYER: return tmEmployer; break;
-    case DB_TABLES::CORPORATION: return tmCorporation; break;
-    case DB_TABLES::FACTORY: return tmFactory; break;
-    case DB_TABLES::RECORDING: return tmRecording; break;
-    case DB_TABLES::RECORDING_OBSERVES_LINE: return tmRecordingObservesLine; break;
-    case DB_TABLES::RECORDING_OBSERVES_WORKPLACE: return tmRecordingObservesWorkplace; break;
-    case DB_TABLES::LINE: return tmLine; break;
-    case DB_TABLES::WORKPLACE: return tmWorkplace; break;
-    default: return NULL; break;
-    }*/
     return htSqlTableModels.value(tbl);
 }
 

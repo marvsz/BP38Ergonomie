@@ -242,9 +242,9 @@ void ViewController::backToView(){
         case ViewController::METADATA_VIEW:
             break;
         case ViewController::WORKPLACELIST_VIEW:
+            emit updateWorkplaceList();
             break;
         case ViewController::WORKPLACE_VIEW:
-            emit updateWorkplaceList();
             break;
         case ViewController::LINE_VIEW:
             break;

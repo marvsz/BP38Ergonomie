@@ -11,6 +11,9 @@ Controller::Controller(QObject *parent) :
     connect(viewCon, SIGNAL(updateMetaData()), this, SLOT(updateMetaDataView()));
     connect(viewCon, SIGNAL(saveMetaData()), this, SLOT(saveMetaDataView()));
     connect(viewCon, SIGNAL(updateWorkplaceList()), this, SLOT(updateWorkplacesView()));
+    connect(viewCon, SIGNAL(deleteWorkplace(int)), this, SLOT(deleteWorkplace(int)));
+    connect(viewCon, SIGNAL(createWorkplace()), this, SLOT(updateWorkplaceView()));
+    connect(viewCon, SIGNAL(updateWorkplace(int)), this, SLOT(updateWorkplaceView(int)));
     recording_ID = 1;
 }
 
@@ -37,12 +40,27 @@ void Controller::updateWorkplacesView(){
 
 //WorkplaceView
 void Controller::updateWorkplaceView(int id){
+    DB_TABLES tbl = DB_TABLES::WORKPLACE;
+    dbHandler->select(tbl, QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(QString::number(id)));
+    QSqlRecord record = dbHandler->record(tbl, 0);
 
 }
 
-void Controller::saveWorkplaceView(){
-
+void Controller::updateWorkplaceView(){
+    updateWorkplaceView(saveWorkplace(0));
 }
+
+void Controller::saveWorkplaceView(int id){
+   saveWorkplace(id);
+}
+
+void Controller::deleteWorkplace(int id){
+    DB_TABLES tbl = DB_TABLES::WORKPLACE;
+    dbHandler->select(tbl, QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(QString::number(id)));
+    dbHandler->deleteRow(tbl, 0);
+    updateWorkplacesView();
+}
+
 
 //Line
 void Controller::updateLines(){
@@ -111,6 +129,7 @@ int Controller::save(DB_TABLES tbl, const QString &filter, const QString &colID,
     if(dbHandler->rowCount(tbl) == 0){
         toInsert = true;
         id = dbHandler->getNextID(tbl, colID);
+
         for(int i = 0; i < colNames.count(); ++i){
             record.append(QSqlField(colNames.at(i), colTypes.at(i)));
         }
@@ -121,10 +140,8 @@ int Controller::save(DB_TABLES tbl, const QString &filter, const QString &colID,
     }
 
     colMapNameValue.insert(colID, id);
-    for(int i = 0; i < colNames.count(); ++i){
-        QString colName = colNames.at(i);
+    foreach(QString colName, colMapNameValue.keys())
         record.setValue(colName, colMapNameValue.value(colName));
-    }
 
     if(toInsert)
         dbHandler->insertRow(tbl, record);
@@ -276,4 +293,11 @@ void Controller::saveRecordingObservesWorkplace(int recID, int workplaceID){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_RECORDING_OB_WORKPLACE_WORKPLACE_ID, workplaceID);
     save(DB_TABLES::RECORDING_OBSERVES_WORKPLACE, filter, DBConstants::COL_RECORDING_OB_WORKPLACE_WORKPLACE_ID, DBConstants::LIST_RECORDING_OB_WORKPLACE_COLS, DBConstants::LIST_RECORDING_OB_WORKPLACE_TYPES, values);
+}
+
+int Controller::saveWorkplace(int id){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(QString::number(id));
+
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    return save(DB_TABLES::WORKPLACE, filter, DBConstants::COL_WORKPLACE_ID, DBConstants::LIST_WORKPLACE_COLS, DBConstants::LIST_WORKPLACE_TYPES, values);
 }
