@@ -28,6 +28,8 @@ ViewController::ViewController(QWidget *parent) :
     // WORKPLACE LIST VIEW
     connect(workplaceListView, SIGNAL(showPreviousView()), this, SLOT(backToView()));
     connect(workplaceListView, SIGNAL(showNewWorkplaceView()), this, SLOT(goToWorkplaceView()));
+    connect(workplaceListView, SIGNAL(showWorkplace(int)), this, SLOT(goToWorkplaceView(int)));
+    connect(workplaceListView, SIGNAL(deleteWorkplace(int)), this, SLOT(deleteWorkplaceClicked(int)));
 
     // WORKPLACE VIEW
     connect(workplaceView, SIGNAL(showPreviousView()), this, SLOT(backToView()));
@@ -73,6 +75,12 @@ void ViewController::goToWorkplaceListView(){
 }
 
 void ViewController::goToWorkplaceView(){
+    emit createWorkplace();
+    goToView(ViewController::WORKPLACE_VIEW);
+}
+
+void ViewController::goToWorkplaceView(int id){
+    emit updateWorkplace(id);
     goToView(ViewController::WORKPLACE_VIEW);
 }
 
@@ -197,6 +205,9 @@ void ViewController::clearWorkplaceList(){
     workplaceListView->clear();
 }
 
+void ViewController::deleteWorkplaceClicked(int id){
+    emit deleteWorkplace(id);
+}
 
 // SET VIEWS AND PUSH/POP
 void ViewController::backToView(){

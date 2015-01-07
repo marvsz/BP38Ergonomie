@@ -15,6 +15,8 @@ public:
 signals:
     void showPreviousView();
     void showNewWorkplaceView();
+    void showWorkplace(int id);
+    void deleteWorkplace(int id);
 
 public slots:
     void clear();
@@ -22,6 +24,10 @@ public slots:
 
     void backButtonClicked();
     void forwardButtonClicked();
+
+private slots:
+    void workplaceSelected(int id);
+    void deleteWorkplaceClicked(int id);
 
 private:
     static const QList<QStringList> workplaceCaptions;

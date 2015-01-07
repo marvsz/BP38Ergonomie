@@ -53,6 +53,9 @@ signals:
     void saveMetaData();
     void updateMetaData();
     void updateWorkplaceList();
+    void updateWorkplace(int id);
+    void createWorkplace();
+    void deleteWorkplace(int id);
 
 public slots:
 
@@ -70,6 +73,7 @@ private slots:
     void goToMetaDataView();
     void goToWorkplaceListView();
     void goToWorkplaceView();
+    void goToWorkplaceView(int id);
     void goToLineView();
     void goToShiftAndPauseView();
     void goToEmployeeView();
@@ -79,6 +83,8 @@ private slots:
 
     void saveMetaDataRequested();
     void backToView();
+
+    void deleteWorkplaceClicked(int id);
 
 private:
     QStack<int> *previousViews;

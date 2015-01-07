@@ -7,7 +7,8 @@
 #include <QList>
 #include <QStringList>
 
-const QList<QStringList> WorkplaceListView::workplaceCaptions = QList<QStringList>() << (QStringList() << "Beschreibung" << "Code");
+const QList<QStringList> Workpl
+aceListView::workplaceCaptions = QList<QStringList>() << (QStringList() << "Beschreibung" << "Code");
 
 WorkplaceListView::WorkplaceListView(QWidget *parent) :
     QWidget(parent)
@@ -58,6 +59,8 @@ void WorkplaceListView::addWorkplace(int id, const QString &name, const QString 
     DetailedListItem *newListItem = new DetailedListItem(this, "", name, workplaceCaptions, true);
     newListItem->setValues(values);
     newListItem->setID(id);
+    connect(newListItem, SIGNAL(pressed(int), this, SLOT(workplaceSelected(int)),
+    connect(newListItem, SIGNAL(deleteItem(int)), this, SLOT(deleteWorkplaceClicked(int)));
     listContentLayout->addWidget(newListItem);
 }
 
@@ -67,5 +70,13 @@ void WorkplaceListView::backButtonClicked(){
 
 void WorkplaceListView::forwardButtonClicked(){
     emit showNewWorkplaceView();
+}
+
+void WorkplaceListView::showWorkplace(int id){
+    emit workplaceSelected(id);
+}
+
+void WorkplaceListView::deleteWorkplaceClicked(int id){
+    emit deleteWorkplace(id);
 }
 
