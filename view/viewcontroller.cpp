@@ -51,7 +51,7 @@ ViewController::ViewController(QWidget *parent) :
 
     // PRODUCT VIEW
     connect(productView, SIGNAL(back()), this, SLOT(backToView()));
-    connect(productView, SIGNAL(deleteProduct(int)), this, SLOT(deleteProductCliced(int)));
+    connect(productView, SIGNAL(deleteProduct(int)), this, SLOT(deleteProductClicked(int)));
 
     // COMMENT VIEW
     connect(commentView, SIGNAL(back()), this, SLOT(backToView()));
