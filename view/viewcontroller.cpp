@@ -211,19 +211,19 @@ void ViewController::deleteWorkplaceClicked(int id){
 
 // WORKPLACE VIEW GETTER/SETTER
 
-QString ViewController::getName(){
+QString ViewController::getName() const {
     return workplaceView->getName();
 }
 
-QString ViewController::getDescription(){
+QString ViewController::getDescription() const {
     return workplaceView->getDescription();
 }
 
-QString ViewController::getCode(){
+QString ViewController::getCode() const{
     return workplaceView->getCode();
 }
 
-int ViewController::getWomanPercentage(){
+int ViewController::getWomanPercentage() const{
     return workplaceView->getWomanPercentage();
 }
 
