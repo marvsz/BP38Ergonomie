@@ -62,12 +62,30 @@ public:
     int getLineWorkplaceCount() const;
 
     // SHIFTPAUSE VIEW GETTER
+    QTime getShiftBegin() const;
+    QTime getShiftEnd() const;
+    QTime getShiftCycleTime() const;
+    int getShiftQuantity() const;
+
+    QTime getShiftSetupTime() const;
+    QTime getShiftBasicTime() const;
+    QTime getShiftRestTime() const;
+    QTime getShiftAllowanceTime() const;
+
+    QTime getShiftBreakBegin() const;
+    QTime getShiftBreakEnd() const;
 
     // EMPLOYEE VIEW GETTER
+    int getEmployeeGender() const;
+    int getEmployeeAge() const;
+    int getEmployeeHeight() const;
+    QString getEmployeeStaffNumber() const;
+    QString getEmployeeNote() const;
 
     // PRODUCT VIEW GETTER
-
-    // COMMENT VIEW GETTER
+    QString getProductName() const;
+    QString getProductNumber() const;
+    int getProductTotalPercentage() const;
 
     // COMMENT VIEW GETTER
     QString getCommentProblemName() const;
@@ -83,6 +101,8 @@ signals:
     void updateWorkplace(int id);
     void createWorkplace();
     void deleteWorkplace(int id);
+
+    void deleteProduct(int id);
 
 public slots:
 
@@ -105,12 +125,17 @@ public slots:
     void clearLines();
 
     // SHIFTPAUSE VIEW SETTER
+    void setShift(const QString &shiftType, const QTime &shiftBegin, const QTime &shiftEnd);
+    void setShiftBreak(const QTime &breakBegin, const QTime &breakEnd);
+    void setShiftWorkplaceTimes(const QTime &basicTime, const QTime &setupTime, const QTime &restTime, const QTime &allowanceTime, const QTime &cycleTime);
 
     // EMPLOYEE VIEW SETTER
+    void setEmployee(int gender, int age, int height, const QString &staffNumber, const QString &note);
 
     // PRODUCT VIEW SETTER
-
-    // COMMENT VIEW SETTER
+    void setProduct(const QString &name, const QString &number, int totalPercentage);
+    void addProduct(int id, const QString &name);
+    void clearProducts();
 
     // COMMENT VIEW SETTER
     void setComment(const QString &problemName, const QString &problemDesc, const QString &measureName, const QString &measureDesc, const QString &workerPerception);
@@ -133,6 +158,7 @@ private slots:
     void saveMetaDataRequested();
 
     void deleteWorkplaceClicked(int id);
+    void deleteProductClicked(int id);
 
 private:
     QStack<int> *previousViews;

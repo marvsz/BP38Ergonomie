@@ -22,6 +22,7 @@ signals:
     void back();
     void saveProduct();
     void saveSelectedProduct(int id);
+    void deleteProduct(int id);
 
 public slots:
     void setProduct(const QString &name, const QString &number, int totalPercentage);
@@ -31,6 +32,7 @@ public slots:
 private slots:
     void btnBackClicked();
     void btnAddClicked();
+    void deleteProductClicked(int id);
 
 private:
     QLabel *lblViewName;
@@ -44,8 +46,9 @@ private:
 
     QPushButton *btnBack;
     QPushButton *btnAdd;
+    QPushButton *btnDelete;
 
-    QVBoxLayout *produktListLayout;
+    QVBoxLayout *productListLayout;
 };
 
 #endif // PRODUCTVIEW_H

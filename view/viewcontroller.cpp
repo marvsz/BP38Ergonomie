@@ -42,9 +42,18 @@ ViewController::ViewController(QWidget *parent) :
 
     // LINE VIEW
     connect(lineView, SIGNAL(back()), this, SLOT(backToView()));
+
+    // SHIFTPAUSE VIEW
     connect(shiftPauseView, SIGNAL(back()), this, SLOT(backToView()));
+
+    // EMPLOYEE VIEW
     connect(employeeView, SIGNAL(back()), this, SLOT(backToView()));
+
+    // PRODUCT VIEW
     connect(productView, SIGNAL(back()), this, SLOT(backToView()));
+    connect(productView, SIGNAL(deleteProduct(int)), this, SLOT(deleteProductCliced(int)));
+
+    // COMMENT VIEW
     connect(commentView, SIGNAL(back()), this, SLOT(backToView()));
 
     // DOCUMENTATION VIEW
@@ -245,11 +254,128 @@ void ViewController::clearLines(){
     lineView->clearLines();
 }
 
+QString ViewController::getLineName() const{
+    return lineView->getName();
+}
+
+QString ViewController::getLineDescription() const{
+    return lineView->getDescription();
+}
+
+int ViewController::getLineWorkplaceCount() const{
+    return lineView->getWorkplaceCount();
+}
+
 // SHIFTPAUSE VIEW GETTER/SETTER
+QTime ViewController::getShiftBegin() const{
+    return shiftPauseView->getShiftBegin();
+}
+
+QTime ViewController::getShiftEnd() const{
+    return shiftPauseView->getShiftEnd();
+}
+
+QTime ViewController::getShiftCycleTime() const{
+    return shiftPauseView->getCycleTime();
+}
+
+int ViewController::getShiftQuantity() const{
+    return shiftPauseView->getQuantity();
+}
+
+QTime ViewController::getShiftSetupTime() const{
+    return shiftPauseView->getSetupTime();
+}
+
+QTime ViewController::getShiftBasicTime() const{
+    return shiftPauseView->getBasicTime();
+}
+
+QTime ViewController::getShiftRestTime() const{
+    return shiftPauseView->getRestTime();
+}
+
+QTime ViewController::getShiftAllowanceTime() const{
+    return shiftPauseView->getAllowanceTime();
+}
+
+QTime ViewController::getShiftBreakBegin() const{
+    return shiftPauseView->getBreakBegin();
+}
+
+QTime ViewController::getShiftBreakEnd() const{
+    return shiftPauseView->getBreakEnd();
+}
+
+void ViewController::setShift(const QString &shiftType, const QTime &shiftBegin, const QTime &shiftEnd){
+    shiftPauseView->setShift(shiftType, shiftBegin, shiftEnd);
+}
+
+void ViewController::setShiftBreak(const QTime &breakBegin, const QTime &breakEnd){
+    shiftPauseView->setBreak(breakBegin, breakEnd);
+}
+
+void ViewController::setShiftWorkplaceTimes(const QTime &basicTime, const QTime &setupTime, const QTime &restTime, const QTime &allowanceTime, const QTime &cycleTime){
+    shiftPauseView->setWorkplaceTimes(basicTime, setupTime, restTime, allowanceTime, cycleTime);
+}
+
 
 // EMPLOYEE VIEW GETTER/SETTER
 
+void ViewController::setEmployee(int gender, int age, int height, const QString &staffNumber, const QString &note){
+    employeeView->setEmployee(gender, age, height, staffNumber, note);
+}
+
+int ViewController::getEmployeeGender() const{
+    return employeeView->getGender();
+}
+
+int ViewController::getEmployeeAge() const{
+    return employeeView->getAge();
+}
+
+int ViewController::getEmployeeHeight() const{
+    return employeeView->getHeight();
+}
+
+QString ViewController::getEmployeeStaffNumber() const{
+    return employeeView->getStaffNumber();
+}
+
+QString ViewController::getEmployeeNote() const{
+    return employeeView->getNote();
+}
+
 // PRODUCT VIEW GETTER/SETTER
+
+void ViewController::deleteProductClicked(int id){
+    emit deleteProduct(id);
+}
+
+void ViewController::setProduct(const QString &name, const QString &number, int totalPercentage){
+    productView->setProduct(name, number, totalPercentage);
+}
+
+void ViewController::addProduct(int id, const QString &name){
+    productView->addProduct(id, name);
+}
+
+void ViewController::clearProducts(){
+    productView->clearProducts();
+}
+
+QString ViewController::getProductName() const{
+    return productView->getName();
+}
+
+QString ViewController::getProductNumber() const{
+    return productView->getNumber();
+}
+
+int ViewController::getProductTotalPercentage() const{
+    return productView->getTotalPercentage();
+}
+
 
 // COMMENT VIEW GETTER/SETTER
 

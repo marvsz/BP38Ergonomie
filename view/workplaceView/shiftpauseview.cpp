@@ -2,6 +2,7 @@
 #include <QSpacerItem>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QTime>
 #include "separator.h"
 #include "shiftpauseview.h"
 
@@ -124,25 +125,64 @@ ShiftPauseView::ShiftPauseView(QWidget *parent) :
 
 //PUBLIC SLOTS
 
-void ShiftPauseView::setShift(const QString &shiftType, const QString &shiftBegin, const QString &shiftEnd){
-    conShiftType->setSelectedValue(shiftType);
-    timeShiftBegin->setValue(shiftBegin.toInt());
-    timeShiftEnd->setValue(shiftEnd.toInt());
+void ShiftPauseView::setShift(const QString &shiftType, const QTime &shiftBegin, const QTime &shiftEnd){
+    /*conShiftType->setSelectedValue(shiftType);
+    timeShiftBegin->setValue(shiftBegin.toString().toInt());
+    timeShiftEnd->setValue(shiftEnd.toInt());*/
 }
 
-void ShiftPauseView::setBreak(const QString &breakBegin, const QString &breakEnd){
-    timeBreakBegin->setValue(breakBegin.toInt());
-    timeBreakEnd->setValue(breakEnd.toInt());
+void ShiftPauseView::setBreak(const QTime &breakBegin, const QTime &breakEnd){
+    /*timeBreakBegin->setValue(breakBegin.toInt());
+    timeBreakEnd->setValue(breakEnd.toInt());*/
 }
 
-void ShiftPauseView::setWorkplaceTimes(const QString &basicTime, const QString &setupTime, const QString &restTime, const QString &allowanceTime, const QString &cycleTime){
-    timeBasicTime->setValue(basicTime.toInt());
+void ShiftPauseView::setWorkplaceTimes(const QTime &basicTime, const QTime &setupTime, const QTime &restTime, const QTime &allowanceTime, const QTime &cycleTime){
+   /* timeBasicTime->setValue(basicTime.toInt());
     timeSetupTime->setValue(setupTime.toInt());
     timeRestTime->setValue(restTime.toInt());
     timeAllowanceTime->setValue(allowanceTime.toInt());
-    timeCycleTime->setValue(cycleTime.toInt());
+    timeCycleTime->setValue(cycleTime.toInt());*/
 }
 
+QTime ShiftPauseView::getShiftBegin() const{
+
+}
+
+QTime ShiftPauseView::getShiftEnd() const{
+
+}
+
+QTime ShiftPauseView::getCycleTime() const{
+
+}
+
+int ShiftPauseView::getQuantity() const{
+
+}
+
+
+QTime ShiftPauseView::getSetupTime() const{
+
+}
+
+QTime ShiftPauseView::getBasicTime() const{
+
+}
+
+QTime ShiftPauseView::getRestTime() const{
+
+}
+
+QTime ShiftPauseView::getAllowanceTime() const{
+}
+
+QTime ShiftPauseView::getBreakBegin() const{
+
+}
+
+QTime ShiftPauseView::getBreakEnd() const{
+
+}
 
 //PRIVATE SLOTS
 void ShiftPauseView::backButtonClicked(){

@@ -17,25 +17,23 @@ class ShiftPauseView : public QWidget
 public:
     explicit ShiftPauseView(QWidget *parent = 0);
 
-    QDateTime getShiftBegin() const;
-    QDateTime getShiftEnd() const;
-    QDateTime getCycleTime() const;
+    QTime getShiftBegin() const;
+    QTime getShiftEnd() const;
+    QTime getCycleTime() const;
     int getQuantity() const;
 
-    QDateTime getSetupTime() const;
-    QDateTime getBasicTime() const;
-    QDateTime getRestTime() const;
-    QDateTime getAllowanceTime() const;
+    QTime getSetupTime() const;
+    QTime getBasicTime() const;
+    QTime getRestTime() const;
+    QTime getAllowanceTime() const;
 
-    QDateTime getBreakBegin() const;
-    QDateTime getBreakEnd() const;
-
-
+    QTime getBreakBegin() const;
+    QTime getBreakEnd() const;
 
 public slots:
-   void setShift(const QString &shiftType, const QString &shiftBegin, const QString &shiftEnd);
-   void setBreak(const QString &breakBegin, const QString &breakEnd);
-   void setWorkplaceTimes(const QString &basicTime, const QString &setupTime, const QString &restTime, const QString &allowanceTime, const QString &cycleTime);
+   void setShift(const QString &shiftType, const QTime &shiftBegin, const QTime &shiftEnd);
+   void setBreak(const QTime &breakBegin, const QTime &breakEnd);
+   void setWorkplaceTimes(const QTime &basicTime, const QTime &setupTime, const QTime &restTime, const QTime &allowanceTime, const QTime &cycleTime);
 
 signals:
     void back();

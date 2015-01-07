@@ -1,7 +1,7 @@
 #include "productview.h"
 #include "separator.h"
 #include <QGridLayout>
-
+#include "detailedlistitem.h"
 
 ProductView::ProductView(QWidget *parent) : QWidget(parent),
     lblViewName(new QLabel("Produktdaten")),
@@ -13,7 +13,7 @@ ProductView::ProductView(QWidget *parent) : QWidget(parent),
     numBxTotalPercentage(new NumberLineEdit()),
     btnBack(new QPushButton("Zurück")),
     btnAdd(new QPushButton("Hinzufügen")),
-    produktListLayout(new QVBoxLayout)
+    productListLayout(new QVBoxLayout)
 {
     btnBack->setObjectName("btnNavigation");
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
@@ -32,11 +32,13 @@ ProductView::ProductView(QWidget *parent) : QWidget(parent),
     productDataLayout->addWidget(txtBxNumber, 0, 3, 1, 1, 0);
     productDataLayout->addWidget(lblTotalPercentage, 1, 0, 1, 1, 0);
     productDataLayout->addWidget(numBxTotalPercentage, 1, 1, 1, 1, 0);
+    productDataLayout->addWidget(btnAdd, 1, 3, 1, 1, 0);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(productDataLayout);
+    mainLayout->addLayout(productListLayout);
     mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
     setLayout(mainLayout);
@@ -55,11 +57,18 @@ void ProductView::setProduct(const QString &name, const QString &number, int tot
 }
 
 void ProductView::addProduct(int id, const QString &name){
-
+    DetailedListItem *newListItem = new DetailedListItem(0, "", name, QList<QStringList>(), true);
+    newListItem->setID(id);
+    connect(newListItem, SIGNAL(pressed(int)), this, SLOT(deleteProductClicked(int)));
+    productListLayout->addWidget(newListItem);
 }
 
 void ProductView::clearProducts(){
-
+    QLayoutItem *item;
+    while((item = productListLayout->takeAt(0)) != NULL){
+        delete item->widget();
+        delete item;
+    }
 }
 
 //PRIVATE SLOTS
@@ -69,6 +78,10 @@ void ProductView::btnBackClicked(){
 
 void ProductView::btnAddClicked(){
     emit saveProduct();
+}
+
+void ProductView::deleteProductClicked(int id){
+    emit deleteProduct(id);
 }
 
 
