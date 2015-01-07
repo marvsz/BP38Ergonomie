@@ -31,8 +31,26 @@ private slots:
     void updateWorkplaceView(int id);
     void saveWorkplaceView();
 
+    void updateLines();
+
     void updateLine(int id);
     int saveLine();
+
+    void updateProducts();
+
+    void updateProduct(int id);
+    int saveProduct();
+
+    void updateBreaks();
+
+    void updateBreak(int id);
+    int saveBreak();
+
+    void updateComment(int id);
+    int saveComment();
+
+    void updateEmployee();
+    int saveEmployee(int id);
 
 
 private:
@@ -58,7 +76,8 @@ private:
     int saveRecording();
 
     void updateWorkplace(int id);
-    int saveWorkingplace();
+    int saveWorkplace();
+
 
     void saveRecordingObservesLine(int recID, int lineID);
     void saveRecordingObservesWorkplace(int recID, int workplaceID);

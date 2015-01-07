@@ -1,6 +1,7 @@
 #ifndef DBHANDLER_H
 #define DBHANDLER_H
 
+#include <QHash>
 #include <QSql>
 #include <QSqlQuery>
 #include <QSqlTableModel>
@@ -36,6 +37,8 @@ private:
     QSqlTableModel *tmRecordingObservesWorkplace;
     QSqlTableModel *tmWorkplace;
     QSqlTableModel *tmLine;
+
+    QHash<DB_TABLES, QSqlTableModel*> htSqlTableModels;
 
     QSqlTableModel* getTableModelRef(DB_TABLES tbl);
 };

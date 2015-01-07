@@ -38,6 +38,10 @@ void Controller::saveWorkplaceView(){
 }
 
 //Line
+void Controller::updateLines(){
+
+}
+
 void Controller::updateLine(int id){
 
 }
@@ -46,7 +50,52 @@ int Controller::saveLine(){
 
 }
 
-//private methods
+//Product
+void Controller::updateProducts(){
+
+}
+
+void Controller::updateProduct(int id){
+
+}
+
+int Controller::saveProduct(){
+
+}
+
+//Break
+void Controller::updateBreaks(){
+
+}
+
+void Controller::updateBreak(int id){
+
+}
+
+int Controller::saveBreak(){
+
+}
+
+//Comment
+void Controller::updateComment(int id){
+
+}
+
+int Controller::saveComment(){
+
+}
+
+
+//Employee
+void Controller::updateEmployee(){
+
+}
+
+int Controller::saveEmployee(int id){
+
+}
+
+//PRIVATE METHODS
 int Controller::save(DB_TABLES tbl, const QString &filter, const QString &colID, const QStringList &colNames, const QList<QVariant::Type> &colTypes, QHash<QString, QVariant> &colMapNameValue){
     dbHandler->select(tbl, filter);
     int id;

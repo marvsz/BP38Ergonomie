@@ -7,7 +7,8 @@
 #include <QVariant>
 
 enum DB_TABLES {ANALYST, EMPLOYER, CORPORATION, FACTORY, RECORDING,
-                RECORDING_OBSERVES_LINE, RECORDING_OBSERVES_WORKPLACE, LINE, WORKPLACE};
+                RECORDING_OBSERVES_LINE, RECORDING_OBSERVES_WORKPLACE, LINE, WORKPLACE,
+                COMMENT, EMPLOYEE, EMPLOYEE_WORKS_SHIFT, PRODUCT, SHIFT, BREAK};
 
 class DBConstants
 {
@@ -104,6 +105,65 @@ public:
     static const QString COL_WORKPLACE_BODY_MEASUREMENT_ID;
     static const QStringList LIST_WORKPLACE_COLS;
     static const QList<QVariant::Type> LIST_WORKPLACE_TYPES;
+
+    //Comment
+    static const QString TBL_COMMENT;
+    static const QString COL_COMMENT_ID;
+    static const QString COL_COMMENT_PROBLEM_NAME;
+    static const QString COL_COMMENT_PROBLEM_DESCRIPTION;
+    static const QString COL_COMMENT_MEASURE_NAME;
+    static const QString COL_COMMENT_MEASURE_DESCRIPTION;
+    static const QString COL_COMMENT_WORKER_PERCEPTION;
+    static const QString COL_COMMENT_WORKPLACE_ID;
+    static const QStringList LIST_COMMENT_COLS;
+    static const QList<QVariant::Type> LIST_COMMENT_TYPES;
+
+    //Employee
+    static const QString TBL_EMPLOYEE;
+    static const QString COL_EMPLOYEE_ID;
+    static const QString COL_EMPLOYEE_STAFF_NUMBER;
+    static const QString COL_EMPLOYEE_AGE;
+    static const QString COL_EMPLOYEE_HEIGHT;
+    static const QString COL_EMPLOYEE_NOTE;
+    static const QStringList LIST_EMPLOYEE_COLS;
+    static const QList<QVariant::Type> LIST_EMPLOYEE_TYPES;
+
+    //Employee_works_Shift
+    static const QString TBL_EMPLOYEE_WORKS_SHIFT;
+    static const QString COL_EMPLOYEE_WORKS_SHIFT_EMPLOYEE_ID;
+    static const QString COL_EMPLOYEE_WORKS_SHIFT_SHIFT_ID;
+    static const QStringList LIST_EMPlOYEE_WORKS_SHIFT_COLS;
+    static const QList<QVariant::Type> LIST_EMPLOYEE_WORKS_SHIFT_TYPES;
+
+    //Product
+    static const QString TBL_PRODUCT;
+    static const QString COL_PRODUCT_ID;
+    static const QString COL_PRODUCT_NUMBER;
+    static const QString COL_PRODUCT_NAME;
+    static const QString COL_PRODUCT_TOTAL_PERCENTAGE;
+    static const QStringList LIST_PRODUCT_COLS;
+    static const QList<QVariant::Type> LIST_PRODUCT_TYPES;
+
+    //Shift
+    static const QString TBL_SHIFT;
+    static const QString COL_SHIFT_ID;
+    static const QString COL_SHIFT_ROTATION_SHIFT_ID;
+    static const QString COL_SHIFT_TYPE;
+    static const QString COL_SHIFT_START;
+    static const QString COL_SHIFT_END;
+    static const QStringList LIST_SHIFT_COLS;
+    static const QList<QVariant::Type> LIST_SHIFT_TYPES;
+
+    //Break
+    static const QString TBL_BREAK;
+    static const QString COL_BREAK_ID;
+    static const QString COL_BREAK_START;
+    static const QString COL_BREAK_END;
+    static const QString COL_BREAK_SHIFT_ID;
+    static const QString COL_BREAK_EMPLOYEE_ID;
+    static const QStringList LIST_BREAK_COLS;
+    static const QList<QVariant::Type> LIST_BREAK_TYPES;
+
 
 };
 

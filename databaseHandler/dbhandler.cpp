@@ -79,6 +79,17 @@ DBHandler::DBHandler()
     tmWorkplace->setTable(DBConstants::TBL_WORKPLACE);
     tmWorkplace->setEditStrategy(QSqlTableModel::OnRowChange);
 
+    htSqlTableModels = QHash<DB_TABLES, QSqlTableModel*>();
+    htSqlTableModels.insert(DB_TABLES::ANALYST, tmAnalyst);
+    htSqlTableModels.insert(DB_TABLES::EMPLOYER, tmEmployer);
+    htSqlTableModels.insert(DB_TABLES::CORPORATION, tmCorporation);
+    htSqlTableModels.insert(DB_TABLES::FACTORY, tmFactory);
+    htSqlTableModels.insert(DB_TABLES::RECORDING, tmRecording);
+    htSqlTableModels.insert(DB_TABLES::RECORDING_OBSERVES_LINE, tmRecordingObservesLine);
+    htSqlTableModels.insert(DB_TABLES::RECORDING_OBSERVES_WORKPLACE, tmRecordingObservesWorkplace);
+    htSqlTableModels.insert(DB_TABLES::LINE, tmLine);
+    htSqlTableModels.insert(DB_TABLES::WORKPLACE, tmWorkplace);
+
 }
 
 DBHandler::~DBHandler(){
@@ -132,7 +143,7 @@ int DBHandler::getNextID(DB_TABLES tbl, const QString &colName){
 
 
 QSqlTableModel *DBHandler::getTableModelRef(DB_TABLES tbl){
-    switch(tbl){
+    /*switch(tbl){
     case DB_TABLES::ANALYST: return tmAnalyst; break;
     case DB_TABLES::EMPLOYER: return tmEmployer; break;
     case DB_TABLES::CORPORATION: return tmCorporation; break;
@@ -143,7 +154,8 @@ QSqlTableModel *DBHandler::getTableModelRef(DB_TABLES tbl){
     case DB_TABLES::LINE: return tmLine; break;
     case DB_TABLES::WORKPLACE: return tmWorkplace; break;
     default: return NULL; break;
-    }
+    }*/
+    return htSqlTableModels.value(tbl);
 }
 
 
