@@ -159,3 +159,21 @@ void WorkplaceView::productViewSelected(){
 void WorkplaceView::commentViewSelected(){
     emit showCommentView();
 }
+
+// GETTER
+
+QString WorkplaceView::getName(){
+    return txtBxName->text();
+}
+
+QString WorkplaceView::getDescription(){
+    return txtBxDescription->text();
+}
+
+QString WorkplaceView::getCode(){
+    return txtBxCode->text();
+}
+
+int WorkplaceView::getWomanPercentage(){
+    return numBxWomanPercentage->getValue();
+}

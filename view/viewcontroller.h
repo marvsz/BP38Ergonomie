@@ -49,6 +49,11 @@ public:
     QDateTime getRecordTimeBegin() const;
     QDateTime getRecordTimeEnd() const;
 
+    QString getName() const;
+    QString getDescription() const;
+    QString getCode() const;
+    int getWomanPercentage() const;
+
 signals:
     void saveMetaData();
     void updateMetaData();
@@ -68,7 +73,11 @@ public slots:
     void addWorkplace(int id, const QString &name, const QString &description, const QString &code);
     void clearWorkplaceList();
 
+    void setWorkplaceMetaData(const QString &name, const QString &description, const QString &code, int percentageWoman);
+
 private slots:
+
+    void backToView();
 
     void goToMetaDataView();
     void goToWorkplaceListView();
@@ -82,7 +91,6 @@ private slots:
     void goToDocumentationView();
 
     void saveMetaDataRequested();
-    void backToView();
 
     void deleteWorkplaceClicked(int id);
 

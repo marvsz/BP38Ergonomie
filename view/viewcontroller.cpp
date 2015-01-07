@@ -209,6 +209,30 @@ void ViewController::deleteWorkplaceClicked(int id){
     emit deleteWorkplace(id);
 }
 
+// WORKPLACE VIEW GETTER/SETTER
+
+QString ViewController::getName(){
+    return workplaceView->getName();
+}
+
+QString ViewController::getDescription(){
+    return workplaceView->getDescription();
+}
+
+QString ViewController::getCode(){
+    return workplaceView->getCode();
+}
+
+int ViewController::getWomanPercentage(){
+    return workplaceView->getWomanPercentage();
+}
+
+void ViewController::setWorkplaceMetaData(const QString &name, const QString &description, const QString &code, int percentageWoman){
+    workplaceView->setWorkplaceMetaData(name, description, code, percentageWoman);
+}
+
+
+
 // SET VIEWS AND PUSH/POP
 void ViewController::backToView(){
     int nextView = previousViews->pop();

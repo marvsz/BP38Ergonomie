@@ -15,6 +15,11 @@ public:
     explicit WorkplaceView(QWidget *parent = 0);
     explicit WorkplaceView(int id, QWidget *parent = 0);
 
+    QString getName() const;
+    QString getDescription() const;
+    QString getCode() const;
+    int getWomanPercentage() const;
+
 signals:
     void save(int id);
     void save();
