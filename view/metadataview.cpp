@@ -114,6 +114,8 @@ MetaDataView::MetaDataView(QWidget *parent) :
     mainLayout->addWidget(lblRecordingDateTime);
     mainLayout->addLayout(recordingLayout);
 
+    //mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding));
+
     setLayout(mainLayout);
 }
 

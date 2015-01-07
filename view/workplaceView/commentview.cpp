@@ -20,6 +20,8 @@ CommentView::CommentView(QWidget *parent) : QWidget(parent),
     txtBxPerceptionDescription(new TextEdit()),
     btnBack(new QPushButton("Zurück"))
 {
+    btnBack->setObjectName("btnNavigation");
+
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
     QGridLayout *navigationBarLayout = new QGridLayout;
     navigationBarLayout->addWidget(btnBack, 0, 1, 1, 1, Qt::AlignLeft);
@@ -47,6 +49,8 @@ CommentView::CommentView(QWidget *parent) : QWidget(parent),
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(commentLayout);
+
+    setLayout(mainLayout);
 }
 
 CommentView::~CommentView()

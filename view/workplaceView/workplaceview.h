@@ -36,7 +36,7 @@ private slots:
     void btnGoOnWithWorkProcessesClicked();
 
     void lineViewSelected();
-    void shiftAndPauseViewSelected();
+    void shiftPauseViewSelected();
     void employeeViewSelected();
     void productViewSelected();
     void commentViewSelected();

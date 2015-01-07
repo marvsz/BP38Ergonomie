@@ -11,7 +11,7 @@ ViewController::ViewController(QWidget *parent) :
     lineView = new LineView;
     shiftPauseView = new ShiftPauseView;
     productView = new ProductView;
-    // commentView = new CommentView;
+    commentView = new CommentView;
     employeeView = new EmployeeView;
     documentationView = new DocumentationView;
 
@@ -39,10 +39,10 @@ ViewController::ViewController(QWidget *parent) :
     connect(workplaceView, SIGNAL(showCommentView()), this, SLOT(goToCommentView()));
     // LINE VIEW
     connect(lineView, SIGNAL(back()), this, SLOT(backToView()));
-    //connect(shiftPauseView, SIGNAL(back)), this, SLOT(backToView()));
+    connect(shiftPauseView, SIGNAL(back()), this, SLOT(backToView()));
     connect(employeeView, SIGNAL(back()), this, SLOT(backToView()));
     connect(productView, SIGNAL(back()), this, SLOT(backToView()));
-    //connect(commentView, SIGNAL(back()), this, SLOT(backToView()));
+    connect(commentView, SIGNAL(back()), this, SLOT(backToView()));
 
     // DOCUMENTATION VIEW
     connect(documentationView, SIGNAL(showPreviousView()), this, SLOT(backToView()));
@@ -56,7 +56,7 @@ ViewController::ViewController(QWidget *parent) :
     this->addWidget(shiftPauseView);
     this->addWidget(employeeView);
     this->addWidget(productView);
-    //this->addWidget(commentView);
+    this->addWidget(commentView);
     this->addWidget(documentationView);
 
     setCurrentIndex(ViewController::MAIN_MENU_VIEW);
@@ -91,7 +91,7 @@ void ViewController::goToProductView(){
 }
 
 void ViewController::goToCommentView(){
-    //goToView(ViewController::COMMENT_VIEW);
+    goToView(ViewController::COMMENT_VIEW);
 }
 
 void ViewController::goToDocumentationView(){

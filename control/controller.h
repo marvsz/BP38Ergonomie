@@ -2,8 +2,13 @@
 #define CONTROLLER_H
 
 #include <QObject>
-#include "databaseHandler/dbhandler.h"
-#include "view/viewcontroller.h"
+#if defined(Q_OS_IOS)
+    #include "dbhandler.h"
+    #include "viewcontroller.h"
+#else
+    #include "databaseHandler/dbhandler.h"
+    #include "view/viewcontroller.h"
+#endif
 #include <QSqlField>
 #include <QHash>
 

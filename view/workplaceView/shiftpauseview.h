@@ -36,8 +36,7 @@ public slots:
     void setBreak();*/
 
 signals:
-    /*void showMetadataView();
-    void saveShiftPauseView();*/
+    void back();
 
 private slots:
     void backButtonClicked();

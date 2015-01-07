@@ -16,6 +16,8 @@ EmployeeView::EmployeeView(QWidget *parent) : QWidget(parent),
     txtBxNote(new TextEdit()),
     btnBack(new QPushButton("Zurück"))
 {
+    btnBack->setObjectName("btnNavigation");
+
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
 
     vcAge->setText("Alter");
@@ -31,7 +33,7 @@ EmployeeView::EmployeeView(QWidget *parent) : QWidget(parent),
     QGridLayout *navigationBarLayout = new QGridLayout();
     navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
     navigationBarLayout->addWidget(lblViewName, 0, 1, 1, 1, Qt::AlignCenter);
-    navigationBarLayout->addItem(new QSpacerItem(10,0, QSizePolicy::Expanding, QSizePolicy::Fixed), 0, 2, 1, 1, 0);
+    navigationBarLayout->addWidget(new QLabel(), 0, 2, 1, 1, 0);
 
     QGridLayout *employeeDataLayout = new QGridLayout();
     employeeDataLayout->addWidget(lblGender, 0, 0, 1, 1, 0);
@@ -51,6 +53,8 @@ EmployeeView::EmployeeView(QWidget *parent) : QWidget(parent),
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(employeeDataLayout);
     mainLayout->addSpacerItem(new QSpacerItem(0, 10, QSizePolicy::Expanding, QSizePolicy::Expanding));
+
+    setLayout(mainLayout);
 }
 
 EmployeeView::~EmployeeView()

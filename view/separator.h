@@ -1,7 +1,6 @@
 #ifndef SEPARATOR_H
 #define SEPARATOR_H
 
-#include <QWidget>
 #include <QFrame>
 
 class Separator : public QFrame

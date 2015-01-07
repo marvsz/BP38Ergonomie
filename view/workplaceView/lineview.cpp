@@ -17,13 +17,16 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     btnBack(new QPushButton("Zurück")),
     btnAdd(new QPushButton("Hinzufügen"))
 {
+    btnBack->setObjectName("btnNavigation");
+
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
 
     connect(btnAdd, SIGNAL(clicked()), this, SLOT(btnAddCicked()));
 
-    QHBoxLayout *navigationBarLayout = new QHBoxLayout;
-    navigationBarLayout->addWidget(btnBack, 0, Qt::AlignLeft);
-    navigationBarLayout->addWidget(lblViewName, 0, Qt::AlignHCenter);
+    QGridLayout *navigationBarLayout = new QGridLayout;
+    navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
+    navigationBarLayout->addWidget(lblViewName, 0, 1, 1, 1, Qt::AlignCenter);
+    navigationBarLayout->addWidget(new QLabel(), 0, 2, 1, 1, 0);
 
     QVBoxLayout *lineSelectLayout = new QVBoxLayout;
     lineSelectLayout->addWidget(lblSelectLine);
@@ -42,7 +45,7 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     mainLayout->addLayout(lineSelectLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(lineAddLayout);
-    mainLayout->addSpacerItem(new QSpacerItem(0, 10));
+    mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
     setLayout(mainLayout);
 }

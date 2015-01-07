@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
                         "QGroupBox {border:2px solid #007aff; background-color: #efeff4; border-radius: 10px;}"
                         "QWidget#detailedListItemWidget {border:2px solid #007aff; background-color: #efeff4; border-radius: 10px;}"
                         "QLineEdit {font: 100 18px \"Serif\";border: 2px solid #007aff; border-radius: 10px; background: #f5f5f5; color: #8e8e93; padding: 4px;}"
+                        "TextEdit {font: 100 18px \"Serif\";border: 2px solid #007aff; border-radius: 10px; background: #f5f5f5; color: #8e8e93; padding: 4px;}"
                         "QSlider::groove:horizontal {border: 1px solid #007aff; background: #efeff4; height: 5px;border-radius: 2px;}"
                         "QSlider::handle:horizontal {border: 2px solid #007aff; width: 38px; height: 38px; border-radius: 20px; background: #efeff4; margin: -20px 0;}"
                         "QSlider::add-page:horizontal {background: #b5b6b5;}"

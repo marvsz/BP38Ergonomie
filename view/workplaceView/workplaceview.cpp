@@ -62,6 +62,12 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     product = new DetailedListItem(this, "", "Produkte", productList, false);
     comment = new DetailedListItem(this, "", "Bemerkungen", commentList, false);
 
+    connect(line, SIGNAL(clicked()), this, SLOT(lineViewSelected()));
+    connect(shift, SIGNAL(clicked()), this, SLOT(shiftPauseViewSelected()));
+    connect(employee, SIGNAL(clicked()), this, SLOT(employeeViewSelected()));
+    connect(product, SIGNAL(clicked()), this, SLOT(productViewSelected()));
+    connect(comment, SIGNAL(clicked()), this, SLOT(commentViewSelected()));
+
     additions->append(line);
     additions->append(shift);
     additions->append(employee);
@@ -138,7 +144,7 @@ void WorkplaceView::lineViewSelected(){
     emit showLineView();
 }
 
-void WorkplaceView::shiftAndPauseViewSelected(){
+void WorkplaceView::shiftPauseViewSelected(){
     emit showShiftAndPauseView();
 }
 
