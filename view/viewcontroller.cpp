@@ -37,6 +37,7 @@ ViewController::ViewController(QWidget *parent) :
     connect(workplaceView, SIGNAL(showEmployeeView()), this, SLOT(goToEmployeeView()));
     connect(workplaceView, SIGNAL(showProductView()), this, SLOT(goToProductView()));
     connect(workplaceView, SIGNAL(showCommentView()), this, SLOT(goToCommentView()));
+
     // LINE VIEW
     connect(lineView, SIGNAL(back()), this, SLOT(backToView()));
     connect(shiftPauseView, SIGNAL(back()), this, SLOT(backToView()));
@@ -67,6 +68,7 @@ void ViewController::goToMetaDataView(){
 }
 
 void ViewController::goToWorkplaceListView(){
+    emit updateWorkplaceList();
     goToView(ViewController::WORKPLACELIST_VIEW);
 }
 
@@ -185,9 +187,46 @@ void ViewController::setRecordTime(const QDateTime &begin, const QDateTime &end)
     metaDataView->setRecordTime(begin, end);
 }
 
+// WORKPLACE LIST VIEW SETTER
+
+void ViewController::addWorkplace(const QString &name, const QString &description, const QString &code){
+    workplaceListView->addWorkplace(name, description, code);
+}
+
+void ViewController::clearWorkplaceList(){
+    workplaceListView->clear();
+}
+
+
 // SET VIEWS AND PUSH/POP
 void ViewController::backToView(){
-    ViewController::setCurrentIndex(previousViews->pop());
+    int nextView = previousViews->pop();
+    switch(nextView){
+        case ViewController::MAIN_MENU_VIEW:
+            break;
+        case ViewController::METADATA_VIEW:
+            break;
+        case ViewController::WORKPLACELIST_VIEW:
+            break;
+        case ViewController::WORKPLACE_VIEW:
+            emit updateWorkplaceList();
+            break;
+        case ViewController::LINE_VIEW:
+            break;
+        case ViewController::SHIFTPAUSE_VIEW:
+            break;
+        case ViewController::EMPLOYEE_VIEW:
+            break;
+        case ViewController::PRODUCT_VIEW:
+            break;
+        case ViewController::COMMENT_VIEW:
+            break;
+        case ViewController::DOCUMENTATION_VIEW:
+            break;
+        default:
+            break;
+    }
+    ViewController::setCurrentIndex(nextView);
 }
 
 void ViewController::goToView(int index){

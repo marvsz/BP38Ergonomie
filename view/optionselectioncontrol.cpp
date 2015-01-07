@@ -36,3 +36,11 @@ QString OptionSelectionControl::getSelectedValue(){
 int OptionSelectionControl::getSelectedID(){
     return currentSelectedBtnID;
 }
+
+void OptionSelectionControl::setSelectedValue(const QString &name){
+    for(int i = 0; i < this-> btnOptions->count(); ++i){
+        if (btnOptions->at(i)->text().compare(name) == 0)
+            setSelectedValue(btnOptions->at(i)->getID());
+    }
+}
+

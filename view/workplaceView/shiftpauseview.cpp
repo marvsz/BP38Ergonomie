@@ -122,6 +122,31 @@ ShiftPauseView::ShiftPauseView(QWidget *parent) :
     setLayout(mainLayout);
 }
 
+//PUBLIC SLOTS
+
+void ShiftPauseView::setShift(const QString &shiftType, const QString &shiftBegin, const QString &shiftEnd){
+    conShiftType->setSelectedValue(shiftType);
+    timeShiftBegin->setValue(shiftBegin.toInt());
+    timeShiftEnd->setValue(shiftEnd.toInt());
+}
+
+void ShiftPauseView::setBreak(const QString &breakBegin, const QString &breakEnd){
+    timeBreakBegin->setValue(breakBegin.toInt());
+    timeBreakEnd->setValue(breakEnd.toInt());
+}
+
+void ShiftPauseView::setWorkplaceTimes(const QString &basicTime, const QString &setupTime, const QString &restTime, const QString &allowanceTime, const QString &cycleTime){
+    timeBasicTime->setValue(basicTime.toInt());
+    timeSetupTime->setValue(setupTime.toInt());
+    timeRestTime->setValue(restTime.toInt());
+    timeAllowanceTime->setValue(allowanceTime.toInt());
+    timeCycleTime->setValue(cycleTime.toInt());
+}
+
+
+//PRIVATE SLOTS
 void ShiftPauseView::backButtonClicked(){
     emit back();
 }
+
+// GETTER

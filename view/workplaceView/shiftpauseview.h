@@ -30,10 +30,12 @@ public:
     QDateTime getBreakBegin() const;
     QDateTime getBreakEnd() const;
 
+
+
 public slots:
-   /* void setShift();
-    void setAllowedTime();
-    void setBreak();*/
+   void setShift(const QString &shiftType, const QString &shiftBegin, const QString &shiftEnd);
+   void setBreak(const QString &breakBegin, const QString &breakEnd);
+   void setWorkplaceTimes(const QString &basicTime, const QString &setupTime, const QString &restTime, const QString &allowanceTime, const QString &cycleTime);
 
 signals:
     void back();

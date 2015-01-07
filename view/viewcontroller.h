@@ -62,6 +62,9 @@ public slots:
     void setFactory(const QString &name, const QString &street, int zip, const QString &city, const QString &country, const QString &contact, int employeeCount);
     void setRecordTime(const QDateTime &begin, const QDateTime &end);
 
+    void addWorkplace(const QString &name, const QString &description, const QString &code);
+    void clearWorkplaceList();
+
 private slots:
 
     void goToMetaDataView();

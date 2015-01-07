@@ -7,12 +7,14 @@
 #include <QList>
 #include <QStringList>
 
+const QList<QStringList> WorkplaceListView::workplaceCaptions = QList<QStringList>() << (QStringList() << "Beschreibung" << "Code");
+
 WorkplaceListView::WorkplaceListView(QWidget *parent) :
     QWidget(parent)
 {
     QGridLayout *navigationLayout = new QGridLayout;
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    QVBoxLayout *listContentLayout = new QVBoxLayout;
+    listContentLayout = new QVBoxLayout;
 
     QWidget *listContent = new QWidget;
 
@@ -29,8 +31,6 @@ WorkplaceListView::WorkplaceListView(QWidget *parent) :
     FlickCharm *flickCharm = new FlickCharm(this);
     flickCharm->activateOn(scWorkplaces);
 
-    listContentLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding));
-
     navigationLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
     navigationLayout->addWidget(new QLabel("Arbeitsplätze"), 0, 1, 1, 1, Qt::AlignCenter);
     navigationLayout->addWidget(btnForward, 0, 2, 1, 1, Qt::AlignRight);
@@ -40,12 +40,24 @@ WorkplaceListView::WorkplaceListView(QWidget *parent) :
     mainLayout->addLayout(navigationLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
     mainLayout->addWidget(scWorkplaces);
+    mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
     this->setLayout(mainLayout);
 }
 
-void WorkplaceListView::updateWorkplaces(const QStringList &workplaces){
+void WorkplaceListView::clear(){
+    QLayoutItem *item;
+    while((item = listContentLayout->takeAt(0)) != NULL){
+        delete item->widget();
+        delete item;
+    }
+}
 
+void WorkplaceListView::addWorkplace(const QString &name, const QString &description, const QString &code){
+    QList<QStringList> values = QList<QStringList>() << (QStringList() << description << code);
+    DetailedListItem *newListItem = new DetailedListItem(this, "", name, workplaceCaptions, true);
+    newListItem->setValues(values);
+    listContentLayout->addWidget(newListItem);
 }
 
 void WorkplaceListView::backButtonClicked(){

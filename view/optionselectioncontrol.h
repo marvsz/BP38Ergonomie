@@ -19,6 +19,7 @@ signals:
 
 public slots:
     void setSelectedValue(int id);
+    void setSelectedValue(const QString &name);
 
 private:
     int currentSelectedBtnID;

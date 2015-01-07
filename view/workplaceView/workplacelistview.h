@@ -17,14 +17,17 @@ signals:
     void showNewWorkplaceView();
 
 public slots:
-    void updateWorkplaces(const QStringList &workplaces);
+    void clear();
+    void addWorkplace(const QString &name, const QString &description, const QString &code);
+
     void backButtonClicked();
     void forwardButtonClicked();
 
 private:
+    static const QList<QStringList> workplaceCaptions;
     QPushButton *btnBack;
     QPushButton *btnForward;
-    QList<DetailedListItem> *workplaces;
+    QVBoxLayout *listContentLayout;
     QScrollArea *scWorkplaces;
 };
 
