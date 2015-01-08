@@ -21,10 +21,9 @@ public:
     int getWomanPercentage() const;
 
 signals:
-    void save(int id);
     void save();
-    void showWorkprocessView();
-    void showPreviousView();
+    void back();
+    void forward();
 
     void showLineView();
     void showShiftAndPauseView();
@@ -39,9 +38,8 @@ public slots:
 
 
 private slots:
-    void btnSaveClicked();
-    void btnCancelClicked();
-    void btnGoOnWithWorkProcessesClicked();
+    void btnBackClicked();
+    void btnForwardClicked();
 
     void lineViewSelected();
     void shiftPauseViewSelected();
@@ -63,13 +61,10 @@ private:
     TextLineEdit *txtBxCode;
     NumberLineEdit *numBxWomanPercentage;
 
-    QPushButton *btnCancel;
-    QPushButton *btnSave;
-    QPushButton *btnGoOnWithWorkProcesses;
+    QPushButton *btnBack;
+    QPushButton *btnForward;
 
     DetailedListItem *line;
-    //DetailedListItem *shift;
-    //DetailedListItem *employee;
     DetailedListItem *product;
     DetailedListItem *comment;
 

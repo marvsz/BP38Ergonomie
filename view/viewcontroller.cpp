@@ -32,8 +32,9 @@ ViewController::ViewController(QWidget *parent) :
     connect(workplaceListView, SIGNAL(deleteWorkplace(int)), this, SLOT(deleteWorkplaceRequested(int)));
 
     // WORKPLACE VIEW
-    connect(workplaceView, SIGNAL(showPreviousView()), this, SLOT(backToView()));
-    connect(workplaceView, SIGNAL(showWorkprocessView()), this, SLOT(goToDocumentationView()));
+    connect(workplaceView, SIGNAL(back()), this, SLOT(backToView()));
+    connect(workplaceView, SIGNAL(save()), this, SLOT(saveWorkplaceRequested()));
+    connect(workplaceView, SIGNAL(forward()), this, SLOT(goToDocumentationView()));
     connect(workplaceView, SIGNAL(showLineView()), this, SLOT(goToLineView()));
     connect(workplaceView, SIGNAL(showShiftAndPauseView()), this, SLOT(goToShiftAndPauseView()));
     connect(workplaceView, SIGNAL(showEmployeeView()), this, SLOT(goToEmployeeView()));
@@ -482,7 +483,7 @@ void ViewController::backToView(){
             emit updateWorkplaceList();
             break;
         case ViewController::WORKPLACE_VIEW:
-            //emit updateWorkplace();
+            emit updateWorkplace();
             break;
         case ViewController::LINE_VIEW:
             emit updateLineView();

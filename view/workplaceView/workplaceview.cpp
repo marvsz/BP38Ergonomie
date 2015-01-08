@@ -17,14 +17,14 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     txtBxDescription(new TextLineEdit()),
     txtBxCode(new TextLineEdit()),
     numBxWomanPercentage(new NumberLineEdit()),
-    btnCancel(new QPushButton("Abbruch")),
-    btnSave(new QPushButton("Speichern")),
-    btnGoOnWithWorkProcesses(new QPushButton("Weiter zu den Arbeitsvorgängen")),
+    btnBack(new QPushButton("< Zurück")),
+    btnForward(new QPushButton("Weiter >")),
     additions(new QList<DetailedListItem*>())
 {
-    connect(btnCancel, SIGNAL(clicked()), this, SLOT(btnCancelClicked()));
-    connect(btnGoOnWithWorkProcesses, SIGNAL(clicked()), this, SLOT(btnGoOnWithWorkProcessesClicked()));
-    btnCancel->setObjectName("btnNavigation");
+    connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
+    connect(btnForward, SIGNAL(clicked()), this, SLOT(btnForwardClicked()));
+    btnBack->setObjectName("btnNavigation");
+    btnForward->setObjectName("btnNavigation");
 
     QList<QStringList> lineList;
     QStringList lineListOne;
@@ -69,9 +69,9 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     additions->append(comment);
 
     QGridLayout *navigationBarLayout = new QGridLayout;
-    navigationBarLayout->addWidget(btnCancel, 0, 0, 1, 1, Qt::AlignLeft);
+    navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
     navigationBarLayout->addWidget(lblViewDescription, 0, 1, 1, 1, Qt::AlignCenter);
-    navigationBarLayout->addWidget(new QLabel(), 0, 2, 1, 1, Qt::AlignRight);
+    navigationBarLayout->addWidget(btnForward, 0, 2, 1, 1, Qt::AlignRight);
 
     QGridLayout *workplaceMetaDataLayout = new QGridLayout;
     workplaceMetaDataLayout->addWidget(lblName, 0, 0, 1, 1, 0);
@@ -88,19 +88,12 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
         additionsLayout->addWidget(additions->at(i));
     }
 
-    QHBoxLayout *bottomLineLayout = new QHBoxLayout;
-    bottomLineLayout->addWidget(btnSave, 0, Qt::AlignCenter);
-    bottomLineLayout->addWidget(btnGoOnWithWorkProcesses, 0, Qt::AlignRight);
-
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(workplaceMetaDataLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(additionsLayout);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
-    mainLayout->addLayout(bottomLineLayout);
-    mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
     setLayout(mainLayout);
 }
@@ -129,19 +122,14 @@ void WorkplaceView::setComment(const QString &problemName, const QString &measur
 
 
 //private slots
-void WorkplaceView::btnSaveClicked(){
-    if(id == -1)
-        emit save();
-    else
-        emit save(id);
+void WorkplaceView::btnBackClicked(){
+    emit save();
+    emit back();
 }
 
-void WorkplaceView::btnCancelClicked(){
-    emit showPreviousView();
-}
-
-void WorkplaceView::btnGoOnWithWorkProcessesClicked(){
-    emit showWorkprocessView();
+void WorkplaceView::btnForwardClicked(){
+    emit save();
+    emit forward();
 }
 
 void WorkplaceView::lineViewSelected(){
@@ -165,7 +153,6 @@ void WorkplaceView::commentViewSelected(){
 }
 
 // GETTER
-
 QString WorkplaceView::getName() const{
     return txtBxName->text();
 }

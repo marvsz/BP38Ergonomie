@@ -102,6 +102,7 @@ signals:
     // WORKPLACELIST VIEW
     void updateWorkplaceList();
     void updateWorkplace(int id);
+    void updateWorkplace();
     void createWorkplace();
     void deleteWorkplace(int id);
     void setSelectedWorkplace(int id);
