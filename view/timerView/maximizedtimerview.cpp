@@ -4,14 +4,6 @@
 
 const QVector<QString> MaximizedTimerView::wpTypes = QVector<QString>()<<"Links"<<"Rechts"<<"AV";
 
-const QIcon MaximizedTimerView::recordIcon = QIcon(":/timer/icons/Timer/record.png");
-const QIcon MaximizedTimerView::playIcon = QIcon(":/timer/icons/Timer/start.png");
-const QIcon MaximizedTimerView::pauseIcon = QIcon(":/timer/icons/Timer/pause.png");
-const QIcon MaximizedTimerView::stopIcon = QIcon(":/timer/icons/Timer/stop.png");
-const QIcon MaximizedTimerView::resetIcon = QIcon(":/timer/icons/Timer/reset.png");
-const QIcon MaximizedTimerView::minimizedIcon = QIcon(":/timer/icons/Timer/minimize.png");
-const QIcon MaximizedTimerView::maximizedIcon = QIcon(":/timer/icons/Timer/maximize.png");
-
 MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     QWidget(parent),
     state(state),
@@ -28,6 +20,14 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     wpSelector(new WorkProcessSelector),
     graphTimer(new GraphTimer())
 {
+    recordIcon = QIcon(":/timer/icons/Timer/record.png");
+    playIcon = QIcon(":/timer/icons/Timer/start.png");
+    pauseIcon = QIcon(":/timer/icons/Timer/pause.png");
+    stopIcon = QIcon(":/timer/icons/Timer/stop.png");
+    resetIcon = QIcon(":/timer/icons/Timer/reset.png");
+    minimizedIcon = QIcon(":/timer/icons/Timer/minimize.png");
+    maximizedIcon = QIcon(":/timer/icons/Timer/maximize.png");
+
     btnPlayPaused->setIconSize(QSize(45, 45));
     btnPlayPaused->setObjectName("btnTimer");
     connect(btnPlayPaused, SIGNAL(clicked()), this, SLOT(btnPlayPausedClicked()));

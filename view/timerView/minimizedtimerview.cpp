@@ -2,10 +2,6 @@
 #include "QHBoxLayout"
 
 const QVector<QString> MinimizedTimerView::wpTypes = QVector<QString>()<<"Links"<<"Rechts"<<"AV";
-const QIcon MinimizedTimerView::recordIcon = QIcon(":/timer/icons/Timer/record.png");
-const QIcon MinimizedTimerView::playIcon = QIcon(":/timer/icons/Timer/start.png");
-const QIcon MinimizedTimerView::pauseIcon = QIcon(":/timer/icons/Timer/pause.png");
-const QIcon MinimizedTimerView::maximizedIcon = QIcon(":/timer/icons/Timer/maximize.png");
 
 MinimizedTimerView::MinimizedTimerView(TimerState state, QWidget *parent) : QWidget(parent),
     lblTime(new QLabel("00:00")),
@@ -13,6 +9,11 @@ MinimizedTimerView::MinimizedTimerView(TimerState state, QWidget *parent) : QWid
     btnPlayPaused(new QPushButton()),
     wpSelector(new WorkProcessSelector())
 {
+    recordIcon = QIcon(":/timer/icons/Timer/record.png");
+    playIcon = QIcon(":/timer/icons/Timer/start.png");
+    pauseIcon = QIcon(":/timer/icons/Timer/pause.png");
+    maximizedIcon = QIcon(":/timer/icons/Timer/maximize.png");
+
     btnPlayPaused->setIconSize(QSize(45, 45));
     btnPlayPaused->setObjectName("btnTimer");
     connect(btnPlayPaused, SIGNAL(clicked()), this, SLOT(btnPlayPausedClicked()));

@@ -65,13 +65,13 @@ private:
 
     GraphTimer *graphTimer;
 
-    static const QIcon playIcon;
-    static const QIcon recordIcon;
-    static const QIcon pauseIcon;
-    static const QIcon stopIcon;
-    static const QIcon resetIcon;
-    static const QIcon minimizedIcon;
-    static const QIcon maximizedIcon;
+    QIcon playIcon;
+    QIcon recordIcon;
+    QIcon pauseIcon;
+    QIcon stopIcon;
+    QIcon resetIcon;
+    QIcon minimizedIcon;
+    QIcon maximizedIcon;
 
 };
 
