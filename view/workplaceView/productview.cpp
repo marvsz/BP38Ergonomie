@@ -42,6 +42,9 @@ ProductView::ProductView(QWidget *parent) : QWidget(parent),
     scProducts->setWidgetResizable(true);
     listContent->setLayout(productListLayout);
 
+    FlickCharm *flickCharm = new FlickCharm(this);
+    flickCharm->activateOn(scProducts);
+
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));

@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QDateTimeEdit>
 #include "numberlineedit.h"
+#include "datetimespinner.h"
 
 class MetaDataView : public QWidget
 {
@@ -87,8 +88,8 @@ private:
     NumberLineEdit *txtBxFactoryEmployeeCount;
 
     QLabel *lblRecordingDateTime;
-    QDateTimeEdit *dteRecordingTimeBegin;
-    QDateTimeEdit *dteRecordingTimeEnd;
+    DateTimeSpinner *dteRecordingTimeBegin;
+    DateTimeSpinner *dteRecordingTimeEnd;
 
 };
 

@@ -47,28 +47,15 @@ private:
 
     QLabel* lblShift;
     QLabel* lblShiftType;
-    QLabel* lblCycleTime;
     QLabel* lblShiftBegin;
     QLabel* lblShiftEnd;
     QLabel* lblQuantity;
 
     const QVector<QString> vecShiftType = QVector<QString>()<<"Frühschicht"<<"Spätschicht"<<"Nachtschicht"<<"Sonderschicht";
     OptionSelectionControl* conShiftType;
-    TimeLineEdit* timeCycleTime;
     TimeLineEdit* timeShiftBegin;
     TimeLineEdit* timeShiftEnd;
     NumberLineEdit* txtQuantity;
-
-    QLabel* lblAllowedTime;
-    QLabel* lblSetupTime;
-    QLabel* lblBasicTime;
-    QLabel* lblRestTime;
-    QLabel* lblAllowanceTime;
-
-    TimeLineEdit* timeSetupTime;
-    TimeLineEdit* timeBasicTime;
-    TimeLineEdit* timeRestTime;
-    TimeLineEdit* timeAllowanceTime;
 
     QLabel* lblBreaks;
     QLabel* lblShortBreaks;

@@ -38,8 +38,8 @@ MetaDataView::MetaDataView(QWidget *parent) :
     txtBxFactoryContact(new TextLineEdit(this)),
     txtBxFactoryEmployeeCount(new NumberLineEdit(this)),
     lblRecordingDateTime(new QLabel("Aufnahme", this)),
-    dteRecordingTimeBegin(new QDateTimeEdit(this)),
-    dteRecordingTimeEnd(new QDateTimeEdit(this))
+    dteRecordingTimeBegin(new DateTimeSpinner(this)),
+    dteRecordingTimeEnd(new DateTimeSpinner(this))
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
     QGridLayout *navigationBarLayout = new QGridLayout;
@@ -94,6 +94,7 @@ MetaDataView::MetaDataView(QWidget *parent) :
     factoryLayout->addWidget(txtBxFactoryEmployeeCount, 2, 7, 1, 1, 0);
 
     recordingLayout->addWidget(dteRecordingTimeBegin);
+    recordingLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding));
     recordingLayout->addWidget(dteRecordingTimeEnd);
 
     mainLayout->addLayout(navigationBarLayout);
@@ -180,11 +181,11 @@ int MetaDataView::getFactoryEmployeeCount() const {
 }
 
 QDateTime MetaDataView::getRecordTimeBegin() const {
-    return dteRecordingTimeBegin->dateTime();
+    return dteRecordingTimeBegin->getDateTime();
 }
 
 QDateTime MetaDataView::getRecordTimeEnd() const {
-    return dteRecordingTimeEnd->dateTime();
+    return dteRecordingTimeEnd->getDateTime();
 }
 
 // SETTER SLOTS

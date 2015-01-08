@@ -19,12 +19,43 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     numBxWomanPercentage(new NumberLineEdit()),
     btnBack(new QPushButton("< Zurück")),
     btnForward(new QPushButton("Weiter >")),
+    lblAllowedTime(new QLabel("Vorgabezeiten", this)),
+    lblSetupTime(new QLabel("Grundzeit:", this)),
+    lblBasicTime(new QLabel("Rüstzeit:", this)),
+    lblRestTime(new QLabel("Erholzeit:", this)),
+    lblCycleTime(new QLabel("Taktzeit:")),
+    lblAllowanceTime(new QLabel("Verteilzeit:",this)),
+    timeSetupTime(new TimeLineEdit(this)),
+    timeBasicTime(new TimeLineEdit(this)),
+    timeRestTime(new TimeLineEdit(this)),
+    timeAllowanceTime(new TimeLineEdit(this)),
+    timeCycleTime(new TimeLineEdit(this)),
     additions(new QList<DetailedListItem*>())
+
 {
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
     connect(btnForward, SIGNAL(clicked()), this, SLOT(btnForwardClicked()));
     btnBack->setObjectName("btnNavigation");
     btnForward->setObjectName("btnNavigation");
+
+    timeBasicTime->setMaximumWidth(100);
+    timeSetupTime->setMaximumWidth(100);
+    timeRestTime->setMaximumWidth(100);
+    timeAllowanceTime->setMaximumWidth(100);
+    timeCycleTime->setMaximumWidth(100);
+
+    QGridLayout *timeLayout = new QGridLayout;
+
+    timeLayout->addWidget(lblSetupTime, 0, 0, 1, 1, Qt::AlignRight);
+    timeLayout->addWidget(timeSetupTime, 0, 1, 1, 1, Qt::AlignLeft);
+    timeLayout->addWidget(lblBasicTime, 0, 2, 1, 1, Qt::AlignRight);
+    timeLayout->addWidget(timeBasicTime, 0, 3, 1, 1, Qt::AlignLeft);
+    timeLayout->addWidget(lblRestTime, 0, 4, 1, 1, Qt::AlignRight);
+    timeLayout->addWidget(timeRestTime, 0, 5, 1, 1, Qt::AlignLeft);
+    timeLayout->addWidget(lblAllowanceTime, 0, 6, 1, 1, Qt::AlignRight);
+    timeLayout->addWidget(timeAllowanceTime, 0, 7, 1, 1, Qt::AlignLeft);
+    timeLayout->addWidget(lblCycleTime, 0, 8, 1, 1, Qt::AlignRight);
+    timeLayout->addWidget(timeCycleTime, 0, 9, 1, 1, Qt::AlignLeft);
 
     QList<QStringList> lineList;
     QStringList lineListOne;
@@ -93,7 +124,11 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(workplaceMetaDataLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
+    mainLayout->addWidget(lblAllowedTime);
+    mainLayout->addLayout(timeLayout);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(additionsLayout);
+    mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
     setLayout(mainLayout);
 }

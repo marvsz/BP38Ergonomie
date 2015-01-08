@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QList>
+#include "timelineedit.h"
 #include "detailedlistitem.h"
 #include "numberlineedit.h"
 
@@ -60,6 +61,19 @@ private:
     TextLineEdit *txtBxDescription;
     TextLineEdit *txtBxCode;
     NumberLineEdit *numBxWomanPercentage;
+
+    QLabel* lblAllowedTime;
+    QLabel* lblSetupTime;
+    QLabel* lblBasicTime;
+    QLabel* lblRestTime;
+    QLabel* lblAllowanceTime;
+    QLabel* lblCycleTime;
+
+    TimeLineEdit* timeSetupTime;
+    TimeLineEdit* timeBasicTime;
+    TimeLineEdit* timeRestTime;
+    TimeLineEdit* timeAllowanceTime;
+    TimeLineEdit* timeCycleTime;
 
     QPushButton *btnBack;
     QPushButton *btnForward;
