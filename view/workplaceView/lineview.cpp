@@ -1,9 +1,7 @@
 #include "lineview.h"
 #include "separator.h"
 #include <QGridLayout>
-#include <QVBoxLayout>
 #include <QHBoxLayout>
-#include "selectablevaluebutton.h"
 
 LineView::LineView(QWidget *parent) : QWidget(parent),
     lblViewName(new QLabel("Linie")),
@@ -16,8 +14,7 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     numBxWorkplaceCount(new NumberLineEdit()),
     txtBxDescription(new TextEdit()),
     btnBack(new QPushButton("Zurück")),
-    btnAdd(new QPushButton("Hinzufügen")),
-    btnDelete(new QPushButton("Entfernen"))
+    btnAdd(new QPushButton("Hinzufügen"))
 {
     btnBack->setObjectName("btnNavigation");
 
@@ -41,16 +38,15 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     lineAddLayout->addWidget(lblDescription, 2, 0, 1, 2, 0);
     lineAddLayout->addWidget(txtBxDescription, 3, 0, 1, 4, 0);
     lineAddLayout->addWidget(btnAdd, 2, 2, 1, 1, 0);
-    lineAddLayout->addWidget(btnDelete, 2, 3, 1, 1, 0);
     listContentLayout = new QVBoxLayout;
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(lineSelectLayout);
+    mainLayout->addLayout(listContentLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(lineAddLayout);
-    mainLayout->addLayout(listContentLayout);
     mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
     setLayout(mainLayout);
@@ -68,9 +64,13 @@ void LineView::setLine(const QString &name, const QString &description, int work
 }
 
 void LineView::addLine(int id, const QString &name){
-    SelectableValueButton *newListItem = new SelectableValueButton(id, id);
-    newListItem->setText(name);
-    connect(newListItem, SIGNAL(clickedWithID(int)), this, SLOT(lineSelectedWithId(int)));
+
+    DetailedListItem *newListItem = new DetailedListItem(this, "", name, QList<QStringList>(), true, true, false);
+    newListItem->setID(id);
+    connect(newListItem, SIGNAL(clicked()), newListItem, SLOT(changeSelection()));
+    connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedLineChanged(int)));
+    connect(this, SIGNAL(lineSelected(int)), newListItem, SLOT(deselectUnequalID(int)));
+    connect(newListItem, SIGNAL(deleteItem(int)), this, SLOT(btnDeleteClicked(int)));
     listContentLayout->addWidget(newListItem);
 }
 
@@ -82,14 +82,12 @@ void LineView::clearLines(){
     }
 }
 
-void LineView::setSelectedLine(int id){
 
-}
 
 //PRIVATE SLOTS
 void LineView::btnBackClicked(){
     emit back();
-    emit saveSelectedLine(0);
+    emit saveSelectedLine(selectedLineID);
 }
 
 void LineView::btnAddCicked(){
@@ -101,8 +99,12 @@ void LineView::btnDeleteClicked(int id){
 }
 
 void LineView::selectedLineChanged(int id){
-    emit saveSelectedLine(id);
+    if(selectedLineID != id){
+        selectedLineID = id;
+        emit lineSelected(id);
+    }
 }
+
 
 //GETTER and SETTER
 QString LineView::getName() const{

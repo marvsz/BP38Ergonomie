@@ -29,7 +29,7 @@ ViewController::ViewController(QWidget *parent) :
     connect(workplaceListView, SIGNAL(showPreviousView()), this, SLOT(backToView()));
     connect(workplaceListView, SIGNAL(showNewWorkplaceView()), this, SLOT(goToWorkplaceView()));
     connect(workplaceListView, SIGNAL(showWorkplace(int)), this, SLOT(goToWorkplaceView(int)));
-    connect(workplaceListView, SIGNAL(deleteWorkplace(int)), this, SLOT(deleteWorkplaceClicked(int)));
+    connect(workplaceListView, SIGNAL(deleteWorkplace(int)), this, SLOT(deleteWorkplaceRequested(int)));
 
     // WORKPLACE VIEW
     connect(workplaceView, SIGNAL(showPreviousView()), this, SLOT(backToView()));
@@ -54,7 +54,7 @@ ViewController::ViewController(QWidget *parent) :
 
     // PRODUCT VIEW
     connect(productView, SIGNAL(back()), this, SLOT(backToView()));
-    connect(productView, SIGNAL(deleteProduct(int)), this, SLOT(deleteProductClicked(int)));
+    connect(productView, SIGNAL(deleteProduct(int)), this, SLOT(deleteProductRequested(int)));
 
     // COMMENT VIEW
     connect(commentView, SIGNAL(back()), this, SLOT(backToView()));

@@ -4,8 +4,10 @@
 #include <QWidget>
 #include <QLabel>
 #include <QPushButton>
-#include <QListView>
+#include <QList>
+#include <QCheckBox>
 #include <QVBoxLayout>
+#include "detailedlistitem.h"
 #include "numberlineedit.h"
 #include "textedit.h"
 
@@ -25,12 +27,12 @@ signals:
     void saveLine();
     void saveSelectedLine(int id);
     void deleteLine(int id);
+    void lineSelected(int id);
 
 public slots:
     void setLine(const QString &name, const QString &description, int workplaceCount);
     void addLine(int id, const QString &name);
     void clearLines();
-    void setSelectedLine(int id);
 
 private slots:
     void btnBackClicked();
@@ -39,6 +41,8 @@ private slots:
     void selectedLineChanged(int id);
 
 private:
+    int selectedLineID;
+    DetailedListItem* selectedItem;
     QVBoxLayout *listContentLayout;
     QLabel *lblViewName;
     QLabel *lblSelectLine;
@@ -53,7 +57,6 @@ private:
 
     QPushButton *btnBack;
     QPushButton *btnAdd;
-    QPushButton *btnDelete;
 };
 
 #endif // LINEVIEW_H
