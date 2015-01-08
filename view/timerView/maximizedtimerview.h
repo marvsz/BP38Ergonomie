@@ -70,6 +70,8 @@ private:
     static const QIcon pauseIcon;
     static const QIcon stopIcon;
     static const QIcon resetIcon;
+    static const QIcon minimizedIcon;
+    static const QIcon maximizedIcon;
 
 };
 

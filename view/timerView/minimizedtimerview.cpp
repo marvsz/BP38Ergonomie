@@ -2,7 +2,10 @@
 #include "QHBoxLayout"
 
 const QVector<QString> MinimizedTimerView::wpTypes = QVector<QString>()<<"Links"<<"Rechts"<<"AV";
-
+const QIcon MinimizedTimerView::recordIcon = QIcon(":/timer/icons/Timer/record.png");
+const QIcon MinimizedTimerView::playIcon = QIcon(":/timer/icons/Timer/start.png");
+const QIcon MinimizedTimerView::pauseIcon = QIcon(":/timer/icons/Timer/pause.png");
+const QIcon MinimizedTimerView::maximizedIcon = QIcon(":/timer/icons/Timer/maximize.png");
 
 MinimizedTimerView::MinimizedTimerView(TimerState state, QWidget *parent) : QWidget(parent),
     lblTime(new QLabel("00:00")),
@@ -37,23 +40,19 @@ MinimizedTimerView::MinimizedTimerView(TimerState state, QWidget *parent) : QWid
     setState(state);
 }
 
-MinimizedTimerView::~MinimizedTimerView()
-{
-
-}
-
 //PUBLIC SLOTS
 void MinimizedTimerView::setState(TimerState state){
     this->state = state;
     switch(state){
     case TimerState::IDLE:
-            btnPlayPaused->setIcon(QIcon(":/timer/icons/Timer/record.png"));
+            btnPlayPaused->setIcon(recordIcon);
+            btnPlayPaused->setEnabled(true);
         break;
     case TimerState::STARTED:
-            btnPlayPaused->setIcon(QIcon(":/timer/icons/Timer/reset.png"));
+            btnPlayPaused->setIcon(pauseIcon);
         break;
     case TimerState::PAUSED:
-            btnPlayPaused->setIcon(QIcon(":/timer/icons/Timer/record.png"));
+            btnPlayPaused->setIcon(playIcon);
         break;
     case TimerState::STOPPED:
             btnPlayPaused->setEnabled(false);
@@ -89,5 +88,8 @@ void MinimizedTimerView::btnPlayPausedClicked(){
     case TimerState::STOPPED:
         break;
     }
+}
+
+MinimizedTimerView::~MinimizedTimerView(){
 }
 

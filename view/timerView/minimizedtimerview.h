@@ -44,6 +44,11 @@ private:
     WorkProcessSelector *wpSelector;
 
     static const QVector<QString> wpTypes;
+    static const QIcon playIcon;
+    static const QIcon recordIcon;
+    static const QIcon pauseIcon;
+    static const QIcon maximizedIcon;
+
     OptionSelectionControl *oscWorkProcessType;
 };
 

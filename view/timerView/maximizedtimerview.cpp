@@ -1,4 +1,6 @@
 #include "maximizedtimerview.h"
+#include <QGridLayout>
+#include <QVBoxLayout>
 
 const QVector<QString> MaximizedTimerView::wpTypes = QVector<QString>()<<"Links"<<"Rechts"<<"AV";
 
@@ -7,6 +9,8 @@ const QIcon MaximizedTimerView::playIcon = QIcon(":/timer/icons/Timer/start.png"
 const QIcon MaximizedTimerView::pauseIcon = QIcon(":/timer/icons/Timer/pause.png");
 const QIcon MaximizedTimerView::stopIcon = QIcon(":/timer/icons/Timer/stop.png");
 const QIcon MaximizedTimerView::resetIcon = QIcon(":/timer/icons/Timer/reset.png");
+const QIcon MaximizedTimerView::minimizedIcon = QIcon(":/timer/icons/Timer/minimize.png");
+const QIcon MaximizedTimerView::maximizedIcon = QIcon(":/timer/icons/Timer/maximize.png");
 
 MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     QWidget(parent),
@@ -20,8 +24,7 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     btnSetRight(new QPushButton()),
     btnSetBoth(new QPushButton()),
     btnSetAV(new QPushButton()),
-    timePicker(new TimePicker
-               ()),
+    timePicker(new TimePicker()),
     wpSelector(new WorkProcessSelector),
     graphTimer(new GraphTimer())
 {
@@ -35,10 +38,12 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
 
     btnMinimized->setIconSize(QSize(45, 45));
     btnMinimized->setObjectName("btnTimer");
+    btnMinimized->setIcon(minimizedIcon);
     connect(btnMinimized, SIGNAL(clicked()), this, SIGNAL(minimize()));
 
     btnMaximized->setIconSize(QSize(45, 45));
     btnMaximized->setObjectName("btnTimer");
+    btnMaximized->setIcon(maximizedIcon);
     connect(btnMaximized, SIGNAL(clicked()), this, SIGNAL(maximize()));
 
     connect(timePicker, SIGNAL(timeChanged(QTime)), this, SIGNAL(durationChanged(QTime)));
@@ -48,14 +53,29 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     oscWorkProcessType = new OptionSelectionControl(wpTypes);
     connect(oscWorkProcessType, SIGNAL(selectionChanged(int)), this, SIGNAL(workProcessTypeChanged(int)));
 
+    QVBoxLayout *minMaxLayout = new QVBoxLayout;
+    minMaxLayout->addWidget(btnMaximized);
+    minMaxLayout->addWidget(btnMinimized);
+
     QGridLayout *mainLayout = new QGridLayout;
+    mainLayout->addLayout(minMaxLayout, 0, 0, 3, 1, 0);
+    mainLayout->addWidget(oscWorkProcessType, 0, 1, 1, 1, 0);
+    mainLayout->addWidget(wpSelector, 1, 1, 1, 1, 0);
+    mainLayout->addWidget(timePicker, 2, 1, 1, 1, 0);
+    mainLayout->addWidget(graphTimer, 0, 2, 3, 10, 0);
+    mainLayout->addWidget(btnSetLeft, 0, 14, 1, 1, 0);
+    mainLayout->addWidget(btnSetRight, 1, 14, 1, 1, 0);
+    mainLayout->addWidget(btnSetAV, 2, 14, 1, 1, 0);
+    mainLayout->addWidget(btnSetBoth, 0, 15, 2, 1, 0);
+    mainLayout->addWidget(btnPlayPaused, 0, 16, 1, 1, 0);
+    mainLayout->addWidget(btnStopReset, 1, 16, 1, 1, 0);
+    mainLayout->addWidget(lblTime, 2, 15, 1, 2, 0);
 
     setLayout(mainLayout);
-
+    setState(state);
 }
 
 // PUBLIC SLOTS
-
 void MaximizedTimerView::setState(TimerState state){
     this->state = state;
     switch(state){
@@ -128,5 +148,4 @@ void MaximizedTimerView::btnStopResetClicked(){
 }
 
 MaximizedTimerView::~MaximizedTimerView(){
-
 }
