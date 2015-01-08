@@ -20,7 +20,7 @@ ProductView::ProductView(QWidget *parent) : QWidget(parent),
 {
     btnBack->setObjectName("btnNavigation");
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
-    connect(btnAdd, SIGNAL(clicked()), this, SLOT(btnAddClicked()));
+    connect(btnAdd, SIGNAL(clicked()), this, SIGNAL(saveProduct()));
 
     QGridLayout *navigationBarLayout = new QGridLayout;
     navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
@@ -70,7 +70,7 @@ void ProductView::addProduct(int id, const QString &name){
     DetailedListItem *newListItem = new DetailedListItem(0, "", name, QList<QStringList>(), true, true, false);
     newListItem->setID(id);
     idSelectionMap.insert(id, false);
-    connect(newListItem, SIGNAL(deleteItem(int)), this, SLOT(deleteProductClicked(int)));
+    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteProduct(int)));
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(idSelected(int)));
     connect(newListItem, SIGNAL(deselected(int)), this, SLOT(idDeselected(int)));
     connect(this, SIGNAL(productSelected(int)), newListItem, SLOT(select(int)));
@@ -96,14 +96,6 @@ void ProductView::setProductSelected(int id){
 void ProductView::btnBackClicked(){
     emit saveSelectedProducts();
     emit back();
-}
-
-void ProductView::btnAddClicked(){
-    emit saveProduct();
-}
-
-void ProductView::deleteProductClicked(int id){
-    emit deleteProduct(id);
 }
 
 void ProductView::idSelected(int id){

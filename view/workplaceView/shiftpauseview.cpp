@@ -93,62 +93,35 @@ ShiftPauseView::ShiftPauseView(QWidget *parent) :
 //PUBLIC SLOTS
 
 void ShiftPauseView::setShift(const QString &shiftType, const QTime &shiftBegin, const QTime &shiftEnd){
-    /*conShiftType->setSelectedValue(shiftType);
-    timeShiftBegin->setValue(shiftBegin.toString().toInt());
-    timeShiftEnd->setValue(shiftEnd.toInt());*/
+    conShiftType->setSelectedValue(shiftType);
+    timeShiftBegin->setValue(shiftBegin);
+    timeShiftEnd->setValue(shiftEnd);
 }
 
 void ShiftPauseView::setBreak(const QTime &breakBegin, const QTime &breakEnd){
-    /*timeBreakBegin->setValue(breakBegin.toInt());
-    timeBreakEnd->setValue(breakEnd.toInt());*/
+    timeBreakBegin->setValue(breakBegin);
+    timeBreakEnd->setValue(breakEnd);
 }
 
-void ShiftPauseView::setWorkplaceTimes(const QTime &basicTime, const QTime &setupTime, const QTime &restTime, const QTime &allowanceTime, const QTime &cycleTime){
-   /* timeBasicTime->setValue(basicTime.toInt());
-    timeSetupTime->setValue(setupTime.toInt());
-    timeRestTime->setValue(restTime.toInt());
-    timeAllowanceTime->setValue(allowanceTime.toInt());
-    timeCycleTime->setValue(cycleTime.toInt());*/
-}
 
 QTime ShiftPauseView::getShiftBegin() const{
-
+    timeShiftBegin->getValue();
 }
 
 QTime ShiftPauseView::getShiftEnd() const{
-
-}
-
-QTime ShiftPauseView::getCycleTime() const{
-
+    timeShiftEnd->getValue();
 }
 
 int ShiftPauseView::getQuantity() const{
-
-}
-
-
-QTime ShiftPauseView::getSetupTime() const{
-
-}
-
-QTime ShiftPauseView::getBasicTime() const{
-
-}
-
-QTime ShiftPauseView::getRestTime() const{
-
-}
-
-QTime ShiftPauseView::getAllowanceTime() const{
+    txtQuantity->getValue();
 }
 
 QTime ShiftPauseView::getBreakBegin() const{
-
+    timeBreakBegin->getValue();
 }
 
 QTime ShiftPauseView::getBreakEnd() const{
-
+    timeBreakEnd->getValue();
 }
 
 //PRIVATE SLOTS

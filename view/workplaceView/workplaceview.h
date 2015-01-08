@@ -21,14 +21,18 @@ public:
     QString getCode() const;
     int getWomanPercentage() const;
 
+    QTime getBasicTime() const;
+    QTime getSetupTime() const;
+    QTime getRestTime() const;
+    QTime getAllowanceTime() const;
+    QTime getCycleTime() const;
+
 signals:
     void save();
     void back();
     void forward();
 
     void showLineView();
-    void showShiftAndPauseView();
-    void showEmployeeView();
     void showProductView();
     void showCommentView();
 
@@ -36,17 +40,12 @@ public slots:
     void setWorkplaceMetaData(const QString &name, const QString &description, const QString &code, int percentageWoman);
     void setLine(const QString &name, const QString &description);
     void setComment(const QString &problemName, const QString &measureName);
+    void setWorkplaceTimes(const QTime &basicTime, const QTime &setupTime, const QTime &restTime, const QTime &allowanceTime, const QTime &cycleTime);
 
 
 private slots:
     void btnBackClicked();
     void btnForwardClicked();
-
-    void lineViewSelected();
-    void shiftPauseViewSelected();
-    void employeeViewSelected();
-    void productViewSelected();
-    void commentViewSelected();
 
 private:
     int id;

@@ -22,7 +22,7 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     btnBack->setObjectName("btnNavigation");
     txtBxDescription->setMaximumHeight(100);
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
-    connect(btnAdd, SIGNAL(clicked()), this, SLOT(btnAddCicked()));
+    connect(btnAdd, SIGNAL(clicked()), this, SIGNAL(saveLine()));
 
     QGridLayout *navigationBarLayout = new QGridLayout;
     navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
@@ -76,7 +76,7 @@ void LineView::addLine(int id, const QString &name){
     newListItem->setID(id);
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedLineChanged(int)));
     connect(this, SIGNAL(lineSelected(int)), newListItem, SLOT(selectExclusiveWithID(int)));
-    connect(newListItem, SIGNAL(deleteItem(int)), this, SLOT(btnDeleteClicked(int)));
+    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteLine(int)));
     listContentLayout->addWidget(newListItem);
 }
 
@@ -97,14 +97,6 @@ void LineView::setSelectedLine(int id){
 void LineView::btnBackClicked(){
     emit back();
     emit saveSelectedLine(selectedLineID);
-}
-
-void LineView::btnAddCicked(){
-    emit saveLine();
-}
-
-void LineView::btnDeleteClicked(int id){
-    emit deleteLine(id);
 }
 
 void LineView::selectedLineChanged(int id){

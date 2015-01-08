@@ -37,9 +37,6 @@ public slots:
 
 private slots:
     void btnBackClicked();
-    void btnAddClicked();
-    void deleteProductClicked(int id);
-
     void idSelected(int id);
     void idDeselected(int id);
 

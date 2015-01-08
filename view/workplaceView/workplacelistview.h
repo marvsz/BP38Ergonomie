@@ -13,8 +13,8 @@ public:
     explicit WorkplaceListView(QWidget *parent = 0);
 
 signals:
-    void showPreviousView();
-    void showNewWorkplaceView();
+    void back();
+    void forward();
     void showWorkplace(int id);
     void deleteWorkplace(int id);
 
@@ -22,12 +22,6 @@ public slots:
     void clear();
     void addWorkplace(int id, const QString &name, const QString &description, const QString &code);
 
-    void backButtonClicked();
-    void forwardButtonClicked();
-
-private slots:
-    void workplaceSelected(int id);
-    void deleteWorkplaceClicked(int id);
 
 private:
     static const QList<QStringList> workplaceCaptions;

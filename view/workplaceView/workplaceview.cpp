@@ -91,9 +91,9 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     product = new DetailedListItem(this, "", "Produkte", productList, false, false, true);
     comment = new DetailedListItem(this, "", "Bemerkungen", commentList, false, false, true);
 
-    connect(line, SIGNAL(clicked()), this, SLOT(lineViewSelected()));
-    connect(product, SIGNAL(clicked()), this, SLOT(productViewSelected()));
-    connect(comment, SIGNAL(clicked()), this, SLOT(commentViewSelected()));
+    connect(line, SIGNAL(clicked()), this, SIGNAL(showLineView()));
+    connect(product, SIGNAL(clicked()), this, SIGNAL(showProductView()));
+    connect(comment, SIGNAL(clicked()), this, SIGNAL(showCommentView()));
 
     additions->append(line);
     additions->append(product);
@@ -155,6 +155,15 @@ void WorkplaceView::setComment(const QString &problemName, const QString &measur
     comment->setValues(values);
 }
 
+void WorkplaceView::setWorkplaceTimes(const QTime &basicTime, const QTime &setupTime, const QTime &restTime, const QTime &allowanceTime, const QTime &cycleTime){
+    timeBasicTime->setValue(basicTime);
+    timeSetupTime->setValue(setupTime);
+    timeRestTime->setValue(restTime);
+    timeAllowanceTime->setValue(allowanceTime);
+    timeCycleTime->setValue(cycleTime);
+}
+
+
 
 //private slots
 void WorkplaceView::btnBackClicked(){
@@ -165,26 +174,6 @@ void WorkplaceView::btnBackClicked(){
 void WorkplaceView::btnForwardClicked(){
     emit save();
     emit forward();
-}
-
-void WorkplaceView::lineViewSelected(){
-    emit showLineView();
-}
-
-void WorkplaceView::shiftPauseViewSelected(){
-    emit showShiftAndPauseView();
-}
-
-void WorkplaceView::employeeViewSelected(){
-    emit showEmployeeView();
-}
-
-void WorkplaceView::productViewSelected(){
-    emit showProductView();
-}
-
-void WorkplaceView::commentViewSelected(){
-    emit showCommentView();
 }
 
 // GETTER
@@ -202,4 +191,24 @@ QString WorkplaceView::getCode() const{
 
 int WorkplaceView::getWomanPercentage() const{
     return numBxWomanPercentage->getValue();
+}
+
+QTime WorkplaceView::getBasicTime() const{
+    return timeBasicTime->getValue();
+}
+
+QTime WorkplaceView::getSetupTime() const{
+    return timeSetupTime->getValue();
+}
+
+QTime WorkplaceView::getRestTime() const{
+    return timeRestTime->getValue();
+}
+
+QTime WorkplaceView::getAllowanceTime() const{
+    return timeAllowanceTime->getValue();
+}
+
+QTime WorkplaceView::getCycleTime() const{
+    return timeCycleTime->getValue();
 }

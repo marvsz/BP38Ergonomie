@@ -23,29 +23,28 @@ ViewController::ViewController(QWidget *parent) :
     // METADATA VIEW
     connect(metaDataView, SIGNAL(showMainMenu()), this, SLOT(backToView()));
     connect(metaDataView, SIGNAL(showWorkplaceListView()), this, SLOT(goToWorkplaceListView()));
-    connect(metaDataView, SIGNAL(saveMetaData()), this, SLOT(saveMetaDataRequested()));
+    connect(metaDataView, SIGNAL(saveMetaData()), this, SIGNAL(saveMetaData()));
 
     // WORKPLACE LIST VIEW
-    connect(workplaceListView, SIGNAL(showPreviousView()), this, SLOT(backToView()));
-    connect(workplaceListView, SIGNAL(showNewWorkplaceView()), this, SLOT(goToWorkplaceView()));
+    connect(workplaceListView, SIGNAL(back()), this, SLOT(backToView()));
+    connect(workplaceListView, SIGNAL(forward()), this, SLOT(goToWorkplaceView()));
     connect(workplaceListView, SIGNAL(showWorkplace(int)), this, SLOT(goToWorkplaceView(int)));
-    connect(workplaceListView, SIGNAL(deleteWorkplace(int)), this, SLOT(deleteWorkplaceRequested(int)));
+    connect(workplaceListView, SIGNAL(deleteWorkplace(int)), this, SIGNAL(deleteWorkplace(int)));
 
     // WORKPLACE VIEW
     connect(workplaceView, SIGNAL(back()), this, SLOT(backToView()));
-    connect(workplaceView, SIGNAL(save()), this, SLOT(saveWorkplaceRequested()));
+    connect(workplaceView, SIGNAL(save()), this, SIGNAL(saveWorkplace()));
     connect(workplaceView, SIGNAL(forward()), this, SLOT(goToDocumentationView()));
     connect(workplaceView, SIGNAL(showLineView()), this, SLOT(goToLineView()));
-    connect(workplaceView, SIGNAL(showShiftAndPauseView()), this, SLOT(goToShiftAndPauseView()));
-    connect(workplaceView, SIGNAL(showEmployeeView()), this, SLOT(goToEmployeeView()));
+
     connect(workplaceView, SIGNAL(showProductView()), this, SLOT(goToProductView()));
     connect(workplaceView, SIGNAL(showCommentView()), this, SLOT(goToCommentView()));
 
     // LINE VIEW
     connect(lineView, SIGNAL(back()), this, SLOT(backToView()));
-    connect(lineView, SIGNAL(deleteLine(int)), this, SLOT(deleteLineRequested(int)));
-    connect(lineView, SIGNAL(saveLine()), this, SLOT(saveLineRequested()));
-    connect(lineView, SIGNAL(saveSelectedLine(int)), this, SLOT(saveSelectedLineRequested(int)));
+    connect(lineView, SIGNAL(deleteLine(int)), this, SIGNAL(deleteLine(int)));
+    connect(lineView, SIGNAL(saveLine()), this, SIGNAL(saveLine()));
+    connect(lineView, SIGNAL(saveSelectedLine(int)), this, SIGNAL(saveSelectedLine(int)));
 
     // SHIFTPAUSE VIEW
     connect(shiftPauseView, SIGNAL(back()), this, SLOT(backToView()));
@@ -55,13 +54,13 @@ ViewController::ViewController(QWidget *parent) :
 
     // PRODUCT VIEW
     connect(productView, SIGNAL(back()), this, SLOT(backToView()));
-    connect(productView, SIGNAL(deleteProduct(int)), this, SLOT(deleteProductRequested(int)));
-    connect(productView, SIGNAL(saveProduct()), this, SLOT(saveProductRequested()));
-    connect(productView, SIGNAL(saveSelectedProducts()), this, SLOT(saveSelectedProductsRequested()));
+    connect(productView, SIGNAL(deleteProduct(int)), this, SIGNAL(deleteProduct(int)));
+    connect(productView, SIGNAL(saveProduct()), this, SIGNAL(saveProduct()));
+    connect(productView, SIGNAL(saveSelectedProducts()), this, SIGNAL(saveSelectedProducts()));
 
     // COMMENT VIEW
     connect(commentView, SIGNAL(back()), this, SLOT(backToView()));
-    connect(commentView, SIGNAL(save()), this, SLOT(saveCommentRequested()));
+    connect(commentView, SIGNAL(save()), this, SIGNAL(saveComment()));
 
     // DOCUMENTATION VIEW
     connect(documentationView, SIGNAL(showPreviousView()), this, SLOT(backToView()));
@@ -130,11 +129,6 @@ void ViewController::goToDocumentationView(){
 
 
 // METADATAVIEW GETTER/SETTER
-
-void ViewController::saveMetaDataRequested(){
-    emit saveMetaData();
-}
-
 // GETTER
 
 QString ViewController::getAnalystLastName() const{
@@ -193,7 +187,7 @@ QDateTime ViewController::getRecordTimeEnd() const {
     return metaDataView->getRecordTimeEnd();
 }
 
-// SETTER SLOTS
+// SETTER
 
 void ViewController::setAnalyst(const QString &lastName, const QString &firstName, const QString &experience){
     metaDataView->setAnalyst(lastName, firstName, experience);
@@ -225,17 +219,9 @@ void ViewController::clearWorkplaceList(){
     workplaceListView->clear();
 }
 
-void ViewController::deleteWorkplaceRequested(int id){
-    emit deleteWorkplace(id);
-}
-
 // WORKPLACE VIEW GETTER/SETTER
 
 // SLOTS
-
-void ViewController::saveWorkplaceRequested(){
-    emit saveWorkplace();
-}
 
 void ViewController::setWorkplaceLine(const QString &name, const QString &description){
     workplaceView->setLine(name, description);
@@ -249,6 +235,10 @@ void ViewController::setWorkplaceComment(const QString &problemName, const QStri
 // SETTER
 void ViewController::setWorkplaceMetaData(const QString &name, const QString &description, const QString &code, int percentageWoman){
     workplaceView->setWorkplaceMetaData(name, description, code, percentageWoman);
+}
+
+void ViewController::setShiftWorkplaceTimes(const QTime &basicTime, const QTime &setupTime, const QTime &restTime, const QTime &allowanceTime, const QTime &cycleTime){
+    workplaceView->setWorkplaceTimes(basicTime, setupTime, restTime, allowanceTime, cycleTime);
 }
 
 // GETTER
@@ -268,22 +258,28 @@ int ViewController::getWorkplaceWomanPercentage() const{
     return workplaceView->getWomanPercentage();
 }
 
+QTime ViewController::getWorkplaceCycleTime() const{
+    return workplaceView->getCycleTime();
+}
+
+QTime ViewController::getWorkplaceSetupTime() const{
+    return workplaceView->getSetupTime();
+}
+
+QTime ViewController::getWorkplaceBasicTime() const{
+    return workplaceView->getBasicTime();
+}
+
+QTime ViewController::getWorkplaceRestTime() const{
+    return workplaceView->getRestTime();
+}
+
+QTime ViewController::getWorkplaceAllowanceTime() const{
+    return workplaceView->getAllowanceTime();
+}
+
 
 // LINE VIEW GETTER/SETTER
-
-// SLOTS
-void ViewController::saveLineRequested(){
-    emit saveLine();
-}
-
-void ViewController::saveSelectedLineRequested(int id){
-    emit saveSelectedLine(id);
-}
-
-void ViewController::deleteLineRequested(int id){
-    emit deleteLine(id);
-}
-
 // SETTER
 
 void ViewController::setLine(const QString &name, const QString &description, int workplaceCount){
@@ -325,28 +321,8 @@ QTime ViewController::getShiftEnd() const{
     return shiftPauseView->getShiftEnd();
 }
 
-QTime ViewController::getShiftCycleTime() const{
-    return shiftPauseView->getCycleTime();
-}
-
 int ViewController::getShiftQuantity() const{
     return shiftPauseView->getQuantity();
-}
-
-QTime ViewController::getShiftSetupTime() const{
-    return shiftPauseView->getSetupTime();
-}
-
-QTime ViewController::getShiftBasicTime() const{
-    return shiftPauseView->getBasicTime();
-}
-
-QTime ViewController::getShiftRestTime() const{
-    return shiftPauseView->getRestTime();
-}
-
-QTime ViewController::getShiftAllowanceTime() const{
-    return shiftPauseView->getAllowanceTime();
 }
 
 QTime ViewController::getShiftBreakBegin() const{
@@ -365,18 +341,8 @@ void ViewController::setShiftBreak(const QTime &breakBegin, const QTime &breakEn
     shiftPauseView->setBreak(breakBegin, breakEnd);
 }
 
-void ViewController::setShiftWorkplaceTimes(const QTime &basicTime, const QTime &setupTime, const QTime &restTime, const QTime &allowanceTime, const QTime &cycleTime){
-    shiftPauseView->setWorkplaceTimes(basicTime, setupTime, restTime, allowanceTime, cycleTime);
-}
-
 
 // EMPLOYEE VIEW GETTER/SETTER
-
-// SLOTS
-void ViewController::saveEmloyeeRequested(){
-    emit saveEmployee();
-}
-
 // SETTER
 void ViewController::setEmployee(int gender, int age, int height, const QString &staffNumber, const QString &note){
     employeeView->setEmployee(gender, age, height, staffNumber, note);
@@ -404,20 +370,6 @@ QString ViewController::getEmployeeNote() const{
 }
 
 // PRODUCT VIEW GETTER/SETTER
-
-// SLOTS
-void ViewController::deleteProductRequested(int id){
-    emit deleteProduct(id);
-}
-
-void ViewController::saveProductRequested(){
-    emit saveProduct();
-}
-
-void ViewController::saveSelectedProductsRequested(){
-    emit saveSelectedProducts();
-}
-
 // SETTER
 void ViewController::setProduct(const QString &name, const QString &number, int totalPercentage){
     productView->setProduct(name, number, totalPercentage);
@@ -452,14 +404,7 @@ QList<int> ViewController::getSelectedProducts() const{
     return productView->getSelectedIDs();
 }
 
-
-
 // COMMENT VIEW GETTER/SETTER
-//SLOTS
-void ViewController::saveCommentRequested(){
-    emit saveComment();
-}
-
 //SETTER
 void ViewController::setComment(const QString &problemName, const QString &problemDesc, const QString &measureName, const QString &measureDesc, const QString &workerPerception){
     commentView->setComment(problemName, problemDesc, measureName, measureDesc, workerPerception);

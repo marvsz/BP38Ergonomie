@@ -56,6 +56,12 @@ public:
     QString getWorkplaceCode() const;
     int getWorkplaceWomanPercentage() const;
 
+    QTime getWorkplaceCycleTime() const;
+    QTime getWorkplaceSetupTime() const;
+    QTime getWorkplaceBasicTime() const;
+    QTime getWorkplaceRestTime() const;
+    QTime getWorkplaceAllowanceTime() const;
+
     // LINE VIEW GETTER
     QString getLineName() const;
     QString getLineDescription() const;
@@ -64,13 +70,7 @@ public:
     // SHIFTPAUSE VIEW GETTER
     QTime getShiftBegin() const;
     QTime getShiftEnd() const;
-    QTime getShiftCycleTime() const;
     int getShiftQuantity() const;
-
-    QTime getShiftSetupTime() const;
-    QTime getShiftBasicTime() const;
-    QTime getShiftRestTime() const;
-    QTime getShiftAllowanceTime() const;
 
     QTime getShiftBreakBegin() const;
     QTime getShiftBreakEnd() const;
@@ -186,22 +186,6 @@ private slots:
     void goToProductView();
     void goToCommentView();
     void goToDocumentationView();
-
-    void saveMetaDataRequested();
-    void saveWorkplaceRequested();
-    void saveCommentRequested();
-    void saveProductRequested();
-    void saveSelectedProductsRequested();
-    void saveEmloyeeRequested();
-
-    void deleteWorkplaceRequested(int id);
-    void deleteProductRequested(int id);
-
-    // LINE VIEW
-    void saveLineRequested();
-    void saveSelectedLineRequested(int id);
-    void deleteLineRequested(int id);
-
 
 private:
     QStack<int> *previousViews;

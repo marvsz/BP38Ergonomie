@@ -19,13 +19,7 @@ public:
 
     QTime getShiftBegin() const;
     QTime getShiftEnd() const;
-    QTime getCycleTime() const;
     int getQuantity() const;
-
-    QTime getSetupTime() const;
-    QTime getBasicTime() const;
-    QTime getRestTime() const;
-    QTime getAllowanceTime() const;
 
     QTime getBreakBegin() const;
     QTime getBreakEnd() const;
@@ -33,7 +27,6 @@ public:
 public slots:
    void setShift(const QString &shiftType, const QTime &shiftBegin, const QTime &shiftEnd);
    void setBreak(const QTime &breakBegin, const QTime &breakEnd);
-   void setWorkplaceTimes(const QTime &basicTime, const QTime &setupTime, const QTime &restTime, const QTime &allowanceTime, const QTime &cycleTime);
 
 signals:
     void back();
