@@ -19,6 +19,7 @@ public:
 signals:
     void nextWorkProcess();
     void previousWorkProcess();
+    void workProcessTypeChanged(int type);
     void maximize();
     void play();
     void pause();

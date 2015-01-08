@@ -22,12 +22,17 @@ MinimizedTimerView::MinimizedTimerView(TimerState state, QWidget *parent) : QWid
     connect(wpSelector, SIGNAL(previousAV()), this, SIGNAL(previousWorkProcess()));
 
     oscWorkProcessType = new OptionSelectionControl(wpTypes);
+    connect(oscWorkProcessType, SIGNAL(selectionChanged(int)), this, SIGNAL(workProcessTypeChanged(int)));
 
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->addWidget(btnMaximized);
+    //mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
     mainLayout->addWidget(oscWorkProcessType);
+    //mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
     mainLayout->addWidget(wpSelector);
+    mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
     mainLayout->addWidget(lblTime);
+    mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
     mainLayout->addWidget(btnPlayPaused);
 
     this->setLayout(mainLayout);
