@@ -24,7 +24,7 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     lblBasicTime(new QLabel(tr("halt! hammer time:"), this)),
     lblRestTime(new QLabel(tr("rest time:"), this)),
     lblCycleTime(new QLabel(tr("cycle time:"))),
-    lblAllowanceTime(new QLabel("deploy time:",this)),
+    lblAllowanceTime(new QLabel(tr("deploy time:"),this)),
     timeSetupTime(new TimeLineEdit(this)),
     timeBasicTime(new TimeLineEdit(this)),
     timeRestTime(new TimeLineEdit(this)),

@@ -366,6 +366,37 @@
     </message>
 </context>
 <context>
+    <name>CommentView</name>
+    <message>
+        <source>remarks</source>
+        <translation>Bemerkung</translation>
+    </message>
+    <message>
+        <source>problems</source>
+        <translation>Probleme</translation>
+    </message>
+    <message>
+        <source>label:</source>
+        <translation>Bezeichung:</translation>
+    </message>
+    <message>
+        <source>description:</source>
+        <translation>Beschreibung:</translation>
+    </message>
+    <message>
+        <source>sanction</source>
+        <translation>Maßnahme</translation>
+    </message>
+    <message>
+        <source>remarks of the factory</source>
+        <translation>Bemerkungen des Werks</translation>
+    </message>
+    <message>
+        <source>back</source>
+        <translation>zurück</translation>
+    </message>
+</context>
+<context>
     <name>DocumentationView</name>
     <message>
         <source>&lt; back</source>
@@ -386,6 +417,45 @@
     <message>
         <source>conditions</source>
         <translation>Ausführungsbedingungen</translation>
+    </message>
+</context>
+<context>
+    <name>EmployeeView</name>
+    <message>
+        <source>Coworker data</source>
+        <translation>Mitarbeiterdaten</translation>
+    </message>
+    <message>
+        <source>gender:</source>
+        <translation>Geschlecht:</translation>
+    </message>
+    <message>
+        <source>PersonalID:</source>
+        <translation>Personalnummer:</translation>
+    </message>
+    <message>
+        <source>Remarks:</source>
+        <translation>Bemerkungen:</translation>
+    </message>
+    <message>
+        <source>back</source>
+        <translation>zurück</translation>
+    </message>
+    <message>
+        <source>age</source>
+        <translation>Alter</translation>
+    </message>
+    <message>
+        <source>height</source>
+        <translation>Größe</translation>
+    </message>
+    <message>
+        <source>male</source>
+        <translation>männlich</translation>
+    </message>
+    <message>
+        <source>female</source>
+        <translation>weiblich</translation>
     </message>
 </context>
 <context>
@@ -468,6 +538,41 @@
     <message>
         <source>K</source>
         <translation>KI</translation>
+    </message>
+</context>
+<context>
+    <name>LineView</name>
+    <message>
+        <source>Line</source>
+        <translation>Linie</translation>
+    </message>
+    <message>
+        <source>chose line:</source>
+        <translation>Linie auswählen:</translation>
+    </message>
+    <message>
+        <source>add line:</source>
+        <translation>Linie hinzufügen:</translation>
+    </message>
+    <message>
+        <source>label:</source>
+        <translation>Bezeichnung:</translation>
+    </message>
+    <message>
+        <source>workplace count:</source>
+        <translation>Arbeitsplatzanzahl:</translation>
+    </message>
+    <message>
+        <source>description:</source>
+        <translation>Beschreibung:</translation>
+    </message>
+    <message>
+        <source>back</source>
+        <translation>zurück</translation>
+    </message>
+    <message>
+        <source>add</source>
+        <translation>hinzufügen</translation>
     </message>
 </context>
 <context>
@@ -743,6 +848,108 @@
     </message>
 </context>
 <context>
+    <name>ProductView</name>
+    <message>
+        <source>product data</source>
+        <translation>Produktdaten</translation>
+    </message>
+    <message>
+        <source>product name:</source>
+        <translation>Produktnamen:</translation>
+    </message>
+    <message>
+        <source>product number:</source>
+        <translation>Produktnummer:</translation>
+    </message>
+    <message>
+        <source>percentage of the whole production:</source>
+        <translation>Prozent an der Gesamtproduktion:</translation>
+    </message>
+    <message>
+        <source>back</source>
+        <translation>zurück</translation>
+    </message>
+    <message>
+        <source>add</source>
+        <translation>hinzufügen</translation>
+    </message>
+</context>
+<context>
+    <name>ShiftPauseView</name>
+    <message>
+        <source>back</source>
+        <translation>zurück</translation>
+    </message>
+    <message>
+        <source>shift- &amp; pausedata</source>
+        <translation>Schicht- &amp; Pausendaten</translation>
+    </message>
+    <message>
+        <source>shift</source>
+        <translation>Schicht</translation>
+    </message>
+    <message>
+        <source>shift type:</source>
+        <translation>Schichtart:</translation>
+    </message>
+    <message>
+        <source>begin:</source>
+        <translation>Begin:</translation>
+    </message>
+    <message>
+        <source>end:</source>
+        <translation>Ende:</translation>
+    </message>
+    <message>
+        <source>piece count:</source>
+        <translation>Stückzahl:</translation>
+    </message>
+    <message>
+        <source>pauses</source>
+        <translation>Pausen</translation>
+    </message>
+    <message>
+        <source>short breaks:</source>
+        <translation>Kurze Pausen:</translation>
+    </message>
+    <message>
+        <source>add</source>
+        <translation>hinzufügen</translation>
+    </message>
+    <message>
+        <source>delete</source>
+        <translation>löschen</translation>
+    </message>
+    <message>
+        <source>early shift</source>
+        <translation>Frühschicht</translation>
+    </message>
+    <message>
+        <source>late shift</source>
+        <translation>Spätschicht</translation>
+    </message>
+    <message>
+        <source>night shift</source>
+        <translation>Nachtschicht</translation>
+    </message>
+    <message>
+        <source>special shift</source>
+        <translation>Sonderschicht</translation>
+    </message>
+    <message>
+        <source>possible everytime</source>
+        <translation>Jederzeit möglich</translation>
+    </message>
+    <message>
+        <source>possible with constraints</source>
+        <translation>möglich mit Einschränkungen</translation>
+    </message>
+    <message>
+        <source>leads to process breaks</source>
+        <translation>Führt zu Prozessunterbrechungen</translation>
+    </message>
+</context>
+<context>
     <name>SubActivityControl</name>
     <message>
         <source>add subactivity</source>
@@ -920,6 +1127,96 @@
     <message>
         <source>description:</source>
         <translation>Beschreibung:</translation>
+    </message>
+</context>
+<context>
+    <name>WorkplaceListView</name>
+    <message>
+        <source>&lt; back</source>
+        <translation>&lt; zurück</translation>
+    </message>
+    <message>
+        <source>work stations</source>
+        <translation>Arbeitsplätze</translation>
+    </message>
+</context>
+<context>
+    <name>WorkplaceView</name>
+    <message>
+        <source>work place</source>
+        <translation>Arbeitsplatz</translation>
+    </message>
+    <message>
+        <source>label:</source>
+        <translation>Bezeichnung:</translation>
+    </message>
+    <message>
+        <source>description:</source>
+        <translation>Beschreibung:</translation>
+    </message>
+    <message>
+        <source>workstation code:</source>
+        <translation>Arbeitsplatz code:</translation>
+    </message>
+    <message>
+        <source>&lt; back</source>
+        <translation>&lt; zurück</translation>
+    </message>
+    <message>
+        <source>forth &gt;</source>
+        <translation>weiter &gt;</translation>
+    </message>
+    <message>
+        <source>initial time</source>
+        <translation>Vorgabezeit</translation>
+    </message>
+    <message>
+        <source>setup time:</source>
+        <translation>Grundzeit:</translation>
+    </message>
+    <message>
+        <source>halt! hammer time:</source>
+        <translation>Rüstzeit:</translation>
+    </message>
+    <message>
+        <source>rest time:</source>
+        <translation>Erholzeit:</translation>
+    </message>
+    <message>
+        <source>cycle time:</source>
+        <translation>Taktzeit:</translation>
+    </message>
+    <message>
+        <source>label</source>
+        <translation>Bezeichnung</translation>
+    </message>
+    <message>
+        <source>description</source>
+        <translation>Beschreibung</translation>
+    </message>
+    <message>
+        <source>problem label</source>
+        <translation>Problembezeichnung</translation>
+    </message>
+    <message>
+        <source>sanction label</source>
+        <translation>Maßnahmenbezeichnung</translation>
+    </message>
+    <message>
+        <source>line</source>
+        <translation>Linie</translation>
+    </message>
+    <message>
+        <source>products</source>
+        <translation>Produkte</translation>
+    </message>
+    <message>
+        <source>remarks</source>
+        <translation>Bemerkungen</translation>
+    </message>
+    <message>
+        <source>deploy time:</source>
+        <translation>Verteilzeit</translation>
     </message>
 </context>
 </TS>
