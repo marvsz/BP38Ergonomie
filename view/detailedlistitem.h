@@ -32,6 +32,7 @@ public slots:
     void deselect(int id);
     void select();
     void deselect();
+    void checkState(int id);
 
 private slots:
     void itemPressed();

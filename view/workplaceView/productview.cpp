@@ -5,6 +5,8 @@
 #include "flickcharm.h"
 
 ProductView::ProductView(QWidget *parent) : QWidget(parent),
+    scProducts(new QScrollArea),
+    productListLayout(new QVBoxLayout),
     lblViewName(new QLabel("Produktdaten")),
     lblName(new QLabel("Produktname:")),
     lblNumber(new QLabel("Produktnummer:")),
@@ -13,9 +15,8 @@ ProductView::ProductView(QWidget *parent) : QWidget(parent),
     txtBxNumber(new TextLineEdit()),
     numBxTotalPercentage(new NumberLineEdit()),
     btnBack(new QPushButton("Zurück")),
-    btnAdd(new QPushButton("Hinzufügen")),
-    productListLayout(new QVBoxLayout),
-    scProducts(new QScrollArea)
+    btnAdd(new QPushButton("Hinzufügen"))
+
 {
     btnBack->setObjectName("btnNavigation");
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
@@ -66,7 +67,6 @@ void ProductView::addProduct(int id, const QString &name){
     DetailedListItem *newListItem = new DetailedListItem(0, "", name, QList<QStringList>(), true, true, false);
     newListItem->setID(id);
     idSelectionMap.insert(id, false);
-    connect(newListItem, SIGNAL(clicked()), newListItem, SLOT(changeSelection())),
     connect(newListItem, SIGNAL(deleteItem(int)), this, SLOT(deleteProductClicked(int)));
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(idSelected(int)));
     connect(newListItem, SIGNAL(deselected(int)), this, SLOT(idDeselected(int)));

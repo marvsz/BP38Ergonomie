@@ -5,6 +5,8 @@
 #include "flickcharm.h"
 
 LineView::LineView(QWidget *parent) : QWidget(parent),
+    listContentLayout(new QVBoxLayout),
+    scLines(new QScrollArea),
     lblViewName(new QLabel("Linie")),
     lblSelectLine(new QLabel("Linie wählen:")),
     lblAddLine(new QLabel("Linie hinzufügen:")),
@@ -15,9 +17,7 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     numBxWorkplaceCount(new NumberLineEdit()),
     txtBxDescription(new TextEdit()),
     btnBack(new QPushButton("Zurück")),
-    btnAdd(new QPushButton("Hinzufügen")),
-    scLines(new QScrollArea),
-    listContentLayout(new QVBoxLayout)
+    btnAdd(new QPushButton("Hinzufügen"))
 {
     btnBack->setObjectName("btnNavigation");
     txtBxDescription->setMaximumHeight(100);
@@ -74,7 +74,7 @@ void LineView::addLine(int id, const QString &name){
 
     DetailedListItem *newListItem = new DetailedListItem(this, "", name, QList<QStringList>(), true, true, false);
     newListItem->setID(id);
-    connect(newListItem, SIGNAL(clicked()), newListItem, SLOT(changeSelection()));
+    //connect(newListItem, SIGNAL(clicked()), newListItem, SLOT(changeSelection()));
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedLineChanged(int)));
     connect(this, SIGNAL(lineSelected(int)), newListItem, SLOT(selectExclusiveWithID(int)));
     connect(newListItem, SIGNAL(deleteItem(int)), this, SLOT(btnDeleteClicked(int)));

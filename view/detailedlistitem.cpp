@@ -2,6 +2,7 @@
 #include <QVBoxLayout>
 #include <QWidget>
 #include <QSpacerItem>
+#include <QDebug>
 
 DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, const QString &name, const QList<QStringList> &scheme, bool isDeletable, bool isCheckable, bool hasForwardLabel) :
     QAbstractButton(parent),
@@ -70,8 +71,7 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
     }
     if(isCheckable){
         layout->addWidget(checkBox, 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
-        connect(this, SIGNAL(clicked()), this, SLOT(select()));
-        connect(this, SIGNAL(clicked()), this, SLOT(deselect()));
+        connect(this, SIGNAL(clicked()), this, SLOT(changeSelection()));
     }
     else {
         layout->addItem(new QSpacerItem(50, 0), 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
@@ -103,6 +103,11 @@ void DetailedListItem::itemPressed(){
 }
 
 // PUBLIC SLOTS
+void DetailedListItem::
+checkState(int id){
+    qDebug() << "State: " << id;
+}
+
 void DetailedListItem::setValues(const QList<QStringList> &values){
     for(int i = 0; i < values.count(); ++i){
         for(int j = 0; j < values.at(i).count(); ++j){
@@ -137,13 +142,6 @@ void DetailedListItem::select(){
     }
 }
 
-void DetailedListItem::selectExclusiveWithID(int id){
-    if(this->id != id)
-        deselect();
-    else
-        select();
-}
-
 void DetailedListItem::deselect(){
     if(isCheckable && checkBox->isChecked()){
         checkBox->setChecked(false);
@@ -151,6 +149,12 @@ void DetailedListItem::deselect(){
     }
 }
 
+void DetailedListItem::selectExclusiveWithID(int id){
+    if(this->id != id)
+        deselect();
+    else
+        select();
+}
 // PUBLIC
 
 int DetailedListItem::getID() const{
