@@ -37,15 +37,10 @@ MetaDataView::MetaDataView(QWidget *parent) :
     txtBxFactoryCountry(new TextLineEdit(this)),
     txtBxFactoryContact(new TextLineEdit(this)),
     txtBxFactoryEmployeeCount(new NumberLineEdit(this)),
-<<<<<<< HEAD
     lblRecordingDateTime(new QLabel(tr("recording"), this)),
     dteRecordingTimeBegin(new QDateTimeEdit(this)),
     dteRecordingTimeEnd(new QDateTimeEdit(this))
-=======
-    lblRecordingDateTime(new QLabel("Aufnahme", this)),
-    dteRecordingTimeBegin(new DateTimeSpinner(this)),
-    dteRecordingTimeEnd(new DateTimeSpinner(this))
->>>>>>> origin/master
+
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
     QGridLayout *navigationBarLayout = new QGridLayout;
