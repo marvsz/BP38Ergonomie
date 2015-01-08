@@ -37,6 +37,13 @@ private:
     QSqlTableModel *tmRecordingObservesWorkplace;
     QSqlTableModel *tmWorkplace;
     QSqlTableModel *tmLine;
+    QSqlTableModel *tmComment;
+    QSqlTableModel *tmEmployee;
+    QSqlTableModel *tmEmployeeWorksShift;
+    QSqlTableModel *tmProduct;
+    QSqlTableModel *tmShift;
+    QSqlTableModel *tmBreak;
+
 
     QHash<DB_TABLES, QSqlTableModel*> htSqlTableModels;
 

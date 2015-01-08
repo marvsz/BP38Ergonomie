@@ -55,6 +55,7 @@ ViewController::ViewController(QWidget *parent) :
 
     // COMMENT VIEW
     connect(commentView, SIGNAL(back()), this, SLOT(backToView()));
+    connect(commentView, SIGNAL(save()), this, SLOT(saveCommentRequested()));
 
     // DOCUMENTATION VIEW
     connect(documentationView, SIGNAL(showPreviousView()), this, SLOT(backToView()));
@@ -94,6 +95,7 @@ void ViewController::goToWorkplaceView(int id){
 }
 
 void ViewController::goToLineView(){
+    emit updateLineView();
     goToView(ViewController::LINE_VIEW);
 }
 
@@ -102,14 +104,17 @@ void ViewController::goToShiftAndPauseView(){
 }
 
 void ViewController::goToEmployeeView(){
+    emit updateEmployeeView();
     goToView(ViewController::EMPLOYEE_VIEW);
 }
 
 void ViewController::goToProductView(){
+    emit updateProductView();
     goToView(ViewController::PRODUCT_VIEW);
 }
 
 void ViewController::goToCommentView(){
+    emit updateCommentView();
     goToView(ViewController::COMMENT_VIEW);
 }
 
@@ -415,16 +420,21 @@ void ViewController::backToView(){
             emit updateWorkplaceList();
             break;
         case ViewController::WORKPLACE_VIEW:
+            //emit updateWorkplace();
             break;
         case ViewController::LINE_VIEW:
+            emit updateLineView();
             break;
         case ViewController::SHIFTPAUSE_VIEW:
             break;
         case ViewController::EMPLOYEE_VIEW:
+            emit updateEmployeeView();
             break;
         case ViewController::PRODUCT_VIEW:
+            emit updateProductView();
             break;
         case ViewController::COMMENT_VIEW:
+            emit updateCommentView();
             break;
         case ViewController::DOCUMENTATION_VIEW:
             break;
@@ -437,4 +447,25 @@ void ViewController::backToView(){
 void ViewController::goToView(int index){
     previousViews->push(currentIndex());
     setCurrentIndex(index);
+}
+
+//SAVE REQUESTS
+void ViewController::saveWorkplaceRequested(){
+    emit saveWorkplace();
+}
+
+void ViewController::saveCommentRequested(){
+    emit saveComment();
+}
+
+void ViewController::saveProductRequested(){
+    emit saveProduct();
+}
+
+void ViewController::saveLineRequested(){
+    emit saveLine();
+}
+
+void ViewController::saveEmloyeeRequested(){
+    emit saveEmployee();
 }

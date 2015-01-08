@@ -64,6 +64,8 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
     groupBox->setLayout(layout);
     mainLayout->addWidget(groupBox);
     setLayout(mainLayout);
+
+    connect(this, SIGNAL(pressed()), this, SLOT(itemPressed()));
 }
 
 void DetailedListItem::paintEvent(QPaintEvent *e){

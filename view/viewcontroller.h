@@ -97,12 +97,27 @@ public:
 signals:
     void saveMetaData();
     void updateMetaData();
+
     void updateWorkplaceList();
     void updateWorkplace(int id);
     void createWorkplace();
     void deleteWorkplace(int id);
+    void setSelectedWorkplace(int id);
 
+    void saveWorkplace();
+
+    void updateLineView();
+    void saveLine();
+
+    void updateProductView();
+    void saveProduct();
     void deleteProduct(int id);
+
+    void updateCommentView();
+    void saveComment();
+
+    void updateEmployeeView();
+    void saveEmployee();
 
 public slots:
 
@@ -156,6 +171,11 @@ private slots:
     void goToDocumentationView();
 
     void saveMetaDataRequested();
+    void saveWorkplaceRequested();
+    void saveCommentRequested();
+    void saveProductRequested();
+    void saveLineRequested();
+    void saveEmloyeeRequested();
 
     void deleteWorkplaceClicked(int id);
     void deleteProductClicked(int id);

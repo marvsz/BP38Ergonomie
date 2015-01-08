@@ -30,37 +30,40 @@ private slots:
 
     void updateWorkplaceView(int id);
     void updateWorkplaceView();
-    void saveWorkplaceView(int id);
+    void saveWorkplaceView();
     void deleteWorkplace(int id);
 
     void updateLines();
 
-    void updateLine(int id);
+    void updateLine();
     int saveLine();
 
     void updateProducts();
 
-    void updateProduct(int id);
+    void updateProduct();
     int saveProduct();
 
     void updateBreaks();
 
-    void updateBreak(int id);
+    void updateBreak();
     int saveBreak();
 
-    void updateComment(int id);
+    void updateComment();
     int saveComment();
 
     void updateEmployee();
-    int saveEmployee(int id);
+    int saveEmployee();
 
 
 private:
     DBHandler *dbHandler;
     ViewController *viewCon;
     int recording_ID;
+    int selectedWorkplaceID;
 
     int save(DB_TABLES tbl, const QString &filter, const QString &colID, const QStringList &colNames, const QList<QVariant::Type> &colTypes, QHash<QString, QVariant> &colMapNameValue);
+
+    int save(DB_TABLES tbl, const QString &filter, const QString &colID, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue);
 
     void updateAnalyst(int id);
     int saveAnalyst();
@@ -78,6 +81,7 @@ private:
     int saveRecording();
 
     int saveWorkplace(int id);
+    int createWorkplace();
 
 
     void saveRecordingObservesLine(int recID, int lineID);

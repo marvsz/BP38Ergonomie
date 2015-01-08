@@ -5,6 +5,7 @@
 #include <QStringList>
 #include <QList>
 #include <QVariant>
+#include <QHash>
 
 enum DB_TABLES {ANALYST, EMPLOYER, CORPORATION, FACTORY, RECORDING,
                 RECORDING_OBSERVES_LINE, RECORDING_OBSERVES_WORKPLACE, LINE, WORKPLACE,
@@ -105,6 +106,7 @@ public:
     static const QString COL_WORKPLACE_BODY_MEASUREMENT_ID;
     static const QStringList LIST_WORKPLACE_COLS;
     static const QList<QVariant::Type> LIST_WORKPLACE_TYPES;
+    static const QHash<QString, QVariant::Type> HASH_WORKPLACE_TYPES;
 
     //Comment
     static const QString TBL_COMMENT;

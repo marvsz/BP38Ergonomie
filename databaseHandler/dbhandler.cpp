@@ -81,6 +81,30 @@ DBHandler::DBHandler()
     tmWorkplace->setTable(DBConstants::TBL_WORKPLACE);
     tmWorkplace->setEditStrategy(QSqlTableModel::OnRowChange);
 
+    tmComment = new QSqlTableModel(0, myDB);
+    tmComment->setTable(DBConstants::TBL_COMMENT);
+    tmComment->setEditStrategy(QSqlTableModel::OnRowChange);
+
+    tmEmployee = new QSqlTableModel(0, myDB);
+    tmEmployee->setTable(DBConstants::TBL_EMPLOYEE);
+    tmEmployee->setEditStrategy(QSqlTableModel::OnRowChange);
+
+    tmEmployeeWorksShift = new QSqlTableModel(0, myDB);
+    tmEmployeeWorksShift->setTable(DBConstants::TBL_EMPLOYEE_WORKS_SHIFT);
+    tmEmployeeWorksShift->setEditStrategy(QSqlTableModel::OnRowChange);
+
+    tmProduct = new QSqlTableModel(0, myDB);
+    tmProduct->setTable(DBConstants::TBL_PRODUCT);
+    tmProduct->setEditStrategy(QSqlTableModel::OnRowChange);
+
+    tmShift = new QSqlTableModel(0, myDB);
+    tmShift->setTable(DBConstants::TBL_SHIFT);
+    tmShift->setEditStrategy(QSqlTableModel::OnRowChange);
+
+    tmBreak = new QSqlTableModel(0, myDB);
+    tmBreak->setTable(DBConstants::TBL_BREAK);
+    tmBreak->setEditStrategy(QSqlTableModel::OnRowChange);
+
     htSqlTableModels = QHash<DB_TABLES, QSqlTableModel*>();
     htSqlTableModels.insert(DB_TABLES::ANALYST, tmAnalyst);
     htSqlTableModels.insert(DB_TABLES::EMPLOYER, tmEmployer);
@@ -91,6 +115,12 @@ DBHandler::DBHandler()
     htSqlTableModels.insert(DB_TABLES::RECORDING_OBSERVES_WORKPLACE, tmRecordingObservesWorkplace);
     htSqlTableModels.insert(DB_TABLES::LINE, tmLine);
     htSqlTableModels.insert(DB_TABLES::WORKPLACE, tmWorkplace);
+    htSqlTableModels.insert(DB_TABLES::COMMENT, tmComment);
+    htSqlTableModels.insert(DB_TABLES::EMPLOYEE, tmEmployee);
+    htSqlTableModels.insert(DB_TABLES::EMPLOYEE_WORKS_SHIFT, tmEmployeeWorksShift);
+    htSqlTableModels.insert(DB_TABLES::PRODUCT, tmProduct);
+    htSqlTableModels.insert(DB_TABLES::SHIFT, tmShift);
+    htSqlTableModels.insert(DB_TABLES::BREAK, tmBreak);
 
 }
 
@@ -120,8 +150,6 @@ QSqlRecord DBHandler::record(DB_TABLES tbl, int row){
 bool DBHandler::insertRow(DB_TABLES tbl, const QSqlRecord &record){
     QSqlTableModel* tm = getTableModelRef(tbl);
     bool success = tm->insertRecord(-1, record);
-    QSqlError e = tm->lastError();
-    qDebug()<< e;
     tm->submitAll();
     return success;
 }

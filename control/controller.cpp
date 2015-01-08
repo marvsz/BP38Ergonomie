@@ -10,11 +10,20 @@ Controller::Controller(QObject *parent) :
 
     connect(viewCon, SIGNAL(updateMetaData()), this, SLOT(updateMetaDataView()));
     connect(viewCon, SIGNAL(saveMetaData()), this, SLOT(saveMetaDataView()));
+
     connect(viewCon, SIGNAL(updateWorkplaceList()), this, SLOT(updateWorkplacesView()));
     connect(viewCon, SIGNAL(deleteWorkplace(int)), this, SLOT(deleteWorkplace(int)));
     connect(viewCon, SIGNAL(createWorkplace()), this, SLOT(updateWorkplaceView()));
     connect(viewCon, SIGNAL(updateWorkplace(int)), this, SLOT(updateWorkplaceView(int)));
+
+    connect(viewCon, SIGNAL(updateCommentView()), this, SLOT(updateComment()));
+    connect(viewCon, SIGNAL(saveComment()), this, SLOT(saveComment()));
+
+    connect(viewCon, SIGNAL(updateEmployeeView()), this, SLOT(updateEmployee()));
+    connect(viewCon, SIGNAL(saveEmployee()), this, SLOT(saveEmployee()));
+
     recording_ID = 1;
+    selectedWorkplaceID = 0;
 }
 
 
@@ -40,18 +49,22 @@ void Controller::updateWorkplacesView(){
 
 //WorkplaceView
 void Controller::updateWorkplaceView(int id){
+    selectedWorkplaceID = id;
     DB_TABLES tbl = DB_TABLES::WORKPLACE;
     dbHandler->select(tbl, QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(QString::number(id)));
     QSqlRecord record = dbHandler->record(tbl, 0);
-
+    viewCon->setWorkplaceMetaData(record.value(DBConstants::COL_WORKPLACE_NAME).toString(),
+                                  record.value(DBConstants::COL_WORKPLACE_DESCRIPTION).toString(),
+                                  record.value(DBConstants::COL_WORKPLACE_CODE).toString(),
+                                  record.value(DBConstants::COL_WORKPLACE_PERCENTAGE_WOMAN).toInt());
 }
 
 void Controller::updateWorkplaceView(){
-    updateWorkplaceView(saveWorkplace(0));
+    updateWorkplaceView(createWorkplace());
 }
 
-void Controller::saveWorkplaceView(int id){
-   saveWorkplace(id);
+void Controller::saveWorkplaceView(){
+   saveWorkplace(selectedWorkplaceID);
 }
 
 void Controller::deleteWorkplace(int id){
@@ -67,7 +80,7 @@ void Controller::updateLines(){
 
 }
 
-void Controller::updateLine(int id){
+void Controller::updateLine(){
 
 }
 
@@ -80,7 +93,7 @@ void Controller::updateProducts(){
 
 }
 
-void Controller::updateProduct(int id){
+void Controller::updateProduct(){
 
 }
 
@@ -93,7 +106,7 @@ void Controller::updateBreaks(){
 
 }
 
-void Controller::updateBreak(int id){
+void Controller::updateBreak(){
 
 }
 
@@ -102,12 +115,29 @@ int Controller::saveBreak(){
 }
 
 //Comment
-void Controller::updateComment(int id){
-
+void Controller::updateComment(){
+    DB_TABLES tbl = DB_TABLES::COMMENT;
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_COMMENT_WORKPLACE_ID).arg(selectedWorkplaceID);
+    dbHandler->select(tbl, filter);
+    QSqlRecord record = dbHandler->record(tbl, 0);
+    viewCon->setComment(record.value(DBConstants::COL_COMMENT_PROBLEM_NAME).toString(),
+                        record.value(DBConstants::COL_COMMENT_PROBLEM_DESCRIPTION).toString(),
+                        record.value(DBConstants::COL_COMMENT_MEASURE_NAME).toString(),
+                        record.value(DBConstants::COL_COMMENT_MEASURE_DESCRIPTION).toString(),
+                        record.value(DBConstants::COL_COMMENT_WORKER_PERCEPTION).toString());
 }
 
 int Controller::saveComment(){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_COMMENT_WORKPLACE_ID).arg(selectedWorkplaceID);
 
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_COMMENT_PROBLEM_NAME, viewCon->getCommentProblemName());
+    values.insert(DBConstants::COL_COMMENT_PROBLEM_DESCRIPTION, viewCon->getCommentProblemDescription());
+    values.insert(DBConstants::COL_COMMENT_MEASURE_NAME, viewCon->getCommentMeasureName());
+    values.insert(DBConstants::COL_COMMENT_MEASURE_DESCRIPTION, viewCon->getCommentMeasureDescription());
+    values.insert(DBConstants::COL_COMMENT_WORKER_PERCEPTION, viewCon->getCommentWorkerPerception());
+    values.insert(DBConstants::COL_COMMENT_WORKPLACE_ID, selectedWorkplaceID);
+    return save(DB_TABLES::COMMENT, filter, DBConstants::COL_COMMENT_ID, DBConstants::LIST_COMMENT_COLS, DBConstants::LIST_COMMENT_TYPES, values);
 }
 
 
@@ -116,7 +146,7 @@ void Controller::updateEmployee(){
 
 }
 
-int Controller::saveEmployee(int id){
+int Controller::saveEmployee(){
 
 }
 
@@ -150,6 +180,33 @@ int Controller::save(DB_TABLES tbl, const QString &filter, const QString &colID,
     return id;
 }
 
+int Controller::save(DB_TABLES tbl, const QString &filter, const QString &colID, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue){
+    dbHandler->select(tbl, filter);
+    int id;
+    QSqlRecord record;
+    bool toInsert = false;
+    if(dbHandler->rowCount(tbl) == 0){
+        toInsert = true;
+        id = dbHandler->getNextID(tbl, colID);
+        colMapNameValue.insert(colID, id);
+        foreach(QString key, colMapNameValue.keys())
+            record.append(QSqlField(key, colMapNameType.value(key)));
+    }
+    else {
+        record = dbHandler->record(tbl, 0);
+        id = record.value(colID).toInt();
+        colMapNameValue.insert(colID, id);
+    }
+
+    foreach(QString colName, colMapNameValue.keys())
+        record.setValue(colName, colMapNameValue.value(colName));
+
+    if(toInsert)
+        dbHandler->insertRow(tbl, record);
+    else
+        dbHandler->updateRow(tbl, 0, record);
+    return id;
+}
 
 
 void Controller::updateAnalyst(int id){
@@ -299,5 +356,19 @@ int Controller::saveWorkplace(int id){
     QString filter = QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(QString::number(id));
 
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    return save(DB_TABLES::WORKPLACE, filter, DBConstants::COL_WORKPLACE_ID, DBConstants::LIST_WORKPLACE_COLS, DBConstants::LIST_WORKPLACE_TYPES, values);
+    values.insert(DBConstants::COL_WORKPLACE_NAME, viewCon->getWorkplaceName());
+    values.insert(DBConstants::COL_WORKPLACE_DESCRIPTION, viewCon->getWorkplaceDescription());
+    values.insert(DBConstants::COL_WORKPLACE_CODE, viewCon->getWorkplaceCode());
+    values.insert(DBConstants::COL_WORKPLACE_PERCENTAGE_WOMAN, viewCon->getWorkplaceWomanPercentage());
+    values.insert(DBConstants::COL_WORKPLACE_BODY_MEASUREMENT_ID, 0);
+    return save(DB_TABLES::WORKPLACE, filter, DBConstants::COL_WORKPLACE_ID, DBConstants::HASH_WORKPLACE_TYPES, values);
+}
+
+int Controller::createWorkplace(){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(QString::number(0));
+
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_WORKPLACE_BODY_MEASUREMENT_ID, 0);
+    return save(DB_TABLES::WORKPLACE, filter, DBConstants::COL_WORKPLACE_ID, DBConstants::HASH_WORKPLACE_TYPES, values);
+
 }

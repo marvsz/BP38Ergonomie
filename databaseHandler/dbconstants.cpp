@@ -1,5 +1,5 @@
 #include "dbconstants.h"
-
+#include "qhashbuilder.h"
 
 
 //Analyst
@@ -92,6 +92,7 @@ const QString DBConstants::COL_WORKPLACE_ALLOWANCE_TIME = "allowance_time";
 const QString DBConstants::COL_WORKPLACE_BODY_MEASUREMENT_ID = "body_measurement_ID";
 const QStringList DBConstants::LIST_WORKPLACE_COLS = QStringList()<<DBConstants::COL_WORKPLACE_ID<<DBConstants::COL_WORKPLACE_NAME<<DBConstants::COL_WORKPLACE_DESCRIPTION<<DBConstants::COL_WORKPLACE_PERCENTAGE_WOMAN<<DBConstants::COL_WORKPLACE_LINE_ID<<DBConstants::COL_WORKPLACE_CODE<<DBConstants::COL_WORKPLACE_CYCLE_TIME<<DBConstants::COL_WORKPLACE_SETUP_TIME<<DBConstants::COL_WORKPLACE_BASIC_TIME<<DBConstants::COL_WORKPLACE_REST_TIME<<DBConstants::COL_WORKPLACE_ALLOWANCE_TIME;
 const QList<QVariant::Type> DBConstants::LIST_WORKPLACE_TYPES = QList<QVariant::Type>()<<QVariant::Int<<QVariant::String<<QVariant::String<<QVariant::Double<<QVariant::Int<<QVariant::String<<QVariant::Int<<QVariant::Int<<QVariant::Int<<QVariant::Int<<QVariant::Int;
+const QHash<QString, QVariant::Type> DBConstants::HASH_WORKPLACE_TYPES = QHashBuilder<QString, QVariant::Type>(DBConstants::LIST_WORKPLACE_COLS, DBConstants::LIST_WORKPLACE_TYPES).build();
 
 
 //Comment
