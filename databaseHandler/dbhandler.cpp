@@ -109,6 +109,42 @@ DBHandler::DBHandler()
     tmActivity->setTable(DBConstants::TBL_ACTIVITY);
     tmActivity->setEditStrategy(QSqlTableModel::OnRowChange);
 
+    tmBodyPosture = new QSqlTableModel(0, myDB);
+    tmBodyPosture->setTable(DBConstants::TBL_BODY_POSTURE);
+    tmBodyPosture->setEditStrategy(QSqlTableModel::OnRowChange);
+
+    tmWorkProcess = new QSqlTableModel(0, myDB);
+    tmWorkProcess->setTable(DBConstants::TBL_WORK_PROCESS);
+    tmWorkProcess->setEditStrategy(QSqlTableModel::OnRowChange);
+
+    tmLoadHandlingType = new QSqlTableModel(0, myDB);
+    tmLoadHandlingType->setTable(DBConstants::TBL_LOAD_HANDLING_TYPE);
+    tmLoadHandlingType->setEditStrategy(QSqlTableModel::OnRowChange);
+
+    tmLoadHandling = new QSqlTableModel(0, myDB);
+    tmLoadHandling->setTable(DBConstants::TBL_LOAD_HANDLING);
+    tmLoadHandling->setEditStrategy(QSqlTableModel::OnRowChange);
+
+    tmAppliedForce = new QSqlTableModel(0, myDB);
+    tmAppliedForce->setTable(DBConstants::TBL_APPLIED_FORCE);
+    tmAppliedForce->setEditStrategy(QSqlTableModel::OnRowChange);
+
+    tmTransportation = new QSqlTableModel(0, myDB);
+    tmTransportation->setTable(DBConstants::TBL_TRANSPORTATION);
+    tmTransportation->setEditStrategy(QSqlTableModel::OnRowChange);
+
+    tmTypeOfGrasping = new QSqlTableModel(0, myDB);
+    tmTypeOfGrasping->setTable(DBConstants::TBL_TYPE_OF_GRASPING);
+    tmTypeOfGrasping->setEditStrategy(QSqlTableModel::OnRowChange);
+
+    tmEquipment = new QSqlTableModel(0, myDB);
+    tmEquipment->setTable(DBConstants::TBL_EQUIPMENT);
+    tmEquipment->setEditStrategy(QSqlTableModel::OnRowChange);
+
+    tmWorkCondition = new QSqlTableModel(0, myDB);
+    tmWorkCondition->setTable(DBConstants::TBL_WORK_CONDITION);
+    tmWorkCondition->setEditStrategy(QSqlTableModel::OnRowChange);
+
     htSqlTableModels = QHash<DB_TABLES, QSqlTableModel*>();
     htSqlTableModels.insert(DB_TABLES::ANALYST, tmAnalyst);
     htSqlTableModels.insert(DB_TABLES::EMPLOYER, tmEmployer);
@@ -126,6 +162,15 @@ DBHandler::DBHandler()
     htSqlTableModels.insert(DB_TABLES::SHIFT, tmShift);
     htSqlTableModels.insert(DB_TABLES::BREAK, tmBreak);
     htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmActivity);
+    htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmBodyPosture);
+    htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmWorkProcess);
+    htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmLoadHandlingType);
+    htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmLoadHandling);
+    htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmAppliedForce);
+    htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmTransportation);
+    htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmTypeOfGrasping);
+    htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmEquipment);
+    htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmWorkCondition);
 }
 
 DBHandler::~DBHandler(){

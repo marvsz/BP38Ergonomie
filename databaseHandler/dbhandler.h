@@ -46,6 +46,15 @@ private:
     QSqlTableModel *tmShift;
     QSqlTableModel *tmBreak;
     QSqlTableModel *tmActivity;
+    QSqlTableModel *tmBodyPosture;
+    QSqlTableModel *tmWorkProcess;
+    QSqlTableModel *tmLoadHandlingType;
+    QSqlTableModel *tmLoadHandling;
+    QSqlTableModel *tmAppliedForce;
+    QSqlTableModel *tmTransportation;
+    QSqlTableModel *tmTypeOfGrasping;
+    QSqlTableModel *tmEquipment;
+    QSqlTableModel *tmWorkCondition;
 
 
     QHash<DB_TABLES, QSqlTableModel*> htSqlTableModels;

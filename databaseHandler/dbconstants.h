@@ -10,7 +10,8 @@
 enum DB_TABLES {ANALYST, EMPLOYER, CORPORATION, FACTORY, RECORDING,
                 RECORDING_OBSERVES_LINE, RECORDING_OBSERVES_WORKPLACE, LINE, WORKPLACE,
                 COMMENT, EMPLOYEE, EMPLOYEE_WORKS_SHIFT, PRODUCT, SHIFT, BREAK,
-               ACTIVITY};
+               ACTIVITY, BODY_POSTURE, WORK_PROCESS, LOAD_HANDLING_TYPE, LOAD_HANDLING,
+               APPLIED_FORCE, TRANSPORTATION, TYPE_OF_GRASPING, EQUIPMENT, WORK_CONDITION};
 
 class DBConstants
 {
@@ -27,6 +28,7 @@ public:
     static const QString COL_ANALYST_CORPORATION_ID;
     static const QStringList LIST_ANALYST_COLS;
     static const QList<QVariant::Type> LIST_ANALYST_TYPES;
+    static const QHash<QString, QVariant::Type> HASH_ANALYST_TYPES;
 
     //Employer
     static const QString TBL_EMPLOYER;
@@ -34,6 +36,7 @@ public:
     static const QString COL_EMPLOYER_NAME;
     static const QStringList LIST_EMPLOYER_COLS;
     static const QList<QVariant::Type> LIST_EMPLOYER_TYPES;
+    static const QHash<QString, QVariant::Type> HASH_EMPLOYER_TYPES;
 
     //Corporation
     static const QString TBL_CORPORATION;
@@ -42,6 +45,7 @@ public:
     static const QString COL_CORPORATION_BRANCH_OF_INDUSTRY_ID;
     static const QStringList LIST_CORPORATION_COLS;
     static const QList<QVariant::Type> LIST_CORPORATION_TYPES;
+    static const QHash<QString, QVariant::Type> HASH_CORPORATION_TYPES;
 
     //Factory
     static const QString TBL_FACTORY;
@@ -56,6 +60,7 @@ public:
     static const QString COL_FACTORY_CORPORATION_ID;
     static const QStringList LIST_FACTORY_COLS;
     static const QList<QVariant::Type> LIST_FACTORY_TYPES;
+    static const QHash<QString, QVariant::Type> HASH_FACTORY_TYPES;
 
     //Recording
     static const QString TBL_RECORDING;
@@ -66,6 +71,7 @@ public:
     static const QString COL_RECORDING_ANALYST_ID;
     static const QStringList LIST_RECORDING_COLS;
     static const QList<QVariant::Type> LIST_RECORDING_TYPES;
+    static const QHash<QString, QVariant::Type> HASH_RECORDING_TYPES;
 
     //Recording observes Line
     static const QString TBL_RECORDING_OB_LINE;
@@ -73,6 +79,7 @@ public:
     static const QString COL_RECORDING_OB_LINE_LINE_ID;
     static const QStringList LIST_RECORDING_OB_LINE_COLS;
     static const QList<QVariant::Type> LIST_RECORDING_OB_LINE_TYPES;
+    static const QHash<QString, QVariant::Type> HASH_RECORDING_OB_LINE_TYPES;
 
     //Recording observes Workplace
     static const QString TBL_RECORDING_OB_WORKPLACE;
@@ -80,6 +87,7 @@ public:
     static const QString COL_RECORDING_OB_WORKPLACE_WORKPLACE_ID;
     static const QStringList LIST_RECORDING_OB_WORKPLACE_COLS;
     static const QList<QVariant::Type> LIST_RECORDING_OB_WORKPLACE_TYPES;
+    static const QHash<QString, QVariant::Type> HASH_RECORDING_OB_WORKPLACE_TYPES;
 
     //Line
     static const QString TBL_LINE;
@@ -90,6 +98,7 @@ public:
     static const QString COL_LINE_FACTORY_ID;
     static const QStringList LIST_LINE_COLS;
     static const QList<QVariant::Type> LIST_LINE_TYPES;
+    static const QHash<QString, QVariant::Type> HASH_LINE_TYPES;
 
     //Workplace
     static const QString TBL_WORKPLACE;
@@ -120,6 +129,7 @@ public:
     static const QString COL_COMMENT_WORKPLACE_ID;
     static const QStringList LIST_COMMENT_COLS;
     static const QList<QVariant::Type> LIST_COMMENT_TYPES;
+    static const QHash<QString, QVariant::Type> HASH_COMMENT_TYPES;
 
     //Employee
     static const QString TBL_EMPLOYEE;
@@ -130,6 +140,7 @@ public:
     static const QString COL_EMPLOYEE_NOTE;
     static const QStringList LIST_EMPLOYEE_COLS;
     static const QList<QVariant::Type> LIST_EMPLOYEE_TYPES;
+    static const QHash<QString, QVariant::Type> HASH_EMPLOYEE_TYPES;
 
     //Employee_works_Shift
     static const QString TBL_EMPLOYEE_WORKS_SHIFT;
@@ -137,6 +148,7 @@ public:
     static const QString COL_EMPLOYEE_WORKS_SHIFT_SHIFT_ID;
     static const QStringList LIST_EMPlOYEE_WORKS_SHIFT_COLS;
     static const QList<QVariant::Type> LIST_EMPLOYEE_WORKS_SHIFT_TYPES;
+    static const QHash<QString, QVariant::Type> HASH_EMPLOYEE_WORKS_SHIFT_TYPES;
 
     //Product
     static const QString TBL_PRODUCT;
@@ -146,6 +158,7 @@ public:
     static const QString COL_PRODUCT_TOTAL_PERCENTAGE;
     static const QStringList LIST_PRODUCT_COLS;
     static const QList<QVariant::Type> LIST_PRODUCT_TYPES;
+    static const QHash<QString, QVariant::Type> HASH_PRODUCT_TYPES;
 
     //Shift
     static const QString TBL_SHIFT;
@@ -156,6 +169,7 @@ public:
     static const QString COL_SHIFT_END;
     static const QStringList LIST_SHIFT_COLS;
     static const QList<QVariant::Type> LIST_SHIFT_TYPES;
+    static const QHash<QString, QVariant::Type> HASH_SHIFT_TYPES;
 
     //Break
     static const QString TBL_BREAK;
@@ -166,6 +180,7 @@ public:
     static const QString COL_BREAK_EMPLOYEE_ID;
     static const QStringList LIST_BREAK_COLS;
     static const QList<QVariant::Type> LIST_BREAK_TYPES;
+    static const QHash<QString, QVariant::Type> HASH_BREAK_TYPES;
 
     //Activity
     static const QString TBL_ACTIVITY;
@@ -175,6 +190,149 @@ public:
     static const QString COL_ACTIVITY_PRODUCT_ID;
     static const QString COL_ACTIVITY_WORKPLACE_ID;
     static const QHash<QString, QVariant::Type> HASH_ACTIVITY_TYPES;
+
+    //Body_Posture
+    static const QString TBL_BODY_POSTURE;
+    static const QString COL_BODY_POSTURE_ID;
+    static const QString COL_BODY_POSTURE_HEAD_TILT;
+    static const QString COL_BODY_POSTURE_HEAD_TILT_SIDEWAYS;
+    static const QString COL_BODY_POSTURE_HEAD_TWIST;
+    static const QString COL_BODY_POSTURE_ARM_OPENING_ANGLE_RIGHT;
+    static const QString COL_BODY_POSTURE_ARM_OPENING_ANGLE_LEFT;
+    static const QString COL_BODY_POSTURE_UPPER_ARM_ANGLE_RIGHT;
+    static const QString COL_BODY_POSTURE_UPPER_ARM_ANGLE_LEFT;
+    static const QString COL_BODY_POSTURE_UPPER_ARM_TWIST_RIGHT;
+    static const QString COL_BODY_POSTURE_UPPER_ARM_TWIST_LEFT;
+    static const QString COL_BODY_POSTURE_FOREARM_ANGLE_RIGHT;
+    static const QString COL_BODY_POSTURE_FOREARM_ANGLE_LEFT;
+    static const QString COL_BODY_POSTURE_FOREARM_TWIST_RIGHT;
+    static const QString COL_BODY_POSTURE_FOREARM_TWIST_LEFT;
+    static const QString COL_BODY_POSTURE_WRIST_ANGLE_RIGHT;
+    static const QString COL_BODY_POSTURE_WRIST_ANGLE_SIDEWAYS_RIGHT;
+    static const QString COL_BODY_POSTURE_WRIST_ANGLE_LEFT;
+    static const QString COL_BODY_POSTURE_WRIST_ANGLE_SIDEWAYS_LEFT;
+    static const QString COL_BODY_POSTURE_WRIST_MOVEMENT_RIGHT;
+    static const QString COL_BODY_POSTURE_WRIST_MOVEMENT_LEFT;
+    static const QString COL_BODY_POSTURE_TRUNK_TILT;
+    static const QString COL_BODY_POSTURE_TRUNK_TILT_SIDEWAYS;
+    static const QString COL_BODY_POSTURE_TRUNK_TWIST;
+    static const QString COL_BODY_POSTURE_LEG_COUNT;
+    static const QString COL_BODY_POSTURE_LEG_POSTURE;
+    static const QString COL_BODY_POSTURE_HIP_ANGLE_RIGHT;
+    static const QString COL_BODY_POSTURE_HIP_ANGLE_LEFT;
+    static const QString COL_BODY_POSTURE_HIP_ANGLE_SIDEWAYS_LEFT;
+    static const QString COL_BODY_POSTURE_HIP_ANGLE_SIDEWAYS_RIGHT;
+    static const QString COL_BODY_POSTURE_HIP_TWIST_LEFT;
+    static const QString COL_BODY_POSTURE_HIP_TWIST_RIGHT;
+    static const QString COL_BODY_POSTURE_KNEE_ANGLE_RIGHT;
+    static const QString COL_BODY_POSTURE_KNEE_ANGLE_LEFT;
+    static const QString COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT;
+    static const QString COL_BODY_POSTURE_ANKLE_ANGLE_SIDEWAYS_RIGHT;
+    static const QString COL_BODY_POSTURE_ANKLE_ANGLE_LEFT;
+    static const QString COL_BODY_POSTURE_ANKLE_ANGLE_SIDEWAYS_LEFT;
+    static const QHash<QString, QVariant::Type> HASH_BODY_POSTURE_TYPES;
+
+    //Workprocess
+    static const QString TBL_WORK_PROCESS;
+    static const QString COL_WORK_PROCESS_ACTIVITY_ID;
+    static const QString COL_WORK_PROCESS_ID;
+    static const QString COL_WORK_PROCESS_DESCRIPTION;
+    static const QString COL_WORK_PROCESS_BEGIN;
+    static const QString COL_WORK_PROCESS_END;
+    static const QString COL_WORK_PROCESS_MTM_CODE;
+    static const QString COL_WORK_PROCESS_FREQUENCY;
+    static const QString COL_WORK_PROCESS_HANDEDNESS;
+    static const QString COL_WORK_PROCESS_IMPULSE_INTENSITY;
+    static const QString COL_WORK_PROCESS_IMPULSE_COUNT;
+    static const QString COL_WORK_PROCESS_WORKING_HEIGHT;
+    static const QString COL_WORK_PROCESS_DISTANCE;
+    static const QString COL_WORK_PROCESS_POSTURE_ID;
+    static const QString COL_WORK_PROCESS_TRANSPORTATION_ID;
+    static const QString COL_WORK_PROCESS_EQUIPMENT_ID;
+    static const QString COL_WORK_PROCESS_CONDITION_ID;
+    static const QString COL_WORK_PROCESS_TYPE_OF_GRASPING_ID;
+    static const QHash<QString, QVariant::Type> HASH_WORK_PROCESS_TYPES;
+
+    //Load_Handling_Type
+    static const QString TBL_LOAD_HANDLING_TYPE;
+    static const QString COL_LOAD_HANDLING_TYPE_ID;
+    static const QString COL_LOAD_HANDLING_TYPE_NAME;
+    static const QHash<QString, QVariant::Type> HASH_LOAD_HANDLING_TYPE_TYPES;
+
+    //Load_Handling
+    static const QString TBL_LOAD_HANDLING;
+    static const QString COL_LOAD_HANDLING_ID;
+    static const QString COL_LOAD_HANDLING_LOAD;
+    static const QString COL_LOAD_HANDLING_DISTANCE;
+    static const QString COL_LOAD_HANDLING_ACTIVITY_ID;
+    static const QString COL_LOAD_HANDLING_PROCESS_ID;
+    static const QString COL_LOAD_HANDLING_LOAD_HANDLING_TYPE_ID;
+    static const QHash<QString, QVariant::Type> HASH_LOAD_HANDLING_TYPES;
+
+    //Applied_Force
+    static const QString TBL_APPLIED_FORCE;
+    static const QString COL_APPLIED_FORCE_ID;
+    static const QString COL_APPLIED_FORCE_ORGAN;
+    static const QString COL_APPLIED_FORCE_DIRECTION;
+    static const QString COL_APPLIED_FORCE_INTENSITY;
+    static const QString COL_APPLIED_FORCE_ACTIVITY_ID;
+    static const QString COL_APPLIED_FORCE_PROCESS_ID;
+    static const QHash<QString, QVariant::Type> HASH_APPLIED_FORCE_TYPES;
+
+    //Transportation
+    static const QString TBL_TRANSPORTATION;
+    static const QString COL_TRANSPORTATION_ID;
+    static const QString COL_TRANSPORTATION_NAME;
+    static const QString COL_TRANSPORTATION_FIXED_ROLLER;
+    static const QString COL_TRANSPORTATION_BRAKES;
+    static const QString COL_TRANSPORTATION_EMPTY_WEIGHT;
+    static const QString COL_TRANSPORTATION_MAX_LOAD;
+    static const QHash<QString, QVariant::Type> HASH_TRANSPORTATION_TYPES;
+
+    //Type_of_Grasping
+    static const QString TBL_TYPE_OF_GRASPING;
+    static const QString COL_TYPE_OF_GRASPING_ID;
+    static const QString COL_TYPE_OF_GRASPING_NAME;
+    static const QHash<QString, QVariant::Type> HASH_TYPE_OF_GRASPING_TYPES;
+
+    //Equipment
+    static const QString TBL_EQUIPMENT;
+    static const QString COL_EQUIPMENT_ID;
+    static const QString COL_EQUIPMENT_NAME;
+    static const QString COL_EQUIPMENT_RECOIL_COUNT;
+    static const QString COL_EQUIPMENT_RECOIL_INTENSITY;
+    static const QString COL_EQUIPMENT_VIBRATION_COUNT;
+    static const QString COL_EQUIPMENT_VIBRATION_INTENSITY;
+    static const QHash<QString, QVariant::Type> HASH_EQUIPMENT_TYPES;
+
+    //Work_Condition
+    static const QString TBL_WORK_CONDITION;
+    static const QString COL_WORK_CONDITION_ID;
+    static const QString COL_WORK_CONDITION_PRECISION;
+    static const QString COL_WORK_CONDITION_VELOCITY;
+    static const QString COL_WORK_CONDITION_ACCELERATION;
+    static const QString COL_WORK_CONDITION_GRIP_CONDITION;
+    static const QString COL_WORK_CONDITION_ACCESSIBILITY;
+    static const QString COL_WORK_CONDITION_GROUND;
+    static const QString COL_WORK_CONDITION_LIGHTING;
+    static const QString COL_WORK_CONDITION_CLIMATE;
+    static const QString COL_WORK_CONDITION_WIND;
+    static const QString COL_WORK_CONDITION_CLOTHING;
+    static const QString COL_WORK_CONDITION_VIBRATION;
+    static const QString COL_WORK_CONDITION_ROOM_TO_MOVE;
+    static const QString COL_WORK_CONDITION_HEAD_SUPPORTED;
+    static const QString COL_WORK_CONDITION_RIGHT_UPPER_ARM_SUPPORTED;
+    static const QString COL_WORK_CONDITION_LEFT_UPPER_ARM_SUPPORTED;
+    static const QString COL_WORK_CONDITION_RIGHT_FOREARM_SUPPORTED;
+    static const QString COL_WORK_CONDITION_LEFT_FOREARM_SUPPORTED;
+    static const QString COL_WORK_CONDITION_RIGHT_HAND_SUPPORTED;
+    static const QString COL_WORK_CONDITION_LEFT_HAND_SUPPORTED;
+    static const QString COL_WORK_CONDITION_TRUNK_SUPPORT;
+    static const QString COL_WORK_CONDITION_RIGHT_THIGH_SUPPORTED;
+    static const QString COL_WORK_CONDITION_LEFT_THIGH_SUPPORTED;
+    static const QString COL_WORK_CONDITION_RIGHT_LOWER_LEG_SUPPORTED;
+    static const QString COL_WORK_CONDITION_LEFT_LOWER_LEG_SUPPORTED;
+    static const QHash<QString, QVariant::Type> HASH_WORK_CONDITION_TYPES;
 
 
 };
