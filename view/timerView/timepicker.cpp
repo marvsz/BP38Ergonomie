@@ -7,15 +7,23 @@ TimePicker::TimePicker(QWidget *parent) :
     btnIncreaseTime(new QPushButton("+")),
     btnDecreaseTime(new QPushButton("-"))
 {
+    timeBxTime->setMaximumWidth(150);
+    timeBxTime->setMinimumWidth(100);
+
+    btnIncreaseTime->setFixedSize(40, 40);
+    btnDecreaseTime->setFixedSize(40, 40);
+
+    this->setMaximumWidth(230);
+    this->setMinimumWidth(180);
+
     connect(btnIncreaseTime, SIGNAL(clicked()), this, SLOT(increaseTime()));
     connect(btnDecreaseTime, SIGNAL(clicked()), this, SLOT(decreaseTime()));
     connect(timeBxTime, SIGNAL(editingFinished()), this, SLOT(emitTimeChanged()));
-    QHBoxLayout *mainLayout = new QHBoxLayout;
 
+    QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->addWidget(btnDecreaseTime);
     mainLayout->addWidget(timeBxTime);
     mainLayout->addWidget(btnIncreaseTime);
-
     setLayout(mainLayout);
 }
 

@@ -10,14 +10,14 @@ WorkProcessSelector::WorkProcessSelector(QWidget *parent) : QWidget(parent),
     lblSelectedAV->setMaximumWidth(150);
     lblSelectedAV->setMinimumWidth(100);
 
-    btnRight->setFixedSize(50, 50);
+    btnRight->setFixedSize(40, 40);
     connect(btnRight, SIGNAL(clicked()), this, SIGNAL(nextAV()));
 
-    btnLeft->setFixedSize(50, 50);
+    btnLeft->setFixedSize(40, 40);
     connect(btnLeft, SIGNAL(clicked()), this, SIGNAL(previousAV()));
 
-    this->setMaximumSize(250, 50);
-    this->setMinimumSize(200, 50);
+    this->setMaximumWidth(230);
+    this->setMinimumWidth(180);
 
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->addWidget(btnLeft);

@@ -18,8 +18,10 @@ MinimizedTimerView::MinimizedTimerView(TimerState state, QWidget *parent) : QWid
     btnPlayPaused->setObjectName("btnTimer");
     connect(btnPlayPaused, SIGNAL(clicked()), this, SLOT(btnPlayPausedClicked()));
 
+    btnMaximized->setIcon(maximizedIcon);
     btnMaximized->setIconSize(QSize(45, 45));
     btnMaximized->setObjectName("btnTimer");
+
     connect(btnMaximized, SIGNAL(clicked()), this, SIGNAL(maximize()));
 
     connect(wpSelector, SIGNAL(nextAV()), this, SIGNAL(nextWorkProcess()));
@@ -39,6 +41,20 @@ MinimizedTimerView::MinimizedTimerView(TimerState state, QWidget *parent) : QWid
 
     this->setLayout(mainLayout);
     setState(state);
+}
+
+//PUBLIC
+
+QString MinimizedTimerView::getWorkprocessType() const{
+    return oscWorkProcessType->getSelectedValue();
+}
+
+TimerState MinimizedTimerView::getState() const{
+    return state;
+}
+
+QTime MinimizedTimerView::getTime() const {
+    return QTime(0, lblTime->text().left(2).toInt(), lblTime->text().right(2).toInt(), 0);
 }
 
 //PUBLIC SLOTS

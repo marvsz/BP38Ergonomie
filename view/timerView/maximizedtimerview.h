@@ -2,6 +2,7 @@
 #define MAXIMIZEDTIMERVIEW_H
 
 #include <QWidget>
+#include <QTime>
 #include "enum.h"
 #include "workprocessselector.h"
 #include "optionselectioncontrol.h"
@@ -15,6 +16,11 @@ public:
     explicit MaximizedTimerView(TimerState state = TimerState::IDLE, QWidget *parent = 0);
     ~MaximizedTimerView();
 
+    QTime getDuration() const;
+    QString getWorkprocessType() const;
+    TimerState getState() const;
+    QTime getTime() const;
+
 signals:
     void nextWorkProcess();
     void previousWorkProcess();
@@ -22,6 +28,7 @@ signals:
     void durationIncreased();
     void durationDecreased();
     void minimize();
+    void maximize();
     void showGantView();
     void play();
     void pause();
@@ -41,6 +48,7 @@ public slots:
 private slots:
     void btnPlayPausedClicked();
     void btnStopResetClicked();
+    void emitBothSet();
 
 private:
     TimerState state;

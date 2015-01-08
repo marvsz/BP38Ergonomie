@@ -51,7 +51,11 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/timerView/graphtimer.h \
     $$PWD/timerView/timepicker.h \
     $$PWD/timerView/ganttimerview.h \
+<<<<<<< Updated upstream
     $$PWD/timerView/workprocessbutton.h
+=======
+    $$PWD/timerView/timerviewcontroller.h
+>>>>>>> Stashed changes
 
 
 SOURCES += $$PWD/angleView/variant.cpp\
@@ -102,7 +106,11 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/timerView/graphtimer.cpp \
     $$PWD/timerView/timepicker.cpp \
     $$PWD/timerView/ganttimerview.cpp \
+<<<<<<< Updated upstream
     $$PWD/timerView/workprocessbutton.cpp
+=======
+    $$PWD/timerView/timerviewcontroller.cpp
+>>>>>>> Stashed changes
 
 
 

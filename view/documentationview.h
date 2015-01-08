@@ -11,6 +11,7 @@
 #include "stopwatch.h"
 #include "angleView/angleview.h"
 #include "buttontimelineview.h"
+#include "timerView/timerviewcontroller.h"
 
 /**
  * @brief The DocumentationView contains all view elements needed when
@@ -49,6 +50,7 @@ private:
     QComboBox *views;
     QPushButton* cameraButton;
     QStackedWidget *mainContent;
+    TimerViewController *timerView;
     QQuickView *cameraView;
     StopWatch *timer;
     ButtonTimelineView *btnTimeLineView;

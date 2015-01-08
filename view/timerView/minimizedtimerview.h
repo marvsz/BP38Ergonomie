@@ -2,6 +2,7 @@
 #define MINIMIZEDTIMERVIEW_H
 
 #include <QWidget>
+
 #include <QLabel>
 #include <QPushButton>
 #include <QTime>
@@ -15,6 +16,10 @@ class MinimizedTimerView : public QWidget
 public:
     explicit MinimizedTimerView(TimerState state = TimerState::IDLE, QWidget *parent = 0);
     ~MinimizedTimerView();
+
+    QString getWorkprocessType() const;
+    TimerState getState() const;
+    QTime getTime() const;
 
 signals:
     void nextWorkProcess();
@@ -31,6 +36,7 @@ public slots:
     void setWorkProcessType(int id, const QString &prefix);
 
 private slots:
+
     void btnPlayPausedClicked();
 
 private:
