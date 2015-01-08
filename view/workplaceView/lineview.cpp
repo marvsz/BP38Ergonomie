@@ -2,6 +2,7 @@
 #include "separator.h"
 #include <QGridLayout>
 #include <QHBoxLayout>
+#include "flickcharm.h"
 
 LineView::LineView(QWidget *parent) : QWidget(parent),
     lblViewName(new QLabel("Linie")),
@@ -14,10 +15,12 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     numBxWorkplaceCount(new NumberLineEdit()),
     txtBxDescription(new TextEdit()),
     btnBack(new QPushButton("Zurück")),
-    btnAdd(new QPushButton("Hinzufügen"))
+    btnAdd(new QPushButton("Hinzufügen")),
+    scLines(new QScrollArea),
+    listContentLayout(new QVBoxLayout)
 {
     btnBack->setObjectName("btnNavigation");
-
+    txtBxDescription->setMaximumHeight(100);
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
     connect(btnAdd, SIGNAL(clicked()), this, SLOT(btnAddCicked()));
 
@@ -27,24 +30,31 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     navigationBarLayout->addWidget(new QLabel(), 0, 2, 1, 1, 0);
 
     QGridLayout *lineAddLayout = new QGridLayout;
-    lineAddLayout->addWidget(lblAddLine, 0, 1, 1, 2, 0);
+    lineAddLayout->addWidget(lblAddLine, 0, 0, 1, 2, 0);
     lineAddLayout->addWidget(lblName, 1, 0, 1, 1, 0);
     lineAddLayout->addWidget(txtBxName, 1, 1, 1, 1, 0);
     lineAddLayout->addWidget(lblWorkplaceCount, 1, 2, 1, 1, 0);
     lineAddLayout->addWidget(numBxWorkplaceCount, 1, 3, 1, 1, 0);
     lineAddLayout->addWidget(lblDescription, 2, 0, 1, 2, 0);
     lineAddLayout->addWidget(txtBxDescription, 3, 0, 1, 4, 0);
-    lineAddLayout->addWidget(btnAdd, 2, 2, 1, 1, 0);
-    listContentLayout = new QVBoxLayout;
+    lineAddLayout->addWidget(btnAdd, 2, 3, 1, 1, 0);
+
+    QWidget *listContent = new QWidget;
+    listContent->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    scLines->setWidget(listContent);
+    scLines->setWidgetResizable(true);
+    listContent->setLayout(listContentLayout);
+
+    FlickCharm *flickCharm = new FlickCharm(this);
+    flickCharm->activateOn(scLines);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addWidget(lblSelectLine);
-    mainLayout->addLayout(listContentLayout);
+    mainLayout->addWidget(scLines);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(lineAddLayout);
-    mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
     setLayout(mainLayout);
 }

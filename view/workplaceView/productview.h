@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <QHash>
 #include <QList>
+#include <QScrollArea>
 #include "numberlineedit.h"
 
 class ProductView : public QWidget
@@ -45,6 +46,7 @@ private slots:
 private:
     QHash<int, bool> idSelectionMap;
 
+    QScrollArea *scProducts;
     QLabel *lblViewName;
     QLabel *lblName;
     QLabel *lblNumber;

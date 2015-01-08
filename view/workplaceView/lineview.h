@@ -7,6 +7,7 @@
 #include <QList>
 #include <QCheckBox>
 #include <QVBoxLayout>
+#include <QScrollArea>
 #include "detailedlistitem.h"
 #include "numberlineedit.h"
 #include "textedit.h"
@@ -45,6 +46,8 @@ private:
     int selectedLineID;
     DetailedListItem* selectedItem;
     QVBoxLayout *listContentLayout;
+    QScrollArea *scLines;
+
     QLabel *lblViewName;
     QLabel *lblSelectLine;
     QLabel *lblAddLine;

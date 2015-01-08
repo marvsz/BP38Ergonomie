@@ -2,6 +2,7 @@
 #include "separator.h"
 #include <QGridLayout>
 #include "detailedlistitem.h"
+#include "flickcharm.h"
 
 ProductView::ProductView(QWidget *parent) : QWidget(parent),
     lblViewName(new QLabel("Produktdaten")),
@@ -13,7 +14,8 @@ ProductView::ProductView(QWidget *parent) : QWidget(parent),
     numBxTotalPercentage(new NumberLineEdit()),
     btnBack(new QPushButton("Zurück")),
     btnAdd(new QPushButton("Hinzufügen")),
-    productListLayout(new QVBoxLayout)
+    productListLayout(new QVBoxLayout),
+    scProducts(new QScrollArea)
 {
     btnBack->setObjectName("btnNavigation");
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
@@ -33,12 +35,17 @@ ProductView::ProductView(QWidget *parent) : QWidget(parent),
     productDataLayout->addWidget(numBxTotalPercentage, 1, 1, 1, 1, 0);
     productDataLayout->addWidget(btnAdd, 1, 3, 1, 1, 0);
 
+    QWidget *listContent = new QWidget;
+    listContent->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    scProducts->setWidget(listContent);
+    scProducts->setWidgetResizable(true);
+    listContent->setLayout(productListLayout);
+
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(productDataLayout);
-    mainLayout->addLayout(productListLayout);
-    mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Expanding, QSizePolicy::Expanding));
+    mainLayout->addWidget(scProducts);
 
     setLayout(mainLayout);
 }
