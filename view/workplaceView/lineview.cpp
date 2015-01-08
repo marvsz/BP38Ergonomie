@@ -26,9 +26,6 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     navigationBarLayout->addWidget(lblViewName, 0, 1, 1, 1, Qt::AlignCenter);
     navigationBarLayout->addWidget(new QLabel(), 0, 2, 1, 1, 0);
 
-    QVBoxLayout *lineSelectLayout = new QVBoxLayout;
-    lineSelectLayout->addWidget(lblSelectLine);
-
     QGridLayout *lineAddLayout = new QGridLayout;
     lineAddLayout->addWidget(lblAddLine, 0, 1, 1, 2, 0);
     lineAddLayout->addWidget(lblName, 1, 0, 1, 1, 0);
@@ -43,7 +40,7 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
-    mainLayout->addLayout(lineSelectLayout);
+    mainLayout->addWidget(lblSelectLine);
     mainLayout->addLayout(listContentLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(lineAddLayout);

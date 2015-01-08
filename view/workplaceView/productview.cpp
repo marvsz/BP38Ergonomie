@@ -17,7 +17,6 @@ ProductView::ProductView(QWidget *parent) : QWidget(parent),
 {
     btnBack->setObjectName("btnNavigation");
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
-
     connect(btnAdd, SIGNAL(clicked()), this, SLOT(btnAddClicked()));
 
     QGridLayout *navigationBarLayout = new QGridLayout;
@@ -57,9 +56,14 @@ void ProductView::setProduct(const QString &name, const QString &number, int tot
 }
 
 void ProductView::addProduct(int id, const QString &name){
-    DetailedListItem *newListItem = new DetailedListItem(0, "", name, QList<QStringList>(), true);
+    DetailedListItem *newListItem = new DetailedListItem(0, "", name, QList<QStringList>(), true, true, false);
     newListItem->setID(id);
-    connect(newListItem, SIGNAL(pressed(int)), this, SLOT(deleteProductClicked(int)));
+    idSelectionMap.insert(id, false);
+    connect(newListItem, SIGNAL(clicked()), newListItem, SLOT(changeSelection())),
+    connect(newListItem, SIGNAL(deleteItem(int)), this, SLOT(deleteProductClicked(int)));
+    connect(newListItem, SIGNAL(selected(int)), this, SLOT(idSelected(int id)));
+    connect(newListItem, SIGNAL(deselected(int)), this, SLOT(idDeselected(int id)));
+    connect(this, SIGNAL(lineSelected(int)), newListItem, SLOT(select(int)));
     productListLayout->addWidget(newListItem);
 }
 
@@ -69,10 +73,18 @@ void ProductView::clearProducts(){
         delete item->widget();
         delete item;
     }
+    idSelectionMap.clear();
 }
+
+void ProductView::setProductSelected(int id){
+    idSelectionMap.insert(id, true);
+    emit productSelected(id);
+}
+
 
 //PRIVATE SLOTS
 void ProductView::btnBackClicked(){
+    emit saveSelectedProducts();
     emit back();
 }
 
@@ -82,6 +94,14 @@ void ProductView::btnAddClicked(){
 
 void ProductView::deleteProductClicked(int id){
     emit deleteProduct(id);
+}
+
+void ProductView::idSelected(int id){
+    idSelectionMap.insert(id, true);
+}
+
+void ProductView::idDeselected(int id){
+    idSelectionMap.insert(id, false);
 }
 
 
@@ -94,4 +114,12 @@ QString ProductView::getNumber() const{
 }
 int ProductView::getTotalPercentage() const{
     return numBxTotalPercentage->getValue();
+}
+
+QList<int> ProductView::getSelectedIDs() const {
+    QList<int> list;
+    foreach(int id, idSelectionMap)
+        if(idSelectionMap.value(id))
+            list << id;
+    return list;
 }

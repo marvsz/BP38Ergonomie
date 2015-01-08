@@ -56,6 +56,8 @@ ViewController::ViewController(QWidget *parent) :
     // PRODUCT VIEW
     connect(productView, SIGNAL(back()), this, SLOT(backToView()));
     connect(productView, SIGNAL(deleteProduct(int)), this, SLOT(deleteProductRequested(int)));
+    connect(productView, SIGNAL(saveProduct()), this, SLOT(saveProductRequested()));
+    connect(productView, SIGNAL(saveSelectedProducts()), this, SLOT(saveSelectedProductsRequested()));
 
     // COMMENT VIEW
     connect(commentView, SIGNAL(back()), this, SLOT(backToView()));
@@ -412,6 +414,10 @@ void ViewController::saveProductRequested(){
     emit saveProduct();
 }
 
+void ViewController::saveSelectedProductsRequested(){
+    emit saveSelectedProducts();
+}
+
 // SETTER
 void ViewController::setProduct(const QString &name, const QString &number, int totalPercentage){
     productView->setProduct(name, number, totalPercentage);
@@ -423,6 +429,10 @@ void ViewController::addProduct(int id, const QString &name){
 
 void ViewController::clearProducts(){
     productView->clearProducts();
+}
+
+void ViewController::setProductSelected(int id){
+    productView->setProductSelected(id);
 }
 
 // GETTER

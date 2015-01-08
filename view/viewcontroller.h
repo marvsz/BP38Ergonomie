@@ -120,6 +120,7 @@ signals:
     void updateProductView();
     void saveProduct();
     void deleteProduct(int id);
+    void saveSelectedProducts();
 
     // COMMENT VIEW
     void updateCommentView();
@@ -164,9 +165,11 @@ public slots:
     void setProduct(const QString &name, const QString &number, int totalPercentage);
     void addProduct(int id, const QString &name);
     void clearProducts();
+    void setProductSelected(int id);
 
     // COMMENT VIEW SETTER
     void setComment(const QString &problemName, const QString &problemDesc, const QString &measureName, const QString &measureDesc, const QString &workerPerception);
+
 
 private slots:
 
@@ -187,6 +190,7 @@ private slots:
     void saveWorkplaceRequested();
     void saveCommentRequested();
     void saveProductRequested();
+    void saveSelectedProductsRequested();
     void saveEmloyeeRequested();
 
     void deleteWorkplaceRequested(int id);

@@ -31,6 +31,7 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
     lblIcon->setFixedSize(50, 50);
     checkBox->setChecked(false);
     checkBox->setFixedSize(50, 50);
+    checkBox->setDisabled(true);
     btnDelete->setFixedSize(45, 45);
     btnDelete->setObjectName("detailedListItemDelete");
     lblForward->setFixedSize(50, 50);

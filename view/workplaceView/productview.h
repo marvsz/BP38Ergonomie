@@ -5,6 +5,8 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QHash>
+#include <QList>
 #include "numberlineedit.h"
 
 class ProductView : public QWidget
@@ -17,24 +19,32 @@ public:
     QString getName() const;
     QString getNumber() const;
     int getTotalPercentage() const;
+    QList<int> getSelectedIDs() const;
 
 signals:
     void back();
     void saveProduct();
-    void saveSelectedProduct(int id);
+    void saveSelectedProducts();
     void deleteProduct(int id);
+    void productSelected(int id);
 
 public slots:
     void setProduct(const QString &name, const QString &number, int totalPercentage);
     void addProduct(int id, const QString &name);
     void clearProducts();
+    void setProductSelected(int id);
 
 private slots:
     void btnBackClicked();
     void btnAddClicked();
     void deleteProductClicked(int id);
 
+    void idSelected(int id);
+    void idDeselected(int id);
+
 private:
+    QHash<int, bool> idSelectionMap;
+
     QLabel *lblViewName;
     QLabel *lblName;
     QLabel *lblNumber;
