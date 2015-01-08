@@ -6,11 +6,12 @@ TimeLineEdit::TimeLineEdit(QWidget *parent) :
     this->setInputMask("dd:dd");
 }
 
-int TimeLineEdit::getValue() const{
-    return this->text().toInt();
+QTime TimeLineEdit::getValue() const{
+    return QTime(0,this->text().left(2).toInt(),this->text().right(2).toInt(),0);
 }
 
-void TimeLineEdit::setValue(int value){
- this->setText(QString::number(value));
+void TimeLineEdit::setValue(QTime value){
+
+ this->setText(QString(value.minute()).append(QString(value.second())));
 
 }

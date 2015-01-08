@@ -1,5 +1,6 @@
 #ifndef TIMELINEEDIT_H
 #define TIMELINEEDIT_H
+#include <QTime>
 
 #include "textlineedit.h"
 
@@ -9,8 +10,8 @@ class TimeLineEdit : public TextLineEdit
 public:
     explicit TimeLineEdit(QWidget *parent =0);
 
-    int getValue() const;
-    void setValue(int value);
+    QTime getValue() const;
+    void setValue(QTime value);
 
 signals:
 
