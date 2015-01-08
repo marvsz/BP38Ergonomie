@@ -7,17 +7,17 @@
 LineView::LineView(QWidget *parent) : QWidget(parent),
     listContentLayout(new QVBoxLayout),
     scLines(new QScrollArea),
-    lblViewName(new QLabel("Linie")),
-    lblSelectLine(new QLabel("Linie wählen:")),
-    lblAddLine(new QLabel("Linie hinzufügen:")),
-    lblName(new QLabel("Bezeichnung:")),
-    lblWorkplaceCount(new QLabel("Arbeitsplatzanzahl:")),
-    lblDescription(new QLabel("Beschreibung:")),
+    lblViewName(new QLabel(tr("Line"))),
+    lblSelectLine(new QLabel(tr("chose line:"))),
+    lblAddLine(new QLabel(tr("add line:"))),
+    lblName(new QLabel(tr("label:"))),
+    lblWorkplaceCount(new QLabel(tr("workplace count:"))),
+    lblDescription(new QLabel(tr("description:"))),
     txtBxName(new TextLineEdit()),
     numBxWorkplaceCount(new NumberLineEdit()),
     txtBxDescription(new TextEdit()),
-    btnBack(new QPushButton("Zurück")),
-    btnAdd(new QPushButton("Hinzufügen"))
+    btnBack(new QPushButton(tr("back"))),
+    btnAdd(new QPushButton(tr("add")))
 {
     btnBack->setObjectName("btnNavigation");
     txtBxDescription->setMaximumHeight(100);

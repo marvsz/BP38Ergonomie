@@ -18,7 +18,7 @@ WorkplaceListView::WorkplaceListView(QWidget *parent) :
 
     QWidget *listContent = new QWidget;
 
-    btnBack = new QPushButton("< Zurück");
+    btnBack = new QPushButton(tr("< back"));
     btnBack->setObjectName("btnNavigation");
     btnForward = new QPushButton("+");
     btnForward->setObjectName("btnNavigation");
@@ -32,7 +32,7 @@ WorkplaceListView::WorkplaceListView(QWidget *parent) :
     flickCharm->activateOn(scWorkplaces);
 
     navigationLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
-    navigationLayout->addWidget(new QLabel("Arbeitsplätze"), 0, 1, 1, 1, Qt::AlignCenter);
+    navigationLayout->addWidget(new QLabel(tr("work stations")), 0, 1, 1, 1, Qt::AlignCenter);
     navigationLayout->addWidget(btnForward, 0, 2, 1, 1, Qt::AlignRight);
 
     listContent->setLayout(listContentLayout);

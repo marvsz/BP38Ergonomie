@@ -7,15 +7,15 @@
 
 ProductView::ProductView(QWidget *parent) : QWidget(parent),
     scProducts(new QScrollArea),
-    lblViewName(new QLabel("Produktdaten")),
-    lblName(new QLabel("Produktname:")),
-    lblNumber(new QLabel("Produktnummer:")),
-    lblTotalPercentage(new QLabel("Prozent der Gesamtproduktion:")),
+    lblViewName(new QLabel(tr("product data"))),
+    lblName(new QLabel(tr("product name:"))),
+    lblNumber(new QLabel(tr("product number:"))),
+    lblTotalPercentage(new QLabel(tr("percentage of the whole production:"))),
     txtBxName(new TextLineEdit()),
     txtBxNumber(new TextLineEdit()),
     numBxTotalPercentage(new NumberLineEdit()),
-    btnBack(new QPushButton("Zurück")),
-    btnAdd(new QPushButton("Hinzufügen")),
+    btnBack(new QPushButton(tr("back"))),
+    btnAdd(new QPushButton(tr("add"))),
     productListLayout(new QVBoxLayout)
 
 {

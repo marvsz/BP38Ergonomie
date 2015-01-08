@@ -8,23 +8,23 @@
 WorkplaceView::WorkplaceView(QWidget *parent) :
     QWidget(parent),
     id(-1),
-    lblViewDescription(new QLabel("Arbeitsplatz")),
-    lblName(new QLabel("Bezeichnung:")),
-    lblDescription(new QLabel("Beschreibung:")),
-    lblCode(new QLabel("Arbeitsplatz Code:")),
-    lblPercentageWoman(new QLabel("Nutzerpopulation:")),
+    lblViewDescription(new QLabel(tr("work place"))),
+    lblName(new QLabel(tr("label:"))),
+    lblDescription(new QLabel(tr("description:"))),
+    lblCode(new QLabel(tr("workstation code:"))),
+    lblPercentageWoman(new QLabel("user population:")),
     txtBxName(new TextLineEdit()),
     txtBxDescription(new TextLineEdit()),
     txtBxCode(new TextLineEdit()),
     numBxWomanPercentage(new NumberLineEdit()),
-    btnBack(new QPushButton("< Zurück")),
-    btnForward(new QPushButton("Weiter >")),
-    lblAllowedTime(new QLabel("Vorgabezeiten", this)),
-    lblSetupTime(new QLabel("Grundzeit:", this)),
-    lblBasicTime(new QLabel("Rüstzeit:", this)),
-    lblRestTime(new QLabel("Erholzeit:", this)),
-    lblCycleTime(new QLabel("Taktzeit:")),
-    lblAllowanceTime(new QLabel("Verteilzeit:",this)),
+    btnBack(new QPushButton(tr("< back"))),
+    btnForward(new QPushButton(tr("forth >"))),
+    lblAllowedTime(new QLabel(tr("initial time", this))),
+    lblSetupTime(new QLabel(tr("setup time:", this))),
+    lblBasicTime(new QLabel(tr("halt! hammer time:", this))),
+    lblRestTime(new QLabel(tr("rest time:", this))),
+    lblCycleTime(new QLabel(tr("cycle time:"))),
+    lblAllowanceTime(new QLabel("deploy time:",this)),
     timeSetupTime(new TimeLineEdit(this)),
     timeBasicTime(new TimeLineEdit(this)),
     timeRestTime(new TimeLineEdit(this)),
@@ -59,9 +59,9 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
 
     QList<QStringList> lineList;
     QStringList lineListOne;
-    lineListOne << "Bezeichnung";
+    lineListOne << tr("label");
     QStringList lineListTwo;
-    lineListTwo << "Beschreibung";
+    lineListTwo << tr("description");
     lineList << lineListOne << lineListTwo;
 
     /*QList<QStringList> shiftList;
@@ -82,14 +82,14 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
 
     QList<QStringList> commentList;
     QStringList commentListOne;
-    commentListOne << "Problembezeichnung";
+    commentListOne << tr("problem label");
     QStringList commentListTwo;
-    commentListTwo << "Maßnahmenbezeichnung";
+    commentListTwo << tr("sanction label");
     commentList << commentListOne << commentListTwo;
 
-    line = new DetailedListItem(this, "", "Linie", lineList, false, false, true);
-    product = new DetailedListItem(this, "", "Produkte", productList, false, false, true);
-    comment = new DetailedListItem(this, "", "Bemerkungen", commentList, false, false, true);
+    line = new DetailedListItem(this, "", tr("line"), lineList, false, false, true);
+    product = new DetailedListItem(this, "", tr("products"), productList, false, false, true);
+    comment = new DetailedListItem(this, "", tr("remarks"), commentList, false, false, true);
 
     connect(line, SIGNAL(clicked()), this, SIGNAL(showLineView()));
     connect(product, SIGNAL(clicked()), this, SIGNAL(showProductView()));
