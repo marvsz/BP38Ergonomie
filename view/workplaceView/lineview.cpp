@@ -102,10 +102,8 @@ void LineView::btnDeleteClicked(int id){
 }
 
 void LineView::selectedLineChanged(int id){
-    if(selectedLineID != id){
-        selectedLineID = id;
-        emit lineSelected(id);
-    }
+    selectedLineID = id;
+    emit lineSelected(id);
 }
 
 

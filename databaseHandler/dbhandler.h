@@ -21,7 +21,9 @@ public:
     QSqlRecord record(DB_TABLES tbl, int row);
     bool insertRow(DB_TABLES tbl, const QSqlRecord &record);
     bool updateRow(DB_TABLES tbl, int row, const QSqlRecord &record);
+    bool updateAll(DB_TABLES tbl, const QString &filter, const QSqlRecord &record);
     bool deleteRow(DB_TABLES tbl, int row);
+    bool deleteAll(DB_TABLES tbl, const QString &filter);
 
     int getNextID(DB_TABLES tbl, const QString &colName);
     

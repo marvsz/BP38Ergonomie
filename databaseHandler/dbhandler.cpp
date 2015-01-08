@@ -155,6 +155,7 @@ bool DBHandler::insertRow(DB_TABLES tbl, const QSqlRecord &record){
     QSqlTableModel* tm = getTableModelRef(tbl);
     bool success = tm->insertRecord(-1, record);
     tm->submitAll();
+    qDebug()<<tm->lastError().text();
     return success;
 }
 
@@ -162,8 +163,25 @@ bool DBHandler::updateRow(DB_TABLES tbl, int row, const QSqlRecord &record){
     return getTableModelRef(tbl)->setRecord(row, record);
 }
 
+bool DBHandler::updateAll(DB_TABLES tbl, const QString &filter, const QSqlRecord &record){
+    bool success = true;
+    select(tbl, filter);
+    for(int i = 0; i < rowCount(tbl); ++i)
+        success &= updateRow(tbl, i, record);
+    return success;
+}
+
+
 bool DBHandler::deleteRow(DB_TABLES tbl, int row){
     return getTableModelRef(tbl)->removeRow(row);
+}
+
+bool DBHandler::deleteAll(DB_TABLES tbl, const QString &filter){
+    bool success = true;
+    select(tbl, filter);
+    for(int i = 0; i < rowCount(tbl); ++i)
+        success &= deleteRow(tbl, i);
+    return success;
 }
 
 int DBHandler::getNextID(DB_TABLES tbl, const QString &colName){
