@@ -38,8 +38,8 @@ MetaDataView::MetaDataView(QWidget *parent) :
     txtBxFactoryContact(new TextLineEdit(this)),
     txtBxFactoryEmployeeCount(new NumberLineEdit(this)),
     lblRecordingDateTime(new QLabel(tr("recording"), this)),
-    dteRecordingTimeBegin(new QDateTimeEdit(this)),
-    dteRecordingTimeEnd(new QDateTimeEdit(this))
+    dteRecordingTimeBegin(new DateTimeSpinner(this)),
+    dteRecordingTimeEnd(new DateTimeSpinner(this))
 
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;

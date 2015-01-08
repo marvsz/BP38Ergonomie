@@ -10,26 +10,26 @@
 
 ShiftPauseView::ShiftPauseView(QWidget *parent) :
     QWidget(parent),
-    btnBack(new QPushButton(tr("back", this))),
-    lblViewDescription(new QLabel(tr("shift- & pausedata", this))),
+    btnBack(new QPushButton(tr("back"), this)),
+    lblViewDescription(new QLabel(tr("shift- & pausedata"), this)),
     lblShift(new QLabel(tr("shift"))),
     lblShiftType(new QLabel(tr("shift type:"))),
     conShiftType(new OptionSelectionControl(vecShiftType, this)),
-    lblShiftBegin(new QLabel(tr("begin:", this))),
+    lblShiftBegin(new QLabel(tr("begin:"), this)),
     timeShiftBegin(new TimeLineEdit(this)),
-    lblShiftEnd(new QLabel(tr("end:", this))),
+    lblShiftEnd(new QLabel(tr("end:"), this)),
     timeShiftEnd(new TimeLineEdit(this)),
     lblQuantity(new QLabel(tr("piece count:"))),
     txtQuantity(new NumberLineEdit(this)),
-    lblBreaks(new QLabel(tr("pauses", this))),
-    lblShortBreaks(new QLabel(tr("short breaks:", this))),
+    lblBreaks(new QLabel(tr("pauses"), this)),
+    lblShortBreaks(new QLabel(tr("short breaks:"), this)),
     conShortBreaks(new OptionSelectionControl(vecShortBreaks, this)),
-    lblShortBreaksBegin(new QLabel(tr("begin:", this))),
+    lblShortBreaksBegin(new QLabel(tr("begin:"), this)),
     timeBreakBegin(new TimeLineEdit(this)),
-    lblShortBreaksEnd(new QLabel(tr("end:",this))),
+    lblShortBreaksEnd(new QLabel(tr("end:"),this)),
     timeBreakEnd(new TimeLineEdit(this)),
-    btnBreakAdd(new QPushButton(tr("add",this))),
-    btnBreakRemove(new QPushButton(tr("delete",this)))
+    btnBreakAdd(new QPushButton(tr("add"),this)),
+    btnBreakRemove(new QPushButton(tr("delete"),this))
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
     QGridLayout *navigationBarLayout = new QGridLayout;
