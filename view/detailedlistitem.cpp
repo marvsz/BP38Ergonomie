@@ -136,9 +136,11 @@ void DetailedListItem::select(){
     }
 }
 
-void DetailedListItem::deselectUnequalID(int id){
+void DetailedListItem::selectExclusiveWithID(int id){
     if(this->id != id)
         deselect();
+    else
+        select();
 }
 
 void DetailedListItem::deselect(){

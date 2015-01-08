@@ -28,7 +28,7 @@ public slots:
     void setValues(const QList<QStringList> &values);
     void changeSelection();
     void select(int id);
-    void deselectUnequalID(int id);
+    void selectExclusiveWithID(int id);
     void deselect(int id);
     void select();
     void deselect();

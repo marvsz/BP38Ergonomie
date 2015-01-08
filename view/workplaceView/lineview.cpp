@@ -69,7 +69,7 @@ void LineView::addLine(int id, const QString &name){
     newListItem->setID(id);
     connect(newListItem, SIGNAL(clicked()), newListItem, SLOT(changeSelection()));
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedLineChanged(int)));
-    connect(this, SIGNAL(lineSelected(int)), newListItem, SLOT(deselectUnequalID(int)));
+    connect(this, SIGNAL(lineSelected(int)), newListItem, SLOT(selectExclusiveWithID(int)));
     connect(newListItem, SIGNAL(deleteItem(int)), this, SLOT(btnDeleteClicked(int)));
     listContentLayout->addWidget(newListItem);
 }
