@@ -19,12 +19,43 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     numBxWomanPercentage(new NumberLineEdit()),
     btnBack(new QPushButton("< Zurück")),
     btnForward(new QPushButton("Weiter >")),
+    lblAllowedTime(new QLabel("Vorgabezeiten", this)),
+    lblSetupTime(new QLabel("Grundzeit:", this)),
+    lblBasicTime(new QLabel("Rüstzeit:", this)),
+    lblRestTime(new QLabel("Erholzeit:", this)),
+    lblCycleTime(new QLabel("Taktzeit:")),
+    lblAllowanceTime(new QLabel("Verteilzeit:",this)),
+    timeSetupTime(new TimeLineEdit(this)),
+    timeBasicTime(new TimeLineEdit(this)),
+    timeRestTime(new TimeLineEdit(this)),
+    timeAllowanceTime(new TimeLineEdit(this)),
+    timeCycleTime(new TimeLineEdit(this)),
     additions(new QList<DetailedListItem*>())
+
 {
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
     connect(btnForward, SIGNAL(clicked()), this, SLOT(btnForwardClicked()));
     btnBack->setObjectName("btnNavigation");
     btnForward->setObjectName("btnNavigation");
+
+    timeBasicTime->setMaximumWidth(100);
+    timeSetupTime->setMaximumWidth(100);
+    timeRestTime->setMaximumWidth(100);
+    timeAllowanceTime->setMaximumWidth(100);
+    timeCycleTime->setMaximumWidth(100);
+
+    QGridLayout *timeLayout = new QGridLayout;
+
+    timeLayout->addWidget(lblSetupTime, 0, 0, 1, 1, Qt::AlignRight);
+    timeLayout->addWidget(timeSetupTime, 0, 1, 1, 1, Qt::AlignLeft);
+    timeLayout->addWidget(lblBasicTime, 0, 2, 1, 1, Qt::AlignRight);
+    timeLayout->addWidget(timeBasicTime, 0, 3, 1, 1, Qt::AlignLeft);
+    timeLayout->addWidget(lblRestTime, 0, 4, 1, 1, Qt::AlignRight);
+    timeLayout->addWidget(timeRestTime, 0, 5, 1, 1, Qt::AlignLeft);
+    timeLayout->addWidget(lblAllowanceTime, 0, 6, 1, 1, Qt::AlignRight);
+    timeLayout->addWidget(timeAllowanceTime, 0, 7, 1, 1, Qt::AlignLeft);
+    timeLayout->addWidget(lblCycleTime, 0, 8, 1, 1, Qt::AlignRight);
+    timeLayout->addWidget(timeCycleTime, 0, 9, 1, 1, Qt::AlignLeft);
 
     QList<QStringList> lineList;
     QStringList lineListOne;
@@ -60,9 +91,9 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     product = new DetailedListItem(this, "", "Produkte", productList, false, false, true);
     comment = new DetailedListItem(this, "", "Bemerkungen", commentList, false, false, true);
 
-    connect(line, SIGNAL(clicked()), this, SLOT(lineViewSelected()));
-    connect(product, SIGNAL(clicked()), this, SLOT(productViewSelected()));
-    connect(comment, SIGNAL(clicked()), this, SLOT(commentViewSelected()));
+    connect(line, SIGNAL(clicked()), this, SIGNAL(showLineView()));
+    connect(product, SIGNAL(clicked()), this, SIGNAL(showProductView()));
+    connect(comment, SIGNAL(clicked()), this, SIGNAL(showCommentView()));
 
     additions->append(line);
     additions->append(product);
@@ -93,7 +124,11 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(workplaceMetaDataLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
+    mainLayout->addWidget(lblAllowedTime);
+    mainLayout->addLayout(timeLayout);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(additionsLayout);
+    mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
     setLayout(mainLayout);
 }
@@ -120,6 +155,15 @@ void WorkplaceView::setComment(const QString &problemName, const QString &measur
     comment->setValues(values);
 }
 
+void WorkplaceView::setWorkplaceTimes(const QTime &basicTime, const QTime &setupTime, const QTime &restTime, const QTime &allowanceTime, const QTime &cycleTime){
+    timeBasicTime->setValue(basicTime);
+    timeSetupTime->setValue(setupTime);
+    timeRestTime->setValue(restTime);
+    timeAllowanceTime->setValue(allowanceTime);
+    timeCycleTime->setValue(cycleTime);
+}
+
+
 
 //private slots
 void WorkplaceView::btnBackClicked(){
@@ -130,26 +174,6 @@ void WorkplaceView::btnBackClicked(){
 void WorkplaceView::btnForwardClicked(){
     emit save();
     emit forward();
-}
-
-void WorkplaceView::lineViewSelected(){
-    emit showLineView();
-}
-
-void WorkplaceView::shiftPauseViewSelected(){
-    emit showShiftAndPauseView();
-}
-
-void WorkplaceView::employeeViewSelected(){
-    emit showEmployeeView();
-}
-
-void WorkplaceView::productViewSelected(){
-    emit showProductView();
-}
-
-void WorkplaceView::commentViewSelected(){
-    emit showCommentView();
 }
 
 // GETTER
@@ -167,4 +191,24 @@ QString WorkplaceView::getCode() const{
 
 int WorkplaceView::getWomanPercentage() const{
     return numBxWomanPercentage->getValue();
+}
+
+QTime WorkplaceView::getBasicTime() const{
+    return timeBasicTime->getValue();
+}
+
+QTime WorkplaceView::getSetupTime() const{
+    return timeSetupTime->getValue();
+}
+
+QTime WorkplaceView::getRestTime() const{
+    return timeRestTime->getValue();
+}
+
+QTime WorkplaceView::getAllowanceTime() const{
+    return timeAllowanceTime->getValue();
+}
+
+QTime WorkplaceView::getCycleTime() const{
+    return timeCycleTime->getValue();
 }

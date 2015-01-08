@@ -79,7 +79,7 @@ private:
     int saveRecording();
 
     int saveWorkplace(int id);
-
+    int qTimeToSeconds(const QTime &time);
 
     void saveRecordingObservesLine(int lineID);
     void deleteRecordingObservesLine(int lineID);

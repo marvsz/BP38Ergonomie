@@ -21,7 +21,39 @@ DateTimeSpinner::DateTimeSpinner(QWidget *parent) :
     btnMinuteDec(new QPushButton("-"))
 {
     currentTime = QDateTime::currentDateTime();
-    qDebug() << currentTime.toUTC().toString("ddmmyy hhmm");
+
+    btnDayInc->setMaximumSize(30,30);
+    btnDayInc->setObjectName("spinnerButton");
+    btnMonthInc->setMaximumSize(30, 30);
+    btnMonthInc->setObjectName("spinnerButton");
+    btnYearInc->setMaximumSize(30, 30);
+    btnYearInc->setObjectName("spinnerButton");
+    btnHourInc->setMaximumSize(30, 30);
+    btnHourInc->setObjectName("spinnerButton");
+    btnMinuteInc->setMaximumSize(30, 30);
+    btnMinuteInc->setObjectName("spinnerButton");
+
+    numBxDay->setAlignment(Qt::AlignHCenter);
+    numBxMonth->setAlignment(Qt::AlignHCenter);
+    numBxYear->setAlignment(Qt::AlignHCenter);
+    numBxHour->setAlignment(Qt::AlignHCenter);
+    numBxMinute->setAlignment(Qt::AlignHCenter);
+    numBxDay->setMaximumWidth(40);
+    numBxMonth->setMaximumWidth(40);
+    numBxYear->setMaximumWidth(60);
+    numBxHour->setMaximumWidth(40);
+    numBxMinute->setMaximumWidth(40);
+
+    btnDayDec->setMaximumSize(30, 30);
+    btnDayDec->setObjectName("spinnerButton");
+    btnMonthDec->setMaximumSize(30, 30);
+    btnMonthDec->setObjectName("spinnerButton");
+    btnYearDec->setMaximumSize(30, 30);
+    btnYearDec->setObjectName("spinnerButton");
+    btnHourDec->setMaximumSize(30, 30);
+    btnHourDec->setObjectName("spinnerButton");
+    btnMinuteDec->setMaximumSize(30, 30);
+    btnMinuteDec->setObjectName("spinnerButton");
 
     numBxDay->setValue(currentTime.date().day());
     numBxMonth->setValue(currentTime.date().month());
@@ -29,23 +61,29 @@ DateTimeSpinner::DateTimeSpinner(QWidget *parent) :
     numBxHour->setValue(currentTime.time().hour());
     numBxMinute->setValue(currentTime.time().minute());
 
-    spinnerLayout->addWidget(btnDayInc, 0, 0, 1, 1, 0);
-    spinnerLayout->addWidget(btnMonthInc, 0, 1, 1, 1, 0);
-    spinnerLayout->addWidget(btnYearInc, 0, 2, 1, 1, 0);
-    spinnerLayout->addWidget(btnHourInc, 0, 3, 1, 1, 0);
-    spinnerLayout->addWidget(btnMinuteInc, 0, 4, 1, 1, 0);
+    spinnerLayout->addWidget(btnDayInc, 0, 0, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(btnMonthInc, 0, 1, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(btnYearInc, 0, 2, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(btnHourInc, 0, 3, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(btnMinuteInc, 0, 4, 1, 1, Qt::AlignCenter);
 
-    spinnerLayout->addWidget(numBxDay, 1, 0, 1, 1, 0);
-    spinnerLayout->addWidget(numBxMonth, 1, 1, 1, 1, 0);
-    spinnerLayout->addWidget(numBxYear, 1, 2, 1, 1, 0);
-    spinnerLayout->addWidget(numBxHour, 1, 3, 1, 1, 0);
-    spinnerLayout->addWidget(numBxMinute, 1, 4, 1, 1, 0);
+    spinnerLayout->addWidget(numBxDay, 1, 0, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(numBxMonth, 1, 1, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(numBxYear, 1, 2, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(numBxHour, 1, 3, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(numBxMinute, 1, 4, 1, 1, Qt::AlignCenter);
 
-    spinnerLayout->addWidget(btnDayDec, 2, 0, 1, 1, 0);
-    spinnerLayout->addWidget(btnMonthDec, 2, 1, 1, 1, 0);
-    spinnerLayout->addWidget(btnYearDec, 2, 2, 1, 1, 0);
-    spinnerLayout->addWidget(btnHourDec, 2, 3, 1, 1, 0);
-    spinnerLayout->addWidget(btnHourDec, 2, 4, 1, 1, 0);
+    spinnerLayout->addWidget(btnDayDec, 2, 0, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(btnMonthDec, 2, 1, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(btnYearDec, 2, 2, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(btnHourDec, 2, 3, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(btnMinuteDec, 2, 4, 1, 1, Qt::AlignCenter);
+
+    connect(numBxDay, SIGNAL(editingFinished()), this, SLOT(setDay()));
+    connect(numBxMonth, SIGNAL(editingFinished()), this, SLOT(setMonth()));
+    connect(numBxYear, SIGNAL(editingFinished()), this, SLOT(setYear()));
+    connect(numBxHour, SIGNAL(editingFinished()), this, SLOT(setHour()));
+    connect(numBxMinute, SIGNAL(editingFinished()), this, SLOT(setMinute()));
 
     connect(btnDayInc, SIGNAL(clicked()), this, SLOT(increaseDay()));
     connect(btnMonthInc, SIGNAL(clicked()), this, SLOT(increaseMonth()));
@@ -59,8 +97,12 @@ DateTimeSpinner::DateTimeSpinner(QWidget *parent) :
     connect(btnHourDec, SIGNAL(clicked()), this, SLOT(decreaseHour()));
     connect(btnMinuteDec, SIGNAL(clicked()), this, SLOT(decreaseMinute()));
 
+    this->setLayout(spinnerLayout);
+    this->setMaximumHeight(150);
+
 }
 
+// PRIVATE SLOTS
 void DateTimeSpinner::increaseDay(){
     currentTime = currentTime.addDays(1);
     update();
@@ -87,7 +129,7 @@ void DateTimeSpinner::increaseYear(){
 }
 
 void DateTimeSpinner::decreaseYear(){
-    currentTime = currentTime.addYears(-11);
+    currentTime = currentTime.addYears(-1);
     update();
 }
 
@@ -111,8 +153,40 @@ void DateTimeSpinner::decreaseMinute(){
     update();
 }
 
+void DateTimeSpinner::setDay(){
+    currentTime.setDate(QDate(currentTime.date().year(), currentTime.date().month(), numBxDay->getValue()));;
+    update();
+}
+
+void DateTimeSpinner::setMonth(){
+    currentTime.setDate(QDate(currentTime.date().year(), numBxMonth->getValue(), currentTime.date().day()));;
+    update();
+}
+
+void DateTimeSpinner::setYear(){
+    currentTime.setDate(QDate(numBxYear->getValue(), currentTime.date().month(), currentTime.date().day()));;
+    update();
+}
+
+void DateTimeSpinner::setHour(){
+    currentTime.setTime(QTime(numBxHour->getValue(), currentTime.time().minute(), currentTime.time().second(), currentTime.time().msec()));
+    update();
+}
+
+void DateTimeSpinner::setMinute(){
+    currentTime.setTime(QTime(currentTime.time().hour(), numBxMinute->getValue(), currentTime.time().second(), currentTime.time().msec()));
+    update();
+}
+
+// PUBLIC
 QDateTime DateTimeSpinner::getDateTime() const{
     return currentTime;
+}
+
+void DateTimeSpinner::setDateTime(const QDateTime& time){
+    currentTime.setDate(time.date());
+    currentTime.setTime(time.time());
+    update();
 }
 
 void DateTimeSpinner::update(){

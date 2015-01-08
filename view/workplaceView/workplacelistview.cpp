@@ -22,8 +22,8 @@ WorkplaceListView::WorkplaceListView(QWidget *parent) :
     btnBack->setObjectName("btnNavigation");
     btnForward = new QPushButton("+");
     btnForward->setObjectName("btnNavigation");
-    connect(btnBack, SIGNAL(clicked()), this, SLOT(backButtonClicked()));
-    connect(btnForward, SIGNAL(clicked()), this, SLOT(forwardButtonClicked()));
+    connect(btnBack, SIGNAL(clicked()), this, SIGNAL(back()));
+    connect(btnForward, SIGNAL(clicked()), this, SIGNAL(forward()));
 
     scWorkplaces = new QScrollArea();
     scWorkplaces->setWidget(listContent);
@@ -57,24 +57,7 @@ void WorkplaceListView::addWorkplace(int id, const QString &name, const QString 
     DetailedListItem *newListItem = new DetailedListItem(this, "", name, workplaceCaptions, true);
     newListItem->setValues(values);
     newListItem->setID(id);
-    connect(newListItem, SIGNAL(pressed(int)), this, SLOT(workplaceSelected(int)));
-    connect(newListItem, SIGNAL(deleteItem(int)), this, SLOT(deleteWorkplaceClicked(int)));
+    connect(newListItem, SIGNAL(pressed(int)), this, SIGNAL(showWorkplace(int)));
+    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteWorkplace(int)));
     listContentLayout->addWidget(newListItem);
 }
-
-void WorkplaceListView::backButtonClicked(){
-    emit showPreviousView();
-}
-
-void WorkplaceListView::forwardButtonClicked(){
-    emit showNewWorkplaceView();
-}
-
-void WorkplaceListView::workplaceSelected(int id){
-    emit showWorkplace(id);
-}
-
-void WorkplaceListView::deleteWorkplaceClicked(int id){
-    emit deleteWorkplace(id);
-}
-

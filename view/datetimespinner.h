@@ -14,6 +14,8 @@ public:
     explicit DateTimeSpinner(QWidget *parent = 0);
 
     QDateTime getDateTime() const;
+    void setDateTime(const QDateTime& time);
+
 signals:
 
 public slots:
@@ -30,6 +32,12 @@ private slots:
     void decreaseHour();
     void increaseMinute();
     void decreaseMinute();
+
+    void setDay();
+    void setMonth();
+    void setYear();
+    void setHour();
+    void setMinute();
 
 private:
     QGridLayout *spinnerLayout;

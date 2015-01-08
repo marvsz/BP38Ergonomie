@@ -38,8 +38,6 @@ public slots:
 
 private slots:
     void btnBackClicked();
-    void btnAddCicked();
-    void btnDeleteClicked(int id);
     void selectedLineChanged(int id);
 
 private:

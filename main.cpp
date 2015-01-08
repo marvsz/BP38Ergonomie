@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
                         "QLabel#detailedListItemWidgetName {font: 100 18px \"Serif\"; color: #007aff;}"
                         "QLabel#detailedListItemCaption {font: 100 17px \"Serif\"; color: #007aff;}"
                         "QLabel#detailedListItemValue {font: 100 16px \"Serif\"; color: #8e8e93;}"
+                        "QPushButton#spinnerButton {border: 0px; background-color: #efeff4;}"
                         "QPushButton#detailedListItemDelete {image: url(:/timer/icons/Timer/reset.png); width: 45px; height: 45px; border: 0px; background-color: #efeff4;}"
                         "QGroupBox {border:2px solid #007aff; background-color: #efeff4; border-radius: 10px;}"
                         "QWidget#detailedListItemWidget {border:2px solid #007aff; background-color: #efeff4; border-radius: 10px;}"

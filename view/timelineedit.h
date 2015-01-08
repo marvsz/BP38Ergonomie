@@ -11,7 +11,7 @@ public:
     explicit TimeLineEdit(QWidget *parent =0);
 
     QTime getValue() const;
-    void setValue(QTime value);
+    void setValue(const QTime &value);
 
 signals:
 

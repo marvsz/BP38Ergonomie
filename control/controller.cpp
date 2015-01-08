@@ -1,5 +1,6 @@
 #include "controller.h"
 #include <QDebug>
+#include <QTime>
 Controller::Controller(QObject *parent) :
     QObject(parent)
 {
@@ -17,6 +18,7 @@ Controller::Controller(QObject *parent) :
     connect(viewCon, SIGNAL(createWorkplace()), this, SLOT(createWorkplace()));
     connect(viewCon, SIGNAL(updateWorkplace(int)), this, SLOT(updateWorkplaceView(int)));
     connect(viewCon, SIGNAL(updateWorkplace()), this, SLOT(updateWorkplaceView()));
+    connect(viewCon, SIGNAL(saveWorkplace()), this, SLOT(saveWorkplaceView()));
 
     connect(viewCon, SIGNAL(updateCommentView()), this, SLOT(updateComment()));
     connect(viewCon, SIGNAL(saveComment()), this, SLOT(saveComment()));
@@ -67,6 +69,20 @@ void Controller::updateWorkplaceView(int id){
                                   record.value(DBConstants::COL_WORKPLACE_DESCRIPTION).toString(),
                                   record.value(DBConstants::COL_WORKPLACE_CODE).toString(),
                                   record.value(DBConstants::COL_WORKPLACE_PERCENTAGE_WOMAN).toInt());
+
+    QTime basicTime = QTime(0, 0);
+    basicTime = basicTime.addSecs(record.value(DBConstants::COL_WORKPLACE_BASIC_TIME).toInt());
+    QTime setupTime = QTime(0, 0);
+    setupTime = setupTime.addSecs(record.value(DBConstants::COL_WORKPLACE_SETUP_TIME).toInt());
+    QTime restTime = QTime(0, 0);
+    restTime = restTime.addSecs(record.value(DBConstants::COL_WORKPLACE_REST_TIME).toInt());
+    QTime allowanceTime = QTime(0, 0);
+    allowanceTime = allowanceTime.addSecs(record.value(DBConstants::COL_WORKPLACE_ALLOWANCE_TIME).toInt());
+    QTime cycleTime = QTime(0, 0);
+    cycleTime = cycleTime.addSecs(record.value(DBConstants::COL_WORKPLACE_CYCLE_TIME).toInt());
+
+    viewCon->setShiftWorkplaceTimes(basicTime, setupTime, restTime, allowanceTime, cycleTime);
+
     tbl = DB_TABLES::LINE;
     dbHandler->select(tbl, QString("%1 = %2").arg(DBConstants::COL_LINE_ID).arg(record.value(DBConstants::COL_WORKPLACE_LINE_ID).toString()));
     if(dbHandler->rowCount(tbl) > 0){
@@ -183,9 +199,10 @@ int Controller::saveSelectedProducts(){
     QString filter = QString("%1 = %2 AND %3 = %4").arg(DBConstants::COL_ACTIVITY_WORKPLACE_ID).arg(QString::number(selectedWorkplaceID)).arg(DBConstants::COL_ACTIVITY_PRODUCT_ID);
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_ACTIVITY_WORKPLACE_ID, selectedWorkplaceID);
-    foreach(int i, viewCon->getSelectedProducts()){
-        values.insert(DBConstants::COL_ACTIVITY_PRODUCT_ID, i);
-        save(DB_TABLES::ACTIVITY, filter.arg(QString::number(i)), DBConstants::COL_ACTIVITY_ID, DBConstants::HASH_ACTIVITY_TYPES, values);
+    QList<int> prodIDs = viewCon->getSelectedProducts();
+    foreach(int id, viewCon->getSelectedProducts()){
+        values.insert(DBConstants::COL_ACTIVITY_PRODUCT_ID, id);
+        save(DB_TABLES::ACTIVITY, filter.arg(QString::number(id)), DBConstants::COL_ACTIVITY_ID, DBConstants::HASH_ACTIVITY_TYPES, values);
     }
     return 0;
 }
@@ -201,7 +218,7 @@ int Controller::saveProduct(){
 }
 
 void Controller::deleteProduct(int id){
-    dbHandler->deleteAll(DB_TABLES::PRODUCT, QString("%1 = %2").arg(DBConstants::COL_PRODUCT_NAME).arg(QString::number(id)));
+    dbHandler->deleteAll(DB_TABLES::PRODUCT, QString("%1 = %2").arg(DBConstants::COL_PRODUCT_ID).arg(QString::number(id)));
     updateProductView();
 }
 
@@ -234,6 +251,8 @@ int Controller::saveComment(){
 
 
 //PRIVATE METHODS
+
+
 int Controller::save(DB_TABLES tbl, const QString &filter, const QString &colID, const QStringList &colNames, const QList<QVariant::Type> &colTypes, QHash<QString, QVariant> &colMapNameValue){
     dbHandler->select(tbl, filter);
     int id;
@@ -479,8 +498,16 @@ int Controller::saveWorkplace(int id){
     values.insert(DBConstants::COL_WORKPLACE_DESCRIPTION, viewCon->getWorkplaceDescription());
     values.insert(DBConstants::COL_WORKPLACE_CODE, viewCon->getWorkplaceCode());
     values.insert(DBConstants::COL_WORKPLACE_PERCENTAGE_WOMAN, viewCon->getWorkplaceWomanPercentage());
+    values.insert(DBConstants::COL_WORKPLACE_BASIC_TIME, qTimeToSeconds(viewCon->getWorkplaceBasicTime()));
+    values.insert(DBConstants::COL_WORKPLACE_REST_TIME, qTimeToSeconds(viewCon->getWorkplaceRestTime()));
+    values.insert(DBConstants::COL_WORKPLACE_ALLOWANCE_TIME, qTimeToSeconds(viewCon->getWorkplaceAllowanceTime()));
+    values.insert(DBConstants::COL_WORKPLACE_SETUP_TIME, qTimeToSeconds(viewCon->getWorkplaceSetupTime()));
+    values.insert(DBConstants::COL_WORKPLACE_CYCLE_TIME, qTimeToSeconds(viewCon->getWorkplaceCycleTime()));
     values.insert(DBConstants::COL_WORKPLACE_BODY_MEASUREMENT_ID, 0);
     return save(DB_TABLES::WORKPLACE, filter, DBConstants::COL_WORKPLACE_ID, DBConstants::HASH_WORKPLACE_TYPES, values);
 }
 
+int Controller::qTimeToSeconds(const QTime &time){
+    return time.hour() * 3600 + time.minute() * 60 + time.second();
+}
 
