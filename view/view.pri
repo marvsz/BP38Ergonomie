@@ -46,7 +46,10 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/workplaceView/shiftpauseview.h \
     $$PWD/datetimespinner.h \
     $$PWD/timerView/minimizedtimerview.h \
-    $$PWD/timerView/workprocessselector.h
+    $$PWD/timerView/workprocessselector.h \
+    $$PWD/timerView/maximizedtimerview.h \
+    $$PWD/timerView/graphtimer.h \
+    $$PWD/timerView/timepicker.h
 
 
 SOURCES += $$PWD/angleView/variant.cpp\
@@ -92,7 +95,10 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/workplaceView/shiftpauseview.cpp \
     $$PWD/datetimespinner.cpp \
     $$PWD/timerView/minimizedtimerview.cpp \
-    $$PWD/timerView/workprocessselector.cpp
+    $$PWD/timerView/workprocessselector.cpp \
+    $$PWD/timerView/maximizedtimerview.cpp \
+    $$PWD/timerView/graphtimer.cpp \
+    $$PWD/timerView/timepicker.cpp
 
 
 
