@@ -452,7 +452,7 @@ void Controller::updateRecording(int id){
 
 int Controller::saveRecording(){
     QString filter = QString("");
-    QString dtFormat = "dd.mm.yyyy hh:mm";
+    QString dtFormat = "dd.MM.yyyy hh:mm";
 
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_RECORDING_START, viewCon->getRecordTimeBegin().toString(dtFormat));
