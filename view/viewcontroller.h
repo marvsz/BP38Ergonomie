@@ -86,6 +86,7 @@ public:
     QString getProductName() const;
     QString getProductNumber() const;
     int getProductTotalPercentage() const;
+    QList<int> getSelectedProducts() const;
 
     // COMMENT VIEW GETTER
     QString getCommentProblemName() const;

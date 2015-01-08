@@ -448,6 +448,11 @@ int ViewController::getProductTotalPercentage() const{
     return productView->getTotalPercentage();
 }
 
+QList<int> ViewController::getSelectedProducts() const{
+    return productView->getSelectedIDs();
+}
+
+
 
 // COMMENT VIEW GETTER/SETTER
 //SLOTS

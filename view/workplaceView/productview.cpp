@@ -61,9 +61,9 @@ void ProductView::addProduct(int id, const QString &name){
     idSelectionMap.insert(id, false);
     connect(newListItem, SIGNAL(clicked()), newListItem, SLOT(changeSelection())),
     connect(newListItem, SIGNAL(deleteItem(int)), this, SLOT(deleteProductClicked(int)));
-    connect(newListItem, SIGNAL(selected(int)), this, SLOT(idSelected(int id)));
-    connect(newListItem, SIGNAL(deselected(int)), this, SLOT(idDeselected(int id)));
-    connect(this, SIGNAL(lineSelected(int)), newListItem, SLOT(select(int)));
+    connect(newListItem, SIGNAL(selected(int)), this, SLOT(idSelected(int)));
+    connect(newListItem, SIGNAL(deselected(int)), this, SLOT(idDeselected(int)));
+    connect(this, SIGNAL(productSelected(int)), newListItem, SLOT(select(int)));
     productListLayout->addWidget(newListItem);
 }
 
