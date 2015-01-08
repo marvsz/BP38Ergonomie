@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>android/assets/ergoAppDB.sqlite</file>
+        <file>ergo_trans_de.qm</file>
     </qresource>
 </RCC>

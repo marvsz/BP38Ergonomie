@@ -44,7 +44,8 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/workplaceView/productview.h \
     $$PWD/timelineedit.h \
     $$PWD/workplaceView/shiftpauseview.h \
-    $$PWD/datetimespinner.h
+    $$PWD/datetimespinner.h \
+    $$PWD/timerView/minimizedtimerview.h
 
 
 SOURCES += $$PWD/angleView/variant.cpp\
@@ -88,7 +89,8 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/workplaceView/productview.cpp \
     $$PWD/timelineedit.cpp \
     $$PWD/workplaceView/shiftpauseview.cpp \
-    $$PWD/datetimespinner.cpp
+    $$PWD/datetimespinner.cpp \
+    $$PWD/timerView/minimizedtimerview.cpp
 
 
 

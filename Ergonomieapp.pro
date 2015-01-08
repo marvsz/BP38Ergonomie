@@ -20,11 +20,11 @@ RESOURCES += \
 
 HEADERS += \
     enum.h \
-    stopwatch.h \
+    stopwatch.h
 
 SOURCES += \
     main.cpp \
-    stopwatch.cpp \
+    stopwatch.cpp
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 

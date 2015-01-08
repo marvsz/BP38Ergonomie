@@ -60,6 +60,8 @@ private:
 
     int save(DB_TABLES tbl, const QString &filter, const QString &colID, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue);
 
+    void save(DB_TABLES tbl, const QString &filter, const QHash<QString, QVariant::Type> &colMapNameType, const QHash<QString, QVariant> &colMapNameValue);
+
     void updateAnalyst(int id);
     int saveAnalyst();
 
@@ -79,10 +81,10 @@ private:
     int saveWorkplace(int id);
 
 
-    void saveRecordingObservesLine(int recID, int lineID);
+    void saveRecordingObservesLine(int lineID);
     void deleteRecordingObservesLine(int lineID);
 
-    void saveRecordingObservesWorkplace(int recID, int workplaceID);
+    void saveRecordingObservesWorkplace(int workplaceID);
     void deleteRecordingOberservesWorkplace(int wpID);
 
 

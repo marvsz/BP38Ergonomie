@@ -2,14 +2,21 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de_DE">
 <context>
+    <name>AngleView</name>
+    <message>
+        <source>both</source>
+        <translation>Beide</translation>
+    </message>
+</context>
+<context>
     <name>GeneralExecutionCondition</name>
     <message>
         <source>MTM Code:</source>
-        <translation>MTM Code:</translation>
+        <translation type="vanished">MTM Code:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation>Beschreibung:</translation>
+        <translation type="vanished">Beschreibung:</translation>
     </message>
 </context>
 </TS>

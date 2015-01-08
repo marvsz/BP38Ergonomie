@@ -19,7 +19,7 @@ AngleView::AngleView(QWidget *parent) :
     QScrollArea *categoryScrollArea = new QScrollArea;
 
     varSpeciArms = new VariantSpecification();
-    varSpeciArms->addSpezification(new QString("Beide")); varSpeciArms->addSpezification(new QString("Links")); varSpeciArms->addSpezification(new QString("Rechts"));
+    varSpeciArms->addSpezification(new QString(tr("both"))); varSpeciArms->addSpezification(new QString("Links")); varSpeciArms->addSpezification(new QString("Rechts"));
     varSpeciLegs = new VariantSpecification();
     varSpeciLegs->addSpezification(new QString("Beide")); varSpeciLegs->addSpezification(new QString("Links")); varSpeciLegs->addSpezification(new QString("Rechts"));
 

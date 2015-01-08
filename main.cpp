@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
 
 
     QTranslator translator;
-    translator.load("ergo_trans_de");
+    translator.load(":/ergo_trans_de");
     a.installTranslator(&translator);
 
 

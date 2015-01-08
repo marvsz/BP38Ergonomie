@@ -147,7 +147,7 @@ int Controller::saveLine(){
     values.insert(DBConstants::COL_LINE_NUMBER_OF_WORKPLACES, viewCon->getLineWorkplaceCount());
     values.insert(DBConstants::COL_LINE_FACTORY_ID, factory_ID);
     int lineID = save(tbl, filter, DBConstants::COL_LINE_ID, DBConstants::LIST_LINE_COLS, DBConstants::LIST_LINE_TYPES, values);
-    saveRecordingObservesLine(recording_ID, lineID);
+    saveRecordingObservesLine(lineID);
     updateLineView();
     return lineID;
 }
@@ -291,6 +291,29 @@ int Controller::save(DB_TABLES tbl, const QString &filter, const QString &colID,
     return id;
 }
 
+void Controller::save(DB_TABLES tbl, const QString &filter, const QHash<QString, QVariant::Type> &colMapNameType, const QHash<QString, QVariant> &colMapNameValue){
+    dbHandler->select(tbl, filter);
+    QSqlRecord record;
+    bool toInsert = false;
+    if(dbHandler->rowCount(tbl) == 0){
+        toInsert = true;
+        foreach(QString key, colMapNameValue.keys())
+            record.append(QSqlField(key, colMapNameType.value(key)));
+    }
+    else {
+        record = dbHandler->record(tbl, 0);
+    }
+
+    foreach(QString colName, colMapNameValue.keys())
+        record.setValue(colName, colMapNameValue.value(colName));
+
+    if(toInsert)
+        dbHandler->insertRow(tbl, record);
+    else
+        dbHandler->updateRow(tbl, 0, record);
+}
+
+
 
 void Controller::updateAnalyst(int id){
     if(id <= 0){
@@ -420,12 +443,13 @@ int Controller::saveRecording(){
     return save(DB_TABLES::RECORDING, filter, DBConstants::COL_RECORDING_ID, DBConstants::LIST_RECORDING_COLS, DBConstants::LIST_RECORDING_TYPES, values);
 }
 
-void Controller::saveRecordingObservesLine(int recID, int lineID){
-    QString filter = QString("%1 = %2 AND %3 = %4").arg(DBConstants::COL_RECORDING_OB_LINE_RECORDING_ID).arg(QString::number(recID));
+void Controller::saveRecordingObservesLine(int lineID){
+    QString filter = QString("%1 = %2 AND %3 = %4").arg(DBConstants::COL_RECORDING_OB_LINE_RECORDING_ID).arg(QString::number(recording_ID)).arg(DBConstants::COL_RECORDING_OB_LINE_LINE_ID).arg(QString::number(lineID));
 
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_RECORDING_OB_LINE_RECORDING_ID, recording_ID);
     values.insert(DBConstants::COL_RECORDING_OB_LINE_LINE_ID, lineID);
-    save(DB_TABLES::RECORDING_OBSERVES_LINE, filter, DBConstants::COL_RECORDING_OB_LINE_LINE_ID, DBConstants::LIST_RECORDING_OB_LINE_COLS, DBConstants::LIST_RECORDING_OB_LINE_TYPES, values);
+    save(DB_TABLES::RECORDING_OBSERVES_LINE, filter, DBConstants::HASH_RECORDING_OB_LINE_TYPES, values);
 }
 
 void Controller::deleteRecordingObservesLine(int lineID){
@@ -433,12 +457,13 @@ void Controller::deleteRecordingObservesLine(int lineID){
     dbHandler->deleteAll(DB_TABLES::RECORDING_OBSERVES_LINE, filter);
 }
 
-void Controller::saveRecordingObservesWorkplace(int recID, int workplaceID){
-    QString filter = QString("%1 = %2 AND %3 = %4").arg(DBConstants::COL_RECORDING_OB_WORKPLACE_RECORDING_ID).arg(recID);
+void Controller::saveRecordingObservesWorkplace(int workplaceID){
+    QString filter = QString("%1 = %2 AND %3 = %4").arg(DBConstants::COL_RECORDING_OB_WORKPLACE_RECORDING_ID).arg(QString::number(recording_ID)).arg(DBConstants::COL_RECORDING_OB_WORKPLACE_WORKPLACE_ID).arg(QString::number(workplaceID));
 
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_RECORDING_OB_WORKPLACE_RECORDING_ID, recording_ID);
     values.insert(DBConstants::COL_RECORDING_OB_WORKPLACE_WORKPLACE_ID, workplaceID);
-    save(DB_TABLES::RECORDING_OBSERVES_WORKPLACE, filter, DBConstants::COL_RECORDING_OB_WORKPLACE_WORKPLACE_ID, DBConstants::LIST_RECORDING_OB_WORKPLACE_COLS, DBConstants::LIST_RECORDING_OB_WORKPLACE_TYPES, values);
+    save(DB_TABLES::RECORDING_OBSERVES_WORKPLACE, filter, DBConstants::HASH_RECORDING_OB_WORKPLACE_TYPES, values);
 }
 
 void Controller::deleteRecordingOberservesWorkplace(int wpID){
