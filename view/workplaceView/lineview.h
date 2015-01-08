@@ -24,8 +24,7 @@ signals:
     void back();
     void saveLine();
     void saveSelectedLine(int id);
-    void deleteLine();
-    void lineSelectedWithId(int);
+    void deleteLine(int id);
 
 public slots:
     void setLine(const QString &name, const QString &description, int workplaceCount);
@@ -36,9 +35,8 @@ public slots:
 private slots:
     void btnBackClicked();
     void btnAddCicked();
-    void btnDeleteClicked();
+    void btnDeleteClicked(int id);
     void selectedLineChanged(int id);
-    void lineClickedWithId(int id);
 
 private:
     QVBoxLayout *listContentLayout;

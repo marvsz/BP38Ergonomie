@@ -22,7 +22,6 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     btnBack->setObjectName("btnNavigation");
 
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
-
     connect(btnAdd, SIGNAL(clicked()), this, SLOT(btnAddCicked()));
 
     QGridLayout *navigationBarLayout = new QGridLayout;
@@ -90,22 +89,19 @@ void LineView::setSelectedLine(int id){
 //PRIVATE SLOTS
 void LineView::btnBackClicked(){
     emit back();
+    emit saveSelectedLine(0);
 }
 
 void LineView::btnAddCicked(){
     emit saveLine();
 }
 
-void LineView::btnDeleteClicked(){
-    emit deleteLine();
+void LineView::btnDeleteClicked(int id){
+    emit deleteLine(id);
 }
 
 void LineView::selectedLineChanged(int id){
     emit saveSelectedLine(id);
-}
-
-void LineView::lineClickedWithId(int id){
-    emit lineSelectedWithId(id);
 }
 
 //GETTER and SETTER

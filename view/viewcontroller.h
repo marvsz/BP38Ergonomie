@@ -95,27 +95,36 @@ public:
     QString getCommentWorkerPerception() const;
 
 signals:
+    // METADATA VIEW
     void saveMetaData();
     void updateMetaData();
 
+    // WORKPLACELIST VIEW
     void updateWorkplaceList();
     void updateWorkplace(int id);
     void createWorkplace();
     void deleteWorkplace(int id);
     void setSelectedWorkplace(int id);
 
+    // WORKPLACE VIEW
     void saveWorkplace();
 
+    // LINE VIEW
     void updateLineView();
     void saveLine();
+    void saveSelectedLine(int id);
+    void deleteLine(int id);
 
+    // PRODUCT VIEW
     void updateProductView();
     void saveProduct();
     void deleteProduct(int id);
 
+    // COMMENT VIEW
     void updateCommentView();
     void saveComment();
 
+    // EMPLOYEE VIEW
     void updateEmployeeView();
     void saveEmployee();
 
@@ -174,11 +183,16 @@ private slots:
     void saveWorkplaceRequested();
     void saveCommentRequested();
     void saveProductRequested();
-    void saveLineRequested();
     void saveEmloyeeRequested();
 
-    void deleteWorkplaceClicked(int id);
-    void deleteProductClicked(int id);
+    void deleteWorkplaceRequested(int id);
+    void deleteProductRequested(int id);
+
+    // LINE VIEW
+    void saveLineRequested();
+    void saveSelectedLineRequested(int id);
+    void deleteLineRequested(int id);
+
 
 private:
     QStack<int> *previousViews;

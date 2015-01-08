@@ -42,6 +42,9 @@ ViewController::ViewController(QWidget *parent) :
 
     // LINE VIEW
     connect(lineView, SIGNAL(back()), this, SLOT(backToView()));
+    connect(lineView, SIGNAL(deleteLine(int)), this, SLOT(deleteLineRequested(int)));
+    connect(lineView, SIGNAL(saveLine()), this, SLOT(saveLineRequested()));
+    connect(lineView, SIGNAL(saveSelectedLine(int)), this, SLOT(saveSelectedLineRequested(int)));
 
     // SHIFTPAUSE VIEW
     connect(shiftPauseView, SIGNAL(back()), this, SLOT(backToView()));
@@ -219,12 +222,24 @@ void ViewController::clearWorkplaceList(){
     workplaceListView->clear();
 }
 
-void ViewController::deleteWorkplaceClicked(int id){
+void ViewController::deleteWorkplaceRequested(int id){
     emit deleteWorkplace(id);
 }
 
 // WORKPLACE VIEW GETTER/SETTER
 
+// SLOTS
+
+void ViewController::saveWorkplaceRequested(){
+    emit saveWorkplace();
+}
+
+// SETTER
+void ViewController::setWorkplaceMetaData(const QString &name, const QString &description, const QString &code, int percentageWoman){
+    workplaceView->setWorkplaceMetaData(name, description, code, percentageWoman);
+}
+
+// GETTER
 QString ViewController::getWorkplaceName() const {
     return workplaceView->getName();
 }
@@ -241,11 +256,23 @@ int ViewController::getWorkplaceWomanPercentage() const{
     return workplaceView->getWomanPercentage();
 }
 
-void ViewController::setWorkplaceMetaData(const QString &name, const QString &description, const QString &code, int percentageWoman){
-    workplaceView->setWorkplaceMetaData(name, description, code, percentageWoman);
-}
 
 // LINE VIEW GETTER/SETTER
+
+// SLOTS
+void ViewController::saveLineRequested(){
+    emit saveLine();
+}
+
+void ViewController::saveSelectedLineRequested(int id){
+    emit saveSelectedLine(id);
+}
+
+void ViewController::deleteLineRequested(int id){
+    emit deleteLine(id);
+}
+
+// SETTER
 
 void ViewController::setLine(const QString &name, const QString &description, int workplaceCount){
     lineView->setLine(name, description, workplaceCount);
@@ -259,6 +286,7 @@ void ViewController::clearLines(){
     lineView->clearLines();
 }
 
+// GETTER
 QString ViewController::getLineName() const{
     return lineView->getName();
 }
@@ -327,10 +355,17 @@ void ViewController::setShiftWorkplaceTimes(const QTime &basicTime, const QTime 
 
 // EMPLOYEE VIEW GETTER/SETTER
 
+// SLOTS
+void ViewController::saveEmloyeeRequested(){
+    emit saveEmployee();
+}
+
+// SETTER
 void ViewController::setEmployee(int gender, int age, int height, const QString &staffNumber, const QString &note){
     employeeView->setEmployee(gender, age, height, staffNumber, note);
 }
 
+// GETTER
 int ViewController::getEmployeeGender() const{
     return employeeView->getGender();
 }
@@ -353,10 +388,16 @@ QString ViewController::getEmployeeNote() const{
 
 // PRODUCT VIEW GETTER/SETTER
 
-void ViewController::deleteProductClicked(int id){
+// SLOTS
+void ViewController::deleteProductRequested(int id){
     emit deleteProduct(id);
 }
 
+void ViewController::saveProductRequested(){
+    emit saveProduct();
+}
+
+// SETTER
 void ViewController::setProduct(const QString &name, const QString &number, int totalPercentage){
     productView->setProduct(name, number, totalPercentage);
 }
@@ -369,6 +410,7 @@ void ViewController::clearProducts(){
     productView->clearProducts();
 }
 
+// GETTER
 QString ViewController::getProductName() const{
     return productView->getName();
 }
@@ -383,7 +425,17 @@ int ViewController::getProductTotalPercentage() const{
 
 
 // COMMENT VIEW GETTER/SETTER
+//SLOTS
+void ViewController::saveCommentRequested(){
+    emit saveComment();
+}
 
+//SETTER
+void ViewController::setComment(const QString &problemName, const QString &problemDesc, const QString &measureName, const QString &measureDesc, const QString &workerPerception){
+    commentView->setComment(problemName, problemDesc, measureName, measureDesc, workerPerception);
+}
+
+// GETTER
 QString ViewController::getCommentProblemName() const{
     return commentView->getProblemName();
 }
@@ -402,10 +454,6 @@ QString ViewController::getCommentMeasureDescription() const{
 
 QString ViewController::getCommentWorkerPerception() const{
     return commentView->getWorkerPerception();
-}
-
-void ViewController::setComment(const QString &problemName, const QString &problemDesc, const QString &measureName, const QString &measureDesc, const QString &workerPerception){
-    commentView->setComment(problemName, problemDesc, measureName, measureDesc, workerPerception);
 }
 
 // SET VIEWS AND PUSH/POP
@@ -449,23 +497,3 @@ void ViewController::goToView(int index){
     setCurrentIndex(index);
 }
 
-//SAVE REQUESTS
-void ViewController::saveWorkplaceRequested(){
-    emit saveWorkplace();
-}
-
-void ViewController::saveCommentRequested(){
-    emit saveComment();
-}
-
-void ViewController::saveProductRequested(){
-    emit saveProduct();
-}
-
-void ViewController::saveLineRequested(){
-    emit saveLine();
-}
-
-void ViewController::saveEmloyeeRequested(){
-    emit saveEmployee();
-}
