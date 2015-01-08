@@ -12,7 +12,7 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     lblName(new QLabel(tr("label:"))),
     lblDescription(new QLabel(tr("description:"))),
     lblCode(new QLabel(tr("workstation code:"))),
-    lblPercentageWoman(new QLabel("user population:")),
+    lblPercentageWoman(new QLabel(tr("user population:"))),
     txtBxName(new TextLineEdit()),
     txtBxDescription(new TextLineEdit()),
     txtBxCode(new TextLineEdit()),

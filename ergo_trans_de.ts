@@ -1216,7 +1216,11 @@
     </message>
     <message>
         <source>deploy time:</source>
-        <translation>Verteilzeit</translation>
+        <translation>Verteilzeit:</translation>
+    </message>
+    <message>
+        <source>user population:</source>
+        <translation>Mitarbeiteranzahl:</translation>
     </message>
 </context>
 </TS>
