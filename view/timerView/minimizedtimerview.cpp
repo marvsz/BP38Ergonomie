@@ -26,9 +26,7 @@ MinimizedTimerView::MinimizedTimerView(TimerState state, QWidget *parent) : QWid
 
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->addWidget(btnMaximized);
-    //mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
     mainLayout->addWidget(oscWorkProcessType);
-    //mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
     mainLayout->addWidget(wpSelector);
     mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
     mainLayout->addWidget(lblTime);
