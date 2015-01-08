@@ -105,6 +105,10 @@ DBHandler::DBHandler()
     tmBreak->setTable(DBConstants::TBL_BREAK);
     tmBreak->setEditStrategy(QSqlTableModel::OnRowChange);
 
+    tmActivity = new QSqlTableModel(0, myDB);
+    tmActivity->setTable(DBConstants::TBL_ACTIVITY);
+    tmActivity->setEditStrategy(QSqlTableModel::OnRowChange);
+
     htSqlTableModels = QHash<DB_TABLES, QSqlTableModel*>();
     htSqlTableModels.insert(DB_TABLES::ANALYST, tmAnalyst);
     htSqlTableModels.insert(DB_TABLES::EMPLOYER, tmEmployer);
@@ -121,7 +125,7 @@ DBHandler::DBHandler()
     htSqlTableModels.insert(DB_TABLES::PRODUCT, tmProduct);
     htSqlTableModels.insert(DB_TABLES::SHIFT, tmShift);
     htSqlTableModels.insert(DB_TABLES::BREAK, tmBreak);
-
+    htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmActivity);
 }
 
 DBHandler::~DBHandler(){

@@ -9,7 +9,8 @@
 
 enum DB_TABLES {ANALYST, EMPLOYER, CORPORATION, FACTORY, RECORDING,
                 RECORDING_OBSERVES_LINE, RECORDING_OBSERVES_WORKPLACE, LINE, WORKPLACE,
-                COMMENT, EMPLOYEE, EMPLOYEE_WORKS_SHIFT, PRODUCT, SHIFT, BREAK};
+                COMMENT, EMPLOYEE, EMPLOYEE_WORKS_SHIFT, PRODUCT, SHIFT, BREAK,
+               ACTIVITY};
 
 class DBConstants
 {
@@ -165,6 +166,15 @@ public:
     static const QString COL_BREAK_EMPLOYEE_ID;
     static const QStringList LIST_BREAK_COLS;
     static const QList<QVariant::Type> LIST_BREAK_TYPES;
+
+    //Activity
+    static const QString TBL_ACTIVITY;
+    static const QString COL_ACTIVITY_ID;
+    static const QString COL_ACTIVITY_DESCRIPTION;
+    static const QString COL_ACTIVITY_REPETITIONS;
+    static const QString COL_ACTIVITY_PRODUCT_ID;
+    static const QString COL_ACTIVITY_WORKPLACE_ID;
+    static const QHash<QString, QVariant::Type> HASH_ACTIVITY_TYPES;
 
 
 };

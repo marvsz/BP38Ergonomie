@@ -153,6 +153,15 @@ const QString DBConstants::COL_BREAK_EMPLOYEE_ID = "employee_ID";
 const QStringList DBConstants::LIST_BREAK_COLS = QStringList()<<DBConstants::COL_BREAK_ID<<DBConstants::COL_BREAK_START<<DBConstants::COL_BREAK_END<<DBConstants::COL_BREAK_SHIFT_ID<<DBConstants::COL_BREAK_EMPLOYEE_ID;
 const QList<QVariant::Type> DBConstants::LIST_BREAK_TYPES = QList<QVariant::Type>()<<QVariant::Int<<QVariant::String<<QVariant::String<<QVariant::Int<<QVariant::Int;
 
+//Activity
+const QString DBConstants::TBL_ACTIVITY = "Activity";
+const QString DBConstants::COL_ACTIVITY_ID = "activity_ID";
+const QString DBConstants::COL_ACTIVITY_DESCRIPTION = "activity_description";
+const QString DBConstants::COL_ACTIVITY_REPETITIONS = "activtiy_repetitions";
+const QString DBConstants::COL_ACTIVITY_PRODUCT_ID = "product_ID";
+const QString DBConstants::COL_ACTIVITY_WORKPLACE_ID = "workplace_ID";
+const QHash<QString, QVariant::Type> DBConstants::HASH_ACTIVITY_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_ACTIVITY_ID, QVariant::Int).add(DBConstants::COL_ACTIVITY_DESCRIPTION, QVariant::String).add(DBConstants::COL_ACTIVITY_REPETITIONS, QVariant::Int).add(DBConstants::COL_ACTIVITY_PRODUCT_ID, QVariant::Int).add(DBConstants::COL_ACTIVITY_WORKPLACE_ID, QVariant::Int).build();
+
 DBConstants::DBConstants()
 {
 }

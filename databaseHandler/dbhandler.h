@@ -43,6 +43,7 @@ private:
     QSqlTableModel *tmProduct;
     QSqlTableModel *tmShift;
     QSqlTableModel *tmBreak;
+    QSqlTableModel *tmActivity;
 
 
     QHash<DB_TABLES, QSqlTableModel*> htSqlTableModels;
