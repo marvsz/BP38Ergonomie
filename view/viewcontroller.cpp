@@ -234,6 +234,15 @@ void ViewController::saveWorkplaceRequested(){
     emit saveWorkplace();
 }
 
+void ViewController::setWorkplaceLine(const QString &name, const QString &description){
+    workplaceView->setLine(name, description);
+}
+
+void ViewController::setWorkplaceComment(const QString &problemName, const QString &measureName){
+    workplaceView->setComment(problemName, measureName);
+}
+
+
 // SETTER
 void ViewController::setWorkplaceMetaData(const QString &name, const QString &description, const QString &code, int percentageWoman){
     workplaceView->setWorkplaceMetaData(name, description, code, percentageWoman);

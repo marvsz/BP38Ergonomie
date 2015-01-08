@@ -142,6 +142,8 @@ public slots:
 
     // WORKPLACE VIEW SETTER
     void setWorkplaceMetaData(const QString &name, const QString &description, const QString &code, int percentageWoman);
+    void setWorkplaceLine(const QString &name, const QString &description);
+    void setWorkplaceComment(const QString &problemName, const QString &measureName);
 
     // LINE VIEW SETTER
     void setLine(const QString &name, const QString &description, int workplaceCount);

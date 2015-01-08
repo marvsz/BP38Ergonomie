@@ -34,6 +34,9 @@ signals:
 
 public slots:
     void setWorkplaceMetaData(const QString &name, const QString &description, const QString &code, int percentageWoman);
+    void setLine(const QString &name, const QString &description);
+    void setComment(const QString &problemName, const QString &measureName);
+
 
 private slots:
     void btnSaveClicked();
@@ -65,8 +68,8 @@ private:
     QPushButton *btnGoOnWithWorkProcesses;
 
     DetailedListItem *line;
-    DetailedListItem *shift;
-    DetailedListItem *employee;
+    //DetailedListItem *shift;
+    //DetailedListItem *employee;
     DetailedListItem *product;
     DetailedListItem *comment;
 

@@ -33,7 +33,7 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     lineListTwo << "Beschreibung";
     lineList << lineListOne << lineListTwo;
 
-    QList<QStringList> shiftList;
+    /*QList<QStringList> shiftList;
     QStringList shiftListOne;
     shiftListOne << "Schichtart" << "Stückzahl" << "Taktzeit";
     QStringList shiftListTwo;
@@ -45,7 +45,7 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     employeeListOne << "Geschlecht" << "Alter" << "Größe";
     QStringList employeeListTwo;
     employeeListTwo << "Anmerkung";
-    employeeList << employeeListOne << employeeListTwo;
+    employeeList << employeeListOne << employeeListTwo;*/
 
     QList<QStringList> productList;
 
@@ -56,21 +56,15 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     commentListTwo << "Maßnahmenbezeichnung";
     commentList << commentListOne << commentListTwo;
 
-    line = new DetailedListItem(this, "", "Linie", lineList, false);
-    shift = new DetailedListItem(this, "", "Schicht- und Pausendaten", shiftList, false);
-    employee = new DetailedListItem(this, "", "Mitarbeiterdaten", employeeList, false);
-    product = new DetailedListItem(this, "", "Produkte", productList, false);
-    comment = new DetailedListItem(this, "", "Bemerkungen", commentList, false);
+    line = new DetailedListItem(this, "", "Linie", lineList, false, false, true);
+    product = new DetailedListItem(this, "", "Produkte", productList, false, false, true);
+    comment = new DetailedListItem(this, "", "Bemerkungen", commentList, false, false, true);
 
     connect(line, SIGNAL(clicked()), this, SLOT(lineViewSelected()));
-    connect(shift, SIGNAL(clicked()), this, SLOT(shiftPauseViewSelected()));
-    connect(employee, SIGNAL(clicked()), this, SLOT(employeeViewSelected()));
     connect(product, SIGNAL(clicked()), this, SLOT(productViewSelected()));
     connect(comment, SIGNAL(clicked()), this, SLOT(commentViewSelected()));
 
     additions->append(line);
-    additions->append(shift);
-    additions->append(employee);
     additions->append(product);
     additions->append(comment);
 
@@ -121,6 +115,16 @@ void WorkplaceView::setWorkplaceMetaData(const QString &name, const QString &des
     txtBxDescription->setText(description);
     txtBxCode->setText(code);
     numBxWomanPercentage->setValue(percentageWoman);
+}
+
+void WorkplaceView::setLine(const QString &name, const QString &description){
+    QList<QStringList> values = QList<QStringList>() << (QStringList() << name) << (QStringList() << description);
+    line->setValues(values);
+}
+
+void WorkplaceView::setComment(const QString &problemName, const QString &measureName){
+    QList<QStringList> values = QList<QStringList>() << (QStringList() << problemName) << (QStringList() << measureName);
+    comment->setValues(values);
 }
 
 
