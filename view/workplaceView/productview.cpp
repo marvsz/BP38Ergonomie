@@ -1,12 +1,12 @@
 #include "productview.h"
 #include "separator.h"
 #include <QGridLayout>
+#include <QDebug>
 #include "detailedlistitem.h"
 #include "flickcharm.h"
 
 ProductView::ProductView(QWidget *parent) : QWidget(parent),
     scProducts(new QScrollArea),
-    productListLayout(new QVBoxLayout),
     lblViewName(new QLabel("Produktdaten")),
     lblName(new QLabel("Produktname:")),
     lblNumber(new QLabel("Produktnummer:")),
@@ -15,7 +15,8 @@ ProductView::ProductView(QWidget *parent) : QWidget(parent),
     txtBxNumber(new TextLineEdit()),
     numBxTotalPercentage(new NumberLineEdit()),
     btnBack(new QPushButton("Zurück")),
-    btnAdd(new QPushButton("Hinzufügen"))
+    btnAdd(new QPushButton("Hinzufügen")),
+    productListLayout(new QVBoxLayout)
 
 {
     btnBack->setObjectName("btnNavigation");
@@ -75,6 +76,7 @@ void ProductView::addProduct(int id, const QString &name){
     connect(newListItem, SIGNAL(deselected(int)), this, SLOT(idDeselected(int)));
     connect(this, SIGNAL(productSelected(int)), newListItem, SLOT(select(int)));
     productListLayout->addWidget(newListItem);
+
 }
 
 void ProductView::clearProducts(){
@@ -120,8 +122,8 @@ int ProductView::getTotalPercentage() const{
 
 QList<int> ProductView::getSelectedIDs() const {
     QList<int> list;
-    foreach(int id, idSelectionMap)
-        if(idSelectionMap.value(id))
+    foreach(int id, idSelectionMap.keys())
+        if(idSelectionMap.value(id) == true)
             list << id;
     return list;
 }
