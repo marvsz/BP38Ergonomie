@@ -82,6 +82,9 @@ void LineView::clearLines(){
     }
 }
 
+void LineView::setSelectedLine(int id){
+    selectedLineChanged(id);
+}
 
 
 //PRIVATE SLOTS

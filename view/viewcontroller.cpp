@@ -286,6 +286,11 @@ void ViewController::clearLines(){
     lineView->clearLines();
 }
 
+void ViewController::setSelectedLine(int id){
+    lineView->setSelectedLine(id);
+}
+
+
 // GETTER
 QString ViewController::getLineName() const{
     return lineView->getName();
