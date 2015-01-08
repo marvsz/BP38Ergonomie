@@ -162,15 +162,15 @@ DBHandler::DBHandler()
     htSqlTableModels.insert(DB_TABLES::SHIFT, tmShift);
     htSqlTableModels.insert(DB_TABLES::BREAK, tmBreak);
     htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmActivity);
-    htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmBodyPosture);
-    htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmWorkProcess);
-    htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmLoadHandlingType);
-    htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmLoadHandling);
-    htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmAppliedForce);
-    htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmTransportation);
-    htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmTypeOfGrasping);
-    htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmEquipment);
-    htSqlTableModels.insert(DB_TABLES::ACTIVITY, tmWorkCondition);
+    htSqlTableModels.insert(DB_TABLES::BODY_POSTURE, tmBodyPosture);
+    htSqlTableModels.insert(DB_TABLES::WORK_PROCESS, tmWorkProcess);
+    htSqlTableModels.insert(DB_TABLES::LOAD_HANDLING_TYPE, tmLoadHandlingType);
+    htSqlTableModels.insert(DB_TABLES::LOAD_HANDLING, tmLoadHandling);
+    htSqlTableModels.insert(DB_TABLES::APPLIED_FORCE, tmAppliedForce);
+    htSqlTableModels.insert(DB_TABLES::TRANSPORTATION, tmTransportation);
+    htSqlTableModels.insert(DB_TABLES::TYPE_OF_GRASPING, tmTypeOfGrasping);
+    htSqlTableModels.insert(DB_TABLES::EQUIPMENT, tmEquipment);
+    htSqlTableModels.insert(DB_TABLES::WORK_CONDITION, tmWorkCondition);
 }
 
 DBHandler::~DBHandler(){

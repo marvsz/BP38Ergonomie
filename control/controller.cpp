@@ -183,9 +183,10 @@ int Controller::saveSelectedProducts(){
     QString filter = QString("%1 = %2 AND %3 = %4").arg(DBConstants::COL_ACTIVITY_WORKPLACE_ID).arg(QString::number(selectedWorkplaceID)).arg(DBConstants::COL_ACTIVITY_PRODUCT_ID);
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_ACTIVITY_WORKPLACE_ID, selectedWorkplaceID);
-    foreach(int i, viewCon->getSelectedProducts()){
-        values.insert(DBConstants::COL_ACTIVITY_PRODUCT_ID, i);
-        save(DB_TABLES::ACTIVITY, filter.arg(QString::number(i)), DBConstants::COL_ACTIVITY_ID, DBConstants::HASH_ACTIVITY_TYPES, values);
+    QList<int> prodIDs = viewCon->getSelectedProducts();
+    foreach(int id, viewCon->getSelectedProducts()){
+        values.insert(DBConstants::COL_ACTIVITY_PRODUCT_ID, id);
+        save(DB_TABLES::ACTIVITY, filter.arg(QString::number(id)), DBConstants::COL_ACTIVITY_ID, DBConstants::HASH_ACTIVITY_TYPES, values);
     }
     return 0;
 }
