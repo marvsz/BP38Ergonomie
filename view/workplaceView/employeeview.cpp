@@ -6,25 +6,25 @@
 #include "separator.h"
 
 EmployeeView::EmployeeView(QWidget *parent) : QWidget(parent),
-    lblViewName(new QLabel("Mitarbeiterdaten")),
-    lblGender(new QLabel("Geschlecht:")),
-    lblStaffNumber(new QLabel("Personalnummer:")),
-    lblNote(new QLabel("Anmerkung:")),
+    lblViewName(new QLabel(tr("Coworker data"))),
+    lblGender(new QLabel(tr("gender:"))),
+    lblStaffNumber(new QLabel(tr("PersonalID:"))),
+    lblNote(new QLabel(tr("Remarks:"))),
     vcAge(new ValueControl(VariantControl::VALUE_CONTROL)),
     vcHeight(new ValueControl(VariantControl::VALUE_CONTROL)),
     txtBxStaffNumber(new TextLineEdit()),
     txtBxNote(new TextEdit()),
-    btnBack(new QPushButton("Zurück"))
+    btnBack(new QPushButton(tr("back")))
 {
     btnBack->setObjectName("btnNavigation");
 
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
 
-    vcAge->setText("Alter");
+    vcAge->setText(tr("age"));
     vcAge->setValues(16, 70, ageValues,new QString(""));
     vcAge->setValue(35);
 
-    vcHeight->setText("Größe");
+    vcHeight->setText(tr("height"));
     vcHeight->setValues(100, 220, heightValues, new QString(""));
     vcHeight->setValue(175);
 

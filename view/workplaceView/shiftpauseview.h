@@ -52,7 +52,7 @@ private:
     QLabel* lblShiftEnd;
     QLabel* lblQuantity;
 
-    const QVector<QString> vecShiftType = QVector<QString>()<<"Frühschicht"<<"Spätschicht"<<"Nachtschicht"<<"Sonderschicht";
+    const QVector<QString> vecShiftType = QVector<QString>()<<tr("early shift")<<tr("late shift")<<tr("night shift")<<tr("special shift");
     OptionSelectionControl* conShiftType;
     TimeLineEdit* timeCycleTime;
     TimeLineEdit* timeShiftBegin;
@@ -75,7 +75,7 @@ private:
     QLabel* lblShortBreaksBegin;
     QLabel* lblShortBreaksEnd;
 
-    const QVector<QString> vecShortBreaks = QVector<QString>()<<"Jederzeit möglich"<<"Bedingt möglich"<<"Führt zu Prozessunterbrechung";
+    const QVector<QString> vecShortBreaks = QVector<QString>()<<tr("possible everytime")<<tr("possible with constraints")<<tr("leads to process breaks");
     OptionSelectionControl* conShortBreaks;
     TimeLineEdit* timeBreakBegin;
     TimeLineEdit* timeBreakEnd;

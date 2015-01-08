@@ -47,7 +47,7 @@ private:
 
     QPushButton *btnBack;
 
-    const QVector<QString> genderTextValues = QVector<QString>()<<"männlich"<<"weiblich";
+    const QVector<QString> genderTextValues = QVector<QString>()<<tr("male")<<tr("female");
     const QVector<int> heightValues = QVector<int>()<<150<<160<<170<<180<<190;
     const QVector<int> ageValues = QVector<int>()<<20<<30<<40<<50<<60;
 };

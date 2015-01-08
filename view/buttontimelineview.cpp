@@ -18,7 +18,7 @@ ButtonTimelineView::ButtonTimelineView(QWidget *parent) :
 
    QScroller::grabGesture(scrollArea->viewport(), QScroller::LeftMouseButtonGesture);
 
-   lblOccurrences = new QLabel("Häufigkeit:");
+   lblOccurrences = new QLabel(tr("frequenzy:"));
    occurrences = new QLineEdit("0");
    occurrences->setFixedSize(80,60);
    occurrences->setAlignment(Qt::AlignCenter);

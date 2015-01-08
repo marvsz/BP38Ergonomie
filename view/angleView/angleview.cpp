@@ -19,35 +19,35 @@ AngleView::AngleView(QWidget *parent) :
     QScrollArea *categoryScrollArea = new QScrollArea;
 
     varSpeciArms = new VariantSpecification();
-    varSpeciArms->addSpezification(new QString(tr("both"))); varSpeciArms->addSpezification(new QString("Links")); varSpeciArms->addSpezification(new QString("Rechts"));
+    varSpeciArms->addSpezification(new QString(tr("both"))); varSpeciArms->addSpezification(new QString(tr("left"))); varSpeciArms->addSpezification(new QString(tr("right")));
     varSpeciLegs = new VariantSpecification();
-    varSpeciLegs->addSpezification(new QString("Beide")); varSpeciLegs->addSpezification(new QString("Links")); varSpeciLegs->addSpezification(new QString("Rechts"));
+    varSpeciLegs->addSpezification(new QString(tr("both"))); varSpeciLegs->addSpezification(new QString(tr("left"))); varSpeciLegs->addSpezification(new QString(tr("right")));
 
-    torsoFlextion = new Variant(new QString("Beugung"), new SubVariant(new QString("Beugungswinkel"), -60, 120, angleTorsoFlextion, new QString(":/Icons/TorsoFlextion/TorsoFlextion_")));
-    torsoTilt = new Variant(new QString("Seitl. Neigung"), new SubVariant(new QString("Seitliche Neigung"), 0, 90, angleTorsoTilt, new QString(":/Icons/TorsoTilt/TorsoTilt_")));
-    torsoRotation = new Variant(new QString("Drehung"), new SubVariant(new QString("Drehung"), 0, 90, angleTorsoRotation, new QString(":/Icons/TorsoRotation/TorsoRotation_")));
+    torsoFlextion = new Variant(new QString(tr("flexion")), new SubVariant(new QString(tr("flexion angle")), -60, 120, angleTorsoFlextion, new QString(tr("torso_Flexion_Icon"))));
+    torsoTilt = new Variant(new QString(tr("sidewise tilt")), new SubVariant(new QString(tr("sidewise tilt")), 0, 90, angleTorsoTilt, new QString(tr("torso_Tilt_Icon"))));
+    torsoRotation = new Variant(new QString(tr("rotation")), new SubVariant(new QString(tr("rotation")), 0, 90, angleTorsoRotation, new QString(tr("torso_Rotation_Icon"))));
 
-    headTilt = new Variant(new QString("Neigung"), new SubVariant(new QString("Kopfneigung"), -90, 90, angleHeadTilt, new QString(":/Icons/HeadTilt/HeadTilt_")));
-    headRotation = new Variant(new QString("Drehung"), new SubVariant(new QString("Kopfdrehung"), 0, 45, angleHeadRotation, new QString(":/Icons/HeadRotation/HeadRotation_")));
-    headSidewiseTilt = new Variant(new QString("Seitl. Neigung"), new SubVariant(new QString("Kopfneigung"), 0, 45, angleHeadSidewiseTilt, new QString(":/Icons/HeadSidewiseTilt/HeadSidewiseTilt_")));
+    headTilt = new Variant(new QString(tr("inclination")), new SubVariant(new QString(tr("head inclination")), -90, 90, angleHeadTilt, new QString(tr("head_Tilt_Icon"))));
+    headRotation = new Variant(new QString(tr("rotation")), new SubVariant(new QString(tr("head rotation")), 0, 45, angleHeadRotation, new QString(tr("head_Rotation_Icon"))));
+    headSidewiseTilt = new Variant(new QString(tr("sidewise inclination")), new SubVariant(new QString(tr("head inclination")), 0, 45, angleHeadSidewiseTilt, new QString(tr("head_Sidewise_Tilt_Icon"))));
 
-    armsPosition = new Variant(new QString("Stellung"), new SubVariant(new QString("Oberarmwinkel"), -90, 180, angleUpperArmPosition, new QString(":/Icons/UpperArmPosition/UpperArmPosition_")));
-    armsUnderPosition = new SubVariant(new QString("Unterarmwinkel"), 0, 180, angleUnderArmPosition, new QString(":/Icons/UnderArmPosition/UnderArmPosition_"));
-    armsRotation = new Variant(new QString("Drehung"), new SubVariant(new QString("Oberarmdrehungswinkel"), -45, 90, angleUpperArmRotation, new QString(":/Icons/UpperArmRotation/UpperArmRotation_")));
-    armsUnderRotation = new SubVariant(new QString("Underarmdrehungswinkel"), -90, 90, angleUnderArmRotation, new QString(":/icons/UnderArmRotation/UnderArmRotation_"));
-    armsOpening = new Variant(new QString("Öffnung"), new SubVariant(new QString("Oberarmöffnungswinkel"), -90, 90, angleUpperArmOpening, new QString(":/Icons/UpperArmOpening/UpperArmOpening_")));
-    armsWrist = new Variant(new QString("Handgelenk"), new SubVariant(new QString("Handgelenkbewegung"), true, textsWrist, new QString(":/icons/ArmsWrist/ArmsWrist_")));
+    armsPosition = new Variant(new QString(tr("stance")), new SubVariant(new QString(tr("upper arm angle")), -90, 180, angleUpperArmPosition, new QString(tr("upper_Arm_Position_Icon"))));
+    armsUnderPosition = new SubVariant(new QString(tr("forearm angle")), 0, 180, angleUnderArmPosition, new QString(tr("forearm_Position_Icon")));
+    armsRotation = new Variant(new QString(tr("rotation")), new SubVariant(new QString(tr("upper arm rotation angle")), -45, 90, angleUpperArmRotation, new QString(tr("Upper_Arm_Rotation_Icon"))));
+    armsUnderRotation = new SubVariant(new QString(tr("forearm rotation angle")), -90, 90, angleUnderArmRotation, new QString(tr("forearm_Rotation_Icon")));
+    armsOpening = new Variant(new QString(tr("opening")), new SubVariant(new QString(tr("upper arm opening angle")), -90, 90, angleUpperArmOpening, new QString(tr("upper_Arm_Opening_Icon"))));
+    armsWrist = new Variant(new QString(tr("wrist")), new SubVariant(new QString(tr("wrist movement")), true, textsWrist, new QString(tr("wrist_Movement_Icon"))));
 
-    legAngle = new Variant(new QString("Beinwinkel"), new SubVariant(new QString("Hüftwinkel"), 45, 180, angleLegHip, new QString(":/Icons/LegHip/LegHip_")));
-    legKnee = new SubVariant(new QString("Kniewinkel"), 0, 180, angleLegKnee, new QString(":/Icons/LegKnee/LegKnee_"));
-    legAnkle = new SubVariant(new QString("Sprunggelenkwinkel"), 90, 180, angleLegAnkle, new QString(":/Icons/LegAnkle/LegAnkle_"));
-    legPosition = new Variant(new QString("Haltung"), new SubVariant(new QString("Beinhaltung:"), false, textsLegPosition, new QString(":/icons/LegPosition/LegPosition_")));
+    legAngle = new Variant(new QString(tr("leg angle")), new SubVariant(new QString(tr("hip angle")), 45, 180, angleLegHip, new QString(tr("leg_Hip_Icon"))));
+    legKnee = new SubVariant(new QString(tr("knee angle")), 0, 180, angleLegKnee, new QString(tr("leg_Knee_Icon")));
+    legAnkle = new SubVariant(new QString(tr("ankle angle")), 90, 180, angleLegAnkle, new QString(tr("leg_Ankle_Icon")));
+    legPosition = new Variant(new QString(tr("posture")), new SubVariant(new QString(tr("leg posture:")), false, textsLegPosition, new QString(tr("leg_Position_Icon"))));
 
-    acTorso = new AngleControl(new QString("Rumpf"), torsoFlextion, NULL, categoryScrollArea);
+    acTorso = new AngleControl(new QString(tr("torso")), torsoFlextion, NULL, categoryScrollArea);
     acTorso->addVariant(torsoTilt);
     acTorso->addVariant(torsoRotation);
 
-    acArms = new AngleControl(new QString("Arme"), armsPosition, varSpeciArms, categoryScrollArea);
+    acArms = new AngleControl(new QString(tr("arms")), armsPosition, varSpeciArms, categoryScrollArea);
     armsPosition->addSubVariant(armsUnderPosition);
     acArms->addVariant(armsRotation);
     armsRotation->addSubVariant(armsUnderRotation);
@@ -55,12 +55,12 @@ AngleView::AngleView(QWidget *parent) :
     acArms->addVariant(armsWrist);
 
 
-    acLegs = new AngleControl(new QString("Beine"), legPosition, varSpeciLegs, categoryScrollArea);
+    acLegs = new AngleControl(new QString(tr("legs")), legPosition, varSpeciLegs, categoryScrollArea);
     legAngle->addSubVariant(legKnee);
     legAngle->addSubVariant(legAnkle);
     acLegs->addVariant(legAngle);
 
-    acHead = new AngleControl(new QString("Kopf"), headRotation, NULL, categoryScrollArea);
+    acHead = new AngleControl(new QString(tr("head")), headRotation, NULL, categoryScrollArea);
     acHead->addVariant(headTilt);
     acHead->addVariant(headSidewiseTilt);
 

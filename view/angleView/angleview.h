@@ -53,12 +53,12 @@ private:
     const QVector<int> angleUpperArmRotation = QVector<int>()<<-45<<0<<45<<90;
     const QVector<int> angleUnderArmRotation = QVector<int>()<<-90<<-45<<0<<45<<90;
     const QVector<int> angleUpperArmOpening = QVector<int>()<<-90<<-45<<0<<45<<90;
-    const QVector<QString> textsWrist = QVector<QString>()<<"Palmarflexion"<<"Dorsalextension"<<"Ularabduktion"<<"Radialabduktion";
+    const QVector<QString> textsWrist = QVector<QString>()<<tr("Palmarflexion")<<tr("Dorsalextension")<<tr("Ularabduktion")<<tr("Radialabduktion");
 
     const QVector<int> angleLegHip = QVector<int>()<<45<<90<<135<<180;
     const QVector<int> angleLegKnee = QVector<int>()<<0<<45<<90<<135<<180;
     const QVector<int> angleLegAnkle = QVector<int>()<<90<<135<<180;
-    const QVector<QString> textsLegPosition = QVector<QString>()<<"stehend"<<"sitzend"<<"gehend"<<"laufend"<<"kniend und hockend"<<"liegend"<<"kletternd";
+    const QVector<QString> textsLegPosition = QVector<QString>()<<tr("standing")<<tr("sitting")<<tr("walking")<<tr("running")<<tr("kneeing and squatting")<<tr("lying")<<tr("climbing");
 
     VariantSpecification* varSpeciArms;
     VariantSpecification* varSpeciLegs;

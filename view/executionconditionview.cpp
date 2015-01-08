@@ -8,22 +8,22 @@ ExecutionConditionView::ExecutionConditionView(QWidget *parent) :
 {
 
     btnMoreExecutionCondition = new SelectableValueButton(2, 2, this);
-    btnMoreExecutionCondition->setText("Weitere");
+    btnMoreExecutionCondition->setText(tr("furthermore"));
     btnMoreExecutionCondition->setMinimumWidth(150);
     connect(btnMoreExecutionCondition, SIGNAL(clicked()), this, SLOT(moreExecutionConditionSelected()));
 
     btnUtilitiesExecutionCondition = new SelectableValueButton(1, 1, this);
-    btnUtilitiesExecutionCondition->setText("Betriebsmittel");
+    btnUtilitiesExecutionCondition->setText(tr("tools"));
     btnUtilitiesExecutionCondition->setMinimumWidth(150);
     connect(btnUtilitiesExecutionCondition, SIGNAL(clicked()), this, SLOT(utilitiesExecutionConditionSelected()));
 
     btnGeneralExecutionCondition = new SelectableValueButton(0, 0, this);
-    btnGeneralExecutionCondition->setText("Allgemein");
+    btnGeneralExecutionCondition->setText(tr("general"));
     btnGeneralExecutionCondition->setMinimumWidth(150);
     connect(btnGeneralExecutionCondition, SIGNAL(clicked()), this, SLOT(generalExecutionConditionSelected()));
 
     btnProducedProductExecutionCondition = new SelectableValueButton(0, 0, this);
-    btnProducedProductExecutionCondition->setText("Produkt");
+    btnProducedProductExecutionCondition->setText(tr("product"));
     btnProducedProductExecutionCondition->setMinimumWidth(150);
     connect(btnProducedProductExecutionCondition, SIGNAL(pressed()), this, SLOT(producedProductExecutionConditionSelected()));
 

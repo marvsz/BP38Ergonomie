@@ -30,35 +30,35 @@ UtilityListControl::UtilityListControl(QWidget *parent) :
 
     // BUTTONS
     this->addBtn = new QPushButton(this);
-    this->addBtn->setText("Betriebsmittel hinzufügen");
+    this->addBtn->setText(tr("add equipment"));
     this->addBtn->setMaximumWidth(300);
     connect(this->addBtn, SIGNAL(clicked()), this, SLOT(addUtility()));
 
     this->remBtn = new QPushButton(this);
-    this->remBtn->setText("Betriebsmittel entfernen");
+    this->remBtn->setText(tr("delete equipment"));
     this->remBtn->setMaximumWidth(300);
     connect(this->remBtn, SIGNAL(clicked()), this, SLOT(removeUtility()));
 
     // OPTIONS
     this->utilityName = new QLineEdit(this);
-    this->utilityName->setPlaceholderText("Neues Betriebsmittel");
+    this->utilityName->setPlaceholderText(tr("new equipment"));
     this->utilityName->setMinimumWidth(300);
     connect(this->utilityName, SIGNAL(textChanged(QString)), this, SLOT(disableSelection()));
 
     this->recoilIntensity = new NumberLineEdit(this);
-    this->recoilIntensity->setPlaceholderText("Rückschlagintensität");
+    this->recoilIntensity->setPlaceholderText(tr("recoil intensity"));
     connect(this->recoilIntensity, SIGNAL(textChanged(QString)), this, SLOT(recoilIntensityChanged(QString)));
 
     this->recoilCount = new NumberLineEdit(this);
-    this->recoilCount->setPlaceholderText("Rückschlaganzahl");
+    this->recoilCount->setPlaceholderText(tr("recoil count"));
     connect(this->recoilCount, SIGNAL(textChanged(QString)), this, SLOT(recoilCountChanged(QString)));
 
     this->vibrationIntensity = new NumberLineEdit(this);
-    this->vibrationIntensity->setPlaceholderText("Vibrationsintensität");
+    this->vibrationIntensity->setPlaceholderText(tr("vibration intensity"));
     connect(this->vibrationIntensity, SIGNAL(textChanged(QString)), this, SLOT(vibrationIntensityChanged(QString)));
 
     this->vibrationCount = new NumberLineEdit(this);
-    this->vibrationCount->setPlaceholderText("Vibrationsanzahl");
+    this->vibrationCount->setPlaceholderText(tr("vibration count"));
     connect(this->vibrationCount, SIGNAL(textChanged(QString)), this, SLOT(vibrationCountChanged(QString)));
 
     // BUTTON LAYOUT
@@ -66,16 +66,16 @@ UtilityListControl::UtilityListControl(QWidget *parent) :
     buttonLayout->addWidget(remBtn);
 
     // OPTION LAYOUT
-    optionLayout->addRow("Rückschlagintensität: [N]", this->recoilIntensity);
-    optionLayout->addRow("Rückschlaganzahl:", this->recoilCount);
-    optionLayout->addRow("Vibrationsintensität: [N]", this->vibrationIntensity);
-    optionLayout->addRow("Vibrationsanzahl", this->vibrationCount);
+    optionLayout->addRow(tr("recoil intensity: [N]"), this->recoilIntensity);
+    optionLayout->addRow(tr("recoil count:"), this->recoilCount);
+    optionLayout->addRow(tr("vibration intensity: [N]"), this->vibrationIntensity);
+    optionLayout->addRow(tr("vibration count"), this->vibrationCount);
 
     // MAIN LAYOUT
-    mainLayout->addWidget(new QLabel("Betriebsmittel"), 0, 0, 1, 2, Qt::AlignLeft);
+    mainLayout->addWidget(new QLabel(tr("equipment")), 0, 0, 1, 2, Qt::AlignLeft);
     mainLayout->addLayout(listLayout, 1, 0, 1, 2, 0);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 2, 0, 1, 2, 0);
-    mainLayout->addWidget(new QLabel("Beschreibung:"), 3, 0, 1, 1, Qt::AlignLeft);
+    mainLayout->addWidget(new QLabel(tr("description:")), 3, 0, 1, 1, Qt::AlignLeft);
     mainLayout->addWidget(utilityName, 3, 0, 1, 2, Qt::AlignHCenter);
     mainLayout->addLayout(buttonLayout, 4, 0, 1, 2, 0);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 5, 0, 1, 2, 0);

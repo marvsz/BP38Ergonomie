@@ -34,29 +34,29 @@ TransportView::TransportView(QWidget *parent) :
 
     type = new ValueControl(TEXT_CONTROL, categoryScrollArea);
     type->setValues(true, typeValues, typeValues,  new QString());
-    type->setText("Lastenhandhabungsart:");
+    type->setText(tr("loadhandling type:"));
     connect(type, SIGNAL(valueChanged(QString)), this, SLOT(typeChanged(QString)));
 
 
     last = new ValueControl(VALUE_CONTROL, categoryScrollArea);
-    last->setUnit("kg");
+    last->setUnit(tr("kg"));
     last->setValues(1, 100, lastValues, new QString());
-    last->setText("Last");
+    last->setText(tr("Last"));
 
 
     weg = new ValueControl(VALUE_CONTROL, categoryScrollArea);
-    weg->setUnit("m");
+    weg->setUnit(tr("m"));
     weg->setValues(0, 20, wegValues, new QString());
-    weg->setText("Weg");
+    weg->setText(tr("Weg"));
 
 
     hand = new ValueControl(TEXT_CONTROL, categoryScrollArea);
     hand->setValues(true, handValues, handValues, new QString());
-    hand->setText("Benutzte Hand:");
+    hand->setText(tr("Benutzte Hand:"));
 
     QVector<QString>* options = new QVector<QString>();
-    options->append("Bockrollen");
-    options->append("Bremsen");
+    options->append(tr("Bockrollen"));
+    options->append(tr("Bremsen"));
 
     tools = new TransportationListControl(options, this);
 
@@ -88,7 +88,7 @@ TransportView::TransportView(QWidget *parent) :
 
 void TransportView::typeChanged(QString newType){
     qDebug() << newType;
-    if(newType == "Ziehen und Schieben")
+    if(newType == tr("pulling and pushing"))
         last->setValues(1, 2000, heavyLastValues, new QString());
     else
         last->setValues(1, 100, lastValues, new QString());

@@ -61,15 +61,15 @@ AVRecordControl::AVRecordControl(QWidget *parent) : QMainWindow(parent)
     avTime->setInputMask("00:99");
     avTime->setAlignment(Qt::AlignCenter);
 
-    btnSetAv->setText("AV");
-    btnSetLeft->setText("L");
-    btnSetRight->setText("R");
-    btnSetLeftRight->setText("L/R");
+    btnSetAv->setText(tr("AV"));
+    btnSetLeft->setText(tr("L"));
+    btnSetRight->setText(tr("R"));
+    btnSetLeftRight->setText(tr("L/R"));
 
-    btnAV->setText("AV");
-    btnAVLeft->setText("Links");
-    btnAVRight->setText("Rechts");
-    btnSelAV->setText("leer");
+    btnAV->setText(tr("AV"));
+    btnAVLeft->setText(tr("left"));
+    btnAVRight->setText(tr("right"));
+    btnSelAV->setText(tr("empty"));
 
     btnSelAV->setEnabled(false);
     btnAV->setEnabled(false);

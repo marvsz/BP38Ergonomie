@@ -13,27 +13,27 @@ ProducedProductExecutionCondition::ProducedProductExecutionCondition(QWidget *pa
 {
 
     valConGrabType->setValues(false, grabTypeTexts, grabTypeTexts, new QString(":/icons/GrabType/GrabType_"));
-    valConGrabType->setText("Greifart: [EAWS V 1.3.2c]");
-    valConGrabType->setTextHint("Greifart");
+    valConGrabType->setText(tr("grasping type: [EAWS V 1.3.2c]"));
+    valConGrabType->setTextHint(tr("grasping type"));
 
     oscImpulseIntensity = new OptionSelectionControl(impulseIntensityTexts, this);
 
-    txtbxDistance->setPlaceholderText("Abstand zum Arbeitsobjekt [cm]");
-    txtbxImpulseCount->setPlaceholderText("Anzahl der Impulse");
-    txtbxWorkingHeight->setPlaceholderText("Arbeitshöhe des Arbeitsvorganges [cm]");
+    txtbxDistance->setPlaceholderText(tr("distance to the produced product [cm]"));
+    txtbxImpulseCount->setPlaceholderText(tr("count of the impulse"));
+    txtbxWorkingHeight->setPlaceholderText(tr("working height of the work process [cm]"));
 
     QGridLayout *mainLayout = new QGridLayout;
-    mainLayout->addWidget(new QLabel("Produziertes Produkt:"), 0, 0, 1, 1, 0);
-    mainLayout->addWidget(new QLabel("Arbeitshöhe [cm]:"), 1, 0, 1, 1, 0);
+    mainLayout->addWidget(new QLabel(tr("produced product:")), 0, 0, 1, 1, 0);
+    mainLayout->addWidget(new QLabel(tr("working height [cm]:")), 1, 0, 1, 1, 0);
     mainLayout->addWidget(txtbxWorkingHeight, 1, 1, 1, 1, 0);
-    mainLayout->addWidget(new QLabel("Abstand [cm]:"), 2, 0, 1, 1, 0);
+    mainLayout->addWidget(new QLabel(tr("distance [cm]:")), 2, 0, 1, 1, 0);
     mainLayout->addWidget(txtbxDistance, 2, 1, 1, 1, 0);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 3, 0, 1, 2, 0);
     mainLayout->addWidget(valConGrabType, 4, 0, 1, 2, 0);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 5, 0, 1, 2, 0);
-    mainLayout->addWidget(new QLabel("Impulsintensität:"), 6, 0, 1, 1, 0);
+    mainLayout->addWidget(new QLabel(tr("impulse intensity:")), 6, 0, 1, 1, 0);
     mainLayout->addWidget(oscImpulseIntensity, 6, 1, 1, 1, 0);
-    mainLayout->addWidget(new QLabel("Impulsanzahl:"), 7, 0, 1, 1, 0);
+    mainLayout->addWidget(new QLabel(tr("impule count:")), 7, 0, 1, 1, 0);
     mainLayout->addWidget(txtbxImpulseCount, 7, 1, 1, 1, 0);
 
     this->setLayout(mainLayout);

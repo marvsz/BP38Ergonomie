@@ -33,18 +33,18 @@ TransportationListControl::TransportationListControl(QVector<QString> *optionNam
 
     // ADD A QLINEEDIT FOR NEW TRANSPORTATION FUNCTIONALITY
     this->newNameEdit = new QLineEdit(this);
-    this->newNameEdit->setPlaceholderText("Neues Transportmittel");
+    this->newNameEdit->setPlaceholderText(tr("new transportation tool"));
     this->newNameEdit->setMinimumWidth(300);
     connect(newNameEdit, SIGNAL(textChanged(QString)), this, SLOT(disableSelection()));
 
     // BUTTONS FOR ADDING/REMOVING
     this->addBtn = new QPushButton(this);
-    this->addBtn->setText("Transportmittel erstellen");
+    this->addBtn->setText(tr("create transportation tool"));
     this->addBtn->setMaximumWidth(300);
     connect(addBtn, SIGNAL(clicked()), this, SLOT(addTransportation()));
 
     this->remBtn = new QPushButton(this);
-    this->remBtn->setText("Transportmittel entfernen");
+    this->remBtn->setText(tr("delete transportation tool"));
     this->remBtn->setMaximumWidth(300);
     connect(remBtn, SIGNAL(clicked()), this, SLOT(removeTransportation()));
 
@@ -56,13 +56,13 @@ TransportationListControl::TransportationListControl(QVector<QString> *optionNam
         options->append(option);
 
         SelectableValueButton* trueButton = new SelectableValueButton(i, 1, this);
-        trueButton->setText("Ja");
+        trueButton->setText(tr("yes"));
         trueButton->setFixedSize(100, 60);
         optionsTrueBtns->append(trueButton);
         connect(trueButton, SIGNAL(clickedWithID(int)), this, SLOT(optionTruePressed(int)));
 
         SelectableValueButton* falseButton = new SelectableValueButton(i, 0, this);
-        falseButton->setText("Nein");
+        falseButton->setText(tr("no"));
         falseButton->setFixedSize(100, 60);
         optionsFalseBtns->append(falseButton);
         connect(falseButton, SIGNAL(clickedWithID(int)), this, SLOT(optionFalsePressed(int)));
@@ -94,8 +94,8 @@ TransportationListControl::TransportationListControl(QVector<QString> *optionNam
     // VALUECONTROL FOR WEIGHT
     transportationWeight = new ValueControl(VALUE_CONTROL, this);
     transportationWeight->setValues(0, 2000, weightValues, new QString());
-    transportationWeight->setUnit("kg");
-    transportationWeight->setText("Leergewicht");
+    transportationWeight->setUnit(tr("kg"));
+    transportationWeight->setText(tr("empty weight"));
     optionListLayout->addWidget(transportationWeight);
     optionListLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     connect(transportationWeight, SIGNAL(valueChanged(int)), this, SLOT(weightChanged(int)));
@@ -103,8 +103,8 @@ TransportationListControl::TransportationListControl(QVector<QString> *optionNam
     // VALUECONTROL FOR MAXLOAD
     transportationMaxLoad = new ValueControl(VALUE_CONTROL, this);
     transportationMaxLoad->setValues(0, 50000, maxLoadValues, new QString());
-    transportationMaxLoad->setUnit("kg");
-    transportationMaxLoad->setText("Maximale Last");
+    transportationMaxLoad->setUnit(tr("kg"));
+    transportationMaxLoad->setText(tr("maximum weight"));
     optionListLayout->addWidget(transportationMaxLoad);
     connect(transportationMaxLoad, SIGNAL(valueChanged(int)), this, SLOT(maxLoadChanged(int)));
 
@@ -113,10 +113,10 @@ TransportationListControl::TransportationListControl(QVector<QString> *optionNam
     buttonLayout->addWidget(remBtn);
 
     // LAYOUT
-    mainLayout->addWidget(new QLabel("Transportmittel"), 0, 0, 1, 2, Qt::AlignLeft);
+    mainLayout->addWidget(new QLabel(tr("transportation tool")), 0, 0, 1, 2, Qt::AlignLeft);
     mainLayout->addLayout(listLayout, 1, 0, 1, 2, 0);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 2, 0, 1, 2, 0);
-    mainLayout->addWidget(new QLabel("Bezeichnung"), 3, 0, 1, 1, Qt::AlignLeft);
+    mainLayout->addWidget(new QLabel(tr("description")), 3, 0, 1, 1, Qt::AlignLeft);
     mainLayout->addWidget(newNameEdit, 3, 0, 1, 2, Qt::AlignHCenter);
     mainLayout->addLayout(buttonLayout, 4, 0, 1, 2, 0);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 5, 0, 1, 2, 0);

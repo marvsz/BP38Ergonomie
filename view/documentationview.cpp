@@ -27,17 +27,17 @@ DocumentationView::DocumentationView(QWidget *parent) :
     cameraButton->setObjectName("btnCamera");
 
     // NO FUNCTION YET
-    backButton = new QPushButton("< Zurück");
+    backButton = new QPushButton(tr("< back"));
     backButton->setMaximumSize(100, 40);
     backButton->setObjectName("btnNavigation");
     connect(backButton, SIGNAL(clicked()), this, SLOT(backButtonClicked()));
 
     // INIT COMBOBOX
     QList<QString> viewNames = QList<QString>();
-    viewNames.append("Körperhaltung");
-    viewNames.append("Lastenhandhabung");
-    viewNames.append("Aktionskraft");
-    viewNames.append("Ausführungbedingungen");
+    viewNames.append(tr("body posture"));
+    viewNames.append(tr("weight handling"));
+    viewNames.append(tr("acting force"));
+    viewNames.append(tr("conditions"));
     this->views = new QComboBox();
     this->views->setMinimumSize(280, 40);
     this->views->addItems(QStringList(viewNames));

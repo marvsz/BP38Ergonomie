@@ -11,17 +11,17 @@ MainMenu::MainMenu(QWidget *parent) :
     QWidget *mainWidget = new QWidget;
 
     metaDataViewBtn = new QPushButton(this);
-    metaDataViewBtn->setText("Kopfdaten");
+    metaDataViewBtn->setText(tr("head data"));
     metaDataViewBtn->setMinimumSize(300, 60);
     connect(metaDataViewBtn, SIGNAL(clicked()), this, SLOT(openMetaDataView()));
 
     workplaceListBtn = new QPushButton(this);
-    workplaceListBtn->setText("Arbeitsplätze");
+    workplaceListBtn->setText(tr("work stations"));
     workplaceListBtn->setMinimumSize(300, 60);
     connect(workplaceListBtn, SIGNAL(clicked()), this, SLOT(openWorkplaceListView()));
 
     newRecordingBtn = new QPushButton(this);
-    newRecordingBtn->setText("Neue Aufnahme");
+    newRecordingBtn->setText(tr("new recording"));
     newRecordingBtn->setMinimumSize(300, 60);
     connect(newRecordingBtn, SIGNAL(clicked()), this, SLOT(openNewRecordingView()));
 

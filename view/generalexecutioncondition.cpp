@@ -12,12 +12,12 @@ GeneralExecutionCondition::GeneralExecutionCondition(QWidget *parent) :
 {
 
     valConMtmCode->setValues(true, mtmCodeTexts, mtmCodeValueTexts, new QString(":/Icon/Icon/mtmCode/mtmCode_"));
-    valConMtmCode->setText("MTM Code:");
-    valConMtmCode->setTextHint("MTM Code des Arbeitsvorganges");
+    valConMtmCode->setText(tr("MTM Code:"));
+    valConMtmCode->setTextHint(tr("MTM Code of the work process"));
 
-    txtbxDescription->setPlaceholderText("Beschreibung des Arbeitsvorganges");
+    txtbxDescription->setPlaceholderText(tr("description of the work process"));
 
-    mainLayout->addWidget(new QLabel("Beschreibung:"), 0, 0, 1, 1, 0);
+    mainLayout->addWidget(new QLabel(tr("description:")), 0, 0, 1, 1, 0);
     mainLayout->addWidget(txtbxDescription, 0, 1, 1, 1, 0);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 1, 0, 1, 2, 0);
     mainLayout->addWidget(valConMtmCode, 2, 0, 1, 2, 0);

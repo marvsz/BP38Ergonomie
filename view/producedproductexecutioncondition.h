@@ -17,8 +17,8 @@ private:
     ValueControl *valConGrabType;
     OptionSelectionControl *oscImpulseIntensity;
 
-    const QVector<QString> grabTypeTexts = QVector<QString>()<<"Daumenkontaktgriff"<<"Zeigefingerkontaktgriff"<<"Handkontaktgriff"<<"Daumen auf 2 Finger"<<"Fingerzufassungsgriff"<<"Daumenzeigefingergriff"<<"Zange"<<"Umfassungsgriff";
-    const QVector<QString> impulseIntensityTexts = QVector<QString>()<<"klein"<<"mittel"<<"stark";
+    const QVector<QString> grabTypeTexts = QVector<QString>()<<tr("thumb contact grasp")<<tr("index contact grasp")<<tr("hand contact grasp")<<tr("thumb on 2 fingers")<<tr("finger to gripping grasp")<<tr("thumb index finger grasp")<<tr("wrench")<<tr("covering grasp");
+    const QVector<QString> impulseIntensityTexts = QVector<QString>()<<tr("small")<<tr("medium")<<tr("strong");
 
 };
 

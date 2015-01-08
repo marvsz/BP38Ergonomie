@@ -4,21 +4,21 @@
 #include "separator.h"
 
 CommentView::CommentView(QWidget *parent) : QWidget(parent),
-    lblViewName(new QLabel("Bemerkungen")),
-    lblProblem(new QLabel("Probleme")),
-    lblProblemName(new QLabel("Bezeichnung:")),
-    lblProblemDescription(new QLabel("Beschreibung:")),
-    lblMeasure(new QLabel("Maßnahmen")),
-    lblMeasureName(new QLabel("Bezeichnung:")),
-    lblMeasureDescription(new QLabel("Beschreibung:")),
-    lblWorkerPerception(new QLabel("Anmerkungen des Werkers")),
-    lblWorkerPerceptionDescription(new QLabel("Beschreibung:")),
+    lblViewName(new QLabel(tr("remarks"))),
+    lblProblem(new QLabel(tr("problems"))),
+    lblProblemName(new QLabel(tr("label:"))),
+    lblProblemDescription(new QLabel(tr("description:"))),
+    lblMeasure(new QLabel(tr("sanction"))),
+    lblMeasureName(new QLabel(tr("label:"))),
+    lblMeasureDescription(new QLabel(tr("description:"))),
+    lblWorkerPerception(new QLabel(tr("remarks of the factory"))),
+    lblWorkerPerceptionDescription(new QLabel(tr("description:"))),
     txtBxProblemName(new TextLineEdit()),
     txtBxProblemDescription(new TextEdit()),
     txtBxMeasureName(new TextLineEdit()),
     txtBxMeasureDescription(new TextEdit()),
     txtBxPerceptionDescription(new TextEdit()),
-    btnBack(new QPushButton("Zurück"))
+    btnBack(new QPushButton(tr("back")))
 {
     btnBack->setObjectName("btnNavigation");
 

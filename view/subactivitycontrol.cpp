@@ -15,25 +15,25 @@ SubActivityControl::SubActivityControl(QWidget *parent) :
     QGridLayout *mainLayout = new QGridLayout;
     QHBoxLayout *btnAddDeleteLayout = new QHBoxLayout;
 
-    btnAdd->setText("Teiltätigkeit hinzufügen");
+    btnAdd->setText(tr("add subactivity"));
     btnAdd->setMaximumWidth(250);
     connect(btnAdd, SIGNAL(clicked()), this, SLOT(addSubActivity()));
 
-    btnDelete->setText("Teiltätigkeit entfernen");
+    btnDelete->setText(tr("delete subactivity"));
     btnDelete->setMaximumWidth(250);
     connect(btnDelete, SIGNAL(clicked()), this, SLOT(deleteSubActivity()));
 
     btnAddDeleteLayout->addWidget(btnAdd);
     btnAddDeleteLayout->addWidget(btnDelete);
 
-    txtbxDescription->setPlaceholderText("Beschreibung der Teiltätigkeit");
+    txtbxDescription->setPlaceholderText(tr("Description of the Subactivity"));
     txtbxDescription->setMinimumWidth(300);
     connect(txtbxDescription, SIGNAL(editingFinished()), QGuiApplication::inputMethod(), SLOT(hide()));
 
-    mainLayout->addWidget(new QLabel("Teiltätigkeiten"), 0, 0, 1, 2, Qt::AlignLeft);
+    mainLayout->addWidget(new QLabel(tr("subactivity")), 0, 0, 1, 2, Qt::AlignLeft);
     mainLayout->addLayout(btnListLayout, 1, 0, 1, 2, 0);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 2, 0, 1, 2, 0);
-    mainLayout->addWidget(new QLabel("Beschreibung:"), 3, 0, 1, 1, 0);
+    mainLayout->addWidget(new QLabel(tr("description:")), 3, 0, 1, 1, 0);
     mainLayout->addWidget(txtbxDescription, 3, 1, 1, 1, 0);
     mainLayout->addLayout(btnAddDeleteLayout, 4, 0, 1, 2, 0);
 
