@@ -80,11 +80,11 @@
     </message>
     <message>
         <source>right</source>
-        <translation>Rechts</translation>
+        <translation>rechts</translation>
     </message>
     <message>
         <source>left</source>
-        <translation>Links</translation>
+        <translation>links</translation>
     </message>
     <message>
         <source>above</source>
@@ -235,7 +235,7 @@
     </message>
     <message>
         <source>torso</source>
-        <translation>Körper</translation>
+        <translation>Rumpf</translation>
     </message>
     <message>
         <source>arms</source>
@@ -369,7 +369,7 @@
     <name>CommentView</name>
     <message>
         <source>remarks</source>
-        <translation>Bemerkung</translation>
+        <translation>Bemerkungen</translation>
     </message>
     <message>
         <source>problems</source>
@@ -385,22 +385,22 @@
     </message>
     <message>
         <source>sanction</source>
-        <translation>Maßnahme</translation>
+        <translation>Maßnahmen</translation>
     </message>
     <message>
         <source>remarks of the factory</source>
-        <translation>Bemerkungen des Werks</translation>
+        <translation>Bemerkungen des Werkers</translation>
     </message>
     <message>
         <source>back</source>
-        <translation>zurück</translation>
+        <translation>&lt; Zurück</translation>
     </message>
 </context>
 <context>
     <name>DocumentationView</name>
     <message>
         <source>&lt; back</source>
-        <translation>&lt; zurück</translation>
+        <translation>&lt; Zurück</translation>
     </message>
     <message>
         <source>body posture</source>
@@ -412,7 +412,7 @@
     </message>
     <message>
         <source>acting force</source>
-        <translation>Ausfürhungskraft</translation>
+        <translation>Aktionskraft</translation>
     </message>
     <message>
         <source>conditions</source>
@@ -439,7 +439,7 @@
     </message>
     <message>
         <source>back</source>
-        <translation>zurück</translation>
+        <translation>&lt; Zurück</translation>
     </message>
     <message>
         <source>age</source>
@@ -513,7 +513,7 @@
     </message>
     <message>
         <source>using</source>
-        <translation>Benutzung</translation>
+        <translation>Betätigen</translation>
     </message>
     <message>
         <source>body movement</source>
@@ -537,7 +537,7 @@
     </message>
     <message>
         <source>K</source>
-        <translation>KI</translation>
+        <translation>K</translation>
     </message>
 </context>
 <context>
@@ -568,11 +568,11 @@
     </message>
     <message>
         <source>back</source>
-        <translation>zurück</translation>
+        <translation>&lt; Zurück</translation>
     </message>
     <message>
         <source>add</source>
-        <translation>hinzufügen</translation>
+        <translation>Hinzufügen</translation>
     </message>
 </context>
 <context>
@@ -594,7 +594,7 @@
     <name>MetaDataView</name>
     <message>
         <source>back</source>
-        <translation>zurück</translation>
+        <translation>&lt; Zurück</translation>
     </message>
     <message>
         <source>head data</source>
@@ -669,11 +669,11 @@
     <name>MoreExecutionCondition</name>
     <message>
         <source>more workingconditions</source>
-        <translation>Mehr Ausführungsbedingungen</translation>
+        <translation>Weitere Ausführungsbedingungen</translation>
     </message>
     <message>
         <source>torso support:</source>
-        <translation>Körperunterstützung:</translation>
+        <translation>Rumpfabstützung:</translation>
     </message>
     <message>
         <source>arm support:</source>
@@ -681,23 +681,23 @@
     </message>
     <message>
         <source>needed precision:</source>
-        <translation>Benötigte Prezision:</translation>
+        <translation>Notwendige Präzision:</translation>
     </message>
     <message>
         <source>needed speed:</source>
-        <translation>Benötigte Geschwindigkeit:</translation>
+        <translation>Notwendige Geschwindigkeit:</translation>
     </message>
     <message>
         <source>needed velocity:</source>
-        <translation>Benötigte Beschleunigung:</translation>
+        <translation>Notwendige Beschleunigung:</translation>
     </message>
     <message>
         <source>given vibration:</source>
-        <translation>Vorhandene Vibration:</translation>
+        <translation>Vorhandene Vibrationen:</translation>
     </message>
     <message>
         <source>resulting constraints to the work process through:</source>
-        <translation>Resultierende Einschränkungen des Arbeitsprozesses durch:</translation>
+        <translation>Resultierende Einschränkungen auf den Arbeitsvorgang durch:</translation>
     </message>
     <message>
         <source>grasp conditions:</source>
@@ -713,7 +713,7 @@
     </message>
     <message>
         <source>lighting:</source>
-        <translation>Beleuchtung:</translation>
+        <translation>Lichtverhältnisse:</translation>
     </message>
     <message>
         <source>clima:</source>
@@ -764,7 +764,7 @@
     <name>ProducedProductExecutionCondition</name>
     <message>
         <source>grasping type: [EAWS V 1.3.2c]</source>
-        <translation>Greifart: [EAWS V 1.3.2c]ä</translation>
+        <translation>Greifart: [EAWS V 1.3.2c]</translation>
     </message>
     <message>
         <source>grasping type</source>
@@ -828,11 +828,11 @@
     </message>
     <message>
         <source>wrench</source>
-        <translation>Schraubenschlüssel</translation>
+        <translation>Zange</translation>
     </message>
     <message>
         <source>covering grasp</source>
-        <translation>Umfassgriff</translation>
+        <translation>Umfassungsgriff</translation>
     </message>
     <message>
         <source>small</source>
@@ -867,7 +867,7 @@
     </message>
     <message>
         <source>back</source>
-        <translation>zurück</translation>
+        <translation>&lt; Zurück</translation>
     </message>
     <message>
         <source>add</source>
@@ -878,7 +878,7 @@
     <name>ShiftPauseView</name>
     <message>
         <source>back</source>
-        <translation>zurück</translation>
+        <translation>&lt; Zurück</translation>
     </message>
     <message>
         <source>shift- &amp; pausedata</source>
@@ -1008,19 +1008,19 @@
     </message>
     <message>
         <source>pulling and pushing</source>
-        <translation>Ziehen und Drücken</translation>
+        <translation>Ziehen und Schieben</translation>
     </message>
     <message>
         <source>holding</source>
-        <translation>halten</translation>
+        <translation>Halten</translation>
     </message>
     <message>
         <source>replacing</source>
-        <translation>Ersetzen</translation>
+        <translation>Umsetzen</translation>
     </message>
     <message>
         <source>carrying</source>
-        <translation>tragen</translation>
+        <translation>Tragen</translation>
     </message>
     <message>
         <source>left</source>
@@ -1082,15 +1082,15 @@
     <name>UtilityListControl</name>
     <message>
         <source>add equipment</source>
-        <translation>Hilfsmittel hinzufügen</translation>
+        <translation>Betriebsmittel hinzufügen</translation>
     </message>
     <message>
         <source>delete equipment</source>
-        <translation>Hilfsmittel löschen</translation>
+        <translation>Betriebsmittel löschen</translation>
     </message>
     <message>
         <source>new equipment</source>
-        <translation>Neues Hilfsmittel</translation>
+        <translation>Neues Betriebsmittel</translation>
     </message>
     <message>
         <source>recoil intensity</source>
@@ -1122,7 +1122,7 @@
     </message>
     <message>
         <source>equipment</source>
-        <translation>Hilfsmittel</translation>
+        <translation>Betriebsmittel</translation>
     </message>
     <message>
         <source>description:</source>
@@ -1133,7 +1133,7 @@
     <name>WorkplaceListView</name>
     <message>
         <source>&lt; back</source>
-        <translation>&lt; zurück</translation>
+        <translation>&lt; Zurück</translation>
     </message>
     <message>
         <source>work stations</source>
@@ -1156,15 +1156,15 @@
     </message>
     <message>
         <source>workstation code:</source>
-        <translation>Arbeitsplatz code:</translation>
+        <translation>Arbeitsplatzcode:</translation>
     </message>
     <message>
         <source>&lt; back</source>
-        <translation>&lt; zurück</translation>
+        <translation>&lt; Zurück</translation>
     </message>
     <message>
         <source>forth &gt;</source>
-        <translation>weiter &gt;</translation>
+        <translation>Weiter &gt;</translation>
     </message>
     <message>
         <source>initial time</source>
