@@ -113,18 +113,18 @@ StopWatch::StopWatch(ButtonTimelineView *buttonView, QWidget *parent) : QMainWin
     btnStopReset->setFixedSize(45,45);
 
     btnStartPause->setIcon(QIcon(":/timer/icons/Timer/record.png"));
-    btnStartPause->setObjectName("timerStartPauseButton");
+    btnStartPause->setObjectName("btnTimer");
     btnStartPause->setIconSize(QSize(45,45));
     btnStartPause->setToolTip("Start");
     btnStopReset->setIcon(QIcon(":/timer/icons/Timer/reset.png"));
-    btnStopReset->setObjectName("timerStopResetButton");
+    btnStopReset->setObjectName("btnTimer");
     btnStopReset->setIconSize(QSize(45,45));
     btnStopReset->setToolTip("Reset");
     btnMinimize->setIcon(QIcon(":/timer/icons/Timer/minimize.png"));
-    btnMinimize->setObjectName("timerMinimizeButton");
+    btnMinimize->setObjectName("btnTimer");
     btnMinimize->setIconSize(QSize(45,45));
     btnMaximize->setIcon(QIcon(":/timer/icons/Timer/maximize.png"));
-    btnMaximize->setObjectName("timerMaximizeButton");
+    btnMaximize->setObjectName("btnTimer");
     btnMaximize->setIconSize(QSize(45,45));
 
     timerTitle->setStyleSheet("font: 12px");

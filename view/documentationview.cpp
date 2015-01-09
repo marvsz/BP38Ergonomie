@@ -43,7 +43,7 @@ DocumentationView::DocumentationView(QWidget *parent) :
     this->views->addItems(QStringList(viewNames));
 
     // ADD DIFFERENT VIEWS TO STACKEDWIDGET
-    //btnTimeLineView = new ButtonTimelineView;
+    btnTimeLineView = new ButtonTimelineView;
     timerView = new TimerViewController();
 
     mainContent = new QStackedWidget;
@@ -52,7 +52,7 @@ DocumentationView::DocumentationView(QWidget *parent) :
     mainContent->addWidget(new TransportView);
     mainContent->addWidget(new ActionForceView);
     mainContent->addWidget(new ExecutionConditionView);
-    //mainContent->addWidget(btnTimeLineView);
+    mainContent->addWidget(btnTimeLineView);
 
     // CONNECT THE COMBOBOX TO THE STACKEDWIDGET
     connect(views, SIGNAL(currentIndexChanged(int)), mainContent, SLOT(setCurrentIndex(int)));
@@ -80,7 +80,7 @@ DocumentationView::DocumentationView(QWidget *parent) :
 
     QVBoxLayout *bottomLayout = new QVBoxLayout;
     bottomLayout->addWidget(new Separator(Qt::Horizontal, 3, timer));
-    bottomLayout->addWidget(timerView);
+    bottomLayout->addWidget(timer);
 
     mainLayout->addLayout(topLayout);
     mainLayout->addLayout(centerLayout);
