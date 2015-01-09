@@ -24,7 +24,7 @@ CommentView::CommentView(QWidget *parent) : QWidget(parent),
 
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
     QGridLayout *navigationBarLayout = new QGridLayout;
-    navigationBarLayout->addWidget(btnBack, 0, 1, 1, 1, Qt::AlignLeft);
+    navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
     navigationBarLayout->addWidget(lblViewName, 0, 1, 1, 1, Qt::AlignCenter);
     navigationBarLayout->addWidget(new QLabel(), 0, 2, 1, 1, Qt::AlignRight);
 

@@ -236,6 +236,7 @@ public:
     static const QString TBL_WORK_PROCESS;
     static const QString COL_WORK_PROCESS_ACTIVITY_ID;
     static const QString COL_WORK_PROCESS_ID;
+    static const QString COL_WORK_PROCESS_TYPE;
     static const QString COL_WORK_PROCESS_DESCRIPTION;
     static const QString COL_WORK_PROCESS_BEGIN;
     static const QString COL_WORK_PROCESS_END;

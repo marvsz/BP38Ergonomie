@@ -36,6 +36,8 @@ Controller::Controller(QObject *parent) :
     recording_ID = 1;
     selectedWorkplaceID = 0;
     factory_ID = 0;
+    activity_ID = 1;
+    selectedWorkplaceID = 0;
 }
 
 
@@ -203,6 +205,7 @@ int Controller::saveSelectedProducts(){
     foreach(int id, viewCon->getSelectedProducts()){
         values.insert(DBConstants::COL_ACTIVITY_PRODUCT_ID, id);
         save(DB_TABLES::ACTIVITY, filter.arg(QString::number(id)), DBConstants::COL_ACTIVITY_ID, DBConstants::HASH_ACTIVITY_TYPES, values);
+        activity_ID = id;
     }
     return 0;
 }
@@ -247,6 +250,25 @@ int Controller::saveComment(){
     values.insert(DBConstants::COL_COMMENT_WORKER_PERCEPTION, viewCon->getCommentWorkerPerception());
     values.insert(DBConstants::COL_COMMENT_WORKPLACE_ID, selectedWorkplaceID);
     return save(DB_TABLES::COMMENT, filter, DBConstants::COL_COMMENT_ID, DBConstants::LIST_COMMENT_COLS, DBConstants::LIST_COMMENT_TYPES, values);
+}
+
+//WORKPROCESS
+int Controller::createWorkprocess(int type, const QTime &start, const QTime &end){
+    /*QString filter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ID).arg(0).arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(type);
+
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_WORK_PROCESS_BEGIN, start.toString());
+    values.insert(DBConstants::COL_WORK_PROCESS_END, end.toString());
+    return save(DB_TABLES::WORK_PROCESS, filter, DBConstants::COL_WORKPLACE_ID, DBConstants::HASH_WORK_PROCESS_TYPES, values);
+*/}
+
+void Controller::updateWorkprocessViews(){
+   /* QString filter = QString("%1 = %2").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID);
+    DB_TABLES tbl = DB_TABLES::WORK_PROCESS;
+    dbHandler->select(tbl, filter);
+    for(int i = 0; i < dbHandler->rowCount(tbl); ++i){
+        viewCon->add
+    }*/
 }
 
 

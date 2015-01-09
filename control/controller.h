@@ -47,6 +47,8 @@ private slots:
     void updateComment();
     int saveComment();
 
+    void updateWorkprocessViews();
+    int createWorkprocess(int type, const QTime &start, const QTime &end);
 
 private:
     DBHandler *dbHandler;
@@ -55,6 +57,8 @@ private:
     int recording_ID;
     int factory_ID;
     int selectedWorkplaceID;
+    int selectedWorkprocessID;
+    int activity_ID;
 
     int save(DB_TABLES tbl, const QString &filter, const QString &colID, const QStringList &colNames, const QList<QVariant::Type> &colTypes, QHash<QString, QVariant> &colMapNameValue);
 
