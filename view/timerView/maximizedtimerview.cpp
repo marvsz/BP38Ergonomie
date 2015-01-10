@@ -12,13 +12,13 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     btnMaximized(new QPushButton()),
     btnPlayPaused(new QPushButton()),
     btnStopReset(new QPushButton()),
-    btnSetLeft(new QPushButton("L")),
-    btnSetRight(new QPushButton("R")),
-    btnSetBoth(new QPushButton("L/R")),
-    btnSetAV(new QPushButton("AV")),
+    btnSetLeft(new SelectableValueButton(0, 0, this)),
+    btnSetRight(new SelectableValueButton(1, 1, this)),
+    btnSetBoth(new SelectableValueButton(2, 2, this)),
+    btnSetAV(new SelectableValueButton(3, 3, this)),
     timePicker(new TimePicker()),
     wpSelector(new WorkProcessSelector),
-    graphTimer(new GraphTimer())
+    graphTimer(new GraphTimelineView())
 {
     recordIcon = QIcon(":/timer/icons/Timer/record.png");
     playIcon = QIcon(":/timer/icons/Timer/start.png");
@@ -32,6 +32,11 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     btnSetRight->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
     btnSetBoth->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
     btnSetAV->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+    connect(btnSetLeft, SIGNAL(clicked()), this, SLOT(btnLeftClicked()));
+    connect(btnSetRight, SIGNAL(clicked()), this, SLOT(btnRightClicked()));
+    connect(btnSetBoth, SIGNAL(clicked()), this, SLOT(btnBothClicked()));
+    connect(btnSetAV, SIGNAL(clicked()), this, SLOT(btnAVClicked()));
 
     btnPlayPaused->setIconSize(QSize(45, 45));
     btnPlayPaused->setObjectName("btnTimer");
@@ -69,8 +74,8 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     mainLayout->addWidget(oscWorkProcessType, 0, 1, 1, 1, 0);
     mainLayout->addWidget(wpSelector, 1, 1, 1, 1, 0);
     mainLayout->addWidget(timePicker, 2, 1, 1, 1, 0);
-    mainLayout->addItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding), 0, 2, 3, 1, 0);
-    //mainLayout->addWidget(graphTimer, 0, 2, 3, 1, 0);
+    //mainLayout->addItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding), 0, 2, 3, 1, 0);
+    mainLayout->addWidget(graphTimer, 0, 2, 3, 1, 0);
     mainLayout->addWidget(btnSetLeft, 0, 3, 1, 1, 0);
     mainLayout->addWidget(btnSetRight, 1, 3, 1, 1, 0);
     mainLayout->addWidget(btnSetAV, 2, 3, 1, 1, 0);
@@ -140,6 +145,10 @@ void MaximizedTimerView::setWorkProcessType(int id, const QString &prefix){
     wpSelector->setAVPrefix(prefix);
 }
 
+void MaximizedTimerView::updateGraph(QList<bool> *lstAV, QList<bool> *lstLeftAVs, QList<bool> *lstRightAVs){
+    graphTimer->updateGraph(lstAV, lstLeftAVs, lstRightAVs);
+}
+
 // PRIVATE SLOTS
 void MaximizedTimerView::btnPlayPausedClicked(){
     switch(state){
@@ -178,6 +187,22 @@ void MaximizedTimerView::emitBothSet(){
     emit rightSet();
 }
 
+void MaximizedTimerView::btnLeftClicked(){
+    emit leftChanged(btnSetLeft->isSelected());
+}
+
+void MaximizedTimerView::btnRightClicked(){
+    emit rightChanged(btnSetRight->isSelected());
+}
+
+void MaximizedTimerView::btnBothClicked(){
+    emit leftChanged(btnSetBoth->isSelected());
+    emit rightChanged(btnSetBoth->isSelected());
+}
+
+void MaximizedTimerView::btnAVClicked(){
+    emit basicChanged(btnSetAV->isSelected());
+}
 
 MaximizedTimerView::~MaximizedTimerView(){
 }

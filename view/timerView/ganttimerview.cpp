@@ -7,6 +7,7 @@ const QStringList GantTimerView::typePrefix = QStringList()<<"L"<<"R"<<"AV";
 
 GantTimerView::GantTimerView(QWidget *parent) : QWidget(parent),
     secPixel(100),
+    numBxFrequenz(new NumberLineEdit()),
     btnZoomIn(new QPushButton()),
     btnZoomOut(new QPushButton()),
     btnFrequenzPlus(new QPushButton("+")),

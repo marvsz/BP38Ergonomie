@@ -4,10 +4,12 @@
 #include <QWidget>
 #include <QTime>
 #include "enum.h"
+
 #include "workprocessselector.h"
 #include "optionselectioncontrol.h"
-#include "graphtimer.h"
+#include "graphtimelineview.h"
 #include "timepicker.h"
+#include "selectablevaluebutton.h"
 
 class MaximizedTimerView : public QWidget
 {
@@ -39,16 +41,26 @@ signals:
     void avSet();
     void durationChanged(const QTime &duration);
 
+    void leftChanged(bool b);
+    void rightChanged(bool b);
+    void basicChanged(bool b);
+
 public slots:
     void setState(TimerState state);
     void setTime(const QTime &time);
     void setSelectedAV(int id);
     void setWorkProcessType(int id, const QString &prefix);
+    void updateGraph(QList<bool> *lstAV, QList<bool> *lstLeftAVs, QList<bool> *lstRightAVs);
 
 private slots:
     void btnPlayPausedClicked();
     void btnStopResetClicked();
     void emitBothSet();
+
+    void btnLeftClicked();
+    void btnRightClicked();
+    void btnBothClicked();
+    void btnAVClicked();
 
 private:
     TimerState state;
@@ -60,10 +72,10 @@ private:
     QPushButton *btnPlayPaused;
     QPushButton *btnStopReset;
 
-    QPushButton *btnSetLeft;
-    QPushButton *btnSetRight;
-    QPushButton *btnSetBoth;
-    QPushButton *btnSetAV;
+    SelectableValueButton *btnSetLeft;
+    SelectableValueButton *btnSetRight;
+    SelectableValueButton *btnSetBoth;
+    SelectableValueButton *btnSetAV;
 
     TimePicker *timePicker;
     WorkProcessSelector *wpSelector;
@@ -71,7 +83,7 @@ private:
     static const QVector<QString> wpTypes;
     OptionSelectionControl *oscWorkProcessType;
 
-    GraphTimer *graphTimer;
+    GraphTimelineView *graphTimer;
 
     QIcon playIcon;
     QIcon recordIcon;
