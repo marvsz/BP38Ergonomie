@@ -6,6 +6,8 @@
 #include <QGridLayout>
 #include <QDateTime>
 #include "numberlineedit.h"
+#include "iconconstants.h"
+#include <QIcon>
 
 class DateTimeSpinner : public QWidget
 {
@@ -60,6 +62,9 @@ private:
     QPushButton *btnMinuteDec;
 
     QDateTime currentTime;
+
+    QIcon iconPlus;
+    QIcon iconMinus;
 
     void update();
 };

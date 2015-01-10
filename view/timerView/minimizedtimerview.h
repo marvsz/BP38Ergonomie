@@ -54,7 +54,6 @@ private:
     QIcon playIcon;
     QIcon recordIcon;
     QIcon pauseIcon;
-    QIcon maximizedIcon;
 
     OptionSelectionControl *oscWorkProcessType;
 };

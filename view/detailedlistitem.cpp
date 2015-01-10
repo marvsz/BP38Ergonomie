@@ -25,7 +25,7 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
     QVBoxLayout *mainLayout = new QVBoxLayout;
 
     // SETTINGS FOR GENERAL ELEMENTS
-    lblName->setObjectName("detailedListItemWidgetName");
+    lblName->setObjectName("lblHeader");
     if(!icon.isNull())
         icon.scaled(50, 50);
     lblIcon->setPixmap(icon);
@@ -44,11 +44,11 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
         for(int j = 0; j < scheme.at(i).count(); ++j){
 
             QLabel *lblCaption = new QLabel(scheme.at(i).at(j));
-            lblCaption->setObjectName("detailedListItemCaption");
+            lblCaption->setObjectName("lblCaption");
 
             QLabel *lblValue = new QLabel("");
             lblValue->setMinimumWidth(100);
-            lblValue->setObjectName("detailedListItemValue");
+            lblValue->setObjectName("lblValue");
 
             listLblsRow.append(lblValue);
 

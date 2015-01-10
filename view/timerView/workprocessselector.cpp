@@ -1,28 +1,31 @@
 #include "workprocessselector.h"
 #include <QHBoxLayout>
+#include <QIcon>
+#include "iconconstants.h"
 
 WorkProcessSelector::WorkProcessSelector(QWidget *parent) : QWidget(parent),
-    btnRight(new QPushButton(">")),
-    btnLeft(new QPushButton("<")),
+    btnRight(new QPushButton(QIcon(IconConstants::ICON_RIGHT), "")),
+    btnLeft(new QPushButton(QIcon(IconConstants::ICON_LEFT), "")),
     lblSelectedAV(new QLabel()),
     prefix(QString(""))
 {
-    lblSelectedAV->setMaximumWidth(150);
-    lblSelectedAV->setMinimumWidth(100);
+    lblSelectedAV->setMinimumSize(110, 45);
+    btnRight->setFixedSize(45, 45);
+    btnRight->setObjectName("btnIcon");
+    btnRight->setIconSize(QSize(45, 45));
 
-    btnRight->setFixedSize(40, 40);
+    btnLeft->setFixedSize(45, 45);
+    btnLeft->setObjectName("btnIcon");
+    btnLeft->setIconSize(QSize(45, 45));
+
     connect(btnRight, SIGNAL(clicked()), this, SIGNAL(nextAV()));
-
-    btnLeft->setFixedSize(40, 40);
     connect(btnLeft, SIGNAL(clicked()), this, SIGNAL(previousAV()));
 
-    this->setMaximumWidth(230);
-    this->setMinimumWidth(180);
-
     QHBoxLayout *mainLayout = new QHBoxLayout;
-    mainLayout->addWidget(btnLeft);
-    mainLayout->addWidget(lblSelectedAV);
-    mainLayout->addWidget(btnRight);
+    mainLayout->setContentsMargins(0,0,0,0);
+    mainLayout->addWidget(btnLeft, 0, Qt::AlignHCenter);
+    mainLayout->addWidget(lblSelectedAV, 0, Qt::AlignHCenter);
+    mainLayout->addWidget(btnRight, 0, Qt::AlignHCenter);
 
     setLayout(mainLayout);
 }

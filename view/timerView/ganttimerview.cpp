@@ -2,6 +2,7 @@
 #include "flickcharm.h"
 #include <QVBoxLayout>
 #include <QScrollArea>
+#include <QIcon>
 
 const QStringList GantTimerView::typePrefix = QStringList()<<"L"<<"R"<<"AV";
 
@@ -10,8 +11,8 @@ GantTimerView::GantTimerView(QWidget *parent) : QWidget(parent),
     numBxFrequenz(new NumberLineEdit()),
     btnZoomIn(new QPushButton()),
     btnZoomOut(new QPushButton()),
-    btnFrequenzPlus(new QPushButton("+")),
-    btnFrequenzMinus(new QPushButton("-")),
+    btnFrequenzPlus(new QPushButton(QIcon(IconConstants::ICON_PLUS), "")),
+    btnFrequenzMinus(new QPushButton(QIcon(IconConstants::ICON_MINUS), "")),
     leftWP(new QHBoxLayout),
     rightWP(new QHBoxLayout),
     basicWP(new QHBoxLayout),
@@ -19,15 +20,30 @@ GantTimerView::GantTimerView(QWidget *parent) : QWidget(parent),
     rightWPBtns(new QVector<WorkProcessButton*>()),
     basicWPBtns(new QVector<WorkProcessButton*>())
 {
+    btnZoomIn->setIcon(QIcon(IconConstants::ICON_ZOOM_IN));
+    btnZoomIn->setIconSize(QSize(45, 45));
+    btnZoomIn->setFixedSize(45, 45);
+    btnZoomIn->setObjectName("btnIcon");
+
+    btnZoomOut->setIcon(QIcon(IconConstants::ICON_ZOOM_OUT));
+    btnZoomOut->setIconSize(QSize(45, 45));
+    btnZoomOut->setFixedSize(45, 45);
+    btnZoomOut->setObjectName("btnIcon");
+
+    btnFrequenzPlus->setIconSize(QSize(45, 45));
+    btnFrequenzPlus->setObjectName("btnIcon");
+
+    btnFrequenzMinus->setIconSize(QSize(45, 45));
+    btnFrequenzMinus->setObjectName("btnIcon");
+
     connect(btnZoomIn, SIGNAL(clicked()), this, SLOT(btnZoomInClicked()));
-
     connect(btnZoomOut, SIGNAL(clicked()), this, SLOT(btnZoomOutClicked()));
-
     connect(btnFrequenzMinus, SIGNAL(clicked()), this, SLOT(btnMinus()));
-
     connect(btnFrequenzPlus, SIGNAL(clicked()), this, SLOT(btnPlus()));
 
-    numBxFrequenz->setDisabled(true);
+    numBxFrequenz->setEnabled(false);
+    numBxFrequenz->setMaximumWidth(100);
+    numBxFrequenz->setFixedHeight(45);
 
     QVBoxLayout *mainContentLayout = new QVBoxLayout;
     mainContentLayout->addLayout(leftWP);
@@ -45,9 +61,9 @@ GantTimerView::GantTimerView(QWidget *parent) : QWidget(parent),
     scMain->setWidget(mainWidget);
 
     QHBoxLayout *lastLineLayout = new QHBoxLayout;
-    lastLineLayout->addWidget(btnFrequenzMinus);
-    lastLineLayout->addWidget(numBxFrequenz);
-    lastLineLayout->addWidget(btnFrequenzPlus);
+    lastLineLayout->addWidget(btnFrequenzMinus, 0, Qt::AlignCenter);
+    lastLineLayout->addWidget(numBxFrequenz, 0, Qt::AlignCenter);
+    lastLineLayout->addWidget(btnFrequenzPlus, 0, Qt::AlignCenter);
     lastLineLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
     lastLineLayout->addWidget(btnZoomIn);
     lastLineLayout->addWidget(btnZoomOut);

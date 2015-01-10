@@ -8,6 +8,7 @@
 #include <QStringList>
 #include "workprocessbutton.h"
 #include "numberlineedit.h"
+#include "iconconstants.h"
 
 class GantTimerView : public QWidget
 {

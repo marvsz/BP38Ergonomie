@@ -26,7 +26,7 @@ DocumentationView::DocumentationView(QWidget *parent) :
     cameraButton = new QPushButton;
     cameraButton->setObjectName("btnCamera");
 
-    // NO FUNCTION YET
+    // BACK BUTTON
     backButton = new QPushButton(tr("< back"));
     backButton->setMaximumSize(100, 40);
     backButton->setObjectName("btnNavigation");
@@ -43,16 +43,15 @@ DocumentationView::DocumentationView(QWidget *parent) :
     this->views->addItems(QStringList(viewNames));
 
     // ADD DIFFERENT VIEWS TO STACKEDWIDGET
-    btnTimeLineView = new ButtonTimelineView;
-    timerView = new TimerViewController();
 
     mainContent = new QStackedWidget;
+    gantView = new GantTimerView;
     angleView = new AngleView;
     mainContent->addWidget(angleView);
     mainContent->addWidget(new TransportView);
     mainContent->addWidget(new ActionForceView);
     mainContent->addWidget(new ExecutionConditionView);
-    mainContent->addWidget(btnTimeLineView);
+    mainContent->addWidget(gantView);
 
     // CONNECT THE COMBOBOX TO THE STACKEDWIDGET
     connect(views, SIGNAL(currentIndexChanged(int)), mainContent, SLOT(setCurrentIndex(int)));
@@ -61,12 +60,10 @@ DocumentationView::DocumentationView(QWidget *parent) :
     connect(cameraButton, SIGNAL(clicked()), this, SLOT(showCamera()));
 
     // ADD TIMER
-    this->timer = new StopWatch(btnTimeLineView);
-    connect(timer, SIGNAL(leftAvPressed()), this, SLOT(leftAvPressed()));
-    connect(timer, SIGNAL(rightAvPressed()), this, SLOT(rightAvPressed()));
-    connect(timer, SIGNAL(avPressed()), this, SLOT(avPressed()));
-    connect(timer, SIGNAL(maximizePressed()), this, SLOT(maximizeBtnTimeLineView()));
-    connect(timer, SIGNAL(minimizePressed()), this, SLOT(minimizeBtnTimeLineView()));
+    timerView = new TimerViewController();
+    connect(timerView, SIGNAL(showGantView()), this, SLOT(showGant()));
+    connect(timerView, SIGNAL(hideGantView()), this, SLOT(hideGant()));
+
     indexBeforeTimeLineView = 0;
 
     QGridLayout *topLayout = new QGridLayout;
@@ -79,9 +76,11 @@ DocumentationView::DocumentationView(QWidget *parent) :
     centerLayout->addWidget(mainContent);
 
     QVBoxLayout *bottomLayout = new QVBoxLayout;
-    bottomLayout->addWidget(new Separator(Qt::Horizontal, 3, timer));
-    bottomLayout->addWidget(timer);
+    bottomLayout->setContentsMargins(0, 0, 0, 0);
+    bottomLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
+    bottomLayout->addWidget(timerView);
 
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addLayout(topLayout);
     mainLayout->addLayout(centerLayout);
     mainLayout->addLayout(bottomLayout);
@@ -125,12 +124,12 @@ void DocumentationView::avPressed(){
     angleView->selectAV();
 }
 
-void DocumentationView::maximizeBtnTimeLineView(){
+void DocumentationView::showGant(){
     indexBeforeTimeLineView = mainContent->currentIndex();
     mainContent->setCurrentIndex(4);
 }
 
-void DocumentationView::minimizeBtnTimeLineView(){
+void DocumentationView::hideGant(){
     mainContent->setCurrentIndex(indexBeforeTimeLineView);
 }
 

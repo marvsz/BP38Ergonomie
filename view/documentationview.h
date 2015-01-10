@@ -12,7 +12,7 @@
 #include "angleView/angleview.h"
 #include "buttontimelineview.h"
 #include "timerView/timerviewcontroller.h"
-
+#include "timerView/ganttimerview.h"
 /**
  * @brief The DocumentationView contains all view elements needed when
  * documenting a workflow.
@@ -40,8 +40,8 @@ private slots:
     void leftAvPressed();
     void rightAvPressed();
     void avPressed();
-    void maximizeBtnTimeLineView();
-    void minimizeBtnTimeLineView();
+    void showGant();
+    void hideGant();
     void backButtonClicked();
 
 private:
@@ -50,9 +50,9 @@ private:
     QComboBox *views;
     QPushButton* cameraButton;
     QStackedWidget *mainContent;
+    GantTimerView *gantView;
     TimerViewController *timerView;
     QQuickView *cameraView;
-    StopWatch *timer;
     ButtonTimelineView *btnTimeLineView;
     AngleView *angleView;
 };

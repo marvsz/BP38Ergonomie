@@ -1,6 +1,8 @@
 #include "maximizedtimerview.h"
 #include <QGridLayout>
 #include <QVBoxLayout>
+#include "separator.h"
+#include <QIcon>
 
 const QVector<QString> MaximizedTimerView::wpTypes = QVector<QString>()<<"Links"<<"Rechts"<<"AV";
 
@@ -8,30 +10,34 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     QWidget(parent),
     state(state),
     lblTime(new QLabel("00:00")),
-    btnMinimized(new QPushButton()),
-    btnMaximized(new QPushButton()),
+    btnMinimized(new QPushButton(QIcon(IconConstants::ICON_DOWN), "")),
+    btnMaximized(new QPushButton(QIcon(IconConstants::ICON_UP), "")),
     btnPlayPaused(new QPushButton()),
     btnStopReset(new QPushButton()),
     btnSetLeft(new SelectableValueButton(0, 0, this)),
     btnSetRight(new SelectableValueButton(1, 1, this)),
     btnSetBoth(new SelectableValueButton(2, 2, this)),
-    btnSetAV(new SelectableValueButton(3, 3, this)),
+    btnSetAV(new QPushButton("AV")),
     timePicker(new TimePicker()),
     wpSelector(new WorkProcessSelector),
     graphTimer(new GraphTimelineView())
 {
-    recordIcon = QIcon(":/timer/icons/Timer/record.png");
-    playIcon = QIcon(":/timer/icons/Timer/start.png");
-    pauseIcon = QIcon(":/timer/icons/Timer/pause.png");
-    stopIcon = QIcon(":/timer/icons/Timer/stop.png");
-    resetIcon = QIcon(":/timer/icons/Timer/reset.png");
-    minimizedIcon = QIcon(":/timer/icons/Timer/minimize.png");
-    maximizedIcon = QIcon(":/timer/icons/Timer/maximize.png");
+    recordIcon = QIcon(IconConstants::ICON_RECORD);
+    playIcon = QIcon(IconConstants::ICON_PLAY);
+    pauseIcon = QIcon(IconConstants::ICON_PAUSE);
+    stopIcon = QIcon(IconConstants::ICON_STOP);
+    resetIcon = QIcon(IconConstants::ICON_RESET);
 
-    btnSetLeft->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
-    btnSetRight->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
+    btnSetLeft->setFixedSize(45, 45);
+    btnSetLeft->setText("L");
+    btnSetRight->setFixedSize(45, 45);
+    btnSetRight->setText("R");
+    btnSetBoth->setFixedWidth(45);
+    btnSetBoth->setText("L/R");
+    btnSetAV->setFixedSize(45, 45);
+    btnSetAV->setText("AV");
+
     btnSetBoth->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
-    btnSetAV->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
 
     connect(btnSetLeft, SIGNAL(clicked()), this, SLOT(btnLeftClicked()));
     connect(btnSetRight, SIGNAL(clicked()), this, SLOT(btnRightClicked()));
@@ -39,23 +45,23 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     connect(btnSetAV, SIGNAL(clicked()), this, SLOT(btnAVClicked()));
 
     btnPlayPaused->setIconSize(QSize(45, 45));
-    btnPlayPaused->setObjectName("btnTimer");
+    btnPlayPaused->setFixedSize(45, 45);
+    btnPlayPaused->setObjectName("btnIcon");
     connect(btnPlayPaused, SIGNAL(clicked()), this, SLOT(btnPlayPausedClicked()));
 
     btnStopReset->setIconSize(QSize(45, 45));
-    btnStopReset->setObjectName("btnTimer");
+    btnStopReset->setFixedSize(45, 45);
+    btnStopReset->setObjectName("btnIcon");
     connect(btnStopReset, SIGNAL(clicked()), this, SLOT(btnStopResetClicked()));
 
     btnMinimized->setIconSize(QSize(45, 45));
-    btnMinimized->setFixedSize(50, 50);
-    btnMinimized->setObjectName("btnTimer");
-    btnMinimized->setIcon(minimizedIcon);
+    btnMinimized->setFixedSize(45, 45);
+    btnMinimized->setObjectName("btnIcon");
     connect(btnMinimized, SIGNAL(clicked()), this, SIGNAL(minimize()));
 
     btnMaximized->setIconSize(QSize(45, 45));
-    btnMaximized->setFixedSize(50, 50);
-    btnMaximized->setObjectName("btnTimer");
-    btnMaximized->setIcon(maximizedIcon);
+    btnMaximized->setFixedSize(45, 45);
+    btnMaximized->setObjectName("btnIcon");
     connect(btnMaximized, SIGNAL(clicked()), this, SIGNAL(maximize()));
 
     connect(timePicker, SIGNAL(timeChanged(QTime)), this, SIGNAL(durationChanged(QTime)));
@@ -65,24 +71,29 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     oscWorkProcessType = new OptionSelectionControl(wpTypes);
     connect(oscWorkProcessType, SIGNAL(selectionChanged(int)), this, SIGNAL(workProcessTypeChanged(int)));
 
+    oscWorkProcessType->setMaximumWidth(220);
+    wpSelector->setMaximumWidth(220);
+    timePicker->setMaximumWidth(220);
+
     QVBoxLayout *minMaxLayout = new QVBoxLayout;
-    minMaxLayout->addWidget(btnMaximized);
-    minMaxLayout->addWidget(btnMinimized);
+    minMaxLayout->addWidget(btnMaximized, 0, Qt::AlignCenter);
+    minMaxLayout->addWidget(btnMinimized, 0, Qt::AlignCenter);
 
     QGridLayout *mainLayout = new QGridLayout;
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addLayout(minMaxLayout, 0, 0, 3, 1, 0);
-    mainLayout->addWidget(oscWorkProcessType, 0, 1, 1, 1, 0);
-    mainLayout->addWidget(wpSelector, 1, 1, 1, 1, 0);
-    mainLayout->addWidget(timePicker, 2, 1, 1, 1, 0);
-    //mainLayout->addItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding), 0, 2, 3, 1, 0);
-    mainLayout->addWidget(graphTimer, 0, 2, 3, 1, 0);
-    mainLayout->addWidget(btnSetLeft, 0, 3, 1, 1, 0);
-    mainLayout->addWidget(btnSetRight, 1, 3, 1, 1, 0);
-    mainLayout->addWidget(btnSetAV, 2, 3, 1, 1, 0);
-    mainLayout->addWidget(btnSetBoth, 0, 4, 2, 1, 0);
-    mainLayout->addWidget(btnPlayPaused, 0, 5, 1, 1, 0);
-    mainLayout->addWidget(btnStopReset, 1, 5, 1, 1, 0);
-    mainLayout->addWidget(lblTime, 2, 4, 1, 2, Qt::AlignCenter);
+    mainLayout->addItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed), 0, 1, 3, 1, 0);
+    mainLayout->addWidget(oscWorkProcessType, 0, 2, 1, 1, 0);
+    mainLayout->addWidget(wpSelector, 1, 2, 1, 1, 0);
+    mainLayout->addWidget(timePicker, 2, 2, 1, 1, 0);
+    mainLayout->addWidget(graphTimer, 0, 3, 3, 1, Qt::AlignVCenter);
+    mainLayout->addWidget(btnSetLeft, 0, 4, 1, 1, 0);
+    mainLayout->addWidget(btnSetRight, 1, 4, 1, 1, 0);
+    mainLayout->addWidget(btnSetAV, 2, 4, 1, 1, 0);
+    mainLayout->addWidget(btnSetBoth, 0, 5, 2, 1, 0);
+    mainLayout->addWidget(btnPlayPaused, 0, 6, 1, 1, 0);
+    mainLayout->addWidget(btnStopReset, 1, 6, 1, 1, 0);
+    mainLayout->addWidget(lblTime, 2, 5, 1, 2, 0);
 
     setLayout(mainLayout);
     setState(state);
@@ -111,21 +122,35 @@ void MaximizedTimerView::setState(TimerState state){
     this->state = state;
     switch(state){
     case TimerState::IDLE:
+            btnSetAV->setEnabled(false);
+            btnSetLeft->setEnabled(true);
+            btnSetRight->setEnabled(true);
+            btnSetBoth->setEnabled(true);
+
             btnPlayPaused->setIcon(recordIcon);
             btnStopReset->setIcon(resetIcon);
             btnPlayPaused->setEnabled(true);
             btnStopReset->setEnabled(false);
         break;
     case TimerState::STARTED:
+            btnSetAV->setEnabled(true);
+
             btnPlayPaused->setIcon(pauseIcon);
-            btnStopReset->setIcon(resetIcon);
+            btnStopReset->setIcon(stopIcon);
             btnStopReset->setEnabled(true);
         break;
     case TimerState::PAUSED:
+            btnSetAV->setEnabled(false);
+
             btnPlayPaused->setIcon(playIcon);
             btnStopReset->setIcon(stopIcon);
         break;
     case TimerState::STOPPED:
+            btnSetAV->setEnabled(false);
+            btnSetLeft->setEnabled(false);
+            btnSetRight->setEnabled(false);
+            btnSetBoth->setEnabled(false);
+
             btnStopReset->setIcon(resetIcon);
             btnPlayPaused->setEnabled(false);
         break;
@@ -171,12 +196,29 @@ void MaximizedTimerView::btnStopResetClicked(){
     case TimerState::IDLE:
         break;
     case TimerState::STARTED:
+            emit avSet();
+            if(btnSetLeft->isSelected()){
+                btnSetLeft->clicked();
+            }
+            if(btnSetRight->isSelected()){
+                btnSetRight->clicked();
+            }
             emit stop();
         break;
     case TimerState::PAUSED:
+            emit avSet();
+            if(btnSetLeft->isSelected()){
+                btnSetLeft->clicked();
+            }
+            if(btnSetRight->isSelected()){
+                btnSetRight->clicked();
+            }
             emit stop();
         break;
     case TimerState::STOPPED:
+            btnSetLeft->setSelected(false);
+            btnSetRight->setSelected(false);
+            btnSetBoth->setSelected(false);
             emit reset();
         break;
     }
@@ -188,20 +230,36 @@ void MaximizedTimerView::emitBothSet(){
 }
 
 void MaximizedTimerView::btnLeftClicked(){
+    btnSetLeft->setSelected(!btnSetLeft->isSelected());
+    btnSetBoth->setSelected(btnSetRight->isSelected() && btnSetLeft->isSelected());
     emit leftChanged(btnSetLeft->isSelected());
+    if(!btnSetLeft->isSelected())
+        emit leftSet();
 }
 
 void MaximizedTimerView::btnRightClicked(){
+    btnSetRight->setSelected(!btnSetRight->isSelected());
+    btnSetBoth->setSelected(btnSetRight->isSelected() && btnSetLeft->isSelected());
     emit rightChanged(btnSetRight->isSelected());
+    if(!btnSetRight->isSelected())
+        emit rightSet();
 }
 
 void MaximizedTimerView::btnBothClicked(){
-    emit leftChanged(btnSetBoth->isSelected());
-    emit rightChanged(btnSetBoth->isSelected());
+    btnSetBoth->setSelected(!btnSetBoth->isSelected());
+    if(btnSetLeft->isSelected() == btnSetRight->isSelected()){
+        btnLeftClicked();
+        btnRightClicked();
+    }
+    if(!btnSetLeft->isSelected() && btnSetRight->isSelected())
+        btnLeftClicked();
+    if(btnSetLeft->isSelected() && !btnSetRight->isSelected())
+        btnRightClicked();
+
 }
 
 void MaximizedTimerView::btnAVClicked(){
-    emit basicChanged(btnSetAV->isSelected());
+    emit avSet();
 }
 
 MaximizedTimerView::~MaximizedTimerView(){

@@ -9,29 +9,46 @@ DateTimeSpinner::DateTimeSpinner(QWidget *parent) :
     numBxYear(new NumberLineEdit()),
     numBxHour(new NumberLineEdit()),
     numBxMinute(new NumberLineEdit()),
-    btnDayInc(new QPushButton("+")),
-    btnDayDec(new QPushButton("-")),
-    btnMonthInc(new QPushButton("+")),
-    btnMonthDec(new QPushButton("-")),
-    btnYearInc(new QPushButton("+")),
-    btnYearDec(new QPushButton("-")),
-    btnHourInc(new QPushButton("+")),
-    btnHourDec(new QPushButton("-")),
-    btnMinuteInc(new QPushButton("+")),
-    btnMinuteDec(new QPushButton("-"))
+    btnDayInc(new QPushButton()),
+    btnDayDec(new QPushButton()),
+    btnMonthInc(new QPushButton()),
+    btnMonthDec(new QPushButton()),
+    btnYearInc(new QPushButton()),
+    btnYearDec(new QPushButton()),
+    btnHourInc(new QPushButton()),
+    btnHourDec(new QPushButton()),
+    btnMinuteInc(new QPushButton()),
+    btnMinuteDec(new QPushButton())
 {
+    iconPlus = QIcon(IconConstants::ICON_PLUS);
+    iconMinus = QIcon(IconConstants::ICON_MINUS);
+
     currentTime = QDateTime::currentDateTime();
 
-    btnDayInc->setMaximumSize(30,30);
-    btnDayInc->setObjectName("spinnerButton");
-    btnMonthInc->setMaximumSize(30, 30);
-    btnMonthInc->setObjectName("spinnerButton");
-    btnYearInc->setMaximumSize(30, 30);
-    btnYearInc->setObjectName("spinnerButton");
-    btnHourInc->setMaximumSize(30, 30);
-    btnHourInc->setObjectName("spinnerButton");
-    btnMinuteInc->setMaximumSize(30, 30);
-    btnMinuteInc->setObjectName("spinnerButton");
+    btnDayInc->setFixedSize(40, 40);
+    btnDayInc->setObjectName("btnIcon");
+    btnDayInc->setIcon(iconPlus);
+    btnDayInc->setIconSize(QSize(40, 40));
+
+    btnMonthInc->setFixedSize(40, 40);
+    btnMonthInc->setObjectName("btnIcon");
+    btnMonthInc->setIcon(iconPlus);
+    btnMonthInc->setIconSize(QSize(40, 40));
+
+    btnYearInc->setFixedSize(40, 40);
+    btnYearInc->setObjectName("btnIcon");
+    btnYearInc->setIcon(iconPlus);
+    btnYearInc->setIconSize(QSize(40, 40));
+
+    btnHourInc->setFixedSize(40, 40);
+    btnHourInc->setObjectName("btnIcon");
+    btnHourInc->setIcon(iconPlus);
+    btnHourInc->setIconSize(QSize(40, 40));
+
+    btnMinuteInc->setFixedSize(40, 40);
+    btnMinuteInc->setObjectName("btnIcon");
+    btnMinuteInc->setIcon(iconPlus);
+    btnMinuteInc->setIconSize(QSize(40, 40));
 
     numBxDay->setAlignment(Qt::AlignHCenter);
     numBxMonth->setAlignment(Qt::AlignHCenter);
@@ -44,16 +61,31 @@ DateTimeSpinner::DateTimeSpinner(QWidget *parent) :
     numBxHour->setMaximumWidth(40);
     numBxMinute->setMaximumWidth(40);
 
-    btnDayDec->setMaximumSize(30, 30);
-    btnDayDec->setObjectName("spinnerButton");
-    btnMonthDec->setMaximumSize(30, 30);
-    btnMonthDec->setObjectName("spinnerButton");
-    btnYearDec->setMaximumSize(30, 30);
-    btnYearDec->setObjectName("spinnerButton");
-    btnHourDec->setMaximumSize(30, 30);
-    btnHourDec->setObjectName("spinnerButton");
-    btnMinuteDec->setMaximumSize(30, 30);
-    btnMinuteDec->setObjectName("spinnerButton");
+    btnDayDec->setFixedSize(40, 40);
+    btnDayDec->setObjectName("btnIcon");
+    btnDayDec->setIcon(iconMinus);
+    btnDayDec->setIconSize(QSize(40, 40));
+
+    btnMonthDec->setFixedSize(40, 40);
+    btnMonthDec->setObjectName("btnIcon");
+    btnMonthDec->setIcon(iconMinus);
+    btnMonthDec->setIconSize(QSize(40, 40));
+
+    btnYearDec->setFixedSize(40, 40);
+    btnYearDec->setObjectName("btnIcon");
+    btnYearDec->setIcon(iconMinus);
+    btnYearDec->setIconSize(QSize(40, 40));
+
+    btnHourDec->setFixedSize(40, 40);
+    btnHourDec->setObjectName("btnIcon");
+    btnHourDec->setIcon(iconMinus);
+    btnHourDec->setIconSize(QSize(40, 40));
+
+    btnMinuteDec->setFixedSize(40, 40);
+    btnMinuteDec->setObjectName("btnIcon");
+    btnMinuteDec->setIcon(iconMinus);
+    btnMinuteDec->setIconSize(QSize(40, 40));
+
 
     numBxDay->setValue(currentTime.date().day());
     numBxMonth->setValue(currentTime.date().month());

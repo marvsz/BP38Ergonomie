@@ -48,11 +48,11 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/timerView/minimizedtimerview.h \
     $$PWD/timerView/workprocessselector.h \
     $$PWD/timerView/maximizedtimerview.h \
-    $$PWD/timerView/graphtimer.h \
     $$PWD/timerView/timepicker.h \
     $$PWD/timerView/ganttimerview.h \
     $$PWD/timerView/workprocessbutton.h \
-    $$PWD/timerView/timerviewcontroller.h
+    $$PWD/timerView/timerviewcontroller.h \
+    $$PWD/iconconstants.h
 
 
 SOURCES += $$PWD/angleView/variant.cpp\
@@ -100,10 +100,10 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/timerView/minimizedtimerview.cpp \
     $$PWD/timerView/workprocessselector.cpp \
     $$PWD/timerView/maximizedtimerview.cpp \
-    $$PWD/timerView/graphtimer.cpp \
     $$PWD/timerView/timepicker.cpp \
     $$PWD/timerView/ganttimerview.cpp \
     $$PWD/timerView/workprocessbutton.cpp \
-    $$PWD/timerView/timerviewcontroller.cpp
+    $$PWD/timerView/timerviewcontroller.cpp \
+    $$PWD/iconconstants.cpp
 
 

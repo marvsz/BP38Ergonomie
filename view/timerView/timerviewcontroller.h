@@ -23,21 +23,12 @@ signals:
     void nextWorkProcess();
     void previousWorkProcess();
     void workProcessTypeChanged(int type);
-    void play();
-    void pause();
-    void stop();
-    void reset();
-    void leftSet();
-    void rightSet();
-    void avSet();
     void durationChanged(const QTime &duration);
-
+    void createWorkProcess(int type, const QTime &startTime, const QTime &endTime);
+    void resetWorkProcesses();
 
 public slots:
-    void setState(TimerState state);
-    void setTime(const QTime &time);
     void setSelectedAV(int id);
-    void setWorkProcessType(int id, const QString &prefix);
 
 protected:
     void timerEvent(QTimerEvent *event);
@@ -50,10 +41,15 @@ private slots:
     void pauseTimer();
     void stopTimer();
     void resetTimer();
+    void setTime(const QTime &time);
+    void setWorkProcessType(int id, const QString &prefix);
+
+    void createLeftWorkProcessRequested();
+    void createRightWorkProcessRequested();
+    void createBasicWorkProcessRequested();
 
     void changeLeft(bool b);
     void changeRight(bool b);
-    void changeBasic(bool b);
 
 private:
     QList<bool> *listLeftAVs;

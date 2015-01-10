@@ -5,7 +5,6 @@
 #include <QLabel>
 #include <QPushButton>
 
-
 class WorkProcessSelector : public QWidget
 {
     Q_OBJECT

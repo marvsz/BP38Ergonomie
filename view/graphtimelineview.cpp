@@ -17,13 +17,13 @@ GraphTimelineView::GraphTimelineView(QWidget *parent) : QMainWindow(parent)
 {
    QScroller::grabGesture(graphArea->viewport(), QScroller::LeftMouseButtonGesture);
 
-   graphArea->setMaximumHeight(160);
+   graphArea->setMinimumHeight(160);
    graphArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
    graphArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
    graphArea->setWidget(graph);
 
-   graph->setFixedHeight(150);
-
+   setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+   this->setMinimumHeight(160);
    this->setCentralWidget(graphArea);
 }
 

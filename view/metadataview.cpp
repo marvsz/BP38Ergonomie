@@ -38,6 +38,8 @@ MetaDataView::MetaDataView(QWidget *parent) :
     txtBxFactoryContact(new TextLineEdit(this)),
     txtBxFactoryEmployeeCount(new NumberLineEdit(this)),
     lblRecordingDateTime(new QLabel(tr("recording"), this)),
+    lblRecordingDateTimeBegin(new QLabel(tr("begin:"), this)),
+    lblRecordingDateTimeEnd(new QLabel(tr("end:"), this)),
     dteRecordingTimeBegin(new DateTimeSpinner(this)),
     dteRecordingTimeEnd(new DateTimeSpinner(this))
 
@@ -48,6 +50,13 @@ MetaDataView::MetaDataView(QWidget *parent) :
     QHBoxLayout *corporationLayout = new QHBoxLayout;
     QGridLayout *factoryLayout = new QGridLayout;
     QHBoxLayout *recordingLayout = new QHBoxLayout;
+    QVBoxLayout *beginLayout = new QVBoxLayout;
+    QVBoxLayout *endLayout = new QVBoxLayout;
+
+    lblAnalyst->setObjectName("lblHeader");
+    lblCorporation->setObjectName("lblHeader");
+    lblFactory->setObjectName("lblHeader");
+    lblRecordingDateTime->setObjectName("lblHeader");
 
     btnBack->setObjectName("btnNavigation");
     connect(btnBack, SIGNAL(clicked()), this, SLOT(backButtonClicked()));
@@ -94,9 +103,17 @@ MetaDataView::MetaDataView(QWidget *parent) :
     factoryLayout->addWidget(lblFactoryEmployeeCount, 2, 6, 1, 1, 0);
     factoryLayout->addWidget(txtBxFactoryEmployeeCount, 2, 7, 1, 1, 0);
 
-    recordingLayout->addWidget(dteRecordingTimeBegin);
-    recordingLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding));
-    recordingLayout->addWidget(dteRecordingTimeEnd);
+    beginLayout->addWidget(lblRecordingDateTimeBegin, 0, Qt::AlignCenter);
+    beginLayout->addWidget(dteRecordingTimeBegin, 0, Qt::AlignCenter);
+
+    endLayout->addWidget(lblRecordingDateTimeEnd, 0, Qt::AlignCenter);
+    endLayout->addWidget(dteRecordingTimeEnd, 0, Qt::AlignCenter);
+
+    recordingLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
+    recordingLayout->addLayout(beginLayout);
+    recordingLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
+    recordingLayout->addLayout(endLayout);
+    recordingLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
 
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
@@ -115,8 +132,6 @@ MetaDataView::MetaDataView(QWidget *parent) :
 
     mainLayout->addWidget(lblRecordingDateTime);
     mainLayout->addLayout(recordingLayout);
-
-    //mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
     setLayout(mainLayout);
 }

@@ -8,7 +8,6 @@ TimerViewController::TimerViewController(QWidget *parent):
     listBasicAVs(new QList<bool>()),
     isLeftSet(false),
     isRightSet(false),
-    isBasicSet(false),
     startTimeBasic(QTime(0,0)),
     startTimeLeft(QTime(0,0)),
     startTimeRight(QTime(0,0)),
@@ -25,12 +24,13 @@ TimerViewController::TimerViewController(QWidget *parent):
     connect(maxTimerView, SIGNAL(stop()), this, SLOT(stopTimer()));
     connect(maxTimerView, SIGNAL(reset()), this, SLOT(resetTimer()));
     connect(maxTimerView, SIGNAL(minimize()), this, SIGNAL(hideGantView()));
-
-    //connect(maxTimerView, SIGNAL(durationChanged(QTime)), this, SIGNAL(durationChanged(QTime)));
+    connect(maxTimerView, SIGNAL(avSet()), this, SLOT(createBasicWorkProcessRequested()));
+    connect(maxTimerView, SIGNAL(leftSet()), this, SLOT(createLeftWorkProcessRequested()));
+    connect(maxTimerView, SIGNAL(rightSet()), this, SLOT(createRightWorkProcessRequested()));
+    connect(maxTimerView, SIGNAL(durationChanged(QTime)), this, SIGNAL(durationChanged(QTime)));
 
     connect(maxTimerView, SIGNAL(leftChanged(bool)), this, SLOT(changeLeft(bool)));
     connect(maxTimerView, SIGNAL(rightChanged(bool)), this, SLOT(changeRight(bool)));
-    connect(maxTimerView, SIGNAL(basicChanged(bool)), this, SLOT(changeBasic(bool)));
 
     connect(minTimerView, SIGNAL(nextWorkProcess()), this, SIGNAL(nextWorkProcess()));
     connect(minTimerView, SIGNAL(previousWorkProcess()), this, SIGNAL(previousWorkProcess()));
@@ -54,24 +54,9 @@ TimerViewController::TimerViewController(QWidget *parent):
 
 
 // PUBLIC SLOTS
-void TimerViewController::setState(TimerState state){
-    minTimerView->setState(state);
-    maxTimerView->setState(state);
-}
-
-void TimerViewController::setTime(const QTime &time){
-    minTimerView->setTime(time);
-    maxTimerView->setTime(time);
-}
-
 void TimerViewController::setSelectedAV(int id){
     minTimerView->setSelectedAV(id);
     maxTimerView->setSelectedAV(id);
-}
-
-void TimerViewController::setWorkProcessType(int id, const QString &prefix){
-    minTimerView->setWorkProcessType(id, prefix);
-    maxTimerView->setWorkProcessType(id, prefix);
 }
 
 // PRIVATE SLOTS
@@ -127,7 +112,39 @@ void TimerViewController::stopTimer(){
 void TimerViewController::resetTimer(){
     if(timerState == TimerState::STOPPED){
         currentTime = QTime(0,0);
+        setTime(currentTime);
+        syncTimerStates(TimerState::IDLE);
+        listLeftAVs->clear();
+        listRightAVs->clear();
+        listBasicAVs->clear();
+        isLeftSet = false;
+        isRightSet = false;
+        maxTimerView->updateGraph(listBasicAVs, listLeftAVs, listRightAVs);
+        emit resetWorkProcesses();
     }
+}
+
+void TimerViewController::setTime(const QTime &time){
+    minTimerView->setTime(time);
+    maxTimerView->setTime(time);
+}
+
+void TimerViewController::createLeftWorkProcessRequested(){
+    emit createWorkProcess(1, startTimeLeft, currentTime);
+}
+
+void TimerViewController::createRightWorkProcessRequested(){
+    emit createWorkProcess(2, startTimeRight, currentTime);
+}
+
+void TimerViewController::createBasicWorkProcessRequested(){
+    isBasicSet = true;
+    emit createWorkProcess(3, startTimeBasic, currentTime);
+}
+
+void TimerViewController::setWorkProcessType(int id, const QString &prefix){
+    minTimerView->setWorkProcessType(id, prefix);
+    maxTimerView->setWorkProcessType(id, prefix);
 }
 
 void TimerViewController::changeLeft(bool b){
@@ -138,10 +155,6 @@ void TimerViewController::changeRight(bool b){
     isRightSet = b;
 }
 
-void TimerViewController::changeBasic(bool b){
-    isBasicSet = b;
-}
-
 // PRIVATE
 
 void TimerViewController::syncTimerStates(TimerState state){
@@ -150,13 +163,14 @@ void TimerViewController::syncTimerStates(TimerState state){
     maxTimerView->setState(state);
 }
 
-// PROTECTED
 
+// PROTECTED
 void TimerViewController::timerEvent(QTimerEvent *event){
     currentTime = currentTime.addSecs(1);
     listLeftAVs->append(isLeftSet);
     listRightAVs->append(isRightSet);
     listBasicAVs->append(isBasicSet);
+    isBasicSet = false;
 
     maxTimerView->updateGraph(listBasicAVs, listLeftAVs, listRightAVs);
 }

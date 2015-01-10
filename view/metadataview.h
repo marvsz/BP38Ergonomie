@@ -88,6 +88,8 @@ private:
     NumberLineEdit *txtBxFactoryEmployeeCount;
 
     QLabel *lblRecordingDateTime;
+    QLabel *lblRecordingDateTimeBegin;
+    QLabel *lblRecordingDateTimeEnd;
     DateTimeSpinner *dteRecordingTimeBegin;
     DateTimeSpinner *dteRecordingTimeEnd;
 

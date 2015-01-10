@@ -4,13 +4,15 @@ OptionSelectionControl::OptionSelectionControl(const QVector<QString> &options, 
     QWidget(parent)
 {
     mainLayout = new QHBoxLayout;
+    mainLayout->setContentsMargins(0,0,0,0);
     btnOptions = new QVector<SelectableValueButton*>();
 
     for(int i=0; i < options.length(); ++i){
         SelectableValueButton *btn = new SelectableValueButton(i, i, this);
+        btn->setMinimumSize(45, 45);
         btn->setText(options.at(i));
         btnOptions->append(btn);
-        mainLayout->addWidget(btn);
+        mainLayout->addWidget(btn, 0, Qt::AlignVCenter);
         connect(btn, SIGNAL(clickedWithID(int)), this, SLOT(setSelectedValue(int)));
     }
     currentSelectedBtnID = 1;

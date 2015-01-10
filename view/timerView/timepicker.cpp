@@ -1,29 +1,30 @@
 #include "timepicker.h"
 #include <QHBoxLayout>
-
+#include <QIcon>
 TimePicker::TimePicker(QWidget *parent) :
     QWidget(parent),
     timeBxTime(new TimeLineEdit),
-    btnIncreaseTime(new QPushButton("+")),
-    btnDecreaseTime(new QPushButton("-"))
+    btnIncreaseTime(new QPushButton(QIcon(IconConstants::ICON_PLUS), "")),
+    btnDecreaseTime(new QPushButton(QIcon(IconConstants::ICON_MINUS), ""))
 {
-    timeBxTime->setMaximumWidth(150);
-    timeBxTime->setMinimumWidth(100);
+    timeBxTime->setMinimumSize(100, 45);
+    btnIncreaseTime->setFixedSize(45, 45);
+    btnIncreaseTime->setObjectName("btnIcon");
+    btnIncreaseTime->setIconSize(QSize(45, 45));
 
-    btnIncreaseTime->setFixedSize(40, 40);
-    btnDecreaseTime->setFixedSize(40, 40);
-
-    this->setMaximumWidth(230);
-    this->setMinimumWidth(180);
+    btnDecreaseTime->setFixedSize(45, 45);
+    btnDecreaseTime->setObjectName("btnIcon");
+    btnDecreaseTime->setIconSize(QSize(45, 45));
 
     connect(btnIncreaseTime, SIGNAL(clicked()), this, SLOT(increaseTime()));
     connect(btnDecreaseTime, SIGNAL(clicked()), this, SLOT(decreaseTime()));
     connect(timeBxTime, SIGNAL(editingFinished()), this, SLOT(emitTimeChanged()));
 
     QHBoxLayout *mainLayout = new QHBoxLayout;
-    mainLayout->addWidget(btnDecreaseTime);
-    mainLayout->addWidget(timeBxTime);
-    mainLayout->addWidget(btnIncreaseTime);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->addWidget(btnDecreaseTime, 0, Qt::AlignHCenter);
+    mainLayout->addWidget(timeBxTime, 0, Qt::AlignHCenter);
+    mainLayout->addWidget(btnIncreaseTime, 0, Qt::AlignHCenter);
     setLayout(mainLayout);
 }
 

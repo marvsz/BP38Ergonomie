@@ -6,9 +6,9 @@
 
 ProducedProductExecutionCondition::ProducedProductExecutionCondition(QWidget *parent) :
     QWidget(parent),
+    txtbxWorkingHeight(new NumberLineEdit(this)),
     txtbxDistance(new NumberLineEdit(this)),
     txtbxImpulseCount(new NumberLineEdit(this)),
-    txtbxWorkingHeight(new NumberLineEdit(this)),
     valConGrabType(new ValueControl(TEXT_CONTROL, this))
 {
 

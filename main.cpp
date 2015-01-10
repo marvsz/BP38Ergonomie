@@ -14,11 +14,9 @@ int main(int argc, char *argv[])
                         "QMainWindow {background-color: #efeff4;}"
                         "Separator {background-color: #c8c7cc; margin: 5px 5px 5px 5px;}"
                         "QLabel {font: 100 18px \"Serif\"; color: #8e8e93;}"
-                        "QLabel#detailedListItemWidgetName {font: 100 18px \"Serif\"; color: #007aff;}"
-                        "QLabel#detailedListItemCaption {font: 100 17px \"Serif\"; color: #007aff;}"
-                        "QLabel#detailedListItemValue {font: 100 16px \"Serif\"; color: #8e8e93;}"
-                        "QPushButton#spinnerButton {border: 0px; background-color: #efeff4;}"
-                        "QPushButton#detailedListItemDelete {image: url(:/timer/icons/Timer/reset.png); width: 45px; height: 45px; border: 0px; background-color: #efeff4;}"
+                        "QLabel#lblHeader {font: 100 18px \"Serif\"; color: #007aff;}"
+                        "QLabel#lblCaption {font: 100 17px \"Serif\"; color: #007aff;}"
+                        "QLabel#lblValue {font: 100 16px \"Serif\"; color: #8e8e93;}"
                         "QGroupBox {border:2px solid #007aff; background-color: #efeff4; border-radius: 10px;}"
                         "QWidget#detailedListItemWidget {border:2px solid #007aff; background-color: #efeff4; border-radius: 10px;}"
                         "QLineEdit {font: 100 18px \"Serif\";border: 2px solid #007aff; border-radius: 10px; background: #f5f5f5; color: #8e8e93; padding: 4px;}"
@@ -30,9 +28,11 @@ int main(int argc, char *argv[])
                         "QAbstractPushButton#workplaceListItem {background: #007aff;}"
                         "QPushButton {font: 100 18px \"Serif\";color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5; padding: 4px;}"
                         "QPushButton:pressed {color: #ffffff; background-color: #007aff;}"
+                        "QPushButton#spinnerButton {border: 0px; background-color: #efeff4;}"
+                        "QPushButton#detailedListItemDelete {image: url(:/timer/icons/Timer/reset.png); width: 45px; height: 45px; border: 0px; background-color: #efeff4;}"
                         "QPushButton#btnCamera {image: url(:/icons/specialPurposeIcons/camera.png); width: 50px; height: 50px; border: 0px; background-color: #efeff4;}"
                         "QPushButton#btnNavigation {border: 0px; background-color: #efeff4}"
-                        "QPushButton#btnTimer {border: 0px; background-color: #efeff4}"
+                        "QPushButton#btnIcon {border: 0px; background-color: #efeff4}"
                         "QScrollArea {background-color: #efeff4; margin: 0 0; border: none;}"
                         "QScrollBar:vertical {border: 0px solid #007aff; margin: 0px 0px 0px 0px; background: #efeff4;}"
                         "QScrollBar::handle:vertical {background: #007aff; min-width: 60px; border-radius: 5px;}"
@@ -55,6 +55,7 @@ int main(int argc, char *argv[])
                         "QComboBox::down-arrow:on {image: url(:/icons/specialPurposeIcons/downarrowon.png);}"
                         );
 
+    a.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 
     QTranslator translator;
     translator.load(":/ergo_trans_de");

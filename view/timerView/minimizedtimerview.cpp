@@ -1,29 +1,29 @@
 #include "minimizedtimerview.h"
 #include "QHBoxLayout"
+#include "iconconstants.h"
 
 const QVector<QString> MinimizedTimerView::wpTypes = QVector<QString>()<<"Links"<<"Rechts"<<"AV";
 
 MinimizedTimerView::MinimizedTimerView(TimerState state, QWidget *parent) : QWidget(parent),
     lblTime(new QLabel("00:00")),
-    btnMaximized(new QPushButton()),
+    btnMaximized(new QPushButton(QIcon(IconConstants::ICON_UP), "")),
     btnPlayPaused(new QPushButton()),
     wpSelector(new WorkProcessSelector())
 {
-    recordIcon = QIcon(":/timer/icons/Timer/record.png");
-    playIcon = QIcon(":/timer/icons/Timer/start.png");
-    pauseIcon = QIcon(":/timer/icons/Timer/pause.png");
-    maximizedIcon = QIcon(":/timer/icons/Timer/maximize.png");
+    recordIcon = QIcon(IconConstants::ICON_RECORD);
+    playIcon = QIcon(IconConstants::ICON_PLAY);
+    pauseIcon = QIcon(IconConstants::ICON_PAUSE);
 
     btnPlayPaused->setIconSize(QSize(45, 45));
-    btnPlayPaused->setObjectName("btnTimer");
+    btnPlayPaused->setFixedSize(45, 45);
+    btnPlayPaused->setObjectName("btnIcon");
     connect(btnPlayPaused, SIGNAL(clicked()), this, SLOT(btnPlayPausedClicked()));
 
-    btnMaximized->setIcon(maximizedIcon);
     btnMaximized->setIconSize(QSize(45, 45));
-    btnMaximized->setObjectName("btnTimer");
+    btnMaximized->setFixedSize(45, 45);
+    btnMaximized->setObjectName("btnIcon");
 
     connect(btnMaximized, SIGNAL(clicked()), this, SIGNAL(maximize()));
-
     connect(wpSelector, SIGNAL(nextAV()), this, SIGNAL(nextWorkProcess()));
     connect(wpSelector, SIGNAL(previousAV()), this, SIGNAL(previousWorkProcess()));
 
@@ -31,13 +31,16 @@ MinimizedTimerView::MinimizedTimerView(TimerState state, QWidget *parent) : QWid
     connect(oscWorkProcessType, SIGNAL(selectionChanged(int)), this, SIGNAL(workProcessTypeChanged(int)));
 
     QHBoxLayout *mainLayout = new QHBoxLayout;
-    mainLayout->addWidget(btnMaximized);
-    mainLayout->addWidget(oscWorkProcessType);
-    mainLayout->addWidget(wpSelector);
+    mainLayout->setContentsMargins(0,0,0,0);
+    mainLayout->addWidget(btnMaximized, 0, Qt::AlignCenter);
+    mainLayout->addSpacerItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed));
+    mainLayout->addWidget(oscWorkProcessType, 0, Qt::AlignCenter);
+    mainLayout->addSpacerItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed));
+    mainLayout->addWidget(wpSelector, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
-    mainLayout->addWidget(lblTime);
+    mainLayout->addWidget(lblTime, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
-    mainLayout->addWidget(btnPlayPaused);
+    mainLayout->addWidget(btnPlayPaused, 0, Qt::AlignCenter);
 
     this->setLayout(mainLayout);
     setState(state);

@@ -10,6 +10,7 @@
 #include "graphtimelineview.h"
 #include "timepicker.h"
 #include "selectablevaluebutton.h"
+#include "iconconstants.h"
 
 class MaximizedTimerView : public QWidget
 {
@@ -43,7 +44,6 @@ signals:
 
     void leftChanged(bool b);
     void rightChanged(bool b);
-    void basicChanged(bool b);
 
 public slots:
     void setState(TimerState state);
@@ -75,7 +75,7 @@ private:
     SelectableValueButton *btnSetLeft;
     SelectableValueButton *btnSetRight;
     SelectableValueButton *btnSetBoth;
-    SelectableValueButton *btnSetAV;
+    QPushButton *btnSetAV;
 
     TimePicker *timePicker;
     WorkProcessSelector *wpSelector;
@@ -90,9 +90,6 @@ private:
     QIcon pauseIcon;
     QIcon stopIcon;
     QIcon resetIcon;
-    QIcon minimizedIcon;
-    QIcon maximizedIcon;
-
 };
 
 #endif // MAXIMIZEDTIMERVIEW_H
