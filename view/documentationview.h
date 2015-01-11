@@ -30,6 +30,7 @@ public:
 
 signals:
     void showPreviousView();
+    void createWorkProcess(int type, const QTime &start, const QTime &end);
 
 public slots:
 

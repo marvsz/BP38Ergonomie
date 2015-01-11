@@ -140,6 +140,7 @@ void TimerViewController::createRightWorkProcessRequested(){
 void TimerViewController::createBasicWorkProcessRequested(){
     isBasicSet = true;
     emit createWorkProcess(3, startTimeBasic, currentTime);
+    startTimeBasic = currentTime;
 }
 
 void TimerViewController::setWorkProcessType(int id, const QString &prefix){
@@ -149,10 +150,14 @@ void TimerViewController::setWorkProcessType(int id, const QString &prefix){
 
 void TimerViewController::changeLeft(bool b){
     isLeftSet = b;
+    if(b)
+        startTimeLeft = currentTime;
 }
 
 void TimerViewController::changeRight(bool b){
     isRightSet = b;
+    if(b)
+        startTimeRight = currentTime;
 }
 
 // PRIVATE
@@ -171,7 +176,8 @@ void TimerViewController::timerEvent(QTimerEvent *event){
     listRightAVs->append(isRightSet);
     listBasicAVs->append(isBasicSet);
     isBasicSet = false;
-
+    maxTimerView->setTime(currentTime);
+    minTimerView->setTime(currentTime);
     maxTimerView->updateGraph(listBasicAVs, listLeftAVs, listRightAVs);
 }
 

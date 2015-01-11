@@ -55,6 +55,7 @@ private:
     QSqlTableModel *tmTypeOfGrasping;
     QSqlTableModel *tmEquipment;
     QSqlTableModel *tmWorkCondition;
+    QSqlTableModel *tmBranchOfIndustry;
 
 
     QHash<DB_TABLES, QSqlTableModel*> htSqlTableModels;

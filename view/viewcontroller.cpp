@@ -64,6 +64,7 @@ ViewController::ViewController(QWidget *parent) :
 
     // DOCUMENTATION VIEW
     connect(documentationView, SIGNAL(showPreviousView()), this, SLOT(backToView()));
+    connect(documentationView, SIGNAL(createWorkProcess(int,QTime,QTime)), this, SIGNAL(createWorkprocess(int,QTime,QTime)));
 
     // ADD ALL VIEWS
     this->addWidget(mainMenuView);

@@ -33,6 +33,8 @@ Controller::Controller(QObject *parent) :
     connect(viewCon, SIGNAL(saveSelectedProducts()), this, SLOT(saveSelectedProducts()));
     connect(viewCon, SIGNAL(deleteProduct(int)), this, SLOT(deleteProduct(int)));
 
+    connect(viewCon, SIGNAL(createWorkprocess(int,QTime,QTime)), this, SLOT(createWorkprocess(int,QTime,QTime)));
+
     recording_ID = 1;
     selectedWorkplaceID = 0;
     factory_ID = 0;
@@ -115,7 +117,6 @@ int Controller::createWorkplace(){
     QString filter = QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(QString::number(0));
 
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_WORKPLACE_BODY_MEASUREMENT_ID, 0);
     int id = save(DB_TABLES::WORKPLACE, filter, DBConstants::COL_WORKPLACE_ID, DBConstants::HASH_WORKPLACE_TYPES, values);
     updateWorkplaceView(id);
     return id;
@@ -164,7 +165,7 @@ int Controller::saveLine(){
     values.insert(DBConstants::COL_LINE_DESCRIPTION, viewCon->getLineDescription());
     values.insert(DBConstants::COL_LINE_NUMBER_OF_WORKPLACES, viewCon->getLineWorkplaceCount());
     values.insert(DBConstants::COL_LINE_FACTORY_ID, factory_ID);
-    int lineID = save(tbl, filter, DBConstants::COL_LINE_ID, DBConstants::LIST_LINE_COLS, DBConstants::LIST_LINE_TYPES, values);
+    int lineID = save(tbl, filter, DBConstants::COL_LINE_ID, DBConstants::HASH_LINE_TYPES, values);
     saveRecordingObservesLine(lineID);
     updateLineView();
     return lineID;
@@ -249,18 +250,20 @@ int Controller::saveComment(){
     values.insert(DBConstants::COL_COMMENT_MEASURE_DESCRIPTION, viewCon->getCommentMeasureDescription());
     values.insert(DBConstants::COL_COMMENT_WORKER_PERCEPTION, viewCon->getCommentWorkerPerception());
     values.insert(DBConstants::COL_COMMENT_WORKPLACE_ID, selectedWorkplaceID);
-    return save(DB_TABLES::COMMENT, filter, DBConstants::COL_COMMENT_ID, DBConstants::LIST_COMMENT_COLS, DBConstants::LIST_COMMENT_TYPES, values);
+    return save(DB_TABLES::COMMENT, filter, DBConstants::COL_COMMENT_ID, DBConstants::HASH_COMMENT_TYPES, values);
 }
 
 //WORKPROCESS
 int Controller::createWorkprocess(int type, const QTime &start, const QTime &end){
-    /*QString filter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ID).arg(0).arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(type);
+    QString filter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ID).arg(0).arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(type);
 
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID, activity_ID);
+    values.insert(DBConstants::COL_WORK_PROCESS_TYPE, type);
     values.insert(DBConstants::COL_WORK_PROCESS_BEGIN, start.toString());
     values.insert(DBConstants::COL_WORK_PROCESS_END, end.toString());
-    return save(DB_TABLES::WORK_PROCESS, filter, DBConstants::COL_WORKPLACE_ID, DBConstants::HASH_WORK_PROCESS_TYPES, values);
-*/}
+    return save(DB_TABLES::WORK_PROCESS, filter, DBConstants::COL_WORK_PROCESS_ID, DBConstants::HASH_WORK_PROCESS_TYPES, values);
+}
 
 void Controller::updateWorkprocessViews(){
    /* QString filter = QString("%1 = %2").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID);
@@ -380,7 +383,7 @@ int Controller::saveAnalyst(){
     values.insert(DBConstants::COL_ANALYST_FIRSTNAME, viewCon->getAnalystFirstName());
     values.insert(DBConstants::COL_ANALYST_EXPERIENCE, viewCon->getAnalystExperience());
     values.insert(DBConstants::COL_ANALYST_EMPLOYER_ID, saveEmployer());
-    return save(DB_TABLES::ANALYST, filter, DBConstants::COL_ANALYST_ID, DBConstants::LIST_ANALYST_COLS, DBConstants::LIST_ANALYST_TYPES, values);
+    return save(DB_TABLES::ANALYST, filter, DBConstants::COL_ANALYST_ID, DBConstants::HASH_ANALYST_TYPES, values);
 }
 
 void Controller::updateEmployer(int id){
@@ -399,7 +402,7 @@ int Controller::saveEmployer(){
 
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_EMPLOYER_NAME, viewCon->getAnalystEmployer());
-    return save(DB_TABLES::EMPLOYER, filter, DBConstants::COL_EMPLOYER_ID, DBConstants::LIST_EMPLOYER_COLS, DBConstants::LIST_EMPLOYER_TYPES, values);
+    return save(DB_TABLES::EMPLOYER, filter, DBConstants::COL_EMPLOYER_ID, DBConstants::HASH_EMPLOYER_TYPES, values);
 }
 
 void Controller::updateCorporation(int id){
@@ -418,7 +421,7 @@ int Controller::saveCorporation(){
 
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_CORPORATION_NAME, viewCon->getCorporationName());
-    return save(DB_TABLES::CORPORATION, filter, DBConstants::COL_CORPORATION_ID, DBConstants::LIST_CORPORATION_COLS, DBConstants::LIST_CORPORATION_TYPES, values);
+    return save(DB_TABLES::CORPORATION, filter, DBConstants::COL_CORPORATION_ID, DBConstants::HASH_CORPORATION_TYPES, values);
 }
 
 void Controller::updateFactory(int id){
@@ -452,7 +455,7 @@ int Controller::saveFactory(){
     values.insert(DBConstants::COL_FACTORY_CONTACT_PERSON, viewCon->getFactoryContact());
     values.insert(DBConstants::COL_FACTORY_HEADCOUNT, viewCon->getFactoryEmployeeCount());
     values.insert(DBConstants::COL_FACTORY_CORPORATION_ID, saveCorporation());
-    factory_ID = save(DB_TABLES::FACTORY, filter, DBConstants::COL_FACTORY_ID, DBConstants::LIST_FACTORY_COLS, DBConstants::LIST_FACTORY_TYPES, values);
+    factory_ID = save(DB_TABLES::FACTORY, filter, DBConstants::COL_FACTORY_ID, DBConstants::HASH_FACTORY_TYPES, values);
     return factory_ID;
 }
 
@@ -481,7 +484,7 @@ int Controller::saveRecording(){
     values.insert(DBConstants::COL_RECORDING_END, viewCon->getRecordTimeEnd().toString(dtFormat));
     values.insert(DBConstants::COL_RECORDING_FACTORY_ID, saveFactory());
     values.insert(DBConstants::COL_RECORDING_ANALYST_ID, saveAnalyst());
-    return save(DB_TABLES::RECORDING, filter, DBConstants::COL_RECORDING_ID, DBConstants::LIST_RECORDING_COLS, DBConstants::LIST_RECORDING_TYPES, values);
+    return save(DB_TABLES::RECORDING, filter, DBConstants::COL_RECORDING_ID, DBConstants::HASH_RECORDING_TYPES, values);
 }
 
 void Controller::saveRecordingObservesLine(int lineID){
@@ -525,7 +528,6 @@ int Controller::saveWorkplace(int id){
     values.insert(DBConstants::COL_WORKPLACE_ALLOWANCE_TIME, qTimeToSeconds(viewCon->getWorkplaceAllowanceTime()));
     values.insert(DBConstants::COL_WORKPLACE_SETUP_TIME, qTimeToSeconds(viewCon->getWorkplaceSetupTime()));
     values.insert(DBConstants::COL_WORKPLACE_CYCLE_TIME, qTimeToSeconds(viewCon->getWorkplaceCycleTime()));
-    values.insert(DBConstants::COL_WORKPLACE_BODY_MEASUREMENT_ID, 0);
     return save(DB_TABLES::WORKPLACE, filter, DBConstants::COL_WORKPLACE_ID, DBConstants::HASH_WORKPLACE_TYPES, values);
 }
 

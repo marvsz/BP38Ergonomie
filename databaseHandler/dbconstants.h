@@ -7,7 +7,7 @@
 #include <QVariant>
 #include <QHash>
 
-enum DB_TABLES {ANALYST, EMPLOYER, CORPORATION, FACTORY, RECORDING,
+enum DB_TABLES {ANALYST, EMPLOYER, CORPORATION, BRANCH_OF_INDUSTRY, FACTORY, RECORDING,
                 RECORDING_OBSERVES_LINE, RECORDING_OBSERVES_WORKPLACE, LINE, WORKPLACE,
                 COMMENT, EMPLOYEE, EMPLOYEE_WORKS_SHIFT, PRODUCT, SHIFT, BREAK,
                ACTIVITY, BODY_POSTURE, WORK_PROCESS, LOAD_HANDLING_TYPE, LOAD_HANDLING,
@@ -25,17 +25,12 @@ public:
     static const QString COL_ANALYST_FIRSTNAME;
     static const QString COL_ANALYST_EXPERIENCE;
     static const QString COL_ANALYST_EMPLOYER_ID;
-    static const QString COL_ANALYST_CORPORATION_ID;
-    static const QStringList LIST_ANALYST_COLS;
-    static const QList<QVariant::Type> LIST_ANALYST_TYPES;
     static const QHash<QString, QVariant::Type> HASH_ANALYST_TYPES;
 
     //Employer
     static const QString TBL_EMPLOYER;
     static const QString COL_EMPLOYER_ID;
     static const QString COL_EMPLOYER_NAME;
-    static const QStringList LIST_EMPLOYER_COLS;
-    static const QList<QVariant::Type> LIST_EMPLOYER_TYPES;
     static const QHash<QString, QVariant::Type> HASH_EMPLOYER_TYPES;
 
     //Corporation
@@ -43,9 +38,14 @@ public:
     static const QString COL_CORPORATION_ID;
     static const QString COL_CORPORATION_NAME;
     static const QString COL_CORPORATION_BRANCH_OF_INDUSTRY_ID;
-    static const QStringList LIST_CORPORATION_COLS;
-    static const QList<QVariant::Type> LIST_CORPORATION_TYPES;
     static const QHash<QString, QVariant::Type> HASH_CORPORATION_TYPES;
+
+    //Branch of Industry
+    static const QString TBL_BRANCH_OF_INDUSTRY;
+    static const QString COL_BRANCH_OF_INDUSTRY_ID;
+    static const QString COL_BRANCH_OF_INDUSTRY_NAME;
+    static const QString COL_BRANCH_OF_INDUSTRY_DESCRIPTION;
+    static const QHash<QString, QVariant::Type> HASH_BRANCH_OF_INDUSTRY_TYPES;
 
     //Factory
     static const QString TBL_FACTORY;
@@ -58,8 +58,6 @@ public:
     static const QString COL_FACTORY_CONTACT_PERSON;
     static const QString COL_FACTORY_HEADCOUNT;
     static const QString COL_FACTORY_CORPORATION_ID;
-    static const QStringList LIST_FACTORY_COLS;
-    static const QList<QVariant::Type> LIST_FACTORY_TYPES;
     static const QHash<QString, QVariant::Type> HASH_FACTORY_TYPES;
 
     //Recording
@@ -69,24 +67,18 @@ public:
     static const QString COL_RECORDING_END;
     static const QString COL_RECORDING_FACTORY_ID;
     static const QString COL_RECORDING_ANALYST_ID;
-    static const QStringList LIST_RECORDING_COLS;
-    static const QList<QVariant::Type> LIST_RECORDING_TYPES;
     static const QHash<QString, QVariant::Type> HASH_RECORDING_TYPES;
 
     //Recording observes Line
     static const QString TBL_RECORDING_OB_LINE;
     static const QString COL_RECORDING_OB_LINE_RECORDING_ID;
     static const QString COL_RECORDING_OB_LINE_LINE_ID;
-    static const QStringList LIST_RECORDING_OB_LINE_COLS;
-    static const QList<QVariant::Type> LIST_RECORDING_OB_LINE_TYPES;
     static const QHash<QString, QVariant::Type> HASH_RECORDING_OB_LINE_TYPES;
 
     //Recording observes Workplace
     static const QString TBL_RECORDING_OB_WORKPLACE;
     static const QString COL_RECORDING_OB_WORKPLACE_RECORDING_ID;
     static const QString COL_RECORDING_OB_WORKPLACE_WORKPLACE_ID;
-    static const QStringList LIST_RECORDING_OB_WORKPLACE_COLS;
-    static const QList<QVariant::Type> LIST_RECORDING_OB_WORKPLACE_TYPES;
     static const QHash<QString, QVariant::Type> HASH_RECORDING_OB_WORKPLACE_TYPES;
 
     //Line
@@ -96,8 +88,6 @@ public:
     static const QString COL_LINE_DESCRIPTION;
     static const QString COL_LINE_NUMBER_OF_WORKPLACES;
     static const QString COL_LINE_FACTORY_ID;
-    static const QStringList LIST_LINE_COLS;
-    static const QList<QVariant::Type> LIST_LINE_TYPES;
     static const QHash<QString, QVariant::Type> HASH_LINE_TYPES;
 
     //Workplace
@@ -113,9 +103,6 @@ public:
     static const QString COL_WORKPLACE_BASIC_TIME;
     static const QString COL_WORKPLACE_REST_TIME;
     static const QString COL_WORKPLACE_ALLOWANCE_TIME;
-    static const QString COL_WORKPLACE_BODY_MEASUREMENT_ID;
-    static const QStringList LIST_WORKPLACE_COLS;
-    static const QList<QVariant::Type> LIST_WORKPLACE_TYPES;
     static const QHash<QString, QVariant::Type> HASH_WORKPLACE_TYPES;
 
     //Comment
@@ -127,8 +114,6 @@ public:
     static const QString COL_COMMENT_MEASURE_DESCRIPTION;
     static const QString COL_COMMENT_WORKER_PERCEPTION;
     static const QString COL_COMMENT_WORKPLACE_ID;
-    static const QStringList LIST_COMMENT_COLS;
-    static const QList<QVariant::Type> LIST_COMMENT_TYPES;
     static const QHash<QString, QVariant::Type> HASH_COMMENT_TYPES;
 
     //Employee
@@ -136,18 +121,16 @@ public:
     static const QString COL_EMPLOYEE_ID;
     static const QString COL_EMPLOYEE_STAFF_NUMBER;
     static const QString COL_EMPLOYEE_AGE;
+    static const QString COL_EMPLOYEE_GENDER;
     static const QString COL_EMPLOYEE_HEIGHT;
     static const QString COL_EMPLOYEE_NOTE;
-    static const QStringList LIST_EMPLOYEE_COLS;
-    static const QList<QVariant::Type> LIST_EMPLOYEE_TYPES;
+    static const QString COL_EMPLOYEE_BODY_MEASUREMENT_ID;
     static const QHash<QString, QVariant::Type> HASH_EMPLOYEE_TYPES;
 
     //Employee_works_Shift
     static const QString TBL_EMPLOYEE_WORKS_SHIFT;
     static const QString COL_EMPLOYEE_WORKS_SHIFT_EMPLOYEE_ID;
     static const QString COL_EMPLOYEE_WORKS_SHIFT_SHIFT_ID;
-    static const QStringList LIST_EMPlOYEE_WORKS_SHIFT_COLS;
-    static const QList<QVariant::Type> LIST_EMPLOYEE_WORKS_SHIFT_TYPES;
     static const QHash<QString, QVariant::Type> HASH_EMPLOYEE_WORKS_SHIFT_TYPES;
 
     //Product
@@ -156,8 +139,6 @@ public:
     static const QString COL_PRODUCT_NUMBER;
     static const QString COL_PRODUCT_NAME;
     static const QString COL_PRODUCT_TOTAL_PERCENTAGE;
-    static const QStringList LIST_PRODUCT_COLS;
-    static const QList<QVariant::Type> LIST_PRODUCT_TYPES;
     static const QHash<QString, QVariant::Type> HASH_PRODUCT_TYPES;
 
     //Shift
@@ -167,8 +148,6 @@ public:
     static const QString COL_SHIFT_TYPE;
     static const QString COL_SHIFT_START;
     static const QString COL_SHIFT_END;
-    static const QStringList LIST_SHIFT_COLS;
-    static const QList<QVariant::Type> LIST_SHIFT_TYPES;
     static const QHash<QString, QVariant::Type> HASH_SHIFT_TYPES;
 
     //Break
@@ -178,8 +157,6 @@ public:
     static const QString COL_BREAK_END;
     static const QString COL_BREAK_SHIFT_ID;
     static const QString COL_BREAK_EMPLOYEE_ID;
-    static const QStringList LIST_BREAK_COLS;
-    static const QList<QVariant::Type> LIST_BREAK_TYPES;
     static const QHash<QString, QVariant::Type> HASH_BREAK_TYPES;
 
     //Activity
@@ -242,7 +219,6 @@ public:
     static const QString COL_WORK_PROCESS_END;
     static const QString COL_WORK_PROCESS_MTM_CODE;
     static const QString COL_WORK_PROCESS_FREQUENCY;
-    static const QString COL_WORK_PROCESS_HANDEDNESS;
     static const QString COL_WORK_PROCESS_IMPULSE_INTENSITY;
     static const QString COL_WORK_PROCESS_IMPULSE_COUNT;
     static const QString COL_WORK_PROCESS_WORKING_HEIGHT;
@@ -251,7 +227,8 @@ public:
     static const QString COL_WORK_PROCESS_TRANSPORTATION_ID;
     static const QString COL_WORK_PROCESS_EQUIPMENT_ID;
     static const QString COL_WORK_PROCESS_CONDITION_ID;
-    static const QString COL_WORK_PROCESS_TYPE_OF_GRASPING_ID;
+    static const QString COL_WORK_PROCESS_APPLIED_FORCE_ID;
+    static const QString COL_WORK_PROCESS_LOAD_HANDLING_ID;
     static const QHash<QString, QVariant::Type> HASH_WORK_PROCESS_TYPES;
 
     //Load_Handling_Type
@@ -265,9 +242,8 @@ public:
     static const QString COL_LOAD_HANDLING_ID;
     static const QString COL_LOAD_HANDLING_LOAD;
     static const QString COL_LOAD_HANDLING_DISTANCE;
-    static const QString COL_LOAD_HANDLING_ACTIVITY_ID;
-    static const QString COL_LOAD_HANDLING_PROCESS_ID;
     static const QString COL_LOAD_HANDLING_LOAD_HANDLING_TYPE_ID;
+    static const QString COL_LOAD_HANDLING_TYPE_OF_GRASPING;
     static const QHash<QString, QVariant::Type> HASH_LOAD_HANDLING_TYPES;
 
     //Applied_Force
@@ -276,8 +252,6 @@ public:
     static const QString COL_APPLIED_FORCE_ORGAN;
     static const QString COL_APPLIED_FORCE_DIRECTION;
     static const QString COL_APPLIED_FORCE_INTENSITY;
-    static const QString COL_APPLIED_FORCE_ACTIVITY_ID;
-    static const QString COL_APPLIED_FORCE_PROCESS_ID;
     static const QHash<QString, QVariant::Type> HASH_APPLIED_FORCE_TYPES;
 
     //Transportation

@@ -131,6 +131,10 @@ signals:
     void updateEmployeeView();
     void saveEmployee();
 
+    //DOCUMENTATION VIEW
+    //WORKPROCESS
+    void createWorkprocess(int type, const QTime &start, const QTime &end);
+
 public slots:
 
     void setAnalyst(const QString &lastName, const QString &firstName, const QString &experience);

@@ -63,6 +63,7 @@ DocumentationView::DocumentationView(QWidget *parent) :
     timerView = new TimerViewController();
     connect(timerView, SIGNAL(showGantView()), this, SLOT(showGant()));
     connect(timerView, SIGNAL(hideGantView()), this, SLOT(hideGant()));
+    connect(timerView, SIGNAL(createWorkProcess(int,QTime,QTime)), this, SIGNAL(createWorkProcess(int,QTime,QTime)));
 
     indexBeforeTimeLineView = 0;
 

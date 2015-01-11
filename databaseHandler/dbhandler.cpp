@@ -10,10 +10,10 @@ DBHandler::DBHandler()
 {
     QString tmpString = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
     QFileInfo databaseFileInfo = QFileInfo(QString("%1/%2").arg(tmpString).arg("ergoAppDB.sqlite"));
-    QString databaseOriginPath = QString(":/android/assets/ergoAppDB.sqlite");
+    QString databaseOriginPath = QString(":/assets/ergoAppDB.sqlite");
 
     #if defined(Q_OS_ANDROID)
-        databaseOriginPath = QString(":/android/assets/ergoAppDB.sqlite");
+        databaseOriginPath = QString(":/assets/ergoAppDB.sqlite");
         tmpString = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
         databaseFileInfo = QFileInfo(QString("%1/%2").arg(tmpString).arg("ergoAppDB.sqlite"));
     #endif
@@ -56,6 +56,10 @@ DBHandler::DBHandler()
     tmCorporation = new QSqlTableModel(0, myDB);
     tmCorporation->setTable(DBConstants::TBL_CORPORATION);
     tmCorporation->setEditStrategy(QSqlTableModel::OnRowChange);
+
+    tmBranchOfIndustry = new QSqlTableModel(0, myDB);
+    tmBranchOfIndustry->setTable(DBConstants::TBL_BRANCH_OF_INDUSTRY);
+    tmBranchOfIndustry->setEditStrategy(QSqlTableModel::OnRowChange);
 
     tmFactory = new QSqlTableModel(0, myDB);
     tmFactory->setTable(DBConstants::TBL_FACTORY);
@@ -149,6 +153,7 @@ DBHandler::DBHandler()
     htSqlTableModels.insert(DB_TABLES::ANALYST, tmAnalyst);
     htSqlTableModels.insert(DB_TABLES::EMPLOYER, tmEmployer);
     htSqlTableModels.insert(DB_TABLES::CORPORATION, tmCorporation);
+    htSqlTableModels.insert(DB_TABLES::BRANCH_OF_INDUSTRY, tmBranchOfIndustry);
     htSqlTableModels.insert(DB_TABLES::FACTORY, tmFactory);
     htSqlTableModels.insert(DB_TABLES::RECORDING, tmRecording);
     htSqlTableModels.insert(DB_TABLES::RECORDING_OBSERVES_LINE, tmRecordingObservesLine);
