@@ -28,10 +28,10 @@ Controller::Controller(QObject *parent) :
     connect(viewCon, SIGNAL(saveSelectedLine(int)), SLOT(saveSelectedLine(int)));
     connect(viewCon, SIGNAL(deleteLine(int)), SLOT(deleteLine(int)));
 
-    connect(viewCon, SIGNAL(updateProductView()), this, SLOT(updateProductView()));
+    /*connect(viewCon, SIGNAL(updateProductView()), this, SLOT(updateProductView()));
     connect(viewCon, SIGNAL(saveProduct()), this, SLOT(saveProduct()));
     connect(viewCon, SIGNAL(saveSelectedProducts()), this, SLOT(saveSelectedProducts()));
-    connect(viewCon, SIGNAL(deleteProduct(int)), this, SLOT(deleteProduct(int)));
+    connect(viewCon, SIGNAL(deleteProduct(int)), this, SLOT(deleteProduct(int)));*/
 
     connect(viewCon, SIGNAL(createWorkprocess(int,QTime,QTime)), this, SLOT(createWorkprocess(int,QTime,QTime)));
 
@@ -185,7 +185,7 @@ void Controller::deleteLine(int id){
 
 //Product
 void Controller::updateProductView(){
-    viewCon->clearProducts();
+/*    viewCon->clearProducts();
     DB_TABLES tbl = DB_TABLES::PRODUCT;
     dbHandler->select(tbl, QString(""));
     for(int i = 0; i < dbHandler->rowCount(tbl); ++i){
@@ -195,11 +195,11 @@ void Controller::updateProductView(){
 
     dbHandler->select(DB_TABLES::ACTIVITY, QString("%1 = %2").arg(DBConstants::COL_ACTIVITY_WORKPLACE_ID).arg(selectedWorkplaceID));
     for(int i = 0; i < dbHandler->rowCount(tbl); ++i)
-        viewCon->setProductSelected(dbHandler->record(DB_TABLES::ACTIVITY, 0).value(DBConstants::COL_ACTIVITY_PRODUCT_ID).toInt());
+        viewCon->setProductSelected(dbHandler->record(DB_TABLES::ACTIVITY, 0).value(DBConstants::COL_ACTIVITY_PRODUCT_ID).toInt());*/
 }
 
 int Controller::saveSelectedProducts(){
-    QString filter = QString("%1 = %2 AND %3 = %4").arg(DBConstants::COL_ACTIVITY_WORKPLACE_ID).arg(QString::number(selectedWorkplaceID)).arg(DBConstants::COL_ACTIVITY_PRODUCT_ID);
+    /*QString filter = QString("%1 = %2 AND %3 = %4").arg(DBConstants::COL_ACTIVITY_WORKPLACE_ID).arg(QString::number(selectedWorkplaceID)).arg(DBConstants::COL_ACTIVITY_PRODUCT_ID);
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_ACTIVITY_WORKPLACE_ID, selectedWorkplaceID);
     QList<int> prodIDs = viewCon->getSelectedProducts();
@@ -208,22 +208,22 @@ int Controller::saveSelectedProducts(){
         save(DB_TABLES::ACTIVITY, filter.arg(QString::number(id)), DBConstants::COL_ACTIVITY_ID, DBConstants::HASH_ACTIVITY_TYPES, values);
         activity_ID = id;
     }
-    return 0;
+    return 0;*/
 }
 int Controller::saveProduct(){
-    QString filter = QString("%1 = %2").arg(DBConstants::COL_PRODUCT_ID).arg(QString::number(0));
+    /*QString filter = QString("%1 = %2").arg(DBConstants::COL_PRODUCT_ID).arg(QString::number(0));
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_PRODUCT_NAME, viewCon->getProductName());
     values.insert(DBConstants::COL_PRODUCT_NUMBER, viewCon->getProductNumber());
     values.insert(DBConstants::COL_PRODUCT_TOTAL_PERCENTAGE, viewCon->getProductTotalPercentage());
     int id = save(DB_TABLES::PRODUCT, filter, DBConstants::COL_PRODUCT_ID, DBConstants::HASH_PRODUCT_TYPES, values);
     updateProductView();
-    return id;
+    return id;*/
 }
 
 void Controller::deleteProduct(int id){
-    dbHandler->deleteAll(DB_TABLES::PRODUCT, QString("%1 = %2").arg(DBConstants::COL_PRODUCT_ID).arg(QString::number(id)));
-    updateProductView();
+    /*dbHandler->deleteAll(DB_TABLES::PRODUCT, QString("%1 = %2").arg(DBConstants::COL_PRODUCT_ID).arg(QString::number(id)));
+    updateProductView();*/
 }
 
 

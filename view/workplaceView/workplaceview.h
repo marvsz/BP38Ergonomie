@@ -33,7 +33,7 @@ signals:
     void forward();
 
     void showLineView();
-    void showProductView();
+    void showActivityView();
     void showCommentView();
 
 public slots:
@@ -45,7 +45,6 @@ public slots:
 
 private slots:
     void btnBackClicked();
-    void btnForwardClicked();
 
 private:
     int id;
@@ -75,10 +74,9 @@ private:
     TimeLineEdit* timeCycleTime;
 
     QPushButton *btnBack;
-    QPushButton *btnForward;
 
     DetailedListItem *line;
-    DetailedListItem *product;
+    DetailedListItem *activity;
     DetailedListItem *comment;
 
     QList<DetailedListItem*> *additions;

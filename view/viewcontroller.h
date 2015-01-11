@@ -10,8 +10,8 @@
 #include "workplaceView/lineview.h"
 #include "workplaceView/employeeview.h"
 #include "workplaceView/shiftpauseview.h"
-#include "workplaceView/productview.h"
 #include "workplaceView/commentview.h"
+#include "workplaceView/activityview.h"
 #include "documentationview.h"
 
 class ViewController : public QStackedWidget
@@ -27,8 +27,8 @@ public:
     static const int LINE_VIEW = 4;
     static const int SHIFTPAUSE_VIEW = 5;
     static const int EMPLOYEE_VIEW = 6;
-    static const int PRODUCT_VIEW = 7;
-    static const int COMMENT_VIEW = 8;
+    static const int COMMENT_VIEW = 7;
+    static const int ACTIVITY_VIEW = 8;
     static const int DOCUMENTATION_VIEW = 9;
 
     // METADATAVIEW GETTER
@@ -82,11 +82,11 @@ public:
     QString getEmployeeStaffNumber() const;
     QString getEmployeeNote() const;
 
-    // PRODUCT VIEW GETTER
+    /*// PRODUCT VIEW GETTER
     QString getProductName() const;
     QString getProductNumber() const;
     int getProductTotalPercentage() const;
-    QList<int> getSelectedProducts() const;
+    QList<int> getSelectedProducts() const;*/
 
     // COMMENT VIEW GETTER
     QString getCommentProblemName() const;
@@ -117,15 +117,20 @@ signals:
     void saveSelectedLine(int id);
     void deleteLine(int id);
 
-    // PRODUCT VIEW
+    /*// PRODUCT VIEW
     void updateProductView();
     void saveProduct();
     void deleteProduct(int id);
-    void saveSelectedProducts();
+    void saveSelectedProducts();*/
 
     // COMMENT VIEW
     void updateCommentView();
     void saveComment();
+
+    // ACTIVITY VIEW
+    void updateActivityView();
+    void saveActivity();
+    void deleteActivity();
 
     // EMPLOYEE VIEW
     void updateEmployeeView();
@@ -166,11 +171,11 @@ public slots:
     // EMPLOYEE VIEW SETTER
     void setEmployee(int gender, int age, int height, const QString &staffNumber, const QString &note);
 
-    // PRODUCT VIEW SETTER
+    /*// PRODUCT VIEW SETTER
     void setProduct(const QString &name, const QString &number, int totalPercentage);
     void addProduct(int id, const QString &name);
     void clearProducts();
-    void setProductSelected(int id);
+    void setProductSelected(int id);*/
 
     // COMMENT VIEW SETTER
     void setComment(const QString &problemName, const QString &problemDesc, const QString &measureName, const QString &measureDesc, const QString &workerPerception);
@@ -187,7 +192,7 @@ private slots:
     void goToLineView();
     void goToShiftAndPauseView();
     void goToEmployeeView();
-    void goToProductView();
+    void goToActivityView();
     void goToCommentView();
     void goToDocumentationView();
 
@@ -200,7 +205,7 @@ private:
     LineView *lineView;
     ShiftPauseView *shiftPauseView;
     EmployeeView *employeeView;
-    ProductView *productView;
+    ActivityView *activityView;
     CommentView *commentView;
     DocumentationView *documentationView;
 

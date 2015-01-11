@@ -10,7 +10,7 @@ ViewController::ViewController(QWidget *parent) :
     workplaceView = new WorkplaceView;
     lineView = new LineView;
     shiftPauseView = new ShiftPauseView;
-    productView = new ProductView;
+    activityView = new ActivityView;
     commentView = new CommentView;
     employeeView = new EmployeeView;
     documentationView = new DocumentationView;
@@ -37,7 +37,7 @@ ViewController::ViewController(QWidget *parent) :
     connect(workplaceView, SIGNAL(forward()), this, SLOT(goToDocumentationView()));
     connect(workplaceView, SIGNAL(showLineView()), this, SLOT(goToLineView()));
 
-    connect(workplaceView, SIGNAL(showProductView()), this, SLOT(goToProductView()));
+    connect(workplaceView, SIGNAL(showActivityView()), this, SLOT(goToActivityView()));
     connect(workplaceView, SIGNAL(showCommentView()), this, SLOT(goToCommentView()));
 
     // LINE VIEW
@@ -52,11 +52,11 @@ ViewController::ViewController(QWidget *parent) :
     // EMPLOYEE VIEW
     connect(employeeView, SIGNAL(back()), this, SLOT(backToView()));
 
-    // PRODUCT VIEW
+    /*// PRODUCT VIEW
     connect(productView, SIGNAL(back()), this, SLOT(backToView()));
     connect(productView, SIGNAL(deleteProduct(int)), this, SIGNAL(deleteProduct(int)));
     connect(productView, SIGNAL(saveProduct()), this, SIGNAL(saveProduct()));
-    connect(productView, SIGNAL(saveSelectedProducts()), this, SIGNAL(saveSelectedProducts()));
+    connect(productView, SIGNAL(saveSelectedProducts()), this, SIGNAL(saveSelectedProducts()));*/
 
     // COMMENT VIEW
     connect(commentView, SIGNAL(back()), this, SLOT(backToView()));
@@ -74,7 +74,7 @@ ViewController::ViewController(QWidget *parent) :
     this->addWidget(lineView);
     this->addWidget(shiftPauseView);
     this->addWidget(employeeView);
-    this->addWidget(productView);
+    this->addWidget(activityView);
     this->addWidget(commentView);
     this->addWidget(documentationView);
 
@@ -114,9 +114,9 @@ void ViewController::goToEmployeeView(){
     goToView(ViewController::EMPLOYEE_VIEW);
 }
 
-void ViewController::goToProductView(){
-    emit updateProductView();
-    goToView(ViewController::PRODUCT_VIEW);
+void ViewController::goToActivityView(){
+    emit updateActivityView();
+    goToView(ViewController::ACTIVITY_VIEW);
 }
 
 void ViewController::goToCommentView(){
@@ -370,7 +370,7 @@ QString ViewController::getEmployeeNote() const{
     return employeeView->getNote();
 }
 
-// PRODUCT VIEW GETTER/SETTER
+/*// PRODUCT VIEW GETTER/SETTER
 // SETTER
 void ViewController::setProduct(const QString &name, const QString &number, int totalPercentage){
     productView->setProduct(name, number, totalPercentage);
@@ -403,7 +403,7 @@ int ViewController::getProductTotalPercentage() const{
 
 QList<int> ViewController::getSelectedProducts() const{
     return productView->getSelectedIDs();
-}
+}*/
 
 // COMMENT VIEW GETTER/SETTER
 //SETTER
@@ -454,8 +454,8 @@ void ViewController::backToView(){
         case ViewController::EMPLOYEE_VIEW:
             emit updateEmployeeView();
             break;
-        case ViewController::PRODUCT_VIEW:
-            emit updateProductView();
+        case ViewController::ACTIVITY_VIEW:
+            emit updateActivityView();
             break;
         case ViewController::COMMENT_VIEW:
             emit updateCommentView();

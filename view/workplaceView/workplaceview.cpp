@@ -18,7 +18,6 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     txtBxCode(new TextLineEdit()),
     numBxWomanPercentage(new NumberLineEdit()),
     btnBack(new QPushButton(tr("< back"))),
-    btnForward(new QPushButton(tr("forth >"))),
     lblAllowedTime(new QLabel(tr("initial time"), this)),
     lblSetupTime(new QLabel(tr("setup time:"), this)),
     lblBasicTime(new QLabel(tr("halt! hammer time:"), this)),
@@ -34,9 +33,7 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
 
 {
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
-    connect(btnForward, SIGNAL(clicked()), this, SLOT(btnForwardClicked()));
     btnBack->setObjectName("btnNavigation");
-    btnForward->setObjectName("btnNavigation");
 
     timeBasicTime->setMaximumWidth(100);
     timeSetupTime->setMaximumWidth(100);
@@ -78,7 +75,7 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     employeeListTwo << "Anmerkung";
     employeeList << employeeListOne << employeeListTwo;*/
 
-    QList<QStringList> productList;
+    QList<QStringList> activityList;
 
     QList<QStringList> commentList;
     QStringList commentListOne;
@@ -88,21 +85,21 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     commentList << commentListOne << commentListTwo;
 
     line = new DetailedListItem(this, "", tr("line"), lineList, false, false, true);
-    product = new DetailedListItem(this, "", tr("products"), productList, false, false, true);
+    activity = new DetailedListItem(this, "", tr("activities"), activityList, false, false, true);
     comment = new DetailedListItem(this, "", tr("remarks"), commentList, false, false, true);
 
     connect(line, SIGNAL(clicked()), this, SIGNAL(showLineView()));
-    connect(product, SIGNAL(clicked()), this, SIGNAL(showProductView()));
+    connect(activity, SIGNAL(clicked()), this, SIGNAL(showActivityView()));
     connect(comment, SIGNAL(clicked()), this, SIGNAL(showCommentView()));
 
     additions->append(line);
-    additions->append(product);
+    additions->append(activity);
     additions->append(comment);
 
     QGridLayout *navigationBarLayout = new QGridLayout;
     navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
     navigationBarLayout->addWidget(lblViewDescription, 0, 1, 1, 1, Qt::AlignCenter);
-    navigationBarLayout->addWidget(btnForward, 0, 2, 1, 1, Qt::AlignRight);
+    navigationBarLayout->addWidget(new QLabel(), 0, 2, 1, 1, Qt::AlignRight);
 
     QGridLayout *workplaceMetaDataLayout = new QGridLayout;
     workplaceMetaDataLayout->addWidget(lblName, 0, 0, 1, 1, 0);
@@ -169,11 +166,6 @@ void WorkplaceView::setWorkplaceTimes(const QTime &basicTime, const QTime &setup
 void WorkplaceView::btnBackClicked(){
     emit save();
     emit back();
-}
-
-void WorkplaceView::btnForwardClicked(){
-    emit save();
-    emit forward();
 }
 
 // GETTER

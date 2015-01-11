@@ -41,7 +41,7 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/workplaceView/workplacelistview.h \
     $$PWD/detailedlistitem.h \
     $$PWD/workplaceView/commentview.h \
-    $$PWD/workplaceView/productview.h \
+    $$PWD/ressourceManagementView/productview.h \
     $$PWD/timelineedit.h \
     $$PWD/workplaceView/shiftpauseview.h \
     $$PWD/datetimespinner.h \
@@ -52,7 +52,11 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/timerView/ganttimerview.h \
     $$PWD/timerView/workprocessbutton.h \
     $$PWD/timerView/timerviewcontroller.h \
-    $$PWD/iconconstants.h
+    $$PWD/iconconstants.h \
+    $$PWD/ressourceManagementView/ressourcemanagementview.h \
+    $$PWD/ressourceManagementView/equipmentview.h \
+    $$PWD/ressourceManagementView/transportationview.h \
+    $$PWD/workplaceView/activityview.h
 
 
 SOURCES += $$PWD/angleView/variant.cpp\
@@ -93,7 +97,7 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/workplaceView/employeeview.cpp\
     $$PWD/detailedlistitem.cpp \
     $$PWD/workplaceView/commentview.cpp \
-    $$PWD/workplaceView/productview.cpp \
+    $$PWD/ressourceManagementView/productview.cpp \
     $$PWD/timelineedit.cpp \
     $$PWD/workplaceView/shiftpauseview.cpp \
     $$PWD/datetimespinner.cpp \
@@ -104,6 +108,10 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/timerView/ganttimerview.cpp \
     $$PWD/timerView/workprocessbutton.cpp \
     $$PWD/timerView/timerviewcontroller.cpp \
-    $$PWD/iconconstants.cpp
+    $$PWD/iconconstants.cpp \
+    $$PWD/ressourceManagementView/ressourcemanagementview.cpp \
+    $$PWD/ressourceManagementView/equipmentview.cpp \
+    $$PWD/ressourceManagementView/transportationview.cpp \
+    $$PWD/workplaceView/activityview.cpp
 
 
