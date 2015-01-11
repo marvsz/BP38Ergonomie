@@ -160,8 +160,6 @@ void WorkplaceView::setWorkplaceTimes(const QTime &basicTime, const QTime &setup
     timeCycleTime->setValue(cycleTime);
 }
 
-
-
 //private slots
 void WorkplaceView::btnBackClicked(){
     emit save();

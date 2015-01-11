@@ -15,19 +15,48 @@ QSlider::sub-page:horizontal {background: #007aff;}
 QAbstractPushButton#workplaceListItem {background: #007aff;}
 QPushButton {font: 100 18px "Serif";color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5; padding: 4px;}
 QPushButton:pressed {color: #ffffff; background-color: #007aff;}
-QPushButton#spinnerButton {border: 0px; background-color: #efeff4;}
-QPushButton#detailedListItemDelete {image: url(:/timer/icons/Timer/reset.png); width: 45px; height: 45px; border: 0px; background-color: #efeff4;}
-QPushButton#btnCamera {image: url(:/icons/specialPurposeIcons/camera.png); width: 50px; height: 50px; border: 0px; background-color: #efeff4;}
-QPushButton#btnNavigation {border: 0px; background-color: #efeff4}
-QPushButton#btnIcon {border: 0px; background-color: #efeff4}
+QPushButton#spinnerButton {border: none; background-color: #efeff4;}
+QPushButton#detailedListItemDelete {image: url(:/timer/icons/Timer/reset.png); width: 45px; height: 45px; border: none; background-color: #efeff4;}
+QPushButton#btnCamera {image: url(:/icons/specialPurposeIcons/camera.png); width: 50px; height: 50px; border: none; background-color: #efeff4;}
+QPushButton#btnNavigation {border: none; background-color: #efeff4;}
+QPushButton#btnIcon {border: none; background-color: #efeff4;}
+
+
+QPushButton#upIcon {image: url(:/timer/icons/Timer/up.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#downIcon {image: url(:/timer/icons/Timer/down.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#leftIcon {image: url(:/timer/icons/Timer/left.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#rightIcon {image: url(:/timer/icons/Timer/right.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#playIcon {image: url(:/timer/icons/Timer/play.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#pauseIcon {image: url(/timer/icons/Timer/pause.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#recordIcon {image: url(:/timer/icons/Timer/record.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#resetIcon {image: url(/timer/icons/Timer/reset.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#stopIcon {image: url(:/timer/icons/Timer/stop.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#zoomInIcon {image: url(:/timer/icons/Timer/zoomIn.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#zoomOutIcon {image: url(:/timer/icons/Timer/zoomOut.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#plusIcon {image: url(:/timer/icons/Timer/plus.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#minusIcon {image: url(:/timer/icons/Timer/minus.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#upIcon:pressed {image: url(:/timer/icons/Timer/up.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#downIcon:pressed {image: url(:/timer/icons/Timer/down.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#leftIcon:pressed {image: url(:/timer/icons/Timer/left.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#rightIcon:pressed {image: url(:/timer/icons/Timer/right.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#playIcon:pressed {image: url(:/timer/icons/Timer/play.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#pauseIcon:pressed {image: url(:/timer/icons/Timer/pause.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#recordIcon:pressed {image: url(:/timer/icons/Timer/record.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#resetIcon:pressed {image: url(:/timer/icons/Timer/reset.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#stopIcon:pressed {image: url(:/timer/icons/Timer/stop.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#zoomInIcon:pressed {image: url(:/timer/icons/Timer/zoomIn.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#zoomOutIcon:pressed {image: url(:/timer/icons/Timer/zoomOut.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#plusIcon:pressed {image: url(:/timer/icons/Timer/plus.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#minusIcon:pressed {image: url(:/timer/icons/Timer/minus.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+
 QScrollArea {background-color: #efeff4; margin: 0 0; border: none;}
-QScrollBar:vertical {border: 0px solid #007aff; margin: 0px 0px 0px 0px; background: #efeff4;}
+QScrollBar:vertical {border: none solid #007aff; margin: 0px 0px 0px 0px; background: #efeff4;}
 QScrollBar::handle:vertical {background: #007aff; min-width: 60px; border-radius: 5px;}
-QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical  {border: 0px solid #007aff; background: #efeff4;}
+QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical  {border: none solid #007aff; background: #efeff4;}
 QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {width: 0px; height: 0px;}
-QScrollBar:horizontal {border: 0px solid #007aff; margin: 0px 0px 0px 0px; background: #efeff4;}
+QScrollBar:horizontal {border: none solid #007aff; margin: 0px 0px 0px 0px; background: #efeff4;}
 QScrollBar::handle:horizontal {background: #007aff; min-width: 60px; border-radius: 5px;}
-QScrollBar::sub-line:horizontal, QScrollBar::add-line:horizontal  {border: 0px solid #007aff; background: #efeff4;}
+QScrollBar::sub-line:horizontal, QScrollBar::add-line:horizontal  {border: none solid #007aff; background: #efeff4;}
 OwnCon {background-color: #efeff4;}
 QTabWidget::pane {border-top: 2px solid #c8c7cc; margin-top: -35px;}
 QTabWidget::tab-bar {alignment: center; }

@@ -8,7 +8,6 @@
 #include <QTabBar>
 #include <QQuickView>
 #include <QQmlEngine>
-#include "stopwatch.h"
 #include "angleView/angleview.h"
 #include "buttontimelineview.h"
 #include "timerView/timerviewcontroller.h"

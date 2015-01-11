@@ -1,30 +1,31 @@
 #ifndef MAINMENU_H
 #define MAINMENU_H
 
-#include <QMainWindow>
+#include <QWidget>
 #include <QPushButton>
 #include <QWidget>
 
-class MainMenu : public QMainWindow
+class MainMenu : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MainMenu(QWidget *parent = 0);
+    explicit MainMenu(QWidget *btnparent = 0);
 
 signals:
-    void metaDataViewSelected();
-    void workplaceListViewSelected();
-    void newRecordingViewSelected();
+    void showMetaDataView();
+    void showWorkplaceListView();
+    void showRessourceManagementView();
+    void showNewRecordingView();
+    void showSettingsView();
 
-public slots:
-    void openMetaDataView();
-    void openWorkplaceListView();
-    void openNewRecordingView();
 
 private:
-    QPushButton *metaDataViewBtn;
-    QPushButton *workplaceListBtn;
-    QPushButton *newRecordingBtn;
+    QPushButton *btnMetaDataView;
+    QPushButton *btnWorkplaceList;
+    QPushButton *btnRessourceManagement;
+    QPushButton *btnNewRecording;
+    QPushButton *btnSettings;
+
 };
 
 #endif // MAINMENU_H

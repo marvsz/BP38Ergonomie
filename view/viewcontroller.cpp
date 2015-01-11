@@ -9,16 +9,21 @@ ViewController::ViewController(QWidget *parent) :
     workplaceListView = new WorkplaceListView;
     workplaceView = new WorkplaceView;
     lineView = new LineView;
-    shiftPauseView = new ShiftPauseView;
     activityView = new ActivityView;
     commentView = new CommentView;
     employeeView = new EmployeeView;
     documentationView = new DocumentationView;
+    ressourceManagementView = new RessourceManagementView;
+    productView = new ProductView;
+    equipmentView = new EquipmentView;
+    transportationView = new TransportationView;
 
     // MAIN MENU
-    connect(mainMenuView, SIGNAL(metaDataViewSelected()), this, SLOT(goToMetaDataView()));
-    connect(mainMenuView, SIGNAL(workplaceListViewSelected()), this, SLOT(goToWorkplaceListView()));
-    connect(mainMenuView, SIGNAL(newRecordingViewSelected()), this, SLOT(goToDocumentationView()));
+    connect(mainMenuView, SIGNAL(showMetaDataView()), this, SLOT(goToMetaDataView()));
+    connect(mainMenuView, SIGNAL(showWorkplaceListView()), this, SLOT(goToWorkplaceListView()));
+    connect(mainMenuView, SIGNAL(showRessourceManagementView()), this, SLOT(goToRessourceManagementView()));
+    connect(mainMenuView, SIGNAL(showNewRecordingView()), this, SLOT(goToDocumentationView()));
+    connect(mainMenuView, SIGNAL(showSettingsView()), this, SLOT(goToSettingsView()));
 
     // METADATA VIEW
     connect(metaDataView, SIGNAL(showMainMenu()), this, SLOT(backToView()));
@@ -46,17 +51,8 @@ ViewController::ViewController(QWidget *parent) :
     connect(lineView, SIGNAL(saveLine()), this, SIGNAL(saveLine()));
     connect(lineView, SIGNAL(saveSelectedLine(int)), this, SIGNAL(saveSelectedLine(int)));
 
-    // SHIFTPAUSE VIEW
-    connect(shiftPauseView, SIGNAL(back()), this, SLOT(backToView()));
-
     // EMPLOYEE VIEW
     connect(employeeView, SIGNAL(back()), this, SLOT(backToView()));
-
-    /*// PRODUCT VIEW
-    connect(productView, SIGNAL(back()), this, SLOT(backToView()));
-    connect(productView, SIGNAL(deleteProduct(int)), this, SIGNAL(deleteProduct(int)));
-    connect(productView, SIGNAL(saveProduct()), this, SIGNAL(saveProduct()));
-    connect(productView, SIGNAL(saveSelectedProducts()), this, SIGNAL(saveSelectedProducts()));*/
 
     // COMMENT VIEW
     connect(commentView, SIGNAL(back()), this, SLOT(backToView()));
@@ -66,17 +62,35 @@ ViewController::ViewController(QWidget *parent) :
     connect(documentationView, SIGNAL(showPreviousView()), this, SLOT(backToView()));
     connect(documentationView, SIGNAL(createWorkProcess(int,QTime,QTime)), this, SIGNAL(createWorkprocess(int,QTime,QTime)));
 
+    // RESSOURCE MANAGEMENT VIEW
+    connect(ressourceManagementView, SIGNAL(back()), this, SLOT(backToView()));
+    connect(ressourceManagementView, SIGNAL(showEquipmentView()), this, SLOT(goToEquipmentView()));
+    connect(ressourceManagementView, SIGNAL(showProductView()), this, SLOT(goToProductView()));
+    connect(ressourceManagementView, SIGNAL(showTransportationView()), this, SLOT(goToTransportationView()));
+
+    // EQUIPMENT VIEW
+
+    // TRANSPORTATION VIEW
+
+    // PRODUCT VIEW
+    connect(productView, SIGNAL(back()), this, SLOT(backToView()));
+    connect(productView, SIGNAL(deleteProduct(int)), this, SIGNAL(deleteProduct(int)));
+    connect(productView, SIGNAL(saveProduct()), this, SIGNAL(saveProduct()));
+
     // ADD ALL VIEWS
     this->addWidget(mainMenuView);
     this->addWidget(metaDataView);
     this->addWidget(workplaceListView);
     this->addWidget(workplaceView);
     this->addWidget(lineView);
-    this->addWidget(shiftPauseView);
     this->addWidget(employeeView);
     this->addWidget(activityView);
     this->addWidget(commentView);
     this->addWidget(documentationView);
+    this->addWidget(ressourceManagementView);
+    this->addWidget(productView);
+    this->addWidget(equipmentView);
+    this->addWidget(transportationView);
 
     setCurrentIndex(ViewController::MAIN_MENU_VIEW);
 }
@@ -105,10 +119,6 @@ void ViewController::goToLineView(){
     goToView(ViewController::LINE_VIEW);
 }
 
-void ViewController::goToShiftAndPauseView(){
-    goToView(ViewController::SHIFTPAUSE_VIEW);
-}
-
 void ViewController::goToEmployeeView(){
     emit updateEmployeeView();
     goToView(ViewController::EMPLOYEE_VIEW);
@@ -128,6 +138,25 @@ void ViewController::goToDocumentationView(){
     goToView(ViewController::DOCUMENTATION_VIEW);
 }
 
+void ViewController::goToRessourceManagementView(){
+    goToView(ViewController::RESSOURCE_MANAGEMENT_VIEW);
+}
+void ViewController::goToSettingsView(){
+    // TODO WHEN SETTINGSVIEW EXISTS
+}
+
+void ViewController::goToEquipmentView(){
+
+    goToView(ViewController::EQUIPMENT_VIEW);
+}
+
+void ViewController::goToProductView(){
+    goToView(ViewController::PRODUCT_VIEW);
+}
+
+void ViewController::goToTransportationView(){
+    goToView(ViewController::TRANSPORTATION_VIEW);
+}
 
 // METADATAVIEW GETTER/SETTER
 // GETTER
@@ -313,36 +342,6 @@ int ViewController::getLineWorkplaceCount() const{
     return lineView->getWorkplaceCount();
 }
 
-// SHIFTPAUSE VIEW GETTER/SETTER
-QTime ViewController::getShiftBegin() const{
-    return shiftPauseView->getShiftBegin();
-}
-
-QTime ViewController::getShiftEnd() const{
-    return shiftPauseView->getShiftEnd();
-}
-
-int ViewController::getShiftQuantity() const{
-    return shiftPauseView->getQuantity();
-}
-
-QTime ViewController::getShiftBreakBegin() const{
-    return shiftPauseView->getBreakBegin();
-}
-
-QTime ViewController::getShiftBreakEnd() const{
-    return shiftPauseView->getBreakEnd();
-}
-
-void ViewController::setShift(const QString &shiftType, const QTime &shiftBegin, const QTime &shiftEnd){
-    shiftPauseView->setShift(shiftType, shiftBegin, shiftEnd);
-}
-
-void ViewController::setShiftBreak(const QTime &breakBegin, const QTime &breakEnd){
-    shiftPauseView->setBreak(breakBegin, breakEnd);
-}
-
-
 // EMPLOYEE VIEW GETTER/SETTER
 // SETTER
 void ViewController::setEmployee(int gender, int age, int height, const QString &staffNumber, const QString &note){
@@ -370,7 +369,42 @@ QString ViewController::getEmployeeNote() const{
     return employeeView->getNote();
 }
 
-/*// PRODUCT VIEW GETTER/SETTER
+// EQUIPMENT VIEW GETTER/SETTER
+//SETTER
+
+void ViewController::setEquipment(const QString &name, int recoilIntensity, int recoilCount, int vibrationIntensity, int vibrationCount){
+
+}
+
+void ViewController::addEquipment(int id, const QString &name, int recoilIntensity, int recoilCount, int vibrationIntensity, int vibrationCount){
+
+}
+
+void ViewController::clearEquipment(){
+
+}
+
+// GETTER
+QString ViewController::getEquipmentName() const{
+
+}
+
+int ViewController::getEquipmentRecoilIntensity() const{
+
+}
+
+int ViewController::getEquipmentRecoilCount() const{
+
+}
+
+int ViewController::getEquipmentVibrationIntensity() const{
+
+}
+
+int ViewController::getEquipmentVibrationCount() const{
+
+}
+// PRODUCT VIEW GETTER/SETTER
 // SETTER
 void ViewController::setProduct(const QString &name, const QString &number, int totalPercentage){
     productView->setProduct(name, number, totalPercentage);
@@ -382,10 +416,6 @@ void ViewController::addProduct(int id, const QString &name){
 
 void ViewController::clearProducts(){
     productView->clearProducts();
-}
-
-void ViewController::setProductSelected(int id){
-    productView->setProductSelected(id);
 }
 
 // GETTER
@@ -401,9 +431,41 @@ int ViewController::getProductTotalPercentage() const{
     return productView->getTotalPercentage();
 }
 
-QList<int> ViewController::getSelectedProducts() const{
-    return productView->getSelectedIDs();
-}*/
+// TRANSPORTATION VIEW GETTER/SETTER
+//SETTER
+void ViewController::setTransportation(const QString &name, int hasFixedRoller, int hasBrakes, int emptyWeight, int maxLoad){
+
+}
+
+void ViewController::addTransportation(int id, const QString &name, int hasFixedRoller, int hasBrakes, int emptyWeight, int maxLoad){
+
+}
+
+void ViewController::clearTransportations(){
+
+}
+
+// GETTER
+QString ViewController::getTransportationName() const{
+
+}
+
+int ViewController::hasTransportationFixedRoller() const{
+
+}
+
+int ViewController::hasTransportationBrakes() const{
+
+}
+
+int ViewController::getTransportationEmptyWeight() const{
+
+}
+
+int ViewController::getTransportationMaxLoad() const{
+
+}
+
 
 // COMMENT VIEW GETTER/SETTER
 //SETTER
@@ -449,8 +511,6 @@ void ViewController::backToView(){
         case ViewController::LINE_VIEW:
             emit updateLineView();
             break;
-        case ViewController::SHIFTPAUSE_VIEW:
-            break;
         case ViewController::EMPLOYEE_VIEW:
             emit updateEmployeeView();
             break;
@@ -461,6 +521,16 @@ void ViewController::backToView(){
             emit updateCommentView();
             break;
         case ViewController::DOCUMENTATION_VIEW:
+            break;
+        case ViewController::RESSOURCE_MANAGEMENT_VIEW:
+            break;
+        case ViewController::PRODUCT_VIEW:
+            break;
+        case ViewController::EQUIPMENT_VIEW:
+            break;
+        case ViewController::TRANSPORTATION_VIEW:
+            break;
+        case ViewController::SETTINGS_VIEW:
             break;
         default:
             break;

@@ -18,9 +18,10 @@ CommentView::CommentView(QWidget *parent) : QWidget(parent),
     txtBxMeasureName(new TextLineEdit()),
     txtBxMeasureDescription(new TextEdit()),
     txtBxPerceptionDescription(new TextEdit()),
-    btnBack(new QPushButton(tr("back")))
+    btnBack(new QPushButton())
 {
-    btnBack->setObjectName("btnNavigation");
+    btnBack->setObjectName("leftIcon");
+    btnBack->setFixedSize(45, 45);
 
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
     QGridLayout *navigationBarLayout = new QGridLayout;

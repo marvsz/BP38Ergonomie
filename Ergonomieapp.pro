@@ -19,12 +19,10 @@ RESOURCES += \
     assets.qrc
 
 HEADERS += \
-    enum.h \
-    stopwatch.h
+    enum.h
 
 SOURCES += \
-    main.cpp \
-    stopwatch.cpp
+    main.cpp
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
@@ -33,7 +31,7 @@ ios {
    ICON_FILES.path = ./
    LAUNCH_FILES.files = $$system("find $$PWD/ios/launchimage/ -name '*.png'")
    LAUNCH_FILES.path = ./
-   DATABASES.files = $$system("find $$PWD/android/assets/ -name '*.sqlite'")
+   DATABASES.files = $$system("find $$PWD/assets/ -name '*.sqlite'")
    DATABASES.path = Documents
    QMAKE_BUNDLE_DATA += ICON_FILES
    QMAKE_BUNDLE_DATA += LAUNCH_FILES

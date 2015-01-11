@@ -42,7 +42,6 @@ public slots:
     void setComment(const QString &problemName, const QString &measureName);
     void setWorkplaceTimes(const QTime &basicTime, const QTime &setupTime, const QTime &restTime, const QTime &allowanceTime, const QTime &cycleTime);
 
-
 private slots:
     void btnBackClicked();
 

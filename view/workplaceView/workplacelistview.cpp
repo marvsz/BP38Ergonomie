@@ -10,22 +10,24 @@
 const QList<QStringList> WorkplaceListView::workplaceCaptions = QList<QStringList>() << (QStringList() << "Beschreibung" << "Code");
 
 WorkplaceListView::WorkplaceListView(QWidget *parent) :
-    QWidget(parent)
+    QWidget(parent),
+    btnBack(new QPushButton()),
+    btnForward(new QPushButton()),
+    listContentLayout(new QVBoxLayout),
+    scWorkplaces(new QScrollArea())
 {
     QGridLayout *navigationLayout = new QGridLayout;
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    listContentLayout = new QVBoxLayout;
-
     QWidget *listContent = new QWidget;
 
-    btnBack = new QPushButton(tr("< back"));
-    btnBack->setObjectName("btnNavigation");
-    btnForward = new QPushButton("+");
-    btnForward->setObjectName("btnNavigation");
+    btnBack->setObjectName("leftIcon");
+    btnBack->setFixedSize(45, 45);
+    btnForward->setObjectName("plusIcon");
+    btnForward->setFixedSize(45, 45);
+
     connect(btnBack, SIGNAL(clicked()), this, SIGNAL(back()));
     connect(btnForward, SIGNAL(clicked()), this, SIGNAL(forward()));
 
-    scWorkplaces = new QScrollArea();
     scWorkplaces->setWidget(listContent);
     scWorkplaces->setWidgetResizable(true);
     FlickCharm *flickCharm = new FlickCharm(this);

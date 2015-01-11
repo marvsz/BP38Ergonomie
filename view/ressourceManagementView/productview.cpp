@@ -14,12 +14,15 @@ ProductView::ProductView(QWidget *parent) : QWidget(parent),
     txtBxName(new TextLineEdit()),
     txtBxNumber(new TextLineEdit()),
     numBxTotalPercentage(new NumberLineEdit()),
-    btnBack(new QPushButton(tr("back"))),
-    btnAdd(new QPushButton(tr("add"))),
+    btnBack(new QPushButton()),
+    btnAdd(new QPushButton()),
     productListLayout(new QVBoxLayout)
 
 {
-    btnBack->setObjectName("btnNavigation");
+    btnBack->setObjectName("leftIcon");
+    btnBack->setFixedSize(45, 45);
+    btnAdd->setObjectName("plusIcon");
+    btnAdd->setFixedSize(45, 45);
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
     connect(btnAdd, SIGNAL(clicked()), this, SIGNAL(saveProduct()));
 

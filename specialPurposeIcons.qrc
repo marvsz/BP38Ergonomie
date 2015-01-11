@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>icons/specialPurposeIcons/camera.png</file>
-        <file>icons/specialPurposeIcons/downarrow.png</file>
-        <file>icons/specialPurposeIcons/downarrowon.png</file>
+        <file>icons/specialPurposeIcons/camera@2x.png</file>
     </qresource>
 </RCC>

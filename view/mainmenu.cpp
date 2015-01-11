@@ -1,50 +1,40 @@
 #include "mainmenu.h"
 #include "viewcontroller.h"
 #include <QVBoxLayout>
-#include <QGroupBox>
-#include <QWidget>
 
 MainMenu::MainMenu(QWidget *parent) :
-    QMainWindow(parent)
+    QWidget(parent),
+    btnMetaDataView(new QPushButton(tr("Head Data"))),
+    btnWorkplaceList(new QPushButton(tr("Work Stations"))),
+    btnRessourceManagement(new QPushButton(tr ("Ressource Management"))),
+    btnNewRecording(new QPushButton(tr("New Recording"))),
+    btnSettings(new QPushButton(tr("Settings")))
 {
-    QVBoxLayout *groupLayout = new QVBoxLayout;
-    QWidget *mainWidget = new QWidget;
+    QVBoxLayout *mainLayout = new QVBoxLayout;
 
-    metaDataViewBtn = new QPushButton(this);
-    metaDataViewBtn->setText(tr("head data"));
-    metaDataViewBtn->setMinimumSize(300, 60);
-    connect(metaDataViewBtn, SIGNAL(clicked()), this, SLOT(openMetaDataView()));
+    btnMetaDataView->setMinimumSize(300, 60);
+    btnWorkplaceList->setMinimumSize(300, 60);
+    btnNewRecording->setMinimumSize(300, 60);
+    btnRessourceManagement->setMinimumSize(300, 60);
+    btnSettings->setMinimumSize(300, 60);
 
-    workplaceListBtn = new QPushButton(this);
-    workplaceListBtn->setText(tr("work stations"));
-    workplaceListBtn->setMinimumSize(300, 60);
-    connect(workplaceListBtn, SIGNAL(clicked()), this, SLOT(openWorkplaceListView()));
+    connect(btnMetaDataView, SIGNAL(clicked()), this, SIGNAL(showMetaDataView()));
+    connect(btnWorkplaceList, SIGNAL(clicked()), this, SIGNAL(showWorkplaceListView()));
+    connect(btnRessourceManagement, SIGNAL(clicked()), this, SIGNAL(showRessourceManagementView()));
+    connect(btnNewRecording, SIGNAL(clicked()), this, SIGNAL(showNewRecordingView()));
+    connect(btnSettings, SIGNAL(clicked()), this, SIGNAL(showSettingsView()));
 
-    newRecordingBtn = new QPushButton(this);
-    newRecordingBtn->setText(tr("new recording"));
-    newRecordingBtn->setMinimumSize(300, 60);
-    connect(newRecordingBtn, SIGNAL(clicked()), this, SLOT(openNewRecordingView()));
+    mainLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
+    mainLayout->addWidget(btnMetaDataView, 0, Qt::AlignCenter);
+    mainLayout->addSpacerItem(new QSpacerItem(0,60, QSizePolicy::Minimum, QSizePolicy::Fixed));
+    mainLayout->addWidget(btnWorkplaceList, 0, Qt::AlignCenter);
+    mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
+    mainLayout->addWidget(btnRessourceManagement, 0, Qt::AlignCenter);
+    mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
+    mainLayout->addWidget(btnNewRecording, 0, Qt::AlignCenter);
+    mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Expanding));
+    mainLayout->addWidget(btnSettings, 0, Qt::AlignCenter);
+    mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Expanding));
 
-    groupLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
-    groupLayout->addWidget(metaDataViewBtn, 0, Qt::AlignCenter);
-    groupLayout->addSpacerItem(new QSpacerItem(0,60, QSizePolicy::Minimum, QSizePolicy::Fixed));
-    groupLayout->addWidget(workplaceListBtn, 0, Qt::AlignCenter);
-    groupLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
-    groupLayout->addWidget(newRecordingBtn, 0, Qt::AlignCenter);
-    groupLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Expanding));
-
-    mainWidget->setLayout(groupLayout);
-    this->setCentralWidget(mainWidget);
-}
-
-void MainMenu::openMetaDataView(){
-    emit metaDataViewSelected();
-}
-
-void MainMenu::openWorkplaceListView(){
-    emit workplaceListViewSelected();
-}
-
-void MainMenu::openNewRecordingView(){
-    emit newRecordingViewSelected();
+    setLayout(mainLayout);
 }

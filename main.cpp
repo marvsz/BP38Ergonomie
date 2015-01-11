@@ -4,10 +4,6 @@
 #include <QTextStream>
 #include "control/controller.h"
 
-#if defined(Q_OS_IOS)
-extern "C" int qtmn(int argc, char **argv)
-#else
-
 QString stringFromResource(const QString &resName)
 {
     QFile file(resName);
@@ -16,6 +12,9 @@ QString stringFromResource(const QString &resName)
     return ts.readAll();
 }
 
+#if defined(Q_OS_IOS)
+extern "C" int qtmn(int argc, char **argv)
+#else
 int main(int argc, char *argv[])
 #endif
 {
