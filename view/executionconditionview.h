@@ -1,58 +1,82 @@
 #ifndef EXECUTIONCONDITIONVIEW_H
 #define EXECUTIONCONDITIONVIEW_H
 
-#include <QMainWindow>
-#include <QScrollArea>
-#include <QGridLayout>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QPushButton>
+#include <QWidget>
 #include <QLabel>
+#include "slidercontrol.h"
+#include "optionselectioncontrol.h"
 
-#include "selectablevaluebutton.h"
-#include "moreexecutioncondition.h"
-#include "generalexecutioncondition.h"
-#include "utilitylistcontrol.h"
-#include "producedproductexecutioncondition.h"
-
-class ExecutionConditionView : public QMainWindow
+class ExecutionConditionView : public QWidget
 {
     Q_OBJECT
 public:
     explicit ExecutionConditionView(QWidget *parent = 0);
 
+    int getHeadSupport() const;
+    int getRightUpperArmSupport() const;
+    int getLeftUpperArmSupport() const;
+    int getRightForearmSupport() const;
+    int getLeftForearmSupport() const;
+    int getRightHandSupport() const;
+    int getLeftHandSupport() const;
+    int getTrunkSupport() const;
+    int getRightThighSupport() const;
+    int getLeftThighSupport() const;
+    int getRightLowerLegSupport() const;
+    int getLeftLowerLegSupport() const;
+    int getPrecision() const;
+    int getVelocity() const;
+    int getAcceleration() const;
+    int getGraspingType() const;
+    int getAccessibility() const;
+    int getGround() const;
+    int getLighting() const;
+    int getClimate() const;
+    int getWind() const;
+    int getClothing() const;
+    int getVibration() const;
+    int getRoomToMove() const;
+
 signals:
 
 public slots:
+    void setArmSupports(int ruas, int luas, int rfs, int lfs, int rhs, int lhs);
+    void setBodySupports(int head, int trunk);
+    void setLegSupports(int rts, int lts, int rlls, int llls);
+    void setResultingConstraints(int graspingType, int access, int ground, int lighting, int climate, int wind, int clothing, int roomToMove);
+    void setConditionAttributes(int precision, int velocity, int acceleration, int vibration);
 
 private slots:
-    void moreExecutionConditionSelected();
-    void utilitiesExecutionConditionSelected();
-    void generalExecutionConditionSelected();
-    void producedProductExecutionConditionSelected();
 
 private:
-    QWidget *mainContent;
-    QScrollArea *scMainContent;
-    QVBoxLayout *lytOptions;
-    QHBoxLayout *mainContentLayout;
+    SliderControl *scPrecision;
+    SliderControl *scVelocity;
+    SliderControl *scAcceleration;
+    SliderControl *scGripCondition;
+    SliderControl *scAccessibility;
+    SliderControl *scGround;
+    SliderControl *scLighting;
+    SliderControl *scClimate;
+    SliderControl *scWind;
+    SliderControl *scClothing;
+    SliderControl *scVibration;
+    SliderControl *scRoomToMove;
 
+    OptionSelectionControl *oscHeadSupport;
+    OptionSelectionControl *oscRightUpperArmSupport;
+    OptionSelectionControl *oscLeftUpperArmSupport;
+    OptionSelectionControl *oscRightForearmSupport;
+    OptionSelectionControl *oscLeftForearmSupport;
+    OptionSelectionControl *oscRightHandSupport;
+    OptionSelectionControl *oscLeftHandSupport;
+    OptionSelectionControl *oscTrunkSupport;
+    OptionSelectionControl *oscRightThighSupport;
+    OptionSelectionControl *oscLeftThighSupport;
+    OptionSelectionControl *oscRightLowerLegSupport;
+    OptionSelectionControl *oscLeftLowerLegSupport;
 
-    MoreExecutionCondition *moreExecutionCondition;
-    UtilityListControl *utilitiesExecutionCondition;
-    GeneralExecutionCondition *generalExecutionCondition;
-    ProducedProductExecutionCondition *producedProductExecutionCondition;
-
-    SelectableValueButton *btnMoreExecutionCondition;
-    SelectableValueButton *btnUtilitiesExecutionCondition;
-    SelectableValueButton *btnGeneralExecutionCondition;
-    SelectableValueButton *btnProducedProductExecutionCondition;
-
-    SelectableValueButton *currentSelectedBtn;
-    QWidget *currentShownWidget;
-
-    void showHide(SelectableValueButton *btn, QWidget *content);
-
+    static const QStringList YES_NO_TEXTS;
+    static const QVector<QVariant> YES_NO_VALUE;
 
 };
 

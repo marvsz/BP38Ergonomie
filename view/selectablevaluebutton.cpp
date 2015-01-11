@@ -1,28 +1,31 @@
 #include "selectablevaluebutton.h"
 #include <QWidget>
 
-const QString SelectableValueButton::qssHead = "QPushButton {font: 100 ";
-const QString SelectableValueButton::qssSelected     = "px \"Serif\"; color: #FFFFFF; border: 2px solid #007aff; border-radius: 10px; background-color: #007aff; padding: 4px;}"; //QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
-const QString SelectableValueButton::qssNotSelected  = "px \"Serif\"; color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5; padding: 4px;}"; //QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
+const QString SelectableValueButton::qssSelected     = "QPushButton {font: 100 18px \"Serif\"; color: #FFFFFF; border: 2px solid #007aff; border-radius: 10px; background-color: #007aff; padding: 4px;}"; //QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
+const QString SelectableValueButton::qssNotSelected  = "QPushButton {font: 100 18px \"Serif\"; color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5; padding: 4px;}"; //QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
 
 
-SelectableValueButton::SelectableValueButton(int id, int value, QWidget *parent) :
-    QPushButton(parent)
+SelectableValueButton::SelectableValueButton(int id, const QVariant &value, QWidget *parent) :
+    QPushButton(parent),
+    id(id)
 {
-    this->id = id;
-    this->fontSize = 18;
     this->setSelected(false);
     this->setValue(value);
-    connect(this, SIGNAL(clicked()), this, SLOT(qpbtnClicked()));
+    connect(this, SIGNAL(clicked()), this, SLOT(btnClicked()));
 }
 
+//PRIVATE SLOTS
+void SelectableValueButton::btnClicked(){
+    emit clickedWithID(this->id);
+}
 
+//GETTER AND SETTER
 void SelectableValueButton::setSelected(bool isSelected){
     this->isSel = isSelected;
     if(isSel)
-        this->setStyleSheet(qssHead + QString::number(fontSize) + qssSelected);
+        this->setStyleSheet(qssSelected);
     else
-        this->setStyleSheet(qssHead + QString::number(fontSize) + qssNotSelected);
+        this->setStyleSheet(qssNotSelected);
 }
 
 bool SelectableValueButton::isSelected() const{
@@ -37,35 +40,13 @@ int SelectableValueButton::getID() const{
     return this->id;
 }
 
-void SelectableValueButton::qpbtnClicked(){
-    emit clickedWithID(this->id);
-}
-
-int SelectableValueButton::getValue(){
+QVariant SelectableValueButton::getValue() const{
     return value;
 }
 
-void SelectableValueButton::setValue(int value){
+void SelectableValueButton::setValue(const QVariant &value){
     this->value = value;
 }
 
-void SelectableValueButton::setFontSize(int fontSize){
-    this->fontSize = fontSize;
-    setSelected(isSelected());
-}
 
-int SelectableValueButton::getMaxFontSize() const{
-    int width = size().width() - 10;
-    int fontSize = 5;
-    QFont font = QFont("Serif", fontSize, 100, false);
-    for(int i = fontSize; i < 20; ++i){
-        font.setPointSize(i);
-        QFontMetrics fm(font);
-        int t_w = fm.width(this->text());
-        if(t_w > width){
-            return --i;
-        }
-    }
-    return 20;
-}
 

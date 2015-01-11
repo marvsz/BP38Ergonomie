@@ -90,6 +90,7 @@ signals:
 
 public slots:
     void setValue(int value);
+    void setValue(const QString &text);
 
 private slots:
     void txtBxValueHasChanged();

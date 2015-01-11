@@ -4,7 +4,7 @@
 #include "separator.h"
 #include <QIcon>
 
-const QVector<QString> MaximizedTimerView::wpTypes = QVector<QString>()<<"Links"<<"Rechts"<<"AV";
+const QStringList MaximizedTimerView::wpTypes = QStringList()<<"Links"<<"Rechts"<<"AV";
 
 MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     QWidget(parent),
@@ -20,6 +20,7 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     btnSetAV(new QPushButton("AV")),
     timePicker(new TimePicker()),
     wpSelector(new WorkProcessSelector),
+    oscWorkProcessType(new OptionSelectionControl()),
     graphTimer(new GraphTimelineView())
 {
     recordIcon = QIcon(IconConstants::ICON_RECORD);
@@ -68,7 +69,7 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     connect(wpSelector, SIGNAL(nextAV()), this, SIGNAL(nextWorkProcess()));
     connect(wpSelector, SIGNAL(previousAV()), this, SIGNAL(previousWorkProcess()));
 
-    oscWorkProcessType = new OptionSelectionControl(wpTypes);
+    oscWorkProcessType->setValues(wpTypes);
     connect(oscWorkProcessType, SIGNAL(selectionChanged(int)), this, SIGNAL(workProcessTypeChanged(int)));
 
     oscWorkProcessType->setMaximumWidth(220);
@@ -106,7 +107,7 @@ QTime MaximizedTimerView::getDuration() const{
 
 
 QString MaximizedTimerView::getWorkprocessType() const{
-    return oscWorkProcessType->getSelectedValue();
+    return oscWorkProcessType->getSelectedValue().toString();
 }
 
 TimerState MaximizedTimerView::getState() const{

@@ -3,29 +3,37 @@
 
 #include <QWidget>
 #include <QHBoxLayout>
+#include <QStringList>
+#include <QVariant>
 #include "selectablevaluebutton.h"
 
 class OptionSelectionControl : public QWidget
 {
     Q_OBJECT
 public:
-    explicit OptionSelectionControl(const QVector<QString> &options, QWidget *parent = 0);
+    explicit OptionSelectionControl(QWidget *parent = 0);
 
-    QString getSelectedValue();
-    int getSelectedID();
+    QVariant getSelectedValue() const;
+    QString getSelectedTexts() const;
+    int getSelectedID() const;
 
 signals:
     void selectionChanged(int id);
 
 public slots:
     void setSelectedValue(int id);
-    void setSelectedValue(const QString &name);
+    void setSelectedValue(const QString &text);
+    void setSelectedValue(const QVariant &value);
+    void setValues(const QStringList &texts, const QVector<QVariant> &values);
+    void setValues(const QStringList &texts);
 
 private:
-    int currentSelectedBtnID;
+    SelectableValueButton *currentSelectedBtn;
 
-    QVector<SelectableValueButton*> *btnOptions;
+    QVector<SelectableValueButton*> btnOptions;
     QHBoxLayout *mainLayout;
+
+    void clear();
 
 };
 

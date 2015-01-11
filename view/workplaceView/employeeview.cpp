@@ -10,6 +10,7 @@ EmployeeView::EmployeeView(QWidget *parent) : QWidget(parent),
     lblGender(new QLabel(tr("gender:"))),
     lblStaffNumber(new QLabel(tr("PersonalID:"))),
     lblNote(new QLabel(tr("Remarks:"))),
+    oscGender(new OptionSelectionControl()),
     vcAge(new ValueControl(VariantControl::VALUE_CONTROL)),
     vcHeight(new ValueControl(VariantControl::VALUE_CONTROL)),
     txtBxStaffNumber(new TextLineEdit()),
@@ -28,7 +29,7 @@ EmployeeView::EmployeeView(QWidget *parent) : QWidget(parent),
     vcHeight->setValues(100, 220, heightValues, new QString(""));
     vcHeight->setValue(175);
 
-    oscGender= new OptionSelectionControl(genderTextValues);
+    oscGender->setValues(genderTextValues);
 
     QGridLayout *navigationBarLayout = new QGridLayout();
     navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);

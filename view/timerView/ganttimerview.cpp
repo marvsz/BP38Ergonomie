@@ -129,15 +129,15 @@ void GantTimerView::btnZoomInClicked(){
     clear();
     for(int i = 0; i < leftWPBtns->count(); ++i){
         WorkProcessButton *btn = leftWPBtns->at(i);
-        add(btn->getID(), btn->getValue(), btn->getStartTime(), btn->getEndTime());
+        add(btn->getID(), btn->getValue().toInt(), btn->getStartTime(), btn->getEndTime());
     }
     for(int i = 0; i < rightWPBtns->count(); ++i){
         WorkProcessButton *btn = rightWPBtns->at(i);
-        add(btn->getID(), btn->getValue(), btn->getStartTime(), btn->getEndTime());
+        add(btn->getID(), btn->getValue().toInt(), btn->getStartTime(), btn->getEndTime());
     }
     for(int i = 0; i < basicWPBtns->count(); ++i){
         WorkProcessButton *btn = basicWPBtns->at(i);
-        add(btn->getID(), btn->getValue(), btn->getStartTime(), btn->getEndTime());
+        add(btn->getID(), btn->getValue().toInt(), btn->getStartTime(), btn->getEndTime());
     }
 }
 
@@ -146,15 +146,15 @@ void GantTimerView::btnZoomOutClicked(){
     clear();
     for(int i = 0; i < leftWPBtns->count(); ++i){
         WorkProcessButton *btn = leftWPBtns->at(i);
-        add(btn->getID(), btn->getValue(), btn->getStartTime(), btn->getEndTime());
+        add(btn->getID(), btn->getValue().toInt(), btn->getStartTime(), btn->getEndTime());
     }
     for(int i = 0; i < rightWPBtns->count(); ++i){
         WorkProcessButton *btn = rightWPBtns->at(i);
-        add(btn->getID(), btn->getValue(), btn->getStartTime(), btn->getEndTime());
+        add(btn->getID(), btn->getValue().toInt(), btn->getStartTime(), btn->getEndTime());
     }
     for(int i = 0; i < basicWPBtns->count(); ++i){
         WorkProcessButton *btn = basicWPBtns->at(i);
-        add(btn->getID(), btn->getValue(), btn->getStartTime(), btn->getEndTime());
+        add(btn->getID(), btn->getValue().toInt(), btn->getStartTime(), btn->getEndTime());
     }
 }
 

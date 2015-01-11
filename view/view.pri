@@ -16,20 +16,14 @@ $$CURRENT_DIR/transportview.h\
 $$CURRENT_DIR/viewcontroller.h\
 $$CURRENT_DIR/transportationlistcontrol.h \
 $$CURRENT_DIR/transportationlistelement.h \
-    $$PWD/actionforceview.h \
-    $$PWD/moreexecutioncondition.h \
     $$PWD/optionselectioncontrol.h \
     $$PWD/executionconditionview.h \
     $$PWD/flickcharm.h \
-    $$PWD/generalexecutioncondition.h \
     $$PWD/documentationview.h \
-    $$PWD/utilitylistcontrol.h \
-    $$PWD/utilitylistelement.h \
     $$PWD/subactivitycontrol.h \
     $$PWD/buttontimelineview.h \
     $$PWD/numberlineedit.h \
     $$PWD/textlineedit.h \
-    $$PWD/producedproductexecutioncondition.h \
     $$PWD/graphtimelineview.h \
     $$PWD/avrecordcontrol.h \
     $$PWD/metadataview.h \
@@ -43,7 +37,6 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/workplaceView/commentview.h \
     $$PWD/ressourceManagementView/productview.h \
     $$PWD/timelineedit.h \
-    $$PWD/workplaceView/shiftpauseview.h \
     $$PWD/datetimespinner.h \
     $$PWD/timerView/minimizedtimerview.h \
     $$PWD/timerView/workprocessselector.h \
@@ -56,7 +49,10 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/ressourceManagementView/ressourcemanagementview.h \
     $$PWD/ressourceManagementView/equipmentview.h \
     $$PWD/ressourceManagementView/transportationview.h \
-    $$PWD/workplaceView/activityview.h
+    $$PWD/workplaceView/activityview.h \
+    $$PWD/workprocessmetadataview.h \
+    $$PWD/slidercontrol.h \
+    $$PWD/appliedforceview.h
 
 
 SOURCES += $$PWD/angleView/variant.cpp\
@@ -73,20 +69,14 @@ $$CURRENT_DIR/mainmenu.cpp\
 $$PWD/angleView/angleview.cpp \
 $$CURRENT_DIR/transportationlistcontrol.cpp\
 $$CURRENT_DIR/transportationlistelement.cpp \
-    $$PWD/actionforceview.cpp \
-    $$PWD/moreexecutioncondition.cpp \
     $$PWD/optionselectioncontrol.cpp \
     $$PWD/executionconditionview.cpp \
     $$PWD/flickcharm.cpp \
-    $$PWD/generalexecutioncondition.cpp \
     $$PWD/documentationview.cpp \
-    $$PWD/utilitylistcontrol.cpp \
-    $$PWD/utilitylistelement.cpp \
     $$PWD/subactivitycontrol.cpp \
     $$PWD/buttontimelineview.cpp \
     $$PWD/numberlineedit.cpp \
     $$PWD/textlineedit.cpp \
-    $$PWD/producedproductexecutioncondition.cpp \
     $$PWD/graphtimelineview.cpp \
     $$PWD/avrecordcontrol.cpp \
     $$PWD/metadataview.cpp \
@@ -99,7 +89,6 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/workplaceView/commentview.cpp \
     $$PWD/ressourceManagementView/productview.cpp \
     $$PWD/timelineedit.cpp \
-    $$PWD/workplaceView/shiftpauseview.cpp \
     $$PWD/datetimespinner.cpp \
     $$PWD/timerView/minimizedtimerview.cpp \
     $$PWD/timerView/workprocessselector.cpp \
@@ -112,6 +101,9 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/ressourceManagementView/ressourcemanagementview.cpp \
     $$PWD/ressourceManagementView/equipmentview.cpp \
     $$PWD/ressourceManagementView/transportationview.cpp \
-    $$PWD/workplaceView/activityview.cpp
+    $$PWD/workplaceView/activityview.cpp \
+    $$PWD/workprocessmetadataview.cpp \
+    $$PWD/slidercontrol.cpp \
+    $$PWD/appliedforceview.cpp
 
 

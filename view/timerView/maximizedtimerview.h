@@ -80,7 +80,7 @@ private:
     TimePicker *timePicker;
     WorkProcessSelector *wpSelector;
 
-    static const QVector<QString> wpTypes;
+    static const QStringList wpTypes;
     OptionSelectionControl *oscWorkProcessType;
 
     GraphTimelineView *graphTimer;

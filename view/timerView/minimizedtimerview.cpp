@@ -2,13 +2,14 @@
 #include "QHBoxLayout"
 #include "iconconstants.h"
 
-const QVector<QString> MinimizedTimerView::wpTypes = QVector<QString>()<<"Links"<<"Rechts"<<"AV";
+const QStringList MinimizedTimerView::wpTypes = QStringList()<<"Links"<<"Rechts"<<"AV";
 
 MinimizedTimerView::MinimizedTimerView(TimerState state, QWidget *parent) : QWidget(parent),
     lblTime(new QLabel("00:00")),
     btnMaximized(new QPushButton(QIcon(IconConstants::ICON_UP), "")),
     btnPlayPaused(new QPushButton()),
-    wpSelector(new WorkProcessSelector())
+    wpSelector(new WorkProcessSelector()),
+    oscWorkProcessType(new OptionSelectionControl())
 {
     recordIcon = QIcon(IconConstants::ICON_RECORD);
     playIcon = QIcon(IconConstants::ICON_PLAY);
@@ -27,7 +28,7 @@ MinimizedTimerView::MinimizedTimerView(TimerState state, QWidget *parent) : QWid
     connect(wpSelector, SIGNAL(nextAV()), this, SIGNAL(nextWorkProcess()));
     connect(wpSelector, SIGNAL(previousAV()), this, SIGNAL(previousWorkProcess()));
 
-    oscWorkProcessType = new OptionSelectionControl(wpTypes);
+    oscWorkProcessType->setValues(wpTypes);
     connect(oscWorkProcessType, SIGNAL(selectionChanged(int)), this, SIGNAL(workProcessTypeChanged(int)));
 
     QHBoxLayout *mainLayout = new QHBoxLayout;
@@ -49,7 +50,7 @@ MinimizedTimerView::MinimizedTimerView(TimerState state, QWidget *parent) : QWid
 //PUBLIC
 
 QString MinimizedTimerView::getWorkprocessType() const{
-    return oscWorkProcessType->getSelectedValue();
+    return oscWorkProcessType->getSelectedValue().toString();
 }
 
 TimerState MinimizedTimerView::getState() const{

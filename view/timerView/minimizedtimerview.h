@@ -50,7 +50,7 @@ private:
 
     WorkProcessSelector *wpSelector;
 
-    static const QVector<QString> wpTypes;
+    static const QStringList wpTypes;
     QIcon playIcon;
     QIcon recordIcon;
     QIcon pauseIcon;

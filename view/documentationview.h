@@ -9,6 +9,7 @@
 #include <QQuickView>
 #include <QQmlEngine>
 #include "angleView/angleview.h"
+#include "workprocessmetadataview.h"
 #include "buttontimelineview.h"
 #include "timerView/timerviewcontroller.h"
 #include "timerView/ganttimerview.h"

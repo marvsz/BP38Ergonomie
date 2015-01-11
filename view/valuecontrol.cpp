@@ -98,7 +98,19 @@ ValueControl::ValueControl(VariantControl controlType, QWidget *parent) :
 
 //Public slots
 void ValueControl::setValue(int value){
-    sldrValue->setValue(value);
+    if(conType == VariantControl::VALUE_CONTROL)
+        sldrValue->setValue(value);
+}
+
+void ValueControl::setValue(const QString &text){
+    if(conType == VariantControl::TEXT_CONTROL){
+        for(int i = 0; i < btnTextValues.length(); ++i){
+            if(btnTextValues.at(i).compare(text) == 0){
+                btnTextHasClicked(i);
+                break;
+            }
+        }
+    }
 }
 
 
@@ -184,8 +196,8 @@ void ValueControl::sldrValueHasChanged(){
 
 void ValueControl::btnValueHasClicked(int id){
     SelectableValueButton *btn = btnList->at(id);
-    btnHighlight(btn->getValue());
-    sldrValue->setValue(btn->getValue());
+    btnHighlight(btn->getValue().toInt());
+    sldrValue->setValue(btn->getValue().toInt());
 }
 
 void ValueControl::btnTextHasClicked(int id){

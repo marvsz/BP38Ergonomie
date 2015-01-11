@@ -15,7 +15,7 @@ WorkProcessButton::~WorkProcessButton()
 
 //PRIVATE SLOTS
 void WorkProcessButton::btnClicked(){
-    emit clickedWithIDValue(getID(), getValue());
+    emit clickedWithIDValue(getID(), getValue().toInt());
 }
 
 

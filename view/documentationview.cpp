@@ -7,7 +7,7 @@
 #include <QList>
 #include <QStringList>
 #include "transportview.h"
-#include "actionforceview.h"
+#include "appliedforceview.h"
 #include "executionconditionview.h"
 #include "separator.h"
 
@@ -38,6 +38,7 @@ DocumentationView::DocumentationView(QWidget *parent) :
     viewNames.append(tr("weight handling"));
     viewNames.append(tr("acting force"));
     viewNames.append(tr("conditions"));
+    viewNames.append(tr("metadata"));
     this->views = new QComboBox();
     this->views->setMinimumSize(280, 40);
     this->views->addItems(QStringList(viewNames));
@@ -49,8 +50,9 @@ DocumentationView::DocumentationView(QWidget *parent) :
     angleView = new AngleView;
     mainContent->addWidget(angleView);
     mainContent->addWidget(new TransportView);
-    mainContent->addWidget(new ActionForceView);
+    mainContent->addWidget(new AppliedForceView);
     mainContent->addWidget(new ExecutionConditionView);
+    mainContent->addWidget(new WorkProcessMetaDataView);
     mainContent->addWidget(gantView);
 
     // CONNECT THE COMBOBOX TO THE STACKEDWIDGET
@@ -127,7 +129,7 @@ void DocumentationView::avPressed(){
 
 void DocumentationView::showGant(){
     indexBeforeTimeLineView = mainContent->currentIndex();
-    mainContent->setCurrentIndex(4);
+    mainContent->setCurrentIndex(5);
 }
 
 void DocumentationView::hideGant(){
