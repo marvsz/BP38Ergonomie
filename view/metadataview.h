@@ -14,12 +14,15 @@ class MetaDataView : public QWidget
 public:
     explicit MetaDataView(QWidget *parent = 0);
 
-    QString getAnalystLastName() const;
+   /* QString getAnalystLastName() const;
     QString getAnalystFirstName() const;
     QString getAnalystEmployer() const;
-    QString getAnalystExperience() const;
+    QString getAnalystExperience() const;*/
 
     QString getCorporationName() const;
+
+    QString getBranchOfIndustryName() const;
+    QString getBranchOfIndustryDescription() const;
 
     QString getFactoryName() const;
     QString getFactoryStreet() const;
@@ -38,9 +41,10 @@ signals:
     void showWorkplaceListView();
 
 public slots:
-    void setAnalyst(const QString &lastName, const QString &firstName, const QString &experience);
+    //void setAnalyst(const QString &lastName, const QString &firstName, const QString &experience);
     void setEmployer(const QString &employer);
     void setCorporation(const QString &name);
+    void setBranchOfIndustry(const QString &name, const QString &description);
     void setFactory(const QString &name, const QString &street, int zip, const QString &city, const QString &country, const QString &contact, int employeeCount);
     void setRecordTime(const QDateTime &begin, const QDateTime &end);
 
@@ -55,11 +59,11 @@ private:
     QLabel *lblViewDescription;
     QPushButton *btnForward;
 
-    QLabel *lblAnalyst;
+  /*  QLabel *lblAnalyst;
     QLabel *lblAnalystLastName;
     QLabel *lblAnalystFirstName;
     QLabel *lblAnalystEmployer;
-    QLabel *lblAnalystExperience;
+    QLabel *lblAnalystExperience;*/
 
     TextLineEdit *txtBxAnalystLastName;
     TextLineEdit *txtBxAnalystFirstName;
@@ -69,6 +73,12 @@ private:
     QLabel *lblCorporation;
     QLabel *lblCorpName;
     TextLineEdit *txtBxCorpName;
+
+    QLabel *lblBranchOfIndustry;
+    QLabel *lblBoIName;
+    TextLineEdit *txtBxBoIName;
+    QLabel *lblBoIDescription;
+    TextLineEdit *txtBxBoIDescription;
 
     QLabel *lblFactory;
     QLabel *lblFactoryName;
