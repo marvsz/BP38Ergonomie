@@ -15,39 +15,36 @@ QSlider::sub-page:horizontal {background: #007aff;}
 QAbstractPushButton#workplaceListItem {background: #007aff;}
 QPushButton {font: 100 18px "Serif";color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5; padding: 4px;}
 QPushButton:pressed {color: #ffffff; background-color: #007aff;}
-QPushButton#spinnerButton {border: none; background-color: #efeff4;}
-QPushButton#detailedListItemDelete {image: url(:/timer/icons/Timer/reset.png); width: 45px; height: 45px; border: none; background-color: #efeff4;}
-QPushButton#btnCamera {image: url(:/icons/specialPurposeIcons/camera.png); width: 50px; height: 50px; border: none; background-color: #efeff4;}
-QPushButton#btnNavigation {border: none; background-color: #efeff4;}
+
+QPushButton#btnCamera {image: url(:/button/icons/Buttons/camera.png); width: 50px; height: 50px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#btnNavigation {border: none; background-color: rgba(255, 255, 255, 0%);}
 QPushButton#btnIcon {border: none; background-color: #efeff4;}
-
-
-QPushButton#upIcon {image: url(:/timer/icons/Timer/up.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#downIcon {image: url(:/timer/icons/Timer/down.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#leftIcon {image: url(:/timer/icons/Timer/left.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#rightIcon {image: url(:/timer/icons/Timer/right.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#playIcon {image: url(:/timer/icons/Timer/play.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#pauseIcon {image: url(/timer/icons/Timer/pause.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#recordIcon {image: url(:/timer/icons/Timer/record.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#resetIcon {image: url(/timer/icons/Timer/reset.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#stopIcon {image: url(:/timer/icons/Timer/stop.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#zoomInIcon {image: url(:/timer/icons/Timer/zoomIn.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#zoomOutIcon {image: url(:/timer/icons/Timer/zoomOut.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#plusIcon {image: url(:/timer/icons/Timer/plus.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#minusIcon {image: url(:/timer/icons/Timer/minus.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#upIcon:pressed {image: url(:/timer/icons/Timer/up.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#downIcon:pressed {image: url(:/timer/icons/Timer/down.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#leftIcon:pressed {image: url(:/timer/icons/Timer/left.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#rightIcon:pressed {image: url(:/timer/icons/Timer/right.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#playIcon:pressed {image: url(:/timer/icons/Timer/play.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#pauseIcon:pressed {image: url(:/timer/icons/Timer/pause.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#recordIcon:pressed {image: url(:/timer/icons/Timer/record.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#resetIcon:pressed {image: url(:/timer/icons/Timer/reset.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#stopIcon:pressed {image: url(:/timer/icons/Timer/stop.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#zoomInIcon:pressed {image: url(:/timer/icons/Timer/zoomIn.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#zoomOutIcon:pressed {image: url(:/timer/icons/Timer/zoomOut.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#plusIcon:pressed {image: url(:/timer/icons/Timer/plus.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#minusIcon:pressed {image: url(:/timer/icons/Timer/minus.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#upIcon {image: url(:/button/icons/Buttons/up.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#downIcon {image: url(:/button/icons/Buttons/down.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#leftIcon {image: url(:/button/icons/Buttons/left.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#rightIcon {image: url(:/button/icons/Buttons/right.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#playIcon {image: url(:/button/icons/Buttons/play.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#pauseIcon {image: url(/button/icons/Buttons/pause.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#recordIcon {image: url(:/button/icons/Buttons/record.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#resetIcon {image: url(:/button/icons/Buttons/reset.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#stopIcon {image: url(:/button/icons/Buttons/stop.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#zoomInIcon {image: url(:/button/icons/Buttons/zoomIn.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#zoomOutIcon {image: url(:/button/icons/Buttons/zoomOut.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#plusIcon {image: url(:/button/icons/Buttons/plus.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#minusIcon {image: url(:/button/icons/Buttons/minus.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#upIcon:pressed {image: url(:/button/icons/Buttons/up.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#downIcon:pressed {image: url(:/button/icons/Buttons/down.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#leftIcon:pressed {image: url(:/button/icons/Buttons/left.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#rightIcon:pressed {image: url(:/button/icons/Buttons/right.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#playIcon:pressed {image: url(:/button/icons/Buttons/play.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#pauseIcon:pressed {image: url(:/button/icons/Buttons/pause.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#recordIcon:pressed {image: url(:/button/icons/Buttons/record.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#resetIcon:pressed {image: url(:/button/icons/Buttons/reset.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#stopIcon:pressed {image: url(:/button/icons/Buttons/stop.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#zoomInIcon:pressed {image: url(:/button/icons/Buttons/zoomIn.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#zoomOutIcon:pressed {image: url(:/button/icons/Buttons/zoomOut.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#plusIcon:pressed {image: url(:/button/icons/Buttons/plus.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
+QPushButton#minusIcon:pressed {image: url(:/button/icons/Buttons/minus.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
 
 QScrollArea {background-color: #efeff4; margin: 0 0; border: none;}
 QScrollBar:vertical {border: none solid #007aff; margin: 0px 0px 0px 0px; background: #efeff4;}
@@ -67,5 +64,5 @@ QTabBar::Tab:last:selected {margin-right: 0px}
 QTabBar::Tab:!selected {color: #007aff; background-color: #f5f5f5; margin-top: 2px}
 QComboBox {font: 100 18px "Serif"; color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f4f4; padding: 4px;}
 QComboBox::drop-down {background-color: #007aff;}
-QComboBox::down-arrow {image: url(:/icons/specialPurposeIcons/downarrow.png);}
-QComboBox::down-arrow:on {image: url(:/icons/specialPurposeIcons/downarrowon.png);}
+QComboBox::down-arrow {image: url(:/button/icons/Buttons/downarrow.png);}
+QComboBox::down-arrow:on {image: url(:/button/icons/Buttons/downarrowon.png);}

@@ -17,23 +17,27 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     txtBxDescription(new TextLineEdit()),
     txtBxCode(new TextLineEdit()),
     numBxWomanPercentage(new NumberLineEdit()),
-    btnBack(new QPushButton(tr("< back"))),
     lblAllowedTime(new QLabel(tr("initial time"), this)),
     lblSetupTime(new QLabel(tr("setup time:"), this)),
     lblBasicTime(new QLabel(tr("halt! hammer time:"), this)),
     lblRestTime(new QLabel(tr("rest time:"), this)),
-    lblCycleTime(new QLabel(tr("cycle time:"))),
     lblAllowanceTime(new QLabel(tr("deploy time:"),this)),
+    lblCycleTime(new QLabel(tr("cycle time:"))),
     timeSetupTime(new TimeLineEdit(this)),
     timeBasicTime(new TimeLineEdit(this)),
     timeRestTime(new TimeLineEdit(this)),
     timeAllowanceTime(new TimeLineEdit(this)),
     timeCycleTime(new TimeLineEdit(this)),
+    btnBack(new QPushButton()),
     additions(new QList<DetailedListItem*>())
 
 {
+    btnBack->setObjectName("leftIcon");
+    btnBack->setFixedSize(45, 45);
+
+    lblAllowedTime->setObjectName("lblHeader");
+
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
-    btnBack->setObjectName("btnNavigation");
 
     timeBasicTime->setMaximumWidth(100);
     timeSetupTime->setMaximumWidth(100);

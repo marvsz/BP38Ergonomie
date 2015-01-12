@@ -54,6 +54,10 @@ ViewController::ViewController(QWidget *parent) :
     // EMPLOYEE VIEW
     connect(employeeView, SIGNAL(back()), this, SLOT(backToView()));
 
+    // ACTIVITY VIEW
+    connect(activityView, SIGNAL(back()), this, SLOT(backToView()));
+    connect(activityView, SIGNAL(showProductView()), this, SLOT(goToProductView()));
+
     // COMMENT VIEW
     connect(commentView, SIGNAL(back()), this, SLOT(backToView()));
     connect(commentView, SIGNAL(save()), this, SIGNAL(saveComment()));
@@ -368,6 +372,45 @@ QString ViewController::getEmployeeStaffNumber() const{
 QString ViewController::getEmployeeNote() const{
     return employeeView->getNote();
 }
+
+// ACTIVITY VIEW GETTER/SETTER
+// SETTER
+void ViewController::addActivityProduct(int id, const QString &name){
+    activityView->addProduct(id, name);
+}
+
+void ViewController::clearActivityProducts(){
+    activityView->clearProducts();
+}
+
+void ViewController::setActivityProductSelected(int id){
+    activityView->setSelectedProduct(id);
+}
+
+void ViewController::setActivity(const QString &description, int repetitions, int selectedProductID){
+    activityView->setActivity(description, repetitions, selectedProductID);
+}
+
+void ViewController::addActivity(int id, const QString &description, int repetitions){
+    activityView->addActivity(id, description, repetitions);
+}
+
+void ViewController::clearActivities(){
+    activityView->clearActivities();
+}
+
+// GETTER
+QString ViewController::getActivityDescription() const{
+    return activityView->getDescription();
+}
+
+int ViewController::getActivityRepetitions() const {
+    return activityView->getRepetitions();
+}
+
+
+
+// GETTER
 
 // EQUIPMENT VIEW GETTER/SETTER
 //SETTER

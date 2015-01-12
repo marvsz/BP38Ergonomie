@@ -22,7 +22,8 @@ ProductView::ProductView(QWidget *parent) : QWidget(parent),
     btnBack->setObjectName("leftIcon");
     btnBack->setFixedSize(45, 45);
     btnAdd->setObjectName("plusIcon");
-    btnAdd->setFixedSize(45, 45);
+    btnAdd->setFixedSize(45, 45
+                         );
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
     connect(btnAdd, SIGNAL(clicked()), this, SIGNAL(saveProduct()));
 

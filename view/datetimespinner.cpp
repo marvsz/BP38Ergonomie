@@ -20,35 +20,22 @@ DateTimeSpinner::DateTimeSpinner(QWidget *parent) :
     btnMinuteInc(new QPushButton()),
     btnMinuteDec(new QPushButton())
 {
-    iconPlus = QIcon(IconConstants::ICON_PLUS);
-    iconMinus = QIcon(IconConstants::ICON_MINUS);
-
     currentTime = QDateTime::currentDateTime();
 
     btnDayInc->setFixedSize(40, 40);
-    btnDayInc->setObjectName("btnIcon");
-    btnDayInc->setIcon(iconPlus);
-    btnDayInc->setIconSize(QSize(40, 40));
+    btnDayInc->setObjectName("plusIcon");
 
     btnMonthInc->setFixedSize(40, 40);
-    btnMonthInc->setObjectName("btnIcon");
-    btnMonthInc->setIcon(iconPlus);
-    btnMonthInc->setIconSize(QSize(40, 40));
+    btnMonthInc->setObjectName("plusIcon");
 
     btnYearInc->setFixedSize(40, 40);
-    btnYearInc->setObjectName("btnIcon");
-    btnYearInc->setIcon(iconPlus);
-    btnYearInc->setIconSize(QSize(40, 40));
+    btnYearInc->setObjectName("plusIcon");
 
     btnHourInc->setFixedSize(40, 40);
-    btnHourInc->setObjectName("btnIcon");
-    btnHourInc->setIcon(iconPlus);
-    btnHourInc->setIconSize(QSize(40, 40));
+    btnHourInc->setObjectName("plusIcon");
 
     btnMinuteInc->setFixedSize(40, 40);
-    btnMinuteInc->setObjectName("btnIcon");
-    btnMinuteInc->setIcon(iconPlus);
-    btnMinuteInc->setIconSize(QSize(40, 40));
+    btnMinuteInc->setObjectName("plusIcon");
 
     numBxDay->setAlignment(Qt::AlignHCenter);
     numBxMonth->setAlignment(Qt::AlignHCenter);
@@ -62,29 +49,19 @@ DateTimeSpinner::DateTimeSpinner(QWidget *parent) :
     numBxMinute->setMaximumWidth(40);
 
     btnDayDec->setFixedSize(40, 40);
-    btnDayDec->setObjectName("btnIcon");
-    btnDayDec->setIcon(iconMinus);
-    btnDayDec->setIconSize(QSize(40, 40));
+    btnDayDec->setObjectName("minusIcon");
 
     btnMonthDec->setFixedSize(40, 40);
-    btnMonthDec->setObjectName("btnIcon");
-    btnMonthDec->setIcon(iconMinus);
-    btnMonthDec->setIconSize(QSize(40, 40));
+    btnMonthDec->setObjectName("minusIcon");
 
     btnYearDec->setFixedSize(40, 40);
-    btnYearDec->setObjectName("btnIcon");
-    btnYearDec->setIcon(iconMinus);
-    btnYearDec->setIconSize(QSize(40, 40));
+    btnYearDec->setObjectName("minusIcon");
 
     btnHourDec->setFixedSize(40, 40);
-    btnHourDec->setObjectName("btnIcon");
-    btnHourDec->setIcon(iconMinus);
-    btnHourDec->setIconSize(QSize(40, 40));
+    btnHourDec->setObjectName("minusIcon");
 
     btnMinuteDec->setFixedSize(40, 40);
-    btnMinuteDec->setObjectName("btnIcon");
-    btnMinuteDec->setIcon(iconMinus);
-    btnMinuteDec->setIconSize(QSize(40, 40));
+    btnMinuteDec->setObjectName("minusIcon");
 
 
     numBxDay->setValue(currentTime.date().day());

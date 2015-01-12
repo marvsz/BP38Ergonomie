@@ -27,15 +27,15 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
     // SETTINGS FOR GENERAL ELEMENTS
     lblName->setObjectName("lblHeader");
     if(!icon.isNull())
-        icon.scaled(50, 50);
+        icon.scaled(45, 45);
     lblIcon->setPixmap(icon);
-    lblIcon->setFixedSize(50, 50);
+    lblIcon->setFixedSize(45, 45);
     checkBox->setChecked(false);
-    checkBox->setFixedSize(50, 50);
+    checkBox->setFixedSize(45, 45);
     checkBox->setDisabled(true);
     btnDelete->setFixedSize(45, 45);
-    btnDelete->setObjectName("detailedListItemDelete");
-    lblForward->setFixedSize(50, 50);
+    btnDelete->setObjectName("resetIcon");
+    lblForward->setFixedSize(45, 45);
     connect(btnDelete, SIGNAL(clicked()), this, SLOT(deleteItem()));
 
     // ADD SCHEME (DESCRIPTIONS)

@@ -7,7 +7,7 @@
 
 MetaDataView::MetaDataView(QWidget *parent) :
     QWidget(parent),
-    btnBack(new QPushButton(tr("back"), this)),
+    btnBack(new QPushButton()),
     lblViewDescription(new QLabel(tr("head data"), this)),
     btnForward(new QPushButton(tr("work places"),this)),
     lblAnalyst(new QLabel(tr("analyst"), this)),
@@ -58,7 +58,8 @@ MetaDataView::MetaDataView(QWidget *parent) :
     lblFactory->setObjectName("lblHeader");
     lblRecordingDateTime->setObjectName("lblHeader");
 
-    btnBack->setObjectName("btnNavigation");
+    btnBack->setObjectName("leftIcon");
+    btnBack->setFixedSize(45, 45);
     connect(btnBack, SIGNAL(clicked()), this, SLOT(backButtonClicked()));
     btnForward->setObjectName("btnNavigation");
     connect(btnForward, SIGNAL(clicked()), this, SLOT(forwardButtonClicked()));

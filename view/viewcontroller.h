@@ -81,6 +81,11 @@ public:
     QString getEmployeeStaffNumber() const;
     QString getEmployeeNote() const;
 
+    // ACTIVITY VIEW GETTER
+    QString getActivityDescription() const;
+    int getActivityRepetitions() const;
+    int getSelectedProduct() const;
+
     // COMMENT VIEW GETTER
     QString getCommentProblemName() const;
     QString getCommentProblemDescription() const;
@@ -192,6 +197,15 @@ public slots:
 
     // EMPLOYEE VIEW SETTER
     void setEmployee(int gender, int age, int height, const QString &staffNumber, const QString &note);
+
+    // ACTIVITY VIEW SETTER
+    void addActivityProduct(int id, const QString &name);
+    void clearActivityProducts();
+    void setActivityProductSelected(int id);
+
+    void setActivity(const QString &description, int repetitions, int selectedProductID);
+    void addActivity(int id, const QString &description, int repetitions);
+    void clearActivities();
 
     // EQUIPMENT VIEW SETTER
     void setEquipment(const QString &name, int recoilIntensity, int recoilCount, int vibrationIntensity, int vibrationCount);

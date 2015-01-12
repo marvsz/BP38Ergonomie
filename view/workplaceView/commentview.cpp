@@ -23,6 +23,10 @@ CommentView::CommentView(QWidget *parent) : QWidget(parent),
     btnBack->setObjectName("leftIcon");
     btnBack->setFixedSize(45, 45);
 
+    lblProblem->setObjectName("lblHeader");
+    lblMeasure->setObjectName("lblHeader");
+    lblWorkerPerception->setObjectName("lblHeader");
+
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
     QGridLayout *navigationBarLayout = new QGridLayout;
     navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);

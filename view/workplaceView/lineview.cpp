@@ -16,11 +16,19 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     txtBxName(new TextLineEdit()),
     numBxWorkplaceCount(new NumberLineEdit()),
     txtBxDescription(new TextEdit()),
-    btnBack(new QPushButton(tr("back"))),
-    btnAdd(new QPushButton(tr("add")))
+    btnBack(new QPushButton()),
+    btnAdd(new QPushButton())
 {
-    btnBack->setObjectName("btnNavigation");
+    btnBack->setObjectName("leftIcon");
+    btnBack->setFixedSize(45, 45);
     txtBxDescription->setMaximumHeight(100);
+
+    btnAdd->setObjectName("plusIcon");
+    btnAdd->setFixedSize(45, 45);
+
+    lblSelectLine->setObjectName("lblHeader");
+    lblAddLine->setObjectName("lblHeader");
+
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
     connect(btnAdd, SIGNAL(clicked()), this, SIGNAL(saveLine()));
 
@@ -37,7 +45,7 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     lineAddLayout->addWidget(numBxWorkplaceCount, 1, 3, 1, 1, 0);
     lineAddLayout->addWidget(lblDescription, 2, 0, 1, 2, 0);
     lineAddLayout->addWidget(txtBxDescription, 3, 0, 1, 4, 0);
-    lineAddLayout->addWidget(btnAdd, 2, 3, 1, 1, 0);
+    lineAddLayout->addWidget(btnAdd, 2, 3, 1, 1, Qt::AlignCenter);
 
     QWidget *listContent = new QWidget;
     listContent->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/button">
+        <file>icons/Buttons/down.png</file>
+        <file>icons/Buttons/down@2x.png</file>
+        <file>icons/Buttons/left.png</file>
+        <file>icons/Buttons/left@2x.png</file>
+        <file>icons/Buttons/minus.png</file>
+        <file>icons/Buttons/minus@2x.png</file>
+        <file>icons/Buttons/pause.png</file>
+        <file>icons/Buttons/pause@2x.png</file>
+        <file>icons/Buttons/play.png</file>
+        <file>icons/Buttons/play@2x.png</file>
+        <file>icons/Buttons/plus.png</file>
+        <file>icons/Buttons/plus@2x.png</file>
+        <file>icons/Buttons/record.png</file>
+        <file>icons/Buttons/record@2x.png</file>
+        <file>icons/Buttons/reset.png</file>
+        <file>icons/Buttons/reset@2x.png</file>
+        <file>icons/Buttons/right.png</file>
+        <file>icons/Buttons/right@2x.png</file>
+        <file>icons/Buttons/stop.png</file>
+        <file>icons/Buttons/stop@2x.png</file>
+        <file>icons/Buttons/up.png</file>
+        <file>icons/Buttons/up@2x.png</file>
+        <file>icons/Buttons/zoomIn.png</file>
+        <file>icons/Buttons/zoomIn@2x.png</file>
+        <file>icons/Buttons/zoomOut.png</file>
+        <file>icons/Buttons/zoomOut@2x.png</file>
+        <file>icons/Buttons/camera.png</file>
+        <file>icons/Buttons/camera@2x.png</file>
+    </qresource>
+</RCC>

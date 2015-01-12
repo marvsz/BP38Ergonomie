@@ -63,9 +63,6 @@ private:
 
     QDateTime currentTime;
 
-    QIcon iconPlus;
-    QIcon iconMinus;
-
     void update();
 };
 
