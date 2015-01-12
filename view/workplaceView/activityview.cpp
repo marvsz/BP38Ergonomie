@@ -17,6 +17,7 @@ ActivityView::ActivityView(QWidget *parent) :
     lblAddActivity(new QLabel(tr("Add Activity"))),
     lblActivityDescription(new QLabel(tr("Description:"))),
     lblActivityRepetitions(new QLabel(tr("Repetitions:"))),
+    lblChooseProduct(new QLabel(tr("Choose Product"))),
     txtBxActivityDescription(new TextLineEdit()),
     numBxActivityRepetitions(new NumberLineEdit()),
     btnAdd(new QPushButton()),
@@ -27,6 +28,7 @@ ActivityView::ActivityView(QWidget *parent) :
     scProducts->setFixedHeight(200);
     scProducts->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     scProducts->setWidgetResizable(true);
+    scProducts->setObjectName("saBordered");
     productListContent->setLayout(productListLayout);
 
     FlickCharm *flickCharmProducts = new FlickCharm(this);
@@ -68,9 +70,11 @@ ActivityView::ActivityView(QWidget *parent) :
     newActivityLayout->addWidget(txtBxActivityDescription, 1, 1, 1, 1, Qt::AlignLeft);
     newActivityLayout->addWidget(lblActivityRepetitions, 2, 0, 1, 1, 0);
     newActivityLayout->addWidget(numBxActivityRepetitions, 2, 1, 1, 1, Qt::AlignLeft);
-    newActivityLayout->addWidget(btnAdd, 3, 1, 1, 1, Qt::AlignCenter);
-    newActivityLayout->addWidget(scProducts, 0, 2, 3, 1, 0);
-    newActivityLayout->addWidget(btnMoreProducts, 3, 2, 1, 1, Qt::AlignCenter);
+    newActivityLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding), 3, 1, 1, 1, 0);
+    newActivityLayout->addWidget(btnAdd, 4, 1, 1, 1, Qt::AlignCenter);
+    newActivityLayout->addWidget(lblChooseProduct, 0, 2, 1, 1, Qt::AlignCenter);
+    newActivityLayout->addWidget(scProducts, 1, 2, 3, 1, 0);
+    newActivityLayout->addWidget(btnMoreProducts, 4, 2, 1, 1, Qt::AlignCenter);
 
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));

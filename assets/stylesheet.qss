@@ -55,6 +55,7 @@ QPushButton#saveIcon:pressed {image: url(:/button/icons/Buttons/checkPressed.png
 QPushButton#editIcon:pressed {image: url(:/button/icons/Buttons/editPressed.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
 
 QScrollArea {background-color: #efeff4; margin: 0 0; border: none;}
+QScrollArea#saBordered {border: 1px solid #c8c7cc; border-radius: 2px;}
 QScrollBar:vertical {border: none solid #007aff; margin: 0px 0px 0px 0px; background: #efeff4;}
 QScrollBar::handle:vertical {background: #007aff; min-width: 60px; border-radius: 5px;}
 QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical  {border: none solid #007aff; background: #efeff4;}

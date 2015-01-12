@@ -61,6 +61,7 @@ private:
     QLabel *lblAddActivity;
     QLabel *lblActivityDescription;
     QLabel *lblActivityRepetitions;
+    QLabel *lblChooseProduct;
     TextLineEdit *txtBxActivityDescription;
     NumberLineEdit *numBxActivityRepetitions;
     QPushButton *btnAdd;
