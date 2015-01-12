@@ -49,6 +49,17 @@ MetaDataView::MetaDataView(QWidget *parent) :
     dteRecordingTimeEnd(new DateTimeSpinner(this))
 
 {
+    txtBxCorpName->setPlaceholderText(tr("name"));
+    txtBxBoIName->setPlaceholderText(tr("name"));
+    txtBxBoIDescription->setPlaceholderText(tr("description"));
+    txtBxFactoryName->setPlaceholderText(tr("name"));
+    txtBxFactoryStreet->setPlaceholderText(tr("street"));
+    txtBxFactoryCity->setPlaceholderText(tr("city"));
+    txtBxFactoryZip->setPlaceholderText(tr("zip"));
+    txtBxFactoryCountry->setPlaceholderText(tr("country"));
+    txtBxFactoryContact->setPlaceholderText(tr("contact"));
+    txtBxFactoryEmployeeCount->setPlaceholderText(tr("count"));
+
     QVBoxLayout *mainLayout = new QVBoxLayout;
     QGridLayout *navigationBarLayout = new QGridLayout;
     //QGridLayout *analystLayout = new QGridLayout;
