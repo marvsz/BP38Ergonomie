@@ -5,6 +5,7 @@ NumberLineEdit::NumberLineEdit(QWidget *parent) :
     TextLineEdit(parent)
 {
     this->setValidator(new QIntValidator(this));
+    this->setInputMethodHints(Qt::ImhDialableCharactersOnly);
 }
 
 int NumberLineEdit::getValue() const {

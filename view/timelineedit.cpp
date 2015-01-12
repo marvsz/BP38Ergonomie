@@ -3,7 +3,8 @@
 TimeLineEdit::TimeLineEdit(QWidget *parent) :
     TextLineEdit(parent)
 {
-    //this->setInputMask("99:99");
+    //this->setInputMask("dd:dd");
+    this->setInputMethodHints(Qt::ImhDialableCharactersOnly);
 }
 
 QTime TimeLineEdit::getValue() const{
