@@ -24,7 +24,7 @@ DocumentationView::DocumentationView(QWidget *parent) :
 
     // CAMERA BUTTON INITIALIZATION
     cameraButton = new QPushButton;
-    cameraButton->setObjectName("btnCamera");
+    cameraButton->setObjectName("cameraIcon");
 
     // BACK BUTTON
     backButton = new QPushButton();

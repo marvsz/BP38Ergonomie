@@ -24,7 +24,7 @@ ActivityView::ActivityView(QWidget *parent) :
 {
     productListContent->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     scProducts->setWidget(productListContent);
-    scProducts->setFixedHeight(150);
+    scProducts->setFixedHeight(200);
     scProducts->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     scProducts->setWidgetResizable(true);
     productListContent->setLayout(productListLayout);
@@ -45,7 +45,7 @@ ActivityView::ActivityView(QWidget *parent) :
     connect(btnBack, SIGNAL(clicked()), this, SIGNAL(back()));
 
     btnMoreProducts->setFixedSize(45, 45);
-    btnMoreProducts->setObjectName("plusIcon");
+    btnMoreProducts->setObjectName("editIcon");
     connect(btnMoreProducts, SIGNAL(clicked()), this, SIGNAL(showProductView()));
 
     QGridLayout *navigationBarLayout = new QGridLayout;

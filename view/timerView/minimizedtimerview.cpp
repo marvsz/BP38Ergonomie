@@ -61,7 +61,7 @@ void MinimizedTimerView::setState(TimerState state){
     switch(state){
     case TimerState::IDLE:
         btnPlayPaused->setEnabled(true);
-        btnPlayPaused->setObjectName("playIcon");
+        btnPlayPaused->setObjectName("recordIcon");
         btnPlayPaused->style()->unpolish(btnPlayPaused);
         btnPlayPaused->style()->polish(btnPlayPaused);
         break;
@@ -82,7 +82,7 @@ void MinimizedTimerView::setState(TimerState state){
 }
 
 void MinimizedTimerView::setTime(const QTime &time){
-    lblTime->setText(QString("%1:%2").arg(time.minute()).arg(time.second()));
+    lblTime->setText(QString("%1").arg(time.toString("mm:ss")));
 }
 
 void MinimizedTimerView::setSelectedAV(int id){

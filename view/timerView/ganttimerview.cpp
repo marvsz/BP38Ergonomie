@@ -29,7 +29,7 @@ GantTimerView::GantTimerView(QWidget *parent) : QWidget(parent),
     btnFrequenzPlus->setObjectName("plusIcon");
 
     btnFrequenzMinus->setFixedSize(45, 45);
-    btnFrequenzMinus->setObjectName("plusIcon");
+    btnFrequenzMinus->setObjectName("minusIcon");
 
     connect(btnZoomIn, SIGNAL(clicked()), this, SLOT(btnZoomInClicked()));
     connect(btnZoomOut, SIGNAL(clicked()), this, SLOT(btnZoomOutClicked()));

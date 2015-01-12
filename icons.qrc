@@ -59,5 +59,13 @@
         <file>icons/Buttons/zoomInPressed@2x.png</file>
         <file>icons/Buttons/zoomOutPressed.png</file>
         <file>icons/Buttons/zoomOutPressed@2x.png</file>
+        <file>icons/Buttons/check.png</file>
+        <file>icons/Buttons/check@2x.png</file>
+        <file>icons/Buttons/checkPressed.png</file>
+        <file>icons/Buttons/checkPressed@2x.png</file>
+        <file>icons/Buttons/edit.png</file>
+        <file>icons/Buttons/edit@2x.png</file>
+        <file>icons/Buttons/editPressed.png</file>
+        <file>icons/Buttons/editPressed@2x.png</file>
     </qresource>
 </RCC>

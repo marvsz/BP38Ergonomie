@@ -78,6 +78,7 @@ private:
 
     QPushButton *btnBack;
     QPushButton *btnCancel;
+    QPushButton *btnSave;
 
     DetailedListItem *line;
     DetailedListItem *activity;

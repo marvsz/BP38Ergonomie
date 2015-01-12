@@ -85,7 +85,7 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     mainLayout->addWidget(btnSetBoth, 0, 5, 2, 1, 0);
     mainLayout->addWidget(btnPlayPaused, 0, 6, 1, 1, 0);
     mainLayout->addWidget(btnStopReset, 1, 6, 1, 1, 0);
-    mainLayout->addWidget(lblTime, 2, 5, 1, 2, 0);
+    mainLayout->addWidget(lblTime, 2, 5, 1, 2, Qt::AlignCenter);
 
     setLayout(mainLayout);
     setState(state);
@@ -168,7 +168,7 @@ void MaximizedTimerView::setState(TimerState state){
 }
 
 void MaximizedTimerView::setTime(const QTime &time){
-    lblTime->setText(QString("%1:%2").arg(time.minute()).arg(time.second()));
+    lblTime->setText(QString("%1").arg(time.toString("mm:ss")));
 }
 
 void MaximizedTimerView::setSelectedAV(int id){

@@ -30,6 +30,7 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     timeCycleTime(new TimeLineEdit(this)),
     btnBack(new QPushButton()),
     btnCancel(new QPushButton()),
+    btnSave(new QPushButton()),
     additions(new QList<DetailedListItem*>())
 
 {
@@ -40,6 +41,11 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     btnCancel->setObjectName("cancelIcon");
     btnCancel->setFixedSize(45, 45);
     connect(btnCancel, SIGNAL(clicked()), this, SLOT(btnCancelClicked()));
+
+    btnSave->setObjectName("saveIcon");
+    btnSave->setFixedSize(45, 45);
+    connect(btnSave, SIGNAL(clicked()), this, SIGNAL(save()));
+
 
     lblAllowedTime->setObjectName("lblHeader");
 
@@ -110,6 +116,7 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
 
     QHBoxLayout *backCancelLayout = new QHBoxLayout;
     backCancelLayout->addWidget(btnBack);
+    backCancelLayout->addWidget(btnSave);
     backCancelLayout->addWidget(btnCancel);
 
     QGridLayout *navigationBarLayout = new QGridLayout;
@@ -199,7 +206,7 @@ void WorkplaceView::btnCommentClicked(){
 
 void WorkplaceView::btnCancelClicked(){
     emit back();
-    //emit cancel(id);
+    emit cancel(id);
 }
 
 // GETTER
