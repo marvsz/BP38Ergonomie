@@ -53,7 +53,8 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/workprocessmetadataview.h \
     $$PWD/slidercontrol.h \
     $$PWD/appliedforceview.h \
-    $$PWD/settingsview.h
+    $$PWD/settingsview.h \
+    $$PWD/analystselectionview.h
 
 
 SOURCES += $$PWD/angleView/variant.cpp\
@@ -106,6 +107,7 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/workprocessmetadataview.cpp \
     $$PWD/slidercontrol.cpp \
     $$PWD/appliedforceview.cpp \
-    $$PWD/settingsview.cpp
+    $$PWD/settingsview.cpp \
+    $$PWD/analystselectionview.cpp
 
 
