@@ -1,28 +1,22 @@
 #include "minimizedtimerview.h"
 #include "QHBoxLayout"
-#include "iconconstants.h"
+#include <QStyle>
 
 const QStringList MinimizedTimerView::wpTypes = QStringList()<<"Links"<<"Rechts"<<"AV";
 
 MinimizedTimerView::MinimizedTimerView(TimerState state, QWidget *parent) : QWidget(parent),
     lblTime(new QLabel("00:00")),
-    btnMaximized(new QPushButton(QIcon(IconConstants::ICON_UP), "")),
+    btnMaximized(new QPushButton()),
     btnPlayPaused(new QPushButton()),
     wpSelector(new WorkProcessSelector()),
     oscWorkProcessType(new OptionSelectionControl())
 {
-    recordIcon = QIcon(IconConstants::ICON_RECORD);
-    playIcon = QIcon(IconConstants::ICON_PLAY);
-    pauseIcon = QIcon(IconConstants::ICON_PAUSE);
-
-    btnPlayPaused->setIconSize(QSize(45, 45));
     btnPlayPaused->setFixedSize(45, 45);
-    btnPlayPaused->setObjectName("btnIcon");
+    btnPlayPaused->setObjectName("recordIcon");
     connect(btnPlayPaused, SIGNAL(clicked()), this, SLOT(btnPlayPausedClicked()));
 
-    btnMaximized->setIconSize(QSize(45, 45));
     btnMaximized->setFixedSize(45, 45);
-    btnMaximized->setObjectName("btnIcon");
+    btnMaximized->setObjectName("upIcon");
 
     connect(btnMaximized, SIGNAL(clicked()), this, SIGNAL(maximize()));
     connect(wpSelector, SIGNAL(nextAV()), this, SIGNAL(nextWorkProcess()));
@@ -66,17 +60,23 @@ void MinimizedTimerView::setState(TimerState state){
     this->state = state;
     switch(state){
     case TimerState::IDLE:
-            btnPlayPaused->setIcon(recordIcon);
-            btnPlayPaused->setEnabled(true);
+        btnPlayPaused->setEnabled(true);
+        btnPlayPaused->setObjectName("playIcon");
+        btnPlayPaused->style()->unpolish(btnPlayPaused);
+        btnPlayPaused->style()->polish(btnPlayPaused);
         break;
     case TimerState::STARTED:
-            btnPlayPaused->setIcon(pauseIcon);
+        btnPlayPaused->setObjectName("pauseIcon");
+        btnPlayPaused->style()->unpolish(btnPlayPaused);
+        btnPlayPaused->style()->polish(btnPlayPaused);
         break;
     case TimerState::PAUSED:
-            btnPlayPaused->setIcon(playIcon);
+        btnPlayPaused->setObjectName("playIcon");
+        btnPlayPaused->style()->unpolish(btnPlayPaused);
+        btnPlayPaused->style()->polish(btnPlayPaused);
         break;
     case TimerState::STOPPED:
-            btnPlayPaused->setEnabled(false);
+        btnPlayPaused->setEnabled(false);
         break;
     }
 }

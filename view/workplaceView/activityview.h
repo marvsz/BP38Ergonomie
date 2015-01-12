@@ -24,7 +24,9 @@ signals:
     void back();
     void showProductView();
     void productSelected(int id);
-
+    void deleteActivity(int id);
+    void showWorkProcessView(int id);
+    void saveActivity();
 
 public slots:
     void addProduct(int id, const QString &name);
@@ -32,11 +34,12 @@ public slots:
     void setSelectedProduct(int id);
 
     void setActivity(const QString &description, int repetitions, int selectedProductID);
-    void addActivity(int id, const QString &description, int repetitions);
+    void addActivity(int id, const QString &description);
     void clearActivities();
 
 private slots:
     void btnBackClicked();
+    void btnAddClicked();
     void selectedProductChanged(int id);
 
 private:

@@ -51,9 +51,6 @@ private:
     WorkProcessSelector *wpSelector;
 
     static const QStringList wpTypes;
-    QIcon playIcon;
-    QIcon recordIcon;
-    QIcon pauseIcon;
 
     OptionSelectionControl *oscWorkProcessType;
 };

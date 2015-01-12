@@ -65,7 +65,6 @@ MetaDataView::MetaDataView(QWidget *parent) :
     connect(btnForward, SIGNAL(clicked()), this, SLOT(forwardButtonClicked()));
     txtBxCorpName->setMaximumWidth(350);
 
-
     navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
     navigationBarLayout->addWidget(lblViewDescription, 0, 1, 1, 1, Qt::AlignCenter);
     navigationBarLayout->addWidget(btnForward, 0, 2, 1, 1, Qt::AlignRight);

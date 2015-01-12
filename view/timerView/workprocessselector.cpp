@@ -4,19 +4,17 @@
 #include "iconconstants.h"
 
 WorkProcessSelector::WorkProcessSelector(QWidget *parent) : QWidget(parent),
-    btnRight(new QPushButton(QIcon(IconConstants::ICON_RIGHT), "")),
-    btnLeft(new QPushButton(QIcon(IconConstants::ICON_LEFT), "")),
+    btnRight(new QPushButton()),
+    btnLeft(new QPushButton()),
     lblSelectedAV(new QLabel()),
     prefix(QString(""))
 {
     lblSelectedAV->setMinimumSize(110, 45);
     btnRight->setFixedSize(45, 45);
-    btnRight->setObjectName("btnIcon");
-    btnRight->setIconSize(QSize(45, 45));
+    btnRight->setObjectName("rightIcon");
 
     btnLeft->setFixedSize(45, 45);
-    btnLeft->setObjectName("btnIcon");
-    btnLeft->setIconSize(QSize(45, 45));
+    btnLeft->setObjectName("leftIcon");
 
     connect(btnRight, SIGNAL(clicked()), this, SIGNAL(nextAV()));
     connect(btnLeft, SIGNAL(clicked()), this, SIGNAL(previousAV()));

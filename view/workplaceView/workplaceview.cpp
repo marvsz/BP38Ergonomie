@@ -29,15 +29,23 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     timeAllowanceTime(new TimeLineEdit(this)),
     timeCycleTime(new TimeLineEdit(this)),
     btnBack(new QPushButton()),
+    btnCancel(new QPushButton()),
     additions(new QList<DetailedListItem*>())
 
 {
     btnBack->setObjectName("leftIcon");
     btnBack->setFixedSize(45, 45);
+    connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
+
+    btnCancel->setObjectName("cancelIcon");
+    btnCancel->setFixedSize(45, 45);
+    connect(btnCancel, SIGNAL(clicked()), this, SLOT(btnCancelClicked()));
 
     lblAllowedTime->setObjectName("lblHeader");
 
-    connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
+    txtBxName->setPlaceholderText(tr("name of the workplace"));
+    txtBxDescription->setPlaceholderText(tr("description of the workplace"));
+    txtBxCode->setPlaceholderText(tr("code of the workplace"));
 
     timeBasicTime->setMaximumWidth(100);
     timeSetupTime->setMaximumWidth(100);
@@ -92,16 +100,20 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     activity = new DetailedListItem(this, "", tr("activities"), activityList, false, false, true);
     comment = new DetailedListItem(this, "", tr("remarks"), commentList, false, false, true);
 
-    connect(line, SIGNAL(clicked()), this, SIGNAL(showLineView()));
-    connect(activity, SIGNAL(clicked()), this, SIGNAL(showActivityView()));
-    connect(comment, SIGNAL(clicked()), this, SIGNAL(showCommentView()));
+    connect(line, SIGNAL(clicked()), this, SLOT(btnLineClicked()));
+    connect(activity, SIGNAL(clicked()), this, SLOT(btnActivityClicked()));
+    connect(comment, SIGNAL(clicked()), this, SLOT(btnCommentClicked()));
 
     additions->append(line);
     additions->append(activity);
     additions->append(comment);
 
+    QHBoxLayout *backCancelLayout = new QHBoxLayout;
+    backCancelLayout->addWidget(btnBack);
+    backCancelLayout->addWidget(btnCancel);
+
     QGridLayout *navigationBarLayout = new QGridLayout;
-    navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
+    navigationBarLayout->addLayout(backCancelLayout, 0, 0, 1, 1, Qt::AlignLeft);
     navigationBarLayout->addWidget(lblViewDescription, 0, 1, 1, 1, Qt::AlignCenter);
     navigationBarLayout->addWidget(new QLabel(), 0, 2, 1, 1, Qt::AlignRight);
 
@@ -168,6 +180,26 @@ void WorkplaceView::setWorkplaceTimes(const QTime &basicTime, const QTime &setup
 void WorkplaceView::btnBackClicked(){
     emit save();
     emit back();
+}
+
+void WorkplaceView::btnLineClicked(){
+    emit save();
+    emit showLineView();
+}
+
+void WorkplaceView::btnActivityClicked(){
+    emit save();
+    emit showActivityView();
+}
+
+void WorkplaceView::btnCommentClicked(){
+    emit save();
+    emit showCommentView();
+}
+
+void WorkplaceView::btnCancelClicked(){
+    emit back();
+    //emit cancel(id);
 }
 
 // GETTER

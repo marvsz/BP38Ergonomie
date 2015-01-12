@@ -17,6 +17,7 @@ ViewController::ViewController(QWidget *parent) :
     productView = new ProductView;
     equipmentView = new EquipmentView;
     transportationView = new TransportationView;
+    settingsView = new SettingsView;
 
     // MAIN MENU
     connect(mainMenuView, SIGNAL(showMetaDataView()), this, SLOT(goToMetaDataView()));
@@ -39,9 +40,9 @@ ViewController::ViewController(QWidget *parent) :
     // WORKPLACE VIEW
     connect(workplaceView, SIGNAL(back()), this, SLOT(backToView()));
     connect(workplaceView, SIGNAL(save()), this, SIGNAL(saveWorkplace()));
-    connect(workplaceView, SIGNAL(forward()), this, SLOT(goToDocumentationView()));
-    connect(workplaceView, SIGNAL(showLineView()), this, SLOT(goToLineView()));
+    connect(workplaceView, SIGNAL(cancel(int)), this, SIGNAL(deleteWorkplace(int)));
 
+    connect(workplaceView, SIGNAL(showLineView()), this, SLOT(goToLineView()));
     connect(workplaceView, SIGNAL(showActivityView()), this, SLOT(goToActivityView()));
     connect(workplaceView, SIGNAL(showCommentView()), this, SLOT(goToCommentView()));
 
@@ -57,6 +58,8 @@ ViewController::ViewController(QWidget *parent) :
     // ACTIVITY VIEW
     connect(activityView, SIGNAL(back()), this, SLOT(backToView()));
     connect(activityView, SIGNAL(showProductView()), this, SLOT(goToProductView()));
+    connect(activityView, SIGNAL(deleteActivity(int)), this, SIGNAL(deleteActivity(int)));
+    connect(activityView, SIGNAL(showWorkProcessView(int)), this, SLOT(goToDocumentationView(int)));
 
     // COMMENT VIEW
     connect(commentView, SIGNAL(back()), this, SLOT(backToView()));
@@ -74,12 +77,15 @@ ViewController::ViewController(QWidget *parent) :
 
     // EQUIPMENT VIEW
 
-    // TRANSPORTATION VIEW
-
     // PRODUCT VIEW
     connect(productView, SIGNAL(back()), this, SLOT(backToView()));
     connect(productView, SIGNAL(deleteProduct(int)), this, SIGNAL(deleteProduct(int)));
     connect(productView, SIGNAL(saveProduct()), this, SIGNAL(saveProduct()));
+
+    // TRANSPORTATION VIEW
+
+    // SETTINGS VIEW
+
 
     // ADD ALL VIEWS
     this->addWidget(mainMenuView);
@@ -95,6 +101,7 @@ ViewController::ViewController(QWidget *parent) :
     this->addWidget(productView);
     this->addWidget(equipmentView);
     this->addWidget(transportationView);
+    this->addWidget(settingsView);
 
     setCurrentIndex(ViewController::MAIN_MENU_VIEW);
 }
@@ -138,6 +145,11 @@ void ViewController::goToCommentView(){
     goToView(ViewController::COMMENT_VIEW);
 }
 
+void ViewController::goToDocumentationView(int id){
+    emit updateDocumentationView(id);
+    goToView(ViewController::DOCUMENTATION_VIEW);
+}
+
 void ViewController::goToDocumentationView(){
     goToView(ViewController::DOCUMENTATION_VIEW);
 }
@@ -146,7 +158,7 @@ void ViewController::goToRessourceManagementView(){
     goToView(ViewController::RESSOURCE_MANAGEMENT_VIEW);
 }
 void ViewController::goToSettingsView(){
-    // TODO WHEN SETTINGSVIEW EXISTS
+    goToView(ViewController::SETTINGS_VIEW);
 }
 
 void ViewController::goToEquipmentView(){
@@ -391,8 +403,8 @@ void ViewController::setActivity(const QString &description, int repetitions, in
     activityView->setActivity(description, repetitions, selectedProductID);
 }
 
-void ViewController::addActivity(int id, const QString &description, int repetitions){
-    activityView->addActivity(id, description, repetitions);
+void ViewController::addActivity(int id, const QString &description){
+    activityView->addActivity(id, description);
 }
 
 void ViewController::clearActivities(){

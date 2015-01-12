@@ -22,12 +22,18 @@ CommentView::CommentView(QWidget *parent) : QWidget(parent),
 {
     btnBack->setObjectName("leftIcon");
     btnBack->setFixedSize(45, 45);
+    connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
 
     lblProblem->setObjectName("lblHeader");
     lblMeasure->setObjectName("lblHeader");
     lblWorkerPerception->setObjectName("lblHeader");
 
-    connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
+    txtBxProblemName->setPlaceholderText(tr("name of the problem"));
+    txtBxProblemDescription->setPlaceholderText(tr("description of the problem"));
+    txtBxMeasureName->setPlaceholderText(tr("name of the measure"));
+    txtBxMeasureDescription->setPlaceholderText(tr("description of the mesaure"));
+    txtBxPerceptionDescription->setPlaceholderText(tr("the workers annotation"));
+
     QGridLayout *navigationBarLayout = new QGridLayout;
     navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
     navigationBarLayout->addWidget(lblViewName, 0, 1, 1, 1, Qt::AlignCenter);

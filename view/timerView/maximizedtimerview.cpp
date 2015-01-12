@@ -3,6 +3,7 @@
 #include <QVBoxLayout>
 #include "separator.h"
 #include <QIcon>
+#include <QStyle>
 
 const QStringList MaximizedTimerView::wpTypes = QStringList()<<"Links"<<"Rechts"<<"AV";
 
@@ -10,8 +11,8 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     QWidget(parent),
     state(state),
     lblTime(new QLabel("00:00")),
-    btnMinimized(new QPushButton(QIcon(IconConstants::ICON_DOWN), "")),
-    btnMaximized(new QPushButton(QIcon(IconConstants::ICON_UP), "")),
+    btnMinimized(new QPushButton()),
+    btnMaximized(new QPushButton()),
     btnPlayPaused(new QPushButton()),
     btnStopReset(new QPushButton()),
     btnSetLeft(new SelectableValueButton(0, 0, this)),
@@ -23,12 +24,6 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     oscWorkProcessType(new OptionSelectionControl()),
     graphTimer(new GraphTimelineView())
 {
-    recordIcon = QIcon(IconConstants::ICON_RECORD);
-    playIcon = QIcon(IconConstants::ICON_PLAY);
-    pauseIcon = QIcon(IconConstants::ICON_PAUSE);
-    stopIcon = QIcon(IconConstants::ICON_STOP);
-    resetIcon = QIcon(IconConstants::ICON_RESET);
-
     btnSetLeft->setFixedSize(45, 45);
     btnSetLeft->setText("L");
     btnSetRight->setFixedSize(45, 45);
@@ -45,24 +40,20 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     connect(btnSetBoth, SIGNAL(clicked()), this, SLOT(btnBothClicked()));
     connect(btnSetAV, SIGNAL(clicked()), this, SLOT(btnAVClicked()));
 
-    btnPlayPaused->setIconSize(QSize(45, 45));
     btnPlayPaused->setFixedSize(45, 45);
-    btnPlayPaused->setObjectName("btnIcon");
+    btnPlayPaused->setObjectName("recordIcon");
     connect(btnPlayPaused, SIGNAL(clicked()), this, SLOT(btnPlayPausedClicked()));
 
-    btnStopReset->setIconSize(QSize(45, 45));
     btnStopReset->setFixedSize(45, 45);
-    btnStopReset->setObjectName("btnIcon");
+    btnStopReset->setObjectName("resetIcon");
     connect(btnStopReset, SIGNAL(clicked()), this, SLOT(btnStopResetClicked()));
 
-    btnMinimized->setIconSize(QSize(45, 45));
     btnMinimized->setFixedSize(45, 45);
-    btnMinimized->setObjectName("btnIcon");
+    btnMinimized->setObjectName("downIcon");
     connect(btnMinimized, SIGNAL(clicked()), this, SIGNAL(minimize()));
 
-    btnMaximized->setIconSize(QSize(45, 45));
     btnMaximized->setFixedSize(45, 45);
-    btnMaximized->setObjectName("btnIcon");
+    btnMaximized->setObjectName("upIcon");
     connect(btnMaximized, SIGNAL(clicked()), this, SIGNAL(maximize()));
 
     connect(timePicker, SIGNAL(timeChanged(QTime)), this, SIGNAL(durationChanged(QTime)));
@@ -128,23 +119,39 @@ void MaximizedTimerView::setState(TimerState state){
             btnSetRight->setEnabled(true);
             btnSetBoth->setEnabled(true);
 
-            btnPlayPaused->setIcon(recordIcon);
-            btnStopReset->setIcon(resetIcon);
+            btnPlayPaused->setObjectName("recordIcon");
+            btnStopReset->setObjectName("resetIcon");
+            btnPlayPaused->style()->unpolish(btnPlayPaused);
+            btnPlayPaused->style()->polish(btnPlayPaused);
+            btnStopReset->style()->unpolish(btnStopReset);
+            btnStopReset->style()->polish(btnStopReset);
             btnPlayPaused->setEnabled(true);
             btnStopReset->setEnabled(false);
         break;
     case TimerState::STARTED:
             btnSetAV->setEnabled(true);
 
-            btnPlayPaused->setIcon(pauseIcon);
-            btnStopReset->setIcon(stopIcon);
+            btnPlayPaused->setObjectName("pauseIcon");
+            btnStopReset->setObjectName("stopIcon");
+
+            btnPlayPaused->style()->unpolish(btnPlayPaused);
+            btnPlayPaused->style()->polish(btnPlayPaused);
+            btnStopReset->style()->unpolish(btnStopReset);
+            btnStopReset->style()->polish(btnStopReset);
+
             btnStopReset->setEnabled(true);
         break;
     case TimerState::PAUSED:
             btnSetAV->setEnabled(false);
 
-            btnPlayPaused->setIcon(playIcon);
-            btnStopReset->setIcon(stopIcon);
+            btnPlayPaused->setObjectName("playIcon");
+            btnStopReset->setObjectName("stopIcon");
+
+            btnPlayPaused->style()->unpolish(btnPlayPaused);
+            btnPlayPaused->style()->polish(btnPlayPaused);
+            btnStopReset->style()->unpolish(btnStopReset);
+            btnStopReset->style()->polish(btnStopReset);
+
         break;
     case TimerState::STOPPED:
             btnSetAV->setEnabled(false);
@@ -152,7 +159,9 @@ void MaximizedTimerView::setState(TimerState state){
             btnSetRight->setEnabled(false);
             btnSetBoth->setEnabled(false);
 
-            btnStopReset->setIcon(resetIcon);
+            btnStopReset->setObjectName("resetIcon");
+            btnStopReset->style()->unpolish(btnStopReset);
+            btnStopReset->style()->polish(btnStopReset);
             btnPlayPaused->setEnabled(false);
         break;
     }

@@ -2,7 +2,6 @@
 #include "flickcharm.h"
 #include <QVBoxLayout>
 #include <QScrollArea>
-#include <QIcon>
 
 const QStringList GantTimerView::typePrefix = QStringList()<<"L"<<"R"<<"AV";
 
@@ -11,8 +10,8 @@ GantTimerView::GantTimerView(QWidget *parent) : QWidget(parent),
     numBxFrequenz(new NumberLineEdit()),
     btnZoomIn(new QPushButton()),
     btnZoomOut(new QPushButton()),
-    btnFrequenzPlus(new QPushButton(QIcon(IconConstants::ICON_PLUS), "")),
-    btnFrequenzMinus(new QPushButton(QIcon(IconConstants::ICON_MINUS), "")),
+    btnFrequenzPlus(new QPushButton()),
+    btnFrequenzMinus(new QPushButton()),
     leftWP(new QHBoxLayout),
     rightWP(new QHBoxLayout),
     basicWP(new QHBoxLayout),
@@ -20,21 +19,17 @@ GantTimerView::GantTimerView(QWidget *parent) : QWidget(parent),
     rightWPBtns(new QVector<WorkProcessButton*>()),
     basicWPBtns(new QVector<WorkProcessButton*>())
 {
-    btnZoomIn->setIcon(QIcon(IconConstants::ICON_ZOOM_IN));
-    btnZoomIn->setIconSize(QSize(45, 45));
     btnZoomIn->setFixedSize(45, 45);
-    btnZoomIn->setObjectName("btnIcon");
+    btnZoomIn->setObjectName("zoomInIcon");
 
-    btnZoomOut->setIcon(QIcon(IconConstants::ICON_ZOOM_OUT));
-    btnZoomOut->setIconSize(QSize(45, 45));
     btnZoomOut->setFixedSize(45, 45);
-    btnZoomOut->setObjectName("btnIcon");
+    btnZoomOut->setObjectName("zoomOutIcon");
 
-    btnFrequenzPlus->setIconSize(QSize(45, 45));
-    btnFrequenzPlus->setObjectName("btnIcon");
+    btnFrequenzPlus->setFixedSize(45, 45);
+    btnFrequenzPlus->setObjectName("plusIcon");
 
-    btnFrequenzMinus->setIconSize(QSize(45, 45));
-    btnFrequenzMinus->setObjectName("btnIcon");
+    btnFrequenzMinus->setFixedSize(45, 45);
+    btnFrequenzMinus->setObjectName("plusIcon");
 
     connect(btnZoomIn, SIGNAL(clicked()), this, SLOT(btnZoomInClicked()));
     connect(btnZoomOut, SIGNAL(clicked()), this, SLOT(btnZoomOutClicked()));

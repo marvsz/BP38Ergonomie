@@ -28,5 +28,36 @@
         <file>icons/Buttons/zoomOut@2x.png</file>
         <file>icons/Buttons/camera.png</file>
         <file>icons/Buttons/camera@2x.png</file>
+        <file>icons/Buttons/cancel.png</file>
+        <file>icons/Buttons/cancel@2x.png</file>
+        <file>icons/Buttons/cameraPressed@2x.png</file>
+        <file>icons/Buttons/cancelPressed.png</file>
+        <file>icons/Buttons/cancelPressed@2x.png</file>
+        <file>icons/Buttons/downPressed.png</file>
+        <file>icons/Buttons/downPressed@2x.png</file>
+        <file>icons/Buttons/leftPressed.png</file>
+        <file>icons/Buttons/leftPressed@2x.png</file>
+        <file>icons/Buttons/minusPressed.png</file>
+        <file>icons/Buttons/minusPressed@2x.png</file>
+        <file>icons/Buttons/pausePressed.png</file>
+        <file>icons/Buttons/pausePressed@2x.png</file>
+        <file>icons/Buttons/playPressed.png</file>
+        <file>icons/Buttons/playPressed@2x.png</file>
+        <file>icons/Buttons/plusPressed.png</file>
+        <file>icons/Buttons/plusPressed@2x.png</file>
+        <file>icons/Buttons/recordPressed.png</file>
+        <file>icons/Buttons/recordPressed@2x.png</file>
+        <file>icons/Buttons/resetPressed.png</file>
+        <file>icons/Buttons/resetPressed@2x.png</file>
+        <file>icons/Buttons/rightPressed.png</file>
+        <file>icons/Buttons/rightPressed@2x.png</file>
+        <file>icons/Buttons/stopPressed.png</file>
+        <file>icons/Buttons/stopPressed@2x.png</file>
+        <file>icons/Buttons/upPressed.png</file>
+        <file>icons/Buttons/upPressed@2x.png</file>
+        <file>icons/Buttons/zoomInPressed.png</file>
+        <file>icons/Buttons/zoomInPressed@2x.png</file>
+        <file>icons/Buttons/zoomOutPressed.png</file>
+        <file>icons/Buttons/zoomOutPressed@2x.png</file>
     </qresource>
 </RCC>

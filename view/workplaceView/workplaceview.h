@@ -30,7 +30,7 @@ public:
 signals:
     void save();
     void back();
-    void forward();
+    void cancel(int id);
 
     void showLineView();
     void showActivityView();
@@ -44,6 +44,10 @@ public slots:
 
 private slots:
     void btnBackClicked();
+    void btnLineClicked();
+    void btnActivityClicked();
+    void btnCommentClicked();
+    void btnCancelClicked();
 
 private:
     int id;
@@ -73,6 +77,7 @@ private:
     TimeLineEdit* timeCycleTime;
 
     QPushButton *btnBack;
+    QPushButton *btnCancel;
 
     DetailedListItem *line;
     DetailedListItem *activity;

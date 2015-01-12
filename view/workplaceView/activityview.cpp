@@ -55,8 +55,11 @@ ActivityView::ActivityView(QWidget *parent) :
 
     btnAdd->setFixedSize(45, 45);
     btnAdd->setObjectName("plusIcon");
+    connect(btnAdd, SIGNAL(clicked()), this, SLOT(btnAddClicked()));
 
     lblAddActivity->setObjectName("lblHeader");
+    txtBxActivityDescription->setPlaceholderText(tr("description"));
+    numBxActivityRepetitions->setPlaceholderText(tr("amout of repetitions"));
 
     QGridLayout *newActivityLayout = new QGridLayout;
     newActivityLayout->setContentsMargins(0,0,0,0);
@@ -82,11 +85,11 @@ ActivityView::ActivityView(QWidget *parent) :
     addProduct(3, "Test3");
     addProduct(4, "Test4");
 
-    addActivity(1, "Tolle Aktivität", 5);
-    addActivity(2, "Doofe Aktivität", 6);
-    addActivity(3, "Langweilig Aktivität", 6);
-    addActivity(4, "Super Aktivität", 7);
-    addActivity(4, "Scheiß Aktivität", 0);
+    addActivity(1, "Tolle Aktivität");
+    addActivity(2, "Doofe Aktivität");
+    addActivity(3, "Langweilig Aktivität");
+    addActivity(4, "Super Aktivität");
+    addActivity(4, "Scheiß Aktivität");
 }
 
 // GETTER
@@ -106,6 +109,12 @@ int ActivityView::getSelectedProduct() const {
 void ActivityView::btnBackClicked(){
     emit back();
     emit productSelected(selectedProductID);
+}
+
+void ActivityView::btnAddClicked(){
+    emit saveActivity();
+    txtBxActivityDescription->clear();
+    numBxActivityRepetitions->clear();
 }
 
 void ActivityView::selectedProductChanged(int id){
@@ -135,14 +144,13 @@ void ActivityView::setSelectedProduct(int id){
     selectedProductChanged(id);
 }
 
-// PUBLIC SLOTS
 void ActivityView::setActivity(const QString &description, int repetitions, int selectedProductID){
     txtBxActivityDescription->setText(description);
     numBxActivityRepetitions->setValue(repetitions);
     this->selectedProductID = selectedProductID;
 }
 
-void ActivityView::addActivity(int id, const QString &description, int repetitions){
+void ActivityView::addActivity(int id, const QString &description){
     DetailedListItem *newListItem = new DetailedListItem(0, "", description, QList<QStringList>(), true, false, true);
     newListItem->setID(id);
     connect(newListItem, SIGNAL(pressed(int)), this, SIGNAL(showWorkProcessView(int)));
@@ -157,4 +165,3 @@ void ActivityView::clearActivities(){
         delete item;
     }
 }
-

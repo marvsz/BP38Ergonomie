@@ -23,6 +23,10 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     btnBack->setFixedSize(45, 45);
     txtBxDescription->setMaximumHeight(100);
 
+    txtBxName->setPlaceholderText(tr("name of the line"));
+    txtBxDescription->setPlaceholderText(tr("description of the line"));
+    numBxWorkplaceCount->setPlaceholderText(tr("amount of work places"));
+
     btnAdd->setObjectName("plusIcon");
     btnAdd->setFixedSize(45, 45);
 
@@ -30,7 +34,7 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     lblAddLine->setObjectName("lblHeader");
 
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
-    connect(btnAdd, SIGNAL(clicked()), this, SIGNAL(saveLine()));
+    connect(btnAdd, SIGNAL(clicked()), this, SLOT(btnAddClicked()));
 
     QGridLayout *navigationBarLayout = new QGridLayout;
     navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
@@ -112,6 +116,12 @@ void LineView::selectedLineChanged(int id){
     emit lineSelected(id);
 }
 
+void LineView::btnAddClicked(){
+    emit saveLine();
+    txtBxName->clear();
+    txtBxDescription->clear();
+    numBxWorkplaceCount->clear();
+}
 
 //GETTER and SETTER
 QString LineView::getName() const{

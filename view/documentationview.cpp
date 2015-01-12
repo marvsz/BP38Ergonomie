@@ -27,9 +27,9 @@ DocumentationView::DocumentationView(QWidget *parent) :
     cameraButton->setObjectName("btnCamera");
 
     // BACK BUTTON
-    backButton = new QPushButton(tr("< back"));
-    backButton->setMaximumSize(100, 40);
-    backButton->setObjectName("btnNavigation");
+    backButton = new QPushButton();
+    backButton->setFixedSize(45, 45);
+    backButton->setObjectName("leftIcon");
     connect(backButton, SIGNAL(clicked()), this, SLOT(backButtonClicked()));
 
     // INIT COMBOBOX

@@ -38,11 +38,11 @@ public slots:
 
 private slots:
     void btnBackClicked();
+    void btnAddClicked();
     void selectedLineChanged(int id);
 
 private:
     int selectedLineID;
-    DetailedListItem* selectedItem;
     QVBoxLayout *listContentLayout;
     QScrollArea *scLines;
 

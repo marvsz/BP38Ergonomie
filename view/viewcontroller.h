@@ -16,6 +16,7 @@
 #include "ressourceManagementView/equipmentview.h"
 #include "ressourceManagementView/productview.h"
 #include "ressourceManagementView/transportationview.h"
+#include "settingsview.h"
 
 class ViewController : public QStackedWidget
 {
@@ -142,13 +143,14 @@ signals:
     // ACTIVITY VIEW
     void updateActivityView();
     void saveActivity();
-    void deleteActivity();
+    void deleteActivity(int id);
 
     // EMPLOYEE VIEW
     void updateEmployeeView();
     void saveEmployee();
 
     //DOCUMENTATION VIEW
+    void updateDocumentationView(int activityId);
 
     //WORKPROCESS
     void createWorkprocess(int type, const QTime &start, const QTime &end);
@@ -204,7 +206,7 @@ public slots:
     void setActivityProductSelected(int id);
 
     void setActivity(const QString &description, int repetitions, int selectedProductID);
-    void addActivity(int id, const QString &description, int repetitions);
+    void addActivity(int id, const QString &description);
     void clearActivities();
 
     // EQUIPMENT VIEW SETTER
@@ -239,6 +241,7 @@ private slots:
     void goToActivityView();
     void goToCommentView();
     void goToDocumentationView();
+    void goToDocumentationView(int id);
     void goToRessourceManagementView();
     void goToSettingsView();
     void goToEquipmentView();
@@ -260,6 +263,7 @@ private:
     ProductView *productView;
     EquipmentView *equipmentView;
     TransportationView *transportationView;
+    SettingsView *settingsView;
 
     void goToView(int index);
 };

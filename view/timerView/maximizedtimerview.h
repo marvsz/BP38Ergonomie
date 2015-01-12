@@ -10,7 +10,6 @@
 #include "graphtimelineview.h"
 #include "timepicker.h"
 #include "selectablevaluebutton.h"
-#include "iconconstants.h"
 
 class MaximizedTimerView : public QWidget
 {
@@ -84,12 +83,6 @@ private:
     OptionSelectionControl *oscWorkProcessType;
 
     GraphTimelineView *graphTimer;
-
-    QIcon playIcon;
-    QIcon recordIcon;
-    QIcon pauseIcon;
-    QIcon stopIcon;
-    QIcon resetIcon;
 };
 
 #endif // MAXIMIZEDTIMERVIEW_H

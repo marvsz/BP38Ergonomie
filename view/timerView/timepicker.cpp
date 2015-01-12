@@ -4,17 +4,15 @@
 TimePicker::TimePicker(QWidget *parent) :
     QWidget(parent),
     timeBxTime(new TimeLineEdit),
-    btnIncreaseTime(new QPushButton(QIcon(IconConstants::ICON_PLUS), "")),
-    btnDecreaseTime(new QPushButton(QIcon(IconConstants::ICON_MINUS), ""))
+    btnIncreaseTime(new QPushButton()),
+    btnDecreaseTime(new QPushButton())
 {
     timeBxTime->setMinimumSize(100, 45);
     btnIncreaseTime->setFixedSize(45, 45);
-    btnIncreaseTime->setObjectName("btnIcon");
-    btnIncreaseTime->setIconSize(QSize(45, 45));
+    btnIncreaseTime->setObjectName("plusIcon");
 
     btnDecreaseTime->setFixedSize(45, 45);
-    btnDecreaseTime->setObjectName("btnIcon");
-    btnDecreaseTime->setIconSize(QSize(45, 45));
+    btnDecreaseTime->setObjectName("minusIcon");
 
     connect(btnIncreaseTime, SIGNAL(clicked()), this, SLOT(increaseTime()));
     connect(btnDecreaseTime, SIGNAL(clicked()), this, SLOT(decreaseTime()));
