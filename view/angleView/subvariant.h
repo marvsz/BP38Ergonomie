@@ -14,7 +14,6 @@ public:
     SubVariant(QString *desc, bool showText, const QVector<QString> &btnTexts, QString* iconPath);
     ~SubVariant();
 
-
     QString *getDescription() const;
     int getMin() const;
     int getMax() const;

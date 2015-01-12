@@ -92,7 +92,7 @@ void LineView::addLine(int id, const QString &name){
     listContentLayout->addWidget(newListItem);
 }
 
-void LineView::clearLines(){
+void LineView::clear(){
     QLayoutItem *item;
     while((item = listContentLayout->takeAt(0)) != NULL){
         delete item->widget();

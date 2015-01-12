@@ -6,7 +6,7 @@
 #include <QUrl>
 #include <QList>
 #include <QStringList>
-#include "transportview.h"
+#include "loadhandlingview.h"
 #include "appliedforceview.h"
 #include "executionconditionview.h"
 #include "separator.h"
@@ -20,11 +20,12 @@
 DocumentationView::DocumentationView(QWidget *parent) :
     QWidget(parent)
 {
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-
     // CAMERA BUTTON INITIALIZATION
     cameraButton = new QPushButton;
     cameraButton->setObjectName("cameraIcon");
+    // !!!!!!!COMMENT TO ACTIVATE CAMERA!!!!!!!
+    cameraButton->hide();
+    connect(cameraButton, SIGNAL(clicked()), this, SLOT(showCamera()));
 
     // BACK BUTTON
     backButton = new QPushButton();
@@ -43,31 +44,52 @@ DocumentationView::DocumentationView(QWidget *parent) :
     this->views->setMinimumSize(280, 40);
     this->views->addItems(QStringList(viewNames));
 
-    // ADD DIFFERENT VIEWS TO STACKEDWIDGET
-
-    mainContent = new QStackedWidget;
-    gantView = new GantTimerView;
-    angleView = new AngleView;
-    mainContent->addWidget(angleView);
-    mainContent->addWidget(new TransportView);
-    mainContent->addWidget(new AppliedForceView);
-    mainContent->addWidget(new ExecutionConditionView);
-    mainContent->addWidget(new WorkProcessMetaDataView);
-    mainContent->addWidget(gantView);
-
-    // CONNECT THE COMBOBOX TO THE STACKEDWIDGET
-    connect(views, SIGNAL(currentIndexChanged(int)), mainContent, SLOT(setCurrentIndex(int)));
-
-    // INCLUDE QML-CAMERA
-    connect(cameraButton, SIGNAL(clicked()), this, SLOT(showCamera()));
-
-    // ADD TIMER
-    timerView = new TimerViewController();
-    connect(timerView, SIGNAL(showGantView()), this, SLOT(showGant()));
-    connect(timerView, SIGNAL(hideGantView()), this, SLOT(hideGant()));
-    connect(timerView, SIGNAL(createWorkProcess(int,QTime,QTime)), this, SIGNAL(createWorkProcess(int,QTime,QTime)));
 
     indexBeforeTimeLineView = 0;
+
+}
+
+// PUBLIC
+
+void DocumentationView::setBodyPostureView(AngleView *bodyPostureView){
+    this->bodyPostureView = bodyPostureView;
+}
+
+void DocumentationView::setLoadHandlingView(LoadHandlingView *loadHandlingView){
+    this->loadHandlingView = loadHandlingView;
+}
+
+void DocumentationView::setAppliedForceView(AppliedForceView *appliedForceView){
+    this->appliedForceView = appliedForceView;
+}
+
+void DocumentationView::setExecutionConditionView(ExecutionConditionView *executionConditionView){
+    this->executionConditionView = executionConditionView;
+}
+
+void DocumentationView::setWorkprocessMetaDataView(WorkProcessMetaDataView *workprocessMetaDataView){
+    this->workprocessMetaDataView = workprocessMetaDataView;
+}
+
+void DocumentationView::setTimerViewController(TimerViewController *timerViewController){
+    this->timerViewController = timerViewController;
+
+    connect(timerViewController, SIGNAL(showGantView()), this, SLOT(showGant()));
+    connect(timerViewController, SIGNAL(hideGantView()), this, SLOT(hideGant()));
+    connect(timerViewController, SIGNAL(createWorkProcess(int,QTime,QTime)), this, SIGNAL(createWorkProcess(int,QTime,QTime)));
+
+}
+
+void DocumentationView::setupViews(){
+    mainContent = new QStackedWidget;
+
+    mainContent->addWidget(bodyPostureView);
+    mainContent->addWidget(loadHandlingView);
+    mainContent->addWidget(appliedForceView);
+    mainContent->addWidget(executionConditionView);
+    mainContent->addWidget(workprocessMetaDataView);
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
 
     QGridLayout *topLayout = new QGridLayout;
     topLayout->addWidget(backButton, 0, 0, 1, 1, Qt::AlignLeft);
@@ -81,7 +103,7 @@ DocumentationView::DocumentationView(QWidget *parent) :
     QVBoxLayout *bottomLayout = new QVBoxLayout;
     bottomLayout->setContentsMargins(0, 0, 0, 0);
     bottomLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
-    bottomLayout->addWidget(timerView);
+    bottomLayout->addWidget(timerViewController);
 
     mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addLayout(topLayout);
@@ -89,9 +111,10 @@ DocumentationView::DocumentationView(QWidget *parent) :
     mainLayout->addLayout(bottomLayout);
 
     this->setLayout(mainLayout);
-
+    connect(views, SIGNAL(currentIndexChanged(int)), mainContent, SLOT(setCurrentIndex(int)));
 }
 
+// PRIVATE SLOTS
 /**
  * @brief Opens a view for the the QML-Camera
  */
@@ -114,17 +137,17 @@ void DocumentationView::hideCamera(){
 
 void DocumentationView::leftAvPressed(){
     mainContent->setCurrentIndex(0);
-    angleView->selectLeftAV();
+    bodyPostureView->selectLeftAV();
 }
 
 void DocumentationView::rightAvPressed(){
     mainContent->setCurrentIndex(0);
-    angleView->selectRightAV();
+    bodyPostureView->selectRightAV();
 }
 
 void DocumentationView::avPressed(){
     mainContent->setCurrentIndex(0);
-    angleView->selectAV();
+    bodyPostureView->selectAV();
 }
 
 void DocumentationView::showGant(){

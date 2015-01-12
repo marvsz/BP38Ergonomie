@@ -8,7 +8,6 @@
 #include "workplaceView/workplacelistview.h"
 #include "workplaceView/workplaceview.h"
 #include "workplaceView/lineview.h"
-#include "workplaceView/employeeview.h"
 #include "workplaceView/commentview.h"
 #include "workplaceView/activityview.h"
 #include "documentationview.h"
@@ -80,10 +79,6 @@ signals:
     void saveActivity();
     void deleteActivity(int id);
 
-    // EMPLOYEE VIEW
-    void updateEmployeeView();
-    void saveEmployee();
-
     //DOCUMENTATION VIEW
     void updateDocumentationView(int activityId);
 
@@ -119,7 +114,6 @@ private slots:
     void goToWorkplaceView();
     void goToWorkplaceView(int id);
     void goToLineView();
-    void goToEmployeeView();
     void goToActivityView();
     void goToCommentView();
     void goToDocumentationView();
@@ -137,7 +131,6 @@ private:
     WorkplaceListView *workplaceListView;
     WorkplaceView *workplaceView;
     LineView *lineView;
-    EmployeeView *employeeView;
     ActivityView *activityView;
     CommentView *commentView;
     DocumentationView *documentationView;

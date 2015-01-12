@@ -1,5 +1,5 @@
-#ifndef TRANSPORTVIEW_H
-#define TRANSPORTVIEW_H
+#ifndef LOADHANDLINGVIEW_H
+#define LOADHANDLINGVIEW_H
 
 #include <QLabel>
 #include <QWidget>
@@ -9,23 +9,19 @@
 #include "valuecontrol.h"
 #include "transportationlistcontrol.h"
 
-namespace Ui {
-class TransportView;
-}
-
 /**
  * @brief A class providing a view for transporthandling. The class contains
  * different ValueControl for the type, of handling the weight to be handled,
  * the way to go and the hand used. Furthermore there is a TransportationListControl
  * with the list of transportations available.
  */
-class TransportView : public QMainWindow
+class LoadHandlingView : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit TransportView(QWidget *parent = 0);
-    ~TransportView();
+    explicit LoadHandlingView(QWidget *parent = 0);
+    ~LoadHandlingView();
 
 signals:
 
@@ -54,4 +50,4 @@ private:
     const QVector<QString> handValues = QVector<QString>()<<tr("left")<<tr("both")<<tr("right");
 };
 
-#endif // TransportView_H
+#endif // LoadHandlingView_H

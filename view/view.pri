@@ -11,8 +11,8 @@ $$PWD/angleView/anglecontrol.h\
 $$CURRENT_DIR/valuecontrol.h\
 $$CURRENT_DIR/separator.h\
 $$CURRENT_DIR/mainmenu.h\
-$$PWD/angleView/angleview.h\
-$$CURRENT_DIR/transportview.h\
+    $$PWD/angleView/angleview.h\
+    $$PWD/loadhandlingview.h\
 $$CURRENT_DIR/viewcontroller.h\
 $$CURRENT_DIR/transportationlistcontrol.h \
 $$CURRENT_DIR/transportationlistelement.h \
@@ -64,7 +64,7 @@ $$CURRENT_DIR/selectablevaluebutton.cpp\
 $$PWD/angleView/anglecontrol.cpp\
 $$CURRENT_DIR/valuecontrol.cpp\
 $$CURRENT_DIR/separator.cpp\
-$$CURRENT_DIR/transportview.cpp\
+    $$PWD/loadhandlingview.cpp\
 $$CURRENT_DIR/viewcontroller.cpp\
 $$CURRENT_DIR/mainmenu.cpp\
 $$PWD/angleView/angleview.cpp \

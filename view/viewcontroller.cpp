@@ -4,64 +4,6 @@ ViewController::ViewController(QWidget *parent) :
     QStackedWidget(parent)
 {
     previousViews = new QStack<int>();
-
-    // MAIN MENU
-    connect(mainMenuView, SIGNAL(showMetaDataView()), this, SLOT(goToMetaDataView()));
-    connect(mainMenuView, SIGNAL(showWorkplaceListView()), this, SLOT(goToWorkplaceListView()));
-    connect(mainMenuView, SIGNAL(showRessourceManagementView()), this, SLOT(goToRessourceManagementView()));
-    connect(mainMenuView, SIGNAL(showNewRecordingView()), this, SLOT(goToDocumentationView()));
-    connect(mainMenuView, SIGNAL(showSettingsView()), this, SLOT(goToSettingsView()));
-
-    // METADATA VIEW
-    connect(metaDataView, SIGNAL(showMainMenu()), this, SLOT(backToView()));
-    connect(metaDataView, SIGNAL(showWorkplaceListView()), this, SLOT(goToWorkplaceListView()));
-    connect(metaDataView, SIGNAL(saveMetaData()), this, SIGNAL(saveMetaData()));
-
-    // WORKPLACE LIST VIEW
-    connect(workplaceListView, SIGNAL(back()), this, SLOT(backToView()));
-    connect(workplaceListView, SIGNAL(forward()), this, SLOT(goToWorkplaceView()));
-    connect(workplaceListView, SIGNAL(showWorkplace(int)), this, SLOT(goToWorkplaceView(int)));
-
-    // WORKPLACE VIEW
-    connect(workplaceView, SIGNAL(back()), this, SLOT(backToView()));
-    connect(workplaceView, SIGNAL(cancel(int)), this, SIGNAL(deleteWorkplace(int)));
-
-    connect(workplaceView, SIGNAL(showLineView()), this, SLOT(goToLineView()));
-    connect(workplaceView, SIGNAL(showActivityView()), this, SLOT(goToActivityView()));
-    connect(workplaceView, SIGNAL(showCommentView()), this, SLOT(goToCommentView()));
-
-    // LINE VIEW
-    connect(lineView, SIGNAL(back()), this, SLOT(backToView()));
-
-    // ACTIVITY VIEW
-    connect(activityView, SIGNAL(back()), this, SLOT(backToView()));
-    connect(activityView, SIGNAL(showProductView()), this, SLOT(goToProductView()));
-    connect(activityView, SIGNAL(deleteActivity(int)), this, SIGNAL(deleteActivity(int)));
-    connect(activityView, SIGNAL(showWorkProcessView(int)), this, SLOT(goToDocumentationView(int)));
-
-    // COMMENT VIEW
-    connect(commentView, SIGNAL(back()), this, SLOT(backToView()));
-
-    // DOCUMENTATION VIEW
-    connect(documentationView, SIGNAL(showPreviousView()), this, SLOT(backToView()));
-    connect(documentationView, SIGNAL(createWorkProcess(int,QTime,QTime)), this, SIGNAL(createWorkprocess(int,QTime,QTime)));
-
-    // RESSOURCE MANAGEMENT VIEW
-    connect(ressourceManagementView, SIGNAL(back()), this, SLOT(backToView()));
-    connect(ressourceManagementView, SIGNAL(showEquipmentView()), this, SLOT(goToEquipmentView()));
-    connect(ressourceManagementView, SIGNAL(showProductView()), this, SLOT(goToProductView()));
-    connect(ressourceManagementView, SIGNAL(showTransportationView()), this, SLOT(goToTransportationView()));
-
-    // EQUIPMENT VIEW
-
-    // PRODUCT VIEW
-    connect(productView, SIGNAL(back()), this, SLOT(backToView()));
-    connect(productView, SIGNAL(deleteProduct(int)), this, SIGNAL(deleteProduct(int)));
-    connect(productView, SIGNAL(saveProduct()), this, SIGNAL(saveProduct()));
-
-    // TRANSPORTATION VIEW
-
-    // SETTINGS VIEW
 }
 
 // PUBLIC
@@ -72,42 +14,74 @@ void ViewController::goToView(int index){
 
 void ViewController::setMainMenuView(MainMenu *mainMenuView){
     this->mainMenuView = mainMenuView;
+    connect(mainMenuView, SIGNAL(showMetaDataView()), this, SLOT(goToMetaDataView()));
+    connect(mainMenuView, SIGNAL(showWorkplaceListView()), this, SLOT(goToWorkplaceListView()));
+    connect(mainMenuView, SIGNAL(showRessourceManagementView()), this, SLOT(goToRessourceManagementView()));
+    connect(mainMenuView, SIGNAL(showNewRecordingView()), this, SLOT(goToDocumentationView()));
+    connect(mainMenuView, SIGNAL(showSettingsView()), this, SLOT(goToSettingsView()));
 }
 
 void ViewController::setMetaDataView(MetaDataView *metaDataView){
     this->metaDataView = metaDataView;
+    connect(metaDataView, SIGNAL(showMainMenu()), this, SLOT(backToView()));
+    connect(metaDataView, SIGNAL(showWorkplaceListView()), this, SLOT(goToWorkplaceListView()));
+    connect(metaDataView, SIGNAL(saveMetaData()), this, SIGNAL(saveMetaData()));
 }
 
 void ViewController::setWorkplaceListView(WorkplaceListView *workplaceListView){
     this->workplaceListView = workplaceListView;
+    connect(workplaceListView, SIGNAL(back()), this, SLOT(backToView()));
+    connect(workplaceListView, SIGNAL(forward()), this, SLOT(goToWorkplaceView()));
+    connect(workplaceListView, SIGNAL(showWorkplace(int)), this, SLOT(goToWorkplaceView(int)));
 }
 
 void ViewController::setWorkplaceView(WorkplaceView *workplaceView){
     this->workplaceView = workplaceView;
+    connect(workplaceView, SIGNAL(back()), this, SLOT(backToView()));
+    connect(workplaceView, SIGNAL(cancel(int)), this, SIGNAL(deleteWorkplace(int)));
+
+    connect(workplaceView, SIGNAL(showLineView()), this, SLOT(goToLineView()));
+    connect(workplaceView, SIGNAL(showActivityView()), this, SLOT(goToActivityView()));
+    connect(workplaceView, SIGNAL(showCommentView()), this, SLOT(goToCommentView()));
 }
 
 void ViewController::setLineView(LineView *lineView){
     this->lineView = lineView;
+    connect(lineView, SIGNAL(back()), this, SLOT(backToView()));
 }
 
 void ViewController::setActivityView(ActivityView *activityView){
     this->activityView = activityView;
+    connect(activityView, SIGNAL(back()), this, SLOT(backToView()));
+    connect(activityView, SIGNAL(showProductView()), this, SLOT(goToProductView()));
+    connect(activityView, SIGNAL(deleteActivity(int)), this, SIGNAL(deleteActivity(int)));
+    connect(activityView, SIGNAL(showWorkProcessView(int)), this, SLOT(goToDocumentationView(int)));
 }
 
 void ViewController::setCommentView(CommentView *commentView){
     this->commentView = commentView;
+    connect(commentView, SIGNAL(back()), this, SLOT(backToView()));
 }
 
 void ViewController::setDocumentationView(DocumentationView *documentationView){
     this->documentationView = documentationView;
+    connect(documentationView, SIGNAL(showPreviousView()), this, SLOT(backToView()));
+    connect(documentationView, SIGNAL(createWorkProcess(int,QTime,QTime)), this, SIGNAL(createWorkprocess(int,QTime,QTime)));
 }
 
 void ViewController::setRessourceManagementView(RessourceManagementView *ressourceManagementView){
     this->ressourceManagementView = ressourceManagementView;
+    connect(ressourceManagementView, SIGNAL(back()), this, SLOT(backToView()));
+    connect(ressourceManagementView, SIGNAL(showEquipmentView()), this, SLOT(goToEquipmentView()));
+    connect(ressourceManagementView, SIGNAL(showProductView()), this, SLOT(goToProductView()));
+    connect(ressourceManagementView, SIGNAL(showTransportationView()), this, SLOT(goToTransportationView()));
 }
 
 void ViewController::setProductView(ProductView *productView){
     this->productView = productView;
+    connect(productView, SIGNAL(back()), this, SLOT(backToView()));
+    connect(productView, SIGNAL(deleteProduct(int)), this, SIGNAL(deleteProduct(int)));
+    connect(productView, SIGNAL(saveProduct()), this, SIGNAL(saveProduct()));
 }
 
 void ViewController::setEquipmentView(EquipmentView *equipmentView){
@@ -165,11 +139,6 @@ void ViewController::goToLineView(){
     goToView(ViewController::LINE_VIEW);
 }
 
-void ViewController::goToEmployeeView(){
-    emit updateEmployeeView();
-    goToView(ViewController::EMPLOYEE_VIEW);
-}
-
 void ViewController::goToActivityView(){
     emit updateActivityView();
     goToView(ViewController::ACTIVITY_VIEW);
@@ -225,9 +194,6 @@ void ViewController::backToView(){
             break;
         case ViewController::LINE_VIEW:
             emit updateLineView();
-            break;
-        case ViewController::EMPLOYEE_VIEW:
-            emit updateEmployeeView();
             break;
         case ViewController::ACTIVITY_VIEW:
             emit updateActivityView();

@@ -17,8 +17,8 @@
  * If parent is another widget, this widget becomes a child window inside parent.
  * The new widget is deleted when its parent is deleted.
  */
-TransportView::TransportView(QWidget *parent) :
-    QMainWindow(parent)
+LoadHandlingView::LoadHandlingView(QWidget *parent) :
+    QWidget(parent)
 {
 
     main = new QWidget(this);
@@ -83,10 +83,12 @@ TransportView::TransportView(QWidget *parent) :
     mainLayout->addWidget(categoryScrollArea);
 
     main->setLayout(mainLayout);
-    this->setCentralWidget(main);
+    QVBoxLayout *contentLayout = QVBoxLayout;
+    contentLayout->addWidget(main);
+    this->setLayout(contentLayout);
 }
 
-void TransportView::typeChanged(QString newType){
+void LoadHandlingView::typeChanged(QString newType){
     qDebug() << newType;
     if(newType == tr("pulling and pushing"))
         last->setValues(1, 2000, heavyLastValues, new QString());
@@ -94,6 +96,6 @@ void TransportView::typeChanged(QString newType){
         last->setValues(1, 100, lastValues, new QString());
 }
 
-TransportView::~TransportView()
+LoadHandlingView::~TransportView()
 {
 }

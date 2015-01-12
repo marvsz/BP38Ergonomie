@@ -5,9 +5,20 @@
 #if defined(Q_OS_IOS)
     #include "dbhandler.h"
     #include "viewcontroller.h"
+    #include "mainmenu.h"
+    #include "metadataview.h"
+    #include "workplaceView/activityview.h"
 #else
     #include "../databaseHandler/dbhandler.h"
     #include "../view/viewcontroller.h"
+    #include "../view/mainmenu.h"
+    #include "../view/metadataview.h"
+    #include "../view/workplaceView/activityview.h"
+    #include "../view/workplaceView/commentview.h"
+    #include "../view/workplaceView/lineview.h"
+    #include "../view/workplaceView/workplacelistview.h"
+    #include "../view/workplaceView/workplaceview.h"
+    #include "../view/documentationview.h"
 #endif
 #include <QSqlField>
 #include <QHash>
@@ -53,6 +64,29 @@ private slots:
 private:
     DBHandler *dbHandler;
     ViewController *viewCon;
+
+    MainMenu *mainMenuView;
+    MetaDataView *metaDataView;
+    WorkplaceListView *workplaceListView;
+    WorkplaceView *workplaceView;
+    LineView *lineView;
+    ActivityView *activityView;
+    CommentView *commentView;
+    RessourceManagementView *ressourceManagementView;
+    ProductView *productView;
+    EquipmentView *equipmentView;
+    TransportationView *transportationView;
+    SettingsView *settingsView;
+
+    DocumentationView *documentationView;
+    WorkProcessMetaDataView *workProcessMetaDataView;
+    AppliedForceView *appliedForceView;
+    AngleView *angleView;
+    LoadHandlingView *loadHandlingView;
+    ExecutionConditionView *executionConditionView;
+
+    TimerViewController *timerViewController;
+
 
     int recording_ID;
     int factory_ID;

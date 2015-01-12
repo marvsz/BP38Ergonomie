@@ -9,8 +9,10 @@
 #include <QQuickView>
 #include <QQmlEngine>
 #include "angleView/angleview.h"
+#include "appliedforceview.h"
+#include "executionconditionview.h"
 #include "workprocessmetadataview.h"
-#include "buttontimelineview.h"
+#include "loadhandlingview.h"
 #include "timerView/timerviewcontroller.h"
 #include "timerView/ganttimerview.h"
 /**
@@ -27,6 +29,16 @@ class DocumentationView : public QWidget
     Q_OBJECT
 public:
     explicit DocumentationView(QWidget *parent = 0);
+
+    void setBodyPostureView(AngleView *bodyPostureView);
+    void setLoadHandlingView(LoadHandlingView *loadHandlingView);
+    void setAppliedForceView(AppliedForceView *appliedForceView);
+    void setExecutionConditionView(ExecutionConditionView *executionConditionView);
+    void setWorkprocessMetaDataView(WorkProcessMetaDataView *workprocessMetaDataView);
+
+    void setTimerViewController(TimerViewController *timerViewController);
+
+    void setupViews();
 
 signals:
     void showPreviousView();
@@ -54,8 +66,14 @@ private:
     GantTimerView *gantView;
     TimerViewController *timerView;
     QQuickView *cameraView;
-    ButtonTimelineView *btnTimeLineView;
-    AngleView *angleView;
+
+    AngleView *bodyPostureView;
+    LoadHandlingView *loadHandlingView;
+    AppliedForceView *appliedForceView;
+    ExecutionConditionView *executionConditionView;
+    WorkProcessMetaDataView *workprocessMetaDataView;
+
+    TimerViewController *timerViewController;
 };
 
 #endif // DOCUMENTATIONVIEW_H
