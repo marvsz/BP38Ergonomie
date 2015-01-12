@@ -29,12 +29,12 @@ signals:
     void saveActivity();
 
 public slots:
-    void addProduct(int id, const QString &name);
+    void addProduct(int id, const QString &name, const QString &productNumber, int totalPercentage);
     void clearProducts();
     void setSelectedProduct(int id);
 
     void setActivity(const QString &description, int repetitions, int selectedProductID);
-    void addActivity(int id, const QString &description);
+    void addActivity(int id, const QString &description, int repetitions);
     void clearActivities();
 
 private slots:
@@ -43,6 +43,9 @@ private slots:
     void selectedProductChanged(int id);
 
 private:
+    static const QList<QStringList> productItemScheme;
+    static const QList<QStringList> activityItemScheme;
+
     int id;
     int selectedProductID;
 

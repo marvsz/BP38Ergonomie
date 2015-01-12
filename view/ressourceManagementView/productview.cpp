@@ -5,8 +5,11 @@
 #include "detailedlistitem.h"
 #include "flickcharm.h"
 
+const QList<QStringList> ProductView::productItemScheme = QList<QStringList>() << (QStringList() << tr("product number")) << (QStringList()<< tr("total percentage"));
+
 ProductView::ProductView(QWidget *parent) : QWidget(parent),
     scProducts(new QScrollArea),
+    lblAddProduct(new QLabel(tr("Add Product"))),
     lblViewName(new QLabel(tr("product data"))),
     lblName(new QLabel(tr("product name:"))),
     lblNumber(new QLabel(tr("product number:"))),
@@ -22,10 +25,14 @@ ProductView::ProductView(QWidget *parent) : QWidget(parent),
     btnBack->setObjectName("leftIcon");
     btnBack->setFixedSize(45, 45);
     btnAdd->setObjectName("plusIcon");
-    btnAdd->setFixedSize(45, 45
-                         );
-    connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
-    connect(btnAdd, SIGNAL(clicked()), this, SIGNAL(saveProduct()));
+    btnAdd->setFixedSize(45, 45);
+    connect(btnBack, SIGNAL(clicked()), this, SIGNAL(back()));
+    connect(btnAdd, SIGNAL(clicked()), this, SLOT(btnAddClicked()));
+
+    lblAddProduct->setObjectName("lblHeader");
+    txtBxName->setPlaceholderText(tr("name of the product"));
+    txtBxNumber->setPlaceholderText(tr("number of the product"));
+    numBxTotalPercentage->setPlaceholderText(tr("percentage of total production"));
 
     QGridLayout *navigationBarLayout = new QGridLayout;
     navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
@@ -33,13 +40,14 @@ ProductView::ProductView(QWidget *parent) : QWidget(parent),
     navigationBarLayout->addWidget(new QLabel(), 0, 2, 1, 1, Qt::AlignRight);
 
     QGridLayout *productDataLayout = new QGridLayout;
-    productDataLayout->addWidget(lblName, 0, 0, 1, 1, 0);
-    productDataLayout->addWidget(txtBxName, 0, 1, 1, 1, 0);
-    productDataLayout->addWidget(lblNumber, 0, 2, 1, 1, 0);
-    productDataLayout->addWidget(txtBxNumber, 0, 3, 1, 1, 0);
-    productDataLayout->addWidget(lblTotalPercentage, 1, 0, 1, 1, 0);
-    productDataLayout->addWidget(numBxTotalPercentage, 1, 1, 1, 1, 0);
-    productDataLayout->addWidget(btnAdd, 1, 3, 1, 1, 0);
+    productDataLayout->addWidget(lblAddProduct, 0, 0, 1, 1, 0);
+    productDataLayout->addWidget(lblName, 1, 0, 1, 1, 0);
+    productDataLayout->addWidget(txtBxName, 1, 1, 1, 1, 0);
+    productDataLayout->addWidget(lblNumber, 1, 2, 1, 1, 0);
+    productDataLayout->addWidget(txtBxNumber, 1, 3, 1, 1, 0);
+    productDataLayout->addWidget(lblTotalPercentage, 2, 0, 1, 1, 0);
+    productDataLayout->addWidget(numBxTotalPercentage, 2, 1, 1, 1, 0);
+    productDataLayout->addWidget(btnAdd, 2, 2, 1, 2, Qt::AlignCenter);
 
     QWidget *listContent = new QWidget;
     listContent->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -54,9 +62,17 @@ ProductView::ProductView(QWidget *parent) : QWidget(parent),
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(productDataLayout);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addWidget(scProducts);
 
     setLayout(mainLayout);
+
+    // TEST DATA
+    addProduct(1, "Test Produkt 1", "MX123", 50);
+    addProduct(2, "Test Produkt 2", "MX1321", 10);
+    addProduct(3, "Test Produkt 3", "MG$123", 10);
+    addProduct(4, "Test Produkt 4", "Mfasdo23", 10);
+    addProduct(5, "Test Produkt 5", "YOLO42", 20);
 }
 
 ProductView::~ProductView()
@@ -71,14 +87,12 @@ void ProductView::setProduct(const QString &name, const QString &number, int tot
     numBxTotalPercentage->setValue(totalPercentage);
 }
 
-void ProductView::addProduct(int id, const QString &name){
-    DetailedListItem *newListItem = new DetailedListItem(0, "", name, QList<QStringList>(), true, true, false);
+void ProductView::addProduct(int id, const QString &name, const QString &productNumber, int totalPercentage){
+    DetailedListItem *newListItem = new DetailedListItem(0, "", name, productItemScheme, true, false, false);
     newListItem->setID(id);
-    idSelectionMap.insert(id, false);
+    QList<QStringList> values = QList<QStringList>() << (QStringList() << productNumber) << (QStringList() << QString::number(totalPercentage));
+    newListItem->setValues(values);
     connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteProduct(int)));
-    connect(newListItem, SIGNAL(selected(int)), this, SLOT(idSelected(int)));
-    connect(newListItem, SIGNAL(deselected(int)), this, SLOT(idDeselected(int)));
-    connect(this, SIGNAL(productSelected(int)), newListItem, SLOT(select(int)));
     productListLayout->addWidget(newListItem);
 
 }
@@ -89,29 +103,16 @@ void ProductView::clearProducts(){
         delete item->widget();
         delete item;
     }
-    idSelectionMap.clear();
 }
 
-void ProductView::setProductSelected(int id){
-    idSelectionMap.insert(id, true);
-    emit productSelected(id);
+// PRIVATE SLOTS
+
+void ProductView::btnAddClicked(){
+    emit saveProduct();
+    txtBxName->clear();
+    txtBxNumber->clear();
+    numBxTotalPercentage->clear();
 }
-
-
-//PRIVATE SLOTS
-void ProductView::btnBackClicked(){
-    emit saveSelectedProducts();
-    emit back();
-}
-
-void ProductView::idSelected(int id){
-    idSelectionMap.insert(id, true);
-}
-
-void ProductView::idDeselected(int id){
-    idSelectionMap.insert(id, false);
-}
-
 
 //GETTER
 QString ProductView::getName() const{
@@ -122,12 +123,4 @@ QString ProductView::getNumber() const{
 }
 int ProductView::getTotalPercentage() const{
     return numBxTotalPercentage->getValue();
-}
-
-QList<int> ProductView::getSelectedIDs() const {
-    QList<int> list;
-    foreach(int id, idSelectionMap.keys())
-        if(idSelectionMap.value(id) == true)
-            list << id;
-    return list;
 }

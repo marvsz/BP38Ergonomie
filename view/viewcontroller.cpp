@@ -38,8 +38,6 @@ void ViewController::setWorkplaceListView(WorkplaceListView *workplaceListView){
 void ViewController::setWorkplaceView(WorkplaceView *workplaceView){
     this->workplaceView = workplaceView;
     connect(workplaceView, SIGNAL(back()), this, SLOT(backToView()));
-    connect(workplaceView, SIGNAL(cancel(int)), this, SIGNAL(deleteWorkplace(int)));
-
     connect(workplaceView, SIGNAL(showLineView()), this, SLOT(goToLineView()));
     connect(workplaceView, SIGNAL(showActivityView()), this, SLOT(goToActivityView()));
     connect(workplaceView, SIGNAL(showCommentView()), this, SLOT(goToCommentView()));

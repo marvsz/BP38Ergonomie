@@ -48,8 +48,8 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     lineAddLayout->addWidget(lblWorkplaceCount, 1, 2, 1, 1, 0);
     lineAddLayout->addWidget(numBxWorkplaceCount, 1, 3, 1, 1, 0);
     lineAddLayout->addWidget(lblDescription, 2, 0, 1, 2, 0);
-    lineAddLayout->addWidget(txtBxDescription, 3, 0, 1, 4, 0);
-    lineAddLayout->addWidget(btnAdd, 2, 3, 1, 1, Qt::AlignCenter);
+    lineAddLayout->addWidget(txtBxDescription, 2, 1, 1, 4, 0);
+    lineAddLayout->addWidget(btnAdd, 3, 0, 1, 4, Qt::AlignCenter);
 
     QWidget *listContent = new QWidget;
     listContent->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -63,10 +63,10 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
+    mainLayout->addLayout(lineAddLayout);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addWidget(lblSelectLine);
     mainLayout->addWidget(scLines);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
-    mainLayout->addLayout(lineAddLayout);
 
     setLayout(mainLayout);
 }

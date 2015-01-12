@@ -20,30 +20,25 @@ public:
     QString getName() const;
     QString getNumber() const;
     int getTotalPercentage() const;
-    QList<int> getSelectedIDs() const;
 
 signals:
     void back();
     void saveProduct();
-    void saveSelectedProducts();
     void deleteProduct(int id);
-    void productSelected(int id);
 
 public slots:
     void setProduct(const QString &name, const QString &number, int totalPercentage);
-    void addProduct(int id, const QString &name);
+    void addProduct(int id, const QString &name, const QString &productNumber, int totalPercentage);
     void clearProducts();
-    void setProductSelected(int id);
 
 private slots:
-    void btnBackClicked();
-    void idSelected(int id);
-    void idDeselected(int id);
+    void btnAddClicked();
 
 private:
-    QHash<int, bool> idSelectionMap;
+    static const QList<QStringList> productItemScheme;
 
     QScrollArea *scProducts;
+    QLabel *lblAddProduct;
     QLabel *lblViewName;
     QLabel *lblName;
     QLabel *lblNumber;
