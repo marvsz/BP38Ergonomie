@@ -441,23 +441,23 @@ void ViewController::clearEquipment(){
 
 // GETTER
 QString ViewController::getEquipmentName() const{
-
+    return "";
 }
 
 int ViewController::getEquipmentRecoilIntensity() const{
-
+    return 0;
 }
 
 int ViewController::getEquipmentRecoilCount() const{
-
+    return 0;
 }
 
 int ViewController::getEquipmentVibrationIntensity() const{
-
+    return 0;
 }
 
 int ViewController::getEquipmentVibrationCount() const{
-
+    return 0;
 }
 // PRODUCT VIEW GETTER/SETTER
 // SETTER
@@ -502,23 +502,23 @@ void ViewController::clearTransportations(){
 
 // GETTER
 QString ViewController::getTransportationName() const{
-
+    return "";
 }
 
 int ViewController::hasTransportationFixedRoller() const{
-
+    return 0;
 }
 
 int ViewController::hasTransportationBrakes() const{
-
+    return 0;
 }
 
 int ViewController::getTransportationEmptyWeight() const{
-
+    return 0;
 }
 
 int ViewController::getTransportationMaxLoad() const{
-
+    return 0;
 }
 
 

@@ -6,8 +6,8 @@
     #include "dbhandler.h"
     #include "viewcontroller.h"
 #else
-    #include "databaseHandler/dbhandler.h"
-    #include "view/viewcontroller.h"
+    #include "../databaseHandler/dbhandler.h"
+    #include "../view/viewcontroller.h"
 #endif
 #include <QSqlField>
 #include <QHash>

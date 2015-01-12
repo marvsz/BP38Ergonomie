@@ -207,8 +207,8 @@ int Controller::saveSelectedProducts(){
         values.insert(DBConstants::COL_ACTIVITY_PRODUCT_ID, id);
         save(DB_TABLES::ACTIVITY, filter.arg(QString::number(id)), DBConstants::COL_ACTIVITY_ID, DBConstants::HASH_ACTIVITY_TYPES, values);
         activity_ID = id;
-    }
-    return 0;*/
+    }*/
+    return 0;
 }
 int Controller::saveProduct(){
     /*QString filter = QString("%1 = %2").arg(DBConstants::COL_PRODUCT_ID).arg(QString::number(0));
@@ -219,6 +219,7 @@ int Controller::saveProduct(){
     int id = save(DB_TABLES::PRODUCT, filter, DBConstants::COL_PRODUCT_ID, DBConstants::HASH_PRODUCT_TYPES, values);
     updateProductView();
     return id;*/
+    return 0;
 }
 
 void Controller::deleteProduct(int id){

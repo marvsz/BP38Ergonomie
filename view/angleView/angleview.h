@@ -8,7 +8,7 @@
 #include "variant.h"
 #include "subvariant.h"
 #include "variantspecification.h"
-#include "enum.h"
+#include "../enum.h"
 #include <QPushButton>
 #include <QLabel>
 

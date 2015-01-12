@@ -73,7 +73,7 @@ QString WorkProcessMetaDataView::getDescription() const{
     return txtBxDescription->text();
 }
 QString WorkProcessMetaDataView::getMTMCode() const{
-    vcMTMCode->getTextValue();
+    return vcMTMCode->getTextValue();
 }
 int WorkProcessMetaDataView::getWorkingHeight() const{
     return numBxWorkingHeight->getValue();

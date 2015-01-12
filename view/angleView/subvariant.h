@@ -1,7 +1,7 @@
 #ifndef SUBVARIANT_H
 #define SUBVARIANT_H
 
-#include "enum.h"
+#include "../enum.h"
 #include <QString>
 #include <QVector>
 

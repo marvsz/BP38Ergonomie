@@ -9,7 +9,7 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include "selectablevaluebutton.h"
-#include "enum.h"
+#include "../enum.h"
 
 class ValueControl : public QWidget
 {

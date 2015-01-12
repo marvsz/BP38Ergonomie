@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QTime>
-#include "enum.h"
+#include "../enum.h"
 
 #include "workprocessselector.h"
 #include "optionselectioncontrol.h"
