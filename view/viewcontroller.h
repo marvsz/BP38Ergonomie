@@ -64,7 +64,6 @@ signals:
     void updateWorkplace(int id);
     void updateWorkplace();
     void createWorkplace();
-    void deleteWorkplace(int id);
     void setSelectedWorkplace(int id);
 
     // WORKPLACE VIEW
@@ -72,13 +71,9 @@ signals:
 
     // LINE VIEW
     void updateLineView();
-    void saveLine();
-    void saveSelectedLine(int id);
-    void deleteLine(int id);
 
     // COMMENT VIEW
     void updateCommentView();
-    void saveComment();
 
     // ACTIVITY VIEW
     void updateActivityView();

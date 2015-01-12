@@ -21,11 +21,9 @@ ViewController::ViewController(QWidget *parent) :
     connect(workplaceListView, SIGNAL(back()), this, SLOT(backToView()));
     connect(workplaceListView, SIGNAL(forward()), this, SLOT(goToWorkplaceView()));
     connect(workplaceListView, SIGNAL(showWorkplace(int)), this, SLOT(goToWorkplaceView(int)));
-    connect(workplaceListView, SIGNAL(deleteWorkplace(int)), this, SIGNAL(deleteWorkplace(int)));
 
     // WORKPLACE VIEW
     connect(workplaceView, SIGNAL(back()), this, SLOT(backToView()));
-    connect(workplaceView, SIGNAL(save()), this, SIGNAL(saveWorkplace()));
     connect(workplaceView, SIGNAL(cancel(int)), this, SIGNAL(deleteWorkplace(int)));
 
     connect(workplaceView, SIGNAL(showLineView()), this, SLOT(goToLineView()));
@@ -34,12 +32,6 @@ ViewController::ViewController(QWidget *parent) :
 
     // LINE VIEW
     connect(lineView, SIGNAL(back()), this, SLOT(backToView()));
-    connect(lineView, SIGNAL(deleteLine(int)), this, SIGNAL(deleteLine(int)));
-    connect(lineView, SIGNAL(saveLine()), this, SIGNAL(saveLine()));
-    connect(lineView, SIGNAL(saveSelectedLine(int)), this, SIGNAL(saveSelectedLine(int)));
-
-    // EMPLOYEE VIEW
-    connect(employeeView, SIGNAL(back()), this, SLOT(backToView()));
 
     // ACTIVITY VIEW
     connect(activityView, SIGNAL(back()), this, SLOT(backToView()));
@@ -49,7 +41,6 @@ ViewController::ViewController(QWidget *parent) :
 
     // COMMENT VIEW
     connect(commentView, SIGNAL(back()), this, SLOT(backToView()));
-    connect(commentView, SIGNAL(save()), this, SIGNAL(saveComment()));
 
     // DOCUMENTATION VIEW
     connect(documentationView, SIGNAL(showPreviousView()), this, SLOT(backToView()));

@@ -33,7 +33,7 @@ signals:
 public slots:
     void setLine(const QString &name, const QString &description, int workplaceCount);
     void addLine(int id, const QString &name);
-    void clearLines();
+    void clear();
     void setSelectedLine(int id);
 
 private slots:
