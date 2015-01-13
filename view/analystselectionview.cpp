@@ -7,7 +7,8 @@ AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
     status(false),
     btnMaximize(new QPushButton()),
     btnMinimize(new QPushButton()),
-    btnCreateAnalyst(new QPushButton(tr("create"), this)),
+    btnCreateAnalyst(new QPushButton()),
+    lblAnalyst(new QLabel(tr("Choose or create new profile"), this)),
     lblAnalystLastName(new QLabel(tr("last name:"), this)),
     lblAnalystFirstName(new QLabel(tr("prename:"), this)),
     lblAnalystEmployer(new QLabel(tr("employer:"), this)),
@@ -20,7 +21,14 @@ AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
     listContentLayout(new QVBoxLayout)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
+    QHBoxLayout *maximizedFooterLayout = new QHBoxLayout;
     QGridLayout *newAnalystLayout = new QGridLayout;
+
+    maximizedFooterLayout->addWidget(btnMinimize,0,Qt::AlignLeft);
+    maximizedFooterLayout->addWidget(btnCreateAnalyst,0,Qt::AlignRight);
+
+    QWidget *maximizedFooter = new QWidget;
+    maximizedFooter->setLayout(maximizedFooterLayout);
 
     newAnalystLayout->addWidget(lblAnalystLastName, 0, 0, 1, 1, 0);
     newAnalystLayout->addWidget(txtBxAnalystLastName, 0, 1, 1, 1, 0);
@@ -32,8 +40,7 @@ AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
     newAnalystLayout->addItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed), 1, 2, 1, 1, 0);
     newAnalystLayout->addWidget(lblAnalystExperience, 1, 3, 1, 1, 0);
     newAnalystLayout->addWidget(txtBxAnalystExperience, 1, 4, 1, 1, 0);
-    newAnalystLayout->addWidget(btnCreateAnalyst, 2, 0, 1, 10, 0);
-    newAnalystLayout->setAlignment(btnCreateAnalyst, Qt::AlignCenter);
+    newAnalystLayout->addWidget(maximizedFooter, 2, 0, 1, 10, 0);
 
     createAnalyst->setLayout(newAnalystLayout);
     createAnalyst->hide();
@@ -47,11 +54,15 @@ AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
     btnMinimize->setObjectName("upIcon");
     btnMinimize->hide();
 
+    btnCreateAnalyst->setFixedSize(45, 45);
+    btnCreateAnalyst->setObjectName("plusIcon");
 
+    lblAnalyst->setObjectName("lblHeader");
+
+
+    mainLayout->addWidget(lblAnalyst);
     mainLayout->addWidget(btnMaximize);
-    mainLayout->setAlignment(btnMaximize, Qt::AlignCenter);
-    mainLayout->addWidget(btnMinimize);
-    mainLayout->setAlignment(btnMinimize, Qt::AlignCenter);
+    mainLayout->setAlignment(btnMaximize, Qt::AlignLeft);
     mainLayout->addWidget(createAnalyst);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
     mainLayout->addLayout(listContentLayout);
@@ -61,6 +72,7 @@ AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
 
     connect(btnMaximize, SIGNAL(clicked()), this, SLOT(btnMaximizeClicked()));
     connect(btnMinimize, SIGNAL(clicked()), this, SLOT(btnMinimizeClicked()));
+    connect(btnCreateAnalyst, SIGNAL(clicked()), this, SIGNAL(create()));
 }
 
 void AnalystSelectionView::btnMaximizeClicked(){

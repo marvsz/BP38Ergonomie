@@ -41,6 +41,7 @@ private:
     QPushButton *btnMinimize;
     QPushButton *btnCreateAnalyst;
 
+    QLabel *lblAnalyst;
     QLabel *lblAnalystLastName;
     QLabel *lblAnalystFirstName;
     QLabel *lblAnalystEmployer;
