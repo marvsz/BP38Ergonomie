@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     a.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 
     QTranslator translator;
-    translator.load(":/assets/ergo_trans_de");
+    translator.load(":/ergo_trans_de");
     a.installTranslator(&translator);
 
 

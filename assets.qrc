@@ -2,6 +2,6 @@
     <qresource prefix="/">
         <file>assets/ergoAppDB.sqlite</file>
         <file>assets/stylesheet.qss</file>
-        <file>assets/ergo_trans_de.qm</file>
+        <file>ergo_trans_de.qm</file>
     </qresource>
 </RCC>
