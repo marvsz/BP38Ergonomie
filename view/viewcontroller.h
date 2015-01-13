@@ -3,6 +3,7 @@
 
 #include <QStackedWidget>
 #include <QStack>
+#include "analystselectionview.h"
 #include "mainmenu.h"
 #include "metadataview.h"
 #include "workplaceView/workplacelistview.h"
@@ -23,20 +24,22 @@ class ViewController : public QStackedWidget
 public:
     explicit ViewController(QWidget *parent = 0);
 
-    static const int MAIN_MENU_VIEW = 0;
-    static const int METADATA_VIEW = 1;
-    static const int WORKPLACELIST_VIEW = 2;
-    static const int WORKPLACE_VIEW = 3;
-    static const int LINE_VIEW = 4;
-    static const int ACTIVITY_VIEW = 5;
-    static const int COMMENT_VIEW = 6;
-    static const int DOCUMENTATION_VIEW = 7;
-    static const int RESSOURCE_MANAGEMENT_VIEW = 8;
-    static const int PRODUCT_VIEW = 9;
-    static const int EQUIPMENT_VIEW = 10;
-    static const int TRANSPORTATION_VIEW = 11;
-    static const int SETTINGS_VIEW = 12;
+    static const int ANALYST_SELECTION_VIEW = 0;
+    static const int MAIN_MENU_VIEW = 1;
+    static const int METADATA_VIEW = 2;
+    static const int WORKPLACELIST_VIEW = 3;
+    static const int WORKPLACE_VIEW = 4;
+    static const int LINE_VIEW = 5;
+    static const int ACTIVITY_VIEW = 6;
+    static const int COMMENT_VIEW = 7;
+    static const int DOCUMENTATION_VIEW = 8;
+    static const int RESSOURCE_MANAGEMENT_VIEW = 9;
+    static const int PRODUCT_VIEW = 10;
+    static const int EQUIPMENT_VIEW = 11;
+    static const int TRANSPORTATION_VIEW = 12;
+    static const int SETTINGS_VIEW = 13;
 
+    void setAnalystSelectionView(AnalystSelectionView *analystSelectionView);
     void setMainMenuView(MainMenu *mainMenuView);
     void setMetaDataView(MetaDataView *metaDataView);
     void setWorkplaceListView(WorkplaceListView *workplaceListView);
@@ -54,6 +57,9 @@ public:
     void registerViews();
 
 signals:
+    // Analyst Selection View
+    void updateAnalystSelectionView();
+
     // METADATA VIEW
     void saveMetaData();
     void updateMetaData();
@@ -109,6 +115,8 @@ private slots:
 
     void backToView();
 
+    void goToAnalystSelectionView();
+    void goToMainMenuView();
     void goToMetaDataView();
     void goToWorkplaceListView();
     void goToWorkplaceView();
@@ -126,6 +134,7 @@ private slots:
 
 private:
     QStack<int> *previousViews;
+    AnalystSelectionView *analystSelectionView;
     MainMenu *mainMenuView;
     MetaDataView *metaDataView;
     WorkplaceListView *workplaceListView;

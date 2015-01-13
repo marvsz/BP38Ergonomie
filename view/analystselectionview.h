@@ -5,6 +5,7 @@
 #include <QWidget>
 #include <QLabel>
 #include <textlineedit.h>
+#include <detailedlistitem.h>
 
 class AnalystSelectionView : public QWidget
 {
@@ -15,13 +16,20 @@ public:
     QString getAnalystFirstName() const;
     QString getAnalystEmployer() const;
     QString getAnalystExperience() const;
+    void add(int id, const QString &lastName, const QString &firstName);
+    void clear();
+
 
 signals:
-    void setAnalyst(const QString &lastName, const QString &firstName, const QString &experience);
-    void setEmployer(const QString &employer);
+    void forward();
+    void create();
+    void remove(int id);
+    void select(int id);
+
 
 private slots:
     void showCreateAnalyst();
+    void dliPressed(int id);
 
 private:
     QPushButton *btnCreateAnalyst;
@@ -36,6 +44,11 @@ private:
     TextLineEdit *txtBxAnalystFirstName;
     TextLineEdit *txtBxAnalystEmployer;
     TextLineEdit *txtBxAnalystExperience;
+
+    QList<DetailedListItem*> *analysts;
+
+    //QSpacerItem *spacer1; = new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+    //QSpacerItem *spacer2; = new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
 
 
 };

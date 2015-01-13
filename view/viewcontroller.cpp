@@ -12,6 +12,11 @@ void ViewController::goToView(int index){
     setCurrentIndex(index);
 }
 
+void ViewController::setAnalystSelectionView(AnalystSelectionView *analystSelectionView){
+    this->analystSelectionView = analystSelectionView;
+    connect(analystSelectionView, SIGNAL(forward()), this, SLOT(goToMainMenuView()));
+}
+
 void ViewController::setMainMenuView(MainMenu *mainMenuView){
     this->mainMenuView = mainMenuView;
     connect(mainMenuView, SIGNAL(showMetaDataView()), this, SLOT(goToMetaDataView()));
@@ -95,6 +100,7 @@ void ViewController::setSettingsView(SettingsView *settingsView){
 }
 
 void ViewController::registerViews(){
+    this->addWidget(analystSelectionView);
     this->addWidget(mainMenuView);
     this->addWidget(metaDataView);
     this->addWidget(workplaceListView);
@@ -108,10 +114,18 @@ void ViewController::registerViews(){
     this->addWidget(equipmentView);
     this->addWidget(transportationView);
     this->addWidget(settingsView);
-    setCurrentIndex(ViewController::MAIN_MENU_VIEW);
+    setCurrentIndex(ViewController::ANALYST_SELECTION_VIEW);
 }
 
 // PRIVATE SLOTS
+void ViewController::goToAnalystSelectionView(){
+    emit updateAnalystSelectionView();
+    goToView(ViewController::ANALYST_SELECTION_VIEW);
+}
+
+void ViewController::goToMainMenuView(){
+    goToView(ViewController::MAIN_MENU_VIEW);
+}
 
 void ViewController::goToMetaDataView(){
     goToView(ViewController::METADATA_VIEW);
