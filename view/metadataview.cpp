@@ -65,6 +65,8 @@ MetaDataView::MetaDataView(QWidget *parent) :
     lblFactory->setObjectName("lblHeader");
     lblRecordingDateTime->setObjectName("lblHeader");
 
+    txtBxBoIDescription->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+
     btnBack->setObjectName("leftIcon");
     btnBack->setFixedSize(45, 45);
     connect(btnBack, SIGNAL(clicked()), this, SLOT(backButtonClicked()));
@@ -83,7 +85,7 @@ MetaDataView::MetaDataView(QWidget *parent) :
 
     branchOfIndustryLayout->addWidget(lblBoIName);
     branchOfIndustryLayout->addWidget(txtBxBoIName);
-    branchOfIndustryLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
+    branchOfIndustryLayout->addSpacerItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed));
     branchOfIndustryLayout->addWidget(lblBoIDescription);
     branchOfIndustryLayout->addWidget(txtBxBoIDescription);
 

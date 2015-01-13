@@ -337,7 +337,7 @@ void Controller::deleteLine(int id){
 
 //Product
 void Controller::updateProductView(){
-    productView->clearProducts();
+    productView->clear();
     DB_TABLES tbl = DB_TABLES::PRODUCT;
     dbHandler->select(tbl, QString(""));
     for(int i = 0; i < dbHandler->rowCount(tbl); ++i){
