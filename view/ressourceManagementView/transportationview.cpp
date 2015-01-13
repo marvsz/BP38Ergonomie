@@ -7,7 +7,7 @@
 
 const QList<QStringList> TransportationView::transportationItemScheme = QList<QStringList>() << (QStringList() << tr("empty weight:") << tr("max. load:")) << (QStringList() << tr("fixed rollers:") << tr("brakes:"));
 const QStringList TransportationView::YES_NO_TEXTS = QStringList()<<tr("yes")<<tr("no");
-const QVector<QVariant> TransportationView::YES_NO_VALUE = QVector<QVariant>()<<1<<0;
+const QVector<QVariant> TransportationView::YES_NO_VALUE = QVector<QVariant>()<<true<<false;
 
 TransportationView::TransportationView(QWidget *parent) :
     QWidget(parent),
@@ -91,6 +91,10 @@ TransportationView::TransportationView(QWidget *parent) :
 TransportationView::~TransportationView(){}
 
 // PUBLIC
+
+QString TransportationView::getName() const {
+    return txtBxName->text();
+}
 
 int TransportationView::getWeight() const{
     return numBxWeight->getValue();

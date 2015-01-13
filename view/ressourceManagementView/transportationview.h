@@ -16,6 +16,7 @@ public:
     explicit TransportationView(QWidget *parent = 0);
     ~TransportationView();
 
+    QString getName() const;
     int getWeight() const;
     int getMaxLoad() const;
     QVariant hasFixedRoller() const;
