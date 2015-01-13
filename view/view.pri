@@ -50,7 +50,8 @@ HEADERS +=\
     $$PWD/appliedforceview.h \
     $$PWD/settingsview.h \
     $$PWD/bodyPostureView/bodypostureview.h \
-    $$PWD/bodyPostureView/variantcontrol.h
+    $$PWD/bodyPostureView/variantcontrol.h \
+    $$PWD/analystselectionview.h
 
 
 SOURCES +=\
@@ -101,6 +102,7 @@ SOURCES +=\
     $$PWD/appliedforceview.cpp \
     $$PWD/settingsview.cpp \
     $$PWD/bodyPostureView/bodypostureview.cpp \
-    $$PWD/bodyPostureView/variantcontrol.cpp
+    $$PWD/bodyPostureView/variantcontrol.cpp \
+    $$PWD/analystselectionview.cpp
 
 
