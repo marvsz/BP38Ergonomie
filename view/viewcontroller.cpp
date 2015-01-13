@@ -115,6 +115,7 @@ void ViewController::registerViews(){
     this->addWidget(transportationView);
     this->addWidget(settingsView);
     setCurrentIndex(ViewController::ANALYST_SELECTION_VIEW);
+    goToAnalystSelectionView();
 }
 
 // PRIVATE SLOTS

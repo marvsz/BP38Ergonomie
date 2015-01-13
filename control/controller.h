@@ -19,6 +19,7 @@
     #include "../view/workplaceView/workplacelistview.h"
     #include "../view/workplaceView/workplaceview.h"
     #include "../view/documentationview.h"
+    #include "../view/analystselectionview.h"
 #endif
 #include <QSqlField>
 #include <QHash>
@@ -34,6 +35,11 @@ signals:
 public slots:
 
 private slots:
+    void updateAnalystSelectionView();
+    void createAnalyst();
+    void removeAnalyst(int id);
+    void selectAnalyst(int id);
+
     void updateMetaDataView();
     void saveMetaDataView();
 
@@ -65,6 +71,7 @@ private:
     DBHandler *dbHandler;
     ViewController *viewCon;
 
+    AnalystSelectionView *analystSelectionView;
     MainMenu *mainMenuView;
     MetaDataView *metaDataView;
     WorkplaceListView *workplaceListView;
@@ -87,14 +94,14 @@ private:
 
     TimerViewController *timerViewController;
 
-
+    int analyst_ID;
     int recording_ID;
     int factory_ID;
     int selectedWorkplaceID;
     int selectedWorkprocessID;
     int activity_ID;
 
-    int save(DB_TABLES tbl, const QString &filter, const QString &colID, const QStringList &colNames, const QList<QVariant::Type> &colTypes, QHash<QString, QVariant> &colMapNameValue);
+    int insert(DB_TABLES tbl, const QString &colID, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue);
 
     int save(DB_TABLES tbl, const QString &filter, const QString &colID, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue);
 

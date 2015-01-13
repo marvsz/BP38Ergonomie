@@ -3,6 +3,7 @@
 #include <QTime>
 Controller::Controller(QObject *parent) :
     QObject(parent),
+    analystSelectionView(new AnalystSelectionView()),
     mainMenuView(new MainMenu()),
     metaDataView(new MetaDataView()),
     workplaceListView(new WorkplaceListView()),
@@ -25,15 +26,22 @@ Controller::Controller(QObject *parent) :
 {
     dbHandler = new DBHandler();
 
+    analyst_ID = 0;
+    recording_ID = 1;
+    selectedWorkplaceID = 0;
+    factory_ID = 0;
+    activity_ID = 1;
+    selectedWorkplaceID = 0;
+
     documentationView->setWorkprocessMetaDataView(workProcessMetaDataView);
     documentationView->setBodyPostureView(bodyPostureView);
     documentationView->setAppliedForceView(appliedForceView);
     documentationView->setExecutionConditionView(executionConditionView);
     documentationView->setLoadHandlingView(loadHandlingView);
     documentationView->setTimerViewController(timerViewController);
-    documentationView->setupViews();
 
     viewCon = new ViewController();
+    viewCon->setAnalystSelectionView(analystSelectionView);
     viewCon->setMainMenuView(mainMenuView);
     viewCon->setMetaDataView(metaDataView);
     viewCon->setWorkplaceListView(workplaceListView);
@@ -47,8 +55,12 @@ Controller::Controller(QObject *parent) :
     viewCon->setEquipmentView(equipmentView);
     viewCon->setTransportationView(transportationView);
     viewCon->setSettingsView(settingsView);
-    viewCon->registerViews();
-    viewCon->show();
+
+
+    connect(viewCon, SIGNAL(updateAnalystSelectionView()), this, SLOT(updateAnalystSelectionView()));
+    connect(analystSelectionView, SIGNAL(remove(int)), this, SLOT(removeAnalyst(int)));
+    connect(analystSelectionView, SIGNAL(create()), this, SLOT(createAnalyst()));
+    connect(analystSelectionView, SIGNAL(select(int)), this, SLOT(selectAnalyst(int)));
 
     connect(viewCon, SIGNAL(updateMetaData()), this, SLOT(updateMetaDataView()));
     connect(metaDataView, SIGNAL(saveMetaData()), this, SLOT(saveMetaDataView()));
@@ -76,11 +88,48 @@ Controller::Controller(QObject *parent) :
 
     connect(timerViewController, SIGNAL(createWorkProcess(int,QTime,QTime)), this, SLOT(createWorkprocess(int,QTime,QTime)));
 
-    recording_ID = 1;
-    selectedWorkplaceID = 0;
-    factory_ID = 0;
-    activity_ID = 1;
-    selectedWorkplaceID = 0;
+    documentationView->setupViews();
+
+    viewCon->registerViews();
+    viewCon->show();
+}
+//PRIVATE SLOTS
+
+//AnalystSelectionView
+void Controller::updateAnalystSelectionView(){
+    analystSelectionView->clear();
+    DB_TABLES tbl = DB_TABLES::ANALYST;
+    dbHandler->select(tbl, QString(""));
+    for(int i = 0; i < dbHandler->rowCount(tbl); ++i){
+        QSqlRecord record = dbHandler->record(tbl, i);
+        analystSelectionView->add(record.value(DBConstants::COL_ANALYST_ID).toInt(),
+                                  record.value(DBConstants::COL_ANALYST_LASTNAME).toString(),
+                                  record.value(DBConstants::COL_ANALYST_FIRSTNAME).toString());
+    }
+}
+
+void Controller::createAnalyst(){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_EMPLOYER_NAME).arg(analystSelectionView->getAnalystEmployer());
+    QHash<QString, QVariant> valuesEmployer = QHash<QString, QVariant>();
+    valuesEmployer.insert(DBConstants::COL_EMPLOYER_NAME, analystSelectionView->getAnalystEmployer());
+    int emp_ID = save(DB_TABLES::EMPLOYER, filter, DBConstants::COL_EMPLOYER_ID, DBConstants::HASH_EMPLOYER_TYPES, valuesEmployer);
+
+    QHash<QString, QVariant> valuesAnalyst = QHash<QString, QVariant>();
+    valuesAnalyst.insert(DBConstants::COL_ANALYST_LASTNAME, analystSelectionView->getAnalystLastName());
+    valuesAnalyst.insert(DBConstants::COL_ANALYST_FIRSTNAME, analystSelectionView->getAnalystFirstName());
+    valuesAnalyst.insert(DBConstants::COL_ANALYST_EMPLOYER_ID, emp_ID);
+    valuesAnalyst.insert(DBConstants::COL_ANALYST_EXPERIENCE, analystSelectionView->getAnalystExperience());
+    insert(DB_TABLES::ANALYST, DBConstants::COL_ANALYST_ID, DBConstants::HASH_ANALYST_TYPES, valuesAnalyst);
+    updateAnalystSelectionView();
+}
+
+void Controller::removeAnalyst(int id){
+    dbHandler->deleteAll(DB_TABLES::ANALYST, QString("%1 = %2").arg(DBConstants::COL_ANALYST_ID).arg(id));
+    updateAnalystSelectionView();
+}
+
+void Controller::selectAnalyst(int id){
+    analyst_ID = id;
 }
 
 
@@ -313,32 +362,16 @@ void Controller::updateWorkprocessViews(){
 
 
 //PRIVATE METHODS
-int Controller::save(DB_TABLES tbl, const QString &filter, const QString &colID, const QStringList &colNames, const QList<QVariant::Type> &colTypes, QHash<QString, QVariant> &colMapNameValue){
-    dbHandler->select(tbl, filter);
-    int id;
+int Controller::insert(DB_TABLES tbl, const QString &colID, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue){
     QSqlRecord record;
-    bool toInsert = false;
-    if(dbHandler->rowCount(tbl) == 0){
-        toInsert = true;
-        id = dbHandler->getNextID(tbl, colID);
-
-        for(int i = 0; i < colNames.count(); ++i){
-            record.append(QSqlField(colNames.at(i), colTypes.at(i)));
-        }
-    }
-    else {
-        record = dbHandler->record(tbl, 0);
-        id = record.value(colID).toInt();
-    }
-
+    int id = dbHandler->getNextID(tbl, colID);
     colMapNameValue.insert(colID, id);
-    foreach(QString colName, colMapNameValue.keys())
-        record.setValue(colName, colMapNameValue.value(colName));
+    foreach(QString key, colMapNameValue.keys()){
+        record.append(QSqlField(key, colMapNameType.value(key)));
+        record.setValue(key, colMapNameValue.value(key));
+    }
 
-    if(toInsert)
-        dbHandler->insertRow(tbl, record);
-    else
-        dbHandler->updateRow(tbl, 0, record);
+    dbHandler->insertRow(tbl, record);
     return id;
 }
 

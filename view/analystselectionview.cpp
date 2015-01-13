@@ -41,9 +41,9 @@ AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
 
 
     mainLayout->addWidget(lblAnalyst);
-    mainLayout->addLayout(newAnalystLayout);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
     mainLayout->addWidget(createAnalyst);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
+    mainLayout->addLayout(listContentLayout);
     mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
     setLayout(mainLayout);
