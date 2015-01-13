@@ -96,24 +96,32 @@
 <context>
     <name>AnalystSelectionView</name>
     <message>
-        <location filename="view/analystselectionview.cpp" line="8"/>
         <source>Create new Analyst</source>
-        <translation>Erstelle neuen Analyst</translation>
+        <translation type="vanished">Erstelle neuen Analyst</translation>
     </message>
     <message>
-        <location filename="view/analystselectionview.cpp" line="9"/>
         <source>analyst</source>
-        <translation>Analyst</translation>
+        <translation type="vanished">Analyst</translation>
     </message>
     <message>
         <location filename="view/analystselectionview.cpp" line="10"/>
+        <source>create</source>
+        <translation>Erstellen</translation>
+    </message>
+    <message>
+        <location filename="view/analystselectionview.cpp" line="11"/>
         <source>last name:</source>
         <translation>Nachname:</translation>
     </message>
     <message>
-        <location filename="view/analystselectionview.cpp" line="11"/>
+        <location filename="view/analystselectionview.cpp" line="13"/>
         <source>employer:</source>
         <translation>Arbeitgeber:</translation>
+    </message>
+    <message>
+        <location filename="view/analystselectionview.cpp" line="14"/>
+        <source>experience:</source>
+        <translation>Erfahrung:</translation>
     </message>
     <message>
         <location filename="view/analystselectionview.cpp" line="12"/>
@@ -542,6 +550,73 @@
     </message>
 </context>
 <context>
+    <name>EquipmentView</name>
+    <message>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="7"/>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="37"/>
+        <source>recoil count</source>
+        <translation>Rückschlaganzahl</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="7"/>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="38"/>
+        <source>recoil intensity</source>
+        <translation>Rückschlagintensität</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="7"/>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="39"/>
+        <source>vibration count</source>
+        <translation>Vibrationsanzahl</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="7"/>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="40"/>
+        <source>vibration intensity</source>
+        <translation>Vibrationsintensität</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="12"/>
+        <source>Add Equipment</source>
+        <translation>Betriebsmittel hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="13"/>
+        <source>Equipment</source>
+        <translation>Betriebsmittel</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="14"/>
+        <source>Name:</source>
+        <translation>Name:</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="15"/>
+        <source>Recoil Count:</source>
+        <translation>Rückschlaganzahl:</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="16"/>
+        <source>Recoil Intensity [N]:</source>
+        <translation>Rückschlagintensität [N]:</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="17"/>
+        <source>Vibration Count:</source>
+        <translation>Vibrationsanzahl:</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="18"/>
+        <source>Vibration Intensity [N]</source>
+        <translation>Vibrationsintensität [N]</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="36"/>
+        <source>name of the equipment</source>
+        <translation>Name</translation>
+    </message>
+</context>
+<context>
     <name>ExecutionConditionView</name>
     <message>
         <location filename="view/executionconditionview.cpp" line="6"/>
@@ -596,7 +671,7 @@
     <message>
         <location filename="view/executionconditionview.cpp" line="83"/>
         <source>trunk:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rumpf:</translation>
     </message>
     <message>
         <location filename="view/executionconditionview.cpp" line="85"/>
@@ -857,7 +932,7 @@
     <message>
         <location filename="view/metadataview.cpp" line="25"/>
         <source>Branch of Industry</source>
-        <translation>Industriezweig</translation>
+        <translation>Branche</translation>
     </message>
     <message>
         <location filename="view/metadataview.cpp" line="28"/>
@@ -1130,6 +1205,89 @@
     </message>
 </context>
 <context>
+    <name>TransportationView</name>
+    <message>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="8"/>
+        <source>empty weight:</source>
+        <translation>Leergewicht:</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="8"/>
+        <source>max. load:</source>
+        <translation>Maximalgewicht:</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="8"/>
+        <source>fixed rollers:</source>
+        <translation>Bockrollen:</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="8"/>
+        <source>brakes:</source>
+        <translation>Bremsen:</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="9"/>
+        <source>yes</source>
+        <translation>Ja</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="9"/>
+        <source>no</source>
+        <translation>Nein</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="15"/>
+        <source>Add Transportation</source>
+        <translation>Transportmittel hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="16"/>
+        <source>Transportations</source>
+        <translation>Transportmittel</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="17"/>
+        <source>Name:</source>
+        <translation>Name:</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="18"/>
+        <source>Empty weight [kg]:</source>
+        <translation>Leergewicht [kg]:</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="19"/>
+        <source>Max. load [kg]:</source>
+        <translation>Maximalgewicht [kg]:</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="20"/>
+        <source>Fixed rollers:</source>
+        <translation>Bockrollen:</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="21"/>
+        <source>Brakes:</source>
+        <translation>Bremsen:</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="39"/>
+        <source>name of the transportation</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="40"/>
+        <source>empty weight of the transportation</source>
+        <translation>Leergewicht</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="41"/>
+        <source>maximum load weight of the transportation</source>
+        <translation>Maximalgewicht</translation>
+    </message>
+</context>
+<context>
     <name>WorkProcessMetaDataView</name>
     <message>
         <location filename="view/workprocessmetadataview.cpp" line="5"/>
@@ -1265,12 +1423,12 @@
     <message>
         <location filename="view/workplaceView/workplaceview.cpp" line="20"/>
         <source>initial time</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorgabezeiten [REFA]</translation>
     </message>
     <message>
         <location filename="view/workplaceView/workplaceview.cpp" line="21"/>
         <source>setup time:</source>
-        <translation>Grundzeit</translation>
+        <translation>Grundzeit:</translation>
     </message>
     <message>
         <location filename="view/workplaceView/workplaceview.cpp" line="22"/>
