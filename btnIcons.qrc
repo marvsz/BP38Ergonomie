@@ -78,11 +78,11 @@
         <file>icons/ArmsWrist/ArmsWrist_Ularabduktion.png</file>
         <file>icons/GrabType/GrabType_Daumen auf 2 Finger.png</file>
         <file>icons/GrabType/GrabType_Daumenkontaktgriff.png</file>
-        <file>icons/GrabType/GrabType_Daumenzeigefingergriff.png</file>
         <file>icons/GrabType/GrabType_Fingerzufassungsgriff.png</file>
         <file>icons/GrabType/GrabType_Handkontaktgriff.png</file>
         <file>icons/GrabType/GrabType_Umfassungsgriff.png</file>
         <file>icons/GrabType/GrabType_Zange.png</file>
         <file>icons/GrabType/GrabType_Zeigefingerkontaktgriff.png</file>
+        <file>icons/GrabType/GrabType_Daumen-Zeigefinger.png</file>
     </qresource>
 </RCC>

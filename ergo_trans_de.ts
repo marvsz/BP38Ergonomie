@@ -805,27 +805,37 @@
 <context>
     <name>LoadHandlingView</name>
     <message>
-        <location filename="view/loadhandlingview.cpp" line="32"/>
+        <location filename="view/loadhandlingview.cpp" line="30"/>
+        <source>GraspTypeIcons</source>
+        <translation>:/icons/GrabType/GrabType_</translation>
+    </message>
+    <message>
+        <location filename="view/loadhandlingview.cpp" line="31"/>
+        <source>Grasptype:</source>
+        <translation>Greifart:</translation>
+    </message>
+    <message>
+        <location filename="view/loadhandlingview.cpp" line="35"/>
         <source>loadhandling type:</source>
         <translation>Lastenhandhabungsart:</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.cpp" line="37"/>
+        <location filename="view/loadhandlingview.cpp" line="40"/>
         <source>kg</source>
         <translation>kg</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.cpp" line="39"/>
+        <location filename="view/loadhandlingview.cpp" line="42"/>
         <source>Last</source>
         <translation>Last</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.cpp" line="43"/>
+        <location filename="view/loadhandlingview.cpp" line="46"/>
         <source>m</source>
         <translation>m</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.cpp" line="45"/>
+        <location filename="view/loadhandlingview.cpp" line="48"/>
         <source>Weg</source>
         <translation>Weg</translation>
     </message>
@@ -834,33 +844,73 @@
         <translation type="vanished">Benutzte Hand:</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.cpp" line="50"/>
+        <location filename="view/loadhandlingview.cpp" line="53"/>
         <source>Bockrollen</source>
         <translation>Bockrollen</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.cpp" line="51"/>
+        <location filename="view/loadhandlingview.cpp" line="54"/>
         <source>Bremsen</source>
         <translation>Bremsen</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.cpp" line="77"/>
-        <location filename="view/loadhandlingview.h" line="46"/>
+        <location filename="view/loadhandlingview.cpp" line="82"/>
+        <location filename="view/loadhandlingview.h" line="48"/>
         <source>pulling and pushing</source>
         <translation>Ziehen &amp; Schieben</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.h" line="46"/>
+        <location filename="view/loadhandlingview.h" line="44"/>
+        <source>Thumbcontact grasp</source>
+        <translation>Daumenkontaktgriff</translation>
+    </message>
+    <message>
+        <location filename="view/loadhandlingview.h" line="44"/>
+        <source>Indexcontact grasp</source>
+        <translation>Zeigefingerkontaktgriff</translation>
+    </message>
+    <message>
+        <location filename="view/loadhandlingview.h" line="44"/>
+        <source>Handcontact grasp</source>
+        <translation>Handkontaktgriff</translation>
+    </message>
+    <message>
+        <location filename="view/loadhandlingview.h" line="44"/>
+        <source>Thumb to 2 Fingers</source>
+        <translation>Daumen auf 2 Finger</translation>
+    </message>
+    <message>
+        <location filename="view/loadhandlingview.h" line="44"/>
+        <source>Fingergrasp</source>
+        <translation>Fingerzufassungsgriff</translation>
+    </message>
+    <message>
+        <location filename="view/loadhandlingview.h" line="44"/>
+        <source>Thumbindex</source>
+        <translation>Daumen-Zeigefinger</translation>
+    </message>
+    <message>
+        <location filename="view/loadhandlingview.h" line="44"/>
+        <source>Wrench</source>
+        <translation>Zange</translation>
+    </message>
+    <message>
+        <location filename="view/loadhandlingview.h" line="44"/>
+        <source>Fullgrasp</source>
+        <translation>Umfassungsgriff</translation>
+    </message>
+    <message>
+        <location filename="view/loadhandlingview.h" line="48"/>
         <source>holding</source>
         <translation>Halten</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.h" line="46"/>
+        <location filename="view/loadhandlingview.h" line="48"/>
         <source>replacing</source>
         <translation>Umsetzen</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.h" line="46"/>
+        <location filename="view/loadhandlingview.h" line="48"/>
         <source>carrying</source>
         <translation>Tragen</translation>
     </message>
@@ -918,116 +968,116 @@
         <translation>Arbeitsplätze</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="22"/>
+        <location filename="view/metadataview.cpp" line="13"/>
         <source>coproration</source>
         <translation>Unternehmen</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="23"/>
-        <location filename="view/metadataview.cpp" line="26"/>
-        <location filename="view/metadataview.cpp" line="31"/>
+        <location filename="view/metadataview.cpp" line="14"/>
+        <location filename="view/metadataview.cpp" line="17"/>
+        <location filename="view/metadataview.cpp" line="22"/>
         <source>name:</source>
         <translation>Name:</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="25"/>
+        <location filename="view/metadataview.cpp" line="16"/>
         <source>Branch of Industry</source>
         <translation>Branche</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="28"/>
+        <location filename="view/metadataview.cpp" line="19"/>
         <source>description:</source>
         <translation>Beschreibung:</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="30"/>
+        <location filename="view/metadataview.cpp" line="21"/>
         <source>factory</source>
         <translation>Werk</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="32"/>
+        <location filename="view/metadataview.cpp" line="23"/>
         <source>street:</source>
         <translation>Straße:</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="33"/>
+        <location filename="view/metadataview.cpp" line="24"/>
         <source>zip:</source>
         <translation>PLZ:</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="34"/>
+        <location filename="view/metadataview.cpp" line="25"/>
         <source>city:</source>
         <translation>Stadt:</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="35"/>
+        <location filename="view/metadataview.cpp" line="26"/>
         <source>country:</source>
         <translation>Land:</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="36"/>
+        <location filename="view/metadataview.cpp" line="27"/>
         <source>contact:</source>
         <translation>Kontakt:</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="37"/>
+        <location filename="view/metadataview.cpp" line="28"/>
         <source>employee:</source>
         <translation>Mitarbeiter:</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="45"/>
+        <location filename="view/metadataview.cpp" line="36"/>
         <source>recording</source>
         <translation>Aufnahme</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="46"/>
+        <location filename="view/metadataview.cpp" line="37"/>
         <source>begin:</source>
         <translation>Beginn:</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="47"/>
+        <location filename="view/metadataview.cpp" line="38"/>
         <source>end:</source>
         <translation>Ende:</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="52"/>
-        <location filename="view/metadataview.cpp" line="53"/>
-        <location filename="view/metadataview.cpp" line="55"/>
+        <location filename="view/metadataview.cpp" line="43"/>
+        <location filename="view/metadataview.cpp" line="44"/>
+        <location filename="view/metadataview.cpp" line="46"/>
         <source>name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="54"/>
+        <location filename="view/metadataview.cpp" line="45"/>
         <source>description</source>
         <translation>Beschreibung</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="56"/>
+        <location filename="view/metadataview.cpp" line="47"/>
         <source>street</source>
         <translation>Straße</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="57"/>
+        <location filename="view/metadataview.cpp" line="48"/>
         <source>city</source>
         <translation>Stadt</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="58"/>
+        <location filename="view/metadataview.cpp" line="49"/>
         <source>zip</source>
         <translation>PLZ</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="59"/>
+        <location filename="view/metadataview.cpp" line="50"/>
         <source>country</source>
         <translation>Land</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="60"/>
+        <location filename="view/metadataview.cpp" line="51"/>
         <source>contact</source>
         <translation>Ansprechpartner</translation>
     </message>
     <message>
-        <location filename="view/metadataview.cpp" line="61"/>
+        <location filename="view/metadataview.cpp" line="52"/>
         <source>count</source>
         <translation>Mitarbeiterzahl</translation>
     </message>

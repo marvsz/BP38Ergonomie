@@ -201,6 +201,7 @@ QDateTime MetaDataView::getRecordTimeEnd() const {
     return dteRecordingTimeEnd->getDateTime();
 }
 
+// SETTER
 
 void MetaDataView::setEmployer(const QString &employer){
     txtBxAnalystEmployer->setText(employer);

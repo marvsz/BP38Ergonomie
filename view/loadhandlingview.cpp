@@ -26,23 +26,26 @@ LoadHandlingView::LoadHandlingView(QWidget *parent) :
     QVBoxLayout *mainLayout = new QVBoxLayout;
     QScrollArea *categoryScrollArea = new QScrollArea;
 
+    vlcGraspType = new ValueControl(TEXT,categoryScrollArea);
+    vlcGraspType->setValues(false, graspValues,graspValues,QString(tr("GraspTypeIcons")));
+    vlcGraspType->setText(tr("Grasptype:"));
 
-    type = new ValueControl(TEXT, categoryScrollArea);
-    type->setValues(true, typeValues, typeValues, QString());
-    type->setText(tr("loadhandling type:"));
-    connect(type, SIGNAL(valueChanged(QString)), this, SLOT(typeChanged(QString)));
-
-
-    last = new ValueControl(VALUE, categoryScrollArea);
-    last->setUnit(tr("kg"));
-    last->setValues(1, 100, lastValues, QString());
-    last->setText(tr("Last"));
+    vlcHandlingType = new ValueControl(TEXT, categoryScrollArea);
+    vlcHandlingType->setValues(true,HandlingTypeValues, HandlingTypeValues,QString());
+    vlcHandlingType->setText(tr("loadhandling type:"));
+    connect(vlcHandlingType, SIGNAL(valueChanged(QString)), this, SLOT(typeChanged(QString)));
 
 
-    weg = new ValueControl(VALUE, categoryScrollArea);
-    weg->setUnit(tr("m"));
-    weg->setValues(0, 20, wegValues, QString());
-    weg->setText(tr("Weg"));
+    vlcWeight = new ValueControl(VALUE, categoryScrollArea);
+    vlcWeight->setUnit(tr("kg"));
+    vlcWeight->setValues(1, 100, weightValues, QString());
+    vlcWeight->setText(tr("Last"));
+
+
+    vlcDistance = new ValueControl(VALUE, categoryScrollArea);
+    vlcDistance->setUnit(tr("m"));
+    vlcDistance->setValues(0, 20, distanceValues, QString());
+    vlcDistance->setText(tr("Weg"));
 
 
 
@@ -50,11 +53,13 @@ LoadHandlingView::LoadHandlingView(QWidget *parent) :
     options->append(tr("Bockrollen"));
     options->append(tr("Bremsen"));
 
-    topGroupLayout->addWidget(type);
+    topGroupLayout->addWidget(vlcGraspType);
     topGroupLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
-    topGroupLayout->addWidget(last);
+    topGroupLayout->addWidget(vlcHandlingType);
     topGroupLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
-    topGroupLayout->addWidget(weg);
+    topGroupLayout->addWidget(vlcWeight);
+    topGroupLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
+    topGroupLayout->addWidget(vlcDistance);
 
 
     control->setLayout(topGroupLayout);
@@ -75,11 +80,47 @@ LoadHandlingView::LoadHandlingView(QWidget *parent) :
 
 void LoadHandlingView::typeChanged(QString newType){
     if(newType == tr("pulling and pushing"))
-        last->setValues(1, 2000, heavyLastValues, QString());
+        vlcWeight->setValues(1, 2000, heavyWeightValues, QString());
     else
-        last->setValues(1, 100, lastValues, QString());
+        vlcWeight->setValues(1, 100, weightValues, QString());
 }
 
 LoadHandlingView::~LoadHandlingView()
 {
+}
+
+// GETTER
+
+QString LoadHandlingView::getHandlingType() const {
+    return vlcHandlingType->getText();
+}
+
+QString LoadHandlingView::getGraspType() const{
+    return vlcGraspType->getText();
+}
+
+int LoadHandlingView::getWeight() {
+    return vlcWeight->getValue();
+}
+
+int LoadHandlingView::getDistance(){
+    return vlcDistance->getValue();
+}
+
+// SETTER
+
+void LoadHandlingView::setHandlingType(const QString &handlingType){
+    vlcHandlingType->setText(handlingType);
+}
+
+void LoadHandlingView::setGraspType(const QString &graspType){
+    vlcGraspType->setText(graspType);
+}
+
+void LoadHandlingView::setWeight(int &weight){
+    vlcWeight->setValue(weight);
+}
+
+void LoadHandlingView::setDistance(int &distance){
+    vlcDistance->setValue(distance);
 }
