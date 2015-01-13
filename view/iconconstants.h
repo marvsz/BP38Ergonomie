@@ -27,6 +27,10 @@ public:
     // PLUS MINUS
     static const QString ICON_PLUS;
     static const QString ICON_MINUS;
+
+    // MISC
+    static const QString ICON_WORKPLACE;
+    static const QString ICON_COMMENT;
 };
 
 #endif // ICONCONSTANTS_H

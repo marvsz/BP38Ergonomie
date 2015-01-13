@@ -80,12 +80,6 @@ TransportationView::TransportationView(QWidget *parent) :
     mainLayout->addWidget(scTransportation);
 
     setLayout(mainLayout);
-
-    // TEST DATA
-    addTransportation(1, "Test Transportation 1", 10, 40, "no", "no");
-    addTransportation(2, "Test Transportation 2", 20, 30, "no", "yes");
-    addTransportation(3, "Test Transportation 3", 30, 20, "yes", "no");
-    addTransportation(4, "Test Transportation 4", 50, 10, "yes", "yes");
 }
 
 TransportationView::~TransportationView(){}

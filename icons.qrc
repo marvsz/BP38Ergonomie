@@ -68,4 +68,10 @@
         <file>icons/Buttons/editPressed.png</file>
         <file>icons/Buttons/editPressed@2x.png</file>
     </qresource>
+    <qresource prefix="/misc">
+        <file>icons/Misc/workplace.png</file>
+        <file>icons/Misc/workplace@2x.png</file>
+        <file>icons/Misc/comment.png</file>
+        <file>icons/Misc/comment@2x.png</file>
+    </qresource>
 </RCC>

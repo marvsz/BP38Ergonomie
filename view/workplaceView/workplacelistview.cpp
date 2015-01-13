@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QList>
 #include <QStringList>
+#include "iconconstants.h"
 
 const QList<QStringList> WorkplaceListView::workplaceCaptions = QList<QStringList>() << (QStringList() << "Beschreibung" << "Code");
 
@@ -56,7 +57,7 @@ void WorkplaceListView::clear(){
 
 void WorkplaceListView::addWorkplace(int id, const QString &name, const QString &description, const QString &code){
     QList<QStringList> values = QList<QStringList>() << (QStringList() << description << code);
-    DetailedListItem *newListItem = new DetailedListItem(this, "", name, workplaceCaptions, true, false, true);
+    DetailedListItem *newListItem = new DetailedListItem(this, IconConstants::ICON_WORKPLACE, name, workplaceCaptions, true, false, true);
     newListItem->setValues(values);
     newListItem->setID(id);
     connect(newListItem, SIGNAL(pressed(int)), this, SIGNAL(showWorkplace(int)));

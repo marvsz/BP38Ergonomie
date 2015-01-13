@@ -7,7 +7,7 @@
 #include <QList>
 #include <QCheckBox>
 #include <QLabel>
-#include <QPixmap>
+#include <QIcon>
 
 class DetailedListItem : public QAbstractButton
 {
@@ -47,8 +47,8 @@ private:
     bool isDeletable;
 
     QGridLayout *layout;
-    QLabel *lblIcon;
-    QPixmap icon;
+    QPushButton *lblIcon;
+    QIcon icon;
     QLabel *lblName;
     QPushButton *btnDelete;
     QCheckBox *checkBox;

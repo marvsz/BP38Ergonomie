@@ -9,8 +9,8 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
     isCheckable(isCheckable),
     isDeletable(isDeletable),
     layout(new QGridLayout),
-    lblIcon(new QLabel()),
-    icon(QPixmap(iconPath)),
+    lblIcon(new QPushButton()),
+    icon(QIcon(iconPath)),
     lblName(new QLabel(name)),
     btnDelete(new QPushButton()),
     checkBox(new QCheckBox()),
@@ -26,10 +26,13 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
 
     // SETTINGS FOR GENERAL ELEMENTS
     lblName->setObjectName("lblHeader");
-    if(!icon.isNull())
-        icon.scaled(45, 45);
-    lblIcon->setPixmap(icon);
+    lblIcon->setObjectName("btnIcon");
     lblIcon->setFixedSize(45, 45);
+    connect(lblIcon, SIGNAL(clicked()), this, SIGNAL(clicked()));
+    if(!icon.isNull()){
+        lblIcon->setIconSize(QSize(45, 45));
+        lblIcon->setIcon(icon);
+    }
     checkBox->setChecked(false);
     checkBox->setFixedSize(45, 45);
     checkBox->setDisabled(true);

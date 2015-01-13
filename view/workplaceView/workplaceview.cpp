@@ -1,5 +1,6 @@
 #include "workplaceview.h"
 #include "separator.h"
+#include "iconconstants.h"
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -104,7 +105,7 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
 
     line = new DetailedListItem(this, "", tr("line"), lineList, false, false, true);
     activity = new DetailedListItem(this, "", tr("activities"), activityList, false, false, true);
-    comment = new DetailedListItem(this, "", tr("remarks"), commentList, false, false, true);
+    comment = new DetailedListItem(this, IconConstants::ICON_COMMENT, tr("remarks"), commentList, false, false, true);
 
     connect(line, SIGNAL(clicked()), this, SLOT(btnLineClicked()));
     connect(activity, SIGNAL(clicked()), this, SLOT(btnActivityClicked()));

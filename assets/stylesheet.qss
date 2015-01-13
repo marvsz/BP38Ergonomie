@@ -18,7 +18,7 @@ QPushButton:pressed {color: #ffffff; background-color: #007aff;}
 
 QPushButton#cameraIcon {image: url(:/button/icons/Buttons/camera.png); width: 50px; height: 50px; border: none; background-color: rgba(255, 255, 255, 0%);}
 QPushButton#btnNavigation {border: none; background-color: rgba(255, 255, 255, 0%);}
-QPushButton#btnIcon {border: none; background-color: #efeff4;}
+QPushButton#btnIcon {border: none; background-color: rgba(255, 255, 255, 0%);}
 QPushButton#upIcon {image: url(:/button/icons/Buttons/up.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
 QPushButton#downIcon {image: url(:/button/icons/Buttons/down.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
 QPushButton#leftIcon {image: url(:/button/icons/Buttons/left.png); width 45px; height 45px; border: none; background-color: rgba(255, 255, 255, 0%);}
