@@ -1,6 +1,7 @@
 #include "analystselectionview.h"
 #include "viewcontroller.h"
 #include "separator.h"
+#include "iconconstants.h"
 
 AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
     QWidget(parent),
@@ -99,7 +100,7 @@ void AnalystSelectionView::btnCreateAnalystClicked(){
 void AnalystSelectionView::add(int id, const QString &lastName, const QString &firstName){
     QString name = lastName + ", " + firstName;
 
-    DetailedListItem *newListItem = new DetailedListItem(this, "", name, QList<QStringList>(), true, false, true);
+    DetailedListItem *newListItem = new DetailedListItem(this, IconConstants::ICON_USER, name, QList<QStringList>(), true, false, true);
 
     newListItem->setID(id);
     connect(newListItem, SIGNAL(pressed(int)), this, SLOT(dliPressed(int)));
