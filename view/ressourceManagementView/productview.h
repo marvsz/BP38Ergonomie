@@ -29,7 +29,7 @@ signals:
 public slots:
     void setProduct(const QString &name, const QString &number, int totalPercentage);
     void addProduct(int id, const QString &name, const QString &productNumber, int totalPercentage);
-    void clearProducts();
+    void clear();
 
 private slots:
     void btnAddClicked();
@@ -50,7 +50,6 @@ private:
 
     QPushButton *btnBack;
     QPushButton *btnAdd;
-    QPushButton *btnDelete;
 
     QVBoxLayout *productListLayout;
 };

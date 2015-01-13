@@ -95,13 +95,9 @@ signals:
 
     // EQUIPMENT VIEW
     void updateEquipmentView();
-    void saveEquipment();
-    void deleteEquipment(int id);
 
     // PRODUCT VIEW
     void updateProductView();
-    void saveProduct();
-    void deleteProduct(int id);
 
     // TRANSPORTATION VIEW
     void updateTransportationView();

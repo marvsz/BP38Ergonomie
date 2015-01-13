@@ -83,16 +83,16 @@ void ViewController::setRessourceManagementView(RessourceManagementView *ressour
 void ViewController::setProductView(ProductView *productView){
     this->productView = productView;
     connect(productView, SIGNAL(back()), this, SLOT(backToView()));
-    connect(productView, SIGNAL(deleteProduct(int)), this, SIGNAL(deleteProduct(int)));
-    connect(productView, SIGNAL(saveProduct()), this, SIGNAL(saveProduct()));
 }
 
 void ViewController::setEquipmentView(EquipmentView *equipmentView){
     this->equipmentView = equipmentView;
+    connect(equipmentView, SIGNAL(back()), this, SLOT(backToView()));
 }
 
 void ViewController::setTransportationView(TransportationView *transportationView){
     this->transportationView = transportationView;
+    connect(transportationView, SIGNAL(back()), this, SLOT(backToView()));
 }
 
 void ViewController::setSettingsView(SettingsView *settingsView){
@@ -179,7 +179,7 @@ void ViewController::goToSettingsView(){
 }
 
 void ViewController::goToEquipmentView(){
-
+    emit updateEquipmentView();
     goToView(ViewController::EQUIPMENT_VIEW);
 }
 
@@ -221,6 +221,7 @@ void ViewController::backToView(){
         case ViewController::PRODUCT_VIEW:
             break;
         case ViewController::EQUIPMENT_VIEW:
+            emit updateEquipmentView();
             break;
         case ViewController::TRANSPORTATION_VIEW:
             break;

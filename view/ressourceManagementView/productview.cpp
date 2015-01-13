@@ -79,6 +79,18 @@ ProductView::~ProductView()
 {
 
 }
+// PUBLIC
+QString ProductView::getName() const{
+    return txtBxName->text();
+}
+
+QString ProductView::getNumber() const{
+    return txtBxNumber->text();
+}
+
+int ProductView::getTotalPercentage() const{
+    return numBxTotalPercentage->getValue();
+}
 
 //PUBLIC SLOTS
 void ProductView::setProduct(const QString &name, const QString &number, int totalPercentage){
@@ -97,7 +109,7 @@ void ProductView::addProduct(int id, const QString &name, const QString &product
 
 }
 
-void ProductView::clearProducts(){
+void ProductView::clear(){
     QLayoutItem *item;
     while((item = productListLayout->takeAt(0)) != NULL){
         delete item->widget();
@@ -106,7 +118,6 @@ void ProductView::clearProducts(){
 }
 
 // PRIVATE SLOTS
-
 void ProductView::btnAddClicked(){
     emit saveProduct();
     txtBxName->clear();
@@ -114,13 +125,4 @@ void ProductView::btnAddClicked(){
     numBxTotalPercentage->clear();
 }
 
-//GETTER
-QString ProductView::getName() const{
-    return txtBxName->text();
-}
-QString ProductView::getNumber() const{
-    return txtBxNumber->text();
-}
-int ProductView::getTotalPercentage() const{
-    return numBxTotalPercentage->getValue();
-}
+
