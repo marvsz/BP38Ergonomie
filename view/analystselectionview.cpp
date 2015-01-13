@@ -1,28 +1,24 @@
 #include "analystselectionview.h"
 #include "viewcontroller.h"
 #include "separator.h"
-#include <QVBoxLayout>
 
 AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
     QWidget(parent),
     btnCreateAnalyst(new QPushButton(tr("Create new Analyst"))),
     lblAnalyst(new QLabel(tr("analyst"), this)),
     lblAnalystLastName(new QLabel(tr("last name:"), this)),
-    lblAnalystEmployer(new QLabel(tr("employer:"), this)),
     lblAnalystFirstName(new QLabel(tr("prename:"), this)),
+    lblAnalystEmployer(new QLabel(tr("employer:"), this)),
+    lblAnalystExperience(new QLabel(tr("experience:"), this)),
     txtBxAnalystLastName(new TextLineEdit(this)),
     txtBxAnalystFirstName(new TextLineEdit(this)),
     txtBxAnalystEmployer(new TextLineEdit(this)),
     txtBxAnalystExperience(new TextLineEdit(this)),
-    //spacer1(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed),
-    //spacer2(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed),
-    analysts(new QList<DetailedListItem*>()),
+    createAnalyst(new QWidget(this)),
     listContentLayout(new QVBoxLayout)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
-
     QGridLayout *newAnalystLayout = new QGridLayout;
-
 
     newAnalystLayout->addWidget(lblAnalystLastName, 0, 0, 1, 1, 0);
     newAnalystLayout->addWidget(txtBxAnalystLastName, 0, 1, 1, 1, 0);
@@ -35,23 +31,19 @@ AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
     newAnalystLayout->addWidget(lblAnalystExperience, 1, 3, 1, 1, 0);
     newAnalystLayout->addWidget(txtBxAnalystExperience, 1, 4, 1, 1, 0);
 
+    createAnalyst->setLayout(newAnalystLayout);
+    createAnalyst->hide();
+
+
 
     btnCreateAnalyst->setMinimumSize(300, 60);
     lblAnalyst->setObjectName("lblHeader");
 
-    lblAnalystLastName->setVisible(false);
-    lblAnalystFirstName->setVisible(false);
-    lblAnalystEmployer->setVisible(false);
-    lblAnalystExperience->setVisible(false);
-    txtBxAnalystLastName->setVisible(false);
-    txtBxAnalystFirstName->setVisible(false);
-    txtBxAnalystEmployer->setVisible(false);
-    txtBxAnalystExperience->setVisible(false);
 
     mainLayout->addWidget(lblAnalyst);
     mainLayout->addLayout(newAnalystLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
-    mainLayout->addLayout(listContentLayout);
+    mainLayout->addWidget(createAnalyst);
     mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
     setLayout(mainLayout);
@@ -62,31 +54,13 @@ AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
 void AnalystSelectionView::showCreateAnalyst(){
     btnCreateAnalyst->setEnabled(false);
 
-    lblAnalystLastName->setVisible(true);
-    lblAnalystFirstName->setVisible(true);
-    lblAnalystEmployer->setVisible(true);
-    lblAnalystExperience->setVisible(true);
-    txtBxAnalystLastName->setVisible(true);
-    txtBxAnalystFirstName->setVisible(true);
-    txtBxAnalystEmployer->setVisible(true);
-    txtBxAnalystExperience->setVisible(true);
+    createAnalyst->show();
 
 }
 
-QString AnalystSelectionView::getAnalystLastName() const {
-    return txtBxAnalystLastName->text();
-}
-
-QString AnalystSelectionView::getAnalystFirstName() const {
-    return txtBxAnalystFirstName->text();
-}
-
-QString AnalystSelectionView::getAnalystEmployer() const {
-    return txtBxAnalystEmployer->text();
-}
-
-QString AnalystSelectionView::getAnalystExperience() const {
-    return txtBxAnalystExperience->text();
+void AnalystSelectionView::dliPressed(int id){
+    emit select(id);
+    emit forward();
 }
 
 void AnalystSelectionView::add(int id, const QString &lastName, const QString &firstName){
@@ -108,10 +82,25 @@ void AnalystSelectionView::clear(){
     }
 }
 
-void AnalystSelectionView::dliPressed(int id){
-    emit select(id);
-    emit forward();
+// GETTER
+
+QString AnalystSelectionView::getAnalystLastName() const {
+    return txtBxAnalystLastName->text();
 }
+
+QString AnalystSelectionView::getAnalystFirstName() const {
+    return txtBxAnalystFirstName->text();
+}
+
+QString AnalystSelectionView::getAnalystEmployer() const {
+    return txtBxAnalystEmployer->text();
+}
+
+QString AnalystSelectionView::getAnalystExperience() const {
+    return txtBxAnalystExperience->text();
+}
+
+
 
 
 

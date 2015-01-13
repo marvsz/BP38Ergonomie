@@ -4,6 +4,7 @@
 #include <QPushButton>
 #include <QWidget>
 #include <QLabel>
+#include <QVBoxLayout>
 #include <textlineedit.h>
 #include <detailedlistitem.h>
 
@@ -16,9 +17,6 @@ public:
     QString getAnalystFirstName() const;
     QString getAnalystEmployer() const;
     QString getAnalystExperience() const;
-    void add(int id, const QString &lastName, const QString &firstName);
-    void clear();
-
 
 signals:
     void forward();
@@ -26,6 +24,9 @@ signals:
     void remove(int id);
     void select(int id);
 
+public slots:
+    void add(int id, const QString &lastName, const QString &firstName);
+    void clear();
 
 private slots:
     void showCreateAnalyst();
@@ -45,13 +46,8 @@ private:
     TextLineEdit *txtBxAnalystEmployer;
     TextLineEdit *txtBxAnalystExperience;
 
-    QList<DetailedListItem*> *analysts;
-
+    QWidget *createAnalyst;
     QVBoxLayout *listContentLayout;
-
-    //QSpacerItem *spacer1; = new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
-    //QSpacerItem *spacer2; = new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
-
 
 };
 
