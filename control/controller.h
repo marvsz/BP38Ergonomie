@@ -74,6 +74,11 @@ private slots:
     void createTransportation();
     void deleteTransportation(int id);
 
+    void updateActivityView();
+    void createActivity();
+    void deleteActivity(int id);
+    void selectActivity(int id);
+
 private:
     DBHandler *dbHandler;
     ViewController *viewCon;
@@ -104,7 +109,7 @@ private:
     int analyst_ID;
     int recording_ID;
     int factory_ID;
-    int selectedWorkplaceID;
+    int workplace_ID;
     int selectedWorkprocessID;
     int activity_ID;
 
@@ -123,7 +128,7 @@ private:
     void saveRecordingObservesWorkplace(int workplaceID);
     void deleteRecordingOberservesWorkplace(int wpID);
 
-
+    void updateActivityViewActivities();
 };
 
 #endif // CONTROLLER_H

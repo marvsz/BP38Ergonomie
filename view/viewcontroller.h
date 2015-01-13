@@ -86,7 +86,7 @@ signals:
     void deleteActivity(int id);
 
     //DOCUMENTATION VIEW
-    void updateDocumentationView(int activityId);
+    void updateDocumentationView();
 
     //WORKPROCESS
     void createWorkprocess(int type, const QTime &start, const QTime &end);
@@ -121,7 +121,6 @@ private slots:
     void goToActivityView();
     void goToCommentView();
     void goToDocumentationView();
-    void goToDocumentationView(int id);
     void goToRessourceManagementView();
     void goToSettingsView();
     void goToEquipmentView();

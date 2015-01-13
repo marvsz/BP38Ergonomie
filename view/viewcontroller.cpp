@@ -57,8 +57,7 @@ void ViewController::setActivityView(ActivityView *activityView){
     this->activityView = activityView;
     connect(activityView, SIGNAL(back()), this, SLOT(backToView()));
     connect(activityView, SIGNAL(showProductView()), this, SLOT(goToProductView()));
-    connect(activityView, SIGNAL(deleteActivity(int)), this, SIGNAL(deleteActivity(int)));
-    connect(activityView, SIGNAL(showWorkProcessView(int)), this, SLOT(goToDocumentationView(int)));
+    connect(activityView, SIGNAL(showWorkProcessView()), this, SLOT(goToDocumentationView()));
 }
 
 void ViewController::setCommentView(CommentView *commentView){
@@ -162,12 +161,9 @@ void ViewController::goToCommentView(){
     goToView(ViewController::COMMENT_VIEW);
 }
 
-void ViewController::goToDocumentationView(int id){
-    emit updateDocumentationView(id);
-    goToView(ViewController::DOCUMENTATION_VIEW);
-}
 
 void ViewController::goToDocumentationView(){
+    emit updateDocumentationView();
     goToView(ViewController::DOCUMENTATION_VIEW);
 }
 

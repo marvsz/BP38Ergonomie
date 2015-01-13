@@ -23,10 +23,11 @@ public:
 signals:
     void back();
     void showProductView();
-    void productSelected(int id);
     void deleteActivity(int id);
-    void showWorkProcessView(int id);
-    void saveActivity();
+    void showWorkProcessView();
+    void selectedProduct(int id);
+    void createActivity();
+    void selectActivity(int id);
 
 public slots:
     void addProduct(int id, const QString &name, const QString &productNumber);

@@ -104,18 +104,17 @@ int ActivityView::getSelectedProduct() const {
 // PRIVATE SLOTS
 void ActivityView::btnBackClicked(){
     emit back();
-    emit productSelected(selectedProductID);
 }
 
 void ActivityView::btnAddClicked(){
-    emit saveActivity();
+    emit createActivity();
     txtBxActivityDescription->clear();
     numBxActivityRepetitions->clear();
 }
 
 void ActivityView::selectedProductChanged(int id){
     selectedProductID = id;
-    emit productSelected(id);
+    emit selectedProduct(id);
 }
 
 // PUBLIC SLOTS
@@ -126,7 +125,7 @@ void ActivityView::addProduct(int id, const QString &name, const QString &produc
     newListItem->setValues(values);
     newListItem->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedProductChanged(int)));
-    connect(this, SIGNAL(productSelected(int)), newListItem, SLOT(selectExclusiveWithID(int)));
+    connect(this, SIGNAL(selectedProduct(int)), newListItem, SLOT(selectExclusiveWithID(int)));
     productListLayout->addWidget(newListItem);
 }
 
@@ -153,8 +152,9 @@ void ActivityView::addActivity(int id, const QString &description, int repetitio
     newListItem->setID(id);
     QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(repetitions));
     newListItem->setValues(values);
-    connect(newListItem, SIGNAL(pressed(int)), this, SIGNAL(showWorkProcessView(int)));
+    connect(newListItem, SIGNAL(clicked()), this, SIGNAL(showWorkProcessView()));
     connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteActivity(int)));
+    connect(newListItem, SIGNAL(pressed(int)), this, SIGNAL(selectActivity(int)));
     activityListLayout->addWidget(newListItem);
 }
 
