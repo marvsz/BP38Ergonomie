@@ -24,7 +24,7 @@ public:
 signals:
     void back();
     void saveTransportation();
-    void deleteTransportation();
+    void deleteTransportation(int id);
 
 public slots:
     void setWeight(int weight);
