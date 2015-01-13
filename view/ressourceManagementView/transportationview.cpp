@@ -4,6 +4,7 @@
 #include "flickcharm.h"
 #include "separator.h"
 #include "detailedlistitem.h"
+#include "iconconstants.h"
 
 const QList<QStringList> TransportationView::transportationItemScheme = QList<QStringList>() << (QStringList() << tr("empty weight:") << tr("max. load:")) << (QStringList() << tr("fixed rollers:") << tr("brakes:"));
 const QStringList TransportationView::YES_NO_TEXTS = QStringList()<<tr("yes")<<tr("no");
@@ -108,7 +109,7 @@ bool TransportationView::hasBrakes() const{
 
 // PUBLIC SLOTS
 void TransportationView::addTransportation(int id, const QString &name, int weight, int maxLoad, bool fixedRollers, bool brakes){
-    DetailedListItem *newListItem = new DetailedListItem(0, "", name, transportationItemScheme, true, false, false);
+    DetailedListItem *newListItem = new DetailedListItem(0, IconConstants::ICON_TRANSPORTATION, name, transportationItemScheme, true, false, false);
     newListItem->setID(id);
     QString strHasBrakes = brakes ? tr("yes") : tr("no");
     QString strHasFixedRoller = fixedRollers ? tr("yes") : tr("no");
