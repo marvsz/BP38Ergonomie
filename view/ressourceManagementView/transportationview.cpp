@@ -104,19 +104,21 @@ int TransportationView::getMaxLoad() const{
     return numBxMaxLoad->getValue();
 }
 
-QVariant TransportationView::hasFixedRoller() const{
-    return oscFixedRoller->getSelectedValue();
+bool TransportationView::hasFixedRoller() const{
+    return oscFixedRoller->getSelectedValue().toBool();
 }
 
-QVariant TransportationView::hasBrakes() const{
-    return oscBrakes->getSelectedValue();
+bool TransportationView::hasBrakes() const{
+    return oscBrakes->getSelectedValue().toBool();
 }
 
 // PUBLIC SLOTS
-void TransportationView::addTransportation(int id, const QString &name, int weight, int maxLoad, const QString &fixedRollers, const QString &brakes){
+void TransportationView::addTransportation(int id, const QString &name, int weight, int maxLoad, bool fixedRollers, bool brakes){
     DetailedListItem *newListItem = new DetailedListItem(0, "", name, transportationItemScheme, true, false, false);
     newListItem->setID(id);
-    QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(weight) << QString::number(maxLoad)) << (QStringList() << fixedRollers << brakes);
+    QString strHasBrakes = brakes ? tr("yes") : tr("no");
+    QString strHasFixedRoller = fixedRollers ? tr("yes") : tr("no");
+    QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(weight) << QString::number(maxLoad)) << (QStringList() << strHasFixedRoller << strHasBrakes);
     newListItem->setValues(values);
     connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteTransportation(int)));
     transportationListLayout->addWidget(newListItem);

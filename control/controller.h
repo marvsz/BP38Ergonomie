@@ -56,15 +56,23 @@ private slots:
     int saveLine();
     void deleteLine(int id);
 
-    void updateProductView();
-    void createProduct();
-    void deleteProduct(int id);
-
     void updateComment();
     int saveComment();
 
     void updateWorkprocessViews();
-    int createWorkprocess(int type, const QTime &start, const QTime &end);
+    int createWorkprocess(int type, const QTime &start, const QTime &end); 
+
+    void updateProductView();
+    void createProduct();
+    void deleteProduct(int id);
+
+    void updateEquipmentView();
+    void createEquipment();
+    void deleteEquipment(int id);
+
+    void updateTransportationView();
+    void createTransportation();
+    void deleteTransportation(int id);
 
 private:
     DBHandler *dbHandler;

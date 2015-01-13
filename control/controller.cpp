@@ -85,6 +85,13 @@ Controller::Controller(QObject *parent) :
     connect(productView, SIGNAL(saveProduct()), this, SLOT(createProduct()));
     connect(productView, SIGNAL(deleteProduct(int)), this, SLOT(deleteProduct(int)));
 
+    connect(viewCon, SIGNAL(updateEquipmentView()), this, SLOT(updateEquipmentView()));
+    connect(equipmentView, SIGNAL(saveEquipment()), this, SLOT(createEquipment()));
+    connect(equipmentView, SIGNAL(deleteEquipment(int)), this, SLOT(deleteEquipment(int)));
+
+    connect(viewCon, SIGNAL(updateTransportationView()), this, SLOT(updateTransportationView()));
+    connect(transportationView, SIGNAL(saveTransportation()), this, SLOT(createTransportation()));
+    connect(transportationView, SIGNAL(deleteTransportation(int)), this, SLOT(deleteTransportation(int)));
 
     connect(timerViewController, SIGNAL(createWorkProcess(int,QTime,QTime)), this, SLOT(createWorkprocess(int,QTime,QTime)));
 
@@ -354,13 +361,45 @@ void Controller::createProduct(){
     values.insert(DBConstants::COL_PRODUCT_NAME, productView->getName());
     values.insert(DBConstants::COL_PRODUCT_NUMBER, productView->getNumber());
     values.insert(DBConstants::COL_PRODUCT_TOTAL_PERCENTAGE, productView->getTotalPercentage());
-    int id = insert(DB_TABLES::PRODUCT, DBConstants::COL_PRODUCT_ID, DBConstants::HASH_PRODUCT_TYPES, values);
+    insert(DB_TABLES::PRODUCT, DBConstants::COL_PRODUCT_ID, DBConstants::HASH_PRODUCT_TYPES, values);
     updateProductView();
 }
 
 void Controller::deleteProduct(int id){
     dbHandler->deleteAll(DB_TABLES::PRODUCT, QString("%1 = %2").arg(DBConstants::COL_PRODUCT_ID).arg(QString::number(id)));
     updateProductView();
+}
+
+//Equipment View
+void Controller::updateEquipmentView(){
+    equipmentView->clear();
+    DB_TABLES tbl = DB_TABLES::EQUIPMENT;
+    dbHandler->select(tbl, QString(""));
+    for(int i = 0; i < dbHandler->rowCount(tbl); ++i){
+        QSqlRecord record = dbHandler->record(tbl, i);
+        equipmentView->addEquipment(record.value(DBConstants::COL_EQUIPMENT_ID).toInt(),
+                                    record.value(DBConstants::COL_EQUIPMENT_NAME).toString(),
+                                    record.value(DBConstants::COL_EQUIPMENT_RECOIL_COUNT).toInt(),
+                                    record.value(DBConstants::COL_EQUIPMENT_RECOIL_INTENSITY).toInt(),
+                                    record.value(DBConstants::COL_EQUIPMENT_VIBRATION_COUNT).toInt(),
+                                    record.value(DBConstants::COL_EQUIPMENT_VIBRATION_INTENSITY).toInt());
+    }
+}
+
+void Controller::createEquipment(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_EQUIPMENT_NAME, equipmentView->getName());
+    values.insert(DBConstants::COL_EQUIPMENT_RECOIL_COUNT, equipmentView->getRecoilCount());
+    values.insert(DBConstants::COL_EQUIPMENT_RECOIL_INTENSITY, equipmentView->getRecoilIntensity());
+    values.insert(DBConstants::COL_EQUIPMENT_VIBRATION_COUNT, equipmentView->getVibrationCount());
+    values.insert(DBConstants::COL_EQUIPMENT_VIBRATION_INTENSITY, equipmentView->getVibrationIntensity());
+    insert(DB_TABLES::EQUIPMENT, DBConstants::COL_EQUIPMENT_ID, DBConstants::HASH_EQUIPMENT_TYPES, values);
+    updateEquipmentView();
+}
+
+void Controller::deleteEquipment(int id){
+    dbHandler->deleteAll(DB_TABLES::EQUIPMENT, QString("%1 = %2").arg(DBConstants::COL_EQUIPMENT_ID).arg(id));
+    updateEquipmentView();
 }
 
 
@@ -388,6 +427,38 @@ int Controller::saveComment(){
     values.insert(DBConstants::COL_COMMENT_WORKER_PERCEPTION, commentView->getWorkerPerception());
     values.insert(DBConstants::COL_COMMENT_WORKPLACE_ID, selectedWorkplaceID);
     return save(DB_TABLES::COMMENT, filter, DBConstants::COL_COMMENT_ID, DBConstants::HASH_COMMENT_TYPES, values);
+}
+
+//TransportationView
+void Controller::updateTransportationView(){
+    transportationView->clear();
+    DB_TABLES tbl = DB_TABLES::TRANSPORTATION;
+    dbHandler->select(tbl, QString(""));
+    for(int i = 0; i < dbHandler->rowCount(tbl); ++i){
+        QSqlRecord record = dbHandler->record(tbl, i);
+        transportationView->addTransportation(record.value(DBConstants::COL_TRANSPORTATION_ID).toInt(),
+                                              record.value(DBConstants::COL_TRANSPORTATION_NAME).toString(),
+                                              record.value(DBConstants::COL_TRANSPORTATION_EMPTY_WEIGHT).toInt(),
+                                              record.value(DBConstants::COL_TRANSPORTATION_MAX_LOAD).toInt(),
+                                              record.value(DBConstants::COL_TRANSPORTATION_FIXED_ROLLER).toBool(),
+                                              record.value(DBConstants::COL_TRANSPORTATION_BRAKES).toBool());
+    }
+}
+
+void Controller::createTransportation(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_TRANSPORTATION_NAME, transportationView->getName());
+    values.insert(DBConstants::COL_TRANSPORTATION_EMPTY_WEIGHT, transportationView->getWeight());
+    values.insert(DBConstants::COL_TRANSPORTATION_MAX_LOAD, transportationView->getMaxLoad());
+    values.insert(DBConstants::COL_TRANSPORTATION_BRAKES, transportationView->hasBrakes());
+    values.insert(DBConstants::COL_TRANSPORTATION_FIXED_ROLLER, transportationView->hasFixedRoller());
+    insert(DB_TABLES::TRANSPORTATION, DBConstants::COL_TRANSPORTATION_ID, DBConstants::HASH_TRANSPORTATION_TYPES, values);
+    updateTransportationView();
+}
+
+void Controller::deleteTransportation(int id){
+    dbHandler->deleteAll(DB_TABLES::TRANSPORTATION, QString("%1 = %2").arg(DBConstants::COL_TRANSPORTATION_ID).arg(id));
+    updateTransportationView();
 }
 
 //WORKPROCESS

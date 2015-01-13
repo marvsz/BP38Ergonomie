@@ -19,8 +19,8 @@ public:
     QString getName() const;
     int getWeight() const;
     int getMaxLoad() const;
-    QVariant hasFixedRoller() const;
-    QVariant hasBrakes() const;
+    bool hasFixedRoller() const;
+    bool hasBrakes() const;
 
 signals:
     void back();
@@ -33,7 +33,7 @@ public slots:
     void setFixedRoller(QVariant value);
     void setBrakes(QVariant value);
 
-    void addTransportation(int id, const QString &name, int weight, int maxLoad, const QString &fixedRollers, const QString &brakes);
+    void addTransportation(int id, const QString &name, int weight, int maxLoad, bool fixedRollers, bool brakes);
     void clear();
 
 private slots:
