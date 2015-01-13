@@ -57,8 +57,7 @@ private slots:
     void deleteLine(int id);
 
     void updateProductView();
-    int saveSelectedProducts();
-    int saveProduct();
+    void createProduct();
     void deleteProduct(int id);
 
     void updateComment();
@@ -106,22 +105,6 @@ private:
     int save(DB_TABLES tbl, const QString &filter, const QString &colID, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue);
 
     void save(DB_TABLES tbl, const QString &filter, const QHash<QString, QVariant::Type> &colMapNameType, const QHash<QString, QVariant> &colMapNameValue);
-
-    void updateAnalyst(int id);
-    int saveAnalyst();
-
-    int saveEmployer();
-    void updateEmployer(int id);
-
-
-    void updateCorporation(int id);
-    int saveCorporation();
-
-    void updateFactory(int id);
-    int saveFactory();
-
-    void updateRecording(int id);
-    int saveRecording();
 
     int saveWorkplace(int id);
     int qTimeToSeconds(const QTime &time);

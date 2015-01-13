@@ -28,9 +28,9 @@ void ViewController::setMainMenuView(MainMenu *mainMenuView){
 
 void ViewController::setMetaDataView(MetaDataView *metaDataView){
     this->metaDataView = metaDataView;
-    connect(metaDataView, SIGNAL(showMainMenu()), this, SLOT(backToView()));
-    connect(metaDataView, SIGNAL(showWorkplaceListView()), this, SLOT(goToWorkplaceListView()));
-    connect(metaDataView, SIGNAL(saveMetaData()), this, SIGNAL(saveMetaData()));
+    connect(metaDataView, SIGNAL(back()), this, SLOT(backToView()));
+    connect(metaDataView, SIGNAL(forward()), this, SLOT(goToWorkplaceListView()));
+    connect(metaDataView, SIGNAL(save()), this, SIGNAL(saveMetaData()));
 }
 
 void ViewController::setWorkplaceListView(WorkplaceListView *workplaceListView){
@@ -184,6 +184,7 @@ void ViewController::goToEquipmentView(){
 }
 
 void ViewController::goToProductView(){
+    emit updateProductView();
     goToView(ViewController::PRODUCT_VIEW);
 }
 

@@ -10,15 +10,6 @@ MetaDataView::MetaDataView(QWidget *parent) :
     btnBack(new QPushButton()),
     lblViewDescription(new QLabel(tr("head data"), this)),
     btnForward(new QPushButton(tr("work places"),this)),
-    /*lblAnalyst(new QLabel(tr("analyst"), this)),
-    lblAnalystLastName(new QLabel(tr("last name:"), this)),
-    lblAnalystFirstName(new QLabel(tr("prename:"), this)),
-    lblAnalystEmployer(new QLabel(tr("employer:"), this)),
-    lblAnalystExperience(new QLabel(tr("experience:"), this)),
-    txtBxAnalystLastName(new TextLineEdit(this)),
-    txtBxAnalystFirstName(new TextLineEdit(this)),
-    txtBxAnalystEmployer(new TextLineEdit(this)),
-    txtBxAnalystExperience(new TextLineEdit(this)),*/
     lblCorporation(new QLabel(tr("coproration"), this)),
     lblCorpName(new QLabel(tr("name:"), this)),
     txtBxCorpName(new TextLineEdit(this)),
@@ -62,7 +53,6 @@ MetaDataView::MetaDataView(QWidget *parent) :
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     QGridLayout *navigationBarLayout = new QGridLayout;
-    //QGridLayout *analystLayout = new QGridLayout;
     QHBoxLayout *corporationLayout = new QHBoxLayout;
     QHBoxLayout *branchOfIndustryLayout = new QHBoxLayout;
     QGridLayout *factoryLayout = new QGridLayout;
@@ -70,7 +60,6 @@ MetaDataView::MetaDataView(QWidget *parent) :
     QVBoxLayout *beginLayout = new QVBoxLayout;
     QVBoxLayout *endLayout = new QVBoxLayout;
 
-    //lblAnalyst->setObjectName("lblHeader");
     lblCorporation->setObjectName("lblHeader");
     lblBranchOfIndustry->setObjectName("lblHeader");
     lblFactory->setObjectName("lblHeader");
@@ -87,22 +76,11 @@ MetaDataView::MetaDataView(QWidget *parent) :
     navigationBarLayout->addWidget(lblViewDescription, 0, 1, 1, 1, Qt::AlignCenter);
     navigationBarLayout->addWidget(btnForward, 0, 2, 1, 1, Qt::AlignRight);
 
-    /*analystLayout->addWidget(lblAnalystLastName, 0, 0, 1, 1, 0);
-    analystLayout->addWidget(txtBxAnalystLastName, 0, 1, 1, 1, 0);
-    analystLayout->addItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed), 0, 2, 1, 1, 0);
-    analystLayout->addWidget(lblAnalystFirstName, 0, 3, 1, 1, 0);
-    analystLayout->addWidget(txtBxAnalystFirstName, 0, 4, 1, 1, 0);
-    analystLayout->addWidget(lblAnalystEmployer, 1, 0, 1, 1, 0);
-    analystLayout->addWidget(txtBxAnalystEmployer, 1, 1, 1, 1, 0);
-    analystLayout->addItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed), 1, 2, 1, 1, 0);
-    analystLayout->addWidget(lblAnalystExperience, 1, 3, 1, 1, 0);
-    analystLayout->addWidget(txtBxAnalystExperience, 1, 4, 1, 1, 0);*/
 
     corporationLayout->addWidget(lblCorpName);
     corporationLayout->addWidget(txtBxCorpName);
     corporationLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
 
-    //branchOfIndustryLayout->addWidget(lblBranchOfIndustry);
     branchOfIndustryLayout->addWidget(lblBoIName);
     branchOfIndustryLayout->addWidget(txtBxBoIName);
     branchOfIndustryLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
@@ -143,10 +121,6 @@ MetaDataView::MetaDataView(QWidget *parent) :
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
 
-   /* mainLayout->addWidget(lblAnalyst);
-    mainLayout->addLayout(analystLayout);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));*/
-
     mainLayout->addWidget(lblCorporation);
     mainLayout->addLayout(corporationLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
@@ -166,32 +140,16 @@ MetaDataView::MetaDataView(QWidget *parent) :
 }
 
 void MetaDataView::backButtonClicked(){
-    emit saveMetaData();
-    emit showMainMenu();
+    emit save();
+    emit back();
 }
 
 void MetaDataView::forwardButtonClicked(){
-    emit saveMetaData();
-    emit showWorkplaceListView();
+    emit save();
+    emit forward();
 }
 
 // GETTER
-
-/*QString MetaDataView::getAnalystLastName() const {
-    return txtBxAnalystLastName->text();
-}
-
-QString MetaDataView::getAnalystFirstName() const {
-    return txtBxAnalystFirstName->text();
-}
-
-QString MetaDataView::getAnalystEmployer() const {
-    return txtBxAnalystEmployer->text();
-}
-
-QString MetaDataView::getAnalystExperience() const {
-    return txtBxAnalystExperience->text();
-}*/
 
 QString MetaDataView::getCorporationName() const {
     return txtBxCorpName->text();
@@ -241,13 +199,6 @@ QDateTime MetaDataView::getRecordTimeEnd() const {
     return dteRecordingTimeEnd->getDateTime();
 }
 
-// SETTER SLOTS
-
-/*void MetaDataView::setAnalyst(const QString &lastName, const QString &firstName, const QString &experience){
-    txtBxAnalystLastName->setText(lastName);
-    txtBxAnalystFirstName->setText(firstName);
-    txtBxAnalystExperience->setText(experience);
-}*/
 
 void MetaDataView::setEmployer(const QString &employer){
     txtBxAnalystEmployer->setText(employer);

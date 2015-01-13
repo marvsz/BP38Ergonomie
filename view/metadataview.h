@@ -14,10 +14,6 @@ class MetaDataView : public QWidget
 public:
     explicit MetaDataView(QWidget *parent = 0);
 
-   /* QString getAnalystLastName() const;
-    QString getAnalystFirstName() const;
-    QString getAnalystEmployer() const;
-    QString getAnalystExperience() const;*/
 
     QString getCorporationName() const;
 
@@ -36,12 +32,11 @@ public:
     QDateTime getRecordTimeEnd() const;
 
 signals:
-    void showMainMenu();
-    void saveMetaData();
-    void showWorkplaceListView();
+    void back();
+    void save();
+    void forward();
 
 public slots:
-    //void setAnalyst(const QString &lastName, const QString &firstName, const QString &experience);
     void setEmployer(const QString &employer);
     void setCorporation(const QString &name);
     void setBranchOfIndustry(const QString &name, const QString &description);
@@ -58,12 +53,6 @@ private:
     QPushButton *btnBack;
     QLabel *lblViewDescription;
     QPushButton *btnForward;
-
-  /*  QLabel *lblAnalyst;
-    QLabel *lblAnalystLastName;
-    QLabel *lblAnalystFirstName;
-    QLabel *lblAnalystEmployer;
-    QLabel *lblAnalystExperience;*/
 
     TextLineEdit *txtBxAnalystLastName;
     TextLineEdit *txtBxAnalystFirstName;
