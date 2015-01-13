@@ -20,7 +20,10 @@ public:
 signals:
 
 public slots:
-    void setValues(const QString &organ, const QString &direction, int intensity);
+    //void setValues(const QString &organ, const QString &direction, int intensity);
+    void setOrgan(const QString &organ);
+    void setDirection(const QString &direction);
+    void setIntensity(int &intensity);
 
 private:
     static const QVector<QString> ORGAN_TEXTS;

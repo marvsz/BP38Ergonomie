@@ -48,11 +48,18 @@ AppliedForceView::AppliedForceView(QWidget *parent) :
 }
 
 //PUBLIC SLOTS
-void AppliedForceView::setValues(const QString &organ, const QString &direction, int intensity){
+void AppliedForceView::setOrgan(const QString &organ){
     valConOrgan->setValue(organ);
+}
+
+void AppliedForceView::setDirection(const QString &direction){
     valConDirection->setValue(direction);
+}
+
+void AppliedForceView::setIntensity(int &intensity){
     valConIntensity->setValue(intensity);
 }
+
 
 //GETTER
 int AppliedForceView::getIntensity() const{
