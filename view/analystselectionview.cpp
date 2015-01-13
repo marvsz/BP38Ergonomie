@@ -16,10 +16,11 @@ AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
     txtBxAnalystExperience(new TextLineEdit(this)),
     //spacer1(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed),
     //spacer2(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed),
-    analysts(new QList<DetailedListItem*>())
+    analysts(new QList<DetailedListItem*>()),
+    listContentLayout(new QVBoxLayout)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    QVBoxLayout *listContentLayout = new QVBoxLayout;
+
     QGridLayout *newAnalystLayout = new QGridLayout;
 
 
@@ -50,7 +51,7 @@ AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
     mainLayout->addWidget(lblAnalyst);
     mainLayout->addLayout(newAnalystLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
-    mainLayout->addLayout(existingAnalystsLayout);
+    mainLayout->addLayout(listContentLayout);
     mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
     setLayout(mainLayout);

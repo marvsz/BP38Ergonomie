@@ -47,6 +47,8 @@ private:
 
     QList<DetailedListItem*> *analysts;
 
+    QVBoxLayout *listContentLayout;
+
     //QSpacerItem *spacer1; = new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
     //QSpacerItem *spacer2; = new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
 
