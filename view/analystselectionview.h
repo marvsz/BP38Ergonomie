@@ -29,13 +29,18 @@ public slots:
     void clear();
 
 private slots:
-    void showCreateAnalyst();
+    void btnMinimizeClicked();
+    void btnMaximizeClicked();
     void dliPressed(int id);
+    void btnCreateAnalystClicked();
 
 private:
+
+    bool status;
+    QPushButton *btnMaximize;
+    QPushButton *btnMinimize;
     QPushButton *btnCreateAnalyst;
 
-    QLabel *lblAnalyst;
     QLabel *lblAnalystLastName;
     QLabel *lblAnalystFirstName;
     QLabel *lblAnalystEmployer;

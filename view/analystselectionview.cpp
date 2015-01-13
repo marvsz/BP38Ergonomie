@@ -4,8 +4,10 @@
 
 AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
     QWidget(parent),
-    btnCreateAnalyst(new QPushButton(tr("Create new Analyst"))),
-    lblAnalyst(new QLabel(tr("analyst"), this)),
+    status(false),
+    btnMaximize(new QPushButton()),
+    btnMinimize(new QPushButton()),
+    btnCreateAnalyst(new QPushButton(tr("create"), this)),
     lblAnalystLastName(new QLabel(tr("last name:"), this)),
     lblAnalystFirstName(new QLabel(tr("prename:"), this)),
     lblAnalystEmployer(new QLabel(tr("employer:"), this)),
@@ -30,17 +32,26 @@ AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
     newAnalystLayout->addItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed), 1, 2, 1, 1, 0);
     newAnalystLayout->addWidget(lblAnalystExperience, 1, 3, 1, 1, 0);
     newAnalystLayout->addWidget(txtBxAnalystExperience, 1, 4, 1, 1, 0);
+    newAnalystLayout->addWidget(btnCreateAnalyst, 2, 0, 1, 10, 0);
+    newAnalystLayout->setAlignment(btnCreateAnalyst, Qt::AlignCenter);
 
     createAnalyst->setLayout(newAnalystLayout);
     createAnalyst->hide();
 
 
 
-    btnCreateAnalyst->setMinimumSize(300, 60);
-    lblAnalyst->setObjectName("lblHeader");
+    btnMaximize->setFixedSize(45, 45);
+    btnMaximize->setObjectName("downIcon");
+
+    btnMinimize->setFixedSize(45, 45);
+    btnMinimize->setObjectName("upIcon");
+    btnMinimize->hide();
 
 
-    mainLayout->addWidget(lblAnalyst);
+    mainLayout->addWidget(btnMaximize);
+    mainLayout->setAlignment(btnMaximize, Qt::AlignCenter);
+    mainLayout->addWidget(btnMinimize);
+    mainLayout->setAlignment(btnMinimize, Qt::AlignCenter);
     mainLayout->addWidget(createAnalyst);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
     mainLayout->addLayout(listContentLayout);
@@ -48,14 +59,20 @@ AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
 
     setLayout(mainLayout);
 
-    connect(btnCreateAnalyst, SIGNAL(clicked), this, SLOT(showCreateAnalyst()));
+    connect(btnMaximize, SIGNAL(clicked()), this, SLOT(btnMaximizeClicked()));
+    connect(btnMinimize, SIGNAL(clicked()), this, SLOT(btnMinimizeClicked()));
 }
 
-void AnalystSelectionView::showCreateAnalyst(){
-    btnCreateAnalyst->setEnabled(false);
-
+void AnalystSelectionView::btnMaximizeClicked(){
+    btnMaximize->hide();
     createAnalyst->show();
+    btnMinimize->show();
+}
 
+void AnalystSelectionView::btnMinimizeClicked(){
+    btnMaximize->show();
+    createAnalyst->hide();
+    btnMinimize->hide();
 }
 
 void AnalystSelectionView::dliPressed(int id){
@@ -63,8 +80,12 @@ void AnalystSelectionView::dliPressed(int id){
     emit forward();
 }
 
+void AnalystSelectionView::btnCreateAnalystClicked(){
+
+}
+
 void AnalystSelectionView::add(int id, const QString &lastName, const QString &firstName){
-    QString name = lastName + firstName;
+    QString name = lastName + ", " + firstName;
 
     DetailedListItem *newListItem = new DetailedListItem(this, "", name, QList<QStringList>(), true, false, true);
 
