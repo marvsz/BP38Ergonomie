@@ -37,6 +37,7 @@ public:
     void setWorkprocessMetaDataView(WorkProcessMetaDataView *workprocessMetaDataView);
 
     void setTimerViewController(TimerViewController *timerViewController);
+    void setGantTimerView(GantTimerView *gantTimerView);
 
     void setupViews();
 
@@ -45,7 +46,6 @@ signals:
     void createWorkProcess(int type, const QTime &start, const QTime &end);
 
 public slots:
-
 
 private slots:
     void showCamera();

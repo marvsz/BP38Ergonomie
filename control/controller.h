@@ -20,6 +20,7 @@
     #include "../view/workplaceView/workplaceview.h"
     #include "../view/documentationview.h"
     #include "../view/analystselectionview.h"
+    #include "../view/timerView/ganttimerview.h"
 #endif
 #include <QSqlField>
 #include <QHash>
@@ -103,6 +104,7 @@ private:
     BodyPostureView *bodyPostureView;
     LoadHandlingView *loadHandlingView;
     ExecutionConditionView *executionConditionView;
+    GantTimerView *gantTimerView;
 
     TimerViewController *timerViewController;
 

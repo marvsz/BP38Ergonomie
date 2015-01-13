@@ -77,6 +77,10 @@ void DocumentationView::setTimerViewController(TimerViewController *timerViewCon
     connect(timerViewController, SIGNAL(showGantView()), this, SLOT(showGant()));
     connect(timerViewController, SIGNAL(hideGantView()), this, SLOT(hideGant()));
     connect(timerViewController, SIGNAL(createWorkProcess(int,QTime,QTime)), this, SIGNAL(createWorkProcess(int,QTime,QTime)));
+}
+
+void DocumentationView::setGantTimerView(GantTimerView *gantTimerView){
+    this->gantView = gantTimerView;
 
 }
 
@@ -88,6 +92,7 @@ void DocumentationView::setupViews(){
     mainContent->addWidget(appliedForceView);
     mainContent->addWidget(executionConditionView);
     mainContent->addWidget(workprocessMetaDataView);
+    mainContent->addWidget(gantView);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
 

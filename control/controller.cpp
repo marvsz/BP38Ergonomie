@@ -22,6 +22,7 @@ Controller::Controller(QObject *parent) :
     bodyPostureView(new BodyPostureView()),
     loadHandlingView(new LoadHandlingView()),
     executionConditionView(new ExecutionConditionView()),
+    gantTimerView(new GantTimerView()),
     timerViewController(new TimerViewController())
 {
     dbHandler = new DBHandler();
@@ -39,6 +40,7 @@ Controller::Controller(QObject *parent) :
     documentationView->setExecutionConditionView(executionConditionView);
     documentationView->setLoadHandlingView(loadHandlingView);
     documentationView->setTimerViewController(timerViewController);
+    documentationView->setGantTimerView(gantTimerView);
 
     viewCon = new ViewController();
     viewCon->setAnalystSelectionView(analystSelectionView);
@@ -524,7 +526,9 @@ int Controller::createWorkprocess(int type, const QTime &start, const QTime &end
     values.insert(DBConstants::COL_WORK_PROCESS_TYPE, type);
     values.insert(DBConstants::COL_WORK_PROCESS_BEGIN, start.toString());
     values.insert(DBConstants::COL_WORK_PROCESS_END, end.toString());
-    return save(DB_TABLES::WORK_PROCESS, filter, DBConstants::COL_WORK_PROCESS_ID, DBConstants::HASH_WORK_PROCESS_TYPES, values);
+    int id = save(DB_TABLES::WORK_PROCESS, filter, DBConstants::COL_WORK_PROCESS_ID, DBConstants::HASH_WORK_PROCESS_TYPES, values);
+    gantTimerView->add(id, type, start, end);
+    return id;
 }
 
 void Controller::updateWorkprocessViews(){

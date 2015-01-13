@@ -166,18 +166,18 @@ void GantTimerView::btnMinus(){
 //PRIVATE METHODS
 QHBoxLayout* GantTimerView::getLayout(int type){
     switch(type){
-        case 0: return leftWP; break;
-        case 1: return rightWP; break;
-        case 2: return basicWP; break;
+        case 1: return leftWP; break;
+        case 2: return rightWP; break;
+        case 3: return basicWP; break;
         default: return basicWP; break;
     }
 }
 
 QVector<WorkProcessButton*>* GantTimerView::getButtonVector(int type){
     switch(type){
-        case 0: return leftWPBtns; break;
-        case 1: return rightWPBtns; break;
-        case 2: return basicWPBtns; break;
+        case 1: return leftWPBtns; break;
+        case 2: return rightWPBtns; break;
+        case 3: return basicWPBtns; break;
         default: return basicWPBtns; break;
     }
 }
