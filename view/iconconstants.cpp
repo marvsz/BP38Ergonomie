@@ -24,6 +24,13 @@ const QString IconConstants::ICON_MINUS = ":/button/icons/Buttons/minus.png";
 // MISC
 const QString IconConstants::ICON_WORKPLACE = ":/misc/icons/Misc/workplace.png";
 const QString IconConstants::ICON_COMMENT = ":/misc/icons/Misc/comment.png";
+const QString IconConstants::ICON_ACTIVITY = ":/misc/icons/Misc/activity.png";
+const QString IconConstants::ICON_LINE = ":/misc/icons/Misc/line.png";
+const QString IconConstants::ICON_SETTINGS = ":/misc/icons/Misc/settings.png";
+const QString IconConstants::ICON_EQUIPMENT = ":/misc/icons/Misc/equipment.png";
+const QString IconConstants::ICON_PRODUCT = ":/misc/icons/Misc/product.png";
+const QString IconConstants::ICON_TRANSPORTATION= ":/misc/icons/Misc/transportation.png";
+const QString IconConstants::ICON_USER = ":/misc/icons/Misc/user.png";
 
 IconConstants::IconConstants()
 {

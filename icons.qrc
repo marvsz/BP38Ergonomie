@@ -73,5 +73,15 @@
         <file>icons/Misc/workplace@2x.png</file>
         <file>icons/Misc/comment.png</file>
         <file>icons/Misc/comment@2x.png</file>
+        <file>icons/Misc/activity.png</file>
+        <file>icons/Misc/activity@2x.png</file>
+        <file>icons/Misc/line.png</file>
+        <file>icons/Misc/line@2x.png</file>
+        <file>icons/Misc/settings.png</file>
+        <file>icons/Misc/settings@2x.png</file>
+        <file>icons/Misc/equipment.png</file>
+        <file>icons/Misc/equipment@2x.png</file>
+        <file>icons/Misc/user.png</file>
+        <file>icons/Misc/user@2x.png</file>
     </qresource>
 </RCC>

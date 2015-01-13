@@ -31,6 +31,14 @@ public:
     // MISC
     static const QString ICON_WORKPLACE;
     static const QString ICON_COMMENT;
+    static const QString ICON_ACTIVITY;
+    static const QString ICON_LINE;
+    static const QString ICON_SETTINGS;
+    static const QString ICON_EQUIPMENT;
+    static const QString ICON_PRODUCT;
+    static const QString ICON_TRANSPORTATION;
+    static const QString ICON_USER;
+
 };
 
 #endif // ICONCONSTANTS_H

@@ -2,6 +2,7 @@
 #include "separator.h"
 #include "flickcharm.h"
 #include "detailedlistitem.h"
+#include "iconconstants.h"
 
 const QList<QStringList> ActivityView::productItemScheme = QList<QStringList>() << (QStringList() << tr("product number"));
 const QList<QStringList> ActivityView::activityItemScheme = QList<QStringList>() << (QStringList() << tr("repetitions"));
@@ -148,7 +149,7 @@ void ActivityView::setActivity(const QString &description, int repetitions, int 
 }
 
 void ActivityView::addActivity(int id, const QString &description, int repetitions){
-    DetailedListItem *newListItem = new DetailedListItem(0, "", description, activityItemScheme, true, false, true);
+    DetailedListItem *newListItem = new DetailedListItem(0, IconConstants::ICON_ACTIVITY, description, activityItemScheme, true, false, true);
     newListItem->setID(id);
     QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(repetitions));
     newListItem->setValues(values);

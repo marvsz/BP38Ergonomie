@@ -3,6 +3,7 @@
 #include "flickcharm.h"
 #include "separator.h"
 #include "detailedlistitem.h"
+#include "iconconstants.h"
 
 const QList<QStringList> EquipmentView::equipmentItemScheme = QList<QStringList>() << (QStringList() << tr("recoil count") << tr ("recoil intensity")) << (QStringList() << tr("vibration count") << tr("vibration intensity"));
 
@@ -72,14 +73,6 @@ EquipmentView::EquipmentView(QWidget *parent) :
     mainLayout->addWidget(scEquipment);
 
     setLayout(mainLayout);
-
-    // TEST DATA
-    addEquipment(1, "Test Equipment 1", 1, 2, 3, 4);
-    addEquipment(2, "Test Equipment 2", 4, 3, 2, 1);
-    addEquipment(3, "Test Equipment 3", 1, 2, 3, 4);
-    addEquipment(4, "Test Equipment 4", 4, 3, 2, 1);
-    addEquipment(5, "Test Equipment 5", 1, 2, 3, 4);
-    addEquipment(6, "Test Equipment 6", 4, 3, 2, 1);
 }
 
 EquipmentView::~EquipmentView(){
@@ -95,7 +88,7 @@ void EquipmentView::setEquipment(const QString &name, int recoilCount, int recoi
 }
 
 void EquipmentView::addEquipment(int id, const QString &name, int recoilCount, int recoilIntensity, int vibrationCount, int vibrationIntensity){
-    DetailedListItem *newListItem = new DetailedListItem(0, "", name, equipmentItemScheme, true, false, false);
+    DetailedListItem *newListItem = new DetailedListItem(0, IconConstants::ICON_EQUIPMENT, name, equipmentItemScheme, true, false, false);
     newListItem->setID(id);
     QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(recoilCount) << QString::number(recoilIntensity)) << (QStringList() << QString::number(vibrationCount) << QString::number(vibrationIntensity));
     newListItem->setValues(values);
