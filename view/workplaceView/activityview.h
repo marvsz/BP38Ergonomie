@@ -29,7 +29,7 @@ signals:
     void saveActivity();
 
 public slots:
-    void addProduct(int id, const QString &name, const QString &productNumber, int totalPercentage);
+    void addProduct(int id, const QString &name, const QString &productNumber);
     void clearProducts();
     void setSelectedProduct(int id);
 

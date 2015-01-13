@@ -3,7 +3,7 @@
 #include "flickcharm.h"
 #include "detailedlistitem.h"
 
-const QList<QStringList> ActivityView::productItemScheme = QList<QStringList>() << (QStringList() << tr("product number")) << (QStringList()<< tr("total percentage"));
+const QList<QStringList> ActivityView::productItemScheme = QList<QStringList>() << (QStringList() << tr("product number"));
 const QList<QStringList> ActivityView::activityItemScheme = QList<QStringList>() << (QStringList() << tr("repetitions"));
 
 ActivityView::ActivityView(QWidget *parent) :
@@ -86,18 +86,6 @@ ActivityView::ActivityView(QWidget *parent) :
     mainLayout->addWidget(scActivities);
 
     setLayout(mainLayout);
-
-    // TEST DATA
-    addProduct(1, "Test1", "ABC123", 50);
-    addProduct(2, "Test2", "DEF321", 10);
-    addProduct(3, "Test3", "GHI789", 20);
-    addProduct(4, "Test4", "JKL00100", 20);
-
-    addActivity(1, "Tolle Aktivität", 3);
-    addActivity(2, "Doofe Aktivität", 5);
-    addActivity(3, "Langweilig Aktivität", 10);
-    addActivity(4, "Super Aktivität", 2);
-    addActivity(4, "Scheiß Aktivität", 4);
 }
 
 // GETTER
@@ -131,10 +119,10 @@ void ActivityView::selectedProductChanged(int id){
 }
 
 // PUBLIC SLOTS
-void ActivityView::addProduct(int id, const QString &name, const QString &productNumber, int totalPercentage){
+void ActivityView::addProduct(int id, const QString &name, const QString &productNumber){
     DetailedListItem *newListItem = new DetailedListItem(0, "", name, productItemScheme, false, true, false);
     newListItem->setID(id);
-    QList<QStringList> values = QList<QStringList>() << (QStringList() << productNumber) << (QStringList() << QString::number(totalPercentage));
+    QList<QStringList> values = QList<QStringList>() << (QStringList() << productNumber);
     newListItem->setValues(values);
     newListItem->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedProductChanged(int)));
