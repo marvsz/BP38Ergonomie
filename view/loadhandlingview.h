@@ -7,7 +7,6 @@
 #include <QPushButton>
 #include <QGroupBox>
 #include "valuecontrol.h"
-#include "transportationlistcontrol.h"
 
 /**
  * @brief A class providing a view for transporthandling. The class contains
@@ -38,16 +37,13 @@ private:
     ValueControl *type;
     ValueControl *last;
     ValueControl *weg;
-    ValueControl *hand;
     QWidget *main;
     QWidget *control;
-    TransportationListControl *tools;
 
     const QVector<int> lastValues = QVector<int>()<<2<<3<<5<<10<<20;
     const QVector<int> heavyLastValues = QVector<int>()<<100<<500<<1000<<1500<<2000;
     const QVector<int> wegValues = QVector<int>()<<2<<3<<5<<10<<20;
     const QVector<QString> typeValues = QVector<QString>()<<tr("holding")<<tr("replacing")<<tr("carrying")<<tr("pulling and pushing");
-    const QVector<QString> handValues = QVector<QString>()<<tr("left")<<tr("both")<<tr("right");
 };
 
 #endif // LoadHandlingView_H

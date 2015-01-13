@@ -18,7 +18,7 @@ Controller::Controller(QObject *parent) :
     documentationView(new DocumentationView()),
     workProcessMetaDataView(new WorkProcessMetaDataView()),
     appliedForceView(new AppliedForceView()),
-    angleView(new AngleView()),
+    bodyPostureView(new BodyPostureView()),
     loadHandlingView(new LoadHandlingView()),
     executionConditionView(new ExecutionConditionView()),
     timerViewController(new TimerViewController())
@@ -26,7 +26,7 @@ Controller::Controller(QObject *parent) :
     dbHandler = new DBHandler();
 
     documentationView->setWorkprocessMetaDataView(workProcessMetaDataView);
-    documentationView->setBodyPostureView(angleView);
+    documentationView->setBodyPostureView(bodyPostureView);
     documentationView->setAppliedForceView(appliedForceView);
     documentationView->setExecutionConditionView(executionConditionView);
     documentationView->setLoadHandlingView(loadHandlingView);

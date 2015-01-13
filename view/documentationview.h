@@ -8,7 +8,7 @@
 #include <QTabBar>
 #include <QQuickView>
 #include <QQmlEngine>
-#include "angleView/angleview.h"
+#include "bodyPostureView//bodypostureview.h"
 #include "appliedforceview.h"
 #include "executionconditionview.h"
 #include "workprocessmetadataview.h"
@@ -30,7 +30,7 @@ class DocumentationView : public QWidget
 public:
     explicit DocumentationView(QWidget *parent = 0);
 
-    void setBodyPostureView(AngleView *bodyPostureView);
+    void setBodyPostureView(BodyPostureView *bodyPostureView);
     void setLoadHandlingView(LoadHandlingView *loadHandlingView);
     void setAppliedForceView(AppliedForceView *appliedForceView);
     void setExecutionConditionView(ExecutionConditionView *executionConditionView);
@@ -67,7 +67,7 @@ private:
     TimerViewController *timerView;
     QQuickView *cameraView;
 
-    AngleView *bodyPostureView;
+    BodyPostureView *bodyPostureView;
     LoadHandlingView *loadHandlingView;
     AppliedForceView *appliedForceView;
     ExecutionConditionView *executionConditionView;

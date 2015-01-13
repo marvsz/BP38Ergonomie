@@ -81,7 +81,7 @@ private:
     DocumentationView *documentationView;
     WorkProcessMetaDataView *workProcessMetaDataView;
     AppliedForceView *appliedForceView;
-    AngleView *angleView;
+    BodyPostureView *bodyPostureView;
     LoadHandlingView *loadHandlingView;
     ExecutionConditionView *executionConditionView;
 

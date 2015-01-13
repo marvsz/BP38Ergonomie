@@ -51,7 +51,7 @@ DocumentationView::DocumentationView(QWidget *parent) :
 
 // PUBLIC
 
-void DocumentationView::setBodyPostureView(AngleView *bodyPostureView){
+void DocumentationView::setBodyPostureView(BodyPostureView *bodyPostureView){
     this->bodyPostureView = bodyPostureView;
 }
 
@@ -137,17 +137,14 @@ void DocumentationView::hideCamera(){
 
 void DocumentationView::leftAvPressed(){
     mainContent->setCurrentIndex(0);
-    bodyPostureView->selectLeftAV();
 }
 
 void DocumentationView::rightAvPressed(){
     mainContent->setCurrentIndex(0);
-    bodyPostureView->selectRightAV();
 }
 
 void DocumentationView::avPressed(){
     mainContent->setCurrentIndex(0);
-    bodyPostureView->selectAV();
 }
 
 void DocumentationView::showGant(){

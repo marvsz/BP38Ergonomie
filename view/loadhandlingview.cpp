@@ -3,13 +3,10 @@
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QGridLayout>
 #include <QScrollArea>
-#include <QScroller>
 #include "valuecontrol.h"
 #include "separator.h"
 #include "flickcharm.h"
-#include <QDebug>
 
 /**
  * @brief Constructs a new Transportview
@@ -24,55 +21,43 @@ LoadHandlingView::LoadHandlingView(QWidget *parent) :
     main = new QWidget(this);
     control = new QWidget(this);
 
-    QWidget *topGroup = new QWidget;
     QVBoxLayout *topGroupLayout = new QVBoxLayout;
     QHBoxLayout *menuLineLayout = new QHBoxLayout;
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    QVBoxLayout *categoryLayout = new QVBoxLayout;
     QScrollArea *categoryScrollArea = new QScrollArea;
 
 
-    type = new ValueControl(TEXT_CONTROL, categoryScrollArea);
-    type->setValues(true, typeValues, typeValues,  new QString());
+    type = new ValueControl(TEXT, categoryScrollArea);
+    type->setValues(true, typeValues, typeValues, QString());
     type->setText(tr("loadhandling type:"));
     connect(type, SIGNAL(valueChanged(QString)), this, SLOT(typeChanged(QString)));
 
 
-    last = new ValueControl(VALUE_CONTROL, categoryScrollArea);
+    last = new ValueControl(VALUE, categoryScrollArea);
     last->setUnit(tr("kg"));
-    last->setValues(1, 100, lastValues, new QString());
+    last->setValues(1, 100, lastValues, QString());
     last->setText(tr("Last"));
 
 
-    weg = new ValueControl(VALUE_CONTROL, categoryScrollArea);
+    weg = new ValueControl(VALUE, categoryScrollArea);
     weg->setUnit(tr("m"));
-    weg->setValues(0, 20, wegValues, new QString());
+    weg->setValues(0, 20, wegValues, QString());
     weg->setText(tr("Weg"));
 
 
-    hand = new ValueControl(TEXT_CONTROL, categoryScrollArea);
-    hand->setValues(true, handValues, handValues, new QString());
-    hand->setText(tr("Benutzte Hand:"));
 
     QVector<QString>* options = new QVector<QString>();
     options->append(tr("Bockrollen"));
     options->append(tr("Bremsen"));
 
-    tools = new TransportationListControl(options, this);
-
     topGroupLayout->addWidget(type);
-    topGroupLayout->addWidget(new Separator(Qt::Horizontal, 3, topGroup));
+    topGroupLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     topGroupLayout->addWidget(last);
-    topGroupLayout->addWidget(new Separator(Qt::Horizontal, 3, topGroup));
+    topGroupLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     topGroupLayout->addWidget(weg);
-    topGroupLayout->addWidget(new Separator(Qt::Horizontal, 3, topGroup));
-    topGroupLayout->addWidget(hand);
-    topGroup->setLayout(topGroupLayout);
 
-    categoryLayout->addWidget(topGroup);
-    categoryLayout->addWidget(new Separator(Qt::Horizontal, 3, control));
-    categoryLayout->addWidget(tools);
-    control->setLayout(categoryLayout);
+
+    control->setLayout(topGroupLayout);
 
     categoryScrollArea->setWidget(control);
     categoryScrollArea->setWidgetResizable(true);
@@ -89,11 +74,10 @@ LoadHandlingView::LoadHandlingView(QWidget *parent) :
 }
 
 void LoadHandlingView::typeChanged(QString newType){
-    qDebug() << newType;
     if(newType == tr("pulling and pushing"))
-        last->setValues(1, 2000, heavyLastValues, new QString());
+        last->setValues(1, 2000, heavyLastValues, QString());
     else
-        last->setValues(1, 100, lastValues, new QString());
+        last->setValues(1, 100, lastValues, QString());
 }
 
 LoadHandlingView::~LoadHandlingView()

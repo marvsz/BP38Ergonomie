@@ -11,8 +11,8 @@ EmployeeView::EmployeeView(QWidget *parent) : QWidget(parent),
     lblStaffNumber(new QLabel(tr("PersonalID:"))),
     lblNote(new QLabel(tr("Remarks:"))),
     oscGender(new OptionSelectionControl()),
-    vcAge(new ValueControl(VariantControl::VALUE_CONTROL)),
-    vcHeight(new ValueControl(VariantControl::VALUE_CONTROL)),
+    vcAge(new ValueControl(VALUE)),
+    vcHeight(new ValueControl(VALUE)),
     txtBxStaffNumber(new TextLineEdit()),
     txtBxNote(new TextEdit()),
     btnBack(new QPushButton(tr("back")))
@@ -22,11 +22,11 @@ EmployeeView::EmployeeView(QWidget *parent) : QWidget(parent),
     connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
 
     vcAge->setText(tr("age"));
-    vcAge->setValues(16, 70, ageValues,new QString(""));
+    vcAge->setValues(16, 70, ageValues, QString(""));
     vcAge->setValue(35);
 
     vcHeight->setText(tr("height"));
-    vcHeight->setValues(100, 220, heightValues, new QString(""));
+    vcHeight->setValues(100, 220, heightValues, QString(""));
     vcHeight->setValue(175);
 
     oscGender->setValues(genderTextValues);

@@ -11,18 +11,18 @@ const QVector<int> AppliedForceView::INTENSITY_VALUES = QVector<int>()<<5<<20<<5
 
 AppliedForceView::AppliedForceView(QWidget *parent) :
     QWidget(parent),
-    valConIntensity(new ValueControl(VALUE_CONTROL, this)),
-    valConDirection(new ValueControl(TEXT_CONTROL, this)),
-    valConOrgan(new ValueControl(TEXT_CONTROL, this))
+    valConIntensity(new ValueControl(VALUE, this)),
+    valConDirection(new ValueControl(TEXT, this)),
+    valConOrgan(new ValueControl(TEXT, this))
 {
-    valConIntensity->setValues(0, 300, INTENSITY_VALUES, new QString(""));
+    valConIntensity->setValues(0, 300, INTENSITY_VALUES, QString(""));
     valConIntensity->setUnit(tr("N"));
     valConIntensity->setText(tr("intensity"));
 
-    valConDirection->setValues(true, DIRECTION_TEXTS, DIRECTION_VALUES, new QString(""));
+    valConDirection->setValues(true, DIRECTION_TEXTS, DIRECTION_VALUES, QString(""));
     valConDirection->setText(tr("direction:"));
 
-    valConOrgan->setValues(true, ORGAN_TEXTS, ORGAN_TEXTS, new QString(""));
+    valConOrgan->setValues(true, ORGAN_TEXTS, ORGAN_TEXTS, QString(""));
     valConOrgan->setText(tr("organ:"));
 
     QVBoxLayout *lytMainContent = new QVBoxLayout;

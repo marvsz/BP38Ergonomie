@@ -15,7 +15,7 @@ WorkProcessMetaDataView::WorkProcessMetaDataView(QWidget *parent) : QWidget(pare
     lblImpulseIntensity(new QLabel(tr("Impulse intensity:"))),
     lblImpulseCount(new QLabel(tr("Impulse count:"))),
     txtBxDescription(new TextLineEdit()),
-    vcMTMCode(new ValueControl(VariantControl::TEXT_CONTROL)),
+    vcMTMCode(new ValueControl(TEXT)),
     numBxWorkingHeight(new NumberLineEdit()),
     numBxDistance(new NumberLineEdit()),
     oscImpulseIntensity(new OptionSelectionControl()),
@@ -31,7 +31,7 @@ WorkProcessMetaDataView::WorkProcessMetaDataView(QWidget *parent) : QWidget(pare
 
     vcMTMCode->setText(tr("MTM Code:"));
     vcMTMCode->setTextHint(tr("MTM Code of the process"));
-    vcMTMCode->setValues(true, MTM_CODE_TEXTS, MTM_CODE_VALUES, new QString(""));
+    vcMTMCode->setValues(true, MTM_CODE_TEXTS, MTM_CODE_VALUES, QString(""));
 
     QGridLayout *mainLayout = new QGridLayout;
     mainLayout->addWidget(lblDescription, 0, 0, 1, 1, 0);

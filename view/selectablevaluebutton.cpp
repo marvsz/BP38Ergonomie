@@ -17,6 +17,7 @@ SelectableValueButton::SelectableValueButton(int id, const QVariant &value, QWid
 //PRIVATE SLOTS
 void SelectableValueButton::btnClicked(){
     emit clickedWithID(this->id);
+    emit clickedWithID(this->id, this);
 }
 
 //GETTER AND SETTER

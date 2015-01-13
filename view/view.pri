@@ -1,21 +1,16 @@
 INCLUDEPATH +=$$PWD
 DEPENDPATH += $$PWD
-CURRENT_DIR = $$PWD
 
-HEADERS += $$PWD/angleView/variant.h\
-$$PWD/angleView/subvariant.h\
-$$PWD/angleView/variantcon.h\
-$$PWD/angleView/variantspecification.h\
-$$CURRENT_DIR/selectablevaluebutton.h\
-$$PWD/angleView/anglecontrol.h\
-$$CURRENT_DIR/valuecontrol.h\
-$$CURRENT_DIR/separator.h\
-$$CURRENT_DIR/mainmenu.h\
-    $$PWD/angleView/angleview.h\
+HEADERS +=\
+    $$PWD/bodyPostureView/variantspecification.h\
+    $$PWD/selectablevaluebutton.h\
+    $$PWD/valuecontrol.h\
+    $$PWD/separator.h\
+    $$PWD/mainmenu.h\
     $$PWD/loadhandlingview.h\
-$$CURRENT_DIR/viewcontroller.h\
-$$CURRENT_DIR/transportationlistcontrol.h \
-$$CURRENT_DIR/transportationlistelement.h \
+    $$PWD/viewcontroller.h\
+    $$PWD/transportationlistcontrol.h \
+    $$PWD/transportationlistelement.h \
     $$PWD/optionselectioncontrol.h \
     $$PWD/executionconditionview.h \
     $$PWD/flickcharm.h \
@@ -53,23 +48,21 @@ $$CURRENT_DIR/transportationlistelement.h \
     $$PWD/workprocessmetadataview.h \
     $$PWD/slidercontrol.h \
     $$PWD/appliedforceview.h \
-    $$PWD/settingsview.h
+    $$PWD/settingsview.h \
+    $$PWD/bodyPostureView/bodypostureview.h \
+    $$PWD/bodyPostureView/variantcontrol.h
 
 
-SOURCES += $$PWD/angleView/variant.cpp\
-$$PWD/angleView/subvariant.cpp\
-$$PWD/angleView/variantcon.cpp\
-$$PWD/angleView/variantspecification.cpp\
-$$CURRENT_DIR/selectablevaluebutton.cpp\
-$$PWD/angleView/anglecontrol.cpp\
-$$CURRENT_DIR/valuecontrol.cpp\
-$$CURRENT_DIR/separator.cpp\
+SOURCES +=\
+    $$PWD/bodyPostureView/variantspecification.cpp\
+    $$PWD/selectablevaluebutton.cpp\
+    $$PWD/valuecontrol.cpp\
+    $$PWD/separator.cpp\
     $$PWD/loadhandlingview.cpp\
-$$CURRENT_DIR/viewcontroller.cpp\
-$$CURRENT_DIR/mainmenu.cpp\
-$$PWD/angleView/angleview.cpp \
-$$CURRENT_DIR/transportationlistcontrol.cpp\
-$$CURRENT_DIR/transportationlistelement.cpp \
+    $$PWD/viewcontroller.cpp\
+    $$PWD/mainmenu.cpp\
+    $$PWD/transportationlistcontrol.cpp\
+    $$PWD/transportationlistelement.cpp \
     $$PWD/optionselectioncontrol.cpp \
     $$PWD/executionconditionview.cpp \
     $$PWD/flickcharm.cpp \
@@ -106,6 +99,8 @@ $$CURRENT_DIR/transportationlistelement.cpp \
     $$PWD/workprocessmetadataview.cpp \
     $$PWD/slidercontrol.cpp \
     $$PWD/appliedforceview.cpp \
-    $$PWD/settingsview.cpp
+    $$PWD/settingsview.cpp \
+    $$PWD/bodyPostureView/bodypostureview.cpp \
+    $$PWD/bodyPostureView/variantcontrol.cpp
 
 
