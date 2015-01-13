@@ -5,6 +5,7 @@
 #include <QResizeEvent>
 #include <QVector>
 #include "variantspecification.h"
+#include "variantcontrol.h"
 #include "../enum.h"
 #include <QPushButton>
 #include <QLabel>
@@ -88,6 +89,11 @@ private:
     static const QVector<int> ANKLE_ANGLE_VALUES;
     static const QVector<int> ANKLE_ANGLE_SIDEWAYS_VALUES;
 
+    VariantControl *varConTrunk;
+
+    ValueControl *vcTrunkTilt;
+    ValueControl *vcTrunkSidewaysTilt;
+    ValueControl *vcTrunkTwist;
 
     VariantSpecification* varSpeciArms;
     VariantSpecification* varSpeciLegs;

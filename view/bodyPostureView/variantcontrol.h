@@ -53,6 +53,7 @@ private:
 
     SelectableValueButton *svBtnCurrentSel;
     QVector<QVector<ValueControl*>*> *valueControls;
+    QVector<SelectableValueButton*> *variantBtns;
 
 };
 

@@ -34,7 +34,11 @@ const QVector<int> BodyPostureView::ANKLE_ANGLE_VALUES = QVector<int>()<<90<<135
 const QVector<int> BodyPostureView::ANKLE_ANGLE_SIDEWAYS_VALUES = QVector<int>()<<-45<<-20<<0<<20<<45;
 
 BodyPostureView::BodyPostureView(QWidget *parent) :
-    QWidget(parent)
+    QWidget(parent),
+    varConTrunk(new VariantControl()),
+    vcTrunkTilt(new ValueControl(VALUE)),
+    vcTrunkSidewaysTilt(new ValueControl(VALUE)),
+    vcTrunkTwist(new ValueControl(VALUE))
 {
 
     QVBoxLayout *categoryLayout = new QVBoxLayout;
@@ -44,6 +48,27 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
     //varSpeciArms->addSpezification(new QString(tr("both"))); varSpeciArms->addSpezification(new QString(tr("left"))); varSpeciArms->addSpezification(new QString(tr("right")));
     varSpeciLegs = new VariantSpecification();
     //varSpeciLegs->addSpezification(new QString(tr("both"))); varSpeciLegs->addSpezification(new QString(tr("left"))); varSpeciLegs->addSpezification(new QString(tr("right")));
+
+    vcTrunkTilt->setUnit("°");
+    vcTrunkTilt->setText(tr("Trunk tilt"));
+    vcTrunkTilt->setValues(-60, 120, TRUNK_TILT_VALUES, QString(tr("trunk_tilt_icon_path")));
+
+    vcTrunkSidewaysTilt->setUnit("°");
+    vcTrunkSidewaysTilt->setText(tr("Trunk sideways tilt"));
+    vcTrunkSidewaysTilt->setValues(0, 90, TRUNK_TILT_SIDEWAYS_VALUES, QString(tr("trunk_tilt_sideways_icon_path")));
+
+    vcTrunkTwist->setUnit("°");
+    vcTrunkTwist->setText(tr("Trunk twist"));
+    vcTrunkTwist->setValues(0, 90, TRUNK_TWIST_VALUES, QString(tr("trunk_twist_icon_path")));
+
+    varConTrunk->setName(tr("Trunk"));
+    varConTrunk->addVariant(tr("Tilt"));
+    varConTrunk->addSubVariant(0, vcTrunkTilt);
+    varConTrunk->addVariant(tr("Sideways tilt"));
+    varConTrunk->addSubVariant(1, vcTrunkSidewaysTilt);
+    varConTrunk->addVariant(tr("Twist"));
+    varConTrunk->addSubVariant(2, vcTrunkTwist);
+    varConTrunk->setSelectedVariant(0);
 
     /*trunkTilt = new Variant(new QString(tr("flexion")), new SubVariant(new QString(tr("flexion angle")), -60, 120, TRUNK_TILT_VALUES, new QString(tr("torso_Flexion_Icon"))));
     trunkSidewaysTilt = new Variant(new QString(tr("sidewise tilt")), new SubVariant(new QString(tr("sidewise tilt")), 0, 90, TRUNK_TILT_SIDEWAYS_VALUES, new QString(tr("torso_Tilt_Icon"))));
@@ -99,6 +124,7 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
     categoryLayout->addWidget(acArms);
     categoryLayout->addWidget(acLegs);
     categoryLayout->addWidget(acHead);*/
+    categoryLayout->addWidget(varConTrunk);
     main->setLayout(categoryLayout);
 
     categoryScrollArea->setWidget(main);
