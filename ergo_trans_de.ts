@@ -48,9 +48,8 @@
         <translation>Produktnumer</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/activityview.cpp" line="6"/>
         <source>total percentage</source>
-        <translation>Prozent der Gesamtproduktion</translation>
+        <translation type="vanished">Prozent der Gesamtproduktion</translation>
     </message>
     <message>
         <location filename="view/workplaceView/activityview.cpp" line="7"/>
@@ -104,27 +103,31 @@
         <translation type="vanished">Analyst</translation>
     </message>
     <message>
-        <location filename="view/analystselectionview.cpp" line="10"/>
         <source>create</source>
-        <translation>Erstellen</translation>
+        <translation type="vanished">Erstellen</translation>
     </message>
     <message>
         <location filename="view/analystselectionview.cpp" line="11"/>
+        <source>Choose or create new profile</source>
+        <translation>Wähle oder erstelle ein neues Profil</translation>
+    </message>
+    <message>
+        <location filename="view/analystselectionview.cpp" line="12"/>
         <source>last name:</source>
         <translation>Nachname:</translation>
     </message>
     <message>
-        <location filename="view/analystselectionview.cpp" line="13"/>
+        <location filename="view/analystselectionview.cpp" line="14"/>
         <source>employer:</source>
         <translation>Arbeitgeber:</translation>
     </message>
     <message>
-        <location filename="view/analystselectionview.cpp" line="14"/>
+        <location filename="view/analystselectionview.cpp" line="15"/>
         <source>experience:</source>
         <translation>Erfahrung:</translation>
     </message>
     <message>
-        <location filename="view/analystselectionview.cpp" line="12"/>
+        <location filename="view/analystselectionview.cpp" line="13"/>
         <source>prename:</source>
         <translation>Vorname:</translation>
     </message>
@@ -855,62 +858,62 @@
     </message>
     <message>
         <location filename="view/loadhandlingview.cpp" line="82"/>
-        <location filename="view/loadhandlingview.h" line="48"/>
+        <location filename="view/loadhandlingview.h" line="57"/>
         <source>pulling and pushing</source>
         <translation>Ziehen &amp; Schieben</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.h" line="44"/>
+        <location filename="view/loadhandlingview.h" line="53"/>
         <source>Thumbcontact grasp</source>
         <translation>Daumenkontaktgriff</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.h" line="44"/>
+        <location filename="view/loadhandlingview.h" line="53"/>
         <source>Indexcontact grasp</source>
         <translation>Zeigefingerkontaktgriff</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.h" line="44"/>
+        <location filename="view/loadhandlingview.h" line="53"/>
         <source>Handcontact grasp</source>
         <translation>Handkontaktgriff</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.h" line="44"/>
+        <location filename="view/loadhandlingview.h" line="53"/>
         <source>Thumb to 2 Fingers</source>
         <translation>Daumen auf 2 Finger</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.h" line="44"/>
+        <location filename="view/loadhandlingview.h" line="53"/>
         <source>Fingergrasp</source>
         <translation>Fingerzufassungsgriff</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.h" line="44"/>
+        <location filename="view/loadhandlingview.h" line="53"/>
         <source>Thumbindex</source>
         <translation>Daumen-Zeigefinger</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.h" line="44"/>
+        <location filename="view/loadhandlingview.h" line="53"/>
         <source>Wrench</source>
         <translation>Zange</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.h" line="44"/>
+        <location filename="view/loadhandlingview.h" line="53"/>
         <source>Fullgrasp</source>
         <translation>Umfassungsgriff</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.h" line="48"/>
+        <location filename="view/loadhandlingview.h" line="57"/>
         <source>holding</source>
         <translation>Halten</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.h" line="48"/>
+        <location filename="view/loadhandlingview.h" line="57"/>
         <source>replacing</source>
         <translation>Umsetzen</translation>
     </message>
     <message>
-        <location filename="view/loadhandlingview.h" line="48"/>
+        <location filename="view/loadhandlingview.h" line="57"/>
         <source>carrying</source>
         <translation>Tragen</translation>
     </message>
@@ -1278,11 +1281,15 @@
     </message>
     <message>
         <location filename="view/ressourceManagementView/transportationview.cpp" line="9"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="119"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="120"/>
         <source>yes</source>
         <translation>Ja</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/transportationview.cpp" line="9"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="119"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="120"/>
         <source>no</source>
         <translation>Nein</translation>
     </message>
