@@ -66,13 +66,6 @@ ProductView::ProductView(QWidget *parent) : QWidget(parent),
     mainLayout->addWidget(scProducts);
 
     setLayout(mainLayout);
-
-    // TEST DATA
-    addProduct(1, "Test Produkt 1", "MX123", 50);
-    addProduct(2, "Test Produkt 2", "MX1321", 10);
-    addProduct(3, "Test Produkt 3", "MG$123", 10);
-    addProduct(4, "Test Produkt 4", "Mfasdo23", 10);
-    addProduct(5, "Test Produkt 5", "YOLO42", 20);
 }
 
 ProductView::~ProductView()
