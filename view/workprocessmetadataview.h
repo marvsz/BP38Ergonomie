@@ -25,6 +25,8 @@ signals:
 
 public slots:
     void setWorkProcessMetaData(const QString &desc, const QString &mtmCode, int workingHeight, int distance, int impulseIntensity, int impulseCount);
+    void addEquipment(int id, const QString &name, int recoilCount, int recoilIntensity, int vibrationCount, int vibrationIntensity);
+    void clearEquipment();
 
 private:
     QLabel *lblDescription;
@@ -32,6 +34,7 @@ private:
     QLabel *lblDistance;
     QLabel *lblImpulseIntensity;
     QLabel *lblImpulseCount;
+    QLabel *lblEquipment;
 
     TextLineEdit *txtBxDescription;
     ValueControl *vcMTMCode;
@@ -44,6 +47,9 @@ private:
     static const QVector<QString> MTM_CODE_VALUES;
     static const QStringList IMPULSE_INTENSITY_TEXTS;
     static const QVector<QVariant> IMPULSE_INTENSITY_VALUES;
+    static const QList<QStringList> equipmentItemScheme;
+
+    QVBoxLayout *equipmentListLayout;
 };
 
 #endif // WORKPROCESSMETADATAVIEW_H
