@@ -189,6 +189,7 @@ void ViewController::goToProductView(){
 }
 
 void ViewController::goToTransportationView(){
+    emit updateTransportationView();
     goToView(ViewController::TRANSPORTATION_VIEW);
 }
 
@@ -220,11 +221,13 @@ void ViewController::backToView(){
         case ViewController::RESSOURCE_MANAGEMENT_VIEW:
             break;
         case ViewController::PRODUCT_VIEW:
+            emit updateProductView();
             break;
         case ViewController::EQUIPMENT_VIEW:
             emit updateEquipmentView();
             break;
         case ViewController::TRANSPORTATION_VIEW:
+            emit updateTransportationView();
             break;
         case ViewController::SETTINGS_VIEW:
             break;
