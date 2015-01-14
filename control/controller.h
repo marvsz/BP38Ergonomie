@@ -80,6 +80,9 @@ private slots:
     void deleteActivity(int id);
     void selectActivity(int id);
 
+    void saveBodyPostureView();
+    void updateBodyPostureView();
+
     void updateExecutionConditionView();
     int saveExecutionConditionView();
 
@@ -126,6 +129,7 @@ private:
     int activity_ID;
     int appliedforce_ID;
     int loadhandling_ID;
+    int bodyPosture_ID;
 
     int insert(DB_TABLES tbl, const QString &colID, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue);
 

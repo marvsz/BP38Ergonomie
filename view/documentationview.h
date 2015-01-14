@@ -45,6 +45,24 @@ signals:
     void showPreviousView();
     void createWorkProcess(int type, const QTime &start, const QTime &end);
 
+    void updateGantView();
+    void saveFrequenz();
+
+    void updateBodyPostureView();
+    void saveBodyPostureView();
+
+    void updateLoadHandlingView();
+    void saveLoadHandlingView();
+
+    void updateAppliedForceView();
+    void saveAppliedForceView();
+
+    void updateExecutionConditionView();
+    void saveExecutionConditionView();
+
+    void updateWorkProcessMetaDataView();
+    void saveWorkProcessMetaDataView();
+
 public slots:
 
 private slots:
@@ -57,8 +75,12 @@ private slots:
     void hideGant();
     void backButtonClicked();
 
+    void changeView(int index);
+
 private:
     int indexBeforeTimeLineView;
+    int lastIndex;
+
     QPushButton* backButton;
     QComboBox *views;
     QPushButton* cameraButton;

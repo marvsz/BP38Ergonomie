@@ -459,6 +459,34 @@ void Controller::deleteActivity(int id){
 
 void Controller::selectActivity(int id){
     activity_ID = id;
+    QVector<QVariant> *leftWorkProcesses = new QVector<QVariant>();
+    QVector<QVariant> *rightWorkProcesses = new QVector<QVariant>();
+    QVector<QVariant> *basicWorkProcesses = new QVector<QVariant>();
+    dbHandler->select(DB_TABLES::WORK_PROCESS, QString("%1 = %2").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID));
+    for(int i = 0; i < dbHandler->rowCount(DB_TABLES::WORK_PROCESS); ++i){
+        QSqlRecord record = dbHandler->record(DB_TABLES::WORK_PROCESS, i);
+        int type = record.value(DBConstants::COL_WORK_PROCESS_TYPE).toInt();
+        QVariant id = record.value(DBConstants::COL_WORK_PROCESS_ID);
+        QVariant start = record.value(DBConstants::COL_WORK_PROCESS_BEGIN);
+        QVariant end = record.value(DBConstants::COL_WORK_PROCESS_END);
+        if(type == 3){
+            leftWorkProcesses->append(id);
+            leftWorkProcesses->append(start);
+            leftWorkProcesses->append(end);
+        }
+        else if(type == 2){
+            rightWorkProcesses->append(id);
+            rightWorkProcesses->append(start);
+            rightWorkProcesses->append(end);
+        }
+        else {
+            basicWorkProcesses->append(id);
+            basicWorkProcesses->append(start);
+            basicWorkProcesses->append(end);
+        }
+
+    }
+    gantTimerView->setWorkProcessLists(leftWorkProcesses, rightWorkProcesses, basicWorkProcesses);
 }
 
 //CommentView
@@ -535,6 +563,35 @@ int Controller::createWorkprocess(int type, const QTime &start, const QTime &end
 
 void Controller::updateWorkprocessViews(){
 
+}
+
+// BodyPostureView
+void Controller::updateBodyPostureView(){
+    DB_TABLES tbl = DB_TABLES::BODY_POSTURE;
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_BODY_POSTURE_ID).arg(bodyPosture_ID);
+    dbHandler->select(tbl, filter);
+    QSqlRecord record = dbHandler->record(tbl, 0);
+    if(dbHandler->rowCount(tbl) == 0){
+        foreach(QString key, DBConstants::HASH_BODY_POSTURE_TYPES.keys())
+            record.append(QSqlField(key, DBConstants::HASH_BODY_POSTURE_TYPES.value(key)));
+    }
+    bodyPostureView->setRecord(record);
+}
+
+void Controller::saveBodyPostureView(){
+    DB_TABLES tbl = DB_TABLES::BODY_POSTURE;
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_BODY_POSTURE_ID).arg(bodyPosture_ID);
+    dbHandler->select(tbl, filter);
+    QSqlRecord record = bodyPostureView->getRecord();
+    if(dbHandler->rowCount(tbl) == 0){
+        int id = dbHandler->getNextID(tbl, DBConstants::COL_BODY_POSTURE_ID);
+        record.setValue(DBConstants::COL_BODY_POSTURE_ID, id);
+        dbHandler->insertRow(tbl, record);
+        bodyPosture_ID = id;
+    }
+    else {
+        dbHandler->updateRow(tbl, 0, record);
+    }
 }
 
 // ExecutionConditionView

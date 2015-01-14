@@ -116,7 +116,7 @@ void DocumentationView::setupViews(){
     mainLayout->addLayout(bottomLayout);
 
     this->setLayout(mainLayout);
-    connect(views, SIGNAL(currentIndexChanged(int)), mainContent, SLOT(setCurrentIndex(int)));
+    connect(views, SIGNAL(currentIndexChanged(int)), this, SLOT(changeView(int)));
 }
 
 // PRIVATE SLOTS
@@ -153,6 +153,7 @@ void DocumentationView::avPressed(){
 }
 
 void DocumentationView::showGant(){
+    emit updateGantView();
     indexBeforeTimeLineView = mainContent->currentIndex();
     mainContent->setCurrentIndex(5);
 }
@@ -166,6 +167,14 @@ void DocumentationView::backButtonClicked(){
 }
 
 void DocumentationView::changeView(int index){
+    switch(lastIndex){
+    case 0: emit saveBodyPostureView(); break;
+    case 1: emit saveLoadHandlingView(); break;
+    case 2: emit saveAppliedForceView(); break;
+    case 3: emit saveExecutionConditionView(); break;
+    case 4: emit saveWorkProcessMetaDataView(); break;
+    case 5: emit saveFrequenz(); break;
+    }
     switch(index){
     case 0: emit updateBodyPostureView(); break;
     case 1: emit updateLoadHandlingView(); break;

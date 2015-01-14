@@ -235,7 +235,7 @@ void GantTimerView::update(){
 }
 
 //GETTER
-int GantTimerView::getFrequenz(){
+int GantTimerView::getFrequenz() const{
     return numBxFrequenz->getValue();
 }
 

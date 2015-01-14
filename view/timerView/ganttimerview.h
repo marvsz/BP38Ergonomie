@@ -18,6 +18,8 @@ public:
     explicit GantTimerView(QWidget *parent = 0);
     ~GantTimerView();
 
+    int getFrequenz() const;
+
 signals:
     void workProcessSelected(int id, int type);
     void saveFrequenz();
@@ -26,7 +28,8 @@ public slots:
     void add(int id, int type, const QTime &start, const QTime &end);
     void setWorkProcessLists(QVector<QVariant> *leftWorkProcesses, QVector<QVariant> *rightWorkProcesses, QVector<QVariant> *basicWorkProcesses);
     void clear();
-    void setSelectedWorkProcess(int id, int type);
+    void setSelectedWorkProcess(int id, int type, int frequenz);
+
 
 private slots:
     void btnZoomInClicked();
