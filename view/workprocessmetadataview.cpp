@@ -3,13 +3,6 @@
 #include "separator.h"
 #include "detailedlistitem.h"
 
-const QStringList WorkProcessMetaDataView::IMPULSE_INTENSITY_TEXTS = QStringList()<<tr("small")<<tr("middle")<<tr("strong");
-const QVector<QVariant> WorkProcessMetaDataView::IMPULSE_INTENSITY_VALUES = QVector<QVariant>()<<1<<5<<10;
-
-const QVector<QString> WorkProcessMetaDataView::MTM_CODE_TEXTS = QVector<QString>()<<tr("takeing/placing")<<tr("tool handling")<<tr("placing")<<tr("operate")<<tr("body movement");
-const QVector<QString> WorkProcessMetaDataView::MTM_CODE_VALUES = QVector<QString>()<<"A"<<"H"<<"P"<<"B"<<"K";
-
-const QList<QStringList> WorkProcessMetaDataView::equipmentItemScheme = QList<QStringList>() << (QStringList() << tr("recoil count") << tr ("recoil intensity")) << (QStringList() << tr("vibration count") << tr("vibration intensity"));
 
 WorkProcessMetaDataView::WorkProcessMetaDataView(QWidget *parent) : QWidget(parent),
     lblDescription(new QLabel(tr("Description:"))),
@@ -18,6 +11,7 @@ WorkProcessMetaDataView::WorkProcessMetaDataView(QWidget *parent) : QWidget(pare
     lblImpulseIntensity(new QLabel(tr("Impulse intensity:"))),
     lblImpulseCount(new QLabel(tr("Impulse count:"))),
     lblEquipment(new QLabel(tr("Equipment:"))),
+    btnEditEquipment(new QPushButton()),
     txtBxDescription(new TextLineEdit()),
     vcMTMCode(new ValueControl(TEXT)),
     numBxWorkingHeight(new NumberLineEdit()),
@@ -31,6 +25,9 @@ WorkProcessMetaDataView::WorkProcessMetaDataView(QWidget *parent) : QWidget(pare
     numBxWorkingHeight->setPlaceholderText(tr("Working height of the process [cm]"));
     numBxDistance->setPlaceholderText(tr("Distance from produced product [cm]"));
     numBxImpulseCount->setPlaceholderText(tr("Count of impulses"));
+
+    btnEditEquipment->setFixedSize(45, 45);
+    btnEditEquipment->setObjectName("editIcon");
 
     oscImpulseIntensity->setValues(IMPULSE_INTENSITY_TEXTS, IMPULSE_INTENSITY_VALUES);
 
@@ -59,9 +56,12 @@ WorkProcessMetaDataView::WorkProcessMetaDataView(QWidget *parent) : QWidget(pare
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3), 9, 0, 1, 2, 0);
     mainLayout->addWidget(lblEquipment, 10, 0, 1, 1, 0);
     mainLayout->addWidget(equipmentList, 11, 0, 1, 3, 0);
+    mainLayout->addWidget(btnEditEquipment, 12, 1, 1, 1, 0);
     mainLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 9, 0, 1, 2, 0);
 
     setLayout(mainLayout);
+
+    connect(btnEditEquipment, SIGNAL(clicked()), this, SIGNAL(forward()));
 }
 
 WorkProcessMetaDataView::~WorkProcessMetaDataView()

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QLabel>
+#include <QPushButton>
 #include "numberlineedit.h"
 #include "valuecontrol.h"
 #include "optionselectioncontrol.h"
@@ -22,6 +23,7 @@ public:
     int getImpulseCount() const;
 
 signals:
+    void forward();
 
 public slots:
     void setWorkProcessMetaData(const QString &desc, const QString &mtmCode, int workingHeight, int distance, int impulseIntensity, int impulseCount);
@@ -36,6 +38,8 @@ private:
     QLabel *lblImpulseCount;
     QLabel *lblEquipment;
 
+    QPushButton *btnEditEquipment;
+
     TextLineEdit *txtBxDescription;
     ValueControl *vcMTMCode;
     NumberLineEdit *numBxWorkingHeight;
@@ -43,11 +47,11 @@ private:
     OptionSelectionControl *oscImpulseIntensity;
     NumberLineEdit *numBxImpulseCount;
 
-    static const QVector<QString> MTM_CODE_TEXTS;
-    static const QVector<QString> MTM_CODE_VALUES;
-    static const QStringList IMPULSE_INTENSITY_TEXTS;
-    static const QVector<QVariant> IMPULSE_INTENSITY_VALUES;
-    static const QList<QStringList> equipmentItemScheme;
+    const QVector<QString> MTM_CODE_TEXTS = QVector<QString>()<<tr("taking/placing")<<tr("tool handling")<<tr("placing")<<tr("operate")<<tr("body movement");
+    const QVector<QString> MTM_CODE_VALUES  = QVector<QString>()<<"A"<<"H"<<"P"<<"B"<<"K";
+    const QStringList IMPULSE_INTENSITY_TEXTS = QStringList()<<tr("small")<<tr("middle")<<tr("strong");
+    const QVector<QVariant> IMPULSE_INTENSITY_VALUES = QVector<QVariant>()<<1<<5<<10;
+    const QList<QStringList> equipmentItemScheme = QList<QStringList>() << (QStringList() << tr("recoil count") << tr ("recoil intensity")) << (QStringList() << tr("vibration count") << tr("vibration intensity"));
 
     QVBoxLayout *equipmentListLayout;
 };
