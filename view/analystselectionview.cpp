@@ -73,7 +73,7 @@ AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
 
     connect(btnMaximize, SIGNAL(clicked()), this, SLOT(btnMaximizeClicked()));
     connect(btnMinimize, SIGNAL(clicked()), this, SLOT(btnMinimizeClicked()));
-    connect(btnCreateAnalyst, SIGNAL(clicked()), this, SIGNAL(create()));
+    connect(btnCreateAnalyst, SIGNAL(clicked()), this, SLOT(btnCreateAnalystClicked()));
 }
 
 void AnalystSelectionView::btnMaximizeClicked(){
@@ -94,7 +94,11 @@ void AnalystSelectionView::dliPressed(int id){
 }
 
 void AnalystSelectionView::btnCreateAnalystClicked(){
-
+    emit create();
+    txtBxAnalystLastName->clear();
+    txtBxAnalystFirstName->clear();
+    txtBxAnalystEmployer->clear();
+    txtBxAnalystExperience->clear();
 }
 
 void AnalystSelectionView::add(int id, const QString &lastName, const QString &firstName){
