@@ -3,7 +3,7 @@
 #include "flickcharm.h"
 #include <QScrollArea>
 
-const QStringList ExecutionConditionView::YES_NO_TEXTS = QStringList()<<tr("yes")<<tr("no");
+
 const QVector<QVariant> ExecutionConditionView::YES_NO_VALUE = QVector<QVariant>()<<1<<0;
 
 ExecutionConditionView::ExecutionConditionView(QWidget *parent) :QWidget(parent),
@@ -57,7 +57,7 @@ ExecutionConditionView::ExecutionConditionView(QWidget *parent) :QWidget(parent)
     oscLeftLowerLegSupport->setValues(YES_NO_TEXTS, YES_NO_VALUE);
     oscLeftLowerLegSupport->setSelectedValue(1);
 
-    QLabel *lblSupports = new QLabel("Supports");
+    QLabel *lblSupports = new QLabel(tr("Supports"));
     lblSupports->setObjectName("lblHeader");
 
     QLabel *lblConstraints = new QLabel(tr("Resulting constraints by:"));
