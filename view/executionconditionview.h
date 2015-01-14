@@ -75,7 +75,7 @@ private:
     OptionSelectionControl *oscRightLowerLegSupport;
     OptionSelectionControl *oscLeftLowerLegSupport;
 
-    static const QStringList YES_NO_TEXTS;
+    const QStringList YES_NO_TEXTS = QStringList()<<(tr("yes"))<<(tr("no"));
     static const QVector<QVariant> YES_NO_VALUE;
 
 };

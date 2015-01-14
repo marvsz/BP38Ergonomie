@@ -43,7 +43,7 @@
 <context>
     <name>ActivityView</name>
     <message>
-        <location filename="view/workplaceView/activityview.cpp" line="6"/>
+        <location filename="view/workplaceView/activityview.cpp" line="7"/>
         <source>product number</source>
         <translation>Produktnumer</translation>
     </message>
@@ -52,42 +52,42 @@
         <translation type="vanished">Prozent der Gesamtproduktion</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/activityview.cpp" line="7"/>
+        <location filename="view/workplaceView/activityview.cpp" line="8"/>
         <source>repetitions</source>
         <translation>Wiederholungen</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/activityview.cpp" line="14"/>
+        <location filename="view/workplaceView/activityview.cpp" line="15"/>
         <source>Activities</source>
         <translation>Aktivitäten</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/activityview.cpp" line="20"/>
+        <location filename="view/workplaceView/activityview.cpp" line="21"/>
         <source>Add Activity</source>
         <translation>Aktivität hinzufügen</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/activityview.cpp" line="21"/>
+        <location filename="view/workplaceView/activityview.cpp" line="22"/>
         <source>Description:</source>
         <translation>Beschreibung:</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/activityview.cpp" line="22"/>
+        <location filename="view/workplaceView/activityview.cpp" line="23"/>
         <source>Repetitions:</source>
         <translation>Wiederholungen:</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/activityview.cpp" line="23"/>
+        <location filename="view/workplaceView/activityview.cpp" line="24"/>
         <source>Choose Product</source>
         <translation>Produkt wählen</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/activityview.cpp" line="66"/>
+        <location filename="view/workplaceView/activityview.cpp" line="67"/>
         <source>description</source>
         <translation>Beschreibung</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/activityview.cpp" line="67"/>
+        <location filename="view/workplaceView/activityview.cpp" line="68"/>
         <source>amout of repetitions</source>
         <translation>Anzahl der Wiederholungen</translation>
     </message>
@@ -107,27 +107,27 @@
         <translation type="vanished">Erstellen</translation>
     </message>
     <message>
-        <location filename="view/analystselectionview.cpp" line="11"/>
+        <location filename="view/analystselectionview.cpp" line="12"/>
         <source>Choose or create new profile</source>
         <translation>Wähle oder erstelle ein neues Profil</translation>
     </message>
     <message>
-        <location filename="view/analystselectionview.cpp" line="12"/>
+        <location filename="view/analystselectionview.cpp" line="13"/>
         <source>last name:</source>
         <translation>Nachname:</translation>
     </message>
     <message>
-        <location filename="view/analystselectionview.cpp" line="14"/>
+        <location filename="view/analystselectionview.cpp" line="15"/>
         <source>employer:</source>
         <translation>Arbeitgeber:</translation>
     </message>
     <message>
-        <location filename="view/analystselectionview.cpp" line="15"/>
+        <location filename="view/analystselectionview.cpp" line="16"/>
         <source>experience:</source>
         <translation>Erfahrung:</translation>
     </message>
     <message>
-        <location filename="view/analystselectionview.cpp" line="13"/>
+        <location filename="view/analystselectionview.cpp" line="14"/>
         <source>prename:</source>
         <translation>Vorname:</translation>
     </message>
@@ -408,6 +408,59 @@
     </message>
 </context>
 <context>
+    <name>BodyPostureView</name>
+    <message>
+        <location filename="view/bodyPostureView/bodypostureview.cpp" line="53"/>
+        <source>Trunk tilt</source>
+        <translation>Beugungswinkel</translation>
+    </message>
+    <message>
+        <location filename="view/bodyPostureView/bodypostureview.cpp" line="54"/>
+        <source>trunk_tilt_icon_path</source>
+        <translation>:/Icons/TorsoFlextion/TorsoFlextion_</translation>
+    </message>
+    <message>
+        <location filename="view/bodyPostureView/bodypostureview.cpp" line="57"/>
+        <source>Trunk sideways tilt</source>
+        <translation>Seitliche Neigung</translation>
+    </message>
+    <message>
+        <location filename="view/bodyPostureView/bodypostureview.cpp" line="58"/>
+        <source>trunk_tilt_sideways_icon_path</source>
+        <translation>:/Icons/TorsoTilt/TorsoTilt_</translation>
+    </message>
+    <message>
+        <location filename="view/bodyPostureView/bodypostureview.cpp" line="61"/>
+        <source>Trunk twist</source>
+        <translation>Oberkörperdrehung</translation>
+    </message>
+    <message>
+        <location filename="view/bodyPostureView/bodypostureview.cpp" line="62"/>
+        <source>trunk_twist_icon_path</source>
+        <translation>:/Icons/TorsoRotation/TorsoRotation_</translation>
+    </message>
+    <message>
+        <location filename="view/bodyPostureView/bodypostureview.cpp" line="64"/>
+        <source>Trunk</source>
+        <translation>Rumpf</translation>
+    </message>
+    <message>
+        <location filename="view/bodyPostureView/bodypostureview.cpp" line="65"/>
+        <source>Tilt</source>
+        <translation>Beugung</translation>
+    </message>
+    <message>
+        <location filename="view/bodyPostureView/bodypostureview.cpp" line="67"/>
+        <source>Sideways tilt</source>
+        <translation>Seitl. Neigung</translation>
+    </message>
+    <message>
+        <location filename="view/bodyPostureView/bodypostureview.cpp" line="69"/>
+        <source>Twist</source>
+        <translation>Drehung</translation>
+    </message>
+</context>
+<context>
     <name>ButtonTimelineView</name>
     <message>
         <location filename="view/buttontimelineview.cpp" line="21"/>
@@ -555,66 +608,66 @@
 <context>
     <name>EquipmentView</name>
     <message>
-        <location filename="view/ressourceManagementView/equipmentview.cpp" line="7"/>
-        <location filename="view/ressourceManagementView/equipmentview.cpp" line="37"/>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="8"/>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="38"/>
         <source>recoil count</source>
         <translation>Rückschlaganzahl</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/equipmentview.cpp" line="7"/>
-        <location filename="view/ressourceManagementView/equipmentview.cpp" line="38"/>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="8"/>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="39"/>
         <source>recoil intensity</source>
         <translation>Rückschlagintensität</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/equipmentview.cpp" line="7"/>
-        <location filename="view/ressourceManagementView/equipmentview.cpp" line="39"/>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="8"/>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="40"/>
         <source>vibration count</source>
         <translation>Vibrationsanzahl</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/equipmentview.cpp" line="7"/>
-        <location filename="view/ressourceManagementView/equipmentview.cpp" line="40"/>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="8"/>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="41"/>
         <source>vibration intensity</source>
         <translation>Vibrationsintensität</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/equipmentview.cpp" line="12"/>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="13"/>
         <source>Add Equipment</source>
         <translation>Betriebsmittel hinzufügen</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/equipmentview.cpp" line="13"/>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="14"/>
         <source>Equipment</source>
         <translation>Betriebsmittel</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/equipmentview.cpp" line="14"/>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="15"/>
         <source>Name:</source>
         <translation>Name:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/equipmentview.cpp" line="15"/>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="16"/>
         <source>Recoil Count:</source>
         <translation>Rückschlaganzahl:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/equipmentview.cpp" line="16"/>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="17"/>
         <source>Recoil Intensity [N]:</source>
         <translation>Rückschlagintensität [N]:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/equipmentview.cpp" line="17"/>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="18"/>
         <source>Vibration Count:</source>
         <translation>Vibrationsanzahl:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/equipmentview.cpp" line="18"/>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="19"/>
         <source>Vibration Intensity [N]</source>
         <translation>Vibrationsintensität [N]</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/equipmentview.cpp" line="36"/>
+        <location filename="view/ressourceManagementView/equipmentview.cpp" line="37"/>
         <source>name of the equipment</source>
         <translation>Name</translation>
     </message>
@@ -622,14 +675,19 @@
 <context>
     <name>ExecutionConditionView</name>
     <message>
-        <location filename="view/executionconditionview.cpp" line="6"/>
+        <location filename="view/executionconditionview.h" line="78"/>
         <source>yes</source>
         <translation>Ja</translation>
     </message>
     <message>
-        <location filename="view/executionconditionview.cpp" line="6"/>
+        <location filename="view/executionconditionview.h" line="78"/>
         <source>no</source>
         <translation>Nein</translation>
+    </message>
+    <message>
+        <location filename="view/executionconditionview.cpp" line="60"/>
+        <source>Supports</source>
+        <translation>Unterstützung</translation>
     </message>
     <message>
         <location filename="view/executionconditionview.cpp" line="63"/>
@@ -760,47 +818,47 @@
 <context>
     <name>LineView</name>
     <message>
-        <location filename="view/workplaceView/lineview.cpp" line="10"/>
+        <location filename="view/workplaceView/lineview.cpp" line="11"/>
         <source>Line</source>
         <translation>Linie</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/lineview.cpp" line="11"/>
+        <location filename="view/workplaceView/lineview.cpp" line="12"/>
         <source>chose line:</source>
         <translation>Linie wählen:</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/lineview.cpp" line="12"/>
+        <location filename="view/workplaceView/lineview.cpp" line="13"/>
         <source>add line:</source>
         <translation>Linie hinzufügen:</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/lineview.cpp" line="13"/>
+        <location filename="view/workplaceView/lineview.cpp" line="14"/>
         <source>label:</source>
         <translation>Bezeichnung:</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/lineview.cpp" line="14"/>
+        <location filename="view/workplaceView/lineview.cpp" line="15"/>
         <source>workplace count:</source>
         <translation>Arbeitsplatzanzahl:</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/lineview.cpp" line="15"/>
+        <location filename="view/workplaceView/lineview.cpp" line="16"/>
         <source>description:</source>
         <translation>Beschreibung:</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/lineview.cpp" line="26"/>
+        <location filename="view/workplaceView/lineview.cpp" line="27"/>
         <source>name of the line</source>
         <translation>Bezeichnung</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/lineview.cpp" line="27"/>
+        <location filename="view/workplaceView/lineview.cpp" line="28"/>
         <source>description of the line</source>
         <translation>Beschreibung</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/lineview.cpp" line="28"/>
+        <location filename="view/workplaceView/lineview.cpp" line="29"/>
         <source>amount of work places</source>
         <translation>Anzahl</translation>
     </message>
@@ -1088,52 +1146,52 @@
 <context>
     <name>ProductView</name>
     <message>
-        <location filename="view/ressourceManagementView/productview.cpp" line="8"/>
+        <location filename="view/ressourceManagementView/productview.cpp" line="9"/>
         <source>product number</source>
         <translation>Produktnummer</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/productview.cpp" line="8"/>
+        <location filename="view/ressourceManagementView/productview.cpp" line="9"/>
         <source>total percentage</source>
         <translation>Prozent</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/productview.cpp" line="12"/>
+        <location filename="view/ressourceManagementView/productview.cpp" line="13"/>
         <source>Add Product</source>
         <translation>Produkt hinzufügen</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/productview.cpp" line="13"/>
+        <location filename="view/ressourceManagementView/productview.cpp" line="14"/>
         <source>product data</source>
         <translation>Produktdaten</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/productview.cpp" line="14"/>
+        <location filename="view/ressourceManagementView/productview.cpp" line="15"/>
         <source>product name:</source>
         <translation>Produktname:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/productview.cpp" line="15"/>
+        <location filename="view/ressourceManagementView/productview.cpp" line="16"/>
         <source>product number:</source>
         <translation>Produktnummer:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/productview.cpp" line="16"/>
+        <location filename="view/ressourceManagementView/productview.cpp" line="17"/>
         <source>percentage of the whole production:</source>
         <translation>Prozent der Gesamtproduktion:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/productview.cpp" line="33"/>
+        <location filename="view/ressourceManagementView/productview.cpp" line="34"/>
         <source>name of the product</source>
         <translation>Produktname</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/productview.cpp" line="34"/>
+        <location filename="view/ressourceManagementView/productview.cpp" line="35"/>
         <source>number of the product</source>
         <translation>Produktnummer</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/productview.cpp" line="35"/>
+        <location filename="view/ressourceManagementView/productview.cpp" line="36"/>
         <source>percentage of total production</source>
         <translation>Prozent</translation>
     </message>
@@ -1260,86 +1318,86 @@
 <context>
     <name>TransportationView</name>
     <message>
-        <location filename="view/ressourceManagementView/transportationview.cpp" line="8"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="9"/>
         <source>empty weight:</source>
         <translation>Leergewicht:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/transportationview.cpp" line="8"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="9"/>
         <source>max. load:</source>
         <translation>Maximalgewicht:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/transportationview.cpp" line="8"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="9"/>
         <source>fixed rollers:</source>
         <translation>Bockrollen:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/transportationview.cpp" line="8"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="9"/>
         <source>brakes:</source>
         <translation>Bremsen:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/transportationview.cpp" line="9"/>
-        <location filename="view/ressourceManagementView/transportationview.cpp" line="119"/>
-        <location filename="view/ressourceManagementView/transportationview.cpp" line="120"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="10"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="114"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="115"/>
         <source>yes</source>
         <translation>Ja</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/transportationview.cpp" line="9"/>
-        <location filename="view/ressourceManagementView/transportationview.cpp" line="119"/>
-        <location filename="view/ressourceManagementView/transportationview.cpp" line="120"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="10"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="114"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="115"/>
         <source>no</source>
         <translation>Nein</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/transportationview.cpp" line="15"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="16"/>
         <source>Add Transportation</source>
         <translation>Transportmittel hinzufügen</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/transportationview.cpp" line="16"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="17"/>
         <source>Transportations</source>
         <translation>Transportmittel</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/transportationview.cpp" line="17"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="18"/>
         <source>Name:</source>
         <translation>Name:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/transportationview.cpp" line="18"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="19"/>
         <source>Empty weight [kg]:</source>
         <translation>Leergewicht [kg]:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/transportationview.cpp" line="19"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="20"/>
         <source>Max. load [kg]:</source>
         <translation>Maximalgewicht [kg]:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/transportationview.cpp" line="20"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="21"/>
         <source>Fixed rollers:</source>
         <translation>Bockrollen:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/transportationview.cpp" line="21"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="22"/>
         <source>Brakes:</source>
         <translation>Bremsen:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/transportationview.cpp" line="39"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="40"/>
         <source>name of the transportation</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/transportationview.cpp" line="40"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="41"/>
         <source>empty weight of the transportation</source>
         <translation>Leergewicht</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/transportationview.cpp" line="41"/>
+        <location filename="view/ressourceManagementView/transportationview.cpp" line="42"/>
         <source>maximum load weight of the transportation</source>
         <translation>Maximalgewicht</translation>
     </message>
@@ -1347,97 +1405,122 @@
 <context>
     <name>WorkProcessMetaDataView</name>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="5"/>
+        <location filename="view/workprocessmetadataview.cpp" line="6"/>
         <source>small</source>
         <translation>Kleine</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="5"/>
+        <location filename="view/workprocessmetadataview.cpp" line="6"/>
         <source>middle</source>
         <translation>Mittlere</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="5"/>
+        <location filename="view/workprocessmetadataview.cpp" line="6"/>
         <source>strong</source>
         <translation>Starke</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="8"/>
+        <location filename="view/workprocessmetadataview.cpp" line="9"/>
         <source>takeing/placing</source>
         <translation>Aufnehmen &amp; Platzieren (A)</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="8"/>
+        <location filename="view/workprocessmetadataview.cpp" line="9"/>
         <source>tool handling</source>
         <translation>Betriebsmittel</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="8"/>
+        <location filename="view/workprocessmetadataview.cpp" line="9"/>
         <source>placing</source>
         <translation>Platzieren (P)</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="8"/>
+        <location filename="view/workprocessmetadataview.cpp" line="9"/>
         <source>operate</source>
         <translation>Betätigen (B)</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="8"/>
+        <location filename="view/workprocessmetadataview.cpp" line="9"/>
         <source>body movement</source>
         <translation>Körperbewegung</translation>
     </message>
     <message>
         <location filename="view/workprocessmetadataview.cpp" line="12"/>
+        <source>recoil count</source>
+        <translation>Rückschlaganzahl</translation>
+    </message>
+    <message>
+        <location filename="view/workprocessmetadataview.cpp" line="12"/>
+        <source>recoil intensity</source>
+        <translation>Rückschlagintensität</translation>
+    </message>
+    <message>
+        <location filename="view/workprocessmetadataview.cpp" line="12"/>
+        <source>vibration count</source>
+        <translation>Vibrationsanzahl</translation>
+    </message>
+    <message>
+        <location filename="view/workprocessmetadataview.cpp" line="12"/>
+        <source>vibration intensity</source>
+        <translation>Vibrationsintensität</translation>
+    </message>
+    <message>
+        <location filename="view/workprocessmetadataview.cpp" line="15"/>
         <source>Description:</source>
         <translation>Beschreibung:</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="13"/>
+        <location filename="view/workprocessmetadataview.cpp" line="16"/>
         <source>Working height [cm]:</source>
         <translation>Arbeitshöhe [cm]:</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="14"/>
+        <location filename="view/workprocessmetadataview.cpp" line="17"/>
         <source>Distance [cm]:</source>
         <translation>Abstand [cm]:</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="15"/>
+        <location filename="view/workprocessmetadataview.cpp" line="18"/>
         <source>Impulse intensity:</source>
         <translation>Impulsintensität:</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="16"/>
+        <location filename="view/workprocessmetadataview.cpp" line="19"/>
         <source>Impulse count:</source>
         <translation>Impulsanzahl:</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="25"/>
+        <location filename="view/workprocessmetadataview.cpp" line="20"/>
+        <source>Equipment:</source>
+        <translation>Betriebsmittel:</translation>
+    </message>
+    <message>
+        <location filename="view/workprocessmetadataview.cpp" line="30"/>
         <source>Description of the working process</source>
         <translation>Beschreibung des Arbeitsvorganges</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="26"/>
+        <location filename="view/workprocessmetadataview.cpp" line="31"/>
         <source>Working height of the process [cm]</source>
         <translation>Arbeitshöhe des Arbeitsvorganges [cm]</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="27"/>
+        <location filename="view/workprocessmetadataview.cpp" line="32"/>
         <source>Distance from produced product [cm]</source>
         <translation>Abstand zum Arbeitsobjekt [cm]</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="28"/>
+        <location filename="view/workprocessmetadataview.cpp" line="33"/>
         <source>Count of impulses</source>
         <translation>Anzahl der Impulse</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="32"/>
+        <location filename="view/workprocessmetadataview.cpp" line="37"/>
         <source>MTM Code:</source>
         <translation>MTM Code:</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="33"/>
+        <location filename="view/workprocessmetadataview.cpp" line="38"/>
         <source>MTM Code of the process</source>
         <translation>MTM Code des Arbeitsvorganges</translation>
     </message>
@@ -1445,7 +1528,7 @@
 <context>
     <name>WorkplaceListView</name>
     <message>
-        <location filename="view/workplaceView/workplacelistview.cpp" line="37"/>
+        <location filename="view/workplaceView/workplacelistview.cpp" line="38"/>
         <source>work stations</source>
         <translation>Arbeitsplätze</translation>
     </message>
@@ -1453,107 +1536,107 @@
 <context>
     <name>WorkplaceView</name>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="11"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="12"/>
         <source>work place</source>
         <translation>Arbeitsplatz</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="12"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="13"/>
         <source>label:</source>
         <translation>Bezeichnung:</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="13"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="14"/>
         <source>description:</source>
         <translation>Beschreibung:</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="14"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="15"/>
         <source>workstation code:</source>
         <translation>Arbeitsplatz Code:</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="15"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="16"/>
         <source>user population:</source>
         <translation>Nutzerpopulation:</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="20"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="21"/>
         <source>initial time</source>
         <translation>Vorgabezeiten [REFA]</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="21"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="22"/>
         <source>setup time:</source>
         <translation>Grundzeit:</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="22"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="23"/>
         <source>halt! hammer time:</source>
         <translation>Rüstzeit:</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="23"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="24"/>
         <source>rest time:</source>
         <translation>Erholzeit:</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="24"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="25"/>
         <source>deploy time:</source>
         <translation>Verteilzeit:</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="25"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="26"/>
         <source>cycle time:</source>
         <translation>Taktzeit:</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="52"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="53"/>
         <source>name of the workplace</source>
         <translation>Name des Arbeitsplatzes</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="53"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="54"/>
         <source>description of the workplace</source>
         <translation>Beschreibung des Arbeitsplatzes</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="54"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="55"/>
         <source>code of the workplace</source>
         <translation>Code</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="77"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="78"/>
         <source>label</source>
         <translation>Bezeichnung</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="79"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="80"/>
         <source>description</source>
         <translation>Beschreibung</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="100"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="101"/>
         <source>problem label</source>
         <translation>Bezeichnung</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="102"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="103"/>
         <source>sanction label</source>
         <translation>Bezeichnung</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="105"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="106"/>
         <source>line</source>
         <translation>Linie</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="106"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="107"/>
         <source>activities</source>
         <translation>Aktivitäten</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="107"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="108"/>
         <source>remarks</source>
         <translation>Bemerkungen</translation>
     </message>

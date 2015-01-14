@@ -3,9 +3,6 @@
 #include "flickcharm.h"
 #include <QScroller>
 
-const QVector<QString> AppliedForceView::ORGAN_TEXTS = QVector<QString>()<<tr("finger")<<tr("hand")<<tr("arm")<<tr("foot/leg")<<tr("full body");
-const QVector<QString> AppliedForceView::DIRECTION_TEXTS = QVector<QString>()<<tr("above")<<tr("below")<<tr("front")<<tr("back")<<tr("right")<<tr("left");
-const QVector<QString> AppliedForceView::DIRECTION_VALUES = QVector<QString>()<<tr("+A")<<tr("-A")<<tr("+B")<<tr("-B")<<tr("+C")<<tr("-C");
 const QVector<int> AppliedForceView::INTENSITY_VALUES = QVector<int>()<<5<<20<<50<<100<<150;
 
 
