@@ -51,7 +51,8 @@ HEADERS +=\
     $$PWD/settingsview.h \
     $$PWD/bodyPostureView/bodypostureview.h \
     $$PWD/bodyPostureView/variantcontrol.h \
-    $$PWD/analystselectionview.h
+    $$PWD/analystselectionview.h \
+    $$PWD/timerView/spaceritemtimer.h
 
 
 SOURCES +=\
@@ -103,6 +104,7 @@ SOURCES +=\
     $$PWD/settingsview.cpp \
     $$PWD/bodyPostureView/bodypostureview.cpp \
     $$PWD/bodyPostureView/variantcontrol.cpp \
-    $$PWD/analystselectionview.cpp
+    $$PWD/analystselectionview.cpp \
+    $$PWD/timerView/spaceritemtimer.cpp
 
 

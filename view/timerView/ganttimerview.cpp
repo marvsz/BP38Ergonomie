@@ -3,10 +3,10 @@
 #include <QVBoxLayout>
 #include <QScrollArea>
 
-const QStringList GantTimerView::typePrefix = QStringList()<<"L"<<"R"<<"AV";
-
 GantTimerView::GantTimerView(QWidget *parent) : QWidget(parent),
     secPixel(100),
+    selWP_ID(0),
+    selWP_Type(0),
     numBxFrequenz(new NumberLineEdit()),
     btnZoomIn(new QPushButton()),
     btnZoomOut(new QPushButton()),
@@ -15,9 +15,9 @@ GantTimerView::GantTimerView(QWidget *parent) : QWidget(parent),
     leftWP(new QHBoxLayout),
     rightWP(new QHBoxLayout),
     basicWP(new QHBoxLayout),
-    leftWPBtns(new QVector<WorkProcessButton*>()),
-    rightWPBtns(new QVector<WorkProcessButton*>()),
-    basicWPBtns(new QVector<WorkProcessButton*>())
+    leftWorkProcesses(new QVector<QVariant>()),
+    rightWorkProcesses(new QVector<QVariant>()),
+    basicWorkProcesses(new QVector<QVariant>())
 {
     btnZoomIn->setFixedSize(45, 45);
     btnZoomIn->setObjectName("zoomInIcon");
@@ -59,13 +59,12 @@ GantTimerView::GantTimerView(QWidget *parent) : QWidget(parent),
     lastLineLayout->addWidget(btnFrequenzMinus, 0, Qt::AlignCenter);
     lastLineLayout->addWidget(numBxFrequenz, 0, Qt::AlignCenter);
     lastLineLayout->addWidget(btnFrequenzPlus, 0, Qt::AlignCenter);
-    lastLineLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
+    lastLineLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Fixed));
     lastLineLayout->addWidget(btnZoomIn);
     lastLineLayout->addWidget(btnZoomOut);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(scMain);
-    mainLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
     mainLayout->addLayout(lastLineLayout);
 
     setLayout(mainLayout);
@@ -78,18 +77,15 @@ GantTimerView::~GantTimerView()
 
 //PUBLIC SLOTS
 void GantTimerView::add(int id, int type, const QTime &start, const QTime &end){
-    QHBoxLayout *layout = getLayout(type);
-    QVector<WorkProcessButton*> *btnVector = getButtonVector(type);
-    WorkProcessButton* lastBtn = btnVector->last();
-    WorkProcessButton* curBtn = new WorkProcessButton(id, type, start, end, this);
-    curBtn->setFixedSize(start.secsTo(end) * secPixel, 50);
-    connect(curBtn, SIGNAL(clickedWithIDValue(int,int)), this, SIGNAL(workProcessSelected(int,int)));
-    int freeSecs = lastBtn->getEndTime().secsTo(start);
-    layout->addSpacerItem(new QSpacerItem(freeSecs * secPixel, 0, QSizePolicy::Fixed, QSizePolicy::Fixed));
-    layout->addWidget(curBtn);
+    switch(type){
+    case 1: leftWorkProcesses->append(id);leftWorkProcesses->append(start);leftWorkProcesses->append(end);break;
+    case 2: rightWorkProcesses->append(id);rightWorkProcesses->append(start);rightWorkProcesses->append(end);break;
+    case 3: basicWorkProcesses->append(id);basicWorkProcesses->append(start);basicWorkProcesses->append(end);break;
+    }
+    update();
 }
 
-void GantTimerView::clear(){
+void GantTimerView::resizeClear(){
     QLayoutItem *item;
     while((item = leftWP->takeAt(0)) != NULL){
         delete item->widget();
@@ -105,51 +101,48 @@ void GantTimerView::clear(){
     }
 }
 
-void GantTimerView::setSelectedWorkProcess(int id, int type, int frequenz){
-    QVector<WorkProcessButton*> *btnVector = getButtonVector(type);
-    for(int i = 0; i < btnVector->count(); ++i){
-        WorkProcessButton *btn = btnVector->at(i);
-        if(btn->getID() == id)
-            btn->setSelected(true);
-        else
-            btn->setSelected(false);
+void GantTimerView::clear(){
+    leftWorkProcesses->clear();
+    rightWorkProcesses->clear();
+    basicWorkProcesses->clear();
+    QLayoutItem *item;
+    while((item = leftWP->takeAt(0)) != NULL){
+        delete item->widget();
+        delete item;
     }
-    numBxFrequenz->setValue(frequenz);
+    while((item = rightWP->takeAt(0)) != NULL){
+        delete item->widget();
+        delete item;
+    }
+    while((item = basicWP->takeAt(0)) != NULL){
+        delete item->widget();
+        delete item;
+    }
+}
+
+void GantTimerView::setSelectedWorkProcess(int id, int type){
+    selWP_ID = id;
+    selWP_Type = type;
+}
+
+void GantTimerView::setWorkProcessLists(QVector<QVariant> *leftWorkProcesses, QVector<QVariant> *rightWorkProcesses, QVector<QVariant> *basicWorkProcesses){
+    this->leftWorkProcesses = leftWorkProcesses;
+    this->rightWorkProcesses = rightWorkProcesses;
+    this->basicWorkProcesses = basicWorkProcesses;
+    update();
 }
 
 
 //PRIVATE SLOTS
 void GantTimerView::btnZoomInClicked(){
     secPixel += 10;
-    clear();
-    for(int i = 0; i < leftWPBtns->count(); ++i){
-        WorkProcessButton *btn = leftWPBtns->at(i);
-        add(btn->getID(), btn->getValue().toInt(), btn->getStartTime(), btn->getEndTime());
-    }
-    for(int i = 0; i < rightWPBtns->count(); ++i){
-        WorkProcessButton *btn = rightWPBtns->at(i);
-        add(btn->getID(), btn->getValue().toInt(), btn->getStartTime(), btn->getEndTime());
-    }
-    for(int i = 0; i < basicWPBtns->count(); ++i){
-        WorkProcessButton *btn = basicWPBtns->at(i);
-        add(btn->getID(), btn->getValue().toInt(), btn->getStartTime(), btn->getEndTime());
-    }
+    update();
 }
 
 void GantTimerView::btnZoomOutClicked(){
-    secPixel -= 10;
-    clear();
-    for(int i = 0; i < leftWPBtns->count(); ++i){
-        WorkProcessButton *btn = leftWPBtns->at(i);
-        add(btn->getID(), btn->getValue().toInt(), btn->getStartTime(), btn->getEndTime());
-    }
-    for(int i = 0; i < rightWPBtns->count(); ++i){
-        WorkProcessButton *btn = rightWPBtns->at(i);
-        add(btn->getID(), btn->getValue().toInt(), btn->getStartTime(), btn->getEndTime());
-    }
-    for(int i = 0; i < basicWPBtns->count(); ++i){
-        WorkProcessButton *btn = basicWPBtns->at(i);
-        add(btn->getID(), btn->getValue().toInt(), btn->getStartTime(), btn->getEndTime());
+    if(secPixel > 10){
+        secPixel -= 10;
+        update();
     }
 }
 
@@ -158,9 +151,21 @@ void GantTimerView::btnPlus(){
 }
 
 void GantTimerView::btnMinus(){
-    numBxFrequenz->setValue(numBxFrequenz->getValue() - 1);
+    if(numBxFrequenz->getValue() > 1)
+        numBxFrequenz->setValue(numBxFrequenz->getValue() - 1);
 }
 
+void GantTimerView::btnWPLeftClicked(int id){
+    emit workProcessSelected(id, 1);
+}
+
+void GantTimerView::btnWPRightClicked(int id){
+    emit workProcessSelected(id, 2);
+}
+
+void GantTimerView::btnWPBasicClicked(int id){
+    emit workProcessSelected(id, 3);
+}
 
 
 //PRIVATE METHODS
@@ -173,20 +178,58 @@ QHBoxLayout* GantTimerView::getLayout(int type){
     }
 }
 
-QVector<WorkProcessButton*>* GantTimerView::getButtonVector(int type){
-    switch(type){
-        case 1: return leftWPBtns; break;
-        case 2: return rightWPBtns; break;
-        case 3: return basicWPBtns; break;
-        default: return basicWPBtns; break;
+void GantTimerView::update(){
+    resizeClear();
+    QTime lastEnd = QTime(0,0);
+    for(int i = 0; i < leftWorkProcesses->count(); i = i + 3){
+        int id = leftWorkProcesses->at(i).toInt();
+        QTime curStart = leftWorkProcesses->at(i+1).toTime();
+        QTime curEnd = leftWorkProcesses->at(i+2).toTime();
+        WorkProcessButton *btn = new WorkProcessButton(id, id, curStart, curEnd, this);
+        btn->setFixedSize(curStart.secsTo(curEnd) * secPixel, 50);
+        btn->setText(QString("L %1: %2s").arg(id).arg(curStart.secsTo(curEnd)));
+        if(selWP_ID == id && selWP_Type == 1)
+            btn->setSelected(true);
+        connect(btn, SIGNAL(clickedWithID(int)), this, SLOT(btnWPLeftClicked(int)));
+        int freeSecs = lastEnd.secsTo(curStart);
+        leftWP->addSpacerItem(new QSpacerItem(freeSecs * secPixel, 0, QSizePolicy::Fixed, QSizePolicy::Fixed));
+        leftWP->addWidget(btn);
+        lastEnd = curEnd;
     }
-}
+    leftWP->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
-void GantTimerView::resizeClear(){
-    clear();
-    leftWPBtns->clear();
-    rightWPBtns->clear();
-    basicWPBtns->clear();
+    lastEnd = QTime(0,0);
+    for(int i = 0; i < rightWorkProcesses->count(); i = i + 3){
+        int id = rightWorkProcesses->at(i).toInt();
+        QTime curStart = rightWorkProcesses->at(i+1).toTime();
+        QTime curEnd = rightWorkProcesses->at(i+2).toTime();
+        WorkProcessButton *btn = new WorkProcessButton(id, id, curStart, curEnd, this);
+        btn->setFixedSize(curStart.secsTo(curEnd) * secPixel, 50);
+        btn->setText(QString("R %1: %2s").arg(id).arg(curStart.secsTo(curEnd)));
+        if(selWP_ID == id && selWP_Type == 2)
+            btn->setSelected(true);
+        connect(btn, SIGNAL(clickedWithID(int)), this, SLOT(btnWPLeftClicked(int)));
+        int freeSecs = lastEnd.secsTo(curStart);
+        rightWP->addSpacerItem(new QSpacerItem(freeSecs * secPixel, 0, QSizePolicy::Fixed, QSizePolicy::Fixed));
+        rightWP->addWidget(btn);
+        lastEnd = curEnd;
+    }
+    rightWP->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding));
+
+    for(int i = 0; i < basicWorkProcesses->count(); i = i + 3){
+        int id = basicWorkProcesses->at(i).toInt();
+        QTime curStart = basicWorkProcesses->at(i+1).toTime();
+        QTime curEnd = basicWorkProcesses->at(i+2).toTime();
+        WorkProcessButton *btn = new WorkProcessButton(id, id, curStart, curEnd, this);
+        btn->setText(QString("AV %1: %2s").arg(id).arg(curStart.secsTo(curEnd)));
+        btn->setFixedSize(curStart.secsTo(curEnd) * secPixel, 50);
+        if(selWP_ID == id && selWP_Type == 3)
+            btn->setSelected(true);
+        connect(btn, SIGNAL(clickedWithID(int)), this, SLOT(btnWPLeftClicked(int)));
+        basicWP->addWidget(btn);
+    }
+    basicWP->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding));
+
 }
 
 

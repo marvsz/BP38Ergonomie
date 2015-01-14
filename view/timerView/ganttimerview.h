@@ -9,6 +9,7 @@
 #include "workprocessbutton.h"
 #include "numberlineedit.h"
 #include "iconconstants.h"
+#include "spaceritemtimer.h"
 
 class GantTimerView : public QWidget
 {
@@ -19,22 +20,27 @@ public:
 
 signals:
     void workProcessSelected(int id, int type);
-    void saveFrequenz(int id, int type);
+    void saveFrequenz();
 
 public slots:
     void add(int id, int type, const QTime &start, const QTime &end);
+    void setWorkProcessLists(QVector<QVariant> *leftWorkProcesses, QVector<QVariant> *rightWorkProcesses, QVector<QVariant> *basicWorkProcesses);
     void clear();
-    void setSelectedWorkProcess(int id, int type, int frequenz);
+    void setSelectedWorkProcess(int id, int type);
 
 private slots:
     void btnZoomInClicked();
     void btnZoomOutClicked();
     void btnPlus();
     void btnMinus();
+    void btnWPLeftClicked(int id);
+    void btnWPRightClicked(int id);
+    void btnWPBasicClicked(int id);
 
 private:
-    static const QStringList typePrefix;
     int secPixel;
+    int selWP_ID;
+    int selWP_Type;
 
     NumberLineEdit *numBxFrequenz;
 
@@ -47,13 +53,14 @@ private:
     QHBoxLayout *rightWP;
     QHBoxLayout *basicWP;
 
-    QVector<WorkProcessButton*> *leftWPBtns;
-    QVector<WorkProcessButton*> *rightWPBtns;
-    QVector<WorkProcessButton*> *basicWPBtns;
+    QVector<QVariant> *leftWorkProcesses;
+    QVector<QVariant> *rightWorkProcesses;
+    QVector<QVariant> *basicWorkProcesses;
 
     QHBoxLayout* getLayout(int type);
-    QVector<WorkProcessButton*>* getButtonVector(int type);
+
     void resizeClear();
+    void update();
 };
 
 #endif // GANTTIMERVIEW_H
