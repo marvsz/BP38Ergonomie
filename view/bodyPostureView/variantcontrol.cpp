@@ -10,7 +10,8 @@ VariantControl::VariantControl(QWidget *parent) : QWidget(parent),
     valueControls(new QVector<QVector<ValueControl*>*>()),
     variantBtns(new QVector<SelectableValueButton*>())
 {
-    btnName->setMaximumWidth(200);
+    btnName->setMaximumWidth(150);
+    connect(btnName, SIGNAL(clicked()), this, SLOT(btnNameClicked()));
 
     QHBoxLayout *mainContentLayout = new QHBoxLayout;
     mainContentLayout->addLayout(variantsLayout);
@@ -34,7 +35,7 @@ VariantControl::~VariantControl()
 int VariantControl::addVariant(const QString &name){
     SelectableValueButton *btn = new SelectableValueButton(valueControls->length(), valueControls->length());
     btn->setText(name);
-    btn->setMaximumWidth(200);
+    btn->setMinimumWidth(150);
     variantBtns->append(btn);
     variantsLayout->addWidget(btn);
     valueControls->append(new QVector<ValueControl*>());
@@ -53,11 +54,19 @@ int VariantControl::addSubVariant(int variantID, ValueControl *vc){
 void VariantControl::setSpecification(VariantSpecification *varSpeci){
     this->varSpeci = varSpeci;
     variantsLayout->addWidget(varSpeci);
+    variantsLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding));
 }
 
 void VariantControl::setSelectedSpecification(int speciID){
     if(varSpeci != NULL)
         varSpeci->setSelected(speciID);
+}
+
+void VariantControl::setExclusiveDisplayByName(const QString &name){
+    if(name.compare(btnName->text()) == 0)
+        showContent();
+    else
+        hideContent();
 }
 
 
@@ -106,6 +115,9 @@ void VariantControl::vcValueChanged(const QVariant &value){
         emit valueChanged(varSpeci->getSelectedID(), value);
 }
 
+void VariantControl::btnNameClicked() {
+    emit requestShowContent(btnName->text());
+}
 
 //GETTER/SETTER
 QString VariantControl::getName() const{

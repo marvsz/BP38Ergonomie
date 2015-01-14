@@ -31,17 +31,19 @@ public:
 signals:
     void valueChanged(int type, const QVariant &value);
     void valueChanged(const QVariant &value);
+    void requestShowContent(const QString &name);
 
 public slots:
     void hideContent();
     void showContent();
     void setName(const QString &name);
     void setSelectedVariant(int variantID);
+    void setExclusiveDisplayByName(const QString &name);
 
 private slots:
     void btnVariantClicked(int id, SelectableValueButton *btn);
     void vcValueChanged(const QVariant &value);
-
+    void btnNameClicked();
 private:
     QVBoxLayout *variantsLayout;
     QVBoxLayout *valueControlLayout;

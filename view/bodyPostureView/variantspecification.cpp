@@ -4,7 +4,8 @@ VariantSpecification::VariantSpecification(QWidget *parent) :
     QWidget(parent),
     mainContent(new QVBoxLayout)
 {
-   speciBtns = QVector<SelectableValueButton*>();
+    selCurBtn = 0;
+    speciBtns = QVector<SelectableValueButton*>();
     this->setLayout(mainContent);
 }
 
@@ -12,7 +13,9 @@ VariantSpecification::VariantSpecification(QWidget *parent) :
 void VariantSpecification::addSpecification(const QString &name, int id, int value){
     SelectableValueButton *btn = new SelectableValueButton(id, value, this);
     btn->setText(name);
+    btn->setMinimumWidth(150);
     mainContent->addWidget(btn);
+    speciBtns.append(btn);
     connect(btn, SIGNAL(clickedWithID(int)), this, SLOT(btnSpeciClicked(int)));
 }
 
@@ -21,6 +24,7 @@ void VariantSpecification::btnSpeciClicked(int id){
         selCurBtn->setSelected(false);
     selCurBtn = getSpeciBtnByID(id);
     selCurBtn->setSelected(true);
+    emit selectedSpeciValueChanged(selCurBtn->getValue().toInt());
 }
 
 

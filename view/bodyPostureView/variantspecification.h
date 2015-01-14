@@ -17,6 +17,9 @@ public:
     int getValue(int id);
     int getSelectedID() const;
 
+signals:
+    void selectedSpeciValueChanged(int value);
+
 public slots:
     void setSelected(int id);
 

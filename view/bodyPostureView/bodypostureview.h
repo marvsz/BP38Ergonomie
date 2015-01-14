@@ -1,14 +1,15 @@
 #ifndef BODYPOSTUREVIEW_H
 #define BODYPOSTUREVIEW_H
 
-#include <QMainWindow>
-#include <QResizeEvent>
+#include <QWidget>
 #include <QVector>
 #include "variantspecification.h"
 #include "variantcontrol.h"
 #include "../enum.h"
 #include <QPushButton>
 #include <QLabel>
+#include <QSqlRecord>
+#include "../databaseHandler/dbconstants.h"
 
 
 class BodyPostureView : public QWidget
@@ -18,52 +19,42 @@ class BodyPostureView : public QWidget
 public:
     explicit BodyPostureView(QWidget *parent = 0);
 
-    //Trunk
-    int getTrunkTilt() const;
-    int getTrunkSidewaysTilt() const;
-    int getTrunkTwist() const;
-
-    //Head
-    int getHeadTilt() const;
-    int getHeadRotation() const;
-    int getHeadSidewaysTilt() const;
-
-    //Arm
-    int getArmOpeningRight() const;
-    int getArmOpeningLeft() const;
-    int getUpperArmAngleRight() const;
-    int getUpperArmAngleLeft() const;
-    int getUpperArmTwistRight() const;
-    int getUpperArmTwistLeft() const;
-    int getForearmAngleRight() const;
-    int getForearmAngleLeft() const;
-    int getForearmTwistRight() const;
-    int getForearmTwistLeft() const;
-    int getWristAngleRight() const;
-    int getWristAngleLeft() const;
-    int getWristAngleSidewaysRight() const;
-    int getWristAngleSidewaysLeft() const;
-    int getWristMovementRight() const;
-    int getWristMovementLeft() const;
-
-    //Leg
-    int getHipAngleRight() const;
-    int getHipAngleLeft() const;
-    int getHipAngleSidewaysRight() const;
-    int getHipAngleSidewaysLeft() const;
-    int getHipTwistRight() const;
-    int getHipTwistLeft() const;
-    int getKneeAngleRight() const;
-    int getKneeAngleLeft() const;
-    int getAnkleAngleRight() const;
-    int getAnkleAngleLeft() const;
-    int getAnkleAngleSidewaysRight() const;
-    int getAnkleAngleSidewaysLeft() const;
+    QSqlRecord getRecord() const;
+    void setRecord(const QSqlRecord &record);
 
 public slots:
 
 signals:
+    void showExclusiveContentByName(const QString &name);
 
+private slots:
+    void varConRequestShowContent(const QString &name);
+    void armSpeciChanged(int type);
+    void legSpeciChanged(int type);
+
+    void vcTrunkTiltValueChanged(int value);
+    void vcTrunkTiltSidewaysValueChanged(int value);
+    void vcTrunkTwistValueChanged(int value);
+
+    void vcUpperArmAngleValueChanged(int value);
+    void vcForearmAngleValueChanged(int value);
+    void vcUpperArmTwistValueChanged(int value);
+    void vcForearmTwistValueChanged(int value);
+    void vcArmOpeningValueChanged(int value);
+    void vcWristAngleValueChanged(int value);
+    void vcWristAngleSidewaysValueChanged(int value);
+    void vcWristMovementValueChanged(int value);
+
+    void vcHipAngleValueChanged(int value);
+    void vcHipAngleSidewaysValueChanged(int value);
+    void vcHipTwistValueChanged(int value);
+    void vcKneeAngleValueChanged(int value);
+    void vcAnkleAngleValueChanged(int value);
+    void vcAnkleAngleSidewaysValueChanged(int value);
+
+    void vcHeadTiltValueChanged(int value);
+    void vcHeadTiltSidewaysValueChanged(int value);
+    void vcHeadTwistValueChanged(int value);
 private:
     static const QVector<int> TRUNK_TILT_VALUES;
     static const QVector<int> TRUNK_TILT_SIDEWAYS_VALUES;
@@ -71,7 +62,7 @@ private:
 
     static const QVector<int> HEAD_TILT_VALUES;
     static const QVector<int> HEAD_TILT_SIDEWAYS_VALUES;
-    static const QVector<int> HEAD_TILT_TWIST_VALUES;
+    static const QVector<int> HEAD_TWIST_VALUES;
 
     static const QVector<int> UPPER_ARM_ANGLE_VALUES;
     static const QVector<int> FOREARM_ANGLE_VALUES;
@@ -90,15 +81,40 @@ private:
     static const QVector<int> ANKLE_ANGLE_SIDEWAYS_VALUES;
 
     VariantControl *varConTrunk;
+    VariantControl *varConArms;
+    VariantControl *varConLegs;
+    VariantControl *varConHead;
 
     ValueControl *vcTrunkTilt;
     ValueControl *vcTrunkSidewaysTilt;
     ValueControl *vcTrunkTwist;
 
+    ValueControl *vcUpperArmAngle;
+    ValueControl *vcForearmAngle;
+    ValueControl *vcUpperArmTwist;
+    ValueControl *vcForearmTwist;
+    ValueControl *vcArmOpening;
+    ValueControl *vcWristAngle;
+    ValueControl *vcWristAngleSideways;
+    ValueControl *vcWristMovement;
+
+    ValueControl *vcHipAngle;
+    ValueControl *vcHipAngleSideways;
+    ValueControl *vcHipTwist;
+    ValueControl *vcKneeAngle;
+    ValueControl *vcAnkleAngle;
+    ValueControl *vcAnkleAngleSideways;
+
+    ValueControl *vcHeadTilt;
+    ValueControl *vcHeadTiltSideways;
+    ValueControl *vcHeadTwist;
+
     VariantSpecification* varSpeciArms;
     VariantSpecification* varSpeciLegs;
 
-
+    QSqlRecord record;
+    int armSpeci_Type;
+    int legSpeci_Type;
 };
 
 #endif // BODYPOSTUREVIEW_H
