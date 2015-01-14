@@ -23,7 +23,7 @@ private:
     QPushButton *btnMetaDataView;
     QPushButton *btnWorkplaceList;
     QPushButton *btnRessourceManagement;
-    QPushButton *btnNewRecording;
+    //QPushButton *btnNewRecording;
     //QPushButton *btnSettings;
 
 };
