@@ -302,107 +302,107 @@
 <context>
     <name>AppliedForceView</name>
     <message>
-        <location filename="view/appliedforceview.cpp" line="6"/>
+        <location filename="view/appliedforceview.h" line="29"/>
         <source>finger</source>
         <translation>Finger</translation>
     </message>
     <message>
-        <location filename="view/appliedforceview.cpp" line="6"/>
+        <location filename="view/appliedforceview.h" line="29"/>
         <source>hand</source>
         <translation>Hand</translation>
     </message>
     <message>
-        <location filename="view/appliedforceview.cpp" line="6"/>
+        <location filename="view/appliedforceview.h" line="29"/>
         <source>arm</source>
         <translation>Arm</translation>
     </message>
     <message>
-        <location filename="view/appliedforceview.cpp" line="6"/>
+        <location filename="view/appliedforceview.h" line="29"/>
         <source>foot/leg</source>
         <translation>Fuß/Bein</translation>
     </message>
     <message>
-        <location filename="view/appliedforceview.cpp" line="6"/>
+        <location filename="view/appliedforceview.h" line="29"/>
         <source>full body</source>
         <translation>Ganzkörper</translation>
     </message>
     <message>
-        <location filename="view/appliedforceview.cpp" line="7"/>
+        <location filename="view/appliedforceview.h" line="30"/>
         <source>above</source>
         <translation>Oben</translation>
     </message>
     <message>
-        <location filename="view/appliedforceview.cpp" line="7"/>
+        <location filename="view/appliedforceview.h" line="30"/>
         <source>below</source>
         <translation>Unten</translation>
     </message>
     <message>
-        <location filename="view/appliedforceview.cpp" line="7"/>
+        <location filename="view/appliedforceview.h" line="30"/>
         <source>front</source>
         <translation>Vorne</translation>
     </message>
     <message>
-        <location filename="view/appliedforceview.cpp" line="7"/>
+        <location filename="view/appliedforceview.h" line="30"/>
         <source>back</source>
         <translation>Hinten</translation>
     </message>
     <message>
-        <location filename="view/appliedforceview.cpp" line="7"/>
+        <location filename="view/appliedforceview.h" line="30"/>
         <source>right</source>
         <translation>Rechts</translation>
     </message>
     <message>
-        <location filename="view/appliedforceview.cpp" line="7"/>
+        <location filename="view/appliedforceview.h" line="30"/>
         <source>left</source>
         <translation>Links</translation>
     </message>
     <message>
-        <location filename="view/appliedforceview.cpp" line="8"/>
+        <location filename="view/appliedforceview.h" line="31"/>
         <source>+A</source>
         <translation>+A</translation>
     </message>
     <message>
-        <location filename="view/appliedforceview.cpp" line="8"/>
+        <location filename="view/appliedforceview.h" line="31"/>
         <source>-A</source>
         <translation>-A</translation>
     </message>
     <message>
-        <location filename="view/appliedforceview.cpp" line="8"/>
+        <location filename="view/appliedforceview.h" line="31"/>
         <source>+B</source>
         <translation>+B</translation>
     </message>
     <message>
-        <location filename="view/appliedforceview.cpp" line="8"/>
+        <location filename="view/appliedforceview.h" line="31"/>
         <source>-B</source>
         <translation>-B</translation>
     </message>
     <message>
-        <location filename="view/appliedforceview.cpp" line="8"/>
+        <location filename="view/appliedforceview.h" line="31"/>
         <source>+C</source>
         <translation>+C</translation>
     </message>
     <message>
-        <location filename="view/appliedforceview.cpp" line="8"/>
+        <location filename="view/appliedforceview.h" line="31"/>
         <source>-C</source>
         <translation>-C</translation>
     </message>
     <message>
-        <location filename="view/appliedforceview.cpp" line="19"/>
+        <location filename="view/appliedforceview.cpp" line="16"/>
         <source>N</source>
         <translation>N</translation>
     </message>
     <message>
-        <location filename="view/appliedforceview.cpp" line="20"/>
+        <location filename="view/appliedforceview.cpp" line="17"/>
         <source>intensity</source>
         <translation>Intensität</translation>
     </message>
     <message>
-        <location filename="view/appliedforceview.cpp" line="23"/>
+        <location filename="view/appliedforceview.cpp" line="20"/>
         <source>direction:</source>
         <translation>Richtung:</translation>
     </message>
     <message>
-        <location filename="view/appliedforceview.cpp" line="26"/>
+        <location filename="view/appliedforceview.cpp" line="23"/>
         <source>organ:</source>
         <translation>Organ:</translation>
     </message>
@@ -1405,122 +1405,126 @@
 <context>
     <name>WorkProcessMetaDataView</name>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="6"/>
+        <location filename="view/workprocessmetadataview.h" line="52"/>
         <source>small</source>
         <translation>Kleine</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="6"/>
+        <location filename="view/workprocessmetadataview.h" line="52"/>
         <source>middle</source>
         <translation>Mittlere</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="6"/>
+        <location filename="view/workprocessmetadataview.h" line="52"/>
         <source>strong</source>
         <translation>Starke</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="9"/>
         <source>takeing/placing</source>
-        <translation>Aufnehmen &amp; Platzieren (A)</translation>
+        <translation type="vanished">Aufnehmen &amp; Platzieren (A)</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="9"/>
+        <location filename="view/workprocessmetadataview.h" line="50"/>
         <source>tool handling</source>
-        <translation>Betriebsmittel</translation>
+        <translation>Hilfsmittel handhaben (H)</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="9"/>
+        <location filename="view/workprocessmetadataview.h" line="50"/>
         <source>placing</source>
         <translation>Platzieren (P)</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="9"/>
+        <location filename="view/workprocessmetadataview.h" line="50"/>
         <source>operate</source>
         <translation>Betätigen (B)</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="9"/>
+        <location filename="view/workprocessmetadataview.h" line="50"/>
         <source>body movement</source>
-        <translation>Körperbewegung</translation>
+        <translation>Körperbewegung (K)</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="12"/>
+        <location filename="view/workprocessmetadataview.h" line="50"/>
+        <source>taking/placing</source>
+        <translation>Aufnehmen &amp; Platzieren (A)</translation>
+    </message>
+    <message>
+        <location filename="view/workprocessmetadataview.h" line="54"/>
         <source>recoil count</source>
         <translation>Rückschlaganzahl</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="12"/>
+        <location filename="view/workprocessmetadataview.h" line="54"/>
         <source>recoil intensity</source>
         <translation>Rückschlagintensität</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="12"/>
+        <location filename="view/workprocessmetadataview.h" line="54"/>
         <source>vibration count</source>
         <translation>Vibrationsanzahl</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="12"/>
+        <location filename="view/workprocessmetadataview.h" line="54"/>
         <source>vibration intensity</source>
         <translation>Vibrationsintensität</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="15"/>
+        <location filename="view/workprocessmetadataview.cpp" line="8"/>
         <source>Description:</source>
         <translation>Beschreibung:</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="16"/>
+        <location filename="view/workprocessmetadataview.cpp" line="9"/>
         <source>Working height [cm]:</source>
         <translation>Arbeitshöhe [cm]:</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="17"/>
+        <location filename="view/workprocessmetadataview.cpp" line="10"/>
         <source>Distance [cm]:</source>
         <translation>Abstand [cm]:</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="18"/>
+        <location filename="view/workprocessmetadataview.cpp" line="11"/>
         <source>Impulse intensity:</source>
         <translation>Impulsintensität:</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="19"/>
+        <location filename="view/workprocessmetadataview.cpp" line="12"/>
         <source>Impulse count:</source>
         <translation>Impulsanzahl:</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="20"/>
+        <location filename="view/workprocessmetadataview.cpp" line="13"/>
         <source>Equipment:</source>
         <translation>Betriebsmittel:</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="30"/>
+        <location filename="view/workprocessmetadataview.cpp" line="24"/>
         <source>Description of the working process</source>
         <translation>Beschreibung des Arbeitsvorganges</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="31"/>
+        <location filename="view/workprocessmetadataview.cpp" line="25"/>
         <source>Working height of the process [cm]</source>
         <translation>Arbeitshöhe des Arbeitsvorganges [cm]</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="32"/>
+        <location filename="view/workprocessmetadataview.cpp" line="26"/>
         <source>Distance from produced product [cm]</source>
         <translation>Abstand zum Arbeitsobjekt [cm]</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="33"/>
+        <location filename="view/workprocessmetadataview.cpp" line="27"/>
         <source>Count of impulses</source>
         <translation>Anzahl der Impulse</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="37"/>
+        <location filename="view/workprocessmetadataview.cpp" line="34"/>
         <source>MTM Code:</source>
         <translation>MTM Code:</translation>
     </message>
     <message>
-        <location filename="view/workprocessmetadataview.cpp" line="38"/>
+        <location filename="view/workprocessmetadataview.cpp" line="35"/>
         <source>MTM Code of the process</source>
         <translation>MTM Code des Arbeitsvorganges</translation>
     </message>
