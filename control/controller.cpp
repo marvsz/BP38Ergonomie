@@ -617,9 +617,9 @@ int Controller::saveAppliedForceView(){
 
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_APPLIED_FORCE_ORGAN, appliedForceView->getOrgan());
-    values.insert(DBConstants::COL_WORK_CONDITION_ACCESSIBILITY, appliedForceView->getDirection());
-    values.insert(DBConstants::COL_WORK_CONDITION_CLIMATE, appliedForceView->getIntensity());
-    values.insert(DBConstants::COL_WORK_CONDITION_ID, appliedforce_ID);
+    values.insert(DBConstants::COL_APPLIED_FORCE_DIRECTION, appliedForceView->getDirection());
+    values.insert(DBConstants::COL_APPLIED_FORCE_INTENSITY, appliedForceView->getIntensity());
+    values.insert(DBConstants::COL_APPLIED_FORCE_ID, appliedforce_ID);
     return save(DB_TABLES::APPLIED_FORCE, filter, DBConstants::COL_APPLIED_FORCE_ID, DBConstants::HASH_COMMENT_TYPES, values);
 }
 
