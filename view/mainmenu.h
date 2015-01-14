@@ -16,7 +16,7 @@ signals:
     void showWorkplaceListView();
     void showRessourceManagementView();
     void showNewRecordingView();
-    void showSettingsView();
+    //void showSettingsView();
 
 
 private:
@@ -24,7 +24,7 @@ private:
     QPushButton *btnWorkplaceList;
     QPushButton *btnRessourceManagement;
     QPushButton *btnNewRecording;
-    QPushButton *btnSettings;
+    //QPushButton *btnSettings;
 
 };
 
