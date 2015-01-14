@@ -28,6 +28,7 @@ public:
     int getDistance();
 
 signals:
+    void forward();
 
 private slots:
     /**
@@ -41,20 +42,28 @@ private slots:
     void setWeight(int &weight);
     void setDistance(int &distance);
     void typeChanged(QString type);
+    void addTransportation(int id, const QString &name, int weight, int maxLoad);
+    void clearTransportation();
 
 private:
     ValueControl *vlcGraspType;
     ValueControl *vlcHandlingType;
     ValueControl *vlcWeight;
     ValueControl *vlcDistance;
+    QLabel *lblTransportation;
+    QPushButton *btnEditTransportation;
+
     QWidget *main;
     QWidget *control;
+
 
     const QVector<QString> graspValues =QVector<QString>()<<tr("Thumbcontact grasp")<<tr("Indexcontact grasp")<<tr("Handcontact grasp")<<tr("Thumb to 2 Fingers")<<tr("Fingergrasp")<<tr("Thumbindex")<<tr("Wrench")<<tr("Fullgrasp");
     const QVector<int> weightValues = QVector<int>()<<2<<3<<5<<10<<20;
     const QVector<int> heavyWeightValues = QVector<int>()<<100<<500<<1000<<1500<<2000;
     const QVector<int> distanceValues = QVector<int>()<<2<<3<<5<<10<<20;
     const QVector<QString> HandlingTypeValues = QVector<QString>()<<tr("holding")<<tr("replacing")<<tr("carrying")<<tr("pulling and pushing");
+
+    QVBoxLayout *transportationListLayout;
 };
 
 #endif // LoadHandlingView_H
