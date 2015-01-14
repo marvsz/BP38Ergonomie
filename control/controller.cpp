@@ -30,9 +30,10 @@ Controller::Controller(QObject *parent) :
     analyst_ID = 0;
     recording_ID = 1;
     workplace_ID = 0;
+    workcondition_ID = 0;
     factory_ID = 0;
     activity_ID = 1;
-    workplace_ID = 0;
+    appliedforce_ID = 0;
 
     documentationView->setWorkprocessMetaDataView(workProcessMetaDataView);
     documentationView->setBodyPostureView(bodyPostureView);
@@ -535,6 +536,92 @@ void Controller::updateWorkprocessViews(){
 
 }
 
+// ExecutionConditionView
+void Controller::updateExecutionConditionView(){
+    DB_TABLES tbl = DB_TABLES::WORK_CONDITION;
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_WORK_CONDITION_ID).arg(workcondition_ID);
+    dbHandler->select(tbl, filter);
+    QSqlRecord record = dbHandler->record(tbl, 0);
+    executionConditionView->setArmSupports(record.value(DBConstants::COL_WORK_CONDITION_RIGHT_UPPER_ARM_SUPPORTED).toInt(),
+                        record.value(DBConstants::COL_WORK_CONDITION_LEFT_UPPER_ARM_SUPPORTED).toInt(),
+                        record.value(DBConstants::COL_WORK_CONDITION_RIGHT_FOREARM_SUPPORTED).toInt(),
+                        record.value(DBConstants::COL_WORK_CONDITION_LEFT_FOREARM_SUPPORTED).toInt(),
+                        record.value(DBConstants::COL_WORK_CONDITION_RIGHT_HAND_SUPPORTED).toInt(),
+                        record.value(DBConstants::COL_WORK_CONDITION_LEFT_HAND_SUPPORTED).toInt());
+    executionConditionView->setBodySupports(record.value(DBConstants::COL_WORK_CONDITION_HEAD_SUPPORTED).toInt(),
+                        record.value(DBConstants::COL_WORK_CONDITION_TRUNK_SUPPORT).toInt());
+    executionConditionView->setLegSupports(record.value(DBConstants::COL_WORK_CONDITION_RIGHT_THIGH_SUPPORTED).toInt(),
+                        record.value(DBConstants::COL_WORK_CONDITION_LEFT_THIGH_SUPPORTED).toInt(),
+                        record.value(DBConstants::COL_WORK_CONDITION_RIGHT_LOWER_LEG_SUPPORTED).toInt(),
+                        record.value(DBConstants::COL_WORK_CONDITION_LEFT_LOWER_LEG_SUPPORTED).toInt());
+    executionConditionView->setResultingConstraints((DBConstants::COL_WORK_CONDITION_GRIP_CONDITION).toInt(),
+                        record.value(DBConstants::COL_WORK_CONDITION_ACCESSIBILITY).toInt(),
+                        record.value(DBConstants::COL_WORK_CONDITION_GROUND).toInt(),
+                        record.value(DBConstants::COL_WORK_CONDITION_LIGHTING).toInt(),
+                        record.value(DBConstants::COL_WORK_CONDITION_CLIMATE).toInt(),
+                        record.value(DBConstants::COL_WORK_CONDITION_WIND).toInt(),
+                        record.value(DBConstants::COL_WORK_CONDITION_CLOTHING).toInt(),
+                        record.value(DBConstants::COL_WORK_CONDITION_ROOM_TO_MOVE).toInt());
+    executionConditionView->setConditionAttributes((DBConstants::COL_WORK_CONDITION_PRECISION).toInt(),
+                        record.value(DBConstants::COL_WORK_CONDITION_VELOCITY).toInt(),
+                        record.value(DBConstants::COL_WORK_CONDITION_ACCELERATION).toInt(),
+                        record.value(DBConstants::COL_WORK_CONDITION_VIBRATION).toInt());
+}
+
+int Controller::saveExecutionConditionView(){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_WORK_CONDITION_ID).arg(workcondition_ID);
+
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_WORK_CONDITION_ACCELERATION, executionConditionView->getAcceleration());
+    values.insert(DBConstants::COL_WORK_CONDITION_ACCESSIBILITY, executionConditionView->getAccessibility());
+    values.insert(DBConstants::COL_WORK_CONDITION_CLIMATE, executionConditionView->getClimate());
+    values.insert(DBConstants::COL_WORK_CONDITION_CLOTHING, executionConditionView->getClothing());
+    values.insert(DBConstants::COL_WORK_CONDITION_GRIP_CONDITION, executionConditionView->getGraspingType());
+    values.insert(DBConstants::COL_WORK_CONDITION_GROUND, executionConditionView->getGround());
+    values.insert(DBConstants::COL_WORK_CONDITION_HEAD_SUPPORTED, executionConditionView->getHeadSupport());
+    values.insert(DBConstants::COL_WORK_CONDITION_LEFT_FOREARM_SUPPORTED, executionConditionView->getLeftForearmSupport());
+    values.insert(DBConstants::COL_WORK_CONDITION_LEFT_HAND_SUPPORTED, executionConditionView->getLeftHandSupport());
+    values.insert(DBConstants::COL_WORK_CONDITION_LEFT_LOWER_LEG_SUPPORTED, executionConditionView->getLeftLowerLegSupport());
+    values.insert(DBConstants::COL_WORK_CONDITION_LEFT_THIGH_SUPPORTED, executionConditionView->getLeftThighSupport());
+    values.insert(DBConstants::COL_WORK_CONDITION_LEFT_UPPER_ARM_SUPPORTED, executionConditionView->getLeftUpperArmSupport());
+    values.insert(DBConstants::COL_WORK_CONDITION_LIGHTING, executionConditionView->getLighting());
+    values.insert(DBConstants::COL_WORK_CONDITION_PRECISION, executionConditionView->getPrecision());
+    values.insert(DBConstants::COL_WORK_CONDITION_RIGHT_FOREARM_SUPPORTED, executionConditionView->getRightForearmSupport());
+    values.insert(DBConstants::COL_WORK_CONDITION_RIGHT_HAND_SUPPORTED, executionConditionView->getRightHandSupport());
+    values.insert(DBConstants::COL_WORK_CONDITION_RIGHT_LOWER_LEG_SUPPORTED, executionConditionView->getRightLowerLegSupport());
+    values.insert(DBConstants::COL_WORK_CONDITION_RIGHT_THIGH_SUPPORTED, executionConditionView->getRightThighSupport());
+    values.insert(DBConstants::COL_WORK_CONDITION_RIGHT_UPPER_ARM_SUPPORTED, executionConditionView->getRightUpperArmSupport());
+    values.insert(DBConstants::COL_WORK_CONDITION_ROOM_TO_MOVE, executionConditionView->getRoomToMove());
+    values.insert(DBConstants::COL_WORK_CONDITION_TRUNK_SUPPORT, executionConditionView->getTrunkSupport());
+    values.insert(DBConstants::COL_WORK_CONDITION_VELOCITY, executionConditionView->getVelocity());
+    values.insert(DBConstants::COL_WORK_CONDITION_VIBRATION, executionConditionView->getVibration());
+    values.insert(DBConstants::COL_WORK_CONDITION_WIND, executionConditionView->getWind());
+    values.insert(DBConstants::COL_WORK_CONDITION_ID, workcondition_ID);
+    return save(DB_TABLES::WORK_CONDITION, filter, DBConstants::COL_WORK_CONDITION_ID, DBConstants::HASH_COMMENT_TYPES, values);
+
+}
+
+// AppliedForceView
+void Controller::updateAppliedForceView(){
+    DB_TABLES tbl = DB_TABLES::APPLIED_FORCE;
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_APPLIED_FORCE_ID).arg(appliedforce_ID);
+    dbHandler->select(tbl, filter);
+    QSqlRecord record = dbHandler->record(tbl, 0);
+    appliedForceView->setOrgan(record.value(DBConstants::COL_APPLIED_FORCE_ORGAN).toString());
+    appliedForceView->setDirection(record.value(DBConstants::COL_APPLIED_FORCE_DIRECTION).toString());
+    appliedForceView->setIntensity(record.value(DBConstants::COL_APPLIED_FORCE_INTENSITY).toInt());
+}
+
+int Controller::saveAppliedForceView(){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_APPLIED_FORCE_ID).arg(appliedforce_ID);
+
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_APPLIED_FORCE_ORGAN, appliedForceView->getOrgan());
+    values.insert(DBConstants::COL_WORK_CONDITION_ACCESSIBILITY, appliedForceView->getDirection());
+    values.insert(DBConstants::COL_WORK_CONDITION_CLIMATE, appliedForceView->getIntensity());
+    values.insert(DBConstants::COL_WORK_CONDITION_ID, appliedforce_ID);
+    return save(DB_TABLES::APPLIED_FORCE, filter, DBConstants::COL_APPLIED_FORCE_ID, DBConstants::HASH_COMMENT_TYPES, values);
+}
 
 //PRIVATE METHODS
 int Controller::insert(DB_TABLES tbl, const QString &colID, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue){

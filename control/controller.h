@@ -80,6 +80,12 @@ private slots:
     void deleteActivity(int id);
     void selectActivity(int id);
 
+    void updateExecutionConditionView();
+    int saveExecutionConditionView();
+
+    void updateAppliedForceView();
+    int saveAppliedForceView();
+
 private:
     DBHandler *dbHandler;
     ViewController *viewCon;
@@ -112,8 +118,10 @@ private:
     int recording_ID;
     int factory_ID;
     int workplace_ID;
+    int workcondition_ID;
     int selectedWorkprocessID;
     int activity_ID;
+    int appliedforce_ID;
 
     int insert(DB_TABLES tbl, const QString &colID, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue);
 

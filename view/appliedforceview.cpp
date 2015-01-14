@@ -53,7 +53,7 @@ void AppliedForceView::setDirection(const QString &direction){
     valConDirection->setValue(direction);
 }
 
-void AppliedForceView::setIntensity(int &intensity){
+void AppliedForceView::setIntensity(int intensity){
     valConIntensity->setValue(intensity);
 }
 
