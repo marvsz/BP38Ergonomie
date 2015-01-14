@@ -44,8 +44,8 @@ private slots:
     void selectedProductChanged(int id);
 
 private:
-    static const QList<QStringList> productItemScheme;
-    static const QList<QStringList> activityItemScheme;
+    const QList<QStringList> productItemScheme = QList<QStringList>() << (QStringList() << tr("product number"));
+    const QList<QStringList> activityItemScheme = QList<QStringList>() << (QStringList() << tr("repetitions"));
 
     int id;
     int selectedProductID;

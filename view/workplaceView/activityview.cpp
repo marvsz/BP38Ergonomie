@@ -4,9 +4,6 @@
 #include "detailedlistitem.h"
 #include "iconconstants.h"
 
-const QList<QStringList> ActivityView::productItemScheme = QList<QStringList>() << (QStringList() << tr("product number"));
-const QList<QStringList> ActivityView::activityItemScheme = QList<QStringList>() << (QStringList() << tr("repetitions"));
-
 ActivityView::ActivityView(QWidget *parent) :
     QWidget(parent),
     mainLayout(new QVBoxLayout),
