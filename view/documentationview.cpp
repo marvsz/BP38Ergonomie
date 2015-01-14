@@ -100,6 +100,8 @@ void DocumentationView::setupViews(){
     topLayout->addWidget(backButton, 0, 0, 1, 1, Qt::AlignLeft);
     topLayout->addWidget(views, 0, 1, 1, 1, Qt::AlignHCenter);
     topLayout->addWidget(cameraButton, 0, 2, 1, 1, Qt::AlignRight);
+    //Placeholder
+    topLayout->addItem(new QSpacerItem(300, 45, QSizePolicy::Fixed, QSizePolicy::Fixed), 0, 2, 1, 1, 0);
 
     QVBoxLayout *centerLayout = new QVBoxLayout;
     centerLayout->addWidget(new Separator(Qt::Horizontal, 3, mainContent));
