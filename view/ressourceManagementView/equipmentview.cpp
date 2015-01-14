@@ -5,8 +5,6 @@
 #include "detailedlistitem.h"
 #include "iconconstants.h"
 
-const QList<QStringList> EquipmentView::equipmentItemScheme = QList<QStringList>() << (QStringList() << tr("recoil count") << tr ("recoil intensity")) << (QStringList() << tr("vibration count") << tr("vibration intensity"));
-
 EquipmentView::EquipmentView(QWidget *parent) :
     QWidget(parent),
     scEquipment(new QScrollArea),

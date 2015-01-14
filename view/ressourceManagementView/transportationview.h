@@ -61,8 +61,8 @@ private:
 
     QVBoxLayout *transportationListLayout;
 
-    static const QList<QStringList> transportationItemScheme;
-    static const QStringList YES_NO_TEXTS;
+    const QList<QStringList> transportationItemScheme = QList<QStringList>() << (QStringList() << tr("empty weight:") << tr("max. load:")) << (QStringList() << tr("fixed rollers:") << tr("brakes:"));
+    const QStringList YES_NO_TEXTS = QStringList()<<tr("yes")<<tr("no");
     static const QVector<QVariant> YES_NO_VALUE;
 
 };

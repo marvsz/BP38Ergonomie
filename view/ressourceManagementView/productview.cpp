@@ -6,8 +6,6 @@
 #include "flickcharm.h"
 #include "iconconstants.h"
 
-const QList<QStringList> ProductView::productItemScheme = QList<QStringList>() << (QStringList() << tr("product number")) << (QStringList()<< tr("total percentage"));
-
 ProductView::ProductView(QWidget *parent) : QWidget(parent),
     scProducts(new QScrollArea),
     lblAddProduct(new QLabel(tr("Add Product"))),

@@ -6,8 +6,6 @@
 #include "detailedlistitem.h"
 #include "iconconstants.h"
 
-const QList<QStringList> TransportationView::transportationItemScheme = QList<QStringList>() << (QStringList() << tr("empty weight:") << tr("max. load:")) << (QStringList() << tr("fixed rollers:") << tr("brakes:"));
-const QStringList TransportationView::YES_NO_TEXTS = QStringList()<<tr("yes")<<tr("no");
 const QVector<QVariant> TransportationView::YES_NO_VALUE = QVector<QVariant>()<<true<<false;
 
 TransportationView::TransportationView(QWidget *parent) :

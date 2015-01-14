@@ -36,7 +36,7 @@ private slots:
     void btnAddClicked();
 
 private:
-    static const QList<QStringList> equipmentItemScheme;
+    const QList<QStringList> equipmentItemScheme = QList<QStringList>() << (QStringList() << tr("recoil count") << tr ("recoil intensity")) << (QStringList() << tr("vibration count") << tr("vibration intensity"));
 
     QScrollArea *scEquipment;
     QLabel *lblAddEquipment;

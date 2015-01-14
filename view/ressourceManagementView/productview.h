@@ -35,7 +35,7 @@ private slots:
     void btnAddClicked();
 
 private:
-    static const QList<QStringList> productItemScheme;
+    const QList<QStringList> productItemScheme = QList<QStringList>() << (QStringList() << tr("product number")) << (QStringList()<< tr("total percentage"));
 
     QScrollArea *scProducts;
     QLabel *lblAddProduct;
