@@ -39,6 +39,7 @@ GantTimerView::GantTimerView(QWidget *parent) : QWidget(parent),
     numBxFrequenz->setEnabled(false);
     numBxFrequenz->setMaximumWidth(100);
     numBxFrequenz->setFixedHeight(45);
+    numBxFrequenz->setValue(1);
 
     QVBoxLayout *mainContentLayout = new QVBoxLayout;
     mainContentLayout->addLayout(leftWP);
@@ -120,9 +121,10 @@ void GantTimerView::clear(){
     }
 }
 
-void GantTimerView::setSelectedWorkProcess(int id, int type){
+void GantTimerView::setSelectedWorkProcess(int id, int type, int frequenz){
     selWP_ID = id;
     selWP_Type = type;
+    numBxFrequenz->setValue(frequenz);
 }
 
 void GantTimerView::setWorkProcessLists(QVector<QVariant> *leftWorkProcesses, QVector<QVariant> *rightWorkProcesses, QVector<QVariant> *basicWorkProcesses){
@@ -230,6 +232,11 @@ void GantTimerView::update(){
     }
     basicWP->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
+}
+
+//GETTER
+int GantTimerView::getFrequenz(){
+    return numBxFrequenz->getValue();
 }
 
 
