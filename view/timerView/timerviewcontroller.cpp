@@ -59,6 +59,11 @@ void TimerViewController::setSelectedAV(int id){
     maxTimerView->setSelectedAV(id);
 }
 
+void TimerViewController::setWorkProcessLists(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs){
+    if(leftWPs->count() != 0 || rightWPs->count() != 0 || basicWPs->count() != 0)
+        syncTimerStates(TimerState::STOPPED);
+}
+
 // PRIVATE SLOTS
 void TimerViewController::minimizeView(){
     if(displayState == TimerDisplayState::MAXIMIZED){

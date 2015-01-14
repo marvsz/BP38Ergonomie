@@ -62,6 +62,8 @@ private slots:
 
     void updateWorkprocessViews();
     int createWorkprocess(int type, const QTime &start, const QTime &end); 
+    void saveWorkProcessFrequenz();
+    void setSelectedWorkProcess(int, int);
 
     void updateProductView();
     void createProduct();
@@ -125,7 +127,8 @@ private:
     int factory_ID;
     int workplace_ID;
     int workcondition_ID;
-    int selectedWorkprocessID;
+    int workprocess_ID;
+    int workprocess_Type;
     int activity_ID;
     int appliedforce_ID;
     int loadhandling_ID;
@@ -147,6 +150,8 @@ private:
     void deleteRecordingOberservesWorkplace(int wpID);
 
     void updateActivityViewActivities();
+
+    void deleteWorkProcesses();
 };
 
 #endif // CONTROLLER_H

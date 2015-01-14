@@ -184,6 +184,9 @@ void MaximizedTimerView::updateGraph(QList<bool> *lstAV, QList<bool> *lstLeftAVs
     graphTimer->updateGraph(lstAV, lstLeftAVs, lstRightAVs);
 }
 
+void MaximizedTimerView::setWorkProcessLists(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs){
+}
+
 // PRIVATE SLOTS
 void MaximizedTimerView::btnPlayPausedClicked(){
     switch(state){

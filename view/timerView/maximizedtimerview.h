@@ -50,6 +50,7 @@ public slots:
     void setSelectedAV(int id);
     void setWorkProcessType(int id, const QString &prefix);
     void updateGraph(QList<bool> *lstAV, QList<bool> *lstLeftAVs, QList<bool> *lstRightAVs);
+    void setWorkProcessLists(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs);
 
 private slots:
     void btnPlayPausedClicked();

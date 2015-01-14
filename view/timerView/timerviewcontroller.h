@@ -29,6 +29,7 @@ signals:
 
 public slots:
     void setSelectedAV(int id);
+    void setWorkProcessLists(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs);
 
 protected:
     void timerEvent(QTimerEvent *event);

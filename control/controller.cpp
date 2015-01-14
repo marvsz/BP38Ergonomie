@@ -102,6 +102,22 @@ Controller::Controller(QObject *parent) :
     connect(activityView, SIGNAL(selectActivity(int)), this, SLOT(selectActivity(int)));
     connect(activityView, SIGNAL(deleteActivity(int)), this, SLOT(deleteActivity(int)));
 
+    connect(documentationView, SIGNAL(updateBodyPostureView()), this, SLOT(updateBodyPostureView()));
+    connect(documentationView, SIGNAL(saveBodyPostureView()),this,  SLOT(saveBodyPostureView()));
+
+    connect(documentationView, SIGNAL(updateAppliedForceView()), this, SLOT(updateAppliedForceView()));
+    connect(documentationView, SIGNAL(saveAppliedForceView()), this, SLOT(saveAppliedForceView()));
+
+    connect(documentationView, SIGNAL(updateLoadHandlingView()), this, SLOT(updateLoadHandlingView()));
+    connect(documentationView, SIGNAL(saveLoadHandlingView()), this, SLOT(saveLoadHandlingView()));
+
+    connect(documentationView, SIGNAL(updateExecutionConditionView()), this, SLOT(updateExecutionConditionView()));
+    connect(documentationView, SIGNAL(saveExecutionConditionView()), this, SLOT(saveExecutionConditionView()));
+
+    connect(gantTimerView, SIGNAL(saveFrequenz()), this, SLOT(saveWorkProcessFrequenz()));
+    connect(gantTimerView, SIGNAL(workProcessSelected(int,int)), this, SLOT(setSelectedWorkProcess(int, int)));
+
+
 
     connect(timerViewController, SIGNAL(createWorkProcess(int,QTime,QTime)), this, SLOT(createWorkprocess(int,QTime,QTime)));
 
@@ -454,6 +470,7 @@ void Controller::createActivity(){
 
 void Controller::deleteActivity(int id){
     dbHandler->deleteAll(DB_TABLES::ACTIVITY, QString("%1 = %2").arg(DBConstants::COL_ACTIVITY_ID).arg(id));
+    deleteWorkProcesses();
     updateActivityViewActivities();
 }
 
@@ -469,7 +486,7 @@ void Controller::selectActivity(int id){
         QVariant id = record.value(DBConstants::COL_WORK_PROCESS_ID);
         QVariant start = record.value(DBConstants::COL_WORK_PROCESS_BEGIN);
         QVariant end = record.value(DBConstants::COL_WORK_PROCESS_END);
-        if(type == 3){
+        if(type == 1){
             leftWorkProcesses->append(id);
             leftWorkProcesses->append(start);
             leftWorkProcesses->append(end);
@@ -487,6 +504,7 @@ void Controller::selectActivity(int id){
 
     }
     gantTimerView->setWorkProcessLists(leftWorkProcesses, rightWorkProcesses, basicWorkProcesses);
+    timerViewController->setWorkProcessLists(leftWorkProcesses, rightWorkProcesses, basicWorkProcesses);
 }
 
 //CommentView
@@ -559,6 +577,18 @@ int Controller::createWorkprocess(int type, const QTime &start, const QTime &end
     int id = save(DB_TABLES::WORK_PROCESS, filter, DBConstants::COL_WORK_PROCESS_ID, DBConstants::HASH_WORK_PROCESS_TYPES, values);
     gantTimerView->add(id, type, start, end);
     return id;
+}
+
+void Controller::saveWorkProcessFrequenz(){
+    QString filter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ID).arg(workprocess_ID).arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(workprocess_Type);
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_WORK_PROCESS_FREQUENCY, gantTimerView->getFrequenz());
+    save(DB_TABLES::WORK_PROCESS, filter, DBConstants::COL_WORK_PROCESS_ID, DBConstants::HASH_WORK_PROCESS_TYPES, values);
+}
+
+void Controller::setSelectedWorkProcess(int id , int type){
+    workprocess_ID = id;
+    workprocess_Type = type;
 }
 
 void Controller::updateWorkprocessViews(){
@@ -815,5 +845,18 @@ int Controller::saveWorkplace(int id){
 
 int Controller::qTimeToSeconds(const QTime &time){
     return time.hour() * 3600 + time.minute() * 60 + time.second();
+}
+
+void Controller::deleteWorkProcesses(){
+    DB_TABLES tbl = DB_TABLES::WORK_PROCESS;
+    dbHandler->select(tbl, QString("%1 = %2").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID));
+    for(int i = 0; i < dbHandler->rowCount(tbl); ++i){
+        QSqlRecord record = dbHandler->record(tbl, i);
+        dbHandler->deleteAll(DB_TABLES::BODY_POSTURE, QString("%1 = %2").arg(DBConstants::COL_BODY_POSTURE_ID).arg(record.value(DBConstants::COL_WORK_PROCESS_POSTURE_ID).toInt()));
+        dbHandler->deleteAll(DB_TABLES::APPLIED_FORCE, QString("%1 = %2").arg(DBConstants::COL_APPLIED_FORCE_ID).arg(record.value(DBConstants::COL_WORK_PROCESS_APPLIED_FORCE_ID).toInt()));
+        dbHandler->deleteAll(DB_TABLES::LOAD_HANDLING, QString("%1 = %2").arg(DBConstants::COL_LOAD_HANDLING_ID).arg(record.value(DBConstants::COL_WORK_PROCESS_LOAD_HANDLING_ID).toInt()));
+        dbHandler->deleteAll(DB_TABLES::WORK_CONDITION, QString("%1 = %2").arg(DBConstants::COL_WORK_CONDITION_ID).arg(record.value(DBConstants::COL_WORK_PROCESS_CONDITION_ID).toInt()));
+        dbHandler->deleteRow(tbl, i);
+    }
 }
 
