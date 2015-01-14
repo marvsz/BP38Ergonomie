@@ -86,6 +86,9 @@ private slots:
     void updateAppliedForceView();
     int saveAppliedForceView();
 
+    void updateLoadHandlingView();
+    int saveLoadHandlingView();
+
 private:
     DBHandler *dbHandler;
     ViewController *viewCon;
@@ -122,6 +125,7 @@ private:
     int selectedWorkprocessID;
     int activity_ID;
     int appliedforce_ID;
+    int loadhandling_ID;
 
     int insert(DB_TABLES tbl, const QString &colID, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue);
 

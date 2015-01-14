@@ -149,10 +149,10 @@ void LoadHandlingView::setGraspType(const QString &graspType){
     vlcGraspType->setText(graspType);
 }
 
-void LoadHandlingView::setWeight(int &weight){
+void LoadHandlingView::setWeight(int weight){
     vlcWeight->setValue(weight);
 }
 
-void LoadHandlingView::setDistance(int &distance){
+void LoadHandlingView::setDistance(int distance){
     vlcDistance->setValue(distance);
 }

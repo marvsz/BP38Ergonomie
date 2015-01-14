@@ -34,6 +34,7 @@ Controller::Controller(QObject *parent) :
     factory_ID = 0;
     activity_ID = 1;
     appliedforce_ID = 0;
+    loadhandling_ID = 0;
 
     documentationView->setWorkprocessMetaDataView(workProcessMetaDataView);
     documentationView->setBodyPostureView(bodyPostureView);
@@ -621,6 +622,29 @@ int Controller::saveAppliedForceView(){
     values.insert(DBConstants::COL_APPLIED_FORCE_INTENSITY, appliedForceView->getIntensity());
     values.insert(DBConstants::COL_APPLIED_FORCE_ID, appliedforce_ID);
     return save(DB_TABLES::APPLIED_FORCE, filter, DBConstants::COL_APPLIED_FORCE_ID, DBConstants::HASH_COMMENT_TYPES, values);
+}
+
+// LoadHandlingView
+void Controller::updateLoadHandlingView(){
+    DB_TABLES tbl = DB_TABLES::LOAD_HANDLING;
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_LOAD_HANDLING_ID).arg(loadhandling_ID);
+    dbHandler->select(tbl, filter);
+    QSqlRecord record = dbHandler->record(tbl, 0);
+    loadHandlingView->setGraspType(record.value(DBConstants::COL_LOAD_HANDLING_TYPE_OF_GRASPING).toString());
+    loadHandlingView->setHandlingType(record.value(DBConstants::COL_LOAD_HANDLING_TYPE_NAME).toString());
+    loadHandlingView->setWeight(record.value(DBConstants::COL_LOAD_HANDLING_LOAD).toInt());
+    loadHandlingView->setDistance(record.value(DBConstants::COL_LOAD_HANDLING_DISTANCE).toInt());
+}
+
+int Controller::saveLoadHandlingView(){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_LOAD_HANDLING_ID).arg(loadhandling_ID);
+
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_LOAD_HANDLING_TYPE_OF_GRASPING, loadHandlingView->getGraspType());
+    values.insert(DBConstants::COL_LOAD_HANDLING_TYPE_NAME, loadHandlingView->getHandlingType());
+    values.insert(DBConstants::COL_LOAD_HANDLING_LOAD, loadHandlingView->getWeight());
+    values.insert(DBConstants::COL_LOAD_HANDLING_DISTANCE, loadHandlingView->getDistance());
+    return save(DB_TABLES::LOAD_HANDLING, filter, DBConstants::COL_LOAD_HANDLING_ID, DBConstants::HASH_COMMENT_TYPES, values);
 }
 
 //PRIVATE METHODS

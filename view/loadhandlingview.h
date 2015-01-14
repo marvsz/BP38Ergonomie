@@ -30,7 +30,7 @@ public:
 signals:
     void forward();
 
-private slots:
+public slots:
     /**
      * @brief A slot that is called, whenever the type of handling changes.
      * Depending of the new type the ValueControl ranges of the weight
@@ -39,8 +39,8 @@ private slots:
      */
     void setGraspType(const QString &graspType);
     void setHandlingType(const QString &handlingType);
-    void setWeight(int &weight);
-    void setDistance(int &distance);
+    void setWeight(int weight);
+    void setDistance(int distance);
     void typeChanged(QString type);
     void addTransportation(int id, const QString &name, int weight, int maxLoad);
     void clearTransportation();
