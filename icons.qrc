@@ -87,5 +87,7 @@
         <file>icons/Misc/product@2x.png</file>
         <file>icons/Misc/transportation.png</file>
         <file>icons/Misc/transportation@2x.png</file>
+        <file>icons/Misc/handle.png</file>
+        <file>icons/Misc/handle@2x.png</file>
     </qresource>
 </RCC>
