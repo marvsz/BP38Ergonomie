@@ -14,8 +14,7 @@ CONFIG += c++11
 RESOURCES += \
     btnIcons.qrc \
     assets.qrc \
-    icons.qrc \
-    declarative-camera.qrc
+    icons.qrc
 
 HEADERS += \
     enum.h
