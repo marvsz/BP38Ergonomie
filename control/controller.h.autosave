@@ -91,13 +91,13 @@ private slots:
     void updateBodyPostureView();
 
     void updateExecutionConditionView();
-    int saveExecutionConditionView();
+    void saveExecutionConditionView();
 
     void updateAppliedForceView();
-    int saveAppliedForceView();
+    void saveAppliedForceView();
 
     void updateLoadHandlingView();
-    int saveLoadHandlingView();
+    void saveLoadHandlingView();
 
 private:
     DBHandler *dbHandler;

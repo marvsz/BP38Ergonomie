@@ -234,9 +234,12 @@ bool DBHandler::deleteAll(DB_TABLES tbl, const QString &filter){
     return success;
 }
 
-int DBHandler::getNextID(DB_TABLES tbl, const QString &colName){
+int DBHandler::getNextID(DB_TABLES tbl, const QString &colName, const QString &filter){
     QSqlQuery query;
-    query.prepare(QString("SELECT MAX(%1) AS max_ID FROM %2;").arg(colName).arg(getTableModelRef(tbl)->tableName()));
+    QString fil("");
+    if(!filter.isEmpty())
+        fil = QString("WHERE %1").arg(filter);
+    query.prepare(QString("SELECT MAX(%1) AS max_ID FROM %2 %3;").arg(colName).arg(getTableModelRef(tbl)->tableName()).arg(fil));
     if(query.exec()){
        query.next();
        return query.value("max_ID").toInt() + 1;

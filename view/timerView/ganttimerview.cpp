@@ -6,7 +6,7 @@
 GantTimerView::GantTimerView(QWidget *parent) : QWidget(parent),
     secPixel(100),
     selWP_ID(0),
-    selWP_Type(0),
+    selWP_Type(AVType::BASIC),
     numBxFrequenz(new NumberLineEdit()),
     btnZoomIn(new QPushButton()),
     btnZoomOut(new QPushButton()),
@@ -77,11 +77,11 @@ GantTimerView::~GantTimerView()
 }
 
 //PUBLIC SLOTS
-void GantTimerView::add(int id, int type, const QTime &start, const QTime &end){
+void GantTimerView::add(int id, AVType type, const QTime &start, const QTime &end){
     switch(type){
-    case 1: leftWorkProcesses->append(id);leftWorkProcesses->append(start);leftWorkProcesses->append(end);break;
-    case 2: rightWorkProcesses->append(id);rightWorkProcesses->append(start);rightWorkProcesses->append(end);break;
-    case 3: basicWorkProcesses->append(id);basicWorkProcesses->append(start);basicWorkProcesses->append(end);break;
+    case AVType::LEFT: leftWorkProcesses->append(id);leftWorkProcesses->append(start);leftWorkProcesses->append(end);break;
+    case AVType::RIGHT: rightWorkProcesses->append(id);rightWorkProcesses->append(start);rightWorkProcesses->append(end);break;
+    case AVType::BASIC: basicWorkProcesses->append(id);basicWorkProcesses->append(start);basicWorkProcesses->append(end);break;
     }
     update();
 }
@@ -121,7 +121,7 @@ void GantTimerView::clear(){
     }
 }
 
-void GantTimerView::setSelectedWorkProcess(int id, int type, int frequenz){
+void GantTimerView::setSelectedWorkProcess(int id, AVType type, int frequenz){
     selWP_ID = id;
     selWP_Type = type;
     numBxFrequenz->setValue(frequenz);
@@ -158,15 +158,15 @@ void GantTimerView::btnMinus(){
 }
 
 void GantTimerView::btnWPLeftClicked(int id){
-    emit workProcessSelected(id, 1);
+    emit workProcessSelected(id, AVType::LEFT);
 }
 
 void GantTimerView::btnWPRightClicked(int id){
-    emit workProcessSelected(id, 2);
+    emit workProcessSelected(id, AVType::RIGHT);
 }
 
 void GantTimerView::btnWPBasicClicked(int id){
-    emit workProcessSelected(id, 3);
+    emit workProcessSelected(id, AVType::BASIC);
 }
 
 
@@ -210,7 +210,7 @@ void GantTimerView::update(){
         btn->setText(QString("R %1: %2s").arg(id).arg(curStart.secsTo(curEnd)));
         if(selWP_ID == id && selWP_Type == 2)
             btn->setSelected(true);
-        connect(btn, SIGNAL(clickedWithID(int)), this, SLOT(btnWPLeftClicked(int)));
+        connect(btn, SIGNAL(clickedWithID(int)), this, SLOT(btnWPRightClicked(int)));
         int freeSecs = lastEnd.secsTo(curStart);
         rightWP->addSpacerItem(new QSpacerItem(freeSecs * secPixel, 0, QSizePolicy::Fixed, QSizePolicy::Fixed));
         rightWP->addWidget(btn);
@@ -227,7 +227,7 @@ void GantTimerView::update(){
         btn->setFixedSize(curStart.secsTo(curEnd) * secPixel, 50);
         if(selWP_ID == id && selWP_Type == 3)
             btn->setSelected(true);
-        connect(btn, SIGNAL(clickedWithID(int)), this, SLOT(btnWPLeftClicked(int)));
+        connect(btn, SIGNAL(clickedWithID(int)), this, SLOT(btnWPBasicClicked(int)));
         basicWP->addWidget(btn);
     }
     basicWP->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding));

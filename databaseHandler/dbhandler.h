@@ -25,7 +25,7 @@ public:
     bool deleteRow(DB_TABLES tbl, int row);
     bool deleteAll(DB_TABLES tbl, const QString &filter);
 
-    int getNextID(DB_TABLES tbl, const QString &colName);
+    int getNextID(DB_TABLES tbl, const QString &colName, const QString &filter = "");
     
 private:
     QSqlDatabase myDB;

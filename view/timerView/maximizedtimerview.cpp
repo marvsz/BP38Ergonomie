@@ -5,7 +5,6 @@
 #include <QIcon>
 #include <QStyle>
 
-const QStringList MaximizedTimerView::wpTypes = QStringList()<<"Links"<<"Rechts"<<"AV";
 
 MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     QWidget(parent),
@@ -21,7 +20,7 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     btnSetAV(new QPushButton("AV")),
     timePicker(new TimePicker()),
     wpSelector(new WorkProcessSelector),
-    oscWorkProcessType(new OptionSelectionControl()),
+    wpTypePicker(new WorkProcessTypePicker()),
     graphTimer(new GraphTimelineView())
 {
     btnSetLeft->setFixedSize(45, 45);
@@ -60,10 +59,9 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     connect(wpSelector, SIGNAL(nextAV()), this, SIGNAL(nextWorkProcess()));
     connect(wpSelector, SIGNAL(previousAV()), this, SIGNAL(previousWorkProcess()));
 
-    oscWorkProcessType->setValues(wpTypes);
-    connect(oscWorkProcessType, SIGNAL(selectionChanged(int)), this, SIGNAL(workProcessTypeChanged(int)));
+    connect(wpTypePicker, SIGNAL(selectedTypeChanged(AVType)), this, SIGNAL(workProcessTypeChanged(AVType)));
 
-    oscWorkProcessType->setMaximumWidth(220);
+    wpTypePicker->setMaximumWidth(220);
     wpSelector->setMaximumWidth(220);
     timePicker->setMaximumWidth(220);
 
@@ -75,7 +73,7 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addLayout(minMaxLayout, 0, 0, 3, 1, 0);
     mainLayout->addItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed), 0, 1, 3, 1, 0);
-    mainLayout->addWidget(oscWorkProcessType, 0, 2, 1, 1, 0);
+    mainLayout->addWidget(wpTypePicker, 0, 2, 1, 1, 0);
     mainLayout->addWidget(wpSelector, 1, 2, 1, 1, 0);
     mainLayout->addWidget(timePicker, 2, 2, 1, 1, 0);
     mainLayout->addWidget(graphTimer, 0, 3, 3, 1, Qt::AlignVCenter);
@@ -97,8 +95,8 @@ QTime MaximizedTimerView::getDuration() const{
 }
 
 
-QString MaximizedTimerView::getWorkprocessType() const{
-    return oscWorkProcessType->getSelectedValue().toString();
+AVType MaximizedTimerView::getWorkprocessType() const{
+    return wpTypePicker->getSelectedType();
 }
 
 TimerState MaximizedTimerView::getState() const{
@@ -159,6 +157,7 @@ void MaximizedTimerView::setState(TimerState state){
             btnSetRight->setEnabled(false);
             btnSetBoth->setEnabled(false);
 
+            btnStopReset->setEnabled(true);
             btnStopReset->setObjectName("resetIcon");
             btnStopReset->style()->unpolish(btnStopReset);
             btnStopReset->style()->polish(btnStopReset);
@@ -175,8 +174,8 @@ void MaximizedTimerView::setSelectedAV(int id){
     wpSelector->setSelectedAV(id);
 }
 
-void MaximizedTimerView::setWorkProcessType(int id, const QString &prefix){
-    oscWorkProcessType->setSelectedValue(id);
+void MaximizedTimerView::setWorkProcessType(AVType type, const QString &prefix){
+    wpTypePicker->setSelectedType(type);
     wpSelector->setAVPrefix(prefix);
 }
 

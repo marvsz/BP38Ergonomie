@@ -57,9 +57,9 @@ void VariantControl::setSpecification(VariantSpecification *varSpeci){
     variantsLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding));
 }
 
-void VariantControl::setSelectedSpecification(int speciID){
+void VariantControl::setSelectedSpecification(AVType type){
     if(varSpeci != NULL)
-        varSpeci->setSelected(speciID);
+        varSpeci->setSelected(type);
 }
 
 void VariantControl::setExclusiveDisplayByName(const QString &name){

@@ -23,6 +23,7 @@ public:
     void setRecord(const QSqlRecord &record);
 
 public slots:
+    void setSelectedType(AVType type);
 
 signals:
     void showExclusiveContentByName(const QString &name);
@@ -55,6 +56,7 @@ private slots:
     void vcHeadTiltValueChanged(int value);
     void vcHeadTiltSidewaysValueChanged(int value);
     void vcHeadTwistValueChanged(int value);
+
 private:
     static const QVector<int> TRUNK_TILT_VALUES;
     static const QVector<int> TRUNK_TILT_SIDEWAYS_VALUES;

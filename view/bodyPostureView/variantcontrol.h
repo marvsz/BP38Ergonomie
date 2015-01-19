@@ -21,7 +21,7 @@ public:
 
     void setSpecification(VariantSpecification *varSpeci);
 
-    void setSelectedSpecification(int speciID);
+    void setSelectedSpecification(AVType type);
 
 
     QString getName() const;

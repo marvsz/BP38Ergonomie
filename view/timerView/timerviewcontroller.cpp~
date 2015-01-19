@@ -141,16 +141,16 @@ void TimerViewController::setTime(const QTime &time){
 }
 
 void TimerViewController::createLeftWorkProcessRequested(){
-    emit createWorkProcess(AVType::LEFT, startTimeLeft, currentTime);
+    emit createWorkProcess(1, startTimeLeft, currentTime);
 }
 
 void TimerViewController::createRightWorkProcessRequested(){
-    emit createWorkProcess(AVType::RIGHT, startTimeRight, currentTime);
+    emit createWorkProcess(2, startTimeRight, currentTime);
 }
 
 void TimerViewController::createBasicWorkProcessRequested(){
     isBasicSet = true;
-    emit createWorkProcess(AVType::BASIC, startTimeBasic, currentTime);
+    emit createWorkProcess(3, startTimeBasic, currentTime);
     startTimeBasic = currentTime;
 }
 

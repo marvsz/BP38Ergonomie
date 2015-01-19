@@ -16,7 +16,8 @@
  * The new widget is deleted when its parent is deleted.
  */
 LoadHandlingView::LoadHandlingView(QWidget *parent) :
-    QWidget(parent)
+    QWidget(parent),
+    selectedTransportation_ID(0)
 {
 
     main = new QWidget(this);
@@ -91,25 +92,24 @@ LoadHandlingView::LoadHandlingView(QWidget *parent) :
     this->setLayout(contentLayout);
 
 
-    connect(btnEditTransportation, SIGNAL(clicked()), this, SIGNAL(forward()));
+    connect(btnEditTransportation, SIGNAL(clicked()), this, SIGNAL(showTransportationView()));
 }
 
-void LoadHandlingView::typeChanged(QString newType){
-    if(newType == tr("pulling and pushing"))
-        vlcWeight->setValues(1, 2000, heavyWeightValues, QString());
-    else
-        vlcWeight->setValues(1, 100, weightValues, QString());
-}
+
 
 LoadHandlingView::~LoadHandlingView()
 {
 }
 
-void LoadHandlingView::addTransportation(int id, const QString &name, int weight, int maxLoad){
-    DetailedListItem *newListItem = new DetailedListItem(0, "", name, QList<QStringList>(), false, true, false);
+void LoadHandlingView::addTransportation(int id, const QString &name, int weight, int maxLoad, bool hasBrakes, bool hasFixedRoller){
+    DetailedListItem *newListItem = new DetailedListItem(0, IconConstants::ICON_TRANSPORTATION, name, transportationItemScheme, false, true, false);
     newListItem->setID(id);
-    QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(weight) << QString::number(maxLoad));
+    QString brakes = hasBrakes ? tr("yes") : tr("no");
+    QString fixedRoller = hasFixedRoller ? tr("yes") : tr("no");
+    QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(weight) << QString::number(maxLoad)) << (QStringList()<<brakes<<fixedRoller);
     newListItem->setValues(values);
+    connect(newListItem, SIGNAL(selected(int)), this, SLOT(dliTransportationSelected(int)));
+    connect(this, SIGNAL(exclusivTransporationSelection(int)), newListItem, SLOT(selectExclusiveWithID(int)));
     transportationListLayout->addWidget(newListItem);
 }
 
@@ -121,14 +121,27 @@ void LoadHandlingView::clearTransportation(){
     }
 }
 
+void LoadHandlingView::dliTransportationSelected(int id){
+    emit exclusivTransporationSelection(id);
+    selectedTransportation_ID = id;
+}
+
+
+void LoadHandlingView::typeChanged(QString newType){
+    if(newType == tr("pulling and pushing"))
+        vlcWeight->setValues(1, 2000, heavyWeightValues, QString());
+    else
+        vlcWeight->setValues(1, 100, weightValues, QString());
+}
+
 // GETTER
 
 QString LoadHandlingView::getHandlingType() const {
-    return vlcHandlingType->getText();
+    return vlcHandlingType->getTextValue();
 }
 
 QString LoadHandlingView::getGraspType() const{
-    return vlcGraspType->getText();
+    return vlcGraspType->getTextValue();
 }
 
 int LoadHandlingView::getWeight() {
@@ -139,14 +152,18 @@ int LoadHandlingView::getDistance(){
     return vlcDistance->getValue();
 }
 
+int LoadHandlingView::getSelectedTransportation() const{
+    return selectedTransportation_ID;
+}
+
 // SETTER
 
 void LoadHandlingView::setHandlingType(const QString &handlingType){
-    vlcHandlingType->setText(handlingType);
+    vlcHandlingType->setValue(handlingType);
 }
 
 void LoadHandlingView::setGraspType(const QString &graspType){
-    vlcGraspType->setText(graspType);
+    vlcGraspType->setValue(graspType);
 }
 
 void LoadHandlingView::setWeight(int weight){
@@ -155,4 +172,8 @@ void LoadHandlingView::setWeight(int weight){
 
 void LoadHandlingView::setDistance(int distance){
     vlcDistance->setValue(distance);
+}
+
+void LoadHandlingView::setSelectedTransportation(int id){
+    dliTransportationSelected(id);
 }

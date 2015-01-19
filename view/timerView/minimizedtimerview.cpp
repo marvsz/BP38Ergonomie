@@ -2,14 +2,12 @@
 #include "QHBoxLayout"
 #include <QStyle>
 
-const QStringList MinimizedTimerView::wpTypes = QStringList()<<"Links"<<"Rechts"<<"AV";
-
 MinimizedTimerView::MinimizedTimerView(TimerState state, QWidget *parent) : QWidget(parent),
     lblTime(new QLabel("00:00")),
     btnMaximized(new QPushButton()),
     btnPlayPaused(new QPushButton()),
     wpSelector(new WorkProcessSelector()),
-    oscWorkProcessType(new OptionSelectionControl())
+    wpTypePicker(new WorkProcessTypePicker())
 {
     btnPlayPaused->setFixedSize(45, 45);
     btnPlayPaused->setObjectName("recordIcon");
@@ -22,14 +20,14 @@ MinimizedTimerView::MinimizedTimerView(TimerState state, QWidget *parent) : QWid
     connect(wpSelector, SIGNAL(nextAV()), this, SIGNAL(nextWorkProcess()));
     connect(wpSelector, SIGNAL(previousAV()), this, SIGNAL(previousWorkProcess()));
 
-    oscWorkProcessType->setValues(wpTypes);
-    connect(oscWorkProcessType, SIGNAL(selectionChanged(int)), this, SIGNAL(workProcessTypeChanged(int)));
+    wpTypePicker->setMinimumWidth(220);
+    connect(wpTypePicker, SIGNAL(selectedTypeChanged(AVType)), this, SIGNAL(workProcessTypeChanged(AVType)));
 
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainLayout->setContentsMargins(0,0,0,0);
     mainLayout->addWidget(btnMaximized, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed));
-    mainLayout->addWidget(oscWorkProcessType, 0, Qt::AlignCenter);
+    mainLayout->addWidget(wpTypePicker, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed));
     mainLayout->addWidget(wpSelector, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
@@ -40,11 +38,14 @@ MinimizedTimerView::MinimizedTimerView(TimerState state, QWidget *parent) : QWid
     this->setLayout(mainLayout);
     setState(state);
 }
+MinimizedTimerView::~MinimizedTimerView(){
+}
+
 
 //PUBLIC
 
-QString MinimizedTimerView::getWorkprocessType() const{
-    return oscWorkProcessType->getSelectedValue().toString();
+AVType MinimizedTimerView::getWorkprocessType() const{
+    return wpTypePicker->getSelectedType();
 }
 
 TimerState MinimizedTimerView::getState() const{
@@ -89,9 +90,9 @@ void MinimizedTimerView::setSelectedAV(int id){
     wpSelector->setSelectedAV(id);
 }
 
-void MinimizedTimerView::setWorkProcessType(int id, const QString &prefix){
-    oscWorkProcessType->setSelectedValue(id);
+void MinimizedTimerView::setWorkProcessType(AVType type, const QString &prefix){
     wpSelector->setAVPrefix(prefix);
+    wpTypePicker->setSelectedType(type);
 }
 
 //PRIVATE SLOTS
@@ -109,8 +110,5 @@ void MinimizedTimerView::btnPlayPausedClicked(){
     case TimerState::STOPPED:
         break;
     }
-}
-
-MinimizedTimerView::~MinimizedTimerView(){
 }
 

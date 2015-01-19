@@ -10,6 +10,7 @@
 #include "graphtimelineview.h"
 #include "timepicker.h"
 #include "selectablevaluebutton.h"
+#include "workprocesstypepicker.h"
 
 class MaximizedTimerView : public QWidget
 {
@@ -19,14 +20,14 @@ public:
     ~MaximizedTimerView();
 
     QTime getDuration() const;
-    QString getWorkprocessType() const;
+    AVType getWorkprocessType() const;
     TimerState getState() const;
     QTime getTime() const;
 
 signals:
     void nextWorkProcess();
     void previousWorkProcess();
-    void workProcessTypeChanged(int type);
+    void workProcessTypeChanged(AVType type);
     void durationIncreased();
     void durationDecreased();
     void minimize();
@@ -48,7 +49,7 @@ public slots:
     void setState(TimerState state);
     void setTime(const QTime &time);
     void setSelectedAV(int id);
-    void setWorkProcessType(int id, const QString &prefix);
+    void setWorkProcessType(AVType type, const QString &prefix);
     void updateGraph(QList<bool> *lstAV, QList<bool> *lstLeftAVs, QList<bool> *lstRightAVs);
     void setWorkProcessLists(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs);
 
@@ -80,8 +81,7 @@ private:
     TimePicker *timePicker;
     WorkProcessSelector *wpSelector;
 
-    static const QStringList wpTypes;
-    OptionSelectionControl *oscWorkProcessType;
+    WorkProcessTypePicker *wpTypePicker;
 
     GraphTimelineView *graphTimer;
 };

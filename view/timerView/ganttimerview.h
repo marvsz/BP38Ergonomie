@@ -10,6 +10,7 @@
 #include "numberlineedit.h"
 #include "iconconstants.h"
 #include "spaceritemtimer.h"
+#include "enum.h"
 
 class GantTimerView : public QWidget
 {
@@ -21,14 +22,14 @@ public:
     int getFrequenz() const;
 
 signals:
-    void workProcessSelected(int id, int type);
+    void workProcessSelected(int id, AVType type);
     void saveFrequenz();
 
 public slots:
-    void add(int id, int type, const QTime &start, const QTime &end);
+    void add(int id, AVType type, const QTime &start, const QTime &end);
     void setWorkProcessLists(QVector<QVariant> *leftWorkProcesses, QVector<QVariant> *rightWorkProcesses, QVector<QVariant> *basicWorkProcesses);
     void clear();
-    void setSelectedWorkProcess(int id, int type, int frequenz);
+    void setSelectedWorkProcess(int id, AVType type, int frequenz);
 
 
 private slots:
@@ -43,7 +44,7 @@ private slots:
 private:
     int secPixel;
     int selWP_ID;
-    int selWP_Type;
+    AVType selWP_Type;
 
     NumberLineEdit *numBxFrequenz;
 

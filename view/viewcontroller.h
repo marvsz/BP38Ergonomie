@@ -89,7 +89,7 @@ signals:
     void updateDocumentationView();
 
     //WORKPROCESS
-    void createWorkprocess(int type, const QTime &start, const QTime &end);
+    void createWorkprocess(AVType type, const QTime &start, const QTime &end);
 
     // RESSOURCE MANAGEMENT VIEW
 

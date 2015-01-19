@@ -208,12 +208,11 @@ const QString DBConstants::COL_WORK_PROCESS_IMPULSE_COUNT = "impulse_count";
 const QString DBConstants::COL_WORK_PROCESS_WORKING_HEIGHT = "working_heigt";
 const QString DBConstants::COL_WORK_PROCESS_DISTANCE = "distance";
 const QString DBConstants::COL_WORK_PROCESS_POSTURE_ID = "posture_ID";
-const QString DBConstants::COL_WORK_PROCESS_TRANSPORTATION_ID = "transportation_ID";
 const QString DBConstants::COL_WORK_PROCESS_EQUIPMENT_ID = "equipment_ID";
 const QString DBConstants::COL_WORK_PROCESS_CONDITION_ID = "condition_ID";
 const QString DBConstants::COL_WORK_PROCESS_APPLIED_FORCE_ID = "applied_force_ID";
 const QString DBConstants::COL_WORK_PROCESS_LOAD_HANDLING_ID = "load_handling_ID";
-const QHash<QString, QVariant::Type> DBConstants::HASH_WORK_PROCESS_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_TYPE, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_ID, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_DESCRIPTION, QVariant::String).add(DBConstants::COL_WORK_PROCESS_BEGIN, QVariant::String).add(DBConstants::COL_WORK_PROCESS_END, QVariant::String).add(DBConstants::COL_WORK_PROCESS_MTM_CODE, QVariant::String).add(DBConstants::COL_WORK_PROCESS_FREQUENCY, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_IMPULSE_INTENSITY, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_IMPULSE_COUNT, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_WORKING_HEIGHT, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_DISTANCE, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_POSTURE_ID, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_TRANSPORTATION_ID, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_EQUIPMENT_ID, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_CONDITION_ID, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_APPLIED_FORCE_ID, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_LOAD_HANDLING_ID, QVariant::Int).build();
+const QHash<QString, QVariant::Type> DBConstants::HASH_WORK_PROCESS_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_TYPE, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_ID, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_DESCRIPTION, QVariant::String).add(DBConstants::COL_WORK_PROCESS_BEGIN, QVariant::String).add(DBConstants::COL_WORK_PROCESS_END, QVariant::String).add(DBConstants::COL_WORK_PROCESS_MTM_CODE, QVariant::String).add(DBConstants::COL_WORK_PROCESS_FREQUENCY, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_IMPULSE_INTENSITY, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_IMPULSE_COUNT, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_WORKING_HEIGHT, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_DISTANCE, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_POSTURE_ID, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_EQUIPMENT_ID, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_CONDITION_ID, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_APPLIED_FORCE_ID, QVariant::Int).add(DBConstants::COL_WORK_PROCESS_LOAD_HANDLING_ID, QVariant::Int).build();
 
 //Load_Handling_Type
 const QString DBConstants::TBL_LOAD_HANDLING_TYPE = "Load_Handling_Type";
@@ -228,7 +227,8 @@ const QString DBConstants::COL_LOAD_HANDLING_LOAD = "load";
 const QString DBConstants::COL_LOAD_HANDLING_DISTANCE = "distance";
 const QString DBConstants::COL_LOAD_HANDLING_LOAD_HANDLING_TYPE_ID = "load_handling_type_ID";
 const QString DBConstants::COL_LOAD_HANDLING_TYPE_OF_GRASPING = "type_of_grasping_ID";
-const QHash<QString, QVariant::Type> DBConstants::HASH_LOAD_HANDLING_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_LOAD_HANDLING_ID, QVariant::Int).add(DBConstants::COL_LOAD_HANDLING_LOAD, QVariant::Int).add(DBConstants::COL_LOAD_HANDLING_DISTANCE, QVariant::Int).add(DBConstants::COL_LOAD_HANDLING_LOAD_HANDLING_TYPE_ID, QVariant::Int).add(DBConstants::COL_LOAD_HANDLING_TYPE_OF_GRASPING, QVariant::Int).build();
+const QString DBConstants::COL_LOAD_HANDLING_TRANSPORTATION_ID = "transportation_ID";
+const QHash<QString, QVariant::Type> DBConstants::HASH_LOAD_HANDLING_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_LOAD_HANDLING_ID, QVariant::Int).add(DBConstants::COL_LOAD_HANDLING_LOAD, QVariant::Int).add(DBConstants::COL_LOAD_HANDLING_DISTANCE, QVariant::Int).add(DBConstants::COL_LOAD_HANDLING_LOAD_HANDLING_TYPE_ID, QVariant::Int).add(DBConstants::COL_LOAD_HANDLING_TYPE_OF_GRASPING, QVariant::Int).add(DBConstants::COL_LOAD_HANDLING_TRANSPORTATION_ID, QVariant::Int).build();
 
 //Applied_Force
 const QString DBConstants::TBL_APPLIED_FORCE = "Applied_Force";
@@ -251,7 +251,7 @@ const QHash<QString, QVariant::Type> DBConstants::HASH_TRANSPORTATION_TYPES = QH
 //Type_of_Grasping
 const QString DBConstants::TBL_TYPE_OF_GRASPING = "Type_of_Grasping";
 const QString DBConstants::COL_TYPE_OF_GRASPING_ID = "type_of_grasping_ID";
-const QString DBConstants::COL_TYPE_OF_GRASPING_NAME = "type_of_grapsing_name";
+const QString DBConstants::COL_TYPE_OF_GRASPING_NAME = "type_of_grasping_name";
 const QHash<QString, QVariant::Type> DBConstants::HASH_TYPE_OF_GRASPING_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_TYPE_OF_GRASPING_ID, QVariant::Int).add(DBConstants::COL_TYPE_OF_GRASPING_NAME, QVariant::String).build();
 
 //Equipment

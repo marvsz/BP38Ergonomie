@@ -68,7 +68,7 @@ void ViewController::setCommentView(CommentView *commentView){
 void ViewController::setDocumentationView(DocumentationView *documentationView){
     this->documentationView = documentationView;
     connect(documentationView, SIGNAL(showPreviousView()), this, SLOT(backToView()));
-    connect(documentationView, SIGNAL(createWorkProcess(int,QTime,QTime)), this, SIGNAL(createWorkprocess(int,QTime,QTime)));
+    connect(documentationView, SIGNAL(showTransportationView()), this, SLOT(goToTransportationView()));
 }
 
 void ViewController::setRessourceManagementView(RessourceManagementView *ressourceManagementView){

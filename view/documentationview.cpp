@@ -57,6 +57,7 @@ void DocumentationView::setBodyPostureView(BodyPostureView *bodyPostureView){
 
 void DocumentationView::setLoadHandlingView(LoadHandlingView *loadHandlingView){
     this->loadHandlingView = loadHandlingView;
+    connect(loadHandlingView, SIGNAL(showTransportationView()), this, SIGNAL(showTransportationView()));
 }
 
 void DocumentationView::setAppliedForceView(AppliedForceView *appliedForceView){
@@ -76,12 +77,11 @@ void DocumentationView::setTimerViewController(TimerViewController *timerViewCon
 
     connect(timerViewController, SIGNAL(showGantView()), this, SLOT(showGant()));
     connect(timerViewController, SIGNAL(hideGantView()), this, SLOT(hideGant()));
-    connect(timerViewController, SIGNAL(createWorkProcess(int,QTime,QTime)), this, SIGNAL(createWorkProcess(int,QTime,QTime)));
 }
 
 void DocumentationView::setGantTimerView(GantTimerView *gantTimerView){
     this->gantView = gantTimerView;
-
+    connect(gantTimerView, SIGNAL(workProcessSelected(int,AVType)), this, SLOT(workProcessSelectionChanged(int, AVType)));
 }
 
 void DocumentationView::setupViews(){
@@ -167,6 +167,12 @@ void DocumentationView::hideGant(){
 void DocumentationView::backButtonClicked(){
     emit showPreviousView();
 }
+
+void DocumentationView::workProcessSelectionChanged(int id, AVType type){
+    changeView(0);
+    bodyPostureView->setSelectedType(type);
+}
+
 
 void DocumentationView::changeView(int index){
     switch(lastIndex){

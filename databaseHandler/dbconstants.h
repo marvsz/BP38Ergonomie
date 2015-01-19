@@ -224,7 +224,6 @@ public:
     static const QString COL_WORK_PROCESS_WORKING_HEIGHT;
     static const QString COL_WORK_PROCESS_DISTANCE;
     static const QString COL_WORK_PROCESS_POSTURE_ID;
-    static const QString COL_WORK_PROCESS_TRANSPORTATION_ID;
     static const QString COL_WORK_PROCESS_EQUIPMENT_ID;
     static const QString COL_WORK_PROCESS_CONDITION_ID;
     static const QString COL_WORK_PROCESS_APPLIED_FORCE_ID;
@@ -244,6 +243,7 @@ public:
     static const QString COL_LOAD_HANDLING_DISTANCE;
     static const QString COL_LOAD_HANDLING_LOAD_HANDLING_TYPE_ID;
     static const QString COL_LOAD_HANDLING_TYPE_OF_GRASPING;
+    static const QString COL_LOAD_HANDLING_TRANSPORTATION_ID;
     static const QHash<QString, QVariant::Type> HASH_LOAD_HANDLING_TYPES;
 
     //Applied_Force

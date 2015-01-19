@@ -11,7 +11,7 @@ OptionSelectionControl::OptionSelectionControl(QWidget *parent) :
 
 //Public slots
 void OptionSelectionControl::setSelectedValue(int id){
-    if(id >= 0 && id < btnOptions.length() && currentSelectedBtn != NULL){
+    if(id >= 0 && id < btnOptions.length() && currentSelectedBtn != NULL && currentSelectedBtn->getID() != id){
         btnOptions.at(currentSelectedBtn->getID())->setSelected(false);
         currentSelectedBtn = btnOptions.at(id);
         currentSelectedBtn->setSelected(true);

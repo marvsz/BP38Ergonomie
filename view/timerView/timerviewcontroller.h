@@ -22,13 +22,14 @@ signals:
 
     void nextWorkProcess();
     void previousWorkProcess();
-    void workProcessTypeChanged(int type);
+    void workProcessTypeChanged(AVType type);
     void durationChanged(const QTime &duration);
-    void createWorkProcess(int type, const QTime &startTime, const QTime &endTime);
+    void createWorkProcess(AVType type, const QTime &startTime, const QTime &endTime);
     void resetWorkProcesses();
 
 public slots:
     void setSelectedAV(int id);
+    void setSelectedType(AVType type);
     void setWorkProcessLists(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs);
 
 protected:
@@ -43,7 +44,7 @@ private slots:
     void stopTimer();
     void resetTimer();
     void setTime(const QTime &time);
-    void setWorkProcessType(int id, const QString &prefix);
+    void setWorkProcessType(AVType type, const QString &prefix);
 
     void createLeftWorkProcessRequested();
     void createRightWorkProcessRequested();
@@ -72,6 +73,8 @@ private:
     TimerDisplayState displayState;
     MaximizedTimerView *maxTimerView;
     MinimizedTimerView *minTimerView;
+
+    const QStringList TYPE_PREFIXE = QStringList()<<"L"<<"R"<<"AV";
 
     void syncTimerStates(TimerState state);
 

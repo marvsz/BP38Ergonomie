@@ -43,7 +43,6 @@ public:
 
 signals:
     void showPreviousView();
-    void createWorkProcess(int type, const QTime &start, const QTime &end);
 
     void updateGantView();
     void saveFrequenz();
@@ -63,6 +62,8 @@ signals:
     void updateWorkProcessMetaDataView();
     void saveWorkProcessMetaDataView();
 
+    void showTransportationView();
+
 public slots:
 
 private slots:
@@ -76,6 +77,7 @@ private slots:
     void backButtonClicked();
 
     void changeView(int index);
+    void workProcessSelectionChanged(int id, AVType type);
 
 private:
     int indexBeforeTimeLineView;
