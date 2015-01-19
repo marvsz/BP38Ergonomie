@@ -665,6 +665,7 @@ void Controller::saveBodyPostureView(){
     else {
         dbHandler->updateRow(tbl, 0, record);
     }
+    bodyPosture_ID = record.value(DBConstants::COL_BODY_POSTURE_ID);
 }
 
 // ExecutionConditionView
@@ -699,7 +700,7 @@ void Controller::updateExecutionConditionView(){
                         record.value(DBConstants::COL_WORK_CONDITION_VIBRATION).toInt());
 }
 
-int Controller::saveExecutionConditionView(){
+void Controller::saveExecutionConditionView(){
     QString filter = QString("%1 = %2").arg(DBConstants::COL_WORK_CONDITION_ID).arg(workcondition_ID);
 
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
@@ -728,7 +729,7 @@ int Controller::saveExecutionConditionView(){
     values.insert(DBConstants::COL_WORK_CONDITION_VIBRATION, executionConditionView->getVibration());
     values.insert(DBConstants::COL_WORK_CONDITION_WIND, executionConditionView->getWind());
     values.insert(DBConstants::COL_WORK_CONDITION_ID, workcondition_ID);
-    return save(DB_TABLES::WORK_CONDITION, filter, DBConstants::COL_WORK_CONDITION_ID, DBConstants::HASH_COMMENT_TYPES, values);
+    workcondition_ID = save(DB_TABLES::WORK_CONDITION, filter, DBConstants::COL_WORK_CONDITION_ID, DBConstants::HASH_COMMENT_TYPES, values);
 
 }
 
@@ -743,7 +744,7 @@ void Controller::updateAppliedForceView(){
     appliedForceView->setIntensity(record.value(DBConstants::COL_APPLIED_FORCE_INTENSITY).toInt());
 }
 
-int Controller::saveAppliedForceView(){
+void Controller::saveAppliedForceView(){
     QString filter = QString("%1 = %2").arg(DBConstants::COL_APPLIED_FORCE_ID).arg(appliedforce_ID);
 
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
@@ -751,7 +752,7 @@ int Controller::saveAppliedForceView(){
     values.insert(DBConstants::COL_APPLIED_FORCE_DIRECTION, appliedForceView->getDirection());
     values.insert(DBConstants::COL_APPLIED_FORCE_INTENSITY, appliedForceView->getIntensity());
     values.insert(DBConstants::COL_APPLIED_FORCE_ID, appliedforce_ID);
-    return save(DB_TABLES::APPLIED_FORCE, filter, DBConstants::COL_APPLIED_FORCE_ID, DBConstants::HASH_COMMENT_TYPES, values);
+    appliedforce_ID = save(DB_TABLES::APPLIED_FORCE, filter, DBConstants::COL_APPLIED_FORCE_ID, DBConstants::HASH_COMMENT_TYPES, values);
 }
 
 // LoadHandlingView
@@ -792,7 +793,7 @@ void Controller::updateLoadHandlingView(){
     loadHandlingView->setSelectedTransportation(trans_ID);
 }
 
-int Controller::saveLoadHandlingView(){
+void Controller::saveLoadHandlingView(){
     QString filter = QString("%1 = '%2'").arg(DBConstants::COL_TYPE_OF_GRASPING_NAME).arg(loadHandlingView->getGraspType());
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_TYPE_OF_GRASPING_NAME, loadHandlingView->getGraspType());
@@ -810,7 +811,7 @@ int Controller::saveLoadHandlingView(){
     values.insert(DBConstants::COL_LOAD_HANDLING_TRANSPORTATION_ID, loadHandlingView->getSelectedTransportation());
     values.insert(DBConstants::COL_LOAD_HANDLING_LOAD, loadHandlingView->getWeight());
     values.insert(DBConstants::COL_LOAD_HANDLING_DISTANCE, loadHandlingView->getDistance());
-    return save(DB_TABLES::LOAD_HANDLING, filter, DBConstants::COL_LOAD_HANDLING_ID, DBConstants::HASH_LOAD_HANDLING_TYPES, values);
+    loadhandling_ID = save(DB_TABLES::LOAD_HANDLING, filter, DBConstants::COL_LOAD_HANDLING_ID, DBConstants::HASH_LOAD_HANDLING_TYPES, values);
 }
 
 //PRIVATE METHODS
