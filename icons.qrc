@@ -67,6 +67,7 @@
         <file>icons/Buttons/edit@2x.png</file>
         <file>icons/Buttons/editPressed.png</file>
         <file>icons/Buttons/editPressed@2x.png</file>
+        <file>icons/Buttons/cameraPressed.png</file>
     </qresource>
     <qresource prefix="/misc">
         <file>icons/Misc/workplace.png</file>
