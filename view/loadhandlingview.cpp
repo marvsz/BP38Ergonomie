@@ -86,10 +86,8 @@ LoadHandlingView::LoadHandlingView(QWidget *parent) :
     mainLayout->addLayout(menuLineLayout);
     mainLayout->addWidget(categoryScrollArea);
 
-    main->setLayout(mainLayout);
-    QVBoxLayout *contentLayout = new QVBoxLayout;
-    contentLayout->addWidget(main);
-    this->setLayout(contentLayout);
+
+    this->setLayout(mainLayout);
 
 
     connect(btnEditTransportation, SIGNAL(clicked()), this, SIGNAL(showTransportationView()));
