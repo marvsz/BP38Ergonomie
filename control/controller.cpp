@@ -665,7 +665,7 @@ void Controller::saveBodyPostureView(){
     else {
         dbHandler->updateRow(tbl, 0, record);
     }
-    bodyPosture_ID = record.value(DBConstants::COL_BODY_POSTURE_ID);
+    bodyPosture_ID = record.value(DBConstants::COL_BODY_POSTURE_ID).toInt();
 }
 
 // ExecutionConditionView

@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>assets/ergoAppDB.sqlite</file>
         <file>assets/stylesheet.qss</file>
         <file>ergo_trans_de.qm</file>
+        <file>assets/ergoAppDB.sqlite</file>
     </qresource>
 </RCC>
