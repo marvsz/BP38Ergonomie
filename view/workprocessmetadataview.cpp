@@ -1,7 +1,10 @@
 #include "workprocessmetadataview.h"
 #include <QGridLayout>
+#include <QScrollArea>
+#include <QVBoxLayout>
 #include "separator.h"
 #include "detailedlistitem.h"
+#include "flickcharm.h"
 
 
 WorkProcessMetaDataView::WorkProcessMetaDataView(QWidget *parent) : QWidget(parent),
@@ -18,7 +21,8 @@ WorkProcessMetaDataView::WorkProcessMetaDataView(QWidget *parent) : QWidget(pare
     numBxDistance(new NumberLineEdit()),
     oscImpulseIntensity(new OptionSelectionControl()),
     numBxImpulseCount(new NumberLineEdit()),
-    equipmentListLayout(new QVBoxLayout)
+    equipmentListLayout(new QVBoxLayout),
+    selectedEquipment_ID(0)
 {
     txtBxDescription->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
     txtBxDescription->setPlaceholderText(tr("Description of the working process"));
@@ -59,9 +63,21 @@ WorkProcessMetaDataView::WorkProcessMetaDataView(QWidget *parent) : QWidget(pare
     mainLayout->addWidget(btnEditEquipment, 12, 1, 1, 1, 0);
     mainLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 9, 0, 1, 2, 0);
 
-    setLayout(mainLayout);
+    QWidget *mainContent = new QWidget();
+    mainContent->setLayout(mainLayout);
 
-    connect(btnEditEquipment, SIGNAL(clicked()), this, SIGNAL(forward()));
+    QScrollArea *saContent = new QScrollArea();
+    saContent->setWidget(mainContent);
+    saContent->setWidgetResizable(true);
+    FlickCharm *flick = new FlickCharm();
+    flick->activateOn(saContent);
+
+    QVBoxLayout *wrapLayout = new QVBoxLayout;
+    wrapLayout->addWidget(saContent);
+
+    setLayout(wrapLayout);
+
+    connect(btnEditEquipment, SIGNAL(clicked()), this, SIGNAL(showEquipmentView()));
 }
 
 WorkProcessMetaDataView::~WorkProcessMetaDataView()
@@ -83,6 +99,8 @@ void WorkProcessMetaDataView::addEquipment(int id, const QString &name, int reco
     newListItem->setID(id);
     QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(recoilCount) << QString::number(recoilIntensity)) << (QStringList() << QString::number(vibrationCount) << QString::number(vibrationIntensity));
     newListItem->setValues(values);
+    connect(newListItem, SIGNAL(selected(int)), this, SLOT(dliEquipmentClicked(int)));
+    connect(this, SIGNAL(selectEquipmentExclusive(int)), newListItem, SLOT(selectExclusiveWithID(int)));
     equipmentListLayout->addWidget(newListItem);
 }
 
@@ -92,6 +110,16 @@ void WorkProcessMetaDataView::clearEquipment(){
         delete item->widget();
         delete item;
     }
+}
+
+void WorkProcessMetaDataView::setSelectedEquipment(int id){
+    dliEquipmentClicked(id);
+}
+
+//PRIVATE SLOTS
+void WorkProcessMetaDataView::dliEquipmentClicked(int id){
+    selectedEquipment_ID = id;
+    emit selectEquipmentExclusive(id);
 }
 
 
@@ -113,5 +141,8 @@ int WorkProcessMetaDataView::getImpulseIntensity() const{
 }
 int WorkProcessMetaDataView::getImpulseCount() const{
     return numBxImpulseCount->getValue();
+}
+int WorkProcessMetaDataView::getSelectedEquipment() const{
+    return selectedEquipment_ID;
 }
 

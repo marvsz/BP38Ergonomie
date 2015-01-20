@@ -90,7 +90,7 @@ void TimerViewController::maximizeView(){
         maxTimerView->show();
         displayState = TimerDisplayState::MAXIMIZED;
     }
-    else if(displayState == TimerDisplayState::MAXIMIZED){
+    else if(displayState == TimerDisplayState::MAXIMIZED || displayState == TimerDisplayState::GANT){
         emit showGantView();
         displayState = TimerDisplayState::GANT;
     }

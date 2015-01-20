@@ -21,14 +21,20 @@ public:
     int getDistance() const;
     int getImpulseIntensity() const;
     int getImpulseCount() const;
+    int getSelectedEquipment() const;
 
 signals:
-    void forward();
+    void showEquipmentView();
+    void selectEquipmentExclusive(int id);
 
 public slots:
     void setWorkProcessMetaData(const QString &desc, const QString &mtmCode, int workingHeight, int distance, int impulseIntensity, int impulseCount);
     void addEquipment(int id, const QString &name, int recoilCount, int recoilIntensity, int vibrationCount, int vibrationIntensity);
     void clearEquipment();
+    void setSelectedEquipment(int id);
+
+private slots:
+    void dliEquipmentClicked(int id);
 
 private:
     QLabel *lblDescription;
@@ -54,6 +60,8 @@ private:
     const QList<QStringList> equipmentItemScheme = QList<QStringList>() << (QStringList() << tr("recoil count") << tr ("recoil intensity")) << (QStringList() << tr("vibration count") << tr("vibration intensity"));
 
     QVBoxLayout *equipmentListLayout;
+
+    int selectedEquipment_ID;
 };
 
 #endif // WORKPROCESSMETADATAVIEW_H

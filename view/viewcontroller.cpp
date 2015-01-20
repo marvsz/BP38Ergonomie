@@ -69,6 +69,7 @@ void ViewController::setDocumentationView(DocumentationView *documentationView){
     this->documentationView = documentationView;
     connect(documentationView, SIGNAL(showPreviousView()), this, SLOT(backToView()));
     connect(documentationView, SIGNAL(showTransportationView()), this, SLOT(goToTransportationView()));
+    connect(documentationView, SIGNAL(showEquipmentView()), this, SLOT(goToEquipmentView()));
 }
 
 void ViewController::setRessourceManagementView(RessourceManagementView *ressourceManagementView){

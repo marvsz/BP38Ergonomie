@@ -99,6 +99,10 @@ private slots:
     void updateLoadHandlingView();
     void saveLoadHandlingView();
 
+    void updateWorkProcessMetaDataView();
+    void saveWorkProcessMetaDataView();
+    void updateWorkProcessMetaDataEquipment();
+
 private:
     DBHandler *dbHandler;
     ViewController *viewCon;

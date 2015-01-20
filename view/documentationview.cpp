@@ -70,6 +70,7 @@ void DocumentationView::setExecutionConditionView(ExecutionConditionView *execut
 
 void DocumentationView::setWorkprocessMetaDataView(WorkProcessMetaDataView *workprocessMetaDataView){
     this->workprocessMetaDataView = workprocessMetaDataView;
+    connect(workprocessMetaDataView, SIGNAL(showEquipmentView()), this, SIGNAL(showEquipmentView()));
 }
 
 void DocumentationView::setTimerViewController(TimerViewController *timerViewController){
@@ -157,7 +158,7 @@ void DocumentationView::avPressed(){
 void DocumentationView::showGant(){
     emit updateGantView();
     indexBeforeTimeLineView = mainContent->currentIndex();
-    mainContent->setCurrentIndex(5);
+    changeView(5);
 }
 
 void DocumentationView::hideGant(){
@@ -193,4 +194,5 @@ void DocumentationView::changeView(int index){
     }
     lastIndex = index;
     mainContent->setCurrentIndex(index);
+    views->setCurrentIndex(index);
 }

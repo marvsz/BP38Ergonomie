@@ -44,6 +44,9 @@ public:
 signals:
     void showPreviousView();
 
+    void showTransportationView();
+    void showEquipmentView();
+
     void updateGantView();
     void saveFrequenz();
 
@@ -61,8 +64,6 @@ signals:
 
     void updateWorkProcessMetaDataView();
     void saveWorkProcessMetaDataView();
-
-    void showTransportationView();
 
 public slots:
 

@@ -577,6 +577,11 @@ void Controller::setSelectedWorkProcess(int id , AVType type){
         workprocess_Type = type;
         timerViewController->setSelectedType(type);
         timerViewController->setSelectedAV(id);
+        updateBodyPostureView();
+        updateAppliedForceView();
+        updateLoadHandlingView();
+        updateExecutionConditionView();
+        updateWorkProcessMetaDataView();
     }
 }
 
@@ -812,6 +817,52 @@ void Controller::saveLoadHandlingView(){
     values.insert(DBConstants::COL_LOAD_HANDLING_LOAD, loadHandlingView->getWeight());
     values.insert(DBConstants::COL_LOAD_HANDLING_DISTANCE, loadHandlingView->getDistance());
     loadhandling_ID = save(DB_TABLES::LOAD_HANDLING, filter, DBConstants::COL_LOAD_HANDLING_ID, DBConstants::HASH_LOAD_HANDLING_TYPES, values);
+}
+
+//WorkProcessMetaDataView
+void Controller::updateWorkProcessMetaDataView(){
+    DB_TABLES tbl = DB_TABLES::WORK_PROCESS;
+    QString filter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_POSTURE_ID).arg(workprocess_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(workprocess_Type);
+    dbHandler->select(tbl, filter);
+    QSqlRecord record = dbHandler->record(tbl, 0);
+    workProcessMetaDataView->setWorkProcessMetaData(record.value(DBConstants::COL_WORK_PROCESS_DESCRIPTION).toString(),
+                                                    record.value(DBConstants::COL_WORK_PROCESS_MTM_CODE).toString(),
+                                                    record.value(DBConstants::COL_WORK_PROCESS_WORKING_HEIGHT).toInt(),
+                                                    record.value(DBConstants::COL_WORK_PROCESS_DISTANCE).toInt(),
+                                                    record.value(DBConstants::COL_WORK_PROCESS_IMPULSE_INTENSITY).toInt(),
+                                                    record.value(DBConstants::COL_WORK_PROCESS_IMPULSE_COUNT).toInt());
+    updateWorkProcessMetaDataEquipment();
+    workProcessMetaDataView->setSelectedEquipment(record.value(DBConstants::COL_WORK_PROCESS_EQUIPMENT_ID).toInt());
+}
+
+void Controller::updateWorkProcessMetaDataEquipment(){
+    workProcessMetaDataView->clearEquipment();
+    DB_TABLES tbl = DB_TABLES::EQUIPMENT;
+    dbHandler->select(tbl, QString(""));
+    for(int i = 0; i < dbHandler->rowCount(tbl); ++i){
+        QSqlRecord record = dbHandler->record(tbl, i);
+        workProcessMetaDataView->addEquipment(record.value(DBConstants::COL_EQUIPMENT_ID).toInt(),
+                                              record.value(DBConstants::COL_EQUIPMENT_NAME).toString(),
+                                              record.value(DBConstants::COL_EQUIPMENT_RECOIL_COUNT).toInt(),
+                                              record.value(DBConstants::COL_EQUIPMENT_RECOIL_INTENSITY).toInt(),
+                                              record.value(DBConstants::COL_EQUIPMENT_VIBRATION_COUNT).toInt(),
+                                              record.value(DBConstants::COL_EQUIPMENT_VIBRATION_INTENSITY).toInt());
+    }
+}
+
+
+void Controller::saveWorkProcessMetaDataView(){
+    QString filter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_POSTURE_ID).arg(workprocess_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(workprocess_Type);
+
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_WORK_PROCESS_DESCRIPTION, workProcessMetaDataView->getDescription());
+    values.insert(DBConstants::COL_WORK_PROCESS_MTM_CODE, workProcessMetaDataView->getMTMCode());
+    values.insert(DBConstants::COL_WORK_PROCESS_WORKING_HEIGHT, workProcessMetaDataView->getWorkingHeight());
+    values.insert(DBConstants::COL_WORK_PROCESS_DISTANCE, workProcessMetaDataView->getDistance());
+    values.insert(DBConstants::COL_WORK_PROCESS_IMPULSE_COUNT, workProcessMetaDataView->getImpulseCount());
+    values.insert(DBConstants::COL_WORK_PROCESS_IMPULSE_INTENSITY, workProcessMetaDataView->getImpulseIntensity());
+    values.insert(DBConstants::COL_WORK_PROCESS_EQUIPMENT_ID, workProcessMetaDataView->getSelectedEquipment());
+    save(DB_TABLES::WORK_PROCESS, filter, DBConstants::HASH_WORK_PROCESS_TYPES, values);
 }
 
 //PRIVATE METHODS
