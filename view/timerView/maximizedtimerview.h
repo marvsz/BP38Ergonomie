@@ -48,7 +48,7 @@ signals:
 public slots:
     void setState(TimerState state);
     void setTime(const QTime &time);
-    void setSelectedAV(int id);
+    void setSelectedAV(int id, const QTime &duration);
     void setWorkProcessType(AVType type, const QString &prefix);
     void updateGraph(QList<bool> *lstAV, QList<bool> *lstLeftAVs, QList<bool> *lstRightAVs);
     void setWorkProcessLists(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs);

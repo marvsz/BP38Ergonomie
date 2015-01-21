@@ -283,10 +283,24 @@ void BodyPostureView::varConRequestShowContent(const QString &name){
 
 void BodyPostureView::armSpeciChanged(int type){
     armSpeci_Type = type;
+    vcUpperArmAngle->setValue(record.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_RIGHT).toInt());
+    vcForearmAngle->setValue(record.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_RIGHT).toInt());
+    vcUpperArmTwist->setValue(record.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_UPPER_ARM_TWIST_LEFT : DBConstants::COL_BODY_POSTURE_UPPER_ARM_TWIST_RIGHT).toInt());
+    vcForearmTwist->setValue(record.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_FOREARM_TWIST_LEFT : DBConstants::COL_BODY_POSTURE_FOREARM_TWIST_RIGHT).toInt());
+    vcArmOpening->setValue(record.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_ARM_OPENING_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_ARM_OPENING_ANGLE_RIGHT).toInt());
+    vcWristAngle->setValue(record.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_WRIST_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_WRIST_ANGLE_RIGHT).toInt());
+    vcWristAngleSideways->setValue(record.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_WRIST_ANGLE_SIDEWAYS_LEFT : DBConstants::COL_BODY_POSTURE_WRIST_ANGLE_SIDEWAYS_RIGHT).toInt());
+    vcWristMovement->setValue(record.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_WRIST_MOVEMENT_LEFT : DBConstants::COL_BODY_POSTURE_WRIST_MOVEMENT_RIGHT).toInt());
 }
 
 void BodyPostureView::legSpeciChanged(int type){
     legSpeci_Type = type;
+    vcHipAngle->setValue(record.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT).toInt());
+    vcHipAngleSideways->setValue(record.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_HIP_ANGLE_SIDEWAYS_LEFT : DBConstants::COL_BODY_POSTURE_HIP_ANGLE_SIDEWAYS_RIGHT).toInt());
+    vcHipTwist->setValue(record.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_HIP_TWIST_LEFT : DBConstants::COL_BODY_POSTURE_HIP_TWIST_RIGHT).toInt());
+    vcKneeAngle->setValue(record.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_RIGHT).toInt());
+    vcAnkleAngle->setValue(record.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT).toInt());
+    vcAnkleAngleSideways->setValue(record.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_SIDEWAYS_LEFT : DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_SIDEWAYS_RIGHT).toInt());
 }
 
 void BodyPostureView::vcTrunkTiltValueChanged(int value){
@@ -356,6 +370,7 @@ void BodyPostureView::vcWristMovementValueChanged(int value){
     if(armSpeci_Type == 2 || armSpeci_Type == 3)
         record.setValue(DBConstants::COL_BODY_POSTURE_WRIST_MOVEMENT_RIGHT, value);
 }
+
 
 void BodyPostureView::vcHipAngleValueChanged(int value){
     if(legSpeci_Type == 1 || legSpeci_Type == 3)

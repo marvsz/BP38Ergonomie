@@ -52,6 +52,7 @@ private:
     QPushButton *btnName;
 
     VariantSpecification *varSpeci;
+    bool hasSpeci;
 
     SelectableValueButton *svBtnCurrentSel;
     QVector<QVector<ValueControl*>*> *valueControls;

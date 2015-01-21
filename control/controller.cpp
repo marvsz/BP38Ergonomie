@@ -116,6 +116,9 @@ Controller::Controller(QObject *parent) :
     connect(documentationView, SIGNAL(updateExecutionConditionView()), this, SLOT(updateExecutionConditionView()));
     connect(documentationView, SIGNAL(saveExecutionConditionView()), this, SLOT(saveExecutionConditionView()));
 
+    connect(documentationView, SIGNAL(updateWorkProcessMetaDataView()), this, SLOT(updateWorkProcessMetaDataView()));
+    connect(documentationView, SIGNAL(saveWorkProcessMetaDataView()), this, SLOT(saveWorkProcessMetaDataView()));
+
     connect(documentationView, SIGNAL(updateGantView()), this, SLOT(updateGantView()));
     connect(documentationView, SIGNAL(saveFrequenz()), this, SLOT(saveWorkProcessFrequenz()));
 
@@ -573,10 +576,11 @@ void Controller::setSelectedWorkProcess(int id , AVType type){
         appliedforce_ID = record.value(DBConstants::COL_WORK_PROCESS_APPLIED_FORCE_ID).toInt();
         loadhandling_ID = record.value(DBConstants::COL_WORK_PROCESS_LOAD_HANDLING_ID).toInt();
         workcondition_ID = record.value(DBConstants::COL_WORK_PROCESS_CONDITION_ID).toInt();
+        QTime duration = QTime(0,0).addSecs(record.value(DBConstants::COL_WORK_PROCESS_BEGIN).toTime().secsTo(record.value(DBConstants::COL_WORK_PROCESS_END).toTime()));
         workprocess_ID = id;
         workprocess_Type = type;
         timerViewController->setSelectedType(type);
-        timerViewController->setSelectedAV(id);
+        timerViewController->setSelectedAV(id, duration);
         updateBodyPostureView();
         updateAppliedForceView();
         updateLoadHandlingView();
@@ -649,7 +653,7 @@ void Controller::updateBodyPostureView(){
     QString filter = QString("%1 = %2").arg(DBConstants::COL_BODY_POSTURE_ID).arg(bodyPosture_ID);
     dbHandler->select(tbl, filter);
     QSqlRecord record = dbHandler->record(tbl, 0);
-    if(dbHandler->rowCount(tbl) == 0){
+    if(dbHandler->rowCount(tbl) == 0 && record.count() == 0){
         foreach(QString key, DBConstants::HASH_BODY_POSTURE_TYPES.keys())
             record.append(QSqlField(key, DBConstants::HASH_BODY_POSTURE_TYPES.value(key)));
     }
@@ -671,6 +675,7 @@ void Controller::saveBodyPostureView(){
         dbHandler->updateRow(tbl, 0, record);
     }
     bodyPosture_ID = record.value(DBConstants::COL_BODY_POSTURE_ID).toInt();
+    saveWorkProcessEvaluationID(DBConstants::COL_WORK_PROCESS_POSTURE_ID, bodyPosture_ID);
 }
 
 // ExecutionConditionView
@@ -735,7 +740,7 @@ void Controller::saveExecutionConditionView(){
     values.insert(DBConstants::COL_WORK_CONDITION_WIND, executionConditionView->getWind());
     values.insert(DBConstants::COL_WORK_CONDITION_ID, workcondition_ID);
     workcondition_ID = save(DB_TABLES::WORK_CONDITION, filter, DBConstants::COL_WORK_CONDITION_ID, DBConstants::HASH_COMMENT_TYPES, values);
-
+    saveWorkProcessEvaluationID(DBConstants::COL_WORK_PROCESS_CONDITION_ID, workcondition_ID);
 }
 
 // AppliedForceView
@@ -758,6 +763,8 @@ void Controller::saveAppliedForceView(){
     values.insert(DBConstants::COL_APPLIED_FORCE_INTENSITY, appliedForceView->getIntensity());
     values.insert(DBConstants::COL_APPLIED_FORCE_ID, appliedforce_ID);
     appliedforce_ID = save(DB_TABLES::APPLIED_FORCE, filter, DBConstants::COL_APPLIED_FORCE_ID, DBConstants::HASH_COMMENT_TYPES, values);
+    saveWorkProcessEvaluationID(DBConstants::COL_WORK_PROCESS_APPLIED_FORCE_ID, appliedforce_ID);
+
 }
 
 // LoadHandlingView
@@ -817,6 +824,7 @@ void Controller::saveLoadHandlingView(){
     values.insert(DBConstants::COL_LOAD_HANDLING_LOAD, loadHandlingView->getWeight());
     values.insert(DBConstants::COL_LOAD_HANDLING_DISTANCE, loadHandlingView->getDistance());
     loadhandling_ID = save(DB_TABLES::LOAD_HANDLING, filter, DBConstants::COL_LOAD_HANDLING_ID, DBConstants::HASH_LOAD_HANDLING_TYPES, values);
+    saveWorkProcessEvaluationID(DBConstants::COL_WORK_PROCESS_LOAD_HANDLING_ID, loadhandling_ID);
 }
 
 //WorkProcessMetaDataView
@@ -995,5 +1003,14 @@ void Controller::deleteWorkProcesses(int activity_ID){
         dbHandler->deleteAll(DB_TABLES::WORK_CONDITION, QString("%1 = %2").arg(DBConstants::COL_WORK_CONDITION_ID).arg(record.value(DBConstants::COL_WORK_PROCESS_CONDITION_ID).toInt()));
         dbHandler->deleteRow(tbl, i);
     }
+}
+
+void Controller::saveWorkProcessEvaluationID(const QString &colName, const int id){
+    DB_TABLES tbl = DB_TABLES::WORK_PROCESS;
+    QString filter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_ID).arg(workprocess_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(workprocess_Type);
+
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(colName, id);
+    save(tbl, filter, DBConstants::HASH_WORK_PROCESS_TYPES, values);
 }
 

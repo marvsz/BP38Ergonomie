@@ -28,7 +28,7 @@ signals:
     void resetWorkProcesses();
 
 public slots:
-    void setSelectedAV(int id);
+    void setSelectedAV(int id, const QTime &duration);
     void setSelectedType(AVType type);
     void setWorkProcessLists(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs);
 

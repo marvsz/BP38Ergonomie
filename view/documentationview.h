@@ -66,13 +66,11 @@ signals:
     void saveWorkProcessMetaDataView();
 
 public slots:
+    void updateDocumentationView();
 
 private slots:
     void showCamera();
     void hideCamera();
-    void leftAvPressed();
-    void rightAvPressed();
-    void avPressed();
     void showGant();
     void hideGant();
     void backButtonClicked();

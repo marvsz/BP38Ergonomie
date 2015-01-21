@@ -161,6 +161,7 @@ private:
     void updateActivityViewActivities();
 
     void deleteWorkProcesses(int activity_ID);
+    void saveWorkProcessEvaluationID(const QString &colName, const int id);
 };
 
 #endif // CONTROLLER_H

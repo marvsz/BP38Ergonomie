@@ -170,8 +170,9 @@ void MaximizedTimerView::setTime(const QTime &time){
     lblTime->setText(QString("%1").arg(time.toString("mm:ss")));
 }
 
-void MaximizedTimerView::setSelectedAV(int id){
+void MaximizedTimerView::setSelectedAV(int id, const QTime &duration){
     wpSelector->setSelectedAV(id);
+    timePicker->setTime(duration);
 }
 
 void MaximizedTimerView::setWorkProcessType(AVType type, const QString &prefix){

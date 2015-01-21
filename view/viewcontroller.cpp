@@ -214,6 +214,7 @@ void ViewController::backToView(){
             emit updateCommentView();
             break;
         case ViewController::DOCUMENTATION_VIEW:
+            documentationView->updateDocumentationView();
             break;
         case ViewController::RESSOURCE_MANAGEMENT_VIEW:
             break;

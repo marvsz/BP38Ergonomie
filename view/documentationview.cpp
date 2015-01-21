@@ -44,7 +44,7 @@ DocumentationView::DocumentationView(QWidget *parent) :
     this->views->setMinimumSize(280, 40);
     this->views->addItems(QStringList(viewNames));
 
-
+    lastIndex = 0;
     indexBeforeTimeLineView = 0;
 
 }
@@ -122,6 +122,11 @@ void DocumentationView::setupViews(){
     connect(views, SIGNAL(currentIndexChanged(int)), this, SLOT(changeView(int)));
 }
 
+//PUBLIC SLOTS
+void DocumentationView::updateDocumentationView(){
+    changeView(lastIndex);
+}
+
 // PRIVATE SLOTS
 /**
  * @brief Opens a view for the the QML-Camera
@@ -143,18 +148,6 @@ void DocumentationView::hideCamera(){
     this->cameraView->destroy();
 }
 
-void DocumentationView::leftAvPressed(){
-    mainContent->setCurrentIndex(0);
-}
-
-void DocumentationView::rightAvPressed(){
-    mainContent->setCurrentIndex(0);
-}
-
-void DocumentationView::avPressed(){
-    mainContent->setCurrentIndex(0);
-}
-
 void DocumentationView::showGant(){
     emit updateGantView();
     indexBeforeTimeLineView = mainContent->currentIndex();
@@ -162,7 +155,7 @@ void DocumentationView::showGant(){
 }
 
 void DocumentationView::hideGant(){
-    mainContent->setCurrentIndex(indexBeforeTimeLineView);
+    changeView(indexBeforeTimeLineView);
 }
 
 void DocumentationView::backButtonClicked(){

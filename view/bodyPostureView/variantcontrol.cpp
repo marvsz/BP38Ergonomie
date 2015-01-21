@@ -6,6 +6,7 @@ VariantControl::VariantControl(QWidget *parent) : QWidget(parent),
     valueControlLayout(new QVBoxLayout),
     mainContent(new QWidget()),
     btnName(new QPushButton()),
+    hasSpeci(false),
     svBtnCurrentSel(0),
     valueControls(new QVector<QVector<ValueControl*>*>()),
     variantBtns(new QVector<SelectableValueButton*>())
@@ -55,10 +56,11 @@ void VariantControl::setSpecification(VariantSpecification *varSpeci){
     this->varSpeci = varSpeci;
     variantsLayout->addWidget(varSpeci);
     variantsLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding));
+    hasSpeci = true;
 }
 
 void VariantControl::setSelectedSpecification(AVType type){
-    if(varSpeci != NULL)
+    if(hasSpeci)
         varSpeci->setSelected(type);
 }
 
@@ -111,7 +113,7 @@ void VariantControl::btnVariantClicked(int id, SelectableValueButton *btn){
 }
 
 void VariantControl::vcValueChanged(const QVariant &value){
-    if(varSpeci != NULL)
+    if(hasSpeci)
         emit valueChanged(varSpeci->getSelectedID(), value);
 }
 

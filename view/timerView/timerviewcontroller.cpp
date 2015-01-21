@@ -54,9 +54,9 @@ TimerViewController::TimerViewController(QWidget *parent):
 
 
 // PUBLIC SLOTS
-void TimerViewController::setSelectedAV(int id){
+void TimerViewController::setSelectedAV(int id, const QTime &duration){
     minTimerView->setSelectedAV(id);
-    maxTimerView->setSelectedAV(id);
+    maxTimerView->setSelectedAV(id, duration);
 }
 
 void TimerViewController::setWorkProcessLists(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs){
