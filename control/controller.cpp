@@ -104,27 +104,18 @@ Controller::Controller(QObject *parent) :
     connect(activityView, SIGNAL(selectActivity(int)), this, SLOT(selectActivity(int)));
     connect(activityView, SIGNAL(deleteActivity(int)), this, SLOT(deleteActivity(int)));
 
-    connect(documentationView, SIGNAL(updateBodyPostureView()), this, SLOT(updateBodyPostureView()));
-    connect(documentationView, SIGNAL(saveBodyPostureView()),this,  SLOT(saveBodyPostureView()));
-
+    /*connect(documentationView, SIGNAL(updateBodyPostureView()), this, SLOT(updateBodyPostureView()));
     connect(documentationView, SIGNAL(updateAppliedForceView()), this, SLOT(updateAppliedForceView()));
-    connect(documentationView, SIGNAL(saveAppliedForceView()), this, SLOT(saveAppliedForceView()));
-
     connect(documentationView, SIGNAL(updateLoadHandlingView()), this, SLOT(updateLoadHandlingView()));
-    connect(documentationView, SIGNAL(saveLoadHandlingView()), this, SLOT(saveLoadHandlingView()));
-
     connect(documentationView, SIGNAL(updateExecutionConditionView()), this, SLOT(updateExecutionConditionView()));
-    connect(documentationView, SIGNAL(saveExecutionConditionView()), this, SLOT(saveExecutionConditionView()));
+    connect(documentationView, SIGNAL(updateWorkProcessMetaDataView()), this, SLOT(updateWorkProcessMetaDataView()));*/
+    connect(viewCon, SIGNAL(saveCurrentWorkProcess()), this, SLOT(saveCurrentWorkProcess()));
+    connect(viewCon, SIGNAL(updateDocumentationViewRessources()), this, SLOT(updateDocumentationViewRessources()));
 
-    connect(documentationView, SIGNAL(updateWorkProcessMetaDataView()), this, SLOT(updateWorkProcessMetaDataView()));
-    connect(documentationView, SIGNAL(saveWorkProcessMetaDataView()), this, SLOT(saveWorkProcessMetaDataView()));
+    //connect(documentationView, SIGNAL(updateGantView()), this, SLOT(updateGantView()));
+    //connect(documentationView, SIGNAL(saveFrequenz()), this, SLOT(saveWorkProcessFrequenz()));
 
-    connect(documentationView, SIGNAL(updateGantView()), this, SLOT(updateGantView()));
-    connect(documentationView, SIGNAL(saveFrequenz()), this, SLOT(saveWorkProcessFrequenz()));
-
-    connect(gantTimerView, SIGNAL(saveFrequenz()), this, SLOT(saveWorkProcessFrequenz()));
     connect(gantTimerView, SIGNAL(workProcessSelected(int,AVType)), this, SLOT(setSelectedWorkProcess(int, AVType)));
-
 
     connect(timerViewController, SIGNAL(createWorkProcess(AVType,QTime,QTime)), this, SLOT(createWorkprocess(AVType,QTime,QTime)));
     connect(timerViewController, SIGNAL(nextWorkProcess()), this, SLOT(selectNextWorkProcess()));
@@ -566,6 +557,7 @@ int Controller::createWorkprocess(AVType type, const QTime &start, const QTime &
 
 
 void Controller::setSelectedWorkProcess(int id , AVType type){
+    saveCurrentWorkProcess();
     QString filter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ID).arg(id).arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(type);
 
     DB_TABLES tbl = DB_TABLES::WORK_PROCESS;
@@ -606,6 +598,29 @@ void Controller::resetWorkProcesses(){
     updateGantView();
 }
 
+void Controller::saveCurrentWorkProcess(){
+    saveBodyPostureView();
+    saveLoadHandlingView();
+    saveAppliedForceView();
+    saveExecutionConditionView();
+    QString filter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_ID).arg(workprocess_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(workprocess_Type);
+
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_WORK_PROCESS_DESCRIPTION, workProcessMetaDataView->getDescription());
+    values.insert(DBConstants::COL_WORK_PROCESS_FREQUENCY, gantTimerView->getFrequenz());
+    values.insert(DBConstants::COL_WORK_PROCESS_MTM_CODE, workProcessMetaDataView->getMTMCode());
+    values.insert(DBConstants::COL_WORK_PROCESS_WORKING_HEIGHT, workProcessMetaDataView->getWorkingHeight());
+    values.insert(DBConstants::COL_WORK_PROCESS_DISTANCE, workProcessMetaDataView->getDistance());
+    values.insert(DBConstants::COL_WORK_PROCESS_IMPULSE_COUNT, workProcessMetaDataView->getImpulseCount());
+    values.insert(DBConstants::COL_WORK_PROCESS_IMPULSE_INTENSITY, workProcessMetaDataView->getImpulseIntensity());
+    values.insert(DBConstants::COL_WORK_PROCESS_EQUIPMENT_ID, workProcessMetaDataView->getSelectedEquipment());
+    values.insert(DBConstants::COL_WORK_PROCESS_POSTURE_ID, bodyPosture_ID);
+    values.insert(DBConstants::COL_WORK_PROCESS_LOAD_HANDLING_ID, loadhandling_ID);
+    values.insert(DBConstants::COL_WORK_PROCESS_APPLIED_FORCE_ID, appliedforce_ID);
+    values.insert(DBConstants::COL_WORK_PROCESS_CONDITION_ID, workcondition_ID);
+    save(DB_TABLES::WORK_PROCESS, filter, DBConstants::HASH_WORK_PROCESS_TYPES, values);
+}
+
 void Controller::updateGantView(){
     gantTimerView->clear();
     QVector<QVariant> *leftWorkProcesses = new QVector<QVariant>();
@@ -639,13 +654,6 @@ void Controller::updateGantView(){
     timerViewController->setWorkProcessLists(leftWorkProcesses, rightWorkProcesses, basicWorkProcesses);
 }
 
-void Controller::saveWorkProcessFrequenz(){
-    QString filter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ID).arg(workprocess_ID).arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(workprocess_Type);
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_WORK_PROCESS_FREQUENCY, gantTimerView->getFrequenz());
-    save(DB_TABLES::WORK_PROCESS, filter, DBConstants::COL_WORK_PROCESS_ID, DBConstants::HASH_WORK_PROCESS_TYPES, values);
-}
-
 
 // BodyPostureView
 void Controller::updateBodyPostureView(){
@@ -675,7 +683,6 @@ void Controller::saveBodyPostureView(){
         dbHandler->updateRow(tbl, 0, record);
     }
     bodyPosture_ID = record.value(DBConstants::COL_BODY_POSTURE_ID).toInt();
-    saveWorkProcessEvaluationID(DBConstants::COL_WORK_PROCESS_POSTURE_ID, bodyPosture_ID);
 }
 
 // ExecutionConditionView
@@ -740,7 +747,6 @@ void Controller::saveExecutionConditionView(){
     values.insert(DBConstants::COL_WORK_CONDITION_WIND, executionConditionView->getWind());
     values.insert(DBConstants::COL_WORK_CONDITION_ID, workcondition_ID);
     workcondition_ID = save(DB_TABLES::WORK_CONDITION, filter, DBConstants::COL_WORK_CONDITION_ID, DBConstants::HASH_COMMENT_TYPES, values);
-    saveWorkProcessEvaluationID(DBConstants::COL_WORK_PROCESS_CONDITION_ID, workcondition_ID);
 }
 
 // AppliedForceView
@@ -763,8 +769,6 @@ void Controller::saveAppliedForceView(){
     values.insert(DBConstants::COL_APPLIED_FORCE_INTENSITY, appliedForceView->getIntensity());
     values.insert(DBConstants::COL_APPLIED_FORCE_ID, appliedforce_ID);
     appliedforce_ID = save(DB_TABLES::APPLIED_FORCE, filter, DBConstants::COL_APPLIED_FORCE_ID, DBConstants::HASH_COMMENT_TYPES, values);
-    saveWorkProcessEvaluationID(DBConstants::COL_WORK_PROCESS_APPLIED_FORCE_ID, appliedforce_ID);
-
 }
 
 // LoadHandlingView
@@ -789,19 +793,7 @@ void Controller::updateLoadHandlingView(){
     dbHandler->select(tbl, QString("%1 = %2").arg(DBConstants::COL_TYPE_OF_GRASPING_ID).arg(grasp_ID));
     record = dbHandler->record(tbl, 0);
     loadHandlingView->setGraspType(record.value(DBConstants::COL_TYPE_OF_GRASPING_NAME).toString());
-
-    loadHandlingView->clearTransportation();
-    tbl = DB_TABLES::TRANSPORTATION;
-    dbHandler->select(tbl, "");
-    for(int i = 0; i < dbHandler->rowCount(tbl); ++i){
-        record = dbHandler->record(tbl, i);
-        loadHandlingView->addTransportation(record.value(DBConstants::COL_TRANSPORTATION_ID).toInt(),
-                                            record.value(DBConstants::COL_TRANSPORTATION_NAME).toString(),
-                                            record.value(DBConstants::COL_TRANSPORTATION_EMPTY_WEIGHT).toInt(),
-                                            record.value(DBConstants::COL_TRANSPORTATION_MAX_LOAD).toInt(),
-                                            record.value(DBConstants::COL_TRANSPORTATION_BRAKES).toBool(),
-                                            record.value(DBConstants::COL_TRANSPORTATION_FIXED_ROLLER).toBool());
-    }
+    updateLoadHandlingTransportations();
     loadHandlingView->setSelectedTransportation(trans_ID);
 }
 
@@ -824,7 +816,22 @@ void Controller::saveLoadHandlingView(){
     values.insert(DBConstants::COL_LOAD_HANDLING_LOAD, loadHandlingView->getWeight());
     values.insert(DBConstants::COL_LOAD_HANDLING_DISTANCE, loadHandlingView->getDistance());
     loadhandling_ID = save(DB_TABLES::LOAD_HANDLING, filter, DBConstants::COL_LOAD_HANDLING_ID, DBConstants::HASH_LOAD_HANDLING_TYPES, values);
-    saveWorkProcessEvaluationID(DBConstants::COL_WORK_PROCESS_LOAD_HANDLING_ID, loadhandling_ID);
+}
+
+void Controller::updateLoadHandlingTransportations(){
+    loadHandlingView->clearTransportation();
+    DB_TABLES tbl = DB_TABLES::TRANSPORTATION;
+    dbHandler->select(tbl, "");
+    QSqlRecord record;
+    for(int i = 0; i < dbHandler->rowCount(tbl); ++i){
+        record = dbHandler->record(tbl, i);
+        loadHandlingView->addTransportation(record.value(DBConstants::COL_TRANSPORTATION_ID).toInt(),
+                                            record.value(DBConstants::COL_TRANSPORTATION_NAME).toString(),
+                                            record.value(DBConstants::COL_TRANSPORTATION_EMPTY_WEIGHT).toInt(),
+                                            record.value(DBConstants::COL_TRANSPORTATION_MAX_LOAD).toInt(),
+                                            record.value(DBConstants::COL_TRANSPORTATION_BRAKES).toBool(),
+                                            record.value(DBConstants::COL_TRANSPORTATION_FIXED_ROLLER).toBool());
+    }
 }
 
 //WorkProcessMetaDataView
@@ -858,19 +865,42 @@ void Controller::updateWorkProcessMetaDataEquipment(){
     }
 }
 
+// Documentation View Ressource Lists
+void Controller::updateDocumentationViewRessources(){
+    updateLoadHandlingTransportations();
+    updateWorkProcessMetaDataEquipment();
+}
 
-void Controller::saveWorkProcessMetaDataView(){
-    QString filter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_POSTURE_ID).arg(workprocess_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(workprocess_Type);
 
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_WORK_PROCESS_DESCRIPTION, workProcessMetaDataView->getDescription());
-    values.insert(DBConstants::COL_WORK_PROCESS_MTM_CODE, workProcessMetaDataView->getMTMCode());
-    values.insert(DBConstants::COL_WORK_PROCESS_WORKING_HEIGHT, workProcessMetaDataView->getWorkingHeight());
-    values.insert(DBConstants::COL_WORK_PROCESS_DISTANCE, workProcessMetaDataView->getDistance());
-    values.insert(DBConstants::COL_WORK_PROCESS_IMPULSE_COUNT, workProcessMetaDataView->getImpulseCount());
-    values.insert(DBConstants::COL_WORK_PROCESS_IMPULSE_INTENSITY, workProcessMetaDataView->getImpulseIntensity());
-    values.insert(DBConstants::COL_WORK_PROCESS_EQUIPMENT_ID, workProcessMetaDataView->getSelectedEquipment());
-    save(DB_TABLES::WORK_PROCESS, filter, DBConstants::HASH_WORK_PROCESS_TYPES, values);
+
+void Controller::resetDatabase(){
+    QString emptyFilter = QString("");
+    dbHandler->deleteAll(DB_TABLES::ACTIVITY, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::ANALYST, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::APPLIED_FORCE, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::BODY_POSTURE, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::BRANCH_OF_INDUSTRY, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::BREAK, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::COMMENT, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::CORPORATION, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::EMPLOYEE, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::EMPLOYEE_WORKS_SHIFT, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::EMPLOYER, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::EQUIPMENT, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::FACTORY, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::LINE, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::LOAD_HANDLING, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::LOAD_HANDLING_TYPE, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::PRODUCT, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::RECORDING, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::RECORDING_OBSERVES_LINE, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::RECORDING_OBSERVES_WORKPLACE, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::SHIFT, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::TRANSPORTATION, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::TYPE_OF_GRASPING, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::WORKPLACE, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::WORK_CONDITION, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::WORK_PROCESS, emptyFilter);
 }
 
 //PRIVATE METHODS
@@ -1005,12 +1035,5 @@ void Controller::deleteWorkProcesses(int activity_ID){
     }
 }
 
-void Controller::saveWorkProcessEvaluationID(const QString &colName, const int id){
-    DB_TABLES tbl = DB_TABLES::WORK_PROCESS;
-    QString filter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_ID).arg(workprocess_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(workprocess_Type);
 
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(colName, id);
-    save(tbl, filter, DBConstants::HASH_WORK_PROCESS_TYPES, values);
-}
 
