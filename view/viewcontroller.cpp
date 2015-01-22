@@ -209,13 +209,14 @@ void ViewController::backToView(){
             emit updateLineView();
             break;
         case ViewController::ACTIVITY_VIEW:
+            emit saveCurrentWorkProcess();
             emit updateActivityView();
             break;
         case ViewController::COMMENT_VIEW:
             emit updateCommentView();
             break;
         case ViewController::DOCUMENTATION_VIEW:
-            documentationView->updateDocumentationView();
+            emit updateDocumentationViewRessources();
             break;
         case ViewController::RESSOURCE_MANAGEMENT_VIEW:
             break;

@@ -44,9 +44,7 @@ DocumentationView::DocumentationView(QWidget *parent) :
     this->views->setMinimumSize(280, 40);
     this->views->addItems(QStringList(viewNames));
 
-    lastIndex = 0;
     indexBeforeTimeLineView = 0;
-
 }
 
 // PUBLIC
@@ -78,6 +76,7 @@ void DocumentationView::setTimerViewController(TimerViewController *timerViewCon
 
     connect(timerViewController, SIGNAL(showGantView()), this, SLOT(showGant()));
     connect(timerViewController, SIGNAL(hideGantView()), this, SLOT(hideGant()));
+    connect(backButton, SIGNAL(clicked()), timerViewController, SLOT(closeTimerView()));
 }
 
 void DocumentationView::setGantTimerView(GantTimerView *gantTimerView){
@@ -149,7 +148,6 @@ void DocumentationView::hideCamera(){
 }
 
 void DocumentationView::showGant(){
-    emit updateGantView();
     indexBeforeTimeLineView = mainContent->currentIndex();
     changeView(5);
 }
@@ -169,23 +167,14 @@ void DocumentationView::workProcessSelectionChanged(int id, AVType type){
 
 
 void DocumentationView::changeView(int index){
-    switch(lastIndex){
-    case 0: emit saveBodyPostureView(); break;
-    case 1: emit saveLoadHandlingView(); break;
-    case 2: emit saveAppliedForceView(); break;
-    case 3: emit saveExecutionConditionView(); break;
-    case 4: emit saveWorkProcessMetaDataView(); break;
-    case 5: emit saveFrequenz(); break;
-    }
-    switch(index){
+    /*switch(index){
     case 0: emit updateBodyPostureView(); break;
     case 1: emit updateLoadHandlingView(); break;
     case 2: emit updateAppliedForceView(); break;
     case 3: emit updateExecutionConditionView(); break;
     case 4: emit updateWorkProcessMetaDataView(); break;
     case 5: emit updateGantView(); break;
-    }
-    lastIndex = index;
+    }*/
     mainContent->setCurrentIndex(index);
     views->setCurrentIndex(index);
 }

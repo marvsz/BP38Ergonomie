@@ -60,16 +60,23 @@ void TimerViewController::setSelectedAV(int id, const QTime &duration){
 }
 
 void TimerViewController::setWorkProcessLists(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs){
-    if(leftWPs->count() != 0 || rightWPs->count() != 0 || basicWPs->count() != 0)
+    /*if(leftWPs->count() != 0 || rightWPs->count() != 0 || basicWPs->count() != 0)
         syncTimerStates(TimerState::STOPPED);
     else
-        syncTimerStates(TimerState::IDLE);
+        syncTimerStates(TimerState::IDLE);*/
 }
 
 void TimerViewController::setSelectedType(AVType type){
     setWorkProcessType(type, TYPE_PREFIXE.at(type - 1));
 }
 
+void TimerViewController::closeTimerView(){
+    stopTimer();
+    if(displayState == TimerDisplayState::GANT){
+        emit hideGantView();
+        displayState = TimerDisplayState::MAXIMIZED;
+    }
+}
 
 // PRIVATE SLOTS
 void TimerViewController::minimizeView(){
@@ -100,7 +107,6 @@ void TimerViewController::startTimer(){
     if(timerState == TimerState::IDLE || timerState == TimerState::PAUSED){
         timerID = QObject::startTimer(1000);
         syncTimerStates(TimerState::STARTED);
-
     }
 
 }
@@ -109,7 +115,6 @@ void TimerViewController::pauseTimer(){
     if(timerState == TimerState::STARTED){
         killTimer(timerID);
         syncTimerStates(TimerState::PAUSED);
-
     }
 }
 

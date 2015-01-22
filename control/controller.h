@@ -60,15 +60,16 @@ private slots:
     void updateComment();
     int saveComment();
 
+
     int createWorkprocess(AVType type, const QTime &start, const QTime &end);
     void setSelectedWorkProcess(int, AVType);
     void selectNextWorkProcess();
     void selectPreviousWorkProcess();
     void workProcessTypeChanged(AVType type);
     void resetWorkProcesses();
+    void saveCurrentWorkProcess();
 
     void updateGantView();
-    void saveWorkProcessFrequenz();
 
     void updateProductView();
     void createProduct();
@@ -98,10 +99,14 @@ private slots:
 
     void updateLoadHandlingView();
     void saveLoadHandlingView();
+    void updateLoadHandlingTransportations();
 
     void updateWorkProcessMetaDataView();
-    void saveWorkProcessMetaDataView();
     void updateWorkProcessMetaDataEquipment();
+
+    void updateDocumentationViewRessources();
+
+    void resetDatabase();
 
 private:
     DBHandler *dbHandler;

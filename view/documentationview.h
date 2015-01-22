@@ -47,23 +47,17 @@ signals:
     void showTransportationView();
     void showEquipmentView();
 
-    void updateGantView();
-    void saveFrequenz();
+    /*void updateGantView();
 
     void updateBodyPostureView();
-    void saveBodyPostureView();
 
     void updateLoadHandlingView();
-    void saveLoadHandlingView();
 
     void updateAppliedForceView();
-    void saveAppliedForceView();
 
     void updateExecutionConditionView();
-    void saveExecutionConditionView();
 
-    void updateWorkProcessMetaDataView();
-    void saveWorkProcessMetaDataView();
+    void updateWorkProcessMetaDataView();*/
 
 public slots:
     void updateDocumentationView();

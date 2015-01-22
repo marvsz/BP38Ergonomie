@@ -60,6 +60,12 @@ QPushButton#cancelIcon:pressed {image: url(:/button/icons/Buttons/cancelPressed.
 QPushButton#saveIcon:pressed {image: url(:/button/icons/Buttons/checkPressed.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#editIcon:pressed {image: url(:/button/icons/Buttons/editPressed.png); width 45px; height 45px; border: none; background-color: transparent;}
 
+QPushButton#playIcon:disabled {image: url(:/button/icons/Buttons/playDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#pauseIcon:disabled {image: url(:/button/icons/Buttons/pauseDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#recordIcon:disabled {image: url(:/button/icons/Buttons/recordDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#resetIcon:disabled {image: url(:/button/icons/Buttons/resetDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#stopIcon:disabled {image: url(:/button/icons/Buttons/stopDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
+
 QScrollArea {background-color: #efeff4; margin: 0 0; border: none;}
 QScrollArea#saBordered {border: 1px solid #c8c7cc; border-radius: 2px;}
 QScrollBar:vertical {border: none solid #007aff; margin: 0px 0px 0px 0px; background: #efeff4;}
