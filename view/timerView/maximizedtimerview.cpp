@@ -118,51 +118,63 @@ void MaximizedTimerView::setState(TimerState state){
             btnSetBoth->setEnabled(true);
 
             btnPlayPaused->setObjectName("recordIcon");
-            btnStopReset->setObjectName("resetIcon");
             btnPlayPaused->style()->unpolish(btnPlayPaused);
             btnPlayPaused->style()->polish(btnPlayPaused);
+            btnPlayPaused->setEnabled(true);
+
+            btnStopReset->setObjectName("resetIcon");
             btnStopReset->style()->unpolish(btnStopReset);
             btnStopReset->style()->polish(btnStopReset);
-            btnPlayPaused->setEnabled(true);
             btnStopReset->setEnabled(false);
-        break;
+            break;
     case TimerState::STARTED:
             btnSetAV->setEnabled(true);
+            btnSetLeft->setEnabled(true);
+            btnSetRight->setEnabled(true);
+            btnSetBoth->setEnabled(true);
 
             btnPlayPaused->setObjectName("pauseIcon");
-            btnStopReset->setObjectName("stopIcon");
-
             btnPlayPaused->style()->unpolish(btnPlayPaused);
             btnPlayPaused->style()->polish(btnPlayPaused);
+            btnPlayPaused->setEnabled(true);
+
+            btnStopReset->setObjectName("stopIcon");
             btnStopReset->style()->unpolish(btnStopReset);
             btnStopReset->style()->polish(btnStopReset);
-
             btnStopReset->setEnabled(true);
-        break;
+            break;
     case TimerState::PAUSED:
             btnSetAV->setEnabled(false);
+            btnSetLeft->setEnabled(true);
+            btnSetRight->setEnabled(true);
+            btnSetBoth->setEnabled(true);
 
             btnPlayPaused->setObjectName("playIcon");
-            btnStopReset->setObjectName("stopIcon");
-
             btnPlayPaused->style()->unpolish(btnPlayPaused);
             btnPlayPaused->style()->polish(btnPlayPaused);
+            btnPlayPaused->setEnabled(true);
+
+            btnStopReset->setObjectName("stopIcon");
             btnStopReset->style()->unpolish(btnStopReset);
             btnStopReset->style()->polish(btnStopReset);
-
-        break;
+            btnStopReset->setEnabled(true);
+            break;
     case TimerState::STOPPED:
             btnSetAV->setEnabled(false);
             btnSetLeft->setEnabled(false);
             btnSetRight->setEnabled(false);
             btnSetBoth->setEnabled(false);
 
-            btnStopReset->setEnabled(true);
+            btnPlayPaused->setObjectName("recordIcon");
+            btnPlayPaused->style()->unpolish(btnPlayPaused);
+            btnPlayPaused->style()->polish(btnPlayPaused);
+            btnPlayPaused->setEnabled(false);
+
             btnStopReset->setObjectName("resetIcon");
             btnStopReset->style()->unpolish(btnStopReset);
             btnStopReset->style()->polish(btnStopReset);
-            btnPlayPaused->setEnabled(false);
-        break;
+            btnStopReset->setEnabled(true);
+            break;
     }
 }
 
