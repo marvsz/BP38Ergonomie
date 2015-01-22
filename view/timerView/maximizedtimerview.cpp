@@ -32,7 +32,7 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     btnSetAV->setFixedSize(45, 45);
     btnSetAV->setText("AV");
 
-    btnSetBoth->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
+    btnSetBoth->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 
     connect(btnSetLeft, SIGNAL(clicked()), this, SLOT(btnLeftClicked()));
     connect(btnSetRight, SIGNAL(clicked()), this, SLOT(btnRightClicked()));
