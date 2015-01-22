@@ -256,11 +256,12 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
 }
 
 //PUBLIC SLOTS
-void BodyPostureView::setSelectedType(AVType type){
+void BodyPostureView::setSelectedType(const AVType &type){
     varConLegs->setSelectedVariant(0);
     varConHead->setSelectedVariant(0);
     varConArms->setSelectedVariant(0);
     varConTrunk->setSelectedVariant(0);
+
     varConArms->setSelectedSpecification(type);
     varConLegs->setSelectedSpecification(type);
     switch(type){

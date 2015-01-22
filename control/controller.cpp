@@ -783,11 +783,11 @@ void Controller::updateLoadHandlingView(){
     loadHandlingView->setWeight(record.value(DBConstants::COL_LOAD_HANDLING_LOAD).toInt());
     loadHandlingView->setDistance(record.value(DBConstants::COL_LOAD_HANDLING_DISTANCE).toInt());
     int grasp_ID = record.value(DBConstants::COL_TYPE_OF_GRASPING_ID).toInt();
-    int handlingType_ID = record.value(DBConstants::COL_LOAD_HANDLING_ID).toInt();
+    int handlingType_ID = record.value(DBConstants::COL_LOAD_HANDLING_LOAD_HANDLING_TYPE_ID).toInt();
     int trans_ID = record.value(DBConstants::COL_LOAD_HANDLING_TRANSPORTATION_ID).toInt();
 
     tbl = DB_TABLES::LOAD_HANDLING_TYPE;
-    dbHandler->select(tbl, QString("%1 = %2").arg(DBConstants::COL_LOAD_HANDLING_ID).arg(handlingType_ID));
+    dbHandler->select(tbl, QString("%1 = %2").arg(DBConstants::COL_LOAD_HANDLING_TYPE_ID).arg(handlingType_ID));
     record = dbHandler->record(tbl, 0);
     loadHandlingView->setHandlingType(record.value(DBConstants::COL_LOAD_HANDLING_TYPE_NAME).toString());
 

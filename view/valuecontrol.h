@@ -107,6 +107,7 @@ private:
     QVector<QString> btnTextValues;
     QString unit;
     int currentSelectedBtnID;
+    int emitChangeValue;
     ValueControlType conType;
 
     QLineEdit *txtBxValue;

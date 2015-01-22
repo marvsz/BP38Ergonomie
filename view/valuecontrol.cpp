@@ -5,7 +5,8 @@
 #include "selectablevaluebutton.h"
 
 ValueControl::ValueControl(ValueControlType controlType, QWidget *parent) :
-    QWidget(parent)
+    QWidget(parent),
+    emitChangeValue(true)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
     QHBoxLayout *txtEditLineLayout = new QHBoxLayout;
@@ -95,17 +96,25 @@ ValueControl::ValueControl(ValueControlType controlType, QWidget *parent) :
 
 //Public slots
 void ValueControl::setValue(int value){
-    if(conType == VALUE)
+    if(conType == VALUE){
+        emitChangeValue = false;
         sldrValue->setValue(value);
+    }
 }
 
 void ValueControl::setValue(const QString &text){
     if(conType == TEXT){
+        bool found = false;
         for(int i = 0; i < btnTextValues.length(); ++i){
             if(btnTextValues.at(i).compare(text) == 0){
                 btnTextHasClicked(i);
+                found = true;
                 break;
             }
+        }
+        if(!found){
+            txtBxValue->setText("");
+            btnList->at(currentSelectedBtnID)->setSelected(false);
         }
     }
 }
@@ -188,8 +197,11 @@ void ValueControl::txtBxValueHasChanged(){
 void ValueControl::sldrValueHasChanged(){
     txtBxValue->setText(QString().number(sldrValue->value()));
     btnHighlight(sldrValue->value());
-    emit valueChanged(sldrValue->value());
-    emit valueChanged(QVariant(sldrValue->value()));
+    if(emitChangeValue){
+        emit valueChanged(sldrValue->value());
+        emit valueChanged(QVariant(sldrValue->value()));
+    }
+    emitChangeValue = true;
 }
 
 void ValueControl::btnValueHasClicked(int id){

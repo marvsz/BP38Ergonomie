@@ -23,7 +23,7 @@ public:
     void setRecord(const QSqlRecord &record);
 
 public slots:
-    void setSelectedType(AVType type);
+    void setSelectedType(const AVType &type);
 
 signals:
     void showExclusiveContentByName(const QString &name);
