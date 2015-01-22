@@ -26,9 +26,9 @@ ActivityView::ActivityView(QWidget *parent) :
 {
     productListContent->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     scProducts->setWidget(productListContent);
+    scProducts->setWidgetResizable(true);
     scProducts->setFixedHeight(200);
     scProducts->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    scProducts->setWidgetResizable(true);
     scProducts->setObjectName("saBordered");
     productListContent->setLayout(productListLayout);
 
@@ -62,20 +62,31 @@ ActivityView::ActivityView(QWidget *parent) :
 
     lblAddActivity->setObjectName("lblHeader");
     txtBxActivityDescription->setPlaceholderText(tr("description"));
+    txtBxActivityDescription->setMinimumWidth(300);
     numBxActivityRepetitions->setPlaceholderText(tr("amout of repetitions"));
+    numBxActivityRepetitions->setMinimumWidth(300);
+    lblChooseProduct->setObjectName("lblHeader");
+
+    lblAddActivity->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+    lblActivityDescription->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+    txtBxActivityDescription->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+    lblActivityRepetitions->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+    numBxActivityRepetitions->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+    btnAdd->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+    lblChooseProduct->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+    btnMoreProducts->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
 
     QGridLayout *newActivityLayout = new QGridLayout;
     newActivityLayout->setContentsMargins(0,0,0,0);
     newActivityLayout->addWidget(lblAddActivity, 0, 0, 1, 2, 0);
-    newActivityLayout->addWidget(lblActivityDescription, 1, 0, 1, 1, 0);
-    newActivityLayout->addWidget(txtBxActivityDescription, 1, 1, 1, 1, Qt::AlignLeft);
-    newActivityLayout->addWidget(lblActivityRepetitions, 2, 0, 1, 1, 0);
-    newActivityLayout->addWidget(numBxActivityRepetitions, 2, 1, 1, 1, Qt::AlignLeft);
-    newActivityLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding), 3, 1, 1, 1, 0);
-    newActivityLayout->addWidget(btnAdd, 4, 1, 1, 1, Qt::AlignCenter);
+    newActivityLayout->addWidget(lblActivityDescription, 1, 0, 2, 1, 0);
+    newActivityLayout->addWidget(txtBxActivityDescription, 1, 1, 2, 1, Qt::AlignLeft);
+    newActivityLayout->addWidget(lblActivityRepetitions, 3, 0, 2, 1, 0);
+    newActivityLayout->addWidget(numBxActivityRepetitions, 3, 1, 2, 1, Qt::AlignLeft);
+    newActivityLayout->addWidget(btnAdd, 5, 1, 1, 1, Qt::AlignCenter);
     newActivityLayout->addWidget(lblChooseProduct, 0, 2, 1, 1, Qt::AlignCenter);
-    newActivityLayout->addWidget(scProducts, 1, 2, 3, 1, 0);
-    newActivityLayout->addWidget(btnMoreProducts, 4, 2, 1, 1, Qt::AlignCenter);
+    newActivityLayout->addWidget(scProducts, 1, 2, 4, 1, Qt::AlignTop);
+    newActivityLayout->addWidget(btnMoreProducts, 5, 2, 1, 1, Qt::AlignCenter);
 
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));

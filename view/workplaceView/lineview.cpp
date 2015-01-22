@@ -42,7 +42,17 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     navigationBarLayout->addWidget(lblViewName, 0, 1, 1, 1, Qt::AlignCenter);
     navigationBarLayout->addWidget(new QLabel(), 0, 2, 1, 1, 0);
 
+    lblAddLine->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+    lblName->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+    txtBxName->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+    lblWorkplaceCount->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+    numBxWorkplaceCount->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+    lblDescription->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+    txtBxDescription->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+    btnAdd->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+
     QGridLayout *lineAddLayout = new QGridLayout;
+    lineAddLayout->setContentsMargins(0,0,0,0);
     lineAddLayout->addWidget(lblAddLine, 0, 0, 1, 2, 0);
     lineAddLayout->addWidget(lblName, 1, 0, 1, 1, 0);
     lineAddLayout->addWidget(txtBxName, 1, 1, 1, 1, 0);
@@ -50,12 +60,13 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     lineAddLayout->addWidget(numBxWorkplaceCount, 1, 3, 1, 1, 0);
     lineAddLayout->addWidget(lblDescription, 2, 0, 1, 2, 0);
     lineAddLayout->addWidget(txtBxDescription, 2, 1, 1, 4, 0);
-    lineAddLayout->addWidget(btnAdd, 3, 0, 1, 4, Qt::AlignCenter);
+    lineAddLayout->addWidget(btnAdd, 3, 0, 1, 4, Qt::AlignCenter);    
 
     QWidget *listContent = new QWidget;
     listContent->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     scLines->setWidget(listContent);
     scLines->setWidgetResizable(true);
+    scLines->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     listContent->setLayout(listContentLayout);
 
     FlickCharm *flickCharm = new FlickCharm(this);
