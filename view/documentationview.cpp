@@ -101,21 +101,14 @@ void DocumentationView::setupViews(){
     topLayout->addWidget(views, 0, 1, 1, 1, Qt::AlignHCenter);
     topLayout->addWidget(cameraButton, 0, 2, 1, 1, Qt::AlignRight);
     //Placeholder
-    topLayout->addItem(new QSpacerItem(300, 45, QSizePolicy::Fixed, QSizePolicy::Fixed), 0, 2, 1, 1, 0);
-
-    QVBoxLayout *centerLayout = new QVBoxLayout;
-    centerLayout->addWidget(new Separator(Qt::Horizontal, 3, mainContent));
-    centerLayout->addWidget(mainContent);
-
-    QVBoxLayout *bottomLayout = new QVBoxLayout;
-    bottomLayout->setContentsMargins(0, 0, 0, 0);
-    bottomLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
-    bottomLayout->addWidget(timerViewController);
+    topLayout->addWidget(new QLabel(), 0, 3,1,1, Qt::AlignRight);
 
     mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addLayout(topLayout);
-    mainLayout->addLayout(centerLayout);
-    mainLayout->addLayout(bottomLayout);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 14, this));
+    mainLayout->addWidget(mainContent);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 14, this));
+    mainLayout->addWidget(timerViewController);
 
     this->setLayout(mainLayout);
     connect(views, SIGNAL(currentIndexChanged(int)), this, SLOT(changeView(int)));

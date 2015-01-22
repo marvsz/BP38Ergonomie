@@ -29,10 +29,10 @@ void OptionSelectionControl::setSelectedValue(const QString &text){
     }
 }
 
-void OptionSelectionControl::setSelectedValue(const QVariant &value){
+void OptionSelectionControl::setSelectedByValue(int value){
     for(int i = 0; i < btnOptions.length(); ++i){
         SelectableValueButton *btn = btnOptions.at(i);
-        if(btn->getValue() == value){
+        if(btn->getValue().toInt() == value){
             setSelectedValue(btn->getID());
             break;
         }
@@ -49,7 +49,7 @@ void OptionSelectionControl::setValues(const QStringList &texts, const QVector<Q
         mainLayout->addWidget(btn, 0, Qt::AlignVCenter);
         connect(btn, SIGNAL(clickedWithID(int)), this, SLOT(setSelectedValue(int)));
     }
-    currentSelectedBtn = btnOptions.at(0);
+    currentSelectedBtn = btnOptions.at(1);
     setSelectedValue(0);
 }
 
@@ -63,7 +63,7 @@ void OptionSelectionControl::setValues(const QStringList &texts){
         mainLayout->addWidget(btn, 0, Qt::AlignVCenter);
         connect(btn, SIGNAL(clickedWithID(int)), this, SLOT(setSelectedValue(int)));
     }
-    currentSelectedBtn = btnOptions.at(0);
+    currentSelectedBtn = btnOptions.at(1);
     setSelectedValue(0);
 }
 

@@ -126,11 +126,11 @@ void TransportationView::setMaxLoad(int maxLoad){
 }
 
 void TransportationView::setFixedRoller(QVariant value){
-    oscFixedRoller->setSelectedValue(value);
+    oscFixedRoller->setSelectedByValue(value.toInt());
 }
 
 void TransportationView::setBrakes(QVariant value){
-    oscBrakes->setSelectedValue(value);
+    oscBrakes->setSelectedByValue(value.toInt());
 }
 
 void TransportationView::clear(){

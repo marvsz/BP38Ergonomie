@@ -33,29 +33,17 @@ ExecutionConditionView::ExecutionConditionView(QWidget *parent) :QWidget(parent)
     oscLeftLowerLegSupport(new OptionSelectionControl())
 {
     oscHeadSupport->setValues(YES_NO_TEXTS, YES_NO_VALUE);
-    oscHeadSupport->setSelectedValue(1);
     oscRightUpperArmSupport->setValues(YES_NO_TEXTS, YES_NO_VALUE);
-    oscRightUpperArmSupport->setSelectedValue(1);
     oscLeftUpperArmSupport->setValues(YES_NO_TEXTS, YES_NO_VALUE);
-    oscLeftUpperArmSupport->setSelectedValue(1);
     oscRightForearmSupport->setValues(YES_NO_TEXTS, YES_NO_VALUE);
-    oscRightForearmSupport->setSelectedValue(1);
     oscLeftForearmSupport->setValues(YES_NO_TEXTS, YES_NO_VALUE);
-    oscLeftForearmSupport->setSelectedValue(1);
     oscRightHandSupport->setValues(YES_NO_TEXTS, YES_NO_VALUE);
-    oscRightHandSupport->setSelectedValue(1);
     oscLeftHandSupport->setValues(YES_NO_TEXTS, YES_NO_VALUE);
-    oscLeftHandSupport->setSelectedValue(1);
     oscTrunkSupport->setValues(YES_NO_TEXTS, YES_NO_VALUE);
-    oscTrunkSupport->setSelectedValue(1);
     oscRightThighSupport->setValues(YES_NO_TEXTS, YES_NO_VALUE);
-    oscRightThighSupport->setSelectedValue(1);
     oscLeftThighSupport->setValues(YES_NO_TEXTS, YES_NO_VALUE);
-    oscLeftThighSupport->setSelectedValue(1);
     oscRightLowerLegSupport->setValues(YES_NO_TEXTS, YES_NO_VALUE);
-    oscRightLowerLegSupport->setSelectedValue(1);
     oscLeftLowerLegSupport->setValues(YES_NO_TEXTS, YES_NO_VALUE);
-    oscLeftLowerLegSupport->setSelectedValue(1);
 
     QLabel *lblSupports = new QLabel(tr("Supports"));
     lblSupports->setObjectName("lblHeader");
@@ -138,22 +126,22 @@ ExecutionConditionView::ExecutionConditionView(QWidget *parent) :QWidget(parent)
 
 //PUBLIC SLOTS
 void ExecutionConditionView::setArmSupports(int ruas, int luas, int rfs, int lfs, int rhs, int lhs){
-    oscRightUpperArmSupport->setSelectedValue(ruas);
-    oscLeftUpperArmSupport->setSelectedValue(luas);
-    oscRightForearmSupport->setSelectedValue(rfs);
-    oscLeftForearmSupport->setSelectedValue(lfs);
-    oscRightHandSupport->setSelectedValue(rhs);
-    oscLeftHandSupport->setSelectedValue(lhs);
+    oscRightUpperArmSupport->setSelectedByValue(ruas);
+    oscLeftUpperArmSupport->setSelectedByValue(luas);
+    oscRightForearmSupport->setSelectedByValue(rfs);
+    oscLeftForearmSupport->setSelectedByValue(lfs);
+    oscRightHandSupport->setSelectedByValue(rhs);
+    oscLeftHandSupport->setSelectedByValue(lhs);
 }
 void ExecutionConditionView::setBodySupports(int head, int trunk){
-    oscHeadSupport->setSelectedValue(head);
-    oscTrunkSupport->setSelectedValue(trunk);
+    oscHeadSupport->setSelectedByValue(head);
+    oscTrunkSupport->setSelectedByValue(trunk);
 }
 void ExecutionConditionView::setLegSupports(int rts, int lts, int rlls, int llls){
-    oscRightThighSupport->setSelectedValue(rts);
-    oscLeftThighSupport->setSelectedValue(lts);
-    oscRightLowerLegSupport->setSelectedValue(rlls);
-    oscLeftLowerLegSupport->setSelectedValue(llls);
+    oscRightThighSupport->setSelectedByValue(rts);
+    oscLeftThighSupport->setSelectedByValue(lts);
+    oscRightLowerLegSupport->setSelectedByValue(rlls);
+    oscLeftLowerLegSupport->setSelectedByValue(llls);
 }
 void ExecutionConditionView::setResultingConstraints(int graspingType, int access, int ground, int lighting, int climate, int wind, int clothing, int roomToMove){
     scGripCondition->setValue(graspingType);
