@@ -579,6 +579,7 @@ void Controller::setSelectedWorkProcess(int id , AVType type){
         updateExecutionConditionView();
         updateWorkProcessMetaDataView();
         gantTimerView->setSelectedWorkProcess(id, type, record.value(DBConstants::COL_WORK_PROCESS_FREQUENCY).toInt());
+        updateGantView();
     }
 }
 
