@@ -45,31 +45,7 @@ unix {
 }
 
 OTHER_FILES += \
-    android/AndroidManifest.xml \
-    icons/Timer/down.png \
-    icons/Timer/down@2x.png \
-    icons/Timer/left.png \
-    icons/Timer/left@2x.png \
-    icons/Timer/minus.png \
-    icons/Timer/minus@2x.png \
-    icons/Timer/pause.png \
-    icons/Timer/pause@2x.png \
-    icons/Timer/play.png \
-    icons/Timer/play@2x.png \
-    icons/Timer/record.png \
-    icons/Timer/record@2x.png \
-    icons/Timer/reset.png \
-    icons/Timer/reset@2x.png \
-    icons/Timer/right.png \
-    icons/Timer/right@2x.png \
-    icons/Timer/stop.png \
-    icons/Timer/stop@2x.png \
-    icons/Timer/up.png \
-    icons/Timer/up@2x.png \
-    icons/Timer/zoomIn.png \
-    icons/Timer/zoomIn@2x.png \
-    icons/Timer/zoomOut.png \
-    icons/Timer/zoomOut@2x.png
+    android/AndroidManifest.xml
 
 TRANSLATIONS = ergo_trans_de.ts
 
