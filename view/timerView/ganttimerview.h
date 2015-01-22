@@ -10,7 +10,7 @@
 #include "numberlineedit.h"
 #include "iconconstants.h"
 #include "spaceritemtimer.h"
-#include "enum.h"
+#include "../enum.h"
 
 class GantTimerView : public QWidget
 {

@@ -12,6 +12,11 @@ DBHandler::DBHandler()
     QFileInfo databaseFileInfo = QFileInfo(QString("%1/%2").arg(tmpString).arg("ergoAppDB.sqlite"));
     QString databaseOriginPath = QString(":/assets/ergoAppDB.sqlite");
 
+    /*#if defined(Q_OS_WIN)
+        tmpString = "C:\\Database\\";
+        databaseFileInfo = QFileInfo(QString("%1\\%2").arg(tmpString).arg("ergoAppDB.sqlite"));
+    #endif*/
+
     #if defined(Q_OS_ANDROID)
         databaseOriginPath = QString(":/assets/ergoAppDB.sqlite");
         tmpString = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);

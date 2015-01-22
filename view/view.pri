@@ -21,7 +21,6 @@ HEADERS +=\
     $$PWD/textlineedit.h \
     $$PWD/graphtimelineview.h \
     $$PWD/metadataview.h \
-    $$PWD/workplacelistview.h \
     $$PWD/workplaceView/workplaceview.h \
     $$PWD/workplaceView/lineview.h \
     $$PWD/textedit.h \
