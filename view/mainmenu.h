@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QWidget>
-
+#include <QLabel>
 class MainMenu : public QWidget
 {
     Q_OBJECT
@@ -16,15 +16,16 @@ signals:
     void showWorkplaceListView();
     void showRessourceManagementView();
     void showNewRecordingView();
-    //void showSettingsView();
+    void showSettingsView();
 
 
 private:
+    QLabel *lblViewName;
     QPushButton *btnMetaDataView;
     QPushButton *btnWorkplaceList;
     QPushButton *btnRessourceManagement;
     //QPushButton *btnNewRecording;
-    //QPushButton *btnSettings;
+    QPushButton *btnSettings;
 
 };
 

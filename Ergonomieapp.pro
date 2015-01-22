@@ -25,14 +25,12 @@ SOURCES += \
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 ios {
-   ICON_FILES.files = $$system("find $$PWD/ios/icons/ -name '*.png'")
-   ICON_FILES.path = ./
-   LAUNCH_FILES.files = $$system("find $$PWD/ios/launchimage/ -name '*.png'")
-   LAUNCH_FILES.path = ./
+   IOS_ICON.files = $$files($$PWD/ios/icon*.png)
+   LAUNCH_IMAGES.files = $$files($$PWD/ios/LaunchImage*.png)
    DATABASES.files = $$system("find $$PWD/assets/ -name '*.sqlite'")
    DATABASES.path = Documents
-   QMAKE_BUNDLE_DATA += ICON_FILES
-   QMAKE_BUNDLE_DATA += LAUNCH_FILES
+   QMAKE_BUNDLE_DATA += IOS_ICON
+   QMAKE_BUNDLE_DATA += LAUNCH_IMAGES
    QMAKE_BUNDLE_DATA += DATABASES
    QMAKE_INFO_PLIST = ios/Info.plist
 }

@@ -97,6 +97,7 @@ void ViewController::setTransportationView(TransportationView *transportationVie
 
 void ViewController::setSettingsView(SettingsView *settingsView){
     this->settingsView = settingsView;
+    connect(settingsView, SIGNAL(back()), this, SLOT(backToView()));
 }
 
 void ViewController::registerViews(){

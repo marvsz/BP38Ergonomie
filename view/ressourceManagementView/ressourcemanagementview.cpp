@@ -33,7 +33,7 @@ RessourceManagementView::RessourceManagementView(QWidget *parent) :
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
-    mainLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
+    mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Expanding, QSizePolicy::Expanding));
     mainLayout->addWidget(btnEquipmentView, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
     mainLayout->addWidget(btnProductView, 0, Qt::AlignCenter);

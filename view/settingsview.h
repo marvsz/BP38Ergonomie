@@ -2,6 +2,8 @@
 #define SETTINGSVIEW_H
 
 #include <QWidget>
+#include <QPushButton>
+#include <QLabel>
 
 class SettingsView : public QWidget
 {
@@ -10,8 +12,13 @@ public:
     explicit SettingsView(QWidget *parent = 0);
 
 signals:
+    void back();
 
 public slots:
+
+private:
+    QLabel *lblViewName;
+    QPushButton *btnBack;
 
 };
 

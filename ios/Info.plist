@@ -24,6 +24,10 @@
 	<true/>
 	<key>CFBundleIconFiles</key>
 	<array>
+		<string>ios/icons/apple-touch-icon-72x72-precomposed.png</string>
+		<string>ios/icons/apple-touch-icon-114x114-precomposed.png</string>
+		<string>ios/icons/apple-touch-icon-144x144-precomposed.png</string>
+		<string>ios/icons/apple-touch-icon-precomposed.png</string>
 		<string>ios/icons/iTunesArtwork@2x.png</string>
 		<string>ios/icons/iTunesArtwork.png</string>
 		<string>ios/icons/Icon@2x.png</string>
@@ -32,6 +36,10 @@
 		<string>ios/icons/Icon-Small.png</string>
 		<string>ios/icons/Icon-Small-50@2x.png</string>
 		<string>ios/icons/Icon-Small-50.png</string>
+		<string>ios/icons/Icon-Small-30@2x.png</string>
+		<string>ios/icons/Icon-Small-30.png</string>
+		<string>ios/icons/Icon-Small-20@2x.png</string>
+		<string>ios/icons/Icon-Small-20.png</string>
 		<string>ios/icons/Icon-72@2x.png</string>
 		<string>ios/icons/Icon-72.png</string>
 	</array>
@@ -46,7 +54,20 @@
 	</array>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>UILaunchImages~ipad</key>
+	<array>
+		<dict>
+			<key>UILaunchImageMinimumOSVersion</key>
+			<string>7.0</string>
+			<key>UILaunchImageName</key>
+			<string>LaunchImage-iOS7-Landscape</string>
+			<key>UILaunchImageOrientation</key>
+			<string>Landscape</string>
+			<key>UILaunchImageSize</key>
+			<string>{768, 1024}</string>
+		</dict>
+	</array>
 	<key>UILaunchImageFile~ipad</key>
-	<string>ios/launchimage/Default-Landscape.png</string>
+	<string>LaunchImage</string>
 </dict>
 </plist>
