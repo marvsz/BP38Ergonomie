@@ -68,6 +68,16 @@
         <file>icons/Buttons/editPressed.png</file>
         <file>icons/Buttons/editPressed@2x.png</file>
         <file>icons/Buttons/cameraPressed.png</file>
+        <file>icons/Buttons/pauseDisabled.png</file>
+        <file>icons/Buttons/pauseDisabled@2x.png</file>
+        <file>icons/Buttons/playDisabled.png</file>
+        <file>icons/Buttons/playDisabled@2x.png</file>
+        <file>icons/Buttons/recordDisabled.png</file>
+        <file>icons/Buttons/recordDisabled@2x.png</file>
+        <file>icons/Buttons/resetDisabled.png</file>
+        <file>icons/Buttons/resetDisabled@2x.png</file>
+        <file>icons/Buttons/stopDisabled.png</file>
+        <file>icons/Buttons/stopDisabled@2x.png</file>
     </qresource>
     <qresource prefix="/misc">
         <file>icons/Misc/workplace.png</file>

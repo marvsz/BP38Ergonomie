@@ -8,6 +8,8 @@
 MetaDataView::MetaDataView(QWidget *parent) :
     QWidget(parent),
     btnBack(new QPushButton()),
+    btnCancel(new QPushButton()),
+    btnSave(new QPushButton()),
     lblViewDescription(new QLabel(tr("head data"), this)),
     btnForward(new QPushButton(tr("work places"),this)),
     lblCorporation(new QLabel(tr("coproration"), this)),
@@ -70,11 +72,25 @@ MetaDataView::MetaDataView(QWidget *parent) :
     btnBack->setObjectName("leftIcon");
     btnBack->setFixedSize(45, 45);
     connect(btnBack, SIGNAL(clicked()), this, SLOT(backButtonClicked()));
+
+    btnCancel->setObjectName("cancelIcon");
+    btnCancel->setFixedSize(45, 45);
+    connect(btnCancel, SIGNAL(clicked()), this, SIGNAL(back()));
+
+    btnSave->setObjectName("saveIcon");
+    btnSave->setFixedSize(45, 45);
+    connect(btnSave, SIGNAL(clicked()), this, SIGNAL(save()));
+
     btnForward->setObjectName("btnNavigation");
     connect(btnForward, SIGNAL(clicked()), this, SLOT(forwardButtonClicked()));
     txtBxCorpName->setMaximumWidth(317);
 
-    navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
+    QHBoxLayout *backCancelLayout = new QHBoxLayout;
+    backCancelLayout->addWidget(btnBack);
+    backCancelLayout->addWidget(btnSave);
+    backCancelLayout->addWidget(btnCancel);
+
+    navigationBarLayout->addLayout(backCancelLayout, 0, 0, 1, 1, Qt::AlignLeft);
     navigationBarLayout->addWidget(lblViewDescription, 0, 1, 1, 1, Qt::AlignCenter);
     navigationBarLayout->addWidget(btnForward, 0, 2, 1, 1, Qt::AlignRight);
 
