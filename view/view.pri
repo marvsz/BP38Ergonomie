@@ -20,7 +20,6 @@ HEADERS +=\
     $$PWD/numberlineedit.h \
     $$PWD/textlineedit.h \
     $$PWD/graphtimelineview.h \
-    $$PWD/avrecordcontrol.h \
     $$PWD/metadataview.h \
     $$PWD/workplacelistview.h \
     $$PWD/workplaceView/workplaceview.h \
@@ -75,7 +74,6 @@ SOURCES +=\
     $$PWD/numberlineedit.cpp \
     $$PWD/textlineedit.cpp \
     $$PWD/graphtimelineview.cpp \
-    $$PWD/avrecordcontrol.cpp \
     $$PWD/metadataview.cpp \
     $$PWD/workplaceView/workplacelistview.cpp \
     $$PWD/workplaceView/workplaceview.cpp \

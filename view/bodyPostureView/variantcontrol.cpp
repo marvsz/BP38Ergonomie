@@ -41,6 +41,7 @@ int VariantControl::addVariant(const QString &name){
     variantsLayout->addWidget(btn);
     valueControls->append(new QVector<ValueControl*>());
     connect(btn, SIGNAL(clickedWithID(int,SelectableValueButton*)), this, SLOT(btnVariantClicked(int,SelectableValueButton*)));
+    return valueControls->length() - 1;
 }
 
 int VariantControl::addSubVariant(int variantID, ValueControl *vc){
@@ -50,6 +51,7 @@ int VariantControl::addSubVariant(int variantID, ValueControl *vc){
     vc->hide();
     connect(vc, SIGNAL(valueChanged(QVariant)), this, SIGNAL(valueChanged(QVariant)));
     connect(vc, SIGNAL(valueChanged(QVariant)), this, SLOT(vcValueChanged(QVariant)));
+    return conList->length() - 1;
 }
 
 void VariantControl::setSpecification(VariantSpecification *varSpeci){

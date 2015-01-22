@@ -35,6 +35,7 @@ int VariantSpecification::getValue(int id){
 int VariantSpecification::getSelectedID() const{
     if(selCurBtn != NULL)
         return selCurBtn->getID();
+    return -1;
 }
 
 SelectableValueButton* VariantSpecification::getSpeciBtnByID(int id){
@@ -43,6 +44,7 @@ SelectableValueButton* VariantSpecification::getSpeciBtnByID(int id){
             return speciBtns.at(i);
         }
     }
+    return 0;
 }
 
 void VariantSpecification::setSelected(int id){
