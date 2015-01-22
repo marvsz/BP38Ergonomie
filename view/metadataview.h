@@ -44,13 +44,15 @@ public slots:
     void setRecordTime(const QDateTime &begin, const QDateTime &end);
 
 private slots:
-
     void backButtonClicked();
     void forwardButtonClicked();
 
 private:
 
     QPushButton *btnBack;
+    QPushButton *btnCancel;
+    QPushButton *btnSave;
+
     QLabel *lblViewDescription;
     QPushButton *btnForward;
 

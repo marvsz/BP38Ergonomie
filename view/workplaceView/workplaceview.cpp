@@ -41,7 +41,7 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
 
     btnCancel->setObjectName("cancelIcon");
     btnCancel->setFixedSize(45, 45);
-    connect(btnCancel, SIGNAL(clicked()), this, SLOT(btnCancelClicked()));
+    connect(btnCancel, SIGNAL(clicked()), this, SIGNAL(back()));
 
     btnSave->setObjectName("saveIcon");
     btnSave->setFixedSize(45, 45);
@@ -203,11 +203,6 @@ void WorkplaceView::btnActivityClicked(){
 void WorkplaceView::btnCommentClicked(){
     emit save();
     emit showCommentView();
-}
-
-void WorkplaceView::btnCancelClicked(){
-    emit back();
-    emit cancel(id);
 }
 
 // GETTER

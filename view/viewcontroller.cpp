@@ -129,6 +129,7 @@ void ViewController::goToMainMenuView(){
 }
 
 void ViewController::goToMetaDataView(){
+    emit updateMetaData();
     goToView(ViewController::METADATA_VIEW);
 }
 

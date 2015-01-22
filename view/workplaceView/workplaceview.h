@@ -30,7 +30,6 @@ public:
 signals:
     void save();
     void back();
-    void cancel(int id);
 
     void showLineView();
     void showActivityView();
@@ -47,7 +46,6 @@ private slots:
     void btnLineClicked();
     void btnActivityClicked();
     void btnCommentClicked();
-    void btnCancelClicked();
 
 private:
     int id;
