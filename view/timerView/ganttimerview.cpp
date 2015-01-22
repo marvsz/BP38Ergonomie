@@ -135,6 +135,7 @@ void GantTimerView::setWorkProcessLists(QVector<QVariant> *leftWorkProcesses, QV
 }
 
 
+
 //PRIVATE SLOTS
 void GantTimerView::btnZoomInClicked(){
     secPixel += 10;

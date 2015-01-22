@@ -31,7 +31,6 @@ public slots:
     void clear();
     void setSelectedWorkProcess(int id, AVType type, int frequenz);
 
-
 private slots:
     void btnZoomInClicked();
     void btnZoomOutClicked();
