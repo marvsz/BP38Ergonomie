@@ -25,7 +25,7 @@ SOURCES += \
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 ios {
-   IOS_ICON.files = $$files($$PWD/ios/icon*.png)
+   IOS_ICON.files = $$files($$PWD/ios/*.png)
    LAUNCH_IMAGES.files = $$files($$PWD/ios/LaunchImage*.png)
    DATABASES.files = $$system("find $$PWD/assets/ -name '*.sqlite'")
    DATABASES.path = Documents
