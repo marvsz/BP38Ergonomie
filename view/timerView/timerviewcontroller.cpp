@@ -74,7 +74,7 @@ void TimerViewController::setSelectedType(AVType type){
 }
 
 void TimerViewController::closeTimerView(){
-    stopTimer();
+    maxTimerView->leaveTimer();
     if(displayState == TimerDisplayState::GANT){
         emit hideGantView();
         displayState = TimerDisplayState::MAXIMIZED;
