@@ -6,11 +6,15 @@
 SettingsView::SettingsView(QWidget *parent) :
     QWidget(parent),
     lblViewName(new QLabel(tr("Settings"))),
-    btnBack(new QPushButton())
+    btnBack(new QPushButton()),
+    btnReset(new QPushButton(tr("reset database")))
 {
     btnBack->setObjectName("leftIcon");
     btnBack->setFixedSize(45, 45);
     connect(btnBack, SIGNAL(clicked()), this, SIGNAL(back()));
+
+    btnReset->setMinimumSize(300, 60);
+    connect(btnReset, SIGNAL(clicked()), this, SIGNAL(resetDB()));
 
     QGridLayout *navigationBarLayout = new QGridLayout;
     navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
@@ -20,6 +24,8 @@ SettingsView::SettingsView(QWidget *parent) :
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
-    mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Expanding, QSizePolicy::Expanding));
+    mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Minimum, QSizePolicy::Expanding));
+    mainLayout->addWidget(btnReset, 0, Qt::AlignCenter);
+    mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Minimum, QSizePolicy::Expanding));
     setLayout(mainLayout);
 }

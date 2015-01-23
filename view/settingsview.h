@@ -13,6 +13,7 @@ public:
 
 signals:
     void back();
+    void resetDB();
 
 public slots:
 
@@ -20,6 +21,7 @@ private:
     QLabel *lblViewName;
     QPushButton *btnBack;
 
+    QPushButton *btnReset;
 };
 
 #endif // SETTINGSVIEW_H
