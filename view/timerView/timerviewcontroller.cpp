@@ -3,9 +3,6 @@
 
 TimerViewController::TimerViewController(QWidget *parent):
     QWidget(parent),
-    listLeftAVs(new QList<bool>()),
-    listRightAVs(new QList<bool>()),
-    listBasicAVs(new QList<bool>()),
     isLeftSet(false),
     isRightSet(false),
     startTimeBasic(QTime(0,0)),
@@ -60,10 +57,12 @@ void TimerViewController::setSelectedAV(int id, const QTime &duration){
 }
 
 void TimerViewController::setWorkProcessLists(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs){
+    maxTimerView->initialize(leftWPs, rightWPs, basicWPs);
     /*if(leftWPs->count() != 0 || rightWPs->count() != 0 || basicWPs->count() != 0)
         syncTimerStates(TimerState::STOPPED);
     else
         syncTimerStates(TimerState::IDLE);*/
+    maxTimerView->updateGraphTimeLine(currentTime);
 }
 
 void TimerViewController::setSelectedType(AVType type){
@@ -104,7 +103,12 @@ void TimerViewController::maximizeView(){
 }
 
 void TimerViewController::startTimer(){
-    if(timerState == TimerState::IDLE || timerState == TimerState::PAUSED){
+    if(timerState == TimerState::IDLE){
+        timerID = QObject::startTimer(1000);
+        syncTimerStates(TimerState::STARTED);
+        maxTimerView->basicStarted(currentTime);
+    }
+    if(timerState == TimerState::PAUSED){
         timerID = QObject::startTimer(1000);
         syncTimerStates(TimerState::STARTED);
     }
@@ -130,12 +134,9 @@ void TimerViewController::resetTimer(){
         currentTime = QTime(0,0);
         setTime(currentTime);
         syncTimerStates(TimerState::IDLE);
-        listLeftAVs->clear();
-        listRightAVs->clear();
-        listBasicAVs->clear();
         isLeftSet = false;
         isRightSet = false;
-        maxTimerView->updateGraph(listBasicAVs, listLeftAVs, listRightAVs);
+        maxTimerView->updateGraphTimeLine(currentTime);
         emit resetWorkProcesses();
     }
 }
@@ -146,10 +147,12 @@ void TimerViewController::setTime(const QTime &time){
 }
 
 void TimerViewController::createLeftWorkProcessRequested(){
+    maxTimerView->leftEnded(currentTime);
     emit createWorkProcess(AVType::LEFT, startTimeLeft, currentTime);
 }
 
 void TimerViewController::createRightWorkProcessRequested(){
+    maxTimerView->rightEnded(currentTime);
     emit createWorkProcess(AVType::RIGHT, startTimeRight, currentTime);
 }
 
@@ -157,6 +160,8 @@ void TimerViewController::createBasicWorkProcessRequested(){
     isBasicSet = true;
     emit createWorkProcess(AVType::BASIC, startTimeBasic, currentTime);
     startTimeBasic = currentTime;
+    maxTimerView->basicEnded(currentTime);
+    maxTimerView->basicStarted(currentTime);
 }
 
 void TimerViewController::setWorkProcessType(AVType type, const QString &prefix){
@@ -166,14 +171,18 @@ void TimerViewController::setWorkProcessType(AVType type, const QString &prefix)
 
 void TimerViewController::changeLeft(bool b){
     isLeftSet = b;
-    if(b)
+    if(b){
         startTimeLeft = currentTime;
+        maxTimerView->leftStarted(startTimeLeft);
+    }
 }
 
 void TimerViewController::changeRight(bool b){
     isRightSet = b;
-    if(b)
+    if(b){
         startTimeRight = currentTime;
+        maxTimerView->rightStarted(startTimeRight);
+    }
 }
 
 // PRIVATE
@@ -188,13 +197,10 @@ void TimerViewController::syncTimerStates(TimerState state){
 // PROTECTED
 void TimerViewController::timerEvent(QTimerEvent *event){
     currentTime = currentTime.addSecs(1);
-    listLeftAVs->append(isLeftSet);
-    listRightAVs->append(isRightSet);
-    listBasicAVs->append(isBasicSet);
     isBasicSet = false;
     maxTimerView->setTime(currentTime);
     minTimerView->setTime(currentTime);
-    maxTimerView->updateGraph(listBasicAVs, listLeftAVs, listRightAVs);
+    maxTimerView->updateGraphTimeLine(currentTime);
 }
 
 

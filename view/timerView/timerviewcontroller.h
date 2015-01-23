@@ -55,10 +55,6 @@ private slots:
     void changeRight(bool b);
 
 private:
-    QList<bool> *listLeftAVs;
-    QList<bool> *listRightAVs;
-    QList<bool> *listBasicAVs;
-
     bool isLeftSet;
     bool isRightSet;
     bool isBasicSet;

@@ -192,12 +192,38 @@ void MaximizedTimerView::setWorkProcessType(AVType type, const QString &prefix){
     wpSelector->setAVPrefix(prefix);
 }
 
-void MaximizedTimerView::updateGraph(QList<bool> *lstAV, QList<bool> *lstLeftAVs, QList<bool> *lstRightAVs){
-    graphTimer->updateGraph(lstAV, lstLeftAVs, lstRightAVs);
+void MaximizedTimerView::leftStarted(const QTime &startTime){
+    graphTimer->leftStarted(startTime);
 }
 
-void MaximizedTimerView::setWorkProcessLists(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs){
+void MaximizedTimerView::leftEnded(const QTime &endTime){
+    graphTimer->leftEnded(endTime);
 }
+
+void MaximizedTimerView::rightStarted(const QTime &startTime){
+    graphTimer->rightStarted(startTime);
+}
+
+void MaximizedTimerView::rightEnded(const QTime &endTime){
+    graphTimer->rightEnded(endTime);
+}
+
+void MaximizedTimerView::basicStarted(const QTime &startTime){
+    graphTimer->basicStarted(startTime);
+}
+
+void MaximizedTimerView::basicEnded(const QTime &endTime){
+    graphTimer->basicEnded(endTime);
+}
+
+void MaximizedTimerView::initialize(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs){
+    graphTimer->initialize(leftWPs, rightWPs, basicWPs);
+}
+
+void MaximizedTimerView::updateGraphTimeLine(const QTime &currentTime){
+    graphTimer->updateGraphTimeLine(currentTime);
+}
+
 
 // PRIVATE SLOTS
 void MaximizedTimerView::btnPlayPausedClicked(){

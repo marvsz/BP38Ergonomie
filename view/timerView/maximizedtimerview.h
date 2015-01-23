@@ -50,8 +50,15 @@ public slots:
     void setTime(const QTime &time);
     void setSelectedAV(int id, const QTime &duration);
     void setWorkProcessType(AVType type, const QString &prefix);
-    void updateGraph(QList<bool> *lstAV, QList<bool> *lstLeftAVs, QList<bool> *lstRightAVs);
-    void setWorkProcessLists(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs);
+
+    void leftStarted(const QTime &startTime);
+    void leftEnded(const QTime &endTime);
+    void rightStarted(const QTime &startTime);
+    void rightEnded(const QTime &endTime);
+    void basicStarted(const QTime &startTime);
+    void basicEnded(const QTime &endTime);
+    void initialize(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs);
+    void updateGraphTimeLine(const QTime &currentTime);
 
 private slots:
     void btnPlayPausedClicked();

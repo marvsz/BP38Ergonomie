@@ -3,6 +3,7 @@
 #include <QScroller>
 #include <QScrollBar>
 #include <QColor>
+#include <QTime>
 
 /**
  * @brief constructs a new View in which the small graph for the three timelines is displayed
@@ -13,7 +14,7 @@ GraphTimelineView::GraphTimelineView(QWidget *parent) : QMainWindow(parent)
   , picture()
   , painter()
   , graphArea(new QScrollArea)
-  , paintX(10)
+  , paintX(0)
 {
    QScroller::grabGesture(graphArea->viewport(), QScroller::LeftMouseButtonGesture);
 
@@ -27,44 +28,118 @@ GraphTimelineView::GraphTimelineView(QWidget *parent) : QMainWindow(parent)
    this->setCentralWidget(graphArea);
 }
 
-/**
- * @brief renders the graph
- * @param lstAV, list of the AVs: an end of an AV is signaled by "true"
- * @param lstLeftAVs, list of the left AVs: "false" at position i means no left AV at position i
- * @param lstRightAVs, list of the right AVs: "false" at position i means no right AV at position i
- */
-void GraphTimelineView::updateGraph(QList<bool> *lstAV, QList<bool> *lstLeftAVs, QList<bool> *lstRightAVs){
+void GraphTimelineView::leftStarted(const QTime &startTime){
+    leftWPs->append(0);
+    leftWPs->append(startTime);
+}
+
+void GraphTimelineView::leftEnded(const QTime &endTime){
+    leftWPs->append(endTime);
+}
+
+void GraphTimelineView::rightStarted(const QTime &startTime){
+    rightWPs->append(0);
+    rightWPs->append(startTime);
+}
+
+void GraphTimelineView::rightEnded(const QTime &endTime){
+    rightWPs->append(endTime);
+}
+
+void GraphTimelineView::basicStarted(const QTime &startTime){
+    basicWPs->append(0);
+    basicWPs->append(startTime);
+}
+
+void GraphTimelineView::basicEnded(const QTime &endTime){
+    basicWPs->append(endTime);
+}
+
+void GraphTimelineView::initialize(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs){
+    this->leftWPs = new QVector<QVariant>(*leftWPs);
+    this->rightWPs = new QVector<QVariant>(*rightWPs);
+    this->basicWPs = new QVector<QVariant>(*basicWPs);
+}
+
+void GraphTimelineView::updateGraphTimeLine(const QTime &currentTime){
     painter.begin(&picture);
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setPen(QPen(QColor(255,255,255,0), 0, Qt::SolidLine, Qt::FlatCap));
     painter.drawLine(0, -70, 1, -70);
     painter.drawLine(0, 80, 1, 80);
 
-    paintX = 10;
-    for(int i = 0; i < lstLeftAVs->count(); ++i){
-        bool s = lstLeftAVs->at(i);
-        painter.setPen(QPen(QColor(0, 122, 255), 6, Qt::SolidLine, Qt::FlatCap));
-        if(s)
-            painter.drawLine(paintX -10, -40, paintX, -40);
-        paintX = paintX +10;
+    painter.setPen(QPen(QColor(0, 122, 255), 6, Qt::SolidLine, Qt::FlatCap));
 
-    }
+    if(!basicWPs->empty()){
+        QTime lastEnd = QTime(0,0);
+        paintX = 0;
+        for(int i = 0; i < leftWPs->count(); i = i +3){
+            QTime curStart = leftWPs->at(i+1).toTime();
+            int duration = 0;
+            int freeSecs = lastEnd.secsTo(curStart);
 
-    paintX = 10;
-    for(int i = 0; i < lstRightAVs->count(); ++i){
-        bool s = lstRightAVs->at(i);
-        painter.setPen(QPen(QColor(0, 122, 255), 6, Qt::SolidLine, Qt::FlatCap));
-        if(s)
-            painter.drawLine(paintX -10, 0, paintX, 0);
-        paintX = paintX +10;
-    }
+            if(i+2 < leftWPs->count()){
+               QTime curEnd = leftWPs->at(i+2).toTime();
+               duration = curStart.secsTo(curEnd);
+               painter.drawLine(paintX + freeSecs*10, -40, paintX + (freeSecs + duration)*10, -40);
+               lastEnd = curEnd;
+            }
+            else {
+               duration = curStart.secsTo(currentTime);
+               painter.drawLine(paintX + freeSecs*10, -40, paintX + (freeSecs + duration)*10, -40);
+            }
+            paintX = paintX + (freeSecs + duration)*10;
+        }
 
-    paintX = 10;
-    if(!lstAV->empty()){
-        for(int i = 0; i < (lstAV->count() + 5); ++i){
+        lastEnd = QTime(0,0);
+        paintX = 0;
+        for(int i = 0; i < rightWPs->count(); i = i +3){
+            QTime curStart = rightWPs->at(i+1).toTime();
+            int duration = 0;
+            int freeSecs = lastEnd.secsTo(curStart);
+
+            if(i+2 < rightWPs->count()){
+               QTime curEnd = rightWPs->at(i+2).toTime();
+               duration = curStart.secsTo(curEnd);
+               painter.drawLine(paintX + freeSecs*10, 0, paintX + (freeSecs + duration)*10, 0);
+               lastEnd = curEnd;
+            }
+            else {
+               duration = curStart.secsTo(currentTime);
+               painter.drawLine(paintX + freeSecs*10, 0, paintX + (freeSecs + duration)*10, 0);
+            }
+            paintX = paintX + (freeSecs + duration)*10;
+        }
+
+        lastEnd = QTime(0,0);
+        paintX = 0;
+        for(int i = 0; i < basicWPs->count(); i = i +3){
+            QTime curStart = basicWPs->at(i+1).toTime();
+            int duration = 0;
+            int freeSecs = lastEnd.secsTo(curStart);
+
+            if(i+2 < basicWPs->count()){
+               QTime curEnd = basicWPs->at(i+2).toTime();
+               duration = curStart.secsTo(curEnd);
+               painter.drawLine(paintX + freeSecs*10, 40, paintX + (freeSecs + duration)*10, 40);
+               painter.setPen(QPen(Qt::gray, 2, Qt::SolidLine, Qt::FlatCap));
+               painter.drawLine(paintX + (freeSecs + duration)*10, 30, paintX + (freeSecs + duration)*10, 50);
+               painter.setPen(QPen(QColor(0, 122, 255), 6, Qt::SolidLine, Qt::FlatCap));
+               lastEnd = curEnd;
+            }
+            else {
+               duration = curStart.secsTo(currentTime);
+               painter.drawLine(paintX + freeSecs*10, 40, paintX + (freeSecs + duration)*10, 40);
+            }
+            paintX = paintX + (freeSecs + duration)*10;
+        }
+
+        lastEnd = QTime(0,0);
+        paintX = 0;
+        for(int i = 0; i < ((basicWPs->at(1).toTime().secsTo(currentTime)) + 5); ++i){
             painter.setPen(QPen(Qt::gray, 1, Qt::SolidLine, Qt::FlatCap));
             if(i%5 == 0){
-                painter.drawLine(paintX -10, 55, paintX -10, 65);
+                painter.drawLine(paintX, 55, paintX, 65);
                 unsigned int m = (i/ 60);
                 unsigned int s = (i - 60*m);
                 const QString diff = QString("%1:%2")
@@ -76,28 +151,12 @@ void GraphTimelineView::updateGraph(QList<bool> *lstAV, QList<bool> *lstLeftAVs,
                 painter.drawText(QPoint(paintX -26, 78), diff);
             }
             else
-                painter.drawLine(paintX -10, 58, paintX -10, 62);
+                painter.drawLine(paintX, 58, paintX, 62);
             paintX = paintX +10;
         }
+
+
     }
-
-    paintX = 10;
-    for(int i = 0; i < lstAV->count(); ++i){
-        bool s = lstAV->at(i);
-
-        painter.setPen(QPen(QColor(0, 122, 255), 6, Qt::SolidLine, Qt::FlatCap));
-        if(s){
-            painter.setPen(QPen(Qt::gray, 2, Qt::SolidLine, Qt::FlatCap));
-            painter.drawLine(paintX -10, 30, paintX -10, 50);
-            painter.setPen(QPen(QColor(0, 122, 255), 6, Qt::SolidLine, Qt::FlatCap));
-            painter.drawLine(paintX - 10, 40, paintX, 40);
-        }
-        else
-            painter.drawLine(paintX - 10, 40, paintX, 40);
-        paintX = paintX +10;
-    }
-
-
     painter.end();
 
     graph->setPicture(picture);
