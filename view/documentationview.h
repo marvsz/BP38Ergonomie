@@ -47,6 +47,8 @@ signals:
     void showTransportationView();
     void showEquipmentView();
 
+    void updateGantView();
+
     /*void updateGantView();
 
     void updateBodyPostureView();

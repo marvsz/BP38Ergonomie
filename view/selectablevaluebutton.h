@@ -22,7 +22,7 @@ public:
 
 signals:
     void clickedWithID(int id);
-    void clickedWithID(int id, SelectableValueButton *btn);
+    //void clickedWithID(int id, SelectableValueButton *btn);
 
 public slots:
 

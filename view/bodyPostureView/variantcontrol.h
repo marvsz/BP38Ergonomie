@@ -41,7 +41,7 @@ public slots:
     void setExclusiveDisplayByName(const QString &name);
 
 private slots:
-    void btnVariantClicked(int id, SelectableValueButton *btn);
+    void btnVariantClicked(int id);
     void vcValueChanged(const QVariant &value);
     void btnNameClicked();
 private:

@@ -98,6 +98,7 @@ void ViewController::setTransportationView(TransportationView *transportationVie
 void ViewController::setSettingsView(SettingsView *settingsView){
     this->settingsView = settingsView;
     connect(settingsView, SIGNAL(back()), this, SLOT(backToView()));
+    connect(settingsView, SIGNAL(showAnalystSelectionView()), this, SLOT(goToAnalystSelectionView()));
 }
 
 void ViewController::registerViews(){

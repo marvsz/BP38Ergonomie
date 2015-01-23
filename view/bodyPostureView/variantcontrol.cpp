@@ -40,7 +40,7 @@ int VariantControl::addVariant(const QString &name){
     variantBtns->append(btn);
     variantsLayout->addWidget(btn);
     valueControls->append(new QVector<ValueControl*>());
-    connect(btn, SIGNAL(clickedWithID(int,SelectableValueButton*)), this, SLOT(btnVariantClicked(int,SelectableValueButton*)));
+    connect(btn, SIGNAL(clickedWithID(int)), this, SLOT(btnVariantClicked(int)));
     return valueControls->length() - 1;
 }
 
@@ -91,7 +91,7 @@ void VariantControl::setSelectedVariant(int variantID){
     for(int i = 0; i < variantBtns->length(); ++i){
         SelectableValueButton* btn = variantBtns->at(i);
         if(btn->getID() == variantID){
-            btnVariantClicked(variantID, btn);
+            btnVariantClicked(variantID);
             break;
         }
     }
@@ -99,7 +99,8 @@ void VariantControl::setSelectedVariant(int variantID){
 
 
 //PRIVATE SLOTS
-void VariantControl::btnVariantClicked(int id, SelectableValueButton *btn){
+void VariantControl::btnVariantClicked(int id){
+    SelectableValueButton *btn = variantBtns->at(id);
     if(svBtnCurrentSel != NULL){
         QVector<ValueControl*> *oldControls = valueControls->at(svBtnCurrentSel->getValue().toInt());
         svBtnCurrentSel->setSelected(false);

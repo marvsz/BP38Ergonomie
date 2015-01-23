@@ -143,6 +143,7 @@ void DocumentationView::hideCamera(){
 void DocumentationView::showGant(){
     indexBeforeTimeLineView = mainContent->currentIndex();
     changeView(5);
+    emit updateGantView();
 }
 
 void DocumentationView::hideGant(){

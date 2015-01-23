@@ -114,6 +114,7 @@ Controller::Controller(QObject *parent) :
 
     //connect(documentationView, SIGNAL(updateGantView()), this, SLOT(updateGantView()));
     //connect(documentationView, SIGNAL(saveFrequenz()), this, SLOT(saveWorkProcessFrequenz()));
+    connect(documentationView, SIGNAL(updateGantView()), this, SLOT(updateGantView()));
 
     connect(gantTimerView, SIGNAL(workProcessSelected(int,AVType)), this, SLOT(setSelectedWorkProcess(int, AVType)));
 
@@ -122,6 +123,9 @@ Controller::Controller(QObject *parent) :
     connect(timerViewController, SIGNAL(previousWorkProcess()), this, SLOT(selectPreviousWorkProcess()));
     connect(timerViewController, SIGNAL(workProcessTypeChanged(AVType)), this, SLOT(workProcessTypeChanged(AVType)));
     connect(timerViewController, SIGNAL(resetWorkProcesses()), this, SLOT(resetWorkProcesses()));
+
+    connect(settingsView, SIGNAL(resetDatabase()), this, SLOT(resetDatabase()));
+
     documentationView->setupViews();
 
     viewCon->registerViews();
@@ -581,6 +585,10 @@ void Controller::setSelectedWorkProcess(int id , AVType type){
         gantTimerView->setSelectedWorkProcess(id, type, record.value(DBConstants::COL_WORK_PROCESS_FREQUENCY).toInt());
         updateGantView();
     }
+    else{
+        timerViewController->setSelectedType(AVType::BASIC);
+        timerViewController->setSelectedAV(0, QTime(0,0));
+    }
 }
 
 void Controller::selectNextWorkProcess(){
@@ -876,6 +884,16 @@ void Controller::updateDocumentationViewRessources(){
 
 
 void Controller::resetDatabase(){
+    analyst_ID = 0;
+    recording_ID = 1;
+    workplace_ID = 0;
+    workcondition_ID = 0;
+    factory_ID = 0;
+    activity_ID = 0;
+    appliedforce_ID = 0;
+    loadhandling_ID = 0;
+    workprocess_Type = AVType::BASIC;
+    workprocess_ID = 0;
     QString emptyFilter = QString("");
     dbHandler->deleteAll(DB_TABLES::ACTIVITY, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::ANALYST, emptyFilter);

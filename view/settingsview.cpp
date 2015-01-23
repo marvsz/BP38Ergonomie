@@ -14,7 +14,7 @@ SettingsView::SettingsView(QWidget *parent) :
     connect(btnBack, SIGNAL(clicked()), this, SIGNAL(back()));
 
     btnReset->setMinimumSize(300, 60);
-    connect(btnReset, SIGNAL(clicked()), this, SIGNAL(resetDB()));
+    connect(btnReset, SIGNAL(clicked()), this, SLOT(btnResetClicked()));
 
     QGridLayout *navigationBarLayout = new QGridLayout;
     navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
@@ -28,4 +28,9 @@ SettingsView::SettingsView(QWidget *parent) :
     mainLayout->addWidget(btnReset, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Minimum, QSizePolicy::Expanding));
     setLayout(mainLayout);
+}
+
+void SettingsView::btnResetClicked(){
+    emit resetDatabase();
+    emit showAnalystSelectionView();
 }

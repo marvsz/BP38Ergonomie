@@ -14,9 +14,12 @@ public:
 signals:
     void back();
     void resetDatabase();
+    void showAnalystSelectionView();
 
 public slots:
 
+private slots:
+    void btnResetClicked();
 private:
     QLabel *lblViewName;
     QPushButton *btnBack;
