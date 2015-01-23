@@ -13,7 +13,7 @@ public:
 
 signals:
     void back();
-    void resetDB();
+    void resetDatabase();
 
 public slots:
 
