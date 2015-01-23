@@ -59,6 +59,7 @@ public slots:
     void basicEnded(const QTime &endTime);
     void initialize(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs);
     void updateGraphTimeLine(const QTime &currentTime);
+    void leaveTimer();
 
 private slots:
     void btnPlayPausedClicked();

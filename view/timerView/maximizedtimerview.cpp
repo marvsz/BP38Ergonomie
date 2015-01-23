@@ -224,6 +224,10 @@ void MaximizedTimerView::updateGraphTimeLine(const QTime &currentTime){
     graphTimer->updateGraphTimeLine(currentTime);
 }
 
+void MaximizedTimerView::leaveTimer(){
+    if(state != TimerState::STOPPED)
+        btnStopResetClicked();
+}
 
 // PRIVATE SLOTS
 void MaximizedTimerView::btnPlayPausedClicked(){
