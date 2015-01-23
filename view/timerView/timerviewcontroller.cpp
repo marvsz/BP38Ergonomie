@@ -58,10 +58,14 @@ void TimerViewController::setSelectedAV(int id, const QTime &duration){
 
 void TimerViewController::setWorkProcessLists(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs){
     maxTimerView->initialize(leftWPs, rightWPs, basicWPs);
-    /*if(leftWPs->count() != 0 || rightWPs->count() != 0 || basicWPs->count() != 0)
+    if(leftWPs->count() != 0 || rightWPs->count() != 0 || basicWPs->count() != 0){
         syncTimerStates(TimerState::STOPPED);
-    else
-        syncTimerStates(TimerState::IDLE);*/
+        syncCurrentTime(basicWPs->at(basicWPs->count() -1).toTime());
+    }
+    else {
+        syncTimerStates(TimerState::IDLE);
+        syncCurrentTime(QTime(0,0));
+    }
     maxTimerView->updateGraphTimeLine(currentTime);
 }
 
@@ -193,6 +197,11 @@ void TimerViewController::syncTimerStates(TimerState state){
     maxTimerView->setState(state);
 }
 
+void TimerViewController::syncCurrentTime(const QTime &currentTime){
+    minTimerView->setTime(currentTime);
+    maxTimerView->setTime(currentTime);
+    this->currentTime = currentTime;
+}
 
 // PROTECTED
 void TimerViewController::timerEvent(QTimerEvent *event){

@@ -74,6 +74,7 @@ private:
     const QStringList TYPE_PREFIXE = QStringList()<<"L"<<"R"<<"AV";
 
     void syncTimerStates(TimerState state);
+    void syncCurrentTime(const QTime &currentTime);
 
 };
 
