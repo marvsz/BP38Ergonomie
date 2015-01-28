@@ -61,6 +61,9 @@ public slots:
     void updateGraphTimeLine(const QTime &currentTime);
     void leaveTimer();
 
+    void disableMaximize();
+    void enableMaximize();
+
 private slots:
     void btnPlayPausedClicked();
     void btnStopResetClicked();

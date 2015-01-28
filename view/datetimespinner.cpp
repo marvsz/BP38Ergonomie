@@ -71,25 +71,26 @@ DateTimeSpinner::DateTimeSpinner(QWidget *parent) :
     numBxMinute->setValue(currentTime.time().minute());
 
     spinnerLayout->addWidget(new QLabel(tr("Date")),0, 0, 1, 3, Qt::AlignCenter);
-    spinnerLayout->addWidget(new QLabel(tr("Time")),0, 3, 1, 2, Qt::AlignCenter);
+    spinnerLayout->addWidget(new QLabel(tr("Time")),0, 4, 1, 2, Qt::AlignCenter);
 
     spinnerLayout->addWidget(btnDayInc, 1, 0, 1, 1, Qt::AlignCenter);
     spinnerLayout->addWidget(btnMonthInc, 1, 1, 1, 1, Qt::AlignCenter);
     spinnerLayout->addWidget(btnYearInc, 1, 2, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(btnHourInc, 1, 3, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(btnMinuteInc, 1, 4, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed), 0, 3, 1, 1);
+    spinnerLayout->addWidget(btnHourInc, 1, 4, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(btnMinuteInc, 1, 5, 1, 1, Qt::AlignCenter);
 
     spinnerLayout->addWidget(numBxDay, 2, 0, 1, 1, Qt::AlignCenter);
     spinnerLayout->addWidget(numBxMonth, 2, 1, 1, 1, Qt::AlignCenter);
     spinnerLayout->addWidget(numBxYear, 2, 2, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(numBxHour, 2, 3, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(numBxMinute, 2, 4, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(numBxHour, 2, 4, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(numBxMinute, 2, 5, 1, 1, Qt::AlignCenter);
 
     spinnerLayout->addWidget(btnDayDec, 3, 0, 1, 1, Qt::AlignCenter);
     spinnerLayout->addWidget(btnMonthDec, 3, 1, 1, 1, Qt::AlignCenter);
     spinnerLayout->addWidget(btnYearDec, 3, 2, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(btnHourDec, 3, 3, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(btnMinuteDec, 3, 4, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(btnHourDec, 3, 4, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(btnMinuteDec, 3, 5, 1, 1, Qt::AlignCenter);
 
     connect(numBxDay, SIGNAL(editingFinished()), this, SLOT(setDay()));
     connect(numBxMonth, SIGNAL(editingFinished()), this, SLOT(setMonth()));

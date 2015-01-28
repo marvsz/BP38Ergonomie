@@ -229,6 +229,14 @@ void MaximizedTimerView::leaveTimer(){
         btnStopResetClicked();
 }
 
+void MaximizedTimerView::disableMaximize(){
+    btnMaximized->setEnabled(false);
+}
+
+void MaximizedTimerView::enableMaximize(){
+    btnMaximized->setEnabled(true);
+}
+
 // PRIVATE SLOTS
 void MaximizedTimerView::btnPlayPausedClicked(){
     switch(state){

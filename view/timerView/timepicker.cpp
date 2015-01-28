@@ -8,6 +8,7 @@ TimePicker::TimePicker(QWidget *parent) :
     btnDecreaseTime(new QPushButton())
 {
     timeBxTime->setMinimumSize(100, 45);
+    timeBxTime->setAlignment(Qt::AlignCenter);
     btnIncreaseTime->setFixedSize(45, 45);
     btnIncreaseTime->setObjectName("plusIcon");
 

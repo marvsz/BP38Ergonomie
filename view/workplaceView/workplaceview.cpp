@@ -50,10 +50,15 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     txtBxCode->setPlaceholderText(tr("code of the workplace"));
 
     timeBasicTime->setMaximumWidth(100);
+    timeBasicTime->setAlignment(Qt::AlignCenter);
     timeSetupTime->setMaximumWidth(100);
+    timeSetupTime->setAlignment(Qt::AlignCenter);
     timeRestTime->setMaximumWidth(100);
+    timeRestTime->setAlignment(Qt::AlignCenter);
     timeAllowanceTime->setMaximumWidth(100);
+    timeAllowanceTime->setAlignment(Qt::AlignCenter);
     timeCycleTime->setMaximumWidth(100);
+    timeCycleTime->setAlignment(Qt::AlignCenter);
 
     QGridLayout *timeLayout = new QGridLayout;
 
