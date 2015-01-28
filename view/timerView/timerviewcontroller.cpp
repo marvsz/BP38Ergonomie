@@ -138,6 +138,9 @@ void TimerViewController::resetTimer(){
         currentTime = QTime(0,0);
         setTime(currentTime);
         syncTimerStates(TimerState::IDLE);
+        startTimeBasic = QTime(0,0);
+        startTimeLeft = QTime(0,0);
+        startTimeRight = QTime(0,0);
         isLeftSet = false;
         isRightSet = false;
         maxTimerView->updateGraphTimeLine(currentTime);
@@ -161,11 +164,13 @@ void TimerViewController::createRightWorkProcessRequested(){
 }
 
 void TimerViewController::createBasicWorkProcessRequested(){
-    isBasicSet = true;
-    emit createWorkProcess(AVType::BASIC, startTimeBasic, currentTime);
-    startTimeBasic = currentTime;
-    maxTimerView->basicEnded(currentTime);
-    maxTimerView->basicStarted(currentTime);
+    if(currentTime > startTimeBasic){
+        isBasicSet = true;
+        emit createWorkProcess(AVType::BASIC, startTimeBasic, currentTime);
+        startTimeBasic = currentTime;
+        maxTimerView->basicEnded(currentTime);
+        maxTimerView->basicStarted(currentTime);
+    }
 }
 
 void TimerViewController::setWorkProcessType(AVType type, const QString &prefix){
