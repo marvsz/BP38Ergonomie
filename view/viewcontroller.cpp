@@ -23,6 +23,7 @@ void ViewController::setMainMenuView(MainMenu *mainMenuView){
     connect(mainMenuView, SIGNAL(showWorkplaceListView()), this, SLOT(goToWorkplaceListView()));
     connect(mainMenuView, SIGNAL(showRessourceManagementView()), this, SLOT(goToRessourceManagementView()));
     connect(mainMenuView, SIGNAL(showNewRecordingView()), this, SLOT(goToDocumentationView()));
+    connect(mainMenuView, SIGNAL(showShiftView()), this, SLOT(goToShiftView()));
     connect(mainMenuView, SIGNAL(showSettingsView()), this, SLOT(goToSettingsView()));
 }
 
@@ -95,6 +96,10 @@ void ViewController::setTransportationView(TransportationView *transportationVie
     connect(transportationView, SIGNAL(back()), this, SLOT(backToView()));
 }
 
+void ViewController::setShiftView(ShiftView *shiftView){
+    this->shiftView = shiftView;
+    connect(shiftView, SIGNAL(back()), this, SLOT(backToView()));
+}
 void ViewController::setSettingsView(SettingsView *settingsView){
     this->settingsView = settingsView;
     connect(settingsView, SIGNAL(back()), this, SLOT(backToView()));
@@ -115,6 +120,7 @@ void ViewController::registerViews(){
     this->addWidget(productView);
     this->addWidget(equipmentView);
     this->addWidget(transportationView);
+    this->addWidget(shiftView);
     this->addWidget(settingsView);
     setCurrentIndex(ViewController::ANALYST_SELECTION_VIEW);
     goToAnalystSelectionView();
@@ -174,6 +180,11 @@ void ViewController::goToDocumentationView(){
 void ViewController::goToRessourceManagementView(){
     goToView(ViewController::RESSOURCE_MANAGEMENT_VIEW);
 }
+
+void ViewController::goToShiftView(){
+    goToView(ViewController::SHIFT_VIEW);
+}
+
 void ViewController::goToSettingsView(){
     goToView(ViewController::SETTINGS_VIEW);
 }
@@ -230,6 +241,8 @@ void ViewController::backToView(){
             break;
         case ViewController::TRANSPORTATION_VIEW:
             emit updateTransportationView();
+            break;
+        case ViewController::SHIFT_VIEW:
             break;
         case ViewController::SETTINGS_VIEW:
             break;

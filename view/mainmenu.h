@@ -16,6 +16,7 @@ signals:
     void showWorkplaceListView();
     void showRessourceManagementView();
     void showNewRecordingView();
+    void showShiftView();
     void showSettingsView();
 
 
@@ -24,6 +25,7 @@ private:
     QPushButton *btnMetaDataView;
     QPushButton *btnWorkplaceList;
     QPushButton *btnRessourceManagement;
+    QPushButton *btnShift;
     QPushButton *btnSettings;
 
 };

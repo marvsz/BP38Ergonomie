@@ -78,6 +78,8 @@ TransportationView::TransportationView(QWidget *parent) :
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
     mainLayout->addWidget(scTransportation);
 
+    transportationListLayout->setAlignment(Qt::AlignTop);
+
     setLayout(mainLayout);
 }
 

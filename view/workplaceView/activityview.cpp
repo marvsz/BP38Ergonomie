@@ -94,6 +94,9 @@ ActivityView::ActivityView(QWidget *parent) :
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
     mainLayout->addWidget(scActivities);
 
+    productListLayout->setAlignment(Qt::AlignTop);
+    activityListLayout->setAlignment(Qt::AlignTop);
+
     setLayout(mainLayout);
 }
 

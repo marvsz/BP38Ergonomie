@@ -64,6 +64,8 @@ ProductView::ProductView(QWidget *parent) : QWidget(parent),
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addWidget(scProducts);
 
+    productListLayout->setAlignment(Qt::AlignTop);
+
     setLayout(mainLayout);
 }
 

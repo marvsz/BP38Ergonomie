@@ -78,6 +78,10 @@
         <file>icons/Buttons/resetDisabled@2x.png</file>
         <file>icons/Buttons/stopDisabled.png</file>
         <file>icons/Buttons/stopDisabled@2x.png</file>
+        <file>icons/Buttons/feedback.png</file>
+        <file>icons/Buttons/feedback@2x.png</file>
+        <file>icons/Buttons/feedbackPressed.png</file>
+        <file>icons/Buttons/feedbackPressed@2x.png</file>
     </qresource>
     <qresource prefix="/misc">
         <file>icons/Misc/workplace.png</file>

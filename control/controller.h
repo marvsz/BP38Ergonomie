@@ -8,6 +8,7 @@
     #include "mainmenu.h"
     #include "metadataview.h"
     #include "workplaceView/activityview.h"
+    #include "rotationGroupView/shiftview.h"
 #else
     #include "../databaseHandler/dbhandler.h"
     #include "../view/viewcontroller.h"
@@ -21,6 +22,7 @@
     #include "../view/documentationview.h"
     #include "../view/analystselectionview.h"
     #include "../view/timerView/ganttimerview.h"
+    #include "../view/rotationGroupView/shiftview.h"
 #endif
 #include <QSqlField>
 #include <QHash>
@@ -124,6 +126,7 @@ private:
     ProductView *productView;
     EquipmentView *equipmentView;
     TransportationView *transportationView;
+    ShiftView *shiftView;
     SettingsView *settingsView;
 
     DocumentationView *documentationView;

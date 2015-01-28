@@ -68,6 +68,7 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     scLines->setWidgetResizable(true);
     scLines->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     listContent->setLayout(listContentLayout);
+    listContentLayout->setAlignment(Qt::AlignTop);
 
     FlickCharm *flickCharm = new FlickCharm(this);
     flickCharm->activateOn(scLines);
@@ -79,6 +80,8 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addWidget(lblSelectLine);
     mainLayout->addWidget(scLines);
+
+    lineAddLayout->setAlignment(Qt::AlignTop);
 
     setLayout(mainLayout);
 }

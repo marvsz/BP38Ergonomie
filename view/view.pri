@@ -9,8 +9,6 @@ HEADERS +=\
     $$PWD/mainmenu.h\
     $$PWD/loadhandlingview.h\
     $$PWD/viewcontroller.h\
-    $$PWD/transportationlistcontrol.h \
-    $$PWD/transportationlistelement.h \
     $$PWD/optionselectioncontrol.h \
     $$PWD/executionconditionview.h \
     $$PWD/flickcharm.h \
@@ -52,7 +50,9 @@ HEADERS +=\
     $$PWD/analystselectionview.h \
     $$PWD/timerView/spaceritemtimer.h \
     $$PWD/timerView/workprocesstypepicker.h \
-    $$PWD/rotationGroupView/shiftview.h
+    $$PWD/rotationGroupView/shiftview.h \
+    $$PWD/timespinner.h \
+    $$PWD/rotationGroupView/shiftcalendar.h
 
 
 SOURCES +=\
@@ -63,8 +63,6 @@ SOURCES +=\
     $$PWD/loadhandlingview.cpp\
     $$PWD/viewcontroller.cpp\
     $$PWD/mainmenu.cpp\
-    $$PWD/transportationlistcontrol.cpp\
-    $$PWD/transportationlistelement.cpp \
     $$PWD/optionselectioncontrol.cpp \
     $$PWD/executionconditionview.cpp \
     $$PWD/flickcharm.cpp \
@@ -106,6 +104,8 @@ SOURCES +=\
     $$PWD/analystselectionview.cpp \
     $$PWD/timerView/spaceritemtimer.cpp \
     $$PWD/timerView/workprocesstypepicker.cpp \
-    $$PWD/rotationGroupView/shiftview.cpp
+    $$PWD/rotationGroupView/shiftview.cpp \
+    $$PWD/timespinner.cpp \
+    $$PWD/rotationGroupView/shiftcalendar.cpp
 
 

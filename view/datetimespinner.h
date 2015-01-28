@@ -6,8 +6,6 @@
 #include <QGridLayout>
 #include <QDateTime>
 #include "numberlineedit.h"
-#include "iconconstants.h"
-#include <QIcon>
 
 class DateTimeSpinner : public QWidget
 {
@@ -16,7 +14,7 @@ public:
     explicit DateTimeSpinner(QWidget *parent = 0);
 
     QDateTime getDateTime() const;
-    void setDateTime(const QDateTime& time);
+    void setDateTime(const QDateTime &time);
 
 signals:
 

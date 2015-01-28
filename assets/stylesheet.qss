@@ -42,6 +42,7 @@ QPushButton#cancelIcon {image: url(:/button/icons/Buttons/cancel.png); width 45p
 QPushButton#saveIcon {image: url(:/button/icons/Buttons/check.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#editIcon {image: url(:/button/icons/Buttons/edit.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#settingsIcon {image: url(:/misc/icons/Misc/settings.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#feedbackIcon {image: url(:/button/icons/Buttons/feedback.png); width 45px; height 45px; border: none; background-color: transparent;}
 
 QPushButton#cameraIcon:pressed {image: url(:/button/icons/Buttons/cameraPressed.png); width: 50px; height: 50px; border: none; background-color: transparent;}
 QPushButton#upIcon:pressed {image: url(:/button/icons/Buttons/upPressed.png); width 45px; height 45px; border: none; background-color: transparent;}
@@ -60,6 +61,7 @@ QPushButton#minusIcon:pressed {image: url(:/button/icons/Buttons/minusPressed.pn
 QPushButton#cancelIcon:pressed {image: url(:/button/icons/Buttons/cancelPressed.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#saveIcon:pressed {image: url(:/button/icons/Buttons/checkPressed.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#editIcon:pressed {image: url(:/button/icons/Buttons/editPressed.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#feedbackIcon:pressed {image: url(:/button/icons/Buttons/feedbackPressed.png); width 45px; height 45px; border: none; background-color: transparent;}
 
 QPushButton#playIcon:disabled {image: url(:/button/icons/Buttons/playDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#pauseIcon:disabled {image: url(:/button/icons/Buttons/pauseDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}

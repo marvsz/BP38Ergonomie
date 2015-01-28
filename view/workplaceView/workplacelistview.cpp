@@ -44,6 +44,8 @@ WorkplaceListView::WorkplaceListView(QWidget *parent) :
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
     mainLayout->addWidget(scWorkplaces);
 
+    listContentLayout->setAlignment(Qt::AlignTop);
+
     this->setLayout(mainLayout);
 }
 

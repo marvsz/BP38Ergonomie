@@ -1,5 +1,6 @@
 #include "datetimespinner.h"
 #include <QDebug>
+#include <QLabel>
 
 DateTimeSpinner::DateTimeSpinner(QWidget *parent) :
     QWidget(parent),
@@ -18,10 +19,9 @@ DateTimeSpinner::DateTimeSpinner(QWidget *parent) :
     btnHourInc(new QPushButton()),
     btnHourDec(new QPushButton()),
     btnMinuteInc(new QPushButton()),
-    btnMinuteDec(new QPushButton())
+    btnMinuteDec(new QPushButton()),
+    currentTime(QDateTime::currentDateTime())
 {
-    currentTime = QDateTime::currentDateTime();
-
     btnDayInc->setFixedSize(40, 40);
     btnDayInc->setObjectName("plusIcon");
 
@@ -70,23 +70,26 @@ DateTimeSpinner::DateTimeSpinner(QWidget *parent) :
     numBxHour->setValue(currentTime.time().hour());
     numBxMinute->setValue(currentTime.time().minute());
 
-    spinnerLayout->addWidget(btnDayInc, 0, 0, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(btnMonthInc, 0, 1, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(btnYearInc, 0, 2, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(btnHourInc, 0, 3, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(btnMinuteInc, 0, 4, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(new QLabel(tr("Date")),0, 0, 1, 3, Qt::AlignCenter);
+    spinnerLayout->addWidget(new QLabel(tr("Time")),0, 3, 1, 2, Qt::AlignCenter);
 
-    spinnerLayout->addWidget(numBxDay, 1, 0, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(numBxMonth, 1, 1, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(numBxYear, 1, 2, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(numBxHour, 1, 3, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(numBxMinute, 1, 4, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(btnDayInc, 1, 0, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(btnMonthInc, 1, 1, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(btnYearInc, 1, 2, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(btnHourInc, 1, 3, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(btnMinuteInc, 1, 4, 1, 1, Qt::AlignCenter);
 
-    spinnerLayout->addWidget(btnDayDec, 2, 0, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(btnMonthDec, 2, 1, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(btnYearDec, 2, 2, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(btnHourDec, 2, 3, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(btnMinuteDec, 2, 4, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(numBxDay, 2, 0, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(numBxMonth, 2, 1, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(numBxYear, 2, 2, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(numBxHour, 2, 3, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(numBxMinute, 2, 4, 1, 1, Qt::AlignCenter);
+
+    spinnerLayout->addWidget(btnDayDec, 3, 0, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(btnMonthDec, 3, 1, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(btnYearDec, 3, 2, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(btnHourDec, 3, 3, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(btnMinuteDec, 3, 4, 1, 1, Qt::AlignCenter);
 
     connect(numBxDay, SIGNAL(editingFinished()), this, SLOT(setDay()));
     connect(numBxMonth, SIGNAL(editingFinished()), this, SLOT(setMonth()));
@@ -107,7 +110,6 @@ DateTimeSpinner::DateTimeSpinner(QWidget *parent) :
     connect(btnMinuteDec, SIGNAL(clicked()), this, SLOT(decreaseMinute()));
 
     this->setLayout(spinnerLayout);
-    this->setMaximumHeight(150);
 
 }
 
@@ -192,12 +194,14 @@ QDateTime DateTimeSpinner::getDateTime() const{
     return currentTime;
 }
 
-void DateTimeSpinner::setDateTime(const QDateTime& time){
+void DateTimeSpinner::setDateTime(const QDateTime &time){
     currentTime.setDate(time.date());
     currentTime.setTime(time.time());
     update();
+
 }
 
+// PRIVATE
 void DateTimeSpinner::update(){
     numBxDay->setValue(currentTime.date().day());
     numBxMonth->setValue(currentTime.date().month());

@@ -70,6 +70,8 @@ EquipmentView::EquipmentView(QWidget *parent) :
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addWidget(scEquipment);
 
+    equipmentListLayout->setAlignment(Qt::AlignTop);
+
     setLayout(mainLayout);
 }
 

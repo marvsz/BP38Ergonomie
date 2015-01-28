@@ -16,6 +16,7 @@
 #include "ressourceManagementView/equipmentview.h"
 #include "ressourceManagementView/productview.h"
 #include "ressourceManagementView/transportationview.h"
+#include "rotationGroupView/shiftview.h"
 #include "settingsview.h"
 
 class ViewController : public QStackedWidget
@@ -37,7 +38,8 @@ public:
     static const int PRODUCT_VIEW = 10;
     static const int EQUIPMENT_VIEW = 11;
     static const int TRANSPORTATION_VIEW = 12;
-    static const int SETTINGS_VIEW = 13;
+    static const int SHIFT_VIEW = 13;
+    static const int SETTINGS_VIEW = 14;
 
     void setAnalystSelectionView(AnalystSelectionView *analystSelectionView);
     void setMainMenuView(MainMenu *mainMenuView);
@@ -52,6 +54,7 @@ public:
     void setProductView(ProductView *productView);
     void setEquipmentView(EquipmentView *equipmentView);
     void setTransportationView(TransportationView *transportationView);
+    void setShiftView(ShiftView *shiftView);
     void setSettingsView(SettingsView *settingsView);
 
     void registerViews();
@@ -127,6 +130,7 @@ private slots:
     void goToSettingsView();
     void goToEquipmentView();
     void goToProductView();
+    void goToShiftView();
     void goToTransportationView();
 
 private:
@@ -144,6 +148,7 @@ private:
     ProductView *productView;
     EquipmentView *equipmentView;
     TransportationView *transportationView;
+    ShiftView *shiftView;
     SettingsView *settingsView;
 
     void goToView(int index);
