@@ -27,7 +27,7 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     btnSetLeft->setText("L");
     btnSetRight->setFixedSize(45, 45);
     btnSetRight->setText("R");
-    btnSetBoth->setFixedWidth(45);
+    btnSetBoth->setFixedSize(45, 110);
     btnSetBoth->setText("L/R");
     btnSetAV->setFixedSize(45, 45);
     btnSetAV->setText("AV");
@@ -84,6 +84,7 @@ MaximizedTimerView::MaximizedTimerView(TimerState state, QWidget *parent) :
     mainLayout->addWidget(btnPlayPaused, 0, 6, 1, 1, 0);
     mainLayout->addWidget(btnStopReset, 1, 6, 1, 1, 0);
     mainLayout->addWidget(lblTime, 2, 5, 1, 2, Qt::AlignCenter);
+    mainLayout->setAlignment(btnSetBoth, Qt::AlignBottom);
 
     setLayout(mainLayout);
     setState(state);

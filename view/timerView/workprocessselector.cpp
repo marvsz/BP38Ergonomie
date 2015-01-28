@@ -9,7 +9,7 @@ WorkProcessSelector::WorkProcessSelector(QWidget *parent) : QWidget(parent),
     lblSelectedAV(new QLabel()),
     prefix(QString(""))
 {
-    lblSelectedAV->setMinimumSize(110, 45);
+    lblSelectedAV->setMinimumSize(115, 45);
     lblSelectedAV->setAlignment(Qt::AlignCenter);
     btnRight->setFixedSize(45, 45);
     btnRight->setObjectName("rightIcon");
