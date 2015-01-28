@@ -51,7 +51,6 @@ private:
 
     QPushButton *btnBack;
     QPushButton *btnCancel;
-    QPushButton *btnSave;
 
     QLabel *lblViewDescription;
     QPushButton *btnForward;
