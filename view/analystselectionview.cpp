@@ -4,7 +4,7 @@
 #include "iconconstants.h"
 
 AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
-    QWidget(parent),
+    SimpleNavigateableWidget(tr("Analyst selection"), parent),
     status(false),
     btnMaximize(new QPushButton()),
     btnMinimize(new QPushButton()),

@@ -8,7 +8,6 @@ HEADERS +=\
     $$PWD/separator.h\
     $$PWD/mainmenu.h\
     $$PWD/loadhandlingview.h\
-    $$PWD/viewcontroller.h\
     $$PWD/optionselectioncontrol.h \
     $$PWD/executionconditionview.h \
     $$PWD/flickcharm.h \
@@ -52,7 +51,11 @@ HEADERS +=\
     $$PWD/timerView/workprocesstypepicker.h \
     $$PWD/rotationGroupView/shiftview.h \
     $$PWD/timespinner.h \
-    $$PWD/rotationGroupView/shiftcalendar.h
+    $$PWD/rotationGroupView/shiftcalendar.h \
+    $$PWD/navigation/viewcontroller.h \
+    $$PWD/navigation/navigateablewidget.h \
+    $$PWD/navigation/simplenavigateablewidget.h \
+    $$PWD/navigation/viewtype.h
 
 
 SOURCES +=\
@@ -61,7 +64,6 @@ SOURCES +=\
     $$PWD/valuecontrol.cpp\
     $$PWD/separator.cpp\
     $$PWD/loadhandlingview.cpp\
-    $$PWD/viewcontroller.cpp\
     $$PWD/mainmenu.cpp\
     $$PWD/optionselectioncontrol.cpp \
     $$PWD/executionconditionview.cpp \
@@ -106,6 +108,7 @@ SOURCES +=\
     $$PWD/timerView/workprocesstypepicker.cpp \
     $$PWD/rotationGroupView/shiftview.cpp \
     $$PWD/timespinner.cpp \
-    $$PWD/rotationGroupView/shiftcalendar.cpp
+    $$PWD/rotationGroupView/shiftcalendar.cpp \
+    $$PWD/navigation/viewcontroller.cpp
 
 

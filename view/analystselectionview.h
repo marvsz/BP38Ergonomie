@@ -2,13 +2,13 @@
 #define ANALYSTSELECTIONVIEW_H
 
 #include <QPushButton>
-#include <QWidget>
+#include "navigation/simplenavigateablewidget.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <textlineedit.h>
 #include <detailedlistitem.h>
 
-class AnalystSelectionView : public QWidget
+class AnalystSelectionView : public SimpleNavigateableWidget
 {
     Q_OBJECT
 public:
@@ -17,6 +17,10 @@ public:
     QString getAnalystFirstName() const;
     QString getAnalystEmployer() const;
     QString getAnalystExperience() const;
+
+    bool canGoBack() const{
+        return false;
+    }
 
 signals:
     void forward();

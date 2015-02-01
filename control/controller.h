@@ -11,7 +11,7 @@
     #include "rotationGroupView/shiftview.h"
 #else
     #include "../databaseHandler/dbhandler.h"
-    #include "../view/viewcontroller.h"
+    #include "../view/navigation/viewcontroller.h"
     #include "../view/mainmenu.h"
     #include "../view/metadataview.h"
     #include "../view/workplaceView/activityview.h"
@@ -23,6 +23,11 @@
     #include "../view/analystselectionview.h"
     #include "../view/timerView/ganttimerview.h"
     #include "../view/rotationGroupView/shiftview.h"
+    #include "../view/ressourceManagementView/equipmentview.h"
+    #include "../view/ressourceManagementView/transportationview.h"
+    #include "../view/ressourceManagementView/productview.h"
+    #include "../view/ressourceManagementView/ressourcemanagementview.h"
+    #include "../view/settingsview.h"
 #endif
 #include <QSqlField>
 #include <QHash>

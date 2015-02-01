@@ -47,7 +47,7 @@ Controller::Controller(QObject *parent) :
     documentationView->setTimerViewController(timerViewController);
     documentationView->setGantTimerView(gantTimerView);
 
-    viewCon = new ViewController();
+    /*viewCon = new ViewController();
     viewCon->setAnalystSelectionView(analystSelectionView);
     viewCon->setMainMenuView(mainMenuView);
     viewCon->setMetaDataView(metaDataView);
@@ -62,10 +62,12 @@ Controller::Controller(QObject *parent) :
     viewCon->setEquipmentView(equipmentView);
     viewCon->setTransportationView(transportationView);
     viewCon->setShiftView(shiftView);
-    viewCon->setSettingsView(settingsView);
+    viewCon->setSettingsView(settingsView);*/
+    viewCon = new ViewController();
+    viewCon->registerView(analystSelectionView, ViewType::ANALYST_SELECTION_VIEW);
 
 
-    connect(viewCon, SIGNAL(updateAnalystSelectionView()), this, SLOT(updateAnalystSelectionView()));
+    /*connect(viewCon, SIGNAL(updateAnalystSelectionView()), this, SLOT(updateAnalystSelectionView()));
     connect(analystSelectionView, SIGNAL(remove(int)), this, SLOT(removeAnalyst(int)));
     connect(analystSelectionView, SIGNAL(create()), this, SLOT(createAnalyst()));
     connect(analystSelectionView, SIGNAL(select(int)), this, SLOT(selectAnalyst(int)));
@@ -106,16 +108,9 @@ Controller::Controller(QObject *parent) :
     connect(activityView, SIGNAL(selectActivity(int)), this, SLOT(selectActivity(int)));
     connect(activityView, SIGNAL(deleteActivity(int)), this, SLOT(deleteActivity(int)));
 
-    /*connect(documentationView, SIGNAL(updateBodyPostureView()), this, SLOT(updateBodyPostureView()));
-    connect(documentationView, SIGNAL(updateAppliedForceView()), this, SLOT(updateAppliedForceView()));
-    connect(documentationView, SIGNAL(updateLoadHandlingView()), this, SLOT(updateLoadHandlingView()));
-    connect(documentationView, SIGNAL(updateExecutionConditionView()), this, SLOT(updateExecutionConditionView()));
-    connect(documentationView, SIGNAL(updateWorkProcessMetaDataView()), this, SLOT(updateWorkProcessMetaDataView()));*/
     connect(viewCon, SIGNAL(saveCurrentWorkProcess()), this, SLOT(saveCurrentWorkProcess()));
     connect(viewCon, SIGNAL(updateDocumentationViewRessources()), this, SLOT(updateDocumentationViewRessources()));
 
-    //connect(documentationView, SIGNAL(updateGantView()), this, SLOT(updateGantView()));
-    //connect(documentationView, SIGNAL(saveFrequenz()), this, SLOT(saveWorkProcessFrequenz()));
     connect(documentationView, SIGNAL(updateGantView()), this, SLOT(updateGantView()));
 
     connect(gantTimerView, SIGNAL(workProcessSelected(int,AVType)), this, SLOT(setSelectedWorkProcess(int, AVType)));
@@ -130,8 +125,8 @@ Controller::Controller(QObject *parent) :
 
     documentationView->setupViews();
 
-    viewCon->registerViews();
-    viewCon->show();
+    viewCon->registerViews();*/
+    viewCon->showStartView(ViewType::ANALYST_SELECTION_VIEW);
 }
 //PRIVATE SLOTS
 
