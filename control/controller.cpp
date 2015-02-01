@@ -54,6 +54,17 @@ Controller::Controller(QObject *parent) :
     viewCon->registerView(metaDataView, ViewType::METADATA_VIEW);
     viewCon->registerView(workplaceListView, ViewType::WORKPLACELIST_VIEW);
     viewCon->registerView(feedbackView, ViewType::FEEDBACK_VIEW);
+    viewCon->registerView(settingsView, ViewType::SETTINGS_VIEW);
+    viewCon->registerView(activityView, ViewType::ACTIVITY_VIEW);
+    viewCon->registerView(commentView, ViewType::COMMENT_VIEW);
+    viewCon->registerView(lineView, ViewType::LINE_VIEW);
+    viewCon->registerView(workplaceView, ViewType::WORKPLACE_VIEW);
+    viewCon->registerView(transportationView, ViewType::TRANSPORTATION_VIEW);
+    viewCon->registerView(ressourceManagementView, ViewType::RESSOURCE_MANAGMENT_VIEW);
+    viewCon->registerView(productView, ViewType::PRODUCT_VIEW);
+    viewCon->registerView(equipmentView, ViewType::EQUIPMENT_VIEW);
+    viewCon->registerView(shiftView, ViewType::SHIFT_VIEW);
+
 
     connect(viewCon, SIGNAL(update(ViewType)), this, SLOT(update(ViewType)));
     connect(viewCon, SIGNAL(save(ViewType)), this, SLOT(save(ViewType)));
