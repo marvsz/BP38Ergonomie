@@ -6,13 +6,18 @@
 #include <QPushButton>
 #include "textlineedit.h"
 #include "textedit.h"
+#include "../navigation/simplenavigateablewidget.h"
 
-class CommentView : public QWidget
+class CommentView : public SimpleNavigateableWidget
 {
     Q_OBJECT
 public:
     explicit CommentView(QWidget *parent = 0);
     ~CommentView();
+
+    bool canGoForward() const {
+        return false;
+    }
 
     QString getProblemName() const;
     QString getProblemDescription() const;
@@ -20,18 +25,10 @@ public:
     QString getMeasureDescription() const;
     QString getWorkerPerception() const;
 
-signals:
-    void back();
-    void save();
-
 public slots:
     void setComment(const QString &problemName, const QString &problemDesc, const QString &measureName, const QString &measureDesc, const QString &workerPerception);
 
-private slots:
-    void btnBackClicked();
-
 private:
-    QLabel *lblViewName;
     QLabel *lblProblem;
     QLabel *lblProblemName;
     QLabel *lblProblemDescription;
@@ -46,8 +43,6 @@ private:
     TextLineEdit *txtBxMeasureName;
     TextEdit *txtBxMeasureDescription;
     TextEdit *txtBxPerceptionDescription;
-
-    QPushButton *btnBack;
 };
 
 #endif // COMMENTVIEW_H

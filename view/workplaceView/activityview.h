@@ -9,20 +9,23 @@
 #include <QScrollArea>
 #include "textlineedit.h"
 #include "numberlineedit.h"
+#include "../navigation/simplenavigateablewidget.h"
 
-class ActivityView : public QWidget
+class ActivityView : public SimpleNavigateableWidget
 {
     Q_OBJECT
 public:
     explicit ActivityView(QWidget *parent = 0);
+
+    bool canGoForward() const {
+        return false;
+    }
 
     QString getDescription() const;
     int getRepetitions() const;
     int getSelectedProduct() const;
 
 signals:
-    void back();
-    void showProductView();
     void deleteActivity(int id);
     void showWorkProcessView();
     void selectedProduct(int id);
@@ -39,8 +42,9 @@ public slots:
     void clearActivities();
 
 private slots:
-    void btnBackClicked();
     void btnAddClicked();
+    void btnProductsClicked();
+    void workprocessClicked();
     void selectedProductChanged(int id);
 
 private:
@@ -53,9 +57,6 @@ private:
     QVBoxLayout *mainLayout;
     QVBoxLayout *productListLayout;
     QVBoxLayout *activityListLayout;
-
-    QLabel *lblViewName;
-    QPushButton *btnBack;
 
     QWidget *productListContent;
     QWidget *activityListContent;

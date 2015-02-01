@@ -3,7 +3,7 @@
 #include "flickcharm.h"
 
 ShiftView::ShiftView(QWidget *parent) :
-    QWidget(parent),
+    SimpleNavigateableWidget(tr("Shift Data"), parent),
     oscShiftType(new OptionSelectionControl()),
     timeBxStart(new TimeLineEdit()),
     timeBxEnd(new TimeLineEdit()),
@@ -23,17 +23,8 @@ ShiftView::ShiftView(QWidget *parent) :
     scRotationGroups(new QScrollArea()),
     rotationGroupListLayout(new QVBoxLayout()),
     btnMoreRotationGroups(new QPushButton()),
-    calendar(new ShiftCalendar(0, QTime(6,0), QTime(14,0))),
-    btnBack(new QPushButton()),
-    lblViewName(new QLabel(tr("shift"))),
-    btnFeedback(new QPushButton())
+    calendar(new ShiftCalendar(0, QTime(6,0), QTime(14,0)))
 {
-    btnBack->setFixedSize(45, 45);
-    btnBack->setObjectName("leftIcon");
-
-    btnFeedback->setFixedSize(45, 45);
-    btnFeedback->setObjectName("feedbackIcon");
-
     btnChooseEmployee->setFixedSize(45, 45);
     btnChooseEmployee->setObjectName("editIcon");
 
@@ -42,8 +33,6 @@ ShiftView::ShiftView(QWidget *parent) :
 
     btnMoreRotationGroups->setFixedSize(45, 45);
     btnMoreRotationGroups->setObjectName("editIcon");
-
-    connect(btnBack, SIGNAL(clicked()), this, SIGNAL(back()));
 
     lblShiftData->setObjectName("lblHeader");
 
@@ -59,11 +48,6 @@ ShiftView::ShiftView(QWidget *parent) :
 
     FlickCharm *flickCharmProducts = new FlickCharm(this);
     flickCharmProducts->activateOn(scRotationGroups);
-
-    QGridLayout *navigationBarLayout = new QGridLayout;
-    navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
-    navigationBarLayout->addWidget(lblViewName, 0, 1, 1, 1, Qt::AlignCenter);
-    navigationBarLayout->addWidget(btnFeedback, 0, 2, 1, 1, Qt::AlignRight);
 
     QGridLayout *leftLayout = new QGridLayout;
     leftLayout->setContentsMargins(0,0,0,0);
@@ -111,13 +95,7 @@ ShiftView::ShiftView(QWidget *parent) :
     splitLayout->addWidget(calendar);
     splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addLayout(navigationBarLayout);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
-    mainLayout->addLayout(splitLayout);
-
-    setLayout(mainLayout);
-
+    setLayout(splitLayout);
 }
 
 // PUBLIC

@@ -6,37 +6,27 @@
 #include "flickcharm.h"
 #include "iconconstants.h"
 
-ProductView::ProductView(QWidget *parent) : QWidget(parent),
+ProductView::ProductView(QWidget *parent) : SimpleNavigateableWidget(tr("Products"),parent),
     scProducts(new QScrollArea),
     lblAddProduct(new QLabel(tr("Add Product"))),
-    lblViewName(new QLabel(tr("product data"))),
-    lblName(new QLabel(tr("product name:"))),
-    lblNumber(new QLabel(tr("product number:"))),
-    lblTotalPercentage(new QLabel(tr("percentage of the whole production:"))),
+    lblName(new QLabel(tr("Product name:"))),
+    lblNumber(new QLabel(tr("Product number:"))),
+    lblTotalPercentage(new QLabel(tr("Percentage of the whole production:"))),
     txtBxName(new TextLineEdit()),
     txtBxNumber(new TextLineEdit()),
     numBxTotalPercentage(new NumberLineEdit()),
-    btnBack(new QPushButton()),
     btnAdd(new QPushButton()),
     productListLayout(new QVBoxLayout)
 
 {
-    btnBack->setObjectName("leftIcon");
-    btnBack->setFixedSize(45, 45);
     btnAdd->setObjectName("plusIcon");
     btnAdd->setFixedSize(45, 45);
-    connect(btnBack, SIGNAL(clicked()), this, SIGNAL(back()));
     connect(btnAdd, SIGNAL(clicked()), this, SLOT(btnAddClicked()));
 
     lblAddProduct->setObjectName("lblHeader");
     txtBxName->setPlaceholderText(tr("name of the product"));
     txtBxNumber->setPlaceholderText(tr("number of the product"));
     numBxTotalPercentage->setPlaceholderText(tr("percentage of total production"));
-
-    QGridLayout *navigationBarLayout = new QGridLayout;
-    navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
-    navigationBarLayout->addWidget(lblViewName, 0, 1, 1, 1, Qt::AlignCenter);
-    navigationBarLayout->addWidget(new QLabel(), 0, 2, 1, 1, Qt::AlignRight);
 
     QGridLayout *productDataLayout = new QGridLayout;
     productDataLayout->addWidget(lblAddProduct, 0, 0, 1, 1, 0);
@@ -58,8 +48,6 @@ ProductView::ProductView(QWidget *parent) : QWidget(parent),
     flickCharm->activateOn(scProducts);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addLayout(navigationBarLayout);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(productDataLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addWidget(scProducts);

@@ -3,8 +3,7 @@
 #include <QVBoxLayout>
 #include "separator.h"
 
-CommentView::CommentView(QWidget *parent) : QWidget(parent),
-    lblViewName(new QLabel(tr("remarks"))),
+CommentView::CommentView(QWidget *parent) : SimpleNavigateableWidget(tr("Remarks"), parent),
     lblProblem(new QLabel(tr("problems"))),
     lblProblemName(new QLabel(tr("label:"))),
     lblProblemDescription(new QLabel(tr("description:"))),
@@ -17,13 +16,8 @@ CommentView::CommentView(QWidget *parent) : QWidget(parent),
     txtBxProblemDescription(new TextEdit()),
     txtBxMeasureName(new TextLineEdit()),
     txtBxMeasureDescription(new TextEdit()),
-    txtBxPerceptionDescription(new TextEdit()),
-    btnBack(new QPushButton())
+    txtBxPerceptionDescription(new TextEdit())
 {
-    btnBack->setObjectName("leftIcon");
-    btnBack->setFixedSize(45, 45);
-    connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
-
     lblProblem->setObjectName("lblHeader");
     lblMeasure->setObjectName("lblHeader");
     lblWorkerPerception->setObjectName("lblHeader");
@@ -33,11 +27,6 @@ CommentView::CommentView(QWidget *parent) : QWidget(parent),
     txtBxMeasureName->setPlaceholderText(tr("name of the measure"));
     txtBxMeasureDescription->setPlaceholderText(tr("description of the mesaure"));
     txtBxPerceptionDescription->setPlaceholderText(tr("the workers annotation"));
-
-    QGridLayout *navigationBarLayout = new QGridLayout;
-    navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
-    navigationBarLayout->addWidget(lblViewName, 0, 1, 1, 1, Qt::AlignCenter);
-    navigationBarLayout->addWidget(new QLabel(), 0, 2, 1, 1, Qt::AlignRight);
 
     QGridLayout *commentLayout = new QGridLayout;
     commentLayout->addWidget(lblProblem, 0, 0, 1, 2, 0);
@@ -57,7 +46,6 @@ CommentView::CommentView(QWidget *parent) : QWidget(parent),
     commentLayout->addWidget(txtBxPerceptionDescription, 9, 1, 1, 1, 0);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(commentLayout);
 
@@ -77,14 +65,6 @@ void CommentView::setComment(const QString &problemName, const QString &problemD
     txtBxMeasureDescription->setText(measureDesc);
     txtBxPerceptionDescription->setText(workerPerception);
 }
-
-
-//PRIVATE SLOTS
-void CommentView::btnBackClicked(){
-    emit save();
-    emit back();
-}
-
 
 //GETTER
 QString CommentView::getProblemName() const{

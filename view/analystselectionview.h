@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <textlineedit.h>
 #include <detailedlistitem.h>
+#include <QScrollArea>
 
 class AnalystSelectionView : public SimpleNavigateableWidget
 {
@@ -57,6 +58,7 @@ private:
 
     QWidget *createAnalyst;
     QVBoxLayout *listContentLayout;
+    QScrollArea *scAnalysts;
 
 };
 

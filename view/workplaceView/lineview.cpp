@@ -5,10 +5,9 @@
 #include "flickcharm.h"
 #include "iconconstants.h"
 
-LineView::LineView(QWidget *parent) : QWidget(parent),
+LineView::LineView(QWidget *parent) : SimpleNavigateableWidget(tr("Line"), parent),
     listContentLayout(new QVBoxLayout),
     scLines(new QScrollArea),
-    lblViewName(new QLabel(tr("Line"))),
     lblSelectLine(new QLabel(tr("chose line:"))),
     lblAddLine(new QLabel(tr("add line:"))),
     lblName(new QLabel(tr("label:"))),
@@ -17,13 +16,9 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     txtBxName(new TextLineEdit()),
     numBxWorkplaceCount(new NumberLineEdit()),
     txtBxDescription(new TextEdit()),
-    btnBack(new QPushButton()),
     btnAdd(new QPushButton())
 {
-    btnBack->setObjectName("leftIcon");
-    btnBack->setFixedSize(45, 45);
     txtBxDescription->setMaximumHeight(100);
-
     txtBxName->setPlaceholderText(tr("name of the line"));
     txtBxDescription->setPlaceholderText(tr("description of the line"));
     numBxWorkplaceCount->setPlaceholderText(tr("amount of work places"));
@@ -34,13 +29,7 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     lblSelectLine->setObjectName("lblHeader");
     lblAddLine->setObjectName("lblHeader");
 
-    connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
     connect(btnAdd, SIGNAL(clicked()), this, SLOT(btnAddClicked()));
-
-    QGridLayout *navigationBarLayout = new QGridLayout;
-    navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
-    navigationBarLayout->addWidget(lblViewName, 0, 1, 1, 1, Qt::AlignCenter);
-    navigationBarLayout->addWidget(new QLabel(), 0, 2, 1, 1, 0);
 
     lblAddLine->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
     lblName->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -74,8 +63,6 @@ LineView::LineView(QWidget *parent) : QWidget(parent),
     flickCharm->activateOn(scLines);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addLayout(navigationBarLayout);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(lineAddLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addWidget(lblSelectLine);
@@ -121,11 +108,6 @@ void LineView::setSelectedLine(int id){
 
 
 //PRIVATE SLOTS
-void LineView::btnBackClicked(){
-    emit back();
-    emit saveSelectedLine(selectedLineID);
-}
-
 void LineView::selectedLineChanged(int id){
     selectedLineID = id;
     emit lineSelected(id);

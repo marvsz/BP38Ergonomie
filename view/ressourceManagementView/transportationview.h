@@ -8,13 +8,18 @@
 #include "optionselectioncontrol.h"
 #include "textlineedit.h"
 #include "numberlineedit.h"
+#include "../navigation/simplenavigateablewidget.h"
 
-class TransportationView : public QWidget
+class TransportationView : public SimpleNavigateableWidget
 {
     Q_OBJECT
 public:
     explicit TransportationView(QWidget *parent = 0);
     ~TransportationView();
+
+    bool canGoForward() const{
+        return false;
+    }
 
     QString getName() const;
     int getWeight() const;
@@ -23,7 +28,6 @@ public:
     bool hasBrakes() const;
 
 signals:
-    void back();
     void saveTransportation();
     void deleteTransportation(int id);
 
@@ -43,7 +47,6 @@ private:
 
     QScrollArea *scTransportation;
     QLabel *lblAddTransportation;
-    QLabel *lblViewName;
     QLabel *lblName;
     QLabel *lblWeight;
     QLabel *lblMaxLoad;
@@ -56,7 +59,6 @@ private:
     OptionSelectionControl *oscFixedRoller;
     OptionSelectionControl *oscBrakes;
 
-    QPushButton *btnBack;
     QPushButton *btnAdd;
 
     QVBoxLayout *transportationListLayout;

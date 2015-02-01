@@ -2,6 +2,7 @@
 #include "viewcontroller.h"
 #include "separator.h"
 #include "iconconstants.h"
+#include "flickcharm.h"
 
 AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Analyst selection"), parent),
@@ -19,7 +20,8 @@ AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
     txtBxAnalystEmployer(new TextLineEdit(this)),
     txtBxAnalystExperience(new TextLineEdit(this)),
     createAnalyst(new QWidget(this)),
-    listContentLayout(new QVBoxLayout)
+    listContentLayout(new QVBoxLayout()),
+    scAnalysts(new QScrollArea(this))
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
     QHBoxLayout *maximizedFooterLayout = new QHBoxLayout;
@@ -46,8 +48,6 @@ AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
     createAnalyst->setLayout(newAnalystLayout);
     createAnalyst->hide();
 
-
-
     btnMaximize->setFixedSize(45, 45);
     btnMaximize->setObjectName("downIcon");
 
@@ -60,14 +60,23 @@ AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
 
     lblAnalyst->setObjectName("lblHeader");
 
+    QWidget *listContent = new QWidget;
+    listContent->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    scAnalysts->setWidget(listContent);
+    scAnalysts->setWidgetResizable(true);
+    scAnalysts->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    listContent->setLayout(listContentLayout);
+    listContentLayout->setAlignment(Qt::AlignTop);
+
+    FlickCharm *flickCharm = new FlickCharm(this);
+    flickCharm->activateOn(scAnalysts);
 
     mainLayout->addWidget(lblAnalyst);
     mainLayout->addWidget(btnMaximize);
     mainLayout->setAlignment(btnMaximize, Qt::AlignLeft);
     mainLayout->addWidget(createAnalyst);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
-    mainLayout->addLayout(listContentLayout);
-    mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Expanding, QSizePolicy::Expanding));
+    mainLayout->addWidget(scAnalysts);
 
     setLayout(mainLayout);
 

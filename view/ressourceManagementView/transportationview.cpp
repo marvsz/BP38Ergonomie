@@ -9,10 +9,9 @@
 const QVector<QVariant> TransportationView::YES_NO_VALUE = QVector<QVariant>()<<true<<false;
 
 TransportationView::TransportationView(QWidget *parent) :
-    QWidget(parent),
+    SimpleNavigateableWidget(tr("Transporations"), parent),
     scTransportation(new QScrollArea),
     lblAddTransportation(new QLabel(tr("Add Transportation"))),
-    lblViewName(new QLabel(tr("Transportations"))),
     lblName(new QLabel(tr("Name:"))),
     lblWeight(new QLabel(tr("Empty weight [kg]:"))),
     lblMaxLoad(new QLabel(tr("Max. load [kg]:"))),
@@ -23,15 +22,11 @@ TransportationView::TransportationView(QWidget *parent) :
     numBxMaxLoad(new NumberLineEdit()),
     oscFixedRoller(new OptionSelectionControl()),
     oscBrakes(new OptionSelectionControl()),
-    btnBack(new QPushButton()),
     btnAdd(new QPushButton()),
     transportationListLayout(new QVBoxLayout())
 {
-    btnBack->setObjectName("leftIcon");
-    btnBack->setFixedSize(45, 45);
     btnAdd->setObjectName("plusIcon");
     btnAdd->setFixedSize(45, 45);
-    connect(btnBack, SIGNAL(clicked()), this, SIGNAL(back()));
     connect(btnAdd, SIGNAL(clicked()), this, SLOT(btnAddClicked()));
 
     lblAddTransportation->setObjectName("lblHeader");
@@ -42,11 +37,6 @@ TransportationView::TransportationView(QWidget *parent) :
     oscBrakes->setValues(YES_NO_TEXTS, YES_NO_VALUE);
     oscFixedRoller->setSelectedValue(1);
     oscBrakes->setSelectedValue(1);
-
-    QGridLayout *navigationBarLayout = new QGridLayout;
-    navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
-    navigationBarLayout->addWidget(lblViewName, 0, 1, 1, 1, Qt::AlignCenter);
-    navigationBarLayout->addWidget(new QLabel(), 0, 2, 1, 1, Qt::AlignRight);
 
     QWidget *listContent = new QWidget;
     listContent->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -72,8 +62,6 @@ TransportationView::TransportationView(QWidget *parent) :
     transportationDataLayout->addWidget(btnAdd, 6, 0, 1, 2, Qt::AlignCenter);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addLayout(navigationBarLayout);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
     mainLayout->addLayout(transportationDataLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
     mainLayout->addWidget(scTransportation);

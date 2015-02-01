@@ -4,26 +4,23 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QLabel>
+#include "navigation/simplenavigateablewidget.h"
 
-class SettingsView : public QWidget
+class SettingsView : public SimpleNavigateableWidget
 {
     Q_OBJECT
 public:
     explicit SettingsView(QWidget *parent = 0);
-
+    bool canGoForward() const {
+        return false;
+    }
 signals:
-    void back();
     void resetDatabase();
-    void showAnalystSelectionView();
-
-public slots:
 
 private slots:
     void btnResetClicked();
-private:
-    QLabel *lblViewName;
-    QPushButton *btnBack;
 
+private:
     QPushButton *btnReset;
 };
 

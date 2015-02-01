@@ -15,19 +15,23 @@
 #include "numberlineedit.h"
 #include "detailedlistitem.h"
 #include "shiftcalendar.h"
+#include "../navigation/simplenavigateablewidget.h"
 
-class ShiftView : public QWidget
+class ShiftView : public SimpleNavigateableWidget
 {
     Q_OBJECT
 public:
     explicit ShiftView(QWidget *parent = 0);
+
+    bool canGoForward() const{
+        return false;
+    }
 
     QString getType() const;
     QTime getStartTime() const;
     QTime getEndTime() const;
 
 signals:
-    void back();
 
 public slots:
 
@@ -58,10 +62,6 @@ private:
     QVBoxLayout *rotationGroupListLayout;
     QPushButton *btnMoreRotationGroups;
     ShiftCalendar *calendar;
-
-    QPushButton *btnBack;
-    QLabel *lblViewName;
-    QPushButton *btnFeedback;
 
     const QStringList SHIFT_TEXTS = QStringList()<<(tr("early shift"))<<(tr("late shift"))<<(tr("night shift"))<<(tr("special shift"));
 };

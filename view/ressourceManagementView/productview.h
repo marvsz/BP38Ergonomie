@@ -9,20 +9,24 @@
 #include <QList>
 #include <QScrollArea>
 #include "numberlineedit.h"
+#include "../navigation/simplenavigateablewidget.h"
 
-class ProductView : public QWidget
+class ProductView : public SimpleNavigateableWidget
 {
     Q_OBJECT
 public:
     explicit ProductView(QWidget *parent = 0);
     ~ProductView();
 
+    bool canGoForward() const{
+        return false;
+    }
+
     QString getName() const;
     QString getNumber() const;
     int getTotalPercentage() const;
 
 signals:
-    void back();
     void saveProduct();
     void deleteProduct(int id);
 
@@ -39,7 +43,6 @@ private:
 
     QScrollArea *scProducts;
     QLabel *lblAddProduct;
-    QLabel *lblViewName;
     QLabel *lblName;
     QLabel *lblNumber;
     QLabel *lblTotalPercentage;
@@ -48,7 +51,6 @@ private:
     TextLineEdit *txtBxNumber;
     NumberLineEdit *numBxTotalPercentage;
 
-    QPushButton *btnBack;
     QPushButton *btnAdd;
 
     QVBoxLayout *productListLayout;

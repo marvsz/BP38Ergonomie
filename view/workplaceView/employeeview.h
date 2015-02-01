@@ -9,13 +9,18 @@
 #include "textedit.h"
 #include "textlineedit.h"
 #include "valuecontrol.h"
+#include "../navigation/simplenavigateablewidget.h"
 
-class EmployeeView : public QWidget
+class EmployeeView : public SimpleNavigateableWidget
 {
     Q_OBJECT
 public:
     explicit EmployeeView(QWidget *parent = 0);
     ~EmployeeView();
+
+    bool canGoForward() const {
+        return false;
+    }
 
     int getGender() const;
     int getAge() const;
@@ -23,18 +28,12 @@ public:
     QString getStaffNumber() const;
     QString getNote() const;
 
-signals:
-    void back();
-    void save();
-
 public slots:
     void setEmployee(int gender, int age, int height, const QString &staffNumber, const QString &note);
 
 private slots:
-    void btnBackClicked();
 
 private:
-    QLabel *lblViewName;
     QLabel *lblGender;
     QLabel *lblStaffNumber;
     QLabel *lblNote;
@@ -44,8 +43,6 @@ private:
     ValueControl *vcHeight;
     TextLineEdit *txtBxStaffNumber;
     TextEdit *txtBxNote;
-
-    QPushButton *btnBack;
 
     const QStringList genderTextValues = QStringList()<<tr("male")<<tr("female");
     const QVector<int> heightValues = QVector<int>()<<150<<160<<170<<180<<190;

@@ -8,13 +8,18 @@
 #include "timelineedit.h"
 #include "detailedlistitem.h"
 #include "numberlineedit.h"
+#include "../navigation/simplenavigateablewidget.h"
 
-class WorkplaceView : public QWidget
+class WorkplaceView : public SimpleNavigateableWidget
 {
     Q_OBJECT
 public:
     explicit WorkplaceView(QWidget *parent = 0);
     explicit WorkplaceView(int id, QWidget *parent = 0);
+
+    bool canGoForward() const {
+        return false;
+    }
 
     QString getName() const;
     QString getDescription() const;
@@ -29,11 +34,7 @@ public:
 
 signals:
     void save();
-    void back();
-
-    void showLineView();
-    void showActivityView();
-    void showCommentView();
+    void show(ViewType type);
 
 public slots:
     void setWorkplaceMetaData(const QString &name, const QString &description, const QString &code, int percentageWoman);
@@ -42,7 +43,6 @@ public slots:
     void setWorkplaceTimes(const QTime &basicTime, const QTime &setupTime, const QTime &restTime, const QTime &allowanceTime, const QTime &cycleTime);
 
 private slots:
-    void btnBackClicked();
     void btnLineClicked();
     void btnActivityClicked();
     void btnCommentClicked();
@@ -50,7 +50,6 @@ private slots:
 private:
     int id;
 
-    QLabel *lblViewDescription;
     QLabel *lblName;
     QLabel *lblDescription;
     QLabel *lblCode;
@@ -73,9 +72,6 @@ private:
     TimeLineEdit* timeRestTime;
     TimeLineEdit* timeAllowanceTime;
     TimeLineEdit* timeCycleTime;
-
-    QPushButton *btnBack;
-    QPushButton *btnCancel;
 
     DetailedListItem *line;
     DetailedListItem *activity;

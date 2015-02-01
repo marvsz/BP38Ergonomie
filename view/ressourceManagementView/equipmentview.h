@@ -8,13 +8,18 @@
 #include <QVBoxLayout>
 #include "textlineedit.h"
 #include "numberlineedit.h"
+#include "../navigation/simplenavigateablewidget.h"
 
-class EquipmentView : public QWidget
+class EquipmentView : public SimpleNavigateableWidget
 {
     Q_OBJECT
 public:
     explicit EquipmentView(QWidget *parent = 0);
     ~EquipmentView();
+
+    bool canGoForward() const {
+        return false;
+    }
 
     QString getName() const;
     int getRecoilCount() const;
@@ -23,7 +28,6 @@ public:
     int getVibrationIntensity() const;
 
 signals:
-    void back();
     void saveEquipment();
     void deleteEquipment(int id);
 
@@ -40,7 +44,6 @@ private:
 
     QScrollArea *scEquipment;
     QLabel *lblAddEquipment;
-    QLabel *lblViewName;
     QLabel *lblName;
     QLabel *lblRecoilCount;
     QLabel *lblRecoilIntensity;
@@ -53,7 +56,6 @@ private:
     NumberLineEdit *numBxVibrationCount;
     NumberLineEdit *numBxVibrationIntensity;
 
-    QPushButton *btnBack;
     QPushButton *btnAdd;
 
     QVBoxLayout *equipmentListLayout;

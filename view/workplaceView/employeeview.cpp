@@ -5,22 +5,16 @@
 #include <QSpacerItem>
 #include "separator.h"
 
-EmployeeView::EmployeeView(QWidget *parent) : QWidget(parent),
-    lblViewName(new QLabel(tr("Coworker data"))),
-    lblGender(new QLabel(tr("gender:"))),
-    lblStaffNumber(new QLabel(tr("PersonalID:"))),
+EmployeeView::EmployeeView(QWidget *parent) : SimpleNavigateableWidget(tr("Worker Data"),parent),
+    lblGender(new QLabel(tr("Gender:"))),
+    lblStaffNumber(new QLabel(tr("Personal ID:"))),
     lblNote(new QLabel(tr("Remarks:"))),
     oscGender(new OptionSelectionControl()),
     vcAge(new ValueControl(VALUE)),
     vcHeight(new ValueControl(VALUE)),
     txtBxStaffNumber(new TextLineEdit()),
-    txtBxNote(new TextEdit()),
-    btnBack(new QPushButton(tr("back")))
+    txtBxNote(new TextEdit())
 {
-    btnBack->setObjectName("btnNavigation");
-
-    connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
-
     vcAge->setText(tr("age"));
     vcAge->setValues(16, 70, ageValues, QString(""));
     vcAge->setValue(35);
@@ -30,11 +24,6 @@ EmployeeView::EmployeeView(QWidget *parent) : QWidget(parent),
     vcHeight->setValue(175);
 
     oscGender->setValues(genderTextValues);
-
-    QGridLayout *navigationBarLayout = new QGridLayout();
-    navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
-    navigationBarLayout->addWidget(lblViewName, 0, 1, 1, 1, Qt::AlignCenter);
-    navigationBarLayout->addWidget(new QLabel(), 0, 2, 1, 1, 0);
 
     QGridLayout *employeeDataLayout = new QGridLayout();
     employeeDataLayout->addWidget(lblGender, 0, 0, 1, 1, 0);
@@ -50,8 +39,6 @@ EmployeeView::EmployeeView(QWidget *parent) : QWidget(parent),
     employeeDataLayout->addWidget(txtBxNote, 7, 1, 1, 1, 0);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addLayout(navigationBarLayout);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(employeeDataLayout);
     mainLayout->addSpacerItem(new QSpacerItem(0, 10, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
@@ -70,13 +57,6 @@ void EmployeeView::setEmployee(int gender, int age, int height, const QString &s
     vcHeight->setValue(height);
     txtBxStaffNumber->setText(staffNumber);
     txtBxNote->setText(note);
-}
-
-
-//PRIVATE SLOTS
-void EmployeeView::btnBackClicked(){
-    emit save();
-    emit back();
 }
 
 

@@ -6,10 +6,9 @@
 #include "iconconstants.h"
 
 EquipmentView::EquipmentView(QWidget *parent) :
-    QWidget(parent),
+    SimpleNavigateableWidget(tr("Equipment"), parent),
     scEquipment(new QScrollArea),
     lblAddEquipment(new QLabel(tr("Add Equipment"))),
-    lblViewName(new QLabel(tr("Equipment"))),
     lblName(new QLabel(tr("Name:"))),
     lblRecoilCount(new QLabel(tr("Recoil Count:"))),
     lblRecoilIntensity(new QLabel(tr("Recoil Intensity [N]:"))),
@@ -20,15 +19,11 @@ EquipmentView::EquipmentView(QWidget *parent) :
     numBxRecoilIntensity(new NumberLineEdit()),
     numBxVibrationCount(new NumberLineEdit()),
     numBxVibrationIntensity(new NumberLineEdit()),
-    btnBack(new QPushButton()),
     btnAdd(new QPushButton()),
     equipmentListLayout(new QVBoxLayout)
 {
-    btnBack->setObjectName("leftIcon");
-    btnBack->setFixedSize(45, 45);
     btnAdd->setObjectName("plusIcon");
     btnAdd->setFixedSize(45, 45);
-    connect(btnBack, SIGNAL(clicked()), this, SIGNAL(back()));
     connect(btnAdd, SIGNAL(clicked()), this, SLOT(btnAddClicked()));
 
     lblAddEquipment->setObjectName("lblHeader");
@@ -37,11 +32,6 @@ EquipmentView::EquipmentView(QWidget *parent) :
     numBxRecoilIntensity->setPlaceholderText(tr("recoil intensity"));
     numBxVibrationCount->setPlaceholderText(tr("vibration count"));
     numBxVibrationIntensity->setPlaceholderText(tr("vibration intensity"));
-
-    QGridLayout *navigationBarLayout = new QGridLayout;
-    navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
-    navigationBarLayout->addWidget(lblViewName, 0, 1, 1, 1, Qt::AlignCenter);
-    navigationBarLayout->addWidget(new QLabel(), 0, 2, 1, 1, Qt::AlignRight);
 
     QGridLayout *equipmentDataLayout = new QGridLayout;
     equipmentDataLayout->addWidget(lblAddEquipment, 0, 0, 1, 1, 0);
@@ -64,8 +54,6 @@ EquipmentView::EquipmentView(QWidget *parent) :
     listContent->setLayout(equipmentListLayout);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addLayout(navigationBarLayout);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(equipmentDataLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addWidget(scEquipment);

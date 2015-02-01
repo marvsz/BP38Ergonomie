@@ -5,12 +5,10 @@
 #include "iconconstants.h"
 
 ActivityView::ActivityView(QWidget *parent) :
-    QWidget(parent),
+    SimpleNavigateableWidget(tr("Activities"), parent),
     mainLayout(new QVBoxLayout),
     productListLayout(new QVBoxLayout),
     activityListLayout(new QVBoxLayout),
-    lblViewName(new QLabel(tr("Activities"))),
-    btnBack(new QPushButton()),
     productListContent(new QWidget()),
     activityListContent(new QWidget()),
     scProducts(new QScrollArea()),
@@ -43,18 +41,9 @@ ActivityView::ActivityView(QWidget *parent) :
     FlickCharm *flickCharmActivities = new FlickCharm(this);
     flickCharmActivities->activateOn(scActivities);
 
-    btnBack->setFixedSize(45, 45);
-    btnBack->setObjectName("leftIcon");
-    connect(btnBack, SIGNAL(clicked()), this, SIGNAL(back()));
-
     btnMoreProducts->setFixedSize(45, 45);
     btnMoreProducts->setObjectName("editIcon");
-    connect(btnMoreProducts, SIGNAL(clicked()), this, SIGNAL(showProductView()));
-
-    QGridLayout *navigationBarLayout = new QGridLayout;
-    navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
-    navigationBarLayout->addWidget(lblViewName, 0, 1, 1, 1, Qt::AlignCenter);
-    navigationBarLayout->addWidget(new QLabel(), 0, 2, 1, 1, 0);
+    connect(btnMoreProducts, SIGNAL(clicked()), this, SLOT(btnProductsClicked()));
 
     btnAdd->setFixedSize(45, 45);
     btnAdd->setObjectName("plusIcon");
@@ -88,8 +77,6 @@ ActivityView::ActivityView(QWidget *parent) :
     newActivityLayout->addWidget(scProducts, 1, 2, 4, 1, Qt::AlignTop);
     newActivityLayout->addWidget(btnMoreProducts, 5, 2, 1, 1, Qt::AlignCenter);
 
-    mainLayout->addLayout(navigationBarLayout);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
     mainLayout->addLayout(newActivityLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
     mainLayout->addWidget(scActivities);
@@ -114,10 +101,6 @@ int ActivityView::getSelectedProduct() const {
 }
 
 // PRIVATE SLOTS
-void ActivityView::btnBackClicked(){
-    emit back();
-}
-
 void ActivityView::btnAddClicked(){
     emit createActivity();
     txtBxActivityDescription->clear();
@@ -127,6 +110,14 @@ void ActivityView::btnAddClicked(){
 void ActivityView::selectedProductChanged(int id){
     selectedProductID = id;
     emit selectedProduct(id);
+}
+
+void ActivityView::btnProductsClicked(){
+    emit show(ViewType::PROCUCT_VIEW);
+}
+
+void ActivityView::workprocessClicked(){
+    emit show(ViewType::DOCUMENTATION_VIEW);
 }
 
 // PUBLIC SLOTS
@@ -164,7 +155,7 @@ void ActivityView::addActivity(int id, const QString &description, int repetitio
     newListItem->setID(id);
     QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(repetitions));
     newListItem->setValues(values);
-    connect(newListItem, SIGNAL(clicked()), this, SIGNAL(showWorkProcessView()));
+    connect(newListItem, SIGNAL(clicked()), this, SLOT(workprocessClicked()));
     connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteActivity(int)));
     connect(newListItem, SIGNAL(pressed(int)), this, SIGNAL(selectActivity(int)));
     activityListLayout->addWidget(newListItem);

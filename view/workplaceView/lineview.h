@@ -11,20 +11,24 @@
 #include "detailedlistitem.h"
 #include "numberlineedit.h"
 #include "textedit.h"
+#include "../navigation/simplenavigateablewidget.h"
 
-class LineView : public QWidget
+class LineView : public SimpleNavigateableWidget
 {
     Q_OBJECT
 public:
     explicit LineView(QWidget *parent = 0);
     ~LineView();
 
+    bool canGoForward() const {
+        return false;
+    }
+
     QString getName() const;
     QString getDescription() const;
     int getWorkplaceCount() const;
 
 signals:
-    void back();
     void saveLine();
     void saveSelectedLine(int id);
     void deleteLine(int id);
@@ -37,7 +41,6 @@ public slots:
     void setSelectedLine(int id);
 
 private slots:
-    void btnBackClicked();
     void btnAddClicked();
     void selectedLineChanged(int id);
 
@@ -46,7 +49,6 @@ private:
     QVBoxLayout *listContentLayout;
     QScrollArea *scLines;
 
-    QLabel *lblViewName;
     QLabel *lblSelectLine;
     QLabel *lblAddLine;
     QLabel *lblName;
@@ -57,7 +59,6 @@ private:
     NumberLineEdit *numBxWorkplaceCount;
     TextEdit *txtBxDescription;
 
-    QPushButton *btnBack;
     QPushButton *btnAdd;
 };
 

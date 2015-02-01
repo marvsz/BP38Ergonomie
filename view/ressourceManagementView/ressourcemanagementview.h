@@ -4,22 +4,23 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QLabel>
+#include "../navigation/simplenavigateablewidget.h"
 
-class RessourceManagementView : public QWidget
+class RessourceManagementView : public SimpleNavigateableWidget
 {
     Q_OBJECT
 public:
     explicit RessourceManagementView(QWidget *parent = 0);
+    bool canGoForward() const{
+        return false;
+    }
 
-signals:
-    void back();
-    void showEquipmentView();
-    void showProductView();
-    void showTransportationView();
+private slots:
+    void btnEquipmentClicked();
+    void btnProductClicked();
+    void btnTransportationClicked();
 
 private:
-    QLabel *lblViewName;
-    QPushButton *btnBack;
     QPushButton *btnEquipmentView;
     QPushButton *btnProductView;
     QPushButton *btnTransportationView;
