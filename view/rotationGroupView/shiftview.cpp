@@ -5,8 +5,8 @@
 ShiftView::ShiftView(QWidget *parent) :
     QWidget(parent),
     oscShiftType(new OptionSelectionControl()),
-    timeBxStart(new TimeLineEdit()),
-    timeBxEnd(new TimeLineEdit()),
+    timeBxStart(new TimeLineEdit(this, TimeLineType::HOUR_MINUTE)),
+    timeBxEnd(new TimeLineEdit(this, TimeLineType::HOUR_MINUTE)),
     lblShiftData(new QLabel(tr("Shift data:"))),
     lblShiftType(new QLabel(tr("Shift Type:"))),
     lblStart(new QLabel(tr("Begin:"))),
@@ -45,9 +45,14 @@ ShiftView::ShiftView(QWidget *parent) :
 
     connect(btnBack, SIGNAL(clicked()), this, SIGNAL(back()));
 
+    connect(timeBxStart, SIGNAL(editingFinished()), this, SLOT(updateCalendarStart()));
+    connect(timeBxEnd, SIGNAL(editingFinished()), this, SLOT(updateCalendarEnd()));
+
     lblShiftData->setObjectName("lblHeader");
 
     oscShiftType->setValues(SHIFT_TEXTS);
+
+    connect(oscShiftType, SIGNAL(selectionChanged(int)), this, SLOT(updateShiftTimes(int)));
 
     rotationGroupListContent->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     scRotationGroups->setWidget(rotationGroupListContent);
@@ -90,18 +95,6 @@ ShiftView::ShiftView(QWidget *parent) :
     leftLayout->addWidget(btnMoreRotationGroups, 15, 0, 1, 4, Qt::AlignCenter);
     leftLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 16, 0, 1, 4, 0);
 
-    QPushButton *btnRG1 = new QPushButton("Rotationsgruppe 1");
-    QPushButton *btnRG2 = new QPushButton("Rotationsgruppe 2");
-    QPushButton *btnRG3 = new QPushButton("Pause");
-    QPushButton *btnRG4 = new QPushButton("Rotationsgruppe 4");
-    QPushButton *btnRG5 = new QPushButton("Rotationsgruppe 5");
-
-    btnRG1->setFixedSize(300, 60);
-    btnRG2->setFixedSize(300, 30);
-    btnRG3->setFixedSize(300, 100);
-    btnRG4->setFixedSize(300, 150);
-    btnRG5->setFixedSize(300, 60);
-
     QHBoxLayout *splitLayout = new QHBoxLayout;
     splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
     splitLayout->addLayout(leftLayout);
@@ -115,6 +108,9 @@ ShiftView::ShiftView(QWidget *parent) :
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
     mainLayout->addLayout(splitLayout);
+
+    setStartTime(QTime(6,0));
+    setEndTime(QTime(14,0));
 
     setLayout(mainLayout);
 
@@ -134,11 +130,42 @@ QString ShiftView::getType() const{
 }
 
 // PUBLIC SLOTS
-
 void ShiftView::setStartTime(const QTime &time){
     timeBxStart->setValue(time);
+    calendar->setBeginTime(time);
 }
 
 void ShiftView::setEndTime(const QTime &time){
     timeBxEnd->setValue(time);
+    calendar->setEndTime(time);
+}
+
+// PRIVATE SLOTS
+void ShiftView::updateCalendarStart(){
+    setStartTime(timeBxStart->getValue());
+}
+
+void ShiftView::updateCalendarEnd(){
+    setEndTime(timeBxEnd->getValue());
+}
+
+void ShiftView::updateShiftTimes(int type){
+    switch(type){
+    case(0):
+        setStartTime(QTime(6,0));
+        setEndTime(QTime(14, 0));
+        break;
+    case(1):
+        setStartTime(QTime(14,0));
+        setEndTime(QTime(22, 0));
+        break;
+    case(2):
+        setStartTime(QTime(22,0));
+        setEndTime(QTime(6, 0));
+        break;
+    case(3):
+        setStartTime(QTime(0,0));
+        setEndTime(QTime(0, 0));
+        break;
+    }
 }

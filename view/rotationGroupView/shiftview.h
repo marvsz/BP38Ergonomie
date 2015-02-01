@@ -30,15 +30,18 @@ signals:
     void back();
 
 public slots:
-
     void setStartTime(const QTime &time);
     void setEndTime(const QTime &time);
+
+private slots:
+    void updateCalendarStart();
+    void updateCalendarEnd();
+    void updateShiftTimes(int type);
 
 private:
     int id;
     OptionSelectionControl *oscShiftType;
     TimeLineEdit *timeBxStart;
-
     TimeLineEdit *timeBxEnd;
 
     QLabel *lblShiftData;

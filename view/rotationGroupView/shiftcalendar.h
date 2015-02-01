@@ -25,6 +25,9 @@ public slots:
     void addBreak(int duration);
     void clear();
 
+private slots:
+    void openPopupMenu(const QPoint &position);
+
 private:
     static const int HOUR_HEIGHT = 80;
 
