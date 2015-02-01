@@ -24,6 +24,7 @@ ViewController::ViewController(QWidget *parent) : QWidget(parent),
     btnFeedback->setObjectName("btnIcon");
     btnFeedback->setIcon(QIcon(IconConstants::ICON_COMMENT));
     btnFeedback->setIconSize(QSize(45, 45));
+    btnFeedback->setFixedSize(45, 45);
 
     middleNavigationLayout->addWidget(lblTitle);
 

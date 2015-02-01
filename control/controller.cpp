@@ -65,51 +65,52 @@ Controller::Controller(QObject *parent) :
     viewCon->setSettingsView(settingsView);*/
     viewCon = new ViewController();
     viewCon->registerView(analystSelectionView, ViewType::ANALYST_SELECTION_VIEW);
+    viewCon->registerView(mainMenuView, ViewType::MAIN_MENU_VIEW);
 
 
-    /*connect(viewCon, SIGNAL(updateAnalystSelectionView()), this, SLOT(updateAnalystSelectionView()));
+    //connect(viewCon, SIGNAL(updateAnalystSelectionView()), this, SLOT(updateAnalystSelectionView()));
     connect(analystSelectionView, SIGNAL(remove(int)), this, SLOT(removeAnalyst(int)));
     connect(analystSelectionView, SIGNAL(create()), this, SLOT(createAnalyst()));
     connect(analystSelectionView, SIGNAL(select(int)), this, SLOT(selectAnalyst(int)));
 
-    connect(viewCon, SIGNAL(updateMetaData()), this, SLOT(updateMetaDataView()));
+    //connect(viewCon, SIGNAL(updateMetaData()), this, SLOT(updateMetaDataView()));
     connect(metaDataView, SIGNAL(save()), this, SLOT(saveMetaDataView()));
 
-    connect(viewCon, SIGNAL(updateWorkplaceList()), this, SLOT(updateWorkplacesView()));
+    //connect(viewCon, SIGNAL(updateWorkplaceList()), this, SLOT(updateWorkplacesView()));
 
     connect(workplaceListView, SIGNAL(deleteWorkplace(int)), this, SLOT(deleteWorkplace(int)));
-    connect(viewCon, SIGNAL(createWorkplace()), this, SLOT(createWorkplace()));
+    //connect(viewCon, SIGNAL(createWorkplace()), this, SLOT(createWorkplace()));
     connect(workplaceListView, SIGNAL(showWorkplace(int)), this, SLOT(updateWorkplaceView(int)));
-    connect(viewCon, SIGNAL(updateWorkplace()), this, SLOT(updateWorkplaceView()));
+    //connect(viewCon, SIGNAL(updateWorkplace()), this, SLOT(updateWorkplaceView()));
     connect(workplaceView, SIGNAL(save()), this, SLOT(saveWorkplaceView()));
 
-    connect(viewCon, SIGNAL(updateCommentView()), this, SLOT(updateComment()));
+    //connect(viewCon, SIGNAL(updateCommentView()), this, SLOT(updateComment()));
     connect(commentView, SIGNAL(save()), this, SLOT(saveComment()));
 
-    connect(viewCon, SIGNAL(updateLineView()), this, SLOT(updateLineView()));
+    //connect(viewCon, SIGNAL(updateLineView()), this, SLOT(updateLineView()));
     connect(lineView, SIGNAL(saveLine()), this, SLOT(saveLine()));
     connect(lineView, SIGNAL(saveSelectedLine(int)), SLOT(saveSelectedLine(int)));
     connect(lineView, SIGNAL(deleteLine(int)), SLOT(deleteLine(int)));
 
-    connect(viewCon, SIGNAL(updateProductView()), this, SLOT(updateProductView()));
+    //connect(viewCon, SIGNAL(updateProductView()), this, SLOT(updateProductView()));
     connect(productView, SIGNAL(saveProduct()), this, SLOT(createProduct()));
     connect(productView, SIGNAL(deleteProduct(int)), this, SLOT(deleteProduct(int)));
 
-    connect(viewCon, SIGNAL(updateEquipmentView()), this, SLOT(updateEquipmentView()));
+    //connect(viewCon, SIGNAL(updateEquipmentView()), this, SLOT(updateEquipmentView()));
     connect(equipmentView, SIGNAL(saveEquipment()), this, SLOT(createEquipment()));
     connect(equipmentView, SIGNAL(deleteEquipment(int)), this, SLOT(deleteEquipment(int)));
 
-    connect(viewCon, SIGNAL(updateTransportationView()), this, SLOT(updateTransportationView()));
+    //connect(viewCon, SIGNAL(updateTransportationView()), this, SLOT(updateTransportationView()));
     connect(transportationView, SIGNAL(saveTransportation()), this, SLOT(createTransportation()));
     connect(transportationView, SIGNAL(deleteTransportation(int)), this, SLOT(deleteTransportation(int)));
 
-    connect(viewCon, SIGNAL(updateActivityView()), this, SLOT(updateActivityView()));
+    //connect(viewCon, SIGNAL(updateActivityView()), this, SLOT(updateActivityView()));
     connect(activityView, SIGNAL(createActivity()), this, SLOT(createActivity()));
     connect(activityView, SIGNAL(selectActivity(int)), this, SLOT(selectActivity(int)));
     connect(activityView, SIGNAL(deleteActivity(int)), this, SLOT(deleteActivity(int)));
 
-    connect(viewCon, SIGNAL(saveCurrentWorkProcess()), this, SLOT(saveCurrentWorkProcess()));
-    connect(viewCon, SIGNAL(updateDocumentationViewRessources()), this, SLOT(updateDocumentationViewRessources()));
+    //connect(viewCon, SIGNAL(saveCurrentWorkProcess()), this, SLOT(saveCurrentWorkProcess()));
+    //connect(viewCon, SIGNAL(updateDocumentationViewRessources()), this, SLOT(updateDocumentationViewRessources()));
 
     connect(documentationView, SIGNAL(updateGantView()), this, SLOT(updateGantView()));
 
@@ -125,7 +126,7 @@ Controller::Controller(QObject *parent) :
 
     documentationView->setupViews();
 
-    viewCon->registerViews();*/
+    //viewCon->registerViews();
     viewCon->showStartView(ViewType::ANALYST_SELECTION_VIEW);
 }
 //PRIVATE SLOTS

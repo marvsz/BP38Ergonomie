@@ -23,7 +23,6 @@ public:
     }
 
 signals:
-    void forward();
     void create();
     void remove(int id);
     void select(int id);

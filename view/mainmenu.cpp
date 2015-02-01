@@ -5,7 +5,7 @@
 #include <QVBoxLayout>
 
 MainMenu::MainMenu(QWidget *parent) :
-    QWidget(parent),
+    SimpleNavigateableWidget(tr("Main menu"), parent),
     lblViewName(new QLabel(tr("Ergonomieapp"))),
     btnMetaDataView(new QPushButton(tr("Head Data"))),
     btnWorkplaceList(new QPushButton(tr("Work Stations"))),
@@ -24,20 +24,14 @@ MainMenu::MainMenu(QWidget *parent) :
     btnSettings->setObjectName("settingsIcon");
     btnSettings->setFixedSize(45, 45);
 
-    connect(btnMetaDataView, SIGNAL(clicked()), this, SIGNAL(showMetaDataView()));
-    connect(btnWorkplaceList, SIGNAL(clicked()), this, SIGNAL(showWorkplaceListView()));
-    connect(btnRessourceManagement, SIGNAL(clicked()), this, SIGNAL(showRessourceManagementView()));
-    connect(btnShift, SIGNAL(clicked()), this, SIGNAL(showShiftView()));
-    connect(btnSettings, SIGNAL(clicked()), this, SIGNAL(showSettingsView()));
+    connect(btnMetaDataView, SIGNAL(clicked()), this, SLOT(btnMetaDataViewClicked()));
+    connect(btnWorkplaceList, SIGNAL(clicked()), this, SLOT(btnWorkplaceListClicked()));
+    connect(btnRessourceManagement, SIGNAL(clicked()), this, SLOT(btnRessourceManagementClicked()));
+    connect(btnShift, SIGNAL(clicked()), this, SLOT(btnShiftClicked()));
+    connect(btnSettings, SIGNAL(clicked()), this, SLOT(btnSettingsClicked()));
 
     lblViewName->setObjectName("lblHeader");
 
-    QGridLayout *navigationBarLayout = new QGridLayout;
-    navigationBarLayout->addWidget(new QLabel(), 0, 0, 1, 1, Qt::AlignLeft);
-    navigationBarLayout->addWidget(lblViewName, 0, 1, 1, 1, Qt::AlignCenter);
-    navigationBarLayout->addWidget(btnSettings, 0, 2, 1, 1, Qt::AlignRight);
-
-    mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
     mainLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
     mainLayout->addWidget(btnMetaDataView, 0, Qt::AlignCenter);
@@ -51,4 +45,31 @@ MainMenu::MainMenu(QWidget *parent) :
 
 
     setLayout(mainLayout);
+}
+
+//PUBLIC METHODS
+QList<QAbstractButton*> * MainMenu::getAdditionalNavigation() const{
+    QList<QAbstractButton*> *additions = new QList<QAbstractButton*>();
+    additions->append(btnSettings);
+    return additions;
+}
+
+//PRIVATE SLOTS
+void MainMenu::btnMetaDataViewClicked(){
+    emit show(ViewType::METADATA_VIEW);
+}
+void MainMenu::btnSettingsClicked(){
+    emit show(ViewType::SETTINGS_VIEW);
+}
+
+void MainMenu::btnWorkplaceListClicked(){
+    emit show(ViewType::WORKPLACELIST_VIEW);
+}
+
+void MainMenu::btnRessourceManagementClicked(){
+    emit show(ViewType::RESSOURCE_MANAGMENT_VIEW);
+}
+
+void MainMenu::btnShiftClicked(){
+    emit show(ViewType::SHIFT_VIEW);
 }

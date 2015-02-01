@@ -90,7 +90,7 @@ void AnalystSelectionView::btnMinimizeClicked(){
 
 void AnalystSelectionView::dliPressed(int id){
     emit select(id);
-    emit forward();
+    emit show(ViewType::MAIN_MENU_VIEW);
 }
 
 void AnalystSelectionView::btnCreateAnalystClicked(){
