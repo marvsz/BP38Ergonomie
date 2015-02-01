@@ -28,6 +28,8 @@ signals:
 public slots:
 
 private slots:
+    void btnBackClicked();
+    void btnForwardClicked();
     void goToView(ViewType type);
     void backToView(ViewType type);
 

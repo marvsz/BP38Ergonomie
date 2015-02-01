@@ -66,6 +66,8 @@ Controller::Controller(QObject *parent) :
     viewCon = new ViewController();
     viewCon->registerView(analystSelectionView, ViewType::ANALYST_SELECTION_VIEW);
     viewCon->registerView(mainMenuView, ViewType::MAIN_MENU_VIEW);
+    viewCon->registerView(metaDataView, ViewType::METADATA_VIEW);
+    viewCon->registerView(workplaceListView, ViewType::WORKPLACELIST_VIEW);
 
 
     //connect(viewCon, SIGNAL(updateAnalystSelectionView()), this, SLOT(updateAnalystSelectionView()));
@@ -78,9 +80,9 @@ Controller::Controller(QObject *parent) :
 
     //connect(viewCon, SIGNAL(updateWorkplaceList()), this, SLOT(updateWorkplacesView()));
 
-    connect(workplaceListView, SIGNAL(deleteWorkplace(int)), this, SLOT(deleteWorkplace(int)));
-    //connect(viewCon, SIGNAL(createWorkplace()), this, SLOT(createWorkplace()));
-    connect(workplaceListView, SIGNAL(showWorkplace(int)), this, SLOT(updateWorkplaceView(int)));
+    connect(workplaceListView, SIGNAL(remove(int)), this, SLOT(deleteWorkplace(int)));
+    connect(workplaceListView, SIGNAL(create()), this, SLOT(createWorkplace()));
+    connect(workplaceListView, SIGNAL(selected(int)), this, SLOT(updateWorkplaceView(int)));
     //connect(viewCon, SIGNAL(updateWorkplace()), this, SLOT(updateWorkplaceView()));
     connect(workplaceView, SIGNAL(save()), this, SLOT(saveWorkplaceView()));
 

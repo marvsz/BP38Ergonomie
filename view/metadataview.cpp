@@ -6,11 +6,7 @@
 #include "separator.h"
 
 MetaDataView::MetaDataView(QWidget *parent) :
-    QWidget(parent),
-    btnBack(new QPushButton()),
-    btnCancel(new QPushButton()),
-    lblViewDescription(new QLabel(tr("head data"), this)),
-    btnForward(new QPushButton(tr("work places"),this)),
+    SimpleNavigateableWidget(tr("Meta data"), parent),
     lblCorporation(new QLabel(tr("coproration"), this)),
     lblCorpName(new QLabel(tr("name:"), this)),
     txtBxCorpName(new TextLineEdit(this)),
@@ -53,7 +49,6 @@ MetaDataView::MetaDataView(QWidget *parent) :
     txtBxFactoryEmployeeCount->setPlaceholderText(tr("count"));
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    QGridLayout *navigationBarLayout = new QGridLayout;
     QHBoxLayout *corporationLayout = new QHBoxLayout;
     QHBoxLayout *branchOfIndustryLayout = new QHBoxLayout;
     QGridLayout *factoryLayout = new QGridLayout;
@@ -67,26 +62,6 @@ MetaDataView::MetaDataView(QWidget *parent) :
     lblRecordingDateTime->setObjectName("lblHeader");
 
     txtBxBoIDescription->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-    btnBack->setObjectName("leftIcon");
-    btnBack->setFixedSize(45, 45);
-    connect(btnBack, SIGNAL(clicked()), this, SLOT(backButtonClicked()));
-
-    btnCancel->setObjectName("cancelIcon");
-    btnCancel->setFixedSize(45, 45);
-    connect(btnCancel, SIGNAL(clicked()), this, SIGNAL(back()));
-
-    btnForward->setObjectName("btnNavigation");
-    connect(btnForward, SIGNAL(clicked()), this, SLOT(forwardButtonClicked()));
-    txtBxCorpName->setMaximumWidth(317);
-
-    QHBoxLayout *backCancelLayout = new QHBoxLayout;
-    backCancelLayout->addWidget(btnBack);
-    backCancelLayout->addWidget(btnCancel);
-
-    navigationBarLayout->addLayout(backCancelLayout, 0, 0, 1, 1, Qt::AlignLeft);
-    navigationBarLayout->addWidget(lblViewDescription, 0, 1, 1, 1, Qt::AlignCenter);
-    navigationBarLayout->addWidget(btnForward, 0, 2, 1, 1, Qt::AlignRight);
 
 
     corporationLayout->addWidget(lblCorpName);
@@ -130,9 +105,6 @@ MetaDataView::MetaDataView(QWidget *parent) :
     recordingLayout->addLayout(endLayout);
     recordingLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
 
-    mainLayout->addLayout(navigationBarLayout);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
-
     mainLayout->addWidget(lblCorporation);
     mainLayout->addLayout(corporationLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
@@ -149,16 +121,6 @@ MetaDataView::MetaDataView(QWidget *parent) :
     mainLayout->addLayout(recordingLayout);
 
     setLayout(mainLayout);
-}
-
-void MetaDataView::backButtonClicked(){
-    emit save();
-    emit back();
-}
-
-void MetaDataView::forwardButtonClicked(){
-    emit save();
-    emit forward();
 }
 
 // GETTER

@@ -20,7 +20,13 @@ ViewController::ViewController(QWidget *parent) : QWidget(parent),
     additionalNavigationLayout(new QHBoxLayout)
 {
     btnBack->setObjectName("leftIcon");
+    btnBack->setFixedSize(45, 45);
+    connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
+
     btnForward->setObjectName("rightIcon");
+    btnForward->setFixedSize(45, 45);
+    connect(btnForward, SIGNAL(clicked()), this, SLOT(btnForwardClicked()));
+
     btnFeedback->setObjectName("btnIcon");
     btnFeedback->setIcon(QIcon(IconConstants::ICON_COMMENT));
     btnFeedback->setIconSize(QSize(45, 45));
@@ -67,15 +73,23 @@ void ViewController::registerView(NavigateableWidget *widget, ViewType type){
     if(!viewTypeToIndex->contains(type) && widget != 0){
         viewTypeToIndex->insert(type, content->addWidget(widget));
         viewTypeToWidget->insert(type, widget);
-        if(widget->canGoBack())
-            connect(widget, SIGNAL(back(ViewType)), this, SLOT(backToView(ViewType)));
-        if(widget->canGoForward())
-            connect(widget, SIGNAL(forward(ViewType)), this, SLOT(goToView(ViewType)));
         connect(widget, SIGNAL(show(ViewType)), this, SLOT(goToView(ViewType)));
     }
 }
 
 //PRIVATE SLOTS
+void ViewController::btnBackClicked(){
+    ViewType currentType = previousViews->top();
+    NavigateableWidget *currentView = viewTypeToWidget->value(currentType);
+    backToView(currentView->getBackViewType());
+}
+
+void ViewController::btnForwardClicked(){
+    ViewType currentType = previousViews->top();
+    NavigateableWidget *currentView = viewTypeToWidget->value(currentType);
+    goToView(currentView->getForwardViewType());
+}
+
 void ViewController::goToView(ViewType type){
     if(viewTypeToIndex->contains(type)){
         emit save(previousViews->top());
@@ -87,7 +101,7 @@ void ViewController::goToView(ViewType type){
 }
 
 void ViewController::backToView(ViewType type){
-    if(viewTypeToIndex->contains(type) && previousViews->contains(type)){
+    if((viewTypeToIndex->contains(type) && previousViews->contains(type)) || type == ViewType::UNKNOWN){
         emit save(previousViews->top());
         if(type == ViewType::UNKNOWN){
             previousViews->pop();
@@ -96,9 +110,10 @@ void ViewController::backToView(ViewType type){
             while(previousViews->top() != type)
                 previousViews->pop();
         }
-        emit update(previousViews->top());
-        content->setCurrentIndex(viewTypeToIndex->value(type));
-        adaptNavigationBar(type);
+        ViewType nextType = previousViews->top();
+        emit update(nextType);
+        content->setCurrentIndex(viewTypeToIndex->value(nextType));
+        adaptNavigationBar(nextType);
     }
 }
 
@@ -108,15 +123,19 @@ void ViewController::adaptNavigationBar(ViewType type){
 
     if(currentWidget->canGoBack()){
         btnBack->show();
+        ViewType backType = currentWidget->getBackViewType();
+        if(backType == UNKNOWN){
+            backType = previousViews->at(previousViews->count() - 2);
+        }
         lblBackTitle->show();
-        lblBackTitle->setText(viewTypeToWidget->value(currentWidget->getBackViewType())->getTitle());
+        lblBackTitle->setText(viewTypeToWidget->value(backType)->getTitle());
     }
     else {
         btnBack->hide();
         lblBackTitle->hide();
     }
 
-    if(currentWidget->canGoForward()){
+    if(currentWidget->canGoForward() && viewTypeToWidget->contains(currentWidget->getForwardViewType())){
         btnForward->show();
         lblForwardTitle->show();
         lblForwardTitle->setText(viewTypeToWidget->value(currentWidget->getForwardViewType())->getTitle());

@@ -34,8 +34,6 @@ public:
     virtual bool hasAdditionalNavigation() const = 0;
 
 signals:
-    void back(ViewType type);
-    void forward(ViewType type);
     void show(ViewType type);
 
 public slots:

@@ -1,19 +1,26 @@
 #ifndef METADATAVIEW_H
 #define METADATAVIEW_H
 
-#include <QWidget>
+#include "navigation/simplenavigateablewidget.h"
 #include <QPushButton>
 #include <QLabel>
 #include <QDateTimeEdit>
 #include "numberlineedit.h"
 #include "datetimespinner.h"
 
-class MetaDataView : public QWidget
+class MetaDataView : public SimpleNavigateableWidget
 {
     Q_OBJECT
 public:
     explicit MetaDataView(QWidget *parent = 0);
 
+    bool canGoForward() const{
+        return true;
+    }
+
+    ViewType getForwardViewType() const{
+        return ViewType::WORKPLACELIST_VIEW;
+    }
 
     QString getCorporationName() const;
 
@@ -31,11 +38,6 @@ public:
     QDateTime getRecordTimeBegin() const;
     QDateTime getRecordTimeEnd() const;
 
-signals:
-    void back();
-    void save();
-    void forward();
-
 public slots:
     void setEmployer(const QString &employer);
     void setCorporation(const QString &name);
@@ -43,18 +45,8 @@ public slots:
     void setFactory(const QString &name, const QString &street, int zip, const QString &city, const QString &country, const QString &contact, int employeeCount);
     void setRecordTime(const QDateTime &begin, const QDateTime &end);
 
-private slots:
-    void backButtonClicked();
-    void forwardButtonClicked();
 
 private:
-
-    QPushButton *btnBack;
-    QPushButton *btnCancel;
-
-    QLabel *lblViewDescription;
-    QPushButton *btnForward;
-
     TextLineEdit *txtBxAnalystLastName;
     TextLineEdit *txtBxAnalystFirstName;
     TextLineEdit *txtBxAnalystEmployer;

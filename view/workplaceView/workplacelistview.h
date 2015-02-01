@@ -2,31 +2,38 @@
 #define WORKPLACELISTVIEW_H
 
 #include "detailedlistitem.h"
-#include <QWidget>
+#include "navigation/simplenavigateablewidget.h"
 #include <QPushButton>
 #include <QScrollArea>
 
-class WorkplaceListView : public QWidget
+class WorkplaceListView : public SimpleNavigateableWidget
 {
     Q_OBJECT
 public:
     explicit WorkplaceListView(QWidget *parent = 0);
 
+    bool hasAdditionalNavigation() const{
+        return true;
+    }
+
+    QList<QAbstractButton*> * getAdditionalNavigation() const;
+
 signals:
-    void back();
-    void forward();
-    void showWorkplace(int id);
-    void deleteWorkplace(int id);
+    void create();
+    void selected(int id);
+    void remove(int id);
 
 public slots:
     void clear();
     void addWorkplace(int id, const QString &name, const QString &description, const QString &code);
 
+private slots:
+    void btnPlusClicked();
+    void dliWorkplaceClicked(int id);
 
 private:
     static const QList<QStringList> workplaceCaptions;
-    QPushButton *btnBack;
-    QPushButton *btnForward;
+    QPushButton *btnPlus;
     QVBoxLayout *listContentLayout;
     QScrollArea *scWorkplaces;
 };

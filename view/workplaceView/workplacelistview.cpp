@@ -11,40 +11,28 @@
 const QList<QStringList> WorkplaceListView::workplaceCaptions = QList<QStringList>() << (QStringList() << "Beschreibung" << "Code");
 
 WorkplaceListView::WorkplaceListView(QWidget *parent) :
-    QWidget(parent),
-    btnBack(new QPushButton()),
-    btnForward(new QPushButton()),
+    SimpleNavigateableWidget(tr("Workplaces"), parent),
+    btnPlus(new QPushButton()),
     listContentLayout(new QVBoxLayout),
     scWorkplaces(new QScrollArea())
 {
-    QGridLayout *navigationLayout = new QGridLayout;
     QVBoxLayout *mainLayout = new QVBoxLayout;
     QWidget *listContent = new QWidget;
 
-    btnBack->setObjectName("leftIcon");
-    btnBack->setFixedSize(45, 45);
-    btnForward->setObjectName("plusIcon");
-    btnForward->setFixedSize(45, 45);
+    btnPlus->setObjectName("plusIcon");
+    btnPlus->setFixedSize(45, 45);
 
-    connect(btnBack, SIGNAL(clicked()), this, SIGNAL(back()));
-    connect(btnForward, SIGNAL(clicked()), this, SIGNAL(forward()));
+    connect(btnPlus, SIGNAL(clicked()), this, SLOT(btnPlusClicked()));
 
     scWorkplaces->setWidget(listContent);
     scWorkplaces->setWidgetResizable(true);
     FlickCharm *flickCharm = new FlickCharm(this);
     flickCharm->activateOn(scWorkplaces);
 
-    navigationLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
-    navigationLayout->addWidget(new QLabel(tr("work stations")), 0, 1, 1, 1, Qt::AlignCenter);
-    navigationLayout->addWidget(btnForward, 0, 2, 1, 1, Qt::AlignRight);
-
     listContent->setLayout(listContentLayout);
-
-    mainLayout->addLayout(navigationLayout);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
-    mainLayout->addWidget(scWorkplaces);
-
     listContentLayout->setAlignment(Qt::AlignTop);
+
+    mainLayout->addWidget(scWorkplaces);
 
     this->setLayout(mainLayout);
 }
@@ -62,7 +50,25 @@ void WorkplaceListView::addWorkplace(int id, const QString &name, const QString 
     DetailedListItem *newListItem = new DetailedListItem(this, IconConstants::ICON_WORKPLACE, name, workplaceCaptions, true, false, true);
     newListItem->setValues(values);
     newListItem->setID(id);
-    connect(newListItem, SIGNAL(pressed(int)), this, SIGNAL(showWorkplace(int)));
-    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteWorkplace(int)));
+    connect(newListItem, SIGNAL(pressed(int)), this, SLOT(dliWorkplaceClicked(int)));
+    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(remove(int)));
     listContentLayout->addWidget(newListItem);
+}
+
+//PUBLIC METHODS
+QList<QAbstractButton*> * WorkplaceListView::getAdditionalNavigation() const{
+    QList<QAbstractButton*> *additions = new QList<QAbstractButton*>();
+    additions->append(btnPlus);
+    return additions;
+}
+
+//PRIVATE SLOTS
+void WorkplaceListView::btnPlusClicked(){
+    emit create();
+    emit show(ViewType::WORKPLACE_VIEW);
+}
+
+void WorkplaceListView::dliWorkplaceClicked(int id){
+    emit selected(id);
+    emit show(ViewType::WORKPLACE_VIEW);
 }
