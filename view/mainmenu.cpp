@@ -32,7 +32,6 @@ MainMenu::MainMenu(QWidget *parent) :
 
     lblViewName->setObjectName("lblHeader");
 
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
     mainLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Expanding, QSizePolicy::Expanding));
     mainLayout->addWidget(btnMetaDataView, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0,60, QSizePolicy::Minimum, QSizePolicy::Fixed));
