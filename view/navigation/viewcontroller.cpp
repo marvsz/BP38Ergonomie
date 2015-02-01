@@ -65,6 +65,7 @@ void ViewController::showStartView(ViewType type){
         previousViews->push(type);
         content->setCurrentIndex(viewTypeToIndex->value(type));
         adaptNavigationBar(type);
+        emit update(type);
         this->show();
     }
 }

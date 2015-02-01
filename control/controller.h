@@ -43,6 +43,9 @@ signals:
 public slots:
 
 private slots:
+    void update(ViewType type);
+    void save(ViewType type);
+
     void updateAnalystSelectionView();
     void createAnalyst();
     void removeAnalyst(int id);
