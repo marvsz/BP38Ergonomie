@@ -33,6 +33,7 @@ private slots:
     void goToView(ViewType type);
     void backToView(ViewType type);
 
+    void btnFeedbackClicked();
 private:
     QStackedWidget *content;
     QStack<ViewType> *previousViews;

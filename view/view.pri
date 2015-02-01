@@ -55,7 +55,8 @@ HEADERS +=\
     $$PWD/navigation/viewcontroller.h \
     $$PWD/navigation/navigateablewidget.h \
     $$PWD/navigation/simplenavigateablewidget.h \
-    $$PWD/navigation/viewtype.h
+    $$PWD/navigation/viewtype.h \
+    $$PWD/feedbackview.h
 
 
 SOURCES +=\
@@ -109,6 +110,7 @@ SOURCES +=\
     $$PWD/rotationGroupView/shiftview.cpp \
     $$PWD/timespinner.cpp \
     $$PWD/rotationGroupView/shiftcalendar.cpp \
-    $$PWD/navigation/viewcontroller.cpp
+    $$PWD/navigation/viewcontroller.cpp \
+    $$PWD/feedbackview.cpp
 
 

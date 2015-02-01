@@ -1,8 +1,9 @@
 include(view/view.pri)
 include(control/control.pri)
 include(databaseHandler/databaseHandler.pri)
+include(qftp/qftp.pri)
 
-QT       += core gui quick qml multimedia sql
+QT       += core gui quick qml multimedia sql network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,10 +18,12 @@ RESOURCES += \
     icons.qrc
 
 HEADERS += \
-    enum.h
+    enum.h \
+    standardpaths.h
 
 SOURCES += \
-    main.cpp
+    main.cpp \
+    standardpaths.cpp
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
@@ -52,3 +55,4 @@ TRANSLATIONS = ergo_trans_de.ts
 deployment.files += myfile.sqlite
 deployment.path = /assets
 INSTALLS += deployment
+

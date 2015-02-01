@@ -28,6 +28,7 @@
     #include "../view/ressourceManagementView/productview.h"
     #include "../view/ressourceManagementView/ressourcemanagementview.h"
     #include "../view/settingsview.h"
+    #include "../view/feedbackview.h"
 #endif
 #include <QSqlField>
 #include <QHash>
@@ -146,6 +147,8 @@ private:
     GantTimerView *gantTimerView;
 
     TimerViewController *timerViewController;
+
+    FeedbackView *feedbackView;
 
     int analyst_ID;
     int recording_ID;

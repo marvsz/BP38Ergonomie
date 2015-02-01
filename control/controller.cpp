@@ -24,7 +24,8 @@ Controller::Controller(QObject *parent) :
     loadHandlingView(new LoadHandlingView()),
     executionConditionView(new ExecutionConditionView()),
     gantTimerView(new GantTimerView()),
-    timerViewController(new TimerViewController())
+    timerViewController(new TimerViewController()),
+    feedbackView(new FeedbackView())
 {
     dbHandler = new DBHandler();
 
@@ -52,6 +53,7 @@ Controller::Controller(QObject *parent) :
     viewCon->registerView(mainMenuView, ViewType::MAIN_MENU_VIEW);
     viewCon->registerView(metaDataView, ViewType::METADATA_VIEW);
     viewCon->registerView(workplaceListView, ViewType::WORKPLACELIST_VIEW);
+    viewCon->registerView(feedbackView, ViewType::FEEDBACK_VIEW);
 
     connect(viewCon, SIGNAL(update(ViewType)), this, SLOT(update(ViewType)));
     connect(viewCon, SIGNAL(save(ViewType)), this, SLOT(save(ViewType)));
@@ -309,6 +311,7 @@ int Controller::createWorkplace(){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     int id = save(DB_TABLES::WORKPLACE, filter, DBConstants::COL_WORKPLACE_ID, DBConstants::HASH_WORKPLACE_TYPES, values);
     updateWorkplaceView(id);
+    saveRecordingObservesWorkplace(id);
     return id;
 }
 
@@ -318,9 +321,9 @@ void Controller::saveWorkplaceView(){
 
 void Controller::deleteWorkplace(int id){
     DB_TABLES tbl = DB_TABLES::WORKPLACE;
-    dbHandler->select(tbl, QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(QString::number(id)));
-    dbHandler->deleteRow(tbl, 0);
+    dbHandler->deleteAll(tbl, QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(QString::number(id)));
     updateWorkplacesView();
+    deleteRecordingOberservesWorkplace(id);
 }
 
 

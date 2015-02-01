@@ -1,7 +1,13 @@
 #include "viewcontroller.h"
 #include "separator.h"
 #include "iconconstants.h"
+#include "standardpaths.h"
+#include "feedbackview.h"
 #include <QVBoxLayout>
+#include <QDebug>
+#include <QDir>
+#include <QDateTime>
+#include <QTime>
 
 ViewController::ViewController(QWidget *parent) : QWidget(parent),
     content(new QStackedWidget()),
@@ -31,6 +37,7 @@ ViewController::ViewController(QWidget *parent) : QWidget(parent),
     btnFeedback->setIcon(QIcon(IconConstants::ICON_COMMENT));
     btnFeedback->setIconSize(QSize(45, 45));
     btnFeedback->setFixedSize(45, 45);
+    connect(btnFeedback, SIGNAL(clicked()), this, SLOT(btnFeedbackClicked()));
 
     middleNavigationLayout->addWidget(lblTitle);
 
@@ -116,6 +123,21 @@ void ViewController::backToView(ViewType type){
         content->setCurrentIndex(viewTypeToIndex->value(nextType));
         adaptNavigationBar(nextType);
     }
+}
+
+void ViewController::btnFeedbackClicked(){
+    QPixmap pixmap(this->size());
+    this->render(&pixmap);
+    QString fileName = QString("%1%2.png").arg(StandardPaths::SCREENSHOT_PATH).arg(QDateTime().currentDateTime().toString("ddMMyyyy_hhmmss"));
+    if(!QDir(StandardPaths::SCREENSHOT_PATH).exists())
+        QDir().mkdir(StandardPaths::SCREENSHOT_PATH);
+    pixmap.save(fileName);
+    FeedbackView *fView = qobject_cast<FeedbackView*>(viewTypeToWidget->value(ViewType::FEEDBACK_VIEW));
+    fView->reset();
+    fView->setScreenshotPath(fileName);
+    NavigateableWidget *currentWidget = viewTypeToWidget->value(previousViews->top());
+    fView->setViewName(currentWidget->getTitle());
+    goToView(ViewType::FEEDBACK_VIEW);
 }
 
 //PRIVATE METHODS
