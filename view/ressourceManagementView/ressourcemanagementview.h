@@ -16,6 +16,8 @@ signals:
     void showEquipmentView();
     void showProductView();
     void showTransportationView();
+    void showEmployeeView();
+    void showBodyMeasurementsView();
 
 private:
     QLabel *lblViewName;
@@ -23,6 +25,8 @@ private:
     QPushButton *btnEquipmentView;
     QPushButton *btnProductView;
     QPushButton *btnTransportationView;
+    QPushButton *btnEmployeeView;
+
 
 };
 

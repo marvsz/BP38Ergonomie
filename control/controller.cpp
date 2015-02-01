@@ -15,6 +15,8 @@ Controller::Controller(QObject *parent) :
     productView(new ProductView()),
     equipmentView(new EquipmentView()),
     transportationView(new TransportationView()),
+    employeeView(new EmployeeView()),
+    bodyMeasurementView(new BodyMeasurementView()),
     shiftView(new ShiftView()),
     settingsView(new SettingsView()),
     documentationView(new DocumentationView()),
@@ -61,6 +63,8 @@ Controller::Controller(QObject *parent) :
     viewCon->setProductView(productView);
     viewCon->setEquipmentView(equipmentView);
     viewCon->setTransportationView(transportationView);
+    viewCon->setEmployeeView(employeeView);
+    viewCon->setBodyMeasurementView(bodyMeasurementView);
     viewCon->setShiftView(shiftView);
     viewCon->setSettingsView(settingsView);
 

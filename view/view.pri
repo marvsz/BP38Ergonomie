@@ -22,7 +22,6 @@ HEADERS +=\
     $$PWD/workplaceView/workplaceview.h \
     $$PWD/workplaceView/lineview.h \
     $$PWD/textedit.h \
-    $$PWD/workplaceView/employeeview.h \
     $$PWD/workplaceView/workplacelistview.h \
     $$PWD/detailedlistitem.h \
     $$PWD/workplaceView/commentview.h \
@@ -52,7 +51,9 @@ HEADERS +=\
     $$PWD/timerView/workprocesstypepicker.h \
     $$PWD/rotationGroupView/shiftview.h \
     $$PWD/timespinner.h \
-    $$PWD/rotationGroupView/shiftcalendar.h
+    $$PWD/rotationGroupView/shiftcalendar.h \
+    $$PWD/ressourceManagementView/bodymeasurementview.h \
+    $$PWD/ressourceManagementView/employeeview.h
 
 
 SOURCES +=\
@@ -77,7 +78,6 @@ SOURCES +=\
     $$PWD/workplaceView/workplaceview.cpp \
     $$PWD/workplaceView/lineview.cpp \
     $$PWD/textedit.cpp \
-    $$PWD/workplaceView/employeeview.cpp\
     $$PWD/detailedlistitem.cpp \
     $$PWD/workplaceView/commentview.cpp \
     $$PWD/ressourceManagementView/productview.cpp \
@@ -106,6 +106,8 @@ SOURCES +=\
     $$PWD/timerView/workprocesstypepicker.cpp \
     $$PWD/rotationGroupView/shiftview.cpp \
     $$PWD/timespinner.cpp \
-    $$PWD/rotationGroupView/shiftcalendar.cpp
+    $$PWD/rotationGroupView/shiftcalendar.cpp \
+    $$PWD/ressourceManagementView/bodymeasurementview.cpp \
+    $$PWD/ressourceManagementView/employeeview.cpp
 
 

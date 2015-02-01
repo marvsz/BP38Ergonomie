@@ -11,7 +11,8 @@ RessourceManagementView::RessourceManagementView(QWidget *parent) :
     btnBack(new QPushButton()),
     btnEquipmentView(new QPushButton(tr("Equipment"))),
     btnProductView(new QPushButton(tr("Products"))),
-    btnTransportationView(new QPushButton(tr("Transportations")))
+    btnTransportationView(new QPushButton(tr("Transportations"))),
+    btnEmployeeView(new QPushButton(tr("Employee")))
 {
     QGridLayout *navigationBarLayout = new QGridLayout;
     navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
@@ -24,11 +25,13 @@ RessourceManagementView::RessourceManagementView(QWidget *parent) :
     btnEquipmentView->setMinimumSize(300, 60);
     btnProductView->setMinimumSize(300, 60);
     btnTransportationView->setMinimumSize(300, 60);
+    btnEmployeeView->setMinimumSize(300, 60);
 
     connect(btnBack, SIGNAL(clicked()), this, SIGNAL(back()));
     connect(btnEquipmentView, SIGNAL(clicked()), this, SIGNAL(showEquipmentView()));
     connect(btnProductView, SIGNAL(clicked()), this, SIGNAL(showProductView()));
     connect(btnTransportationView, SIGNAL(clicked()), this, SIGNAL(showTransportationView()));
+    connect(btnEmployeeView, SIGNAL(clicked()), this, SIGNAL(showEmployeeView()));
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addLayout(navigationBarLayout);
@@ -39,6 +42,8 @@ RessourceManagementView::RessourceManagementView(QWidget *parent) :
     mainLayout->addWidget(btnProductView, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
     mainLayout->addWidget(btnTransportationView, 0, Qt::AlignCenter);
+    mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
+    mainLayout->addWidget(btnEmployeeView, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Expanding));
 
     setLayout(mainLayout);
