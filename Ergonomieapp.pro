@@ -1,7 +1,6 @@
 include(view/view.pri)
 include(control/control.pri)
 include(databaseHandler/databaseHandler.pri)
-include(qftp/qftp.pri)
 
 QT       += core gui quick qml multimedia sql network
 

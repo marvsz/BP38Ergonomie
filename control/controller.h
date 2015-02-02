@@ -2,25 +2,17 @@
 #define CONTROLLER_H
 
 #include <QObject>
-#if defined(Q_OS_IOS)
-    #include "dbhandler.h"
-    #include "viewcontroller.h"
-    #include "mainmenu.h"
-    #include "metadataview.h"
-    #include "workplaceView/activityview.h"
-    #include "rotationGroupView/shiftview.h"
-#else
     #include "../databaseHandler/dbhandler.h"
     #include "../view/navigation/viewcontroller.h"
-    #include "../view/mainmenu.h"
-    #include "../view/metadataview.h"
+    #include "../view/generalViews/mainmenu.h"
+    #include "../view/generalViews/metadataview.h"
     #include "../view/workplaceView/activityview.h"
     #include "../view/workplaceView/commentview.h"
     #include "../view/workplaceView/lineview.h"
     #include "../view/workplaceView/workplacelistview.h"
     #include "../view/workplaceView/workplaceview.h"
-    #include "../view/documentationview.h"
-    #include "../view/analystselectionview.h"
+    #include "../view/documentationView/documentationview.h"
+    #include "../view/generalViews/analystselectionview.h"
     #include "../view/timerView/ganttimerview.h"
     #include "../view/rotationGroupView/shiftview.h"
     #include "../view/ressourceManagementView/equipmentview.h"
@@ -29,9 +21,8 @@
     #include "../view/ressourceManagementView/ressourcemanagementview.h"
     #include "../view/ressourceManagementView/bodymeasurementview.h"
     #include "../view/ressourceManagementView/employeeview.h"
-    #include "../view/settingsview.h"
-    #include "../view/feedbackview.h"
-#endif
+    #include "../view/generalViews/settingsview.h"
+    #include "../view/generalViews/feedbackview.h"
 #include <QSqlField>
 #include <QHash>
 

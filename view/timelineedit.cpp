@@ -7,23 +7,18 @@ TimeLineEdit::TimeLineEdit(QWidget *parent, TimeLineType type) :
     type(type)
 {
     QRegularExpression regEx;
-    QString inputMask;
     switch(this->type){
     case(TimeLineType::MINUTE_SECOND):
         regEx = QRegularExpression("^([0-5][0-9]:[0-5][0-9])$");
-        inputMask="dd:dd";
         break;
     case(TimeLineType::HOUR_MINUTE):
         regEx = QRegularExpression("^((0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$");
-        inputMask="dd:dd";
         break;
     case(TimeLineType::HOUR_MINUTE_SECOND):
         regEx = QRegularExpression("^((0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])$");
-        inputMask="dd:dd:dd";
         break;
     }
     this->setValidator(new QRegularExpressionValidator(regEx));
-    //this->setInputMask(inputMask);
     this->setInputMethodHints(Qt::ImhDialableCharactersOnly);
 }
 
@@ -46,11 +41,9 @@ void TimeLineEdit::setValue(const QTime &value){
     switch(this->type){
     case(TimeLineType::MINUTE_SECOND):
         setText(value.toString("mm:ss"));
-        qDebug() << this->text();
         break;
     case(TimeLineType::HOUR_MINUTE):
         setText(value.toString("HH:mm"));
-        qDebug() << this->text();
         break;
     case(TimeLineType::HOUR_MINUTE_SECOND):
         setText(value.toString("HH:mm:ss"));

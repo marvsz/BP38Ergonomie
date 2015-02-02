@@ -2,22 +2,22 @@ INCLUDEPATH +=$$PWD
 DEPENDPATH += $$PWD
 
 HEADERS +=\
-    $$PWD/bodyPostureView/variantspecification.h\
+    $$PWD/documentationView/bodyPostureView/variantspecification.h\
     $$PWD/selectablevaluebutton.h\
     $$PWD/valuecontrol.h\
     $$PWD/separator.h\
-    $$PWD/mainmenu.h\
-    $$PWD/loadhandlingview.h\
+    $$PWD/generalViews/mainmenu.h\
+    $$PWD/documentationView/loadhandlingview.h\
     $$PWD/optionselectioncontrol.h \
-    $$PWD/executionconditionview.h \
+    $$PWD/documentationView/executionconditionview.h \
     $$PWD/flickcharm.h \
-    $$PWD/documentationview.h \
+    $$PWD/documentationView/documentationview.h \
     $$PWD/subactivitycontrol.h \
     $$PWD/buttontimelineview.h \
     $$PWD/numberlineedit.h \
     $$PWD/textlineedit.h \
-    $$PWD/graphtimelineview.h \
-    $$PWD/metadataview.h \
+    $$PWD/timerView/graphtimelineview.h \
+    $$PWD/generalViews/metadataview.h \
     $$PWD/workplaceView/workplaceview.h \
     $$PWD/workplaceView/lineview.h \
     $$PWD/textedit.h \
@@ -39,13 +39,13 @@ HEADERS +=\
     $$PWD/ressourceManagementView/equipmentview.h \
     $$PWD/ressourceManagementView/transportationview.h \
     $$PWD/workplaceView/activityview.h \
-    $$PWD/workprocessmetadataview.h \
+    $$PWD/documentationView/workprocessmetadataview.h \
     $$PWD/slidercontrol.h \
-    $$PWD/appliedforceview.h \
-    $$PWD/settingsview.h \
-    $$PWD/bodyPostureView/bodypostureview.h \
-    $$PWD/bodyPostureView/variantcontrol.h \
-    $$PWD/analystselectionview.h \
+    $$PWD/documentationView/appliedforceview.h \
+    $$PWD/generalViews/settingsview.h \
+    $$PWD/documentationView/bodyPostureView/bodypostureview.h \
+    $$PWD/documentationView/bodyPostureView/variantcontrol.h \
+    $$PWD/generalViews/analystselectionview.h \
     $$PWD/timerView/spaceritemtimer.h \
     $$PWD/timerView/workprocesstypepicker.h \
     $$PWD/rotationGroupView/shiftview.h \
@@ -55,28 +55,28 @@ HEADERS +=\
     $$PWD/navigation/navigateablewidget.h \
     $$PWD/navigation/simplenavigateablewidget.h \
     $$PWD/navigation/viewtype.h \
-    $$PWD/feedbackview.h \
+    $$PWD/generalViews/feedbackview.h \
     $$PWD/ressourceManagementView/bodymeasurementview.h \
     $$PWD/ressourceManagementView/employeeview.h
 
 
 SOURCES +=\
-    $$PWD/bodyPostureView/variantspecification.cpp\
+    $$PWD/documentationView/bodyPostureView/variantspecification.cpp\
     $$PWD/selectablevaluebutton.cpp\
     $$PWD/valuecontrol.cpp\
     $$PWD/separator.cpp\
-    $$PWD/loadhandlingview.cpp\
-    $$PWD/mainmenu.cpp\
+    $$PWD/documentationView/loadhandlingview.cpp\
+    $$PWD/generalViews/mainmenu.cpp\
     $$PWD/optionselectioncontrol.cpp \
-    $$PWD/executionconditionview.cpp \
+    $$PWD/documentationView/executionconditionview.cpp \
     $$PWD/flickcharm.cpp \
-    $$PWD/documentationview.cpp \
+    $$PWD/documentationView/documentationview.cpp \
     $$PWD/subactivitycontrol.cpp \
     $$PWD/buttontimelineview.cpp \
     $$PWD/numberlineedit.cpp \
     $$PWD/textlineedit.cpp \
-    $$PWD/graphtimelineview.cpp \
-    $$PWD/metadataview.cpp \
+    $$PWD/timerView/graphtimelineview.cpp \
+    $$PWD/generalViews/metadataview.cpp \
     $$PWD/workplaceView/workplacelistview.cpp \
     $$PWD/workplaceView/workplaceview.cpp \
     $$PWD/workplaceView/lineview.cpp \
@@ -98,20 +98,20 @@ SOURCES +=\
     $$PWD/ressourceManagementView/equipmentview.cpp \
     $$PWD/ressourceManagementView/transportationview.cpp \
     $$PWD/workplaceView/activityview.cpp \
-    $$PWD/workprocessmetadataview.cpp \
+    $$PWD/documentationView/workprocessmetadataview.cpp \
     $$PWD/slidercontrol.cpp \
-    $$PWD/appliedforceview.cpp \
-    $$PWD/settingsview.cpp \
-    $$PWD/bodyPostureView/bodypostureview.cpp \
-    $$PWD/bodyPostureView/variantcontrol.cpp \
-    $$PWD/analystselectionview.cpp \
+    $$PWD/documentationView/appliedforceview.cpp \
+    $$PWD/generalViews/settingsview.cpp \
+    $$PWD/documentationView/bodyPostureView/bodypostureview.cpp \
+    $$PWD/documentationView/bodyPostureView/variantcontrol.cpp \
+    $$PWD/generalViews/analystselectionview.cpp \
     $$PWD/timerView/spaceritemtimer.cpp \
     $$PWD/timerView/workprocesstypepicker.cpp \
     $$PWD/rotationGroupView/shiftview.cpp \
     $$PWD/timespinner.cpp \
     $$PWD/rotationGroupView/shiftcalendar.cpp \
     $$PWD/navigation/viewcontroller.cpp \
-    $$PWD/feedbackview.cpp \
+    $$PWD/generalViews/feedbackview.cpp \
     $$PWD/ressourceManagementView/bodymeasurementview.cpp \
     $$PWD/ressourceManagementView/employeeview.cpp
 

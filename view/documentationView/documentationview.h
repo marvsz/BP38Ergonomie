@@ -8,7 +8,7 @@
 #include <QTabBar>
 #include <QQuickView>
 #include <QQmlEngine>
-#include "bodyPostureView//bodypostureview.h"
+#include "bodyPostureView/bodypostureview.h"
 #include "appliedforceview.h"
 #include "executionconditionview.h"
 #include "workprocessmetadataview.h"

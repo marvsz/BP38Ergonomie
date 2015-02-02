@@ -2,7 +2,7 @@
 #include "separator.h"
 #include "iconconstants.h"
 #include "standardpaths.h"
-#include "feedbackview.h"
+#include "../view/generalViews/feedbackview.h"
 #include <QVBoxLayout>
 #include <QDebug>
 #include <QDir>

@@ -1,5 +1,4 @@
 #include "mainmenu.h"
-#include "viewcontroller.h"
 #include "separator.h"
 #include <QGridLayout>
 #include <QVBoxLayout>
