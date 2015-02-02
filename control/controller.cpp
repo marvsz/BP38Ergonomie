@@ -66,7 +66,8 @@ Controller::Controller(QObject *parent) :
     viewCon->registerView(productView, ViewType::PRODUCT_VIEW);
     viewCon->registerView(equipmentView, ViewType::EQUIPMENT_VIEW);
     viewCon->registerView(shiftView, ViewType::SHIFT_VIEW);
-
+    viewCon->registerView(employeeView, ViewType::EMPLOYEE_VIEW);
+    viewCon->registerView(bodyMeasurementView, ViewType::BODY_MEASUREMENT_VIEW);
 
     connect(viewCon, SIGNAL(update(ViewType)), this, SLOT(update(ViewType)));
     connect(viewCon, SIGNAL(save(ViewType)), this, SLOT(save(ViewType)));

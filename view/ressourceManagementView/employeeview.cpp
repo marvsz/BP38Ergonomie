@@ -5,8 +5,7 @@
 #include <QSpacerItem>
 #include "separator.h"
 
-EmployeeView::EmployeeView(QWidget *parent) : QWidget(parent),
-    lblViewName(new QLabel(tr("Coworker data"))),
+EmployeeView::EmployeeView(QWidget *parent) : SimpleNavigateableWidget(tr("Worker Data"), parent),
     lblGender(new QLabel(tr("gender:"))),
     lblStaffNumber(new QLabel(tr("PersonalID:"))),
     lblNote(new QLabel(tr("Remarks:"))),
@@ -15,18 +14,9 @@ EmployeeView::EmployeeView(QWidget *parent) : QWidget(parent),
     vcHeight(new ValueControl(VALUE)),
     txtBxStaffNumber(new TextLineEdit()),
     txtBxNote(new TextEdit()),
-    btnBodyMeasurements(new QPushButton(tr("Body Measurements"))),
-    btnBack(new QPushButton()),
-    btnFeedback(new QPushButton())
+    btnBodyMeasurements(new QPushButton(tr("Body Measurements")))
 {
-    btnBack->setFixedSize(45, 45);
-    btnBack->setObjectName("leftIcon");
-
-    btnFeedback->setFixedSize(45, 45);
-    btnFeedback->setObjectName("feedbackIcon");
-
-    connect(btnBack, SIGNAL(clicked()), this, SLOT(btnBackClicked()));
-    connect(btnBodyMeasurements, SIGNAL(clicked()), this, SIGNAL(showBodyMeasurementView()));
+    connect(btnBodyMeasurements, SIGNAL(clicked()), this, SLOT(btnBodyMeasurementsClicked()));
 
     vcAge->setText(tr("age"));
     vcAge->setValues(16, 70, ageValues, QString(""));
@@ -37,11 +27,6 @@ EmployeeView::EmployeeView(QWidget *parent) : QWidget(parent),
     vcHeight->setValue(175);
 
     oscGender->setValues(genderTextValues);
-
-    QGridLayout *navigationBarLayout = new QGridLayout();
-    navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
-    navigationBarLayout->addWidget(lblViewName, 0, 1, 1, 1, Qt::AlignCenter);
-    navigationBarLayout->addWidget(btnFeedback, 0, 2, 1, 1, Qt::AlignRight);
 
     QGridLayout *employeeDataLayout = new QGridLayout();
     employeeDataLayout->addWidget(lblGender, 0, 0, 1, 1, 0);
@@ -58,8 +43,6 @@ EmployeeView::EmployeeView(QWidget *parent) : QWidget(parent),
     employeeDataLayout->addWidget(btnBodyMeasurements, 8, 0, 1, 1, 0);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addLayout(navigationBarLayout);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(employeeDataLayout);
     mainLayout->addSpacerItem(new QSpacerItem(0, 10, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
@@ -82,9 +65,8 @@ void EmployeeView::setEmployee(int gender, int age, int height, const QString &s
 
 
 //PRIVATE SLOTS
-void EmployeeView::btnBackClicked(){
-    emit save();
-    emit back();
+void EmployeeView::btnBodyMeasurementsClicked(){
+    emit show(ViewType::BODY_MEASUREMENT_VIEW);
 }
 
 

@@ -8,9 +8,10 @@
 #include <textlineedit.h>
 #include <selectablevaluebutton.h>
 #include <valuecontrol.h>
+#include "../view/navigation/simplenavigateablewidget.h"
 
 
-class BodyMeasurementView : public QWidget
+class BodyMeasurementView : public SimpleNavigateableWidget
 {
     Q_OBJECT
 public:
@@ -18,7 +19,6 @@ public:
 
 
 signals:
-    void back();
 
 private slots:
     void btnHeadClicked();
@@ -51,11 +51,6 @@ private:
     SelectableValueButton *btnHead;
     SelectableValueButton *btnTorso;
     SelectableValueButton *btnLegs;
-
-    QPushButton *btnBack;
-    QLabel *lblViewName;
-    QPushButton *btnFeedback;
-
 };
 
 #endif // BODYMEASUREMENTVIEW_H

@@ -27,6 +27,8 @@
     #include "../view/ressourceManagementView/transportationview.h"
     #include "../view/ressourceManagementView/productview.h"
     #include "../view/ressourceManagementView/ressourcemanagementview.h"
+    #include "../view/ressourceManagementView/bodymeasurementview.h"
+    #include "../view/ressourceManagementView/employeeview.h"
     #include "../view/settingsview.h"
     #include "../view/feedbackview.h"
 #endif

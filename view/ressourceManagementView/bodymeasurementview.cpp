@@ -1,7 +1,7 @@
 #include "bodymeasurementview.h"
 #include "separator.h"
 
-BodyMeasurementView::BodyMeasurementView(QWidget *parent) :
+BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWidget(tr("Body Measurements"), parent),
     vcHeadNeck(new ValueControl(VALUE)),
     vcThighLength(new ValueControl(VALUE)),
     vcTibialHeight(new ValueControl(VALUE)),
@@ -22,20 +22,10 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) :
     legs(new QWidget()),
     btnHead(new SelectableValueButton(0, 0, this)),
     btnTorso(new SelectableValueButton(1, 1, this)),
-    btnLegs(new SelectableValueButton(2, 2, this)),
-    btnBack(new QPushButton()),
-    lblViewName(new QLabel(tr("Body Measurement"))),
-    btnFeedback(new QPushButton())
+    btnLegs(new SelectableValueButton(2, 2, this))
 {
     lblUpperBody->setObjectName("lblHeader");
     lblLowerBody->setObjectName("lblHeader");
-
-    btnBack->setFixedSize(45, 45);
-    btnBack->setObjectName("leftIcon");
-
-    btnFeedback->setFixedSize(45, 45);
-    btnFeedback->setObjectName("feedbackIcon");
-
 
     btnHead->setFixedSize(300, 100);
     btnHead->setStyleSheet("SelectableValueButton {border : none}");
@@ -50,7 +40,6 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) :
     btnLegs->setObjectName("legsIcon");
     btnLegs->setText("Legs");
 
-    connect(btnBack, SIGNAL(clicked()), this, SIGNAL(back()));
     connect(btnHead, SIGNAL(clicked()), this, SLOT(btnHeadClicked()));
     connect(btnTorso, SIGNAL(clicked()), this, SLOT(btnTorsoClicked()));
     connect(btnLegs, SIGNAL(clicked()), this, SLOT(btnLegsClicked()));
@@ -95,12 +84,6 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) :
     legs->setLayout(legsLayout);
     legs->hide();
 
-
-    QGridLayout *navigationBarLayout = new QGridLayout;
-    navigationBarLayout->addWidget(btnBack, 0, 0, 1, 1, Qt::AlignLeft);
-    navigationBarLayout->addWidget(lblViewName, 0, 1, 1, 1, Qt::AlignCenter);
-    navigationBarLayout->addWidget(btnFeedback, 0, 2, 1, 1, Qt::AlignRight);
-
     QGridLayout *rightLayout = new QGridLayout;
     rightLayout->setContentsMargins(0,0,0,0);
     rightLayout->addWidget(head, 0, 0, 1, 2, 0);
@@ -123,13 +106,7 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) :
     splitLayout->addLayout(rightLayout);
     splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
 
-
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addLayout(navigationBarLayout);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
-    mainLayout->addLayout(splitLayout);
-
-    setLayout(mainLayout);
+    setLayout(splitLayout);
 }
 
 void BodyMeasurementView::btnHeadClicked(){
