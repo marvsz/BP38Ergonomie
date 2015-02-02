@@ -105,4 +105,16 @@
         <file>icons/Misc/handle.png</file>
         <file>icons/Misc/handle@2x.png</file>
     </qresource>
+    <qresource prefix="/body">
+        <file>icons/BodyMeasurement/armLeft.png</file>
+        <file>icons/BodyMeasurement/armRight.png</file>
+        <file>icons/BodyMeasurement/head.png</file>
+        <file>icons/BodyMeasurement/legs.png</file>
+        <file>icons/BodyMeasurement/torso.png</file>
+        <file>icons/BodyMeasurement/armLeftPressed.png</file>
+        <file>icons/BodyMeasurement/armRightPressed.png</file>
+        <file>icons/BodyMeasurement/headPressed.png</file>
+        <file>icons/BodyMeasurement/legsPressed.png</file>
+        <file>icons/BodyMeasurement/torsoPressed.png</file>
+    </qresource>
 </RCC>

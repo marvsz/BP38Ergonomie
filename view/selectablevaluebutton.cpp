@@ -1,14 +1,12 @@
 #include "selectablevaluebutton.h"
 #include <QWidget>
-
-const QString SelectableValueButton::qssSelected     = "QPushButton {font: 100 18px \"Serif\"; color: #FFFFFF; border: 2px solid #007aff; border-radius: 10px; background-color: #007aff; padding: 4px;}"; //QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
-const QString SelectableValueButton::qssNotSelected  = "QPushButton {font: 100 18px \"Serif\"; color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5; padding: 4px;}"; //QPushButton:pressed {color: #FFFFFF;background-color: #007aff;}";
-
+#include <QPushButton>
 
 SelectableValueButton::SelectableValueButton(int id, const QVariant &value, QWidget *parent) :
     QPushButton(parent),
     id(id)
 {
+    this->setCheckable(true);
     this->setSelected(false);
     this->setValue(value);
     connect(this, SIGNAL(clicked()), this, SLOT(btnClicked()));
@@ -17,20 +15,15 @@ SelectableValueButton::SelectableValueButton(int id, const QVariant &value, QWid
 //PRIVATE SLOTS
 void SelectableValueButton::btnClicked(){
     emit clickedWithID(id);
-   // emit clickedWithID(id, this);
 }
 
 //GETTER AND SETTER
 void SelectableValueButton::setSelected(bool isSelected){
-    this->isSel = isSelected;
-    if(isSel)
-        this->setStyleSheet(qssSelected);
-    else
-        this->setStyleSheet(qssNotSelected);
+    this->setChecked(isSelected);
 }
 
 bool SelectableValueButton::isSelected() const{
-    return this->isSel;
+    return this->isChecked();
 }
 
 void SelectableValueButton::setID(int id){
@@ -48,6 +41,5 @@ QVariant SelectableValueButton::getValue() const{
 void SelectableValueButton::setValue(const QVariant &value){
     this->value = value;
 }
-
 
 

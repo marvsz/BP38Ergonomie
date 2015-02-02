@@ -20,6 +20,22 @@ QSlider::sub-page:horizontal {background: #007aff;}
 
 QAbstractPushButton#workplaceListItem {background: #007aff;}
 
+SelectableValueButton {font: 100 18px \"Serif\"; color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5; padding: 4px;}
+SelectableValueButton::checked {font: 100 18px \"Serif\"; color: #FFFFFF; border: 2px solid #007aff; border-radius: 10px; background-color: #007aff; padding: 4px;}
+
+SelectableValueButton#headIcon {image: url(:/body/icons/BodyMeasurement/head.png); width: 250px; height: 100px; border: none; background-color: transparent; padding: 0px; margin: 0px;}
+SelectableValueButton#armLeftIcon {image: url(:/body/icons/BodyMeasurement/armLeft.png); width: 50px; height: 300px; border: none; background-color: transparent; padding: 0px; margin: 0px;}
+SelectableValueButton#armRightIcon {image: url(:/body/icons/BodyMeasurement/armRight.png); width: 50px; height: 300px; border: none; background-color: transparent; padding: 0px; margin: 0px;}
+SelectableValueButton#torsoIcon {image: url(:/body/icons/BodyMeasurement/torso.png); width: 150px; height: 300px; border: none; background-color: transparent; padding: 0px; margin: 0px;}
+SelectableValueButton#legsIcon {image: url(:/body/icons/BodyMeasurement/legs.png); width: 250px; height: 300px; border: none; background-color: transparent; padding: 0px; margin: 0px;}
+
+SelectableValueButton#headIcon::checked {image: url(:/body/icons/BodyMeasurement/headPressed.png); width: 250px; height: 100px; border: none; background-color: transparent; padding: 0px; margin: 0px;}
+SelectableValueButton#armLeftIcon::checked {image: url(:/body/icons/BodyMeasurement/armLeftPressed.png); width: 50px; height: 300px; border: none; background-color: transparent; padding: 0px; margin: 0px;}
+SelectableValueButton#armRightIcon::checked {image: url(:/body/icons/BodyMeasurement/armRightPressed.png); width: 50px; height: 300px; border: none; background-color: transparent; padding: 0px; margin: 0px;}
+SelectableValueButton#torsoIcon::checked {image: url(:/body/icons/BodyMeasurement/torsoPressed.png); width: 150px; height: 300px; border: none; background-color: transparent; padding: 0px; margin: 0px;}
+SelectableValueButton#legsIcon::checked {image: url(:/body/icons/BodyMeasurement/legsPressed.png); width: 250px; height: 300px; border: none; background-color: transparent; padding: 0px; margin: 0px;}
+
+
 QPushButton {font: 100 18px "Serif";color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5; padding: 4px;}
 QPushButton:pressed {color: #ffffff; background-color: #007aff;}
 QPushButton#cameraIcon {image: url(:/button/icons/Buttons/camera.png); width: 50px; height: 50px; border: none; background-color: transparent;}

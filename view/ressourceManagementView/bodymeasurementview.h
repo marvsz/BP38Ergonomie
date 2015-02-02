@@ -24,6 +24,7 @@ private slots:
     void btnHeadClicked();
     void btnTorsoClicked();
     void btnLegsClicked();
+    void btnArmClicked();
 
 private:
     ValueControl *vcHeadNeck;
@@ -50,6 +51,8 @@ private:
 
     SelectableValueButton *btnHead;
     SelectableValueButton *btnTorso;
+    SelectableValueButton *btnArmLeft;
+    SelectableValueButton *btnArmRight;
     SelectableValueButton *btnLegs;
 };
 

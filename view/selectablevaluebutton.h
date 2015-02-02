@@ -11,6 +11,10 @@ class SelectableValueButton : public QPushButton
 public:
     explicit SelectableValueButton(int id, const QVariant &value, QWidget *parent = 0);
 
+    bool isCheckable() const {
+        return true;
+    }
+
     int getID() const;
     void setID(int id);
 
@@ -22,7 +26,6 @@ public:
 
 signals:
     void clickedWithID(int id);
-    //void clickedWithID(int id, SelectableValueButton *btn);
 
 public slots:
 
@@ -31,13 +34,7 @@ private slots:
 
 private:
     int id;
-    bool isSel;
     QVariant value;
-
-    static const QString qssSelected;
-    static const QString qssNotSelected;
-
-
 };
 
 #endif // SelectableValueButton_H
