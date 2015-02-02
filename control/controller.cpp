@@ -15,6 +15,8 @@ Controller::Controller(QObject *parent) :
     productView(new ProductView()),
     equipmentView(new EquipmentView()),
     transportationView(new TransportationView()),
+    employeeView(new EmployeeView()),
+    bodyMeasurementView(new BodyMeasurementView()),
     shiftView(new ShiftView()),
     settingsView(new SettingsView()),
     documentationView(new DocumentationView()),

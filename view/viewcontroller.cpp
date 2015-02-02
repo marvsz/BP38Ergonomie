@@ -79,6 +79,7 @@ void ViewController::setRessourceManagementView(RessourceManagementView *ressour
     connect(ressourceManagementView, SIGNAL(showEquipmentView()), this, SLOT(goToEquipmentView()));
     connect(ressourceManagementView, SIGNAL(showProductView()), this, SLOT(goToProductView()));
     connect(ressourceManagementView, SIGNAL(showTransportationView()), this, SLOT(goToTransportationView()));
+    connect(ressourceManagementView, SIGNAL(showEmployeeView()), this, SLOT(goToEmployeeView()));
 }
 
 void ViewController::setProductView(ProductView *productView){
@@ -94,6 +95,17 @@ void ViewController::setEquipmentView(EquipmentView *equipmentView){
 void ViewController::setTransportationView(TransportationView *transportationView){
     this->transportationView = transportationView;
     connect(transportationView, SIGNAL(back()), this, SLOT(backToView()));
+}
+
+void ViewController::setEmployeeView(EmployeeView *employeeView){
+    this->employeeView = employeeView;
+    connect(employeeView, SIGNAL(back()), this, SLOT(backToView()));
+    connect(employeeView, SIGNAL(showBodyMeasurementView()), this, SLOT(goToBodyMeasurementView()));
+}
+
+void ViewController::setBodyMeasurementView(BodyMeasurementView *bodyMeasurementView){
+    this->bodyMeasurementView = bodyMeasurementView;
+    connect(bodyMeasurementView, SIGNAL(back()), this, SLOT(backToView()));
 }
 
 void ViewController::setShiftView(ShiftView *shiftView){
@@ -120,6 +132,8 @@ void ViewController::registerViews(){
     this->addWidget(productView);
     this->addWidget(equipmentView);
     this->addWidget(transportationView);
+    this->addWidget(employeeView);
+    this->addWidget(bodyMeasurementView);
     this->addWidget(shiftView);
     this->addWidget(settingsView);
     setCurrentIndex(ViewController::ANALYST_SELECTION_VIEW);
@@ -204,6 +218,16 @@ void ViewController::goToTransportationView(){
     goToView(ViewController::TRANSPORTATION_VIEW);
 }
 
+void ViewController::goToEmployeeView(){
+    emit updateEmployeeView();
+    goToView(ViewController::EMPLOYEE_VIEW);
+}
+
+void ViewController::goToBodyMeasurementView(){
+    emit updateBodyMeasurementView();
+    goToView(ViewController::BODYMEASUREMENT_VIEW);
+}
+
 // SET VIEWS AND PUSH/POP
 void ViewController::backToView(){
     int nextView = previousViews->pop();
@@ -241,6 +265,12 @@ void ViewController::backToView(){
             break;
         case ViewController::TRANSPORTATION_VIEW:
             emit updateTransportationView();
+            break;
+        case ViewController::EMPLOYEE_VIEW:
+            emit updateEmployeeView();
+            break;
+        case ViewController::BODYMEASUREMENT_VIEW:
+            emit updateBodyMeasurementView();
             break;
         case ViewController::SHIFT_VIEW:
             break;

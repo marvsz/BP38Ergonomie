@@ -21,7 +21,6 @@ HEADERS +=\
     $$PWD/workplaceView/workplaceview.h \
     $$PWD/workplaceView/lineview.h \
     $$PWD/textedit.h \
-    $$PWD/workplaceView/employeeview.h \
     $$PWD/workplaceView/workplacelistview.h \
     $$PWD/detailedlistitem.h \
     $$PWD/workplaceView/commentview.h \
@@ -56,7 +55,9 @@ HEADERS +=\
     $$PWD/navigation/navigateablewidget.h \
     $$PWD/navigation/simplenavigateablewidget.h \
     $$PWD/navigation/viewtype.h \
-    $$PWD/feedbackview.h
+    $$PWD/feedbackview.h \
+    $$PWD/ressourceManagementView/bodymeasurementview.h \
+    $$PWD/ressourceManagementView/employeeview.h
 
 
 SOURCES +=\
@@ -80,7 +81,6 @@ SOURCES +=\
     $$PWD/workplaceView/workplaceview.cpp \
     $$PWD/workplaceView/lineview.cpp \
     $$PWD/textedit.cpp \
-    $$PWD/workplaceView/employeeview.cpp\
     $$PWD/detailedlistitem.cpp \
     $$PWD/workplaceView/commentview.cpp \
     $$PWD/ressourceManagementView/productview.cpp \
@@ -111,6 +111,8 @@ SOURCES +=\
     $$PWD/timespinner.cpp \
     $$PWD/rotationGroupView/shiftcalendar.cpp \
     $$PWD/navigation/viewcontroller.cpp \
-    $$PWD/feedbackview.cpp
+    $$PWD/feedbackview.cpp \
+    $$PWD/ressourceManagementView/bodymeasurementview.cpp \
+    $$PWD/ressourceManagementView/employeeview.cpp
 
 

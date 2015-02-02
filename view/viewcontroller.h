@@ -16,6 +16,8 @@
 #include "ressourceManagementView/equipmentview.h"
 #include "ressourceManagementView/productview.h"
 #include "ressourceManagementView/transportationview.h"
+#include "ressourceManagementView/employeeview.h"
+#include "ressourceManagementView/bodymeasurementview.h"
 #include "rotationGroupView/shiftview.h"
 #include "settingsview.h"
 
@@ -38,8 +40,10 @@ public:
     static const int PRODUCT_VIEW = 10;
     static const int EQUIPMENT_VIEW = 11;
     static const int TRANSPORTATION_VIEW = 12;
-    static const int SHIFT_VIEW = 13;
-    static const int SETTINGS_VIEW = 14;
+    static const int EMPLOYEE_VIEW = 13;
+    static const int BODYMEASUREMENT_VIEW = 14;
+    static const int SHIFT_VIEW = 15;
+    static const int SETTINGS_VIEW = 16;
 
     void setAnalystSelectionView(AnalystSelectionView *analystSelectionView);
     void setMainMenuView(MainMenu *mainMenuView);
@@ -54,6 +58,8 @@ public:
     void setProductView(ProductView *productView);
     void setEquipmentView(EquipmentView *equipmentView);
     void setTransportationView(TransportationView *transportationView);
+    void setEmployeeView(EmployeeView *employeeView);
+    void setBodyMeasurementView(BodyMeasurementView *bodyMeasurementView);
     void setShiftView(ShiftView *shiftView);
     void setSettingsView(SettingsView *settingsView);
 
@@ -109,6 +115,12 @@ signals:
     void saveTransportation();
     void deleteTransportation(int id);
 
+    // EMPLOYEE VIEW
+    void updateEmployeeView();
+
+    // BODYMEASUREMENT VIEW
+    void updateBodyMeasurementView();
+
 
 public slots:
 
@@ -132,6 +144,8 @@ private slots:
     void goToProductView();
     void goToShiftView();
     void goToTransportationView();
+    void goToEmployeeView();
+    void goToBodyMeasurementView();
 
 private:
     QStack<int> *previousViews;
@@ -148,6 +162,8 @@ private:
     ProductView *productView;
     EquipmentView *equipmentView;
     TransportationView *transportationView;
+    EmployeeView *employeeView;
+    BodyMeasurementView *bodyMeasurementView;
     ShiftView *shiftView;
     SettingsView *settingsView;
 

@@ -2,6 +2,9 @@
 #include "flickcharm.h"
 #include "QFont"
 #include <QPushButton>
+#include <QDebug>
+#include <QToolBar>
+#include <QDialogButtonBox>
 
 ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTime &endTime) :
     QWidget(parent),
@@ -15,8 +18,8 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
     calendarEntryLayout(new QVBoxLayout())
 { 
     lblName->setObjectName("lblHeader");
-    lblCalendar->setMinimumWidth(500);
-
+    lblCalendar->setMinimumWidth(450);
+    lblCalendar->setAlignment(Qt::AlignTop);
     lblCalendar->setLayout(calendarEntryLayout);
 
     scCalendar->setWidget(lblCalendar);
@@ -33,10 +36,6 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
     mainLayout->addWidget(scCalendar);
 
     setLayout(mainLayout);
-
-    drawBackground();
-    setEndTime(QTime(22, 30));
-
     calendarEntryLayout->setAlignment(Qt::AlignRight | Qt::AlignTop);
     calendarEntryLayout->setSpacing(0);
     calendarEntryLayout->setContentsMargins(0,0,0,0);
@@ -50,7 +49,8 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
     addRotationGroup("Rotationsgruppe 3", 30);
     addRotationGroup("Rotationsgruppe 2", 30);
 
-    //clear();
+    drawBackground();
+
 }
 
 
@@ -69,12 +69,12 @@ void ShiftCalendar::setEndTime(const QTime &endTime){
 
 void ShiftCalendar::addRotationGroup(const QString &name, int duration){
     QPushButton *newItem = new QPushButton(name);
-    newItem->setFixedSize(400, HOUR_HEIGHT / 60 * duration);
+    newItem->setFixedSize(400, ((float) HOUR_HEIGHT / 60) * (float) duration);
     calendarEntryLayout->addWidget(newItem);
 }
 
 void ShiftCalendar::addBreak(int duration){
-    QSpacerItem *newItem = new QSpacerItem(420, HOUR_HEIGHT / 60 * duration);
+    QSpacerItem *newItem = new QSpacerItem(420, ((float) HOUR_HEIGHT / 60) * (float) duration);
     calendarEntryLayout->addItem(newItem);
 }
 
@@ -91,10 +91,10 @@ void ShiftCalendar::clear(){
 
 void ShiftCalendar::drawBackground(){
     int begin = beginTime.hour();
-    int end = endTime.hour()+1;
+    int end = endTime.minute() > 0 ? endTime.hour() + 1 : endTime.hour();
 
     // if shift goes from one day to the next
-    if (end < begin)
+    if (end <= begin)
         end += 24;
 
     int range = end - begin +1;
@@ -114,7 +114,7 @@ void ShiftCalendar::drawBackground(){
     painter.setPen(QPen(QColor("#007AFF"), 1, Qt::SolidLine, Qt::FlatCap));
     for(int i = 0; i < range; ++i){
         int y = 50+i*HOUR_HEIGHT;
-        painter.drawText(0, y + fontHeight / 2, QTime(begin+i, 0).toString("HH:mm"));
+        painter.drawText(0, y + fontHeight / 2, QTime((begin+i) % 24, 0).toString("HH:mm"));
         painter.drawLine(50, y, 480, y);
     }
 
@@ -126,4 +126,8 @@ void ShiftCalendar::drawBackground(){
     lblCalendar->setPicture(picCalendar);
     lblCalendar->repaint();
     lblCalendar->adjustSize();
+}
+
+void ShiftCalendar::openPopupMenu(const QPoint &position){
+
 }

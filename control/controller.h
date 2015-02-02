@@ -135,6 +135,8 @@ private:
     ProductView *productView;
     EquipmentView *equipmentView;
     TransportationView *transportationView;
+    EmployeeView *employeeView;
+    BodyMeasurementView *bodyMeasurementView;
     ShiftView *shiftView;
     SettingsView *settingsView;
 
