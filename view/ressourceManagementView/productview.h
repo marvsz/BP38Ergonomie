@@ -18,10 +18,6 @@ public:
     explicit ProductView(QWidget *parent = 0);
     ~ProductView();
 
-    bool canGoForward() const{
-        return false;
-    }
-
     QString getName() const;
     QString getNumber() const;
     int getTotalPercentage() const;

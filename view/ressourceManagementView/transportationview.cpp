@@ -9,7 +9,7 @@
 const QVector<QVariant> TransportationView::YES_NO_VALUE = QVector<QVariant>()<<true<<false;
 
 TransportationView::TransportationView(QWidget *parent) :
-    SimpleNavigateableWidget(tr("Transporations"), parent),
+    SimpleNavigateableWidget(tr("Transportations"), parent),
     scTransportation(new QScrollArea),
     lblAddTransportation(new QLabel(tr("Add Transportation"))),
     lblName(new QLabel(tr("Name:"))),

@@ -17,10 +17,6 @@ public:
     explicit TransportationView(QWidget *parent = 0);
     ~TransportationView();
 
-    bool canGoForward() const{
-        return false;
-    }
-
     QString getName() const;
     int getWeight() const;
     int getMaxLoad() const;

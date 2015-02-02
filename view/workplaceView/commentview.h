@@ -15,10 +15,6 @@ public:
     explicit CommentView(QWidget *parent = 0);
     ~CommentView();
 
-    bool canGoForward() const {
-        return false;
-    }
-
     QString getProblemName() const;
     QString getProblemDescription() const;
     QString getMeasureName() const;

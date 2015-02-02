@@ -17,10 +17,6 @@ class ActivityView : public SimpleNavigateableWidget
 public:
     explicit ActivityView(QWidget *parent = 0);
 
-    bool canGoForward() const {
-        return false;
-    }
-
     QString getDescription() const;
     int getRepetitions() const;
     int getSelectedProduct() const;

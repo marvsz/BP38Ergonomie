@@ -17,10 +17,6 @@ public:
     explicit WorkplaceView(QWidget *parent = 0);
     explicit WorkplaceView(int id, QWidget *parent = 0);
 
-    bool canGoForward() const {
-        return false;
-    }
-
     QString getName() const;
     QString getDescription() const;
     QString getCode() const;
@@ -33,7 +29,6 @@ public:
     QTime getCycleTime() const;
 
 signals:
-    void save();
     void show(ViewType type);
 
 public slots:

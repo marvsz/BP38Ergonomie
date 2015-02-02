@@ -17,10 +17,6 @@ public:
     explicit EquipmentView(QWidget *parent = 0);
     ~EquipmentView();
 
-    bool canGoForward() const {
-        return false;
-    }
-
     QString getName() const;
     int getRecoilCount() const;
     int getRecoilIntensity() const;

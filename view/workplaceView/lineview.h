@@ -20,10 +20,6 @@ public:
     explicit LineView(QWidget *parent = 0);
     ~LineView();
 
-    bool canGoForward() const {
-        return false;
-    }
-
     QString getName() const;
     QString getDescription() const;
     int getWorkplaceCount() const;
