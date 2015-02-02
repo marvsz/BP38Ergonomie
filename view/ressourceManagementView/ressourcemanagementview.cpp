@@ -36,7 +36,7 @@ void RessourceManagementView::btnEquipmentClicked(){
 }
 
 void RessourceManagementView::btnProductClicked(){
-    emit show(ViewType::PROCUCT_VIEW);
+    emit show(ViewType::PRODUCT_VIEW);
 }
 
 void RessourceManagementView::btnTransportationClicked(){
