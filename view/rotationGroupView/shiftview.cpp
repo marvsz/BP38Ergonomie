@@ -22,8 +22,7 @@ ShiftView::ShiftView(QWidget *parent) :
     rotationGroupListContent(new QWidget()),
     scRotationGroups(new QScrollArea()),
     rotationGroupListLayout(new QVBoxLayout()),
-    btnMoreRotationGroups(new QPushButton()),
-    calendar(new ShiftCalendar(0, QTime(6,0), QTime(14,0)))
+    btnMoreRotationGroups(new QPushButton())
 {
     btnChooseEmployee->setFixedSize(45, 45);
     btnChooseEmployee->setObjectName("editIcon");
@@ -53,41 +52,32 @@ ShiftView::ShiftView(QWidget *parent) :
     FlickCharm *flickCharmProducts = new FlickCharm(this);
     flickCharmProducts->activateOn(scRotationGroups);
 
-    QGridLayout *leftLayout = new QGridLayout;
-    leftLayout->setContentsMargins(0,0,0,0);
-    leftLayout->addWidget(lblShiftData, 0, 0, 1, 4, Qt::AlignLeft);
-    leftLayout->addWidget(lblShiftType, 1, 0, 1, 4, Qt::AlignLeft);
-    leftLayout->addWidget(oscShiftType, 2, 0, 1, 4, 0);
-    leftLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 3, 0, 1, 4, 0);
-    leftLayout->addWidget(lblStart, 4, 0, 1, 2, Qt::AlignCenter);
-    leftLayout->addWidget(lblEnd, 4, 2, 1, 2, Qt::AlignCenter);
-    leftLayout->addWidget(timeBxStart, 5, 0, 1, 2, Qt::AlignCenter);
-    leftLayout->addWidget(timeBxEnd, 5, 2, 1, 2, Qt::AlignCenter);
-    leftLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 6, 0, 1, 4, 0);
-    leftLayout->addWidget(lblEmployee, 7, 0, 1, 2, Qt::AlignLeft);
-    leftLayout->addWidget(btnChooseEmployee, 7, 2, 1, 2, Qt::AlignCenter);
-    leftLayout->addWidget(dliEmployee, 8, 0, 1, 4, 0);
-    leftLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 9, 0, 1, 4, 0);
-    leftLayout->addWidget(lblAddBreak, 10, 0, 1, 4, Qt::AlignLeft);
-    leftLayout->addWidget(lblBreakDuration, 11, 0, 1, 1, Qt::AlignCenter);
-    leftLayout->addWidget(numBxBreakDuration, 11, 1, 2, 2, Qt::AlignCenter);
-    leftLayout->addWidget(btnAddBreak, 11, 3, 1, 1, Qt::AlignCenter);
-    leftLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 12, 0, 1, 4, 0);
-    leftLayout->addWidget(lblAddRotationGroup, 13, 0, 1, 4, 0);
-    leftLayout->addWidget(scRotationGroups, 14, 0, 1, 4, 0);
-    leftLayout->addWidget(btnMoreRotationGroups, 15, 0, 1, 4, Qt::AlignCenter);
-    leftLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 16, 0, 1, 4, 0);
+    QGridLayout *mainLayout = new QGridLayout;
+    mainLayout->setContentsMargins(0,0,0,0);
+    mainLayout->addWidget(lblShiftData, 0, 0, 1, 4, Qt::AlignLeft);
+    mainLayout->addWidget(lblShiftType, 1, 0, 1, 4, Qt::AlignLeft);
+    mainLayout->addWidget(oscShiftType, 2, 0, 1, 4, 0);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 3, 0, 1, 4, 0);
+    mainLayout->addWidget(lblStart, 4, 0, 1, 2, Qt::AlignCenter);
+    mainLayout->addWidget(lblEnd, 4, 2, 1, 2, Qt::AlignCenter);
+    mainLayout->addWidget(timeBxStart, 5, 0, 1, 2, Qt::AlignCenter);
+    mainLayout->addWidget(timeBxEnd, 5, 2, 1, 2, Qt::AlignCenter);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 6, 0, 1, 4, 0);
+    mainLayout->addWidget(lblEmployee, 7, 0, 1, 2, Qt::AlignLeft);
+    mainLayout->addWidget(btnChooseEmployee, 7, 2, 1, 2, Qt::AlignCenter);
+    mainLayout->addWidget(dliEmployee, 8, 0, 1, 4, 0);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 9, 0, 1, 4, 0);
+    mainLayout->addWidget(lblAddBreak, 10, 0, 1, 4, Qt::AlignLeft);
+    mainLayout->addWidget(lblBreakDuration, 11, 0, 1, 1, Qt::AlignCenter);
+    mainLayout->addWidget(numBxBreakDuration, 11, 1, 2, 2, Qt::AlignCenter);
+    mainLayout->addWidget(btnAddBreak, 11, 3, 1, 1, Qt::AlignCenter);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 12, 0, 1, 4, 0);
+    mainLayout->addWidget(lblAddRotationGroup, 13, 0, 1, 4, 0);
+    mainLayout->addWidget(scRotationGroups, 14, 0, 1, 4, 0);
+    mainLayout->addWidget(btnMoreRotationGroups, 15, 0, 1, 4, Qt::AlignCenter);
+    mainLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 16, 0, 1, 4, 0);
 
-    QHBoxLayout *splitLayout = new QHBoxLayout;
-    splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
-    splitLayout->addLayout(leftLayout);
-    splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
-    splitLayout->addWidget(new Separator(Qt::Vertical, 3, 0));
-    splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
-    splitLayout->addWidget(calendar);
-    splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
-
-    setLayout(splitLayout);
+    setLayout(mainLayout);
     setStartTime(QTime(6,0));
     setEndTime(QTime(14,0));
 }
@@ -108,12 +98,10 @@ QString ShiftView::getType() const{
 // PUBLIC SLOTS
 void ShiftView::setStartTime(const QTime &time){
     timeBxStart->setValue(time);
-    calendar->setBeginTime(time);
 }
 
 void ShiftView::setEndTime(const QTime &time){
     timeBxEnd->setValue(time);
-    calendar->setEndTime(time);
 }
 
 // PRIVATE SLOTS

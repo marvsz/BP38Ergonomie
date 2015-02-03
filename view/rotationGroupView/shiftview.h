@@ -64,7 +64,6 @@ private:
     QScrollArea *scRotationGroups;
     QVBoxLayout *rotationGroupListLayout;
     QPushButton *btnMoreRotationGroups;
-    ShiftCalendar *calendar;
 
     const QStringList SHIFT_TEXTS = QStringList()<<(tr("early shift"))<<(tr("late shift"))<<(tr("night shift"))<<(tr("special shift"));
 };

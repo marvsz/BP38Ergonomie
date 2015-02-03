@@ -86,6 +86,14 @@
         <file>icons/Buttons/bodyMeasurement@2x.png</file>
         <file>icons/Buttons/bodyMeasurementPressed.png</file>
         <file>icons/Buttons/bodyMeasurementPressed@2x.png</file>
+        <file>icons/Buttons/calendar.png</file>
+        <file>icons/Buttons/calendar@2x.png</file>
+        <file>icons/Buttons/calendarPressed.png</file>
+        <file>icons/Buttons/calendarPressed@2x.png</file>
+        <file>icons/Buttons/send.png</file>
+        <file>icons/Buttons/send@2x.png</file>
+        <file>icons/Buttons/sendPressed.png</file>
+        <file>icons/Buttons/sendPressed@2x.png</file>
     </qresource>
     <qresource prefix="/misc">
         <file>icons/Misc/workplace.png</file>
