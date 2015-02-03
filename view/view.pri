@@ -58,7 +58,8 @@ HEADERS +=\
     $$PWD/generalViews/feedbackview.h \
     $$PWD/ressourceManagementView/bodymeasurementview.h \
     $$PWD/ressourceManagementView/employeeview.h \
-    $$PWD/rotationGroupView/rotationgroupview.h
+    $$PWD/rotationGroupView/rotationgroupview.h \
+    $$PWD/navigation/documentationviewnavigateablewidget.h
 
 
 SOURCES +=\

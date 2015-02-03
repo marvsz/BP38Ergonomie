@@ -2,7 +2,7 @@ include(view/view.pri)
 include(control/control.pri)
 include(databaseHandler/databaseHandler.pri)
 
-QT       += core gui quick qml multimedia sql network
+QT       += core gui widgets quick qml multimedia sql network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

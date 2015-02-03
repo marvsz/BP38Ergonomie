@@ -44,13 +44,14 @@ Controller::Controller(QObject *parent) :
     workprocess_Type = AVType::BASIC;
     workprocess_ID = 0;
 
-    documentationView->setWorkprocessMetaDataView(workProcessMetaDataView);
-    documentationView->setBodyPostureView(bodyPostureView);
-    documentationView->setAppliedForceView(appliedForceView);
-    documentationView->setExecutionConditionView(executionConditionView);
-    documentationView->setLoadHandlingView(loadHandlingView);
+    documentationView->registerView(workProcessMetaDataView, ViewType::WORK_PROCESS_META_DATA_VIEW);
+    documentationView->registerView(bodyPostureView, ViewType::BODY_POSTURE_VIEW);
+    documentationView->registerView(loadHandlingView, ViewType::LOAD_HANDLING_VIEW);
+    documentationView->registerView(appliedForceView, ViewType::APPLIED_FORCE_VIEW);
+    documentationView->registerView(executionConditionView, ViewType::WORKING_CONDITION_VIEW);
+    documentationView->registerView(gantTimerView, ViewType::GANT_VIEW);
     documentationView->setTimerViewController(timerViewController);
-    documentationView->setGantTimerView(gantTimerView);
+
 
     viewCon = new ViewController();
     viewCon->registerView(analystSelectionView, ViewType::ANALYST_SELECTION_VIEW);
@@ -72,6 +73,7 @@ Controller::Controller(QObject *parent) :
     viewCon->registerView(rotationGroupView, ViewType::ROTATION_GROUP_VIEW);
     viewCon->registerView(employeeView, ViewType::EMPLOYEE_VIEW);
     viewCon->registerView(bodyMeasurementView, ViewType::BODY_MEASUREMENT_VIEW);
+    viewCon->registerView(documentationView, ViewType::DOCUMENTATION_VIEW);
 
     connect(viewCon, SIGNAL(update(ViewType)), this, SLOT(update(ViewType)));
     connect(viewCon, SIGNAL(save(ViewType)), this, SLOT(save(ViewType)));
@@ -105,7 +107,8 @@ Controller::Controller(QObject *parent) :
     connect(activityView, SIGNAL(selectActivity(int)), this, SLOT(selectActivity(int)));
     connect(activityView, SIGNAL(deleteActivity(int)), this, SLOT(deleteActivity(int)));
 
-    connect(documentationView, SIGNAL(updateGantView()), this, SLOT(updateGantView()));
+    connect(documentationView, SIGNAL(update(ViewType)), this, SLOT(update(ViewType)));
+    connect(documentationView, SIGNAL(save(ViewType)), this, SLOT(save(ViewType)));
 
     connect(gantTimerView, SIGNAL(workProcessSelected(int,AVType)), this, SLOT(setSelectedWorkProcess(int, AVType)));
 
@@ -117,8 +120,7 @@ Controller::Controller(QObject *parent) :
 
     connect(settingsView, SIGNAL(resetDatabase()), this, SLOT(resetDatabase()));
 
-    documentationView->setupViews();
-
+    documentationView->showStartView(ViewType::BODY_POSTURE_VIEW);
     viewCon->showStartView(ViewType::ANALYST_SELECTION_VIEW);
 }
 //PRIVATE SLOTS
@@ -136,6 +138,12 @@ void Controller::update(ViewType type){
     case ViewType::EQUIPMENT_VIEW: updateEquipmentView(); break;
     case ViewType::TRANSPORTATION_VIEW: updateTransportationView(); break;
     case ViewType::PRODUCT_VIEW: updateProductView(); break;
+    case ViewType::BODY_POSTURE_VIEW: updateBodyPostureView(); break;
+    case ViewType::APPLIED_FORCE_VIEW: updateAppliedForceView(); break;
+    case ViewType::LOAD_HANDLING_VIEW: updateLoadHandlingView(); break;
+    case ViewType::WORKING_CONDITION_VIEW: updateExecutionConditionView(); break;
+    case ViewType::WORK_PROCESS_META_DATA_VIEW: updateWorkProcessMetaDataView(); break;
+    case ViewType::GANT_VIEW: updateGantView(); break;
     case ViewType::SETTINGS_VIEW: break;
     default: break;
     }
@@ -148,6 +156,11 @@ void Controller::save(ViewType type){
     case ViewType::LINE_VIEW: updateLineView(); break;
     case ViewType::COMMENT_VIEW: saveComment(); break;
     case ViewType::DOCUMENTATION_VIEW: saveCurrentWorkProcess(); break;
+    case ViewType::BODY_POSTURE_VIEW: saveBodyPostureView(); break;
+    case ViewType::APPLIED_FORCE_VIEW: saveAppliedForceView(); break;
+    case ViewType::LOAD_HANDLING_VIEW: saveLoadHandlingView(); break;
+    case ViewType::WORKING_CONDITION_VIEW: saveExecutionConditionView(); break;
+    case ViewType::WORK_PROCESS_META_DATA_VIEW: saveCurrentWorkProcess(); break;
     default: break;
     }
 }

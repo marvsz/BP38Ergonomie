@@ -25,6 +25,11 @@
 #include "../view/ressourceManagementView/employeeview.h"
 #include "../view/generalViews/settingsview.h"
 #include "../view/generalViews/feedbackview.h"
+#include "../view/documentationView/appliedforceview.h"
+#include "../view/documentationView/loadhandlingview.h"
+#include "../view/documentationView/executionconditionview.h"
+#include "../view/documentationView/workprocessmetadataview.h"
+#include "../view/documentationView/bodyPostureView/bodypostureview.h"
 #include <QSqlField>
 #include <QHash>
 

@@ -23,7 +23,6 @@ public:
 
 signals:
     void deleteActivity(int id);
-    void showWorkProcessView();
     void selectedProduct(int id);
     void createActivity();
     void selectActivity(int id);

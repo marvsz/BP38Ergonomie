@@ -29,7 +29,7 @@ const QVector<int> BodyPostureView::ANKLE_ANGLE_VALUES = QVector<int>()<<90<<135
 const QVector<int> BodyPostureView::ANKLE_ANGLE_SIDEWAYS_VALUES = QVector<int>()<<-45<<-20<<0<<20<<45;
 
 BodyPostureView::BodyPostureView(QWidget *parent) :
-    QWidget(parent),
+    DocumentationViewNavigateableWidget(tr("Body posture"), parent),
     varConTrunk(new VariantControl()),
     varConArms(new VariantControl()),
     varConLegs(new VariantControl()),

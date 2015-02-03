@@ -6,7 +6,8 @@
 
 const QVector<QVariant> ExecutionConditionView::YES_NO_VALUE = QVector<QVariant>()<<1<<0;
 
-ExecutionConditionView::ExecutionConditionView(QWidget *parent) :QWidget(parent),
+ExecutionConditionView::ExecutionConditionView(QWidget *parent) :
+    DocumentationViewNavigateableWidget(tr("Working conditions"), parent),
     scPrecision(new SliderControl()),
     scVelocity(new SliderControl()),
     scAcceleration(new SliderControl()),

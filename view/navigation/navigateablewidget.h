@@ -1,7 +1,7 @@
 #ifndef NAVIGATABELWIDGET_H
 #define NAVIGATABELWIDGET_H
 
-#include <QWidget>
+//#include <QWidget>
 #include <QAbstractButton>
 #include <QList>
 #include "viewtype.h"

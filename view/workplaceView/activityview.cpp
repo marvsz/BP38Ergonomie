@@ -155,9 +155,9 @@ void ActivityView::addActivity(int id, const QString &description, int repetitio
     newListItem->setID(id);
     QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(repetitions));
     newListItem->setValues(values);
-    connect(newListItem, SIGNAL(clicked()), this, SLOT(workprocessClicked()));
     connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteActivity(int)));
     connect(newListItem, SIGNAL(pressed(int)), this, SIGNAL(selectActivity(int)));
+    connect(newListItem, SIGNAL(clicked()), this, SLOT(workprocessClicked()));
     activityListLayout->addWidget(newListItem);
 }
 

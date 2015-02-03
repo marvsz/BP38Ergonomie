@@ -1,14 +1,14 @@
 #ifndef WORKPROCESSMETADATAVIEW_H
 #define WORKPROCESSMETADATAVIEW_H
 
-#include <QWidget>
+#include "../view/navigation/documentationviewnavigateablewidget.h"
 #include <QLabel>
 #include <QPushButton>
 #include "numberlineedit.h"
 #include "valuecontrol.h"
 #include "optionselectioncontrol.h"
 
-class WorkProcessMetaDataView : public QWidget
+class WorkProcessMetaDataView : public DocumentationViewNavigateableWidget
 {
     Q_OBJECT
 public:

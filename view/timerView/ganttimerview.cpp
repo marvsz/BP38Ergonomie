@@ -3,7 +3,8 @@
 #include <QVBoxLayout>
 #include <QScrollArea>
 
-GantTimerView::GantTimerView(QWidget *parent) : QWidget(parent),
+GantTimerView::GantTimerView(QWidget *parent) :
+    DocumentationViewNavigateableWidget(tr("Gant diagram"), parent),
     secPixel(100),
     selWP_ID(0),
     selWP_Type(AVType::BASIC),

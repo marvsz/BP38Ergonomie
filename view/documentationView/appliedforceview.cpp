@@ -7,7 +7,7 @@ const QVector<int> AppliedForceView::INTENSITY_VALUES = QVector<int>()<<5<<20<<5
 
 
 AppliedForceView::AppliedForceView(QWidget *parent) :
-    QWidget(parent),
+    DocumentationViewNavigateableWidget(tr("Applied force"), parent),
     valConIntensity(new ValueControl(VALUE, this)),
     valConDirection(new ValueControl(TEXT, this)),
     valConOrgan(new ValueControl(TEXT, this))

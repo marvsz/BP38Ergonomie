@@ -2,8 +2,7 @@
 #define LOADHANDLINGVIEW_H
 
 #include <QLabel>
-#include <QWidget>
-#include <QMainWindow>
+#include "../view/navigation/documentationviewnavigateablewidget.h"
 #include <QPushButton>
 #include <QGroupBox>
 #include "valuecontrol.h"
@@ -15,7 +14,7 @@
  * the way to go and the hand used. Furthermore there is a TransportationListControl
  * with the list of transportations available.
  */
-class LoadHandlingView : public QWidget
+class LoadHandlingView : public DocumentationViewNavigateableWidget
 {
     Q_OBJECT
 

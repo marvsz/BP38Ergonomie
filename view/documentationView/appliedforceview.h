@@ -1,13 +1,13 @@
 #ifndef ACTIONFORCEVIEW_H
 #define ACTIONFORCEVIEW_H
 
-#include <QMainWindow>
+#include "../view/navigation/documentationviewnavigateablewidget.h"
 #include <QScrollArea>
 #include <QVector>
 #include <QString>
 #include "valuecontrol.h"
 
-class AppliedForceView : public QWidget
+class AppliedForceView : public DocumentationViewNavigateableWidget
 {
     Q_OBJECT
 public:
@@ -20,7 +20,6 @@ public:
 signals:
 
 public slots:
-    //void setValues(const QString &organ, const QString &direction, int intensity);
     void setOrgan(const QString &organ);
     void setDirection(const QString &direction);
     void setIntensity(int intensity);
