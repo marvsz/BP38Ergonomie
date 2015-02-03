@@ -32,20 +32,24 @@ private:
     ValueControl *vcThighLength;
     ValueControl *vcTibialHeight;
     ValueControl *vcFootLength;
+    ValueControl *vcShoulderWidth;
+    ValueControl *vcShoulderBiacromial;
+    ValueControl *vcShoulderBideltoid;
+    ValueControl *vcUpperArmLength;
+    ValueControl *vcForearmLength;
+    ValueControl *vcHandLength;
+    ValueControl *vcTorsoHeight;
 
+    QLabel *lblHeadNeck;
     QLabel *lblUpperBody;
+    QLabel *lblArmsHands;
     QLabel *lblLowerBody;
-    QLabel *lblShoulderWidth;
-    QLabel *lblShoulderBiacromial;
-    QLabel *lblShoulderBideltoid;
-    QLabel *lblUpperArmLength;
-    QLabel *lblForearmLength;
-    QLabel *lblHandLength;
-    QLabel *lblTorsoHeight;
+    QLabel *lblSelectBodyPart;
 
 
     QWidget *head;
     QWidget *torso;
+    QWidget *arms;
     QWidget *legs;
 
 
