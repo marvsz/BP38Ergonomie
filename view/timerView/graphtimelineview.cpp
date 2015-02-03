@@ -14,7 +14,6 @@ GraphTimelineView::GraphTimelineView(QWidget *parent) : QMainWindow(parent)
   , picture()
   , painter()
   , graphArea(new QScrollArea)
-  , paintX(0)
 {
    QScroller::grabGesture(graphArea->viewport(), QScroller::LeftMouseButtonGesture);
 
