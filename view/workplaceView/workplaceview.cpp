@@ -153,11 +153,11 @@ void WorkplaceView::setComment(const QString &problemName, const QString &measur
 }
 
 void WorkplaceView::setWorkplaceTimes(const QTime &basicTime, const QTime &setupTime, const QTime &restTime, const QTime &allowanceTime, const QTime &cycleTime){
-    timeBasicTime->setValue(basicTime);
-    timeSetupTime->setValue(setupTime);
-    timeRestTime->setValue(restTime);
-    timeAllowanceTime->setValue(allowanceTime);
-    timeCycleTime->setValue(cycleTime);
+    timeBasicTime->setTime(basicTime);
+    timeSetupTime->setTime(setupTime);
+    timeRestTime->setTime(restTime);
+    timeAllowanceTime->setTime(allowanceTime);
+    timeCycleTime->setTime(cycleTime);
 }
 
 //private slots
@@ -191,21 +191,21 @@ int WorkplaceView::getWomanPercentage() const{
 }
 
 QTime WorkplaceView::getBasicTime() const{
-    return timeBasicTime->getValue();
+    return timeBasicTime->getTime();
 }
 
 QTime WorkplaceView::getSetupTime() const{
-    return timeSetupTime->getValue();
+    return timeSetupTime->getTime();
 }
 
 QTime WorkplaceView::getRestTime() const{
-    return timeRestTime->getValue();
+    return timeRestTime->getTime();
 }
 
 QTime WorkplaceView::getAllowanceTime() const{
-    return timeAllowanceTime->getValue();
+    return timeAllowanceTime->getTime();
 }
 
 QTime WorkplaceView::getCycleTime() const{
-    return timeCycleTime->getValue();
+    return timeCycleTime->getTime();
 }

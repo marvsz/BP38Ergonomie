@@ -5,11 +5,8 @@
 DateTimeSpinner::DateTimeSpinner(QWidget *parent) :
     QWidget(parent),
     spinnerLayout(new QGridLayout),
-    numBxDay(new NumberLineEdit()),
-    numBxMonth(new NumberLineEdit()),
-    numBxYear(new NumberLineEdit()),
-    numBxHour(new NumberLineEdit()),
-    numBxMinute(new NumberLineEdit()),
+    dateBxDate(new DateLineEdit()),
+    timeBxTime(new TimeLineEdit(this, TimeLineType::HOUR_MINUTE)),
     btnDayInc(new QPushButton()),
     btnDayDec(new QPushButton()),
     btnMonthInc(new QPushButton()),
@@ -19,8 +16,7 @@ DateTimeSpinner::DateTimeSpinner(QWidget *parent) :
     btnHourInc(new QPushButton()),
     btnHourDec(new QPushButton()),
     btnMinuteInc(new QPushButton()),
-    btnMinuteDec(new QPushButton()),
-    currentTime(QDateTime::currentDateTime())
+    btnMinuteDec(new QPushButton())
 {
     btnDayInc->setFixedSize(40, 40);
     btnDayInc->setObjectName("plusIcon");
@@ -37,16 +33,14 @@ DateTimeSpinner::DateTimeSpinner(QWidget *parent) :
     btnMinuteInc->setFixedSize(40, 40);
     btnMinuteInc->setObjectName("plusIcon");
 
-    numBxDay->setAlignment(Qt::AlignHCenter);
-    numBxMonth->setAlignment(Qt::AlignHCenter);
-    numBxYear->setAlignment(Qt::AlignHCenter);
-    numBxHour->setAlignment(Qt::AlignHCenter);
-    numBxMinute->setAlignment(Qt::AlignHCenter);
-    numBxDay->setMaximumWidth(40);
-    numBxMonth->setMaximumWidth(40);
-    numBxYear->setMaximumWidth(60);
-    numBxHour->setMaximumWidth(40);
-    numBxMinute->setMaximumWidth(40);
+    dateBxDate->setMaximumWidth(120);
+    dateBxDate->setAlignment(Qt::AlignCenter);
+
+    timeBxTime->setMaximumWidth(80);
+    timeBxTime->setAlignment(Qt::AlignCenter);
+
+    connect(timeBxTime, SIGNAL(dayIncreased()), dateBxDate, SLOT(increaseDay()));
+    connect(timeBxTime, SIGNAL(dayDecreased()), dateBxDate, SLOT(decreaseDay()));
 
     btnDayDec->setFixedSize(40, 40);
     btnDayDec->setObjectName("minusIcon");
@@ -63,12 +57,8 @@ DateTimeSpinner::DateTimeSpinner(QWidget *parent) :
     btnMinuteDec->setFixedSize(40, 40);
     btnMinuteDec->setObjectName("minusIcon");
 
-
-    numBxDay->setValue(currentTime.date().day());
-    numBxMonth->setValue(currentTime.date().month());
-    numBxYear->setValue(currentTime.date().year());
-    numBxHour->setValue(currentTime.time().hour());
-    numBxMinute->setValue(currentTime.time().minute());
+    spinnerLayout->setContentsMargins(0,0,0,0);
+    spinnerLayout->setSpacing(0);
 
     spinnerLayout->addWidget(new QLabel(tr("Date")),0, 0, 1, 3, Qt::AlignCenter);
     spinnerLayout->addWidget(new QLabel(tr("Time")),0, 4, 1, 2, Qt::AlignCenter);
@@ -80,11 +70,9 @@ DateTimeSpinner::DateTimeSpinner(QWidget *parent) :
     spinnerLayout->addWidget(btnHourInc, 1, 4, 1, 1, Qt::AlignCenter);
     spinnerLayout->addWidget(btnMinuteInc, 1, 5, 1, 1, Qt::AlignCenter);
 
-    spinnerLayout->addWidget(numBxDay, 2, 0, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(numBxMonth, 2, 1, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(numBxYear, 2, 2, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(numBxHour, 2, 4, 1, 1, Qt::AlignCenter);
-    spinnerLayout->addWidget(numBxMinute, 2, 5, 1, 1, Qt::AlignCenter);
+    spinnerLayout->addWidget(dateBxDate, 2, 0, 1, 3, Qt::AlignCenter);
+    spinnerLayout->addItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed), 2, 3, 1, 1);
+    spinnerLayout->addWidget(timeBxTime, 2, 4, 1, 2, Qt::AlignCenter);
 
     spinnerLayout->addWidget(btnDayDec, 3, 0, 1, 1, Qt::AlignCenter);
     spinnerLayout->addWidget(btnMonthDec, 3, 1, 1, 1, Qt::AlignCenter);
@@ -92,122 +80,28 @@ DateTimeSpinner::DateTimeSpinner(QWidget *parent) :
     spinnerLayout->addWidget(btnHourDec, 3, 4, 1, 1, Qt::AlignCenter);
     spinnerLayout->addWidget(btnMinuteDec, 3, 5, 1, 1, Qt::AlignCenter);
 
-    connect(numBxDay, SIGNAL(editingFinished()), this, SLOT(setDay()));
-    connect(numBxMonth, SIGNAL(editingFinished()), this, SLOT(setMonth()));
-    connect(numBxYear, SIGNAL(editingFinished()), this, SLOT(setYear()));
-    connect(numBxHour, SIGNAL(editingFinished()), this, SLOT(setHour()));
-    connect(numBxMinute, SIGNAL(editingFinished()), this, SLOT(setMinute()));
+    connect(btnDayInc, SIGNAL(clicked()), dateBxDate, SLOT(increaseDay()));
+    connect(btnMonthInc, SIGNAL(clicked()), dateBxDate, SLOT(increaseMonth()));
+    connect(btnYearInc, SIGNAL(clicked()), dateBxDate, SLOT(increaseYear()));
+    connect(btnHourInc, SIGNAL(clicked()), timeBxTime, SLOT(increaseHour()));
+    connect(btnMinuteInc, SIGNAL(clicked()), timeBxTime, SLOT(increaseMinute()));
 
-    connect(btnDayInc, SIGNAL(clicked()), this, SLOT(increaseDay()));
-    connect(btnMonthInc, SIGNAL(clicked()), this, SLOT(increaseMonth()));
-    connect(btnYearInc, SIGNAL(clicked()), this, SLOT(increaseYear()));
-    connect(btnHourInc, SIGNAL(clicked()), this, SLOT(increaseHour()));
-    connect(btnMinuteInc, SIGNAL(clicked()), this, SLOT(increaseMinute()));
-
-    connect(btnDayDec, SIGNAL(clicked()), this, SLOT(decreaseDay()));
-    connect(btnMonthDec, SIGNAL(clicked()), this, SLOT(decreaseMonth()));
-    connect(btnYearDec, SIGNAL(clicked()), this, SLOT(decreaseYear()));
-    connect(btnHourDec, SIGNAL(clicked()), this, SLOT(decreaseHour()));
-    connect(btnMinuteDec, SIGNAL(clicked()), this, SLOT(decreaseMinute()));
+    connect(btnDayDec, SIGNAL(clicked()), dateBxDate, SLOT(decreaseDay()));
+    connect(btnMonthDec, SIGNAL(clicked()), dateBxDate, SLOT(decreaseMonth()));
+    connect(btnYearDec, SIGNAL(clicked()), dateBxDate, SLOT(decreaseYear()));
+    connect(btnHourDec, SIGNAL(clicked()), timeBxTime, SLOT(decreaseHour()));
+    connect(btnMinuteDec, SIGNAL(clicked()), timeBxTime, SLOT(decreaseMinute()));
 
     this->setLayout(spinnerLayout);
-
-}
-
-// PRIVATE SLOTS
-void DateTimeSpinner::increaseDay(){
-    currentTime = currentTime.addDays(1);
-    update();
-}
-
-void DateTimeSpinner::decreaseDay(){
-    currentTime = currentTime.addDays(-1);
-    update();
-}
-
-void DateTimeSpinner::increaseMonth(){
-    currentTime = currentTime.addMonths(1);
-    update();
-}
-
-void DateTimeSpinner::decreaseMonth(){
-    currentTime = currentTime.addMonths(-1);
-    update();
-}
-
-void DateTimeSpinner::increaseYear(){
-    currentTime = currentTime.addYears(1);
-    update();
-}
-
-void DateTimeSpinner::decreaseYear(){
-    currentTime = currentTime.addYears(-1);
-    update();
-}
-
-void DateTimeSpinner::increaseHour(){
-    currentTime = currentTime.addSecs(3600);
-    update();
-}
-
-void DateTimeSpinner::decreaseHour(){
-    currentTime = currentTime.addSecs(-3600);
-    update();
-}
-
-void DateTimeSpinner::increaseMinute(){
-    currentTime = currentTime.addSecs(60);
-    update();
-}
-
-void DateTimeSpinner::decreaseMinute(){
-    currentTime = currentTime.addSecs(-60);
-    update();
-}
-
-void DateTimeSpinner::setDay(){
-    currentTime.setDate(QDate(currentTime.date().year(), currentTime.date().month(), numBxDay->getValue()));;
-    update();
-}
-
-void DateTimeSpinner::setMonth(){
-    currentTime.setDate(QDate(currentTime.date().year(), numBxMonth->getValue(), currentTime.date().day()));;
-    update();
-}
-
-void DateTimeSpinner::setYear(){
-    currentTime.setDate(QDate(numBxYear->getValue(), currentTime.date().month(), currentTime.date().day()));;
-    update();
-}
-
-void DateTimeSpinner::setHour(){
-    currentTime.setTime(QTime(numBxHour->getValue(), currentTime.time().minute(), currentTime.time().second(), currentTime.time().msec()));
-    update();
-}
-
-void DateTimeSpinner::setMinute(){
-    currentTime.setTime(QTime(currentTime.time().hour(), numBxMinute->getValue(), currentTime.time().second(), currentTime.time().msec()));
-    update();
 }
 
 // PUBLIC
 QDateTime DateTimeSpinner::getDateTime() const{
-    return currentTime;
+    return QDateTime(dateBxDate->getDate(), timeBxTime->getTime());
 }
 
 void DateTimeSpinner::setDateTime(const QDateTime &time){
-    currentTime.setDate(time.date());
-    currentTime.setTime(time.time());
-    update();
-
-}
-
-// PRIVATE
-void DateTimeSpinner::update(){
-    numBxDay->setValue(currentTime.date().day());
-    numBxMonth->setValue(currentTime.date().month());
-    numBxYear->setValue(currentTime.date().year());
-    numBxHour->setValue(currentTime.time().hour());
-    numBxMinute->setValue(currentTime.time().minute());
+    dateBxDate->setDate(time.date());
+    timeBxTime->setTime(time.time());
 }
 
