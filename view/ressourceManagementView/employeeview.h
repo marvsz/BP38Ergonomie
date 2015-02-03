@@ -18,6 +18,12 @@ public:
     explicit EmployeeView(QWidget *parent = 0);
     ~EmployeeView();
 
+    bool hasAdditionalNavigation() const{
+        return true;
+    }
+
+    QList<QAbstractButton*> * getAdditionalNavigation() const;
+
     int getGender() const;
     int getAge() const;
     int getHeight() const;

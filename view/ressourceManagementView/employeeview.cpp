@@ -14,8 +14,11 @@ EmployeeView::EmployeeView(QWidget *parent) : SimpleNavigateableWidget(tr("Worke
     vcHeight(new ValueControl(VALUE)),
     txtBxStaffNumber(new TextLineEdit()),
     txtBxNote(new TextEdit()),
-    btnBodyMeasurements(new QPushButton(tr("Body Measurements")))
+    btnBodyMeasurements(new QPushButton())
 {
+    btnBodyMeasurements->setFixedSize(45, 45);
+    btnBodyMeasurements->setObjectName("bodyMeasurementIcon");
+
     connect(btnBodyMeasurements, SIGNAL(clicked()), this, SLOT(btnBodyMeasurementsClicked()));
 
     vcAge->setText(tr("age"));
@@ -40,7 +43,6 @@ EmployeeView::EmployeeView(QWidget *parent) : SimpleNavigateableWidget(tr("Worke
     employeeDataLayout->addWidget(txtBxStaffNumber, 6, 1, 1, 1, 0);
     employeeDataLayout->addWidget(lblNote, 7, 0, 1, 1, 0);
     employeeDataLayout->addWidget(txtBxNote, 7, 1, 1, 1, 0);
-    employeeDataLayout->addWidget(btnBodyMeasurements, 8, 0, 1, 1, 0);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addLayout(employeeDataLayout);
@@ -61,6 +63,12 @@ void EmployeeView::setEmployee(int gender, int age, int height, const QString &s
     vcHeight->setValue(height);
     txtBxStaffNumber->setText(staffNumber);
     txtBxNote->setText(note);
+}
+
+QList<QAbstractButton*> * EmployeeView::getAdditionalNavigation() const{
+    QList<QAbstractButton*> *additions = new QList<QAbstractButton*>();
+    additions->append(btnBodyMeasurements);
+    return additions;
 }
 
 
