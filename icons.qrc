@@ -94,6 +94,10 @@
         <file>icons/Buttons/send@2x.png</file>
         <file>icons/Buttons/sendPressed.png</file>
         <file>icons/Buttons/sendPressed@2x.png</file>
+        <file>icons/Buttons/employee.png</file>
+        <file>icons/Buttons/employee@2x.png</file>
+        <file>icons/Buttons/employeePressed.png</file>
+        <file>icons/Buttons/employeePressed@2x.png</file>
     </qresource>
     <qresource prefix="/misc">
         <file>icons/Misc/workplace.png</file>

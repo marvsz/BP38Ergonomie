@@ -28,25 +28,25 @@ TimePicker::TimePicker(QWidget *parent) :
 }
 
 void TimePicker::increaseTime(){
-    timeBxTime->setValue(timeBxTime->getValue().addSecs(1));
+    timeBxTime->setTime(timeBxTime->getTime().addSecs(1));
     emitTimeChanged();
 }
 
 void TimePicker::decreaseTime(){
-    timeBxTime->setValue(timeBxTime->getValue().addSecs(-1));
+    timeBxTime->setTime(timeBxTime->getTime().addSecs(-1));
     emitTimeChanged();
 }
 
 QTime TimePicker::getTime() const{
-    return timeBxTime->getValue();
+    return timeBxTime->getTime();
 }
 
 void TimePicker::setTime(const QTime &time){
-    timeBxTime->setValue(time);
+    timeBxTime->setTime(time);
 }
 
 void TimePicker::emitTimeChanged(){
-    emit timeChanged(timeBxTime->getValue());
+    emit timeChanged(timeBxTime->getTime());
 }
 
 TimePicker::~TimePicker(){

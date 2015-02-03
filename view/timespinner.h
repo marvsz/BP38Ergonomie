@@ -5,7 +5,10 @@
 #include <QTime>
 #include <QGridLayout>
 #include <QPushButton>
+#include <QRegularExpression>
+#include <QRegularExpressionValidator>
 #include "numberlineedit.h"
+#include "timelineedit.h"
 
 class TimeSpinner : public QWidget
 {
@@ -16,24 +19,10 @@ public:
     QTime getTime() const;
     void setTime(const QTime &time);
 
-signals:
-
-public slots:
-
-private slots:
-    void increaseHour();
-    void decreaseHour();
-    void increaseMinute();
-    void decreaseMinute();
-
-    void setHour();
-    void setMinute();
-
 private:
     QGridLayout *spinnerLayout;
 
-    NumberLineEdit *numBxHour;
-    NumberLineEdit *numBxMinute;
+    TimeLineEdit *timeBxTime;
 
     QPushButton *btnHourInc;
     QPushButton *btnHourDec;

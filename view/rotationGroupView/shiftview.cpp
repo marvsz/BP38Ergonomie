@@ -5,15 +5,12 @@
 ShiftView::ShiftView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Shift Data"), parent),
     oscShiftType(new OptionSelectionControl()),
-    timeBxStart(new TimeLineEdit(this, TimeLineType::HOUR_MINUTE)),
-    timeBxEnd(new TimeLineEdit(this, TimeLineType::HOUR_MINUTE)),
+    tsStart(new TimeSpinner(this)),
+    tsEnd(new TimeSpinner(this)),
     lblShiftData(new QLabel(tr("Shift data:"))),
     lblShiftType(new QLabel(tr("Shift Type:"))),
     lblStart(new QLabel(tr("Begin:"))),
     lblEnd(new QLabel(tr("End:"))),
-    lblEmployee(new QLabel(tr("Choose Employee:"))),
-    btnChooseEmployee(new QPushButton()),
-    dliEmployee(new DetailedListItem(0, "", "Mitarbeiter:", QList<QStringList>(), false, false, false)),
     lblAddBreak(new QLabel(tr("Add break:"))),
     lblBreakDuration(new QLabel(tr("Duration [min]:"))),
     numBxBreakDuration(new NumberLineEdit()),
@@ -23,10 +20,12 @@ ShiftView::ShiftView(QWidget *parent) :
     scRotationGroups(new QScrollArea()),
     rotationGroupListLayout(new QVBoxLayout()),
     btnMoreRotationGroups(new QPushButton()),
+    btnEmployee(new QPushButton()),
     btnCalendar(new QPushButton())
+
 {
-    btnChooseEmployee->setFixedSize(45, 45);
-    btnChooseEmployee->setObjectName("editIcon");
+    btnEmployee->setFixedSize(45, 45);
+    btnEmployee->setObjectName("employeeIcon");
 
     btnAddBreak->setFixedSize(45, 45);
     btnAddBreak->setObjectName("plusIcon");
@@ -40,9 +39,8 @@ ShiftView::ShiftView(QWidget *parent) :
     connect(btnCalendar, SIGNAL(clicked()), this, SLOT(btnCalendarClicked()));
     connect(btnAddBreak, SIGNAL(clicked()), this, SLOT(btnAddBreakClicked()));
     connect(btnMoreRotationGroups, SIGNAL(clicked()), this, SLOT(btnMoreRotationGroupsClicked()));
+    connect(btnEmployee, SIGNAL(clicked()), this, SLOT(btnEmployeeClicked()));
 
-    connect(timeBxStart, SIGNAL(editingFinished()), this, SLOT(updateCalendarStart()));
-    connect(timeBxEnd, SIGNAL(editingFinished()), this, SLOT(updateCalendarEnd()));
     lblShiftData->setObjectName("lblHeader");
 
     oscShiftType->setValues(SHIFT_TEXTS);
@@ -68,22 +66,18 @@ ShiftView::ShiftView(QWidget *parent) :
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 3, 0, 1, 4, 0);
     mainLayout->addWidget(lblStart, 4, 0, 1, 2, Qt::AlignCenter);
     mainLayout->addWidget(lblEnd, 4, 2, 1, 2, Qt::AlignCenter);
-    mainLayout->addWidget(timeBxStart, 5, 0, 1, 2, Qt::AlignCenter);
-    mainLayout->addWidget(timeBxEnd, 5, 2, 1, 2, Qt::AlignCenter);
+    mainLayout->addWidget(tsStart, 5, 0, 1, 2, Qt::AlignCenter);
+    mainLayout->addWidget(tsEnd, 5, 2, 1, 2, Qt::AlignCenter);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 6, 0, 1, 4, 0);
-    mainLayout->addWidget(lblEmployee, 7, 0, 1, 2, Qt::AlignLeft);
-    mainLayout->addWidget(btnChooseEmployee, 7, 2, 1, 2, Qt::AlignCenter);
-    mainLayout->addWidget(dliEmployee, 8, 0, 1, 4, 0);
+    mainLayout->addWidget(lblAddBreak, 7, 0, 1, 4, Qt::AlignLeft);
+    mainLayout->addWidget(lblBreakDuration, 8, 0, 1, 1, Qt::AlignCenter);
+    mainLayout->addWidget(numBxBreakDuration, 8, 1, 2, 2, Qt::AlignLeft);
+    mainLayout->addWidget(btnAddBreak, 8, 3, 1, 1, Qt::AlignCenter);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 9, 0, 1, 4, 0);
-    mainLayout->addWidget(lblAddBreak, 10, 0, 1, 4, Qt::AlignLeft);
-    mainLayout->addWidget(lblBreakDuration, 11, 0, 1, 1, Qt::AlignCenter);
-    mainLayout->addWidget(numBxBreakDuration, 11, 1, 2, 2, Qt::AlignCenter);
-    mainLayout->addWidget(btnAddBreak, 11, 3, 1, 1, Qt::AlignCenter);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 12, 0, 1, 4, 0);
-    mainLayout->addWidget(lblAddRotationGroup, 13, 0, 1, 4, 0);
-    mainLayout->addWidget(scRotationGroups, 14, 0, 1, 4, 0);
-    mainLayout->addWidget(btnMoreRotationGroups, 15, 0, 1, 4, Qt::AlignCenter);
-    mainLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 16, 0, 1, 4, 0);
+    mainLayout->addWidget(lblAddRotationGroup, 10, 0, 1, 4, 0);
+    mainLayout->addWidget(scRotationGroups, 11, 0, 1, 4, 0);
+    mainLayout->addWidget(btnMoreRotationGroups, 12, 0, 1, 4, Qt::AlignCenter);
+    mainLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 15, 0, 1, 4, 0);
 
     setLayout(mainLayout);
     setStartTime(QTime(6,0));
@@ -93,16 +87,17 @@ ShiftView::ShiftView(QWidget *parent) :
 // PUBLIC
 QList<QAbstractButton*> * ShiftView::getAdditionalNavigation() const {
     QList<QAbstractButton*> *additions = new QList<QAbstractButton*>();
+    additions->append(btnEmployee);
     additions->append(btnCalendar);
     return additions;
 }
 
 QTime ShiftView::getStartTime() const{
-    return timeBxStart->getValue();
+    return tsStart->getTime();
 }
 
 QTime ShiftView::getEndTime() const{
-    return timeBxEnd->getValue();
+    return tsEnd->getTime();
 }
 
 QString ShiftView::getType() const{
@@ -111,22 +106,14 @@ QString ShiftView::getType() const{
 
 // PUBLIC SLOTS
 void ShiftView::setStartTime(const QTime &time){
-    timeBxStart->setValue(time);
+    tsStart->setTime(time);
 }
 
 void ShiftView::setEndTime(const QTime &time){
-    timeBxEnd->setValue(time);
+    tsEnd->setTime(time);
 }
 
 // PRIVATE SLOTS
-void ShiftView::updateCalendarStart(){
-    setStartTime(timeBxStart->getValue());
-}
-
-void ShiftView::updateCalendarEnd(){
-    setEndTime(timeBxEnd->getValue());
-}
-
 void ShiftView::updateShiftTimes(int type){
     switch(type){
     case(0):
@@ -150,6 +137,10 @@ void ShiftView::updateShiftTimes(int type){
 
 void ShiftView::btnAddBreakClicked(){
 
+}
+
+void ShiftView::btnEmployeeClicked(){
+    emit show(ViewType::EMPLOYEE_VIEW);
 }
 
 void ShiftView::btnCalendarClicked(){

@@ -58,7 +58,8 @@ HEADERS +=\
     $$PWD/generalViews/feedbackview.h \
     $$PWD/ressourceManagementView/bodymeasurementview.h \
     $$PWD/ressourceManagementView/employeeview.h \
-    $$PWD/rotationGroupView/rotationgroupview.h
+    $$PWD/rotationGroupView/rotationgroupview.h \
+    $$PWD/datelineedit.h
 
 
 SOURCES +=\
@@ -115,6 +116,7 @@ SOURCES +=\
     $$PWD/generalViews/feedbackview.cpp \
     $$PWD/ressourceManagementView/bodymeasurementview.cpp \
     $$PWD/ressourceManagementView/employeeview.cpp \
-    $$PWD/rotationGroupView/rotationgroupview.cpp
+    $$PWD/rotationGroupView/rotationgroupview.cpp \
+    $$PWD/datelineedit.cpp
 
 

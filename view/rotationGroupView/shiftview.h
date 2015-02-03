@@ -11,9 +11,9 @@
 #include <QLabel>
 #include <QScrollArea>
 #include "../optionselectioncontrol.h"
-#include "../timelineedit.h"
-#include "numberlineedit.h"
-#include "detailedlistitem.h"
+#include "../timespinner.h"
+#include "../numberlineedit.h"
+#include "../detailedlistitem.h"
 #include "shiftcalendar.h"
 #include "../navigation/simplenavigateablewidget.h"
 
@@ -40,27 +40,25 @@ public slots:
     void setEndTime(const QTime &time);
 
 private slots:
-    void updateCalendarStart();
-    void updateCalendarEnd();
+
     void updateShiftTimes(int type);
 
     void btnAddBreakClicked();
+    void btnEmployeeClicked();
     void btnMoreRotationGroupsClicked();
     void btnCalendarClicked();
 
 private:
     int id;
     OptionSelectionControl *oscShiftType;
-    TimeLineEdit *timeBxStart;
-    TimeLineEdit *timeBxEnd;
+    TimeSpinner *tsStart;
+    TimeSpinner *tsEnd;
 
     QLabel *lblShiftData;
     QLabel *lblShiftType;
     QLabel *lblStart;
     QLabel *lblEnd;
     QLabel *lblEmployee;
-    QPushButton *btnChooseEmployee;
-    DetailedListItem *dliEmployee;
     QLabel *lblAddBreak;
     QLabel *lblBreakDuration;
     NumberLineEdit *numBxBreakDuration;
@@ -70,6 +68,7 @@ private:
     QScrollArea *scRotationGroups;
     QVBoxLayout *rotationGroupListLayout;
     QPushButton *btnMoreRotationGroups;
+    QPushButton *btnEmployee;
     QPushButton *btnCalendar;
 
     const QStringList SHIFT_TEXTS = QStringList()<<(tr("early shift"))<<(tr("late shift"))<<(tr("night shift"))<<(tr("special shift"));
