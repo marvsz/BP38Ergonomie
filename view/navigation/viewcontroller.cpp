@@ -33,9 +33,7 @@ ViewController::ViewController(QWidget *parent) : QWidget(parent),
     btnForward->setFixedSize(45, 45);
     connect(btnForward, SIGNAL(clicked()), this, SLOT(btnForwardClicked()));
 
-    btnFeedback->setObjectName("btnIcon");
-    btnFeedback->setIcon(QIcon(IconConstants::ICON_COMMENT));
-    btnFeedback->setIconSize(QSize(45, 45));
+    btnFeedback->setObjectName("feedbackIcon");
     btnFeedback->setFixedSize(45, 45);
     connect(btnFeedback, SIGNAL(clicked()), this, SLOT(btnFeedbackClicked()));
 

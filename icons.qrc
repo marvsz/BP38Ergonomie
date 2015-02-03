@@ -82,6 +82,10 @@
         <file>icons/Buttons/feedback@2x.png</file>
         <file>icons/Buttons/feedbackPressed.png</file>
         <file>icons/Buttons/feedbackPressed@2x.png</file>
+        <file>icons/Buttons/bodyMeasurement.png</file>
+        <file>icons/Buttons/bodyMeasurement@2x.png</file>
+        <file>icons/Buttons/bodyMeasurementPressed.png</file>
+        <file>icons/Buttons/bodyMeasurementPressed@2x.png</file>
     </qresource>
     <qresource prefix="/misc">
         <file>icons/Misc/workplace.png</file>
@@ -104,6 +108,8 @@
         <file>icons/Misc/transportation@2x.png</file>
         <file>icons/Misc/handle.png</file>
         <file>icons/Misc/handle@2x.png</file>
+        <file>icons/Misc/settingsPressed.png</file>
+        <file>icons/Misc/settingsPressed@2x.png</file>
     </qresource>
     <qresource prefix="/body">
         <file>icons/BodyMeasurement/armLeft.png</file>
