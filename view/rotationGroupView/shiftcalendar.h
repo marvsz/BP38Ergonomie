@@ -8,8 +8,9 @@
 #include <QPicture>
 #include <QVBoxLayout>
 #include <QLabel>
+#include "../view/navigation/simplenavigateablewidget.h"
 
-class ShiftCalendar : public QWidget
+class ShiftCalendar : public SimpleNavigateableWidget
 {
     Q_OBJECT
 public:
@@ -25,13 +26,8 @@ public slots:
     void addBreak(int duration);
     void clear();
 
-private slots:
-    void openPopupMenu(const QPoint &position);
-
 private:
     static const int HOUR_HEIGHT = 80;
-
-    QLabel *lblName;
 
     QTime beginTime;
     QTime endTime;

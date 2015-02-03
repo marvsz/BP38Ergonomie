@@ -7,8 +7,7 @@
 #include <QDialogButtonBox>
 
 ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTime &endTime) :
-    QWidget(parent),
-    lblName(new QLabel(tr("Calendar:"))),
+    SimpleNavigateableWidget(tr("Calendar"), parent),
     beginTime(beginTime),
     endTime(endTime),
     painter(),
@@ -17,11 +16,6 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
     scCalendar(new QScrollArea()),
     calendarEntryLayout(new QVBoxLayout())
 { 
-    lblName->setObjectName("lblHeader");
-    lblCalendar->setMinimumWidth(450);
-    lblCalendar->setAlignment(Qt::AlignTop);
-    lblCalendar->setLayout(calendarEntryLayout);
-
     scCalendar->setWidget(lblCalendar);
     scCalendar->setAlignment(Qt::AlignTop);
     scCalendar->setWidgetResizable(true);
@@ -31,11 +25,12 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
     FlickCharm *flickCharm = new FlickCharm(this);
     flickCharm->activateOn(scCalendar);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(lblName);
+    QHBoxLayout *mainLayout = new QHBoxLayout;
+    mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Expanding, QSizePolicy::Expanding));
     mainLayout->addWidget(scCalendar);
-
+    mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Expanding, QSizePolicy::Expanding));
     setLayout(mainLayout);
+
     calendarEntryLayout->setAlignment(Qt::AlignRight | Qt::AlignTop);
     calendarEntryLayout->setSpacing(0);
     calendarEntryLayout->setContentsMargins(0,0,0,0);
@@ -126,8 +121,4 @@ void ShiftCalendar::drawBackground(){
     lblCalendar->setPicture(picCalendar);
     lblCalendar->repaint();
     lblCalendar->adjustSize();
-}
-
-void ShiftCalendar::openPopupMenu(const QPoint &position){
-
 }

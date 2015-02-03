@@ -2,27 +2,29 @@
 #define CONTROLLER_H
 
 #include <QObject>
-    #include "../databaseHandler/dbhandler.h"
-    #include "../view/navigation/viewcontroller.h"
-    #include "../view/generalViews/mainmenu.h"
-    #include "../view/generalViews/metadataview.h"
-    #include "../view/workplaceView/activityview.h"
-    #include "../view/workplaceView/commentview.h"
-    #include "../view/workplaceView/lineview.h"
-    #include "../view/workplaceView/workplacelistview.h"
-    #include "../view/workplaceView/workplaceview.h"
-    #include "../view/documentationView/documentationview.h"
-    #include "../view/generalViews/analystselectionview.h"
-    #include "../view/timerView/ganttimerview.h"
-    #include "../view/rotationGroupView/shiftview.h"
-    #include "../view/ressourceManagementView/equipmentview.h"
-    #include "../view/ressourceManagementView/transportationview.h"
-    #include "../view/ressourceManagementView/productview.h"
-    #include "../view/ressourceManagementView/ressourcemanagementview.h"
-    #include "../view/ressourceManagementView/bodymeasurementview.h"
-    #include "../view/ressourceManagementView/employeeview.h"
-    #include "../view/generalViews/settingsview.h"
-    #include "../view/generalViews/feedbackview.h"
+#include "../databaseHandler/dbhandler.h"
+#include "../view/navigation/viewcontroller.h"
+#include "../view/generalViews/mainmenu.h"
+#include "../view/generalViews/metadataview.h"
+#include "../view/workplaceView/activityview.h"
+#include "../view/workplaceView/commentview.h"
+#include "../view/workplaceView/lineview.h"
+#include "../view/workplaceView/workplacelistview.h"
+#include "../view/workplaceView/workplaceview.h"
+#include "../view/documentationView/documentationview.h"
+#include "../view/generalViews/analystselectionview.h"
+#include "../view/timerView/ganttimerview.h"
+#include "../view/rotationGroupView/shiftview.h"
+#include "../view/rotationGroupView/shiftcalendar.h"
+#include "../view/rotationGroupView/rotationgroupview.h"
+#include "../view/ressourceManagementView/equipmentview.h"
+#include "../view/ressourceManagementView/transportationview.h"
+#include "../view/ressourceManagementView/productview.h"
+#include "../view/ressourceManagementView/ressourcemanagementview.h"
+#include "../view/ressourceManagementView/bodymeasurementview.h"
+#include "../view/ressourceManagementView/employeeview.h"
+#include "../view/generalViews/settingsview.h"
+#include "../view/generalViews/feedbackview.h"
 #include <QSqlField>
 #include <QHash>
 
@@ -131,6 +133,8 @@ private:
     EmployeeView *employeeView;
     BodyMeasurementView *bodyMeasurementView;
     ShiftView *shiftView;
+    ShiftCalendar *shiftCalendarView;
+    RotationGroupView *rotationGroupView;
     SettingsView *settingsView;
 
     DocumentationView *documentationView;

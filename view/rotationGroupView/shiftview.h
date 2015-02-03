@@ -23,9 +23,11 @@ class ShiftView : public SimpleNavigateableWidget
 public:
     explicit ShiftView(QWidget *parent = 0);
 
-    bool canGoForward() const{
-        return false;
+    bool hasAdditionalNavigation() const {
+        return true;
     }
+
+    QList<QAbstractButton*> * getAdditionalNavigation() const;
 
     QString getType() const;
     QTime getStartTime() const;
@@ -41,6 +43,10 @@ private slots:
     void updateCalendarStart();
     void updateCalendarEnd();
     void updateShiftTimes(int type);
+
+    void btnAddBreakClicked();
+    void btnMoreRotationGroupsClicked();
+    void btnCalendarClicked();
 
 private:
     int id;
@@ -64,6 +70,7 @@ private:
     QScrollArea *scRotationGroups;
     QVBoxLayout *rotationGroupListLayout;
     QPushButton *btnMoreRotationGroups;
+    QPushButton *btnCalendar;
 
     const QStringList SHIFT_TEXTS = QStringList()<<(tr("early shift"))<<(tr("late shift"))<<(tr("night shift"))<<(tr("special shift"));
 };

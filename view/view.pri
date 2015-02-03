@@ -57,7 +57,8 @@ HEADERS +=\
     $$PWD/navigation/viewtype.h \
     $$PWD/generalViews/feedbackview.h \
     $$PWD/ressourceManagementView/bodymeasurementview.h \
-    $$PWD/ressourceManagementView/employeeview.h
+    $$PWD/ressourceManagementView/employeeview.h \
+    $$PWD/rotationGroupView/rotationgroupview.h
 
 
 SOURCES +=\
@@ -113,6 +114,7 @@ SOURCES +=\
     $$PWD/navigation/viewcontroller.cpp \
     $$PWD/generalViews/feedbackview.cpp \
     $$PWD/ressourceManagementView/bodymeasurementview.cpp \
-    $$PWD/ressourceManagementView/employeeview.cpp
+    $$PWD/ressourceManagementView/employeeview.cpp \
+    $$PWD/rotationGroupView/rotationgroupview.cpp
 
 

@@ -22,7 +22,8 @@ ShiftView::ShiftView(QWidget *parent) :
     rotationGroupListContent(new QWidget()),
     scRotationGroups(new QScrollArea()),
     rotationGroupListLayout(new QVBoxLayout()),
-    btnMoreRotationGroups(new QPushButton())
+    btnMoreRotationGroups(new QPushButton()),
+    btnCalendar(new QPushButton())
 {
     btnChooseEmployee->setFixedSize(45, 45);
     btnChooseEmployee->setObjectName("editIcon");
@@ -32,6 +33,13 @@ ShiftView::ShiftView(QWidget *parent) :
 
     btnMoreRotationGroups->setFixedSize(45, 45);
     btnMoreRotationGroups->setObjectName("editIcon");
+
+    btnCalendar->setFixedSize(45, 45);
+    btnCalendar->setObjectName("calendarIcon");
+
+    connect(btnCalendar, SIGNAL(clicked()), this, SLOT(btnCalendarClicked()));
+    connect(btnAddBreak, SIGNAL(clicked()), this, SLOT(btnAddBreakClicked()));
+    connect(btnMoreRotationGroups, SIGNAL(clicked()), this, SLOT(btnMoreRotationGroupsClicked()));
 
     connect(timeBxStart, SIGNAL(editingFinished()), this, SLOT(updateCalendarStart()));
     connect(timeBxEnd, SIGNAL(editingFinished()), this, SLOT(updateCalendarEnd()));
@@ -83,6 +91,12 @@ ShiftView::ShiftView(QWidget *parent) :
 }
 
 // PUBLIC
+QList<QAbstractButton*> * ShiftView::getAdditionalNavigation() const {
+    QList<QAbstractButton*> *additions = new QList<QAbstractButton*>();
+    additions->append(btnCalendar);
+    return additions;
+}
+
 QTime ShiftView::getStartTime() const{
     return timeBxStart->getValue();
 }
@@ -132,4 +146,16 @@ void ShiftView::updateShiftTimes(int type){
         setEndTime(QTime(0, 0));
         break;
     }
+}
+
+void ShiftView::btnAddBreakClicked(){
+
+}
+
+void ShiftView::btnCalendarClicked(){
+    emit show(ViewType::SHIFT_CALENDAR_VIEW);
+}
+
+void ShiftView::btnMoreRotationGroupsClicked(){
+    emit show(ViewType::ROTATION_GROUP_VIEW);
 }
