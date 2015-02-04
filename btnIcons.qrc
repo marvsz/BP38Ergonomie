@@ -25,14 +25,14 @@
 	<file>BodyPostureIcons/Arms/Twist/Upper_Arm/0.png</file>
 	<file>BodyPostureIcons/Arms/Twist/Upper_Arm/45.png</file>
 	<file>BodyPostureIcons/Arms/Twist/Upper_Arm/90.png</file>
-	<file>BodyPostureIcons/Head/flexion/-90.png</file>
-	<file>BodyPostureIcons/Head/flexion/-45.png</file>
-	<file>BodyPostureIcons/Head/flexion/0.png</file>
-	<file>BodyPostureIcons/Head/flexion/45.png</file>
-	<file>BodyPostureIcons/Head/flexion/90.png</file>
+	<file>BodyPostureIcons/Head/inclination/-90.png</file>
+	<file>BodyPostureIcons/Head/inclination/-45.png</file>
 	<file>BodyPostureIcons/Head/inclination/0.png</file>
-	<file>BodyPostureIcons/Head/inclination/20.png</file>
 	<file>BodyPostureIcons/Head/inclination/45.png</file>
+	<file>BodyPostureIcons/Head/inclination/90.png</file>
+	<file>BodyPostureIcons/Head/twist/0.png</file>
+	<file>BodyPostureIcons/Head/twist/20.png</file>
+	<file>BodyPostureIcons/Head/twist/45.png</file>
 	<file>BodyPostureIcons/Head/sidewise_inclination/0.png</file>
 	<file>BodyPostureIcons/Head/sidewise_inclination/20.png</file>
 	<file>BodyPostureIcons/Head/sidewise_inclination/45.png</file>
