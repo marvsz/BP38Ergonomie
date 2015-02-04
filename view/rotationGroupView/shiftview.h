@@ -56,6 +56,7 @@ private:
 
     QLabel *lblShiftData;
     QLabel *lblShiftType;
+    QLabel *lblShiftTimes;
     QLabel *lblStart;
     QLabel *lblEnd;
     QLabel *lblEmployee;

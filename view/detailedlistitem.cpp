@@ -4,7 +4,7 @@
 #include <QSpacerItem>
 #include <QDebug>
 
-DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, const QString &name, const QList<QStringList> &scheme, bool isDeletable, bool isCheckable, bool hasForwardLabel) :
+DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, const QString &name, const QList<QStringList> &scheme, bool isDeletable, bool isCheckable, bool hasForwardButton) :
     QAbstractButton(parent),
     isCheckable(isCheckable),
     isDeletable(isDeletable),
@@ -14,7 +14,7 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
     lblName(new QLabel(name)),
     btnDelete(new QPushButton()),
     checkBox(new QCheckBox()),
-    lblForward(new QLabel(">")),
+    btnForward(new QPushButton),
     listLblValues(QList<QList<QLabel*>>())
 {
 
@@ -38,8 +38,10 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
     checkBox->setDisabled(true);
     btnDelete->setFixedSize(45, 45);
     btnDelete->setObjectName("resetIcon");
-    lblForward->setFixedSize(45, 45);
+    btnForward->setFixedSize(45, 45);
+    btnForward->setObjectName("rightIcon");
     connect(btnDelete, SIGNAL(clicked()), this, SLOT(deleteItem()));
+    connect(btnForward, SIGNAL(clicked()), this, SLOT(itemPressed()));
 
     // ADD SCHEME (DESCRIPTIONS)
     for(int i = 0; i < scheme.count(); ++i){
@@ -79,8 +81,8 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
     else {
         layout->addItem(new QSpacerItem(50, 0), 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
     }
-    if(hasForwardLabel){
-        layout->addWidget(lblForward, 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
+    if(hasForwardButton){
+        layout->addWidget(btnForward, 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
     }
     else {
         layout->addItem(new QSpacerItem(50, 0), 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
@@ -89,7 +91,7 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
     mainLayout->addWidget(groupBox);
     setLayout(mainLayout);
 
-    connect(this, SIGNAL(pressed()), this, SLOT(itemPressed()));
+    connect(this, SIGNAL(clicked()), this, SLOT(itemPressed()));
 }
 
 void DetailedListItem::paintEvent(QPaintEvent *e){

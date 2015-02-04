@@ -2,7 +2,7 @@
 #include <QRegularExpressionValidator>
 #include <QDebug>
 
-const QRegularExpression DateLineEdit::regEx = QRegularExpression("^(((0?[0-9])|(1[0-9])|(2[0-9])|(3[0-1])).((0?[0-9])|(1[0-2])).([0-9][0-9][0-9][0-9]))?$");
+const QRegularExpression DateLineEdit::regEx = QRegularExpression("^(((0?[0-9])|(1[0-9])|(2[0-9])|(3[0-1]))[\\.|\\-|\\/]((0?[0-9])|(1[0-2]))[\\.|\\-|\\/]([0-9][0-9][0-9][0-9]))?$");
 
 DateLineEdit::DateLineEdit(QWidget *parent) :
     TextLineEdit(parent)
@@ -60,7 +60,7 @@ void DateLineEdit::updateText(){
 }
 
 void DateLineEdit::updateDate(){
-    QStringList dmy = this->text().split(".");
+    QStringList dmy = this->text().split(QRegularExpression("\\.|\\-|\\/"));
     if(dmy.length() == 3)
         currentDate = QDate(dmy.at(2).toInt(), dmy.at(1).toInt(), dmy.at(0).toInt());
 }

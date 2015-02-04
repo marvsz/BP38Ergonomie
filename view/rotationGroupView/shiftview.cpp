@@ -7,8 +7,9 @@ ShiftView::ShiftView(QWidget *parent) :
     oscShiftType(new OptionSelectionControl()),
     tsStart(new TimeSpinner(this)),
     tsEnd(new TimeSpinner(this)),
-    lblShiftData(new QLabel(tr("Shift data:"))),
+    lblShiftData(new QLabel(tr("Shift data"))),
     lblShiftType(new QLabel(tr("Shift Type:"))),
+    lblShiftTimes(new QLabel(tr("Shift times:"))),
     lblStart(new QLabel(tr("Begin:"))),
     lblEnd(new QLabel(tr("End:"))),
     lblAddBreak(new QLabel(tr("Add break:"))),
@@ -64,20 +65,21 @@ ShiftView::ShiftView(QWidget *parent) :
     mainLayout->addWidget(lblShiftType, 1, 0, 1, 4, Qt::AlignLeft);
     mainLayout->addWidget(oscShiftType, 2, 0, 1, 4, 0);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 3, 0, 1, 4, 0);
-    mainLayout->addWidget(lblStart, 4, 0, 1, 2, Qt::AlignCenter);
-    mainLayout->addWidget(lblEnd, 4, 2, 1, 2, Qt::AlignCenter);
-    mainLayout->addWidget(tsStart, 5, 0, 1, 2, Qt::AlignCenter);
-    mainLayout->addWidget(tsEnd, 5, 2, 1, 2, Qt::AlignCenter);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 6, 0, 1, 4, 0);
-    mainLayout->addWidget(lblAddBreak, 7, 0, 1, 4, Qt::AlignLeft);
-    mainLayout->addWidget(lblBreakDuration, 8, 0, 1, 1, Qt::AlignCenter);
-    mainLayout->addWidget(numBxBreakDuration, 8, 1, 2, 2, Qt::AlignLeft);
-    mainLayout->addWidget(btnAddBreak, 8, 3, 1, 1, Qt::AlignCenter);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 9, 0, 1, 4, 0);
-    mainLayout->addWidget(lblAddRotationGroup, 10, 0, 1, 4, 0);
-    mainLayout->addWidget(scRotationGroups, 11, 0, 1, 4, 0);
-    mainLayout->addWidget(btnMoreRotationGroups, 12, 0, 1, 4, Qt::AlignCenter);
-    mainLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 15, 0, 1, 4, 0);
+    mainLayout->addWidget(lblShiftTimes, 4, 0, 1, 1, Qt::AlignLeft);
+    mainLayout->addWidget(lblStart, 5, 0, 1, 2, Qt::AlignCenter);
+    mainLayout->addWidget(lblEnd, 5, 2, 1, 2, Qt::AlignCenter);
+    mainLayout->addWidget(tsStart, 6, 0, 1, 2, Qt::AlignCenter);
+    mainLayout->addWidget(tsEnd, 6, 2, 1, 2, Qt::AlignCenter);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 7, 0, 1, 4, 0);
+    mainLayout->addWidget(lblAddBreak, 8, 0, 1, 4, Qt::AlignLeft);
+    mainLayout->addWidget(lblBreakDuration, 9, 0, 1, 1, Qt::AlignCenter);
+    mainLayout->addWidget(numBxBreakDuration, 9, 1, 2, 2, Qt::AlignLeft);
+    mainLayout->addWidget(btnAddBreak, 9, 3, 1, 1, Qt::AlignCenter);
+    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 10, 0, 1, 4, 0);
+    mainLayout->addWidget(lblAddRotationGroup, 11, 0, 1, 4, 0);
+    mainLayout->addWidget(scRotationGroups, 12, 0, 1, 4, 0);
+    mainLayout->addWidget(btnMoreRotationGroups, 13, 0, 1, 4, Qt::AlignCenter);
+    mainLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 14, 0, 1, 4, 0);
 
     setLayout(mainLayout);
     setStartTime(QTime(6,0));
