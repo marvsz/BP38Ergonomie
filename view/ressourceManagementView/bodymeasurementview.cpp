@@ -13,11 +13,11 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWi
     vcForearmLength(new ValueControl(VALUE)),
     vcHandLength(new ValueControl(VALUE)),
     vcTorsoHeight(new ValueControl(VALUE)),
-    lblHeadNeck(new QLabel(tr("Head and neck"))),
-    lblUpperBody(new QLabel(tr("Upper part of the body"))),
-    lblArmsHands(new QLabel(tr("Arms and hands"))),
-    lblLowerBody(new QLabel(tr("Lower part of the body"))),
-    lblSelectBodyPart(new QLabel(tr("Tap to select body part"))),
+    lblHeadNeck(new QLabel(tr("Head and neck:"))),
+    lblUpperBody(new QLabel(tr("Upper part of the body:"))),
+    lblArmsHands(new QLabel(tr("Arms and hands:"))),
+    lblLowerBody(new QLabel(tr("Lower part of the body:"))),
+    lblSelectBodyPart(new QLabel(tr("Tap to select body part:"))),
     head(new QWidget()),
     torso(new QWidget()),
     arms(new QWidget()),
@@ -136,12 +136,13 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWi
     leftLayout->setSpacing(0);
     leftLayout->setContentsMargins(0, 0, 0, 0);
     leftLayout->addWidget(lblSelectBodyPart, 0, 0, 1, 3, Qt::AlignLeft);
-    leftLayout->addWidget(btnHead, 1, 0, 1, 3, Qt::AlignBottom);
-    leftLayout->addWidget(btnArmLeft, 2, 0, 1, 1, 0);
-    leftLayout->addWidget(btnTorso, 2, 1, 1, 1, 0);
-    leftLayout->addWidget(btnArmRight, 2, 2, 1, 1, 0);
-    leftLayout->addWidget(btnLegs, 3, 0, 1, 3, Qt::AlignTop);
-    leftLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 4, 0, 1, 3, 0);
+    leftLayout->addItem(new QSpacerItem(0, 30, QSizePolicy::Fixed, QSizePolicy::Fixed), 1, 0, 1, 3, 0);
+    leftLayout->addWidget(btnHead, 2, 0, 1, 3, Qt::AlignBottom);
+    leftLayout->addWidget(btnArmLeft, 3, 0, 1, 1, 0);
+    leftLayout->addWidget(btnTorso, 3, 1, 1, 1, 0);
+    leftLayout->addWidget(btnArmRight, 3, 2, 1, 1, 0);
+    leftLayout->addWidget(btnLegs, 4, 0, 1, 3, Qt::AlignTop);
+    leftLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 5, 0, 1, 3, 0);
 
     QHBoxLayout *splitLayout = new QHBoxLayout;
     splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
@@ -156,10 +157,10 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWi
 }
 
 void BodyMeasurementView::btnHeadClicked(){
-    head->show();
     torso->hide();
     arms->hide();
     legs->hide();
+    head->show();
     btnHead->setSelected(true);
     btnArmLeft->setSelected(false);
     btnArmRight->setSelected(false);
@@ -169,9 +170,9 @@ void BodyMeasurementView::btnHeadClicked(){
 
 void BodyMeasurementView::btnTorsoClicked(){
     head->hide();
-    torso->show();
     arms->hide();
     legs->hide();
+    torso->show();
     btnHead->setSelected(false);
     btnArmLeft->setSelected(false);
     btnArmRight->setSelected(false);

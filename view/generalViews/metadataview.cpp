@@ -49,9 +49,7 @@ MetaDataView::MetaDataView(QWidget *parent) :
     txtBxFactoryEmployeeCount->setPlaceholderText(tr("count"));
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    QHBoxLayout *corporationLayout = new QHBoxLayout;
-    QHBoxLayout *branchOfIndustryLayout = new QHBoxLayout;
-    QGridLayout *factoryLayout = new QGridLayout;
+    QGridLayout *upperLayout = new QGridLayout;
     QHBoxLayout *recordingLayout = new QHBoxLayout;
     QVBoxLayout *beginLayout = new QVBoxLayout;
     QVBoxLayout *endLayout = new QVBoxLayout;
@@ -63,35 +61,40 @@ MetaDataView::MetaDataView(QWidget *parent) :
 
     txtBxBoIDescription->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 
+    upperLayout->addWidget(lblCorporation, 0, 0, 1, 3, 0);
+    upperLayout->addWidget(lblCorpName, 1, 0, 1, 1, 0);
+    upperLayout->addWidget(txtBxCorpName, 1, 1, 1, 1, 0);
+    upperLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 2, 0, 1, 9, 0);
+    upperLayout->addItem(new QSpacerItem(0, 50, QSizePolicy::Fixed, QSizePolicy::Fixed), 3, 0, 1, 9, 0);
+    upperLayout->addWidget(lblBranchOfIndustry, 4, 0, 1, 3, 0);
+    upperLayout->addWidget(lblBoIName, 5, 0, 1, 1, 0);
+    upperLayout->addWidget(txtBxBoIName, 5, 1, 1, 1, 0);
+    upperLayout->addItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed), 5, 2, 1, 1, 0);
+    upperLayout->addWidget(lblBoIDescription, 5, 3, 1, 1, 0);
+    upperLayout->addWidget(txtBxBoIDescription, 5, 4, 1, 4, 0);
+    upperLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 6, 0, 1, 9, 0);
+    upperLayout->addItem(new QSpacerItem(0, 50, QSizePolicy::Fixed, QSizePolicy::Fixed), 7, 0, 1, 9, 0);
+    upperLayout->addWidget(lblFactory, 8, 0, 1, 3, 0);
+    upperLayout->addWidget(lblFactoryName, 9, 0, 1, 1, 0);
+    upperLayout->addWidget(txtBxFactoryName, 9, 1, 1, 1, 0);
+    upperLayout->addWidget(lblFactoryStreet, 10, 0, 1, 1, 0);
+    upperLayout->addWidget(txtBxFactoryStreet, 10, 1, 1, 1, 0);
+    upperLayout->addItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed), 10, 2, 1, 1, 0);
+    upperLayout->addWidget(lblFactoryZip, 10, 3, 1, 1, 0);
+    upperLayout->addWidget(txtBxFactoryZip, 10, 4, 1, 1, 0);
+    upperLayout->addItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed), 10, 5, 1, 1, 0);
+    upperLayout->addWidget(lblFactoryCity, 10, 6, 1, 1, 0);
+    upperLayout->addWidget(txtBxFactoryCity, 10, 7, 1, 1, 0);
+    upperLayout->addWidget(lblFactoryCountry, 11, 0, 1, 1, 0);
+    upperLayout->addWidget(txtBxFactoryCountry, 11, 1, 1, 1, 0);
+    upperLayout->addItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed), 11, 2, 1, 1, 0);
+    upperLayout->addWidget(lblFactoryContact, 11, 3, 1, 1, 0);
+    upperLayout->addWidget(txtBxFactoryContact, 11, 4, 1, 1, 0);
+    upperLayout->addItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed), 11, 5, 1, 1, 0);
+    upperLayout->addWidget(lblFactoryEmployeeCount, 11, 6, 1, 1, 0);
+    upperLayout->addWidget(txtBxFactoryEmployeeCount, 11, 7, 1, 1, 0);
 
-    corporationLayout->addWidget(lblCorpName);
-    corporationLayout->addWidget(txtBxCorpName);
-    corporationLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
 
-    branchOfIndustryLayout->addWidget(lblBoIName);
-    branchOfIndustryLayout->addWidget(txtBxBoIName);
-    branchOfIndustryLayout->addSpacerItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed));
-    branchOfIndustryLayout->addWidget(lblBoIDescription);
-    branchOfIndustryLayout->addWidget(txtBxBoIDescription);
-
-    factoryLayout->addWidget(lblFactoryName, 0, 0, 1, 1, 0);
-    factoryLayout->addWidget(txtBxFactoryName, 0, 1, 1, 3, 0);
-    factoryLayout->addWidget(lblFactoryStreet, 1, 0, 1, 1, 0);
-    factoryLayout->addWidget(txtBxFactoryStreet, 1, 1, 1, 1, 0);
-    factoryLayout->addItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed), 1, 2, 1, 1, 0);
-    factoryLayout->addWidget(lblFactoryZip, 1, 3, 1, 1, 0);
-    factoryLayout->addWidget(txtBxFactoryZip, 1, 4, 1, 1, 0);
-    factoryLayout->addItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed), 1, 5, 1, 1, 0);
-    factoryLayout->addWidget(lblFactoryCity, 1, 6, 1, 1, 0);
-    factoryLayout->addWidget(txtBxFactoryCity, 1, 7, 1, 1, 0);
-    factoryLayout->addWidget(lblFactoryCountry, 2, 0, 1, 1, 0);
-    factoryLayout->addWidget(txtBxFactoryCountry, 2, 1, 1, 1, 0);
-    factoryLayout->addItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed), 2, 2, 1, 1, 0);
-    factoryLayout->addWidget(lblFactoryContact, 2, 3, 1, 1, 0);
-    factoryLayout->addWidget(txtBxFactoryContact, 2, 4, 1, 1, 0);
-    factoryLayout->addItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed), 2, 5, 1, 1, 0);
-    factoryLayout->addWidget(lblFactoryEmployeeCount, 2, 6, 1, 1, 0);
-    factoryLayout->addWidget(txtBxFactoryEmployeeCount, 2, 7, 1, 1, 0);
 
     beginLayout->addWidget(lblRecordingDateTimeBegin, 0, Qt::AlignCenter);
     beginLayout->addWidget(dteRecordingTimeBegin, 0, Qt::AlignCenter);
@@ -105,16 +108,7 @@ MetaDataView::MetaDataView(QWidget *parent) :
     recordingLayout->addLayout(endLayout);
     recordingLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
 
-    mainLayout->addWidget(lblCorporation);
-    mainLayout->addLayout(corporationLayout);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
-
-    mainLayout->addWidget(lblBranchOfIndustry);
-    mainLayout->addLayout(branchOfIndustryLayout);
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
-
-    mainLayout->addWidget(lblFactory);
-    mainLayout->addLayout(factoryLayout);
+    mainLayout->addLayout(upperLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
 
     mainLayout->addWidget(lblRecordingDateTime);
