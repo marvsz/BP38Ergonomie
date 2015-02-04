@@ -1,14 +1,5 @@
 #include "documentationview.h"
 #include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QIcon>
-#include <QUrl>
-#include <QList>
-#include <QStringList>
-#include "loadhandlingview.h"
-#include "appliedforceview.h"
-#include "executionconditionview.h"
 #include "separator.h"
 
 /**
@@ -24,7 +15,7 @@ DocumentationView::DocumentationView(QWidget *parent) :
     views(new QComboBox()),
     mainContent(new QStackedWidget),
     mainLayout(new QVBoxLayout),
-    viewTypeToWidget(new QHash<ViewType, DocumentationViewNavigateableWidget*>()),
+    viewTypeToWidget(new QHash<ViewType, TitledWidget*>()),
     viewTypeToIndex(new QHash<ViewType, int>())
 {
     views->setMinimumSize(280, 40);
@@ -36,7 +27,6 @@ DocumentationView::DocumentationView(QWidget *parent) :
 }
 
 // PUBLIC
-
 void DocumentationView::showStartView(ViewType type){
     if(viewTypeToIndex->contains(type)){
         currentView = type;
@@ -44,7 +34,7 @@ void DocumentationView::showStartView(ViewType type){
     }
 }
 
-void DocumentationView::registerView(DocumentationViewNavigateableWidget *widget, ViewType type){
+void DocumentationView::registerView(TitledWidget *widget, ViewType type){
     if(!viewTypeToIndex->contains(type) && widget != 0){
         viewTypeToIndex->insert(type, mainContent->addWidget(widget));
         views->addItem(widget->getTitle(), type);
@@ -65,6 +55,11 @@ void DocumentationView::setTimerViewController(TimerViewController *timerViewCon
 
         registeredTimerViewController = true;
     }
+}
+
+// PUBLIC SLOTS
+void DocumentationView::onLeaving(){
+    timerViewController->closeTimerView();
 }
 
 // PRIVATE SLOTS

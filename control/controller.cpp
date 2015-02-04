@@ -86,10 +86,6 @@ Controller::Controller(QObject *parent) :
     connect(workplaceListView, SIGNAL(create()), this, SLOT(createWorkplace()));
     connect(workplaceListView, SIGNAL(selected(int)), this, SLOT(updateWorkplaceView(int)));
 
-    connect(workplaceView, SIGNAL(save()), this, SLOT(saveWorkplaceView()));
-
-    connect(commentView, SIGNAL(save()), this, SLOT(saveComment()));
-
     connect(lineView, SIGNAL(saveLine()), this, SLOT(saveLine()));
     connect(lineView, SIGNAL(saveSelectedLine(int)), SLOT(saveSelectedLine(int)));
     connect(lineView, SIGNAL(deleteLine(int)), SLOT(deleteLine(int)));

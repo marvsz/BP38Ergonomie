@@ -98,7 +98,10 @@ void ViewController::btnForwardClicked(){
 
 void ViewController::goToView(ViewType type){
     if(viewTypeToIndex->contains(type)){
-        emit save(previousViews->top());
+        ViewType currentView = previousViews->top();
+        viewTypeToWidget->value(currentView)->onLeaving();
+        emit save(currentView);
+        viewTypeToWidget->value(type)->onEnter();
         emit update(type);
         content->setCurrentIndex(viewTypeToIndex->value(type));
         previousViews->push(type);
@@ -108,6 +111,7 @@ void ViewController::goToView(ViewType type){
 
 void ViewController::backToView(ViewType type){
     if((viewTypeToIndex->contains(type) && previousViews->contains(type)) || type == ViewType::UNKNOWN){
+        viewTypeToWidget->value(previousViews->top())->onLeaving();
         emit save(previousViews->top());
         if(type == ViewType::UNKNOWN){
             previousViews->pop();
@@ -117,6 +121,7 @@ void ViewController::backToView(ViewType type){
                 previousViews->pop();
         }
         ViewType nextType = previousViews->top();
+        viewTypeToWidget->value(nextType)->onEnter();
         emit update(nextType);
         content->setCurrentIndex(viewTypeToIndex->value(nextType));
         adaptNavigationBar(nextType);
@@ -141,7 +146,6 @@ void ViewController::btnFeedbackClicked(){
 //PRIVATE METHODS
 void ViewController::adaptNavigationBar(ViewType type){
     NavigateableWidget *currentWidget = viewTypeToWidget->value(type);
-
     if(currentWidget->canGoBack()){
         btnBack->show();
         ViewType backType = currentWidget->getBackViewType();

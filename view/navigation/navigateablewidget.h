@@ -1,26 +1,20 @@
 #ifndef NAVIGATABELWIDGET_H
 #define NAVIGATABELWIDGET_H
 
-//#include <QWidget>
+#include "titledwidget.h"
 #include <QAbstractButton>
 #include <QList>
-#include "viewtype.h"
 
-class NavigateableWidget : public QWidget
+class NavigateableWidget : public TitledWidget
 {
     Q_OBJECT
 public:
-    explicit NavigateableWidget(const QString &title, QWidget *parent = 0) : QWidget(parent),
-        title(title){
+    explicit NavigateableWidget(const QString &title, QWidget *parent = 0) : TitledWidget(title, parent){
 
     }
 
     ~NavigateableWidget(){
 
-    }
-
-    const QString getTitle() const{
-        return title;
     }
 
     virtual ViewType getBackViewType() const = 0;
@@ -33,15 +27,9 @@ public:
     virtual bool hasInteralNavigation() const = 0;
     virtual bool hasAdditionalNavigation() const = 0;
 
-signals:
-    void show(ViewType type);
-
 public slots:
-
-private:
-    const QString title;
-
-
+    virtual void onLeaving() = 0;
+    virtual void onEnter() = 0;
 };
 
 #endif // NAVIGATABELWIDGET_H

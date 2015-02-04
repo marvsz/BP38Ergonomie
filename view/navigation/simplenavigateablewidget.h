@@ -44,6 +44,11 @@ public:
     bool canGoForward() const{
         return false;
     }
+public slots:
+    void onLeaving(){
+    }
+    void onEnter(){
+    }
 
 };
 

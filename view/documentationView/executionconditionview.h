@@ -1,12 +1,12 @@
 #ifndef EXECUTIONCONDITIONVIEW_H
 #define EXECUTIONCONDITIONVIEW_H
 
-#include "../view/navigation/documentationviewnavigateablewidget.h"
+#include "../view/navigation/titledwidget.h"
 #include <QLabel>
 #include "slidercontrol.h"
 #include "optionselectioncontrol.h"
 
-class ExecutionConditionView : public DocumentationViewNavigateableWidget
+class ExecutionConditionView : public TitledWidget
 {
     Q_OBJECT
 public:

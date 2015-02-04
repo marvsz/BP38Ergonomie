@@ -8,7 +8,7 @@
 
 
 WorkProcessMetaDataView::WorkProcessMetaDataView(QWidget *parent) :
-    DocumentationViewNavigateableWidget(tr("Meta data"), parent),
+    TitledWidget(tr("Meta data"), parent),
     lblDescription(new QLabel(tr("Description:"))),
     lblWorkingHeight(new QLabel(tr("Working height [cm]:"))),
     lblDistance(new QLabel(tr("Distance [cm]:"))),

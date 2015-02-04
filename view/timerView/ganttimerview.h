@@ -1,7 +1,7 @@
 #ifndef GANTTIMERVIEW_H
 #define GANTTIMERVIEW_H
 
-#include "../view/navigation/documentationviewnavigateablewidget.h"
+#include "../view/navigation/titledwidget.h"
 #include <QPushButton>
 #include <QLabel>
 #include <QHBoxLayout>
@@ -12,7 +12,7 @@
 #include "spaceritemtimer.h"
 #include "../enum.h"
 
-class GantTimerView : public DocumentationViewNavigateableWidget
+class GantTimerView : public TitledWidget
 {
     Q_OBJECT
 public:

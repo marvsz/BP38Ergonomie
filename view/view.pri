@@ -59,8 +59,9 @@ HEADERS +=\
     $$PWD/ressourceManagementView/bodymeasurementview.h \
     $$PWD/ressourceManagementView/employeeview.h \
     $$PWD/rotationGroupView/rotationgroupview.h \
-    $$PWD/navigation/documentationviewnavigateablewidget.h \
-    $$PWD/datelineedit.h
+    $$PWD/datelineedit.h \
+    $$PWD/navigation/abstractpopupwidget.h \
+    $$PWD/navigation/titledwidget.h
 
 
 SOURCES +=\
@@ -118,6 +119,7 @@ SOURCES +=\
     $$PWD/ressourceManagementView/bodymeasurementview.cpp \
     $$PWD/ressourceManagementView/employeeview.cpp \
     $$PWD/rotationGroupView/rotationgroupview.cpp \
-    $$PWD/datelineedit.cpp
+    $$PWD/datelineedit.cpp \
+    $$PWD/navigation/abstractpopupwidget.cpp
 
 

@@ -16,7 +16,7 @@
  * The new widget is deleted when its parent is deleted.
  */
 LoadHandlingView::LoadHandlingView(QWidget *parent) :
-    DocumentationViewNavigateableWidget(tr("Load handling"), parent),
+    TitledWidget(tr("Load handling"), parent),
     selectedTransportation_ID(0)
 {
 

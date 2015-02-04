@@ -2,7 +2,6 @@
 #define DOCUMENTATIONVIEW_H
 
 #include "../view/navigation/simplenavigateablewidget.h"
-#include "../view/navigation/documentationviewnavigateablewidget.h"
 #include <QStackedWidget>
 #include <QComboBox>
 #include <QHash>
@@ -34,12 +33,15 @@ public:
 
     void showStartView(ViewType type);
 
-    void registerView(DocumentationViewNavigateableWidget *widget, ViewType type);
+    void registerView(TitledWidget *widget, ViewType type);
     void setTimerViewController(TimerViewController *timerViewController);
 
 signals:
     void update(ViewType type);
     void save(ViewType type);
+
+public slots:
+    void onLeaving();
 
 private slots:
     void showGant();
@@ -56,7 +58,7 @@ private:
 
     TimerViewController *timerViewController;
 
-    QHash<ViewType, DocumentationViewNavigateableWidget*> *viewTypeToWidget;
+    QHash<ViewType, TitledWidget*> *viewTypeToWidget;
     QHash<ViewType, int> *viewTypeToIndex;
     ViewType currentView;
 };

@@ -1,7 +1,7 @@
 #ifndef BODYPOSTUREVIEW_H
 #define BODYPOSTUREVIEW_H
 
-#include "../view/navigation/documentationviewnavigateablewidget.h"
+#include "../view/navigation/titledwidget.h"
 #include <QVector>
 #include "variantspecification.h"
 #include "variantcontrol.h"
@@ -12,7 +12,8 @@
 #include "../databaseHandler/dbconstants.h"
 
 
-class BodyPostureView : public DocumentationViewNavigateableWidget{
+class BodyPostureView : public TitledWidget
+{
 
     Q_OBJECT
 public:

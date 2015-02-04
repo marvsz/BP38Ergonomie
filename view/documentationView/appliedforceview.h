@@ -1,13 +1,13 @@
 #ifndef ACTIONFORCEVIEW_H
 #define ACTIONFORCEVIEW_H
 
-#include "../view/navigation/documentationviewnavigateablewidget.h"
+#include "../view/navigation/titledwidget.h"
 #include <QScrollArea>
 #include <QVector>
 #include <QString>
 #include "valuecontrol.h"
 
-class AppliedForceView : public DocumentationViewNavigateableWidget
+class AppliedForceView : public TitledWidget
 {
     Q_OBJECT
 public:
