@@ -24,6 +24,15 @@ public:
 
 signals:
     void show(ViewType type);
+    void showPopUp(PopUpType type);
+
+public slots:
+    virtual void onLeaving(){
+    }
+
+    virtual void onEnter(){
+
+    }
 
 private:
     const QString title;

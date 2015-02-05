@@ -2,7 +2,9 @@
 #define VIEWCONTROLLER_H
 
 #include <QStackedWidget>
+#include <QStackedLayout>
 #include "navigateablewidget.h"
+#include "abstractpopupwidget.h"
 #include <QStack>
 #include <QHash>
 #include <QSet>
@@ -21,6 +23,8 @@ public:
 
     void registerView(NavigateableWidget *widget, ViewType type);
 
+    void registerPopUp(AbstractPopUpWidget *popUp, PopUpType type);
+
 signals:
     void update(ViewType type);
     void save(ViewType type);
@@ -33,12 +37,18 @@ private slots:
     void goToView(ViewType type);
     void backToView(ViewType type);
 
+    void showPopUp(PopUpType type);
+    void closePopUp();
+
     void btnFeedbackClicked();
 private:
+    QStackedLayout *popUpLayout;
     QStackedWidget *content;
     QStack<ViewType> *previousViews;
     QHash<ViewType, int> *viewTypeToIndex;
     QHash<ViewType, NavigateableWidget*> *viewTypeToWidget;
+    QHash<PopUpType, AbstractPopUpWidget*> *popUpTypeToWidget;
+    PopUpType currentPopUp;
 
     QPushButton *btnBack;
     QPushButton *btnForward;

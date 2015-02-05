@@ -1,7 +1,7 @@
 #ifndef FEEDBACKVIEW_H
 #define FEEDBACKVIEW_H
 
-#include "navigation/simplenavigateablewidget.h"
+#include "navigation/abstractpopupwidget.h"
 #include <QPushButton>
 #include <QLabel>
 #include <QComboBox>
@@ -9,28 +9,38 @@
 #include "textlineedit.h"
 #include "textedit.h"
 
-class FeedbackView : public SimpleNavigateableWidget
+class FeedbackView : public AbstractPopUpWidget
 {
     Q_OBJECT
 public:
     explicit FeedbackView(QWidget *parent = 0);
     ~FeedbackView();
 
-    void reset();
-    void setScreenshotPath(const QString &path);
-    void setLoggingPath(const QString &path);
-    void setViewName(const QString &name);
-signals:
+    int getPriority() const{
+        return cmbBxPriority->currentData().toInt();
+    }
+
+    QString getCategory() const{
+        return cmbBxCategory->currentData().toString();
+    }
+
+    QString getDescription() const{
+        return txtBxDescription->toPlainText();
+    }
+
+    bool getAttachScreenshot() const{
+        return chbxScreenshot->isChecked();
+    }
 
 public slots:
+    void onEnter();
+
+protected:
+    ConfirmMode getConfirmMode() const{
+        return ConfirmMode::SEND;
+    }
 
 private:
-    QString screenshotPath;
-    QString loggingPath;
-    QString viewName;
-
-    QPushButton *btnSend;
-
     QLabel *lblViewName;
     TextLineEdit *txtBxViewName;
     QLabel *lblScreenshot;

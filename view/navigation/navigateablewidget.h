@@ -27,9 +27,7 @@ public:
     virtual bool hasInteralNavigation() const = 0;
     virtual bool hasAdditionalNavigation() const = 0;
 
-public slots:
-    virtual void onLeaving() = 0;
-    virtual void onEnter() = 0;
+
 };
 
 #endif // NAVIGATABELWIDGET_H

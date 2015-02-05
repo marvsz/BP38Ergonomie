@@ -58,7 +58,6 @@ Controller::Controller(QObject *parent) :
     viewCon->registerView(mainMenuView, ViewType::MAIN_MENU_VIEW);
     viewCon->registerView(metaDataView, ViewType::METADATA_VIEW);
     viewCon->registerView(workplaceListView, ViewType::WORKPLACELIST_VIEW);
-    viewCon->registerView(feedbackView, ViewType::FEEDBACK_VIEW);
     viewCon->registerView(settingsView, ViewType::SETTINGS_VIEW);
     viewCon->registerView(activityView, ViewType::ACTIVITY_VIEW);
     viewCon->registerView(commentView, ViewType::COMMENT_VIEW);
@@ -74,6 +73,8 @@ Controller::Controller(QObject *parent) :
     viewCon->registerView(employeeView, ViewType::EMPLOYEE_VIEW);
     viewCon->registerView(bodyMeasurementView, ViewType::BODY_MEASUREMENT_VIEW);
     viewCon->registerView(documentationView, ViewType::DOCUMENTATION_VIEW);
+
+    viewCon->registerPopUp(feedbackView, PopUpType::FEEDBACK_POPUP);
 
     connect(viewCon, SIGNAL(update(ViewType)), this, SLOT(update(ViewType)));
     connect(viewCon, SIGNAL(save(ViewType)), this, SLOT(save(ViewType)));

@@ -4,16 +4,17 @@
 #include "../standardpaths.h"
 #include "../view/generalViews/feedbackview.h"
 #include <QVBoxLayout>
-#include <QDebug>
 #include <QDir>
 #include <QDateTime>
 #include <QTime>
 
 ViewController::ViewController(QWidget *parent) : QWidget(parent),
+    popUpLayout(new QStackedLayout),
     content(new QStackedWidget()),
     previousViews(new QStack<ViewType>()),
     viewTypeToIndex(new QHash<ViewType, int>()),
     viewTypeToWidget(new QHash<ViewType, NavigateableWidget*>()),
+    popUpTypeToWidget(new QHash<PopUpType, AbstractPopUpWidget*>()),
     btnBack(new QPushButton),
     btnForward(new QPushButton),
     btnFeedback(new QPushButton),
@@ -56,7 +57,10 @@ ViewController::ViewController(QWidget *parent) : QWidget(parent),
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3));
     mainLayout->addWidget(content);
-    setLayout(mainLayout);
+    QWidget *mainContent = new QWidget();
+    mainContent->setLayout(mainLayout);
+    popUpLayout->setStackingMode(QStackedLayout::StackAll);
+    popUpLayout->addWidget(mainContent);
 }
 
 ViewController::~ViewController()
@@ -80,6 +84,14 @@ void ViewController::registerView(NavigateableWidget *widget, ViewType type){
         viewTypeToIndex->insert(type, content->addWidget(widget));
         viewTypeToWidget->insert(type, widget);
         connect(widget, SIGNAL(show(ViewType)), this, SLOT(goToView(ViewType)));
+        connect(widget, SIGNAL(showPopUp(PopUpType)), this, SLOT(showPopUp(PopUpType)));
+    }
+}
+
+void ViewController::registerPopUp(AbstractPopUpWidget *popUp, PopUpType type){
+    if(!popUpTypeToWidget->contains(type) && popUp != 0){
+        popUpTypeToWidget->insert(type, popUp);
+        connect(popUp, SIGNAL(close()), this, SLOT(closePopUp()));
     }
 }
 
@@ -128,19 +140,29 @@ void ViewController::backToView(ViewType type){
     }
 }
 
+void ViewController::showPopUp(PopUpType type){
+    if(popUpTypeToWidget->contains(type)){
+        AbstractPopUpWidget *popUp = popUpTypeToWidget->value(type);
+        popUp->onEnter();
+        popUpLayout->insertWidget(1, popUp);
+        popUpLayout->setCurrentIndex(1);
+        currentPopUp = type;
+    }
+}
+
+void ViewController::closePopUp(){
+    popUpLayout->setCurrentIndex(0);
+    popUpTypeToWidget->value(currentPopUp)->onLeaving();
+}
+
 void ViewController::btnFeedbackClicked(){
     QPixmap pixmap(this->size());
     this->render(&pixmap);
-    QString fileName = QString("%1%2.png").arg(StandardPaths::SCREENSHOT_PATH).arg(QDateTime().currentDateTime().toString("ddMMyyyy_hhmmss"));
+    QString fileName = QString("%1%2.png").arg(StandardPaths::SCREENSHOT_PATH).arg("screenshot");
     if(!QDir(StandardPaths::SCREENSHOT_PATH).exists())
         QDir().mkdir(StandardPaths::SCREENSHOT_PATH);
     pixmap.save(fileName);
-    FeedbackView *fView = qobject_cast<FeedbackView*>(viewTypeToWidget->value(ViewType::FEEDBACK_VIEW));
-    fView->reset();
-    fView->setScreenshotPath(fileName);
-    NavigateableWidget *currentWidget = viewTypeToWidget->value(previousViews->top());
-    fView->setViewName(currentWidget->getTitle());
-    goToView(ViewType::FEEDBACK_VIEW);
+    showPopUp(PopUpType::FEEDBACK_POPUP);
 }
 
 //PRIVATE METHODS
