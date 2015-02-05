@@ -61,7 +61,8 @@ HEADERS +=\
     $$PWD/rotationGroupView/rotationgroupview.h \
     $$PWD/datelineedit.h \
     $$PWD/navigation/abstractpopupwidget.h \
-    $$PWD/navigation/titledwidget.h
+    $$PWD/navigation/titledwidget.h \
+    $$PWD/rotationGroupView/rotationgrouplistview.h
 
 
 SOURCES +=\
@@ -120,6 +121,7 @@ SOURCES +=\
     $$PWD/ressourceManagementView/employeeview.cpp \
     $$PWD/rotationGroupView/rotationgroupview.cpp \
     $$PWD/datelineedit.cpp \
-    $$PWD/navigation/abstractpopupwidget.cpp
+    $$PWD/navigation/abstractpopupwidget.cpp \
+    $$PWD/rotationGroupView/rotationgrouplistview.cpp
 
 

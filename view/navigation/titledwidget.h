@@ -23,6 +23,7 @@ public:
     }
 
 signals:
+<<<<<<< HEAD
     void show(ViewType type);
     void showPopUp(PopUpType type);
 
@@ -33,6 +34,9 @@ public slots:
     virtual void onEnter(){
 
     }
+=======
+    void showView(ViewType type);
+>>>>>>> origin/Unstable
 
 private:
     const QString title;

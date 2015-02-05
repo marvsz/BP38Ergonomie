@@ -9,8 +9,8 @@
 
 DBHandler::DBHandler()
 {
-    QFileInfo databaseFileInfo = QFileInfo(StandardPaths::DATABASE_PATH);
-    QString databaseOriginPath = StandardPaths::ORIGIN_DATABASE_PATH;
+    QFileInfo databaseFileInfo = QFileInfo(StandardPaths::databasePath());
+    QString databaseOriginPath = StandardPaths::originDatabasePath();
     QString databasePath = databaseFileInfo.absoluteFilePath();
 
     if ( !databaseFileInfo.exists() ){

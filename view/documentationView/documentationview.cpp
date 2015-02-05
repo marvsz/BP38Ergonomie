@@ -39,7 +39,7 @@ void DocumentationView::registerView(TitledWidget *widget, ViewType type){
         viewTypeToIndex->insert(type, mainContent->addWidget(widget));
         views->addItem(widget->getTitle(), type);
         viewTypeToWidget->insert(type, widget);
-        connect(widget, SIGNAL(show(ViewType)), this, SIGNAL(show(ViewType)));
+        connect(widget, SIGNAL(showView(ViewType)), this, SIGNAL(showView(ViewType)));
     }
 }
 

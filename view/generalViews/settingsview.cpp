@@ -19,5 +19,5 @@ SettingsView::SettingsView(QWidget *parent) :
 
 void SettingsView::btnResetClicked(){
     emit resetDatabase();
-    emit show(ViewType::ANALYST_SELECTION_VIEW);
+    emit showView(ViewType::ANALYST_SELECTION_VIEW);
 }

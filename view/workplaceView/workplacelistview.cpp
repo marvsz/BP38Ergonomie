@@ -65,10 +65,10 @@ QList<QAbstractButton*> * WorkplaceListView::getAdditionalNavigation() const{
 //PRIVATE SLOTS
 void WorkplaceListView::btnPlusClicked(){
     emit create();
-    emit show(ViewType::WORKPLACE_VIEW);
+    emit showView(ViewType::WORKPLACE_VIEW);
 }
 
 void WorkplaceListView::dliWorkplaceClicked(int id){
     emit selected(id);
-    emit show(ViewType::WORKPLACE_VIEW);
+    emit showView(ViewType::WORKPLACE_VIEW);
 }
