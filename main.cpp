@@ -30,6 +30,5 @@ int main(int argc, char *argv[])
 
     Controller c;
 
-
     return a.exec();
 }

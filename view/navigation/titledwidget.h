@@ -23,7 +23,7 @@ public:
     }
 
 signals:
-    void show(ViewType type);
+    void showView(ViewType type);
 
 private:
     const QString title;

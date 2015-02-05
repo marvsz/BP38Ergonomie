@@ -74,7 +74,7 @@ QList<QAbstractButton*> * EmployeeView::getAdditionalNavigation() const{
 
 //PRIVATE SLOTS
 void EmployeeView::btnBodyMeasurementsClicked(){
-    emit show(ViewType::BODY_MEASUREMENT_VIEW);
+    emit showView(ViewType::BODY_MEASUREMENT_VIEW);
 }
 
 

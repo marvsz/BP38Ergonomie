@@ -142,13 +142,13 @@ void ShiftView::btnAddBreakClicked(){
 }
 
 void ShiftView::btnEmployeeClicked(){
-    emit show(ViewType::EMPLOYEE_VIEW);
+    emit showView(ViewType::EMPLOYEE_VIEW);
 }
 
 void ShiftView::btnCalendarClicked(){
-    emit show(ViewType::SHIFT_CALENDAR_VIEW);
+    emit showView(ViewType::SHIFT_CALENDAR_VIEW);
 }
 
 void ShiftView::btnMoreRotationGroupsClicked(){
-    emit show(ViewType::ROTATION_GROUP_VIEW);
+    emit showView(ViewType::ROTATION_GROUP_VIEW);
 }

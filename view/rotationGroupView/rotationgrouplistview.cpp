@@ -1,6 +1,6 @@
 #include "rotationgrouplistview.h"
 
 RotationGroupListView::RotationGroupListView(QWidget *parent) :
-    SimpleNavigateableWidget(parent)
+    SimpleNavigateableWidget(tr("Rotation Group"), parent)
 {
 }

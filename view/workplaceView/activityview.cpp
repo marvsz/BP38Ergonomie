@@ -113,11 +113,11 @@ void ActivityView::selectedProductChanged(int id){
 }
 
 void ActivityView::btnProductsClicked(){
-    emit show(ViewType::PRODUCT_VIEW);
+    emit showView(ViewType::PRODUCT_VIEW);
 }
 
 void ActivityView::workprocessClicked(){
-    emit show(ViewType::DOCUMENTATION_VIEW);
+    emit showView(ViewType::DOCUMENTATION_VIEW);
 }
 
 // PUBLIC SLOTS

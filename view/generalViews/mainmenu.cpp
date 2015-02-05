@@ -54,20 +54,20 @@ QList<QAbstractButton*> * MainMenu::getAdditionalNavigation() const{
 
 //PRIVATE SLOTS
 void MainMenu::btnMetaDataViewClicked(){
-    emit show(ViewType::METADATA_VIEW);
+    emit showView(ViewType::METADATA_VIEW);
 }
 void MainMenu::btnSettingsClicked(){
-    emit show(ViewType::SETTINGS_VIEW);
+    emit showView(ViewType::SETTINGS_VIEW);
 }
 
 void MainMenu::btnWorkplaceListClicked(){
-    emit show(ViewType::WORKPLACELIST_VIEW);
+    emit showView(ViewType::WORKPLACELIST_VIEW);
 }
 
 void MainMenu::btnRessourceManagementClicked(){
-    emit show(ViewType::RESSOURCE_MANAGMENT_VIEW);
+    emit showView(ViewType::RESSOURCE_MANAGMENT_VIEW);
 }
 
 void MainMenu::btnShiftClicked(){
-    emit show(ViewType::SHIFT_VIEW);
+    emit showView(ViewType::SHIFT_VIEW);
 }

@@ -79,7 +79,7 @@ void ViewController::registerView(NavigateableWidget *widget, ViewType type){
     if(!viewTypeToIndex->contains(type) && widget != 0){
         viewTypeToIndex->insert(type, content->addWidget(widget));
         viewTypeToWidget->insert(type, widget);
-        connect(widget, SIGNAL(show(ViewType)), this, SLOT(goToView(ViewType)));
+        connect(widget, SIGNAL(showView(ViewType)), this, SLOT(goToView(ViewType)));
     }
 }
 
@@ -131,9 +131,9 @@ void ViewController::backToView(ViewType type){
 void ViewController::btnFeedbackClicked(){
     QPixmap pixmap(this->size());
     this->render(&pixmap);
-    QString fileName = QString("%1%2.png").arg(StandardPaths::SCREENSHOT_PATH).arg(QDateTime().currentDateTime().toString("ddMMyyyy_hhmmss"));
-    if(!QDir(StandardPaths::SCREENSHOT_PATH).exists())
-        QDir().mkdir(StandardPaths::SCREENSHOT_PATH);
+    QString fileName = QString("%1%2.png").arg(StandardPaths::screenshotPath()).arg(QDateTime().currentDateTime().toString("ddMMyyyy_hhmmss"));
+    if(!QDir(StandardPaths::screenshotPath()).exists())
+        QDir().mkdir(StandardPaths::screenshotPath());
     pixmap.save(fileName);
     FeedbackView *fView = qobject_cast<FeedbackView*>(viewTypeToWidget->value(ViewType::FEEDBACK_VIEW));
     fView->reset();

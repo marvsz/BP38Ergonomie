@@ -2,21 +2,45 @@
 #define STANDARDPATHS_H
 
 #include <QObject>
+#include <QStandardPaths>
 
 class StandardPaths : public QObject
 {
     Q_OBJECT
 public:
-    explicit StandardPaths(QObject *parent = 0);
-    ~StandardPaths();
+    explicit StandardPaths(QObject *parent = 0){
 
-    static const QString WRITEABLE_LOCATION;
+    }
 
-    static const QString ORIGIN_DATABASE_PATH;
-    static const QString DATABASE_PATH;
+    ~StandardPaths(){
 
-    static const QString SCREENSHOT_PATH;
-    static const QString LOGGING_PATH;
+    }
+
+    static QString writeableLocation(){
+        #if defined(Q_OS_ANDROID)
+            return QString("%1").arg(QStandardPaths::writableLocation(QStandardPaths::HomeLocation));
+        #elif defined(Q_OS_IOS)
+            return QString("%1").arg(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
+        #else
+            return QString("%1").arg(QStandardPaths::writableLocation(QStandardPaths::HomeLocation));
+        #endif
+    }
+
+    static QString originDatabasePath(){
+        #if defined(Q_OS_IOS)
+            return QString("%1/%2/%3").arg(QStandardPaths::writableLocation(QStandardPaths::HomeLocation)).arg("Documents").arg("ergoAppDB.sqlite");
+        #else
+            return QString(":/assets/ergoAppDB.sqlite");
+        #endif
+    }
+
+    static QString databasePath(){
+        return QString("%1/%2").arg(StandardPaths::writeableLocation()).arg("ergoAppDB.sqlite");
+    }
+
+    static QString screenshotPath(){
+        return QString("%1/%2/%3").arg(StandardPaths::writeableLocation()).arg("screenshots").arg("screenshot.png");
+    }
 
 };
 

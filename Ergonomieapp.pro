@@ -21,8 +21,7 @@ HEADERS += \
     standardpaths.h
 
 SOURCES += \
-    main.cpp \
-    standardpaths.cpp
+    main.cpp
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 

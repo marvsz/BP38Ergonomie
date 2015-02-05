@@ -37,17 +37,17 @@ RessourceManagementView::RessourceManagementView(QWidget *parent) :
 }
 
 void RessourceManagementView::btnEquipmentClicked(){
-    emit show(ViewType::EQUIPMENT_VIEW);
+    emit showView(ViewType::EQUIPMENT_VIEW);
 }
 
 void RessourceManagementView::btnProductClicked(){
-    emit show(ViewType::PRODUCT_VIEW);
+    emit showView(ViewType::PRODUCT_VIEW);
 }
 
 void RessourceManagementView::btnTransportationClicked(){
-    emit show(ViewType::TRANSPORTATION_VIEW);
+    emit showView(ViewType::TRANSPORTATION_VIEW);
 }
 
 void RessourceManagementView::btnEmployeeClicked(){
-    emit show(ViewType::EMPLOYEE_VIEW);
+    emit showView(ViewType::EMPLOYEE_VIEW);
 }
