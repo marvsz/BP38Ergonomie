@@ -40,6 +40,8 @@ public slots:
 
 private:
     const QString title;
+    
+    
 };
 
 #endif // TITLEDWIDGET_H

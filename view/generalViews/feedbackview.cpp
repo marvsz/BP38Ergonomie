@@ -1,7 +1,7 @@
 #include "feedbackview.h"
 #include <QGridLayout>
 
-FeedbackView::FeedbackView(QWidget *parent) : AbstractPopUpWidget(tr("Feedback"), parent),
+FeedbackView::FeedbackView(QWidget *parent) : AbstractPopUpWidget(ConfirmMode::SEND, tr("Feedback"), parent),
     lblViewName(new QLabel(tr("View name:"))),
     txtBxViewName(new TextLineEdit()),
     chbxScreenshot(new QCheckBox()),

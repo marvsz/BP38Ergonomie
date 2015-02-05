@@ -12,22 +12,17 @@ class AbstractPopUpWidget : public TitledWidget
 public:
     enum ConfirmMode{ACCEPT, SEND};
 
-    explicit AbstractPopUpWidget(const QString &title, QWidget *parent = 0);
+    explicit AbstractPopUpWidget(ConfirmMode mode, const QString &title, QWidget *parent = 0);
     ~AbstractPopUpWidget();
 
     void setLayout(QLayout *layout);
-
-protected:
-    virtual ConfirmMode getConfirmMode() const{
-        return ConfirmMode::ACCEPT;
-    }
 
 signals:
     void close();
     void confirm();
 
 private:
-    QGridLayout *mainLayout;
+    QGridLayout *mainContentLayout;
 
     QPushButton *btnClose;
     QPushButton *btnConfirm;

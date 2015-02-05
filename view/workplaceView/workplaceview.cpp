@@ -162,15 +162,15 @@ void WorkplaceView::setWorkplaceTimes(const QTime &basicTime, const QTime &setup
 
 //private slots
 void WorkplaceView::btnLineClicked(){
-    emit show(ViewType::LINE_VIEW);
+    emit showView(ViewType::LINE_VIEW);
 }
 
 void WorkplaceView::btnActivityClicked(){
-    emit show(ViewType::ACTIVITY_VIEW);
+    emit showView(ViewType::ACTIVITY_VIEW);
 }
 
 void WorkplaceView::btnCommentClicked(){
-    emit show(ViewType::COMMENT_VIEW);
+    emit showView(ViewType::COMMENT_VIEW);
 }
 
 // GETTER

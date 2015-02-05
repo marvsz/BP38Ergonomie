@@ -61,6 +61,8 @@ ViewController::ViewController(QWidget *parent) : QWidget(parent),
     mainContent->setLayout(mainLayout);
     popUpLayout->setStackingMode(QStackedLayout::StackAll);
     popUpLayout->addWidget(mainContent);
+    this->setLayout(popUpLayout);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 ViewController::~ViewController()
@@ -83,19 +85,17 @@ void ViewController::registerView(NavigateableWidget *widget, ViewType type){
     if(!viewTypeToIndex->contains(type) && widget != 0){
         viewTypeToIndex->insert(type, content->addWidget(widget));
         viewTypeToWidget->insert(type, widget);
-<<<<<<< HEAD
-        connect(widget, SIGNAL(show(ViewType)), this, SLOT(goToView(ViewType)));
         connect(widget, SIGNAL(showPopUp(PopUpType)), this, SLOT(showPopUp(PopUpType)));
+        connect(widget, SIGNAL(showView(ViewType)), this, SLOT(goToView(ViewType)));
+
     }
 }
 
 void ViewController::registerPopUp(AbstractPopUpWidget *popUp, PopUpType type){
     if(!popUpTypeToWidget->contains(type) && popUp != 0){
         popUpTypeToWidget->insert(type, popUp);
+        popUp->hide();
         connect(popUp, SIGNAL(close()), this, SLOT(closePopUp()));
-=======
-        connect(widget, SIGNAL(showView(ViewType)), this, SLOT(goToView(ViewType)));
->>>>>>> origin/Unstable
     }
 }
 
@@ -148,6 +148,7 @@ void ViewController::showPopUp(PopUpType type){
     if(popUpTypeToWidget->contains(type)){
         AbstractPopUpWidget *popUp = popUpTypeToWidget->value(type);
         popUp->onEnter();
+        popUp->show();
         popUpLayout->insertWidget(1, popUp);
         popUpLayout->setCurrentIndex(1);
         currentPopUp = type;
@@ -162,15 +163,9 @@ void ViewController::closePopUp(){
 void ViewController::btnFeedbackClicked(){
     QPixmap pixmap(this->size());
     this->render(&pixmap);
-<<<<<<< HEAD
-    QString fileName = QString("%1%2.png").arg(StandardPaths::SCREENSHOT_PATH).arg("screenshot");
-    if(!QDir(StandardPaths::SCREENSHOT_PATH).exists())
-        QDir().mkdir(StandardPaths::SCREENSHOT_PATH);
-=======
     QString fileName = QString("%1%2.png").arg(StandardPaths::screenshotPath()).arg(QDateTime().currentDateTime().toString("ddMMyyyy_hhmmss"));
     if(!QDir(StandardPaths::screenshotPath()).exists())
         QDir().mkdir(StandardPaths::screenshotPath());
->>>>>>> origin/Unstable
     pixmap.save(fileName);
     showPopUp(PopUpType::FEEDBACK_POPUP);
 }
