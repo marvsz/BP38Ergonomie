@@ -180,14 +180,14 @@ void Controller::createAnalyst(){
     QString filter = QString("%1 = %2").arg(DBConstants::COL_EMPLOYER_NAME).arg(analystSelectionView->getAnalystEmployer());
     QHash<QString, QVariant> valuesEmployer = QHash<QString, QVariant>();
     valuesEmployer.insert(DBConstants::COL_EMPLOYER_NAME, analystSelectionView->getAnalystEmployer());
-    int emp_ID = save(DB_TABLES::EMPLOYER, filter, DBConstants::COL_EMPLOYER_ID, DBConstants::HASH_EMPLOYER_TYPES, valuesEmployer);
+    int emp_ID = dbHandler->save(DB_TABLES::EMPLOYER, DBConstants::HASH_EMPLOYER_TYPES, valuesEmployer, filter, DBConstants::COL_EMPLOYER_ID);
 
     QHash<QString, QVariant> valuesAnalyst = QHash<QString, QVariant>();
     valuesAnalyst.insert(DBConstants::COL_ANALYST_LASTNAME, analystSelectionView->getAnalystLastName());
     valuesAnalyst.insert(DBConstants::COL_ANALYST_FIRSTNAME, analystSelectionView->getAnalystFirstName());
     valuesAnalyst.insert(DBConstants::COL_ANALYST_EMPLOYER_ID, emp_ID);
     valuesAnalyst.insert(DBConstants::COL_ANALYST_EXPERIENCE, analystSelectionView->getAnalystExperience());
-    insert(DB_TABLES::ANALYST, DBConstants::COL_ANALYST_ID, DBConstants::HASH_ANALYST_TYPES, valuesAnalyst);
+    dbHandler->insert(DB_TABLES::ANALYST, DBConstants::HASH_ANALYST_TYPES, valuesAnalyst, DBConstants::COL_ANALYST_ID);
     updateAnalystSelectionView();
 }
 
@@ -241,13 +241,13 @@ void Controller::saveMetaDataView(){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_BRANCH_OF_INDUSTRY_NAME, metaDataView->getBranchOfIndustryName());
     values.insert(DBConstants::COL_BRANCH_OF_INDUSTRY_DESCRIPTION, metaDataView->getBranchOfIndustryDescription());
-    int boi_ID = save(DB_TABLES::BRANCH_OF_INDUSTRY, filter, DBConstants::COL_BRANCH_OF_INDUSTRY_ID, DBConstants::HASH_BRANCH_OF_INDUSTRY_TYPES, values);
+    int boi_ID = dbHandler->save(DB_TABLES::BRANCH_OF_INDUSTRY, DBConstants::HASH_BRANCH_OF_INDUSTRY_TYPES, values, filter, DBConstants::COL_BRANCH_OF_INDUSTRY_ID);
 
     filter = QString("%1 = '%2'").arg(DBConstants::COL_CORPORATION_NAME).arg(metaDataView->getCorporationName());
     values.clear();
     values.insert(DBConstants::COL_CORPORATION_NAME, metaDataView->getCorporationName());
     values.insert(DBConstants::COL_CORPORATION_BRANCH_OF_INDUSTRY_ID, boi_ID);
-    int corp_ID = save(DB_TABLES::CORPORATION, filter, DBConstants::COL_CORPORATION_ID, DBConstants::HASH_CORPORATION_TYPES, values);
+    int corp_ID = dbHandler->save(DB_TABLES::CORPORATION, DBConstants::HASH_CORPORATION_TYPES, values, filter, DBConstants::COL_CORPORATION_ID);
 
     filter = QString("%1 = '%2' AND %3 = '%4'").arg(DBConstants::COL_FACTORY_NAME).arg(metaDataView->getFactoryName()).arg(DBConstants::COL_FACTORY_STREET).arg(metaDataView->getFactoryStreet());
     values.clear();
@@ -259,7 +259,7 @@ void Controller::saveMetaDataView(){
     values.insert(DBConstants::COL_FACTORY_CONTACT_PERSON, metaDataView->getFactoryContact());
     values.insert(DBConstants::COL_FACTORY_HEADCOUNT, metaDataView->getFactoryEmployeeCount());
     values.insert(DBConstants::COL_FACTORY_CORPORATION_ID, corp_ID);
-    factory_ID = save(DB_TABLES::FACTORY, filter, DBConstants::COL_FACTORY_ID, DBConstants::HASH_FACTORY_TYPES, values);
+    factory_ID = dbHandler->save(DB_TABLES::FACTORY, DBConstants::HASH_FACTORY_TYPES, values, filter, DBConstants::COL_FACTORY_ID);
 
 
     filter = QString("");
@@ -269,7 +269,7 @@ void Controller::saveMetaDataView(){
     values.insert(DBConstants::COL_RECORDING_END, metaDataView->getRecordTimeEnd().toString(dtFormat));
     values.insert(DBConstants::COL_RECORDING_FACTORY_ID, factory_ID);
     values.insert(DBConstants::COL_RECORDING_ANALYST_ID, analyst_ID);
-    recording_ID = save(DB_TABLES::RECORDING, filter, DBConstants::COL_RECORDING_ID, DBConstants::HASH_RECORDING_TYPES, values);
+    recording_ID = dbHandler->save(DB_TABLES::RECORDING, DBConstants::HASH_RECORDING_TYPES, values, filter, DBConstants::COL_RECORDING_ID);
 }
 
 //WorkplacesView
@@ -308,8 +308,7 @@ void Controller::updateWorkplaceView(int id){
     workplaceView->setWorkplaceTimes(basicTime, setupTime, restTime, allowanceTime, cycleTime);
 
     tbl = DB_TABLES::LINE;
-    dbHandler->select(tbl, QString("%1 = %2").arg(DBConstants::COL_LINE_ID).arg(record.value(DBConstants::COL_WORKPLACE_LINE_ID).toString()));
-    if(dbHandler->rowCount(tbl) > 0){
+    if(dbHandler->select(tbl, QString("%1 = %2").arg(DBConstants::COL_LINE_ID).arg(record.value(DBConstants::COL_WORKPLACE_LINE_ID).toString())) > 0){
         QSqlRecord line = dbHandler->record(tbl, 0);
         workplaceView->setLine(line.value(DBConstants::COL_LINE_NAME).toString(),
                                   line.value(DBConstants::COL_LINE_DESCRIPTION).toString());
@@ -318,8 +317,7 @@ void Controller::updateWorkplaceView(int id){
         workplaceView->setLine("","");
 
     tbl = DB_TABLES::COMMENT;
-    dbHandler->select(tbl, QString("%1 = %2").arg(DBConstants::COL_COMMENT_WORKPLACE_ID).arg(workplace_ID));
-    if(dbHandler->rowCount(tbl) > 0){
+    if(dbHandler->select(tbl, QString("%1 = %2").arg(DBConstants::COL_COMMENT_WORKPLACE_ID).arg(workplace_ID)) > 0){
         QSqlRecord comment = dbHandler->record(tbl, 0);
         workplaceView->setComment(comment.value(DBConstants::COL_COMMENT_PROBLEM_NAME).toString(),
                                      comment.value(DBConstants::COL_COMMENT_MEASURE_NAME).toString());
@@ -337,7 +335,7 @@ int Controller::createWorkplace(){
     QString filter = QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(QString::number(0));
 
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    int id = save(DB_TABLES::WORKPLACE, filter, DBConstants::COL_WORKPLACE_ID, DBConstants::HASH_WORKPLACE_TYPES, values);
+    int id = dbHandler->save(DB_TABLES::WORKPLACE, DBConstants::HASH_WORKPLACE_TYPES, values, filter, DBConstants::COL_WORKPLACE_ID);
     updateWorkplaceView(id);
     saveRecordingObservesWorkplace(id);
     return id;
@@ -375,7 +373,7 @@ int Controller::saveSelectedLine(int id){
     QString filter = QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(workplace_ID);
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_WORKPLACE_LINE_ID, id);
-    return save(tbl, filter, DBConstants::COL_WORKPLACE_ID, DBConstants::HASH_WORKPLACE_TYPES, values);
+    return dbHandler->save(tbl, DBConstants::HASH_WORKPLACE_TYPES, values, filter, DBConstants::COL_WORKPLACE_ID);
 }
 
 int Controller::saveLine(){
@@ -386,7 +384,7 @@ int Controller::saveLine(){
     values.insert(DBConstants::COL_LINE_DESCRIPTION, lineView->getDescription());
     values.insert(DBConstants::COL_LINE_NUMBER_OF_WORKPLACES, lineView->getWorkplaceCount());
     values.insert(DBConstants::COL_LINE_FACTORY_ID, factory_ID);
-    int lineID = save(tbl, filter, DBConstants::COL_LINE_ID, DBConstants::HASH_LINE_TYPES, values);
+    int lineID = dbHandler->save(tbl, DBConstants::HASH_LINE_TYPES, values, filter, DBConstants::COL_LINE_ID);
     saveRecordingObservesLine(lineID);
     updateLineView();
     return lineID;
@@ -397,10 +395,9 @@ void Controller::deleteLine(int id){
     QString filter = QString("%1 = %2").arg(DBConstants::COL_LINE_ID).arg(QString::number(id));
     dbHandler->deleteAll(DB_TABLES::LINE, filter);
     filter = QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_LINE_ID).arg(QString::number(id));
-    QSqlRecord record;
-    record.append(QSqlField(DBConstants::COL_WORKPLACE_LINE_ID, DBConstants::HASH_WORKPLACE_TYPES.value(DBConstants::COL_WORKPLACE_LINE_ID)));
-    record.setNull(DBConstants::COL_WORKPLACE_LINE_ID);
-    dbHandler->updateAll(DB_TABLES::WORKPLACE, filter, record);
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_WORKPLACE_LINE_ID, 0);
+    dbHandler->update(DB_TABLES::WORKPLACE, DBConstants::HASH_WORKPLACE_TYPES, values, filter);
     updateLineView();
 }
 
@@ -423,7 +420,7 @@ void Controller::createProduct(){
     values.insert(DBConstants::COL_PRODUCT_NAME, productView->getName());
     values.insert(DBConstants::COL_PRODUCT_NUMBER, productView->getNumber());
     values.insert(DBConstants::COL_PRODUCT_TOTAL_PERCENTAGE, productView->getTotalPercentage());
-    insert(DB_TABLES::PRODUCT, DBConstants::COL_PRODUCT_ID, DBConstants::HASH_PRODUCT_TYPES, values);
+    dbHandler->insert(DB_TABLES::PRODUCT, DBConstants::HASH_PRODUCT_TYPES, values, DBConstants::COL_PRODUCT_ID);
     updateProductView();
 }
 
@@ -455,7 +452,7 @@ void Controller::createEquipment(){
     values.insert(DBConstants::COL_EQUIPMENT_RECOIL_INTENSITY, equipmentView->getRecoilIntensity());
     values.insert(DBConstants::COL_EQUIPMENT_VIBRATION_COUNT, equipmentView->getVibrationCount());
     values.insert(DBConstants::COL_EQUIPMENT_VIBRATION_INTENSITY, equipmentView->getVibrationIntensity());
-    insert(DB_TABLES::EQUIPMENT, DBConstants::COL_EQUIPMENT_ID, DBConstants::HASH_EQUIPMENT_TYPES, values);
+    dbHandler->insert(DB_TABLES::EQUIPMENT, DBConstants::HASH_EQUIPMENT_TYPES, values, DBConstants::COL_EQUIPMENT_ID);
     updateEquipmentView();
 }
 
@@ -500,7 +497,7 @@ void Controller::createActivity(){
     values.insert(DBConstants::COL_ACTIVITY_PRODUCT_ID, activityView->getSelectedProduct());
     values.insert(DBConstants::COL_ACTIVITY_REPETITIONS, activityView->getRepetitions());
     values.insert(DBConstants::COL_ACTIVITY_WORKPLACE_ID, workplace_ID);
-    insert(DB_TABLES::ACTIVITY, DBConstants::COL_ACTIVITY_ID, DBConstants::HASH_ACTIVITY_TYPES, values);
+    dbHandler->insert(DB_TABLES::ACTIVITY, DBConstants::HASH_ACTIVITY_TYPES, values, DBConstants::COL_ACTIVITY_ID);
     updateActivityViewActivities();
 }
 
@@ -539,15 +536,15 @@ int Controller::saveComment(){
     values.insert(DBConstants::COL_COMMENT_MEASURE_DESCRIPTION, commentView->getMeasureDescription());
     values.insert(DBConstants::COL_COMMENT_WORKER_PERCEPTION, commentView->getWorkerPerception());
     values.insert(DBConstants::COL_COMMENT_WORKPLACE_ID, workplace_ID);
-    return save(DB_TABLES::COMMENT, filter, DBConstants::COL_COMMENT_ID, DBConstants::HASH_COMMENT_TYPES, values);
+    return dbHandler->save(DB_TABLES::COMMENT, DBConstants::HASH_COMMENT_TYPES, values, filter, DBConstants::COL_COMMENT_ID);
 }
 
 //TransportationView
 void Controller::updateTransportationView(){
     transportationView->clear();
     DB_TABLES tbl = DB_TABLES::TRANSPORTATION;
-    dbHandler->select(tbl, QString(""));
-    for(int i = 0; i < dbHandler->rowCount(tbl); ++i){
+    int count = dbHandler->select(tbl, QString(""));
+    for(int i = 0; i < count; ++i){
         QSqlRecord record = dbHandler->record(tbl, i);
         transportationView->addTransportation(record.value(DBConstants::COL_TRANSPORTATION_ID).toInt(),
                                               record.value(DBConstants::COL_TRANSPORTATION_NAME).toString(),
@@ -565,7 +562,7 @@ void Controller::createTransportation(){
     values.insert(DBConstants::COL_TRANSPORTATION_MAX_LOAD, transportationView->getMaxLoad());
     values.insert(DBConstants::COL_TRANSPORTATION_BRAKES, transportationView->hasBrakes());
     values.insert(DBConstants::COL_TRANSPORTATION_FIXED_ROLLER, transportationView->hasFixedRoller());
-    insert(DB_TABLES::TRANSPORTATION, DBConstants::COL_TRANSPORTATION_ID, DBConstants::HASH_TRANSPORTATION_TYPES, values);
+    dbHandler->insert(DB_TABLES::TRANSPORTATION, DBConstants::HASH_TRANSPORTATION_TYPES, values, DBConstants::COL_TRANSPORTATION_ID);
     updateTransportationView();
 }
 
@@ -585,7 +582,7 @@ int Controller::createWorkprocess(AVType type, const QTime &start, const QTime &
     values.insert(DBConstants::COL_WORK_PROCESS_TYPE, type);
     values.insert(DBConstants::COL_WORK_PROCESS_BEGIN, start.toString());
     values.insert(DBConstants::COL_WORK_PROCESS_END, end.toString());
-    insert(DB_TABLES::WORK_PROCESS, DBConstants::COL_WORK_PROCESS_ID, DBConstants::HASH_WORK_PROCESS_TYPES, values);
+    dbHandler->insert(DB_TABLES::WORK_PROCESS, DBConstants::HASH_WORK_PROCESS_TYPES, values, DBConstants::COL_WORK_PROCESS_ID);
     gantTimerView->add(id, type, start, end);
     return id;
 }
@@ -659,7 +656,7 @@ void Controller::saveCurrentWorkProcess(){
     values.insert(DBConstants::COL_WORK_PROCESS_LOAD_HANDLING_ID, loadhandling_ID);
     values.insert(DBConstants::COL_WORK_PROCESS_APPLIED_FORCE_ID, appliedforce_ID);
     values.insert(DBConstants::COL_WORK_PROCESS_CONDITION_ID, workcondition_ID);
-    save(DB_TABLES::WORK_PROCESS, filter, DBConstants::HASH_WORK_PROCESS_TYPES, values);
+    dbHandler->save(DB_TABLES::WORK_PROCESS, DBConstants::HASH_WORK_PROCESS_TYPES, values, filter);
 }
 
 void Controller::updateGantView(){
@@ -787,7 +784,7 @@ void Controller::saveExecutionConditionView(){
     values.insert(DBConstants::COL_WORK_CONDITION_VIBRATION, executionConditionView->getVibration());
     values.insert(DBConstants::COL_WORK_CONDITION_WIND, executionConditionView->getWind());
     values.insert(DBConstants::COL_WORK_CONDITION_ID, workcondition_ID);
-    workcondition_ID = save(DB_TABLES::WORK_CONDITION, filter, DBConstants::COL_WORK_CONDITION_ID, DBConstants::HASH_COMMENT_TYPES, values);
+    workcondition_ID = dbHandler->save(DB_TABLES::WORK_CONDITION, DBConstants::HASH_COMMENT_TYPES, values, filter, DBConstants::COL_WORK_CONDITION_ID);
 }
 
 // AppliedForceView
@@ -809,7 +806,7 @@ void Controller::saveAppliedForceView(){
     values.insert(DBConstants::COL_APPLIED_FORCE_DIRECTION, appliedForceView->getDirection());
     values.insert(DBConstants::COL_APPLIED_FORCE_INTENSITY, appliedForceView->getIntensity());
     values.insert(DBConstants::COL_APPLIED_FORCE_ID, appliedforce_ID);
-    appliedforce_ID = save(DB_TABLES::APPLIED_FORCE, filter, DBConstants::COL_APPLIED_FORCE_ID, DBConstants::HASH_COMMENT_TYPES, values);
+    appliedforce_ID = dbHandler->save(DB_TABLES::APPLIED_FORCE, DBConstants::HASH_COMMENT_TYPES, values, filter, DBConstants::COL_APPLIED_FORCE_ID);
 }
 
 // LoadHandlingView
@@ -842,12 +839,12 @@ void Controller::saveLoadHandlingView(){
     QString filter = QString("%1 = '%2'").arg(DBConstants::COL_TYPE_OF_GRASPING_NAME).arg(loadHandlingView->getGraspType());
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_TYPE_OF_GRASPING_NAME, loadHandlingView->getGraspType());
-    int grasp_ID = save(DB_TABLES::TYPE_OF_GRASPING, filter, DBConstants::COL_TYPE_OF_GRASPING_ID, DBConstants::HASH_TYPE_OF_GRASPING_TYPES, values);
+    int grasp_ID = dbHandler->save(DB_TABLES::TYPE_OF_GRASPING, DBConstants::HASH_TYPE_OF_GRASPING_TYPES, values, filter, DBConstants::COL_TYPE_OF_GRASPING_ID);
 
     filter = QString("%1 = '%2'").arg(DBConstants::COL_LOAD_HANDLING_TYPE_NAME).arg(loadHandlingView->getHandlingType());
     values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_LOAD_HANDLING_TYPE_NAME, loadHandlingView->getHandlingType());
-    int loadHandlingType_ID = save(DB_TABLES::LOAD_HANDLING_TYPE, filter, DBConstants::COL_LOAD_HANDLING_TYPE_ID, DBConstants::HASH_LOAD_HANDLING_TYPE_TYPES, values);
+    int loadHandlingType_ID = dbHandler->save(DB_TABLES::LOAD_HANDLING_TYPE, DBConstants::HASH_LOAD_HANDLING_TYPE_TYPES, values, filter, DBConstants::COL_LOAD_HANDLING_TYPE_ID);
 
     filter = QString("%1 = %2").arg(DBConstants::COL_LOAD_HANDLING_ID).arg(loadhandling_ID);
     values = QHash<QString, QVariant>();
@@ -856,7 +853,7 @@ void Controller::saveLoadHandlingView(){
     values.insert(DBConstants::COL_LOAD_HANDLING_TRANSPORTATION_ID, loadHandlingView->getSelectedTransportation());
     values.insert(DBConstants::COL_LOAD_HANDLING_LOAD, loadHandlingView->getWeight());
     values.insert(DBConstants::COL_LOAD_HANDLING_DISTANCE, loadHandlingView->getDistance());
-    loadhandling_ID = save(DB_TABLES::LOAD_HANDLING, filter, DBConstants::COL_LOAD_HANDLING_ID, DBConstants::HASH_LOAD_HANDLING_TYPES, values);
+    loadhandling_ID = dbHandler->save(DB_TABLES::LOAD_HANDLING, DBConstants::HASH_LOAD_HANDLING_TYPES, values, filter, DBConstants::COL_LOAD_HANDLING_ID);
 }
 
 void Controller::updateLoadHandlingTransportations(){
@@ -955,75 +952,6 @@ void Controller::resetDatabase(){
 }
 
 //PRIVATE METHODS
-int Controller::insert(DB_TABLES tbl, const QString &colID, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue){
-    QSqlRecord record;
-    int id;
-    if(!colMapNameValue.contains(colID)){
-        id = dbHandler->getNextID(tbl, colID);
-        colMapNameValue.insert(colID, id);
-    }
-    else
-        id = colMapNameValue.value(colID).toInt();
-
-    foreach(QString key, colMapNameValue.keys()){
-        record.append(QSqlField(key, colMapNameType.value(key)));
-        record.setValue(key, colMapNameValue.value(key));
-    }
-
-    dbHandler->insertRow(tbl, record);
-    return id;
-}
-
-int Controller::save(DB_TABLES tbl, const QString &filter, const QString &colID, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue){
-    dbHandler->select(tbl, filter);
-    int id;
-    QSqlRecord record;
-    bool toInsert = false;
-    if(dbHandler->rowCount(tbl) == 0){
-        toInsert = true;
-        id = dbHandler->getNextID(tbl, colID);
-        colMapNameValue.insert(colID, id);
-        foreach(QString key, colMapNameValue.keys())
-            record.append(QSqlField(key, colMapNameType.value(key)));
-    }
-    else {
-        record = dbHandler->record(tbl, 0);
-        id = record.value(colID).toInt();
-        colMapNameValue.insert(colID, id);
-    }
-
-    foreach(QString colName, colMapNameValue.keys())
-        record.setValue(colName, colMapNameValue.value(colName));
-
-    if(toInsert)
-        dbHandler->insertRow(tbl, record);
-    else
-        dbHandler->updateRow(tbl, 0, record);
-    return id;
-}
-
-void Controller::save(DB_TABLES tbl, const QString &filter, const QHash<QString, QVariant::Type> &colMapNameType, const QHash<QString, QVariant> &colMapNameValue){
-    dbHandler->select(tbl, filter);
-    QSqlRecord record;
-    bool toInsert = false;
-    if(dbHandler->rowCount(tbl) == 0){
-        toInsert = true;
-        foreach(QString key, colMapNameValue.keys())
-            record.append(QSqlField(key, colMapNameType.value(key)));
-    }
-    else {
-        record = dbHandler->record(tbl, 0);
-    }
-
-    foreach(QString colName, colMapNameValue.keys())
-        record.setValue(colName, colMapNameValue.value(colName));
-
-    if(toInsert)
-        dbHandler->insertRow(tbl, record);
-    else
-        dbHandler->updateRow(tbl, 0, record);
-}
-
 
 void Controller::saveRecordingObservesLine(int lineID){
     QString filter = QString("%1 = %2 AND %3 = %4").arg(DBConstants::COL_RECORDING_OB_LINE_RECORDING_ID).arg(QString::number(recording_ID)).arg(DBConstants::COL_RECORDING_OB_LINE_LINE_ID).arg(QString::number(lineID));
@@ -1031,7 +959,7 @@ void Controller::saveRecordingObservesLine(int lineID){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_RECORDING_OB_LINE_RECORDING_ID, recording_ID);
     values.insert(DBConstants::COL_RECORDING_OB_LINE_LINE_ID, lineID);
-    save(DB_TABLES::RECORDING_OBSERVES_LINE, filter, DBConstants::HASH_RECORDING_OB_LINE_TYPES, values);
+    dbHandler->save(DB_TABLES::RECORDING_OBSERVES_LINE, DBConstants::HASH_RECORDING_OB_LINE_TYPES, values, filter);
 }
 
 void Controller::deleteRecordingObservesLine(int lineID){
@@ -1045,7 +973,7 @@ void Controller::saveRecordingObservesWorkplace(int workplaceID){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_RECORDING_OB_WORKPLACE_RECORDING_ID, recording_ID);
     values.insert(DBConstants::COL_RECORDING_OB_WORKPLACE_WORKPLACE_ID, workplaceID);
-    save(DB_TABLES::RECORDING_OBSERVES_WORKPLACE, filter, DBConstants::HASH_RECORDING_OB_WORKPLACE_TYPES, values);
+    dbHandler->save(DB_TABLES::RECORDING_OBSERVES_WORKPLACE, DBConstants::HASH_RECORDING_OB_WORKPLACE_TYPES, values, filter);
 }
 
 void Controller::deleteRecordingOberservesWorkplace(int wpID){
@@ -1066,7 +994,7 @@ int Controller::saveWorkplace(int id){
     values.insert(DBConstants::COL_WORKPLACE_ALLOWANCE_TIME, qTimeToSeconds(workplaceView->getAllowanceTime()));
     values.insert(DBConstants::COL_WORKPLACE_SETUP_TIME, qTimeToSeconds(workplaceView->getSetupTime()));
     values.insert(DBConstants::COL_WORKPLACE_CYCLE_TIME, qTimeToSeconds(workplaceView->getCycleTime()));
-    return save(DB_TABLES::WORKPLACE, filter, DBConstants::COL_WORKPLACE_ID, DBConstants::HASH_WORKPLACE_TYPES, values);
+    return dbHandler->save(DB_TABLES::WORKPLACE, DBConstants::HASH_WORKPLACE_TYPES, values, filter, DBConstants::COL_WORKPLACE_ID);
 }
 
 int Controller::qTimeToSeconds(const QTime &time){

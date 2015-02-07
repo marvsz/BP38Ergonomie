@@ -3,7 +3,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QMessageBox>
-#include <QStandardPaths>
+#include <QSqlField>
 #include <QSqlError>
 #include <QDebug>
 
@@ -44,6 +44,50 @@ DBHandler::~DBHandler(){
     database.close();
 }
 
+//PUBLIC METHODS
+int DBHandler::insert(DB_TABLES tbl, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue, const QString &colID){
+    QSqlRecord record;
+    int id;
+    if(colID != "" && !colMapNameValue.contains(colID)){
+        id = getNextID(tbl, colID);
+        colMapNameValue.insert(colID, id);
+    }
+    else
+        id = colMapNameValue.value(colID).toInt();
+
+    foreach(QString key, colMapNameValue.keys()){
+        record.append(QSqlField(key, colMapNameType.value(key)));
+        record.setValue(key, colMapNameValue.value(key));
+    }
+
+    insertRow(tbl, record);
+    return id;
+}
+
+int DBHandler::update(DB_TABLES tbl, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue, const QString &filter){
+    QSqlRecord record;
+
+    foreach(QString colName, colMapNameValue.keys()){
+        record.append(QSqlField(colName, colMapNameType.value(colName)));
+        record.setValue(colName, colMapNameValue.value(colName));
+    }
+
+    updateAll(tbl, filter, record);
+    return -1;
+}
+
+int DBHandler::save(DB_TABLES tbl, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue, const QString &filter, const QString &colID){
+    int count = select(tbl, filter);
+
+    if(count == 0){
+        return insert(tbl, colMapNameType, colMapNameValue, colID);
+    }
+    else {
+
+        return update(tbl, colMapNameType, colMapNameValue, filter);
+    }
+}
+
 int DBHandler::select(DB_TABLES tbl, const QString &filter, int col, Qt::SortOrder order){
     QSqlTableModel *model = getTableModelRef(tbl);
     model->setFilter(filter);
@@ -64,28 +108,6 @@ int DBHandler::rowCount(DB_TABLES tbl){
 QSqlRecord DBHandler::record(DB_TABLES tbl, int row){
     return getTableModelRef(tbl)->record(row);
 }
-
-bool DBHandler::insertRow(DB_TABLES tbl, const QSqlRecord &record){
-    QSqlTableModel* tm = getTableModelRef(tbl);
-    bool success = tm->insertRecord(-1, record);
-    tm->submitAll();
-    if(!success)
-        qDebug()<<tm->lastError().text();
-    return success;
-}
-
-bool DBHandler::updateRow(DB_TABLES tbl, int row, const QSqlRecord &record){
-    return getTableModelRef(tbl)->setRecord(row, record);
-}
-
-bool DBHandler::updateAll(DB_TABLES tbl, const QString &filter, const QSqlRecord &record){
-    bool success = true;
-    select(tbl, filter);
-    for(int i = 0; i < rowCount(tbl); ++i)
-        success &= updateRow(tbl, i, record);
-    return success;
-}
-
 
 bool DBHandler::deleteRow(DB_TABLES tbl, int row){
     return getTableModelRef(tbl)->removeRow(row);
@@ -112,14 +134,7 @@ int DBHandler::getNextID(DB_TABLES tbl, const QString &colName, const QString &f
     return -1;
 }
 
-
-
-QSqlTableModel *DBHandler::getTableModelRef(DB_TABLES tbl){
-    return htSqlTableModels.value(tbl);
-}
-
 //PRIVATE METHODS
-
 void DBHandler::registerTable(const QString &tblName, const DB_TABLES tblType){
     QSqlTableModel *tbl = new QSqlTableModel(0, database);
     tbl->setTable(tblName);
@@ -127,4 +142,30 @@ void DBHandler::registerTable(const QString &tblName, const DB_TABLES tblType){
 
     htSqlTableModels.insert(tblType, tbl);
 }
+
+QSqlTableModel *DBHandler::getTableModelRef(DB_TABLES tbl){
+    return htSqlTableModels.value(tbl);
+}
+
+bool DBHandler::insertRow(DB_TABLES tbl, const QSqlRecord &record){
+    QSqlTableModel* tm = getTableModelRef(tbl);
+    bool success = tm->insertRecord(-1, record);
+    tm->submitAll();
+    if(!success)
+        qDebug()<<tm->lastError().text();
+    return success;
+}
+
+bool DBHandler::updateRow(DB_TABLES tbl, int row, const QSqlRecord &record){
+    return getTableModelRef(tbl)->setRecord(row, record);
+}
+
+bool DBHandler::updateAll(DB_TABLES tbl, const QString &filter, const QSqlRecord &record){
+    bool success = true;
+    select(tbl, filter);
+    for(int i = 0; i < rowCount(tbl); ++i)
+        success &= updateRow(tbl, i, record);
+    return success;
+}
+
 

@@ -39,10 +39,6 @@ Q_OBJECT
 public:
     explicit Controller(QObject *parent = 0);
 
-signals:
-
-public slots:
-
 private slots:
     void update(ViewType type);
     void save(ViewType type);
@@ -166,11 +162,6 @@ private:
     int loadhandling_ID;
     int bodyPosture_ID;
 
-    int insert(DB_TABLES tbl, const QString &colID, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue);
-
-    int save(DB_TABLES tbl, const QString &filter, const QString &colID, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue);
-
-    void save(DB_TABLES tbl, const QString &filter, const QHash<QString, QVariant::Type> &colMapNameType, const QHash<QString, QVariant> &colMapNameValue);
 
     int saveWorkplace(int id);
     int qTimeToSeconds(const QTime &time);
