@@ -49,8 +49,11 @@ MetaDataView::MetaDataView(QWidget *parent) :
     txtBxFactoryEmployeeCount->setPlaceholderText(tr("count"));
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->setAlignment(Qt::AlignTop);
     QGridLayout *upperLayout = new QGridLayout;
+    upperLayout->setAlignment(Qt::AlignTop);
     QHBoxLayout *recordingLayout = new QHBoxLayout;
+    recordingLayout->setAlignment(Qt::AlignTop);
     QVBoxLayout *beginLayout = new QVBoxLayout;
     QVBoxLayout *endLayout = new QVBoxLayout;
 
@@ -65,7 +68,7 @@ MetaDataView::MetaDataView(QWidget *parent) :
     upperLayout->addWidget(lblCorpName, 1, 0, 1, 1, 0);
     upperLayout->addWidget(txtBxCorpName, 1, 1, 1, 1, 0);
     upperLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 2, 0, 1, 5, 0);
-    upperLayout->addItem(new QSpacerItem(0, 50, QSizePolicy::Fixed, QSizePolicy::Fixed), 3, 0, 1, 5, 0);
+    upperLayout->addItem(new QSpacerItem(0, 20, QSizePolicy::Fixed, QSizePolicy::Fixed), 3, 0, 1, 5, 0);
     upperLayout->addWidget(lblBranchOfIndustry, 4, 0, 1, 3, 0);
     upperLayout->addWidget(lblBoIName, 5, 0, 1, 1, 0);
     upperLayout->addWidget(txtBxBoIName, 5, 1, 1, 1, 0);
@@ -73,7 +76,7 @@ MetaDataView::MetaDataView(QWidget *parent) :
     upperLayout->addWidget(lblBoIDescription, 5, 3, 1, 1, 0);
     upperLayout->addWidget(txtBxBoIDescription, 5, 4, 1, 1, 0);
     upperLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 6, 0, 1, 5, 0);
-    upperLayout->addItem(new QSpacerItem(0, 50, QSizePolicy::Fixed, QSizePolicy::Fixed), 7, 0, 1, 5, 0);
+    upperLayout->addItem(new QSpacerItem(0, 20, QSizePolicy::Fixed, QSizePolicy::Fixed), 7, 0, 1, 5, 0);
     upperLayout->addWidget(lblFactory, 8, 0, 1, 3, 0);
     upperLayout->addWidget(lblFactoryName, 9, 0, 1, 1, 0);
     upperLayout->addWidget(txtBxFactoryName, 9, 1, 1, 1, 0);
@@ -93,8 +96,6 @@ MetaDataView::MetaDataView(QWidget *parent) :
     upperLayout->addWidget(lblFactoryEmployeeCount, 12, 3, 1, 1, 0);
     upperLayout->addWidget(txtBxFactoryEmployeeCount, 12, 4, 1, 1, 0);
 
-
-
     beginLayout->addWidget(lblRecordingDateTimeBegin, 0, Qt::AlignCenter);
     beginLayout->addWidget(dteRecordingTimeBegin, 0, Qt::AlignCenter);
 
@@ -109,7 +110,7 @@ MetaDataView::MetaDataView(QWidget *parent) :
 
     mainLayout->addLayout(upperLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, 0));
-
+    mainLayout->addSpacerItem(new QSpacerItem(0, 20, QSizePolicy::Fixed, QSizePolicy::Fixed));
     mainLayout->addWidget(lblRecordingDateTime);
     mainLayout->addLayout(recordingLayout);
 

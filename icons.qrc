@@ -98,6 +98,10 @@
         <file>icons/Buttons/employee@2x.png</file>
         <file>icons/Buttons/employeePressed.png</file>
         <file>icons/Buttons/employeePressed@2x.png</file>
+        <file>icons/Buttons/rotation.png</file>
+        <file>icons/Buttons/rotation@2x.png</file>
+        <file>icons/Buttons/rotationPressed.png</file>
+        <file>icons/Buttons/rotationPressed@2x.png</file>
     </qresource>
     <qresource prefix="/misc">
         <file>icons/Misc/workplace.png</file>

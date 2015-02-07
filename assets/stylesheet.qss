@@ -64,6 +64,7 @@ QPushButton#bodyMeasurementIcon {image: url(:/button/icons/Buttons/bodyMeasureme
 QPushButton#calendarIcon {image: url(:/button/icons/Buttons/calendar.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#sendIcon {image: url(:/button/icons/Buttons/send.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#employeeIcon {image: url(:/button/icons/Buttons/employee.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#rotationIcon {image: url(:/button/icons/Buttons/rotation.png); width 45px; height 45px; border: none; background-color: transparent;}
 
 QPushButton#cameraIcon:pressed {image: url(:/button/icons/Buttons/cameraPressed.png); width: 50px; height: 50px; border: none; background-color: transparent;}
 QPushButton#upIcon:pressed {image: url(:/button/icons/Buttons/upPressed.png); width 45px; height 45px; border: none; background-color: transparent;}
@@ -88,6 +89,7 @@ QPushButton#bodyMeasurementIcon:pressed {image: url(:/button/icons/Buttons/bodyM
 QPushButton#calendarIcon:pressed {image: url(:/button/icons/Buttons/calendarPressed.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#sendIcon:pressed {image: url(:/button/icons/Buttons/sendPressed.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#employeeIcon:pressed {image: url(:/button/icons/Buttons/employeePressed.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#rotationIcon:pressed {image: url(:/button/icons/Buttons/rotationPressed.png); width 45px; height 45px; border: none; background-color: transparent;}
 
 QPushButton#playIcon:disabled {image: url(:/button/icons/Buttons/playDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#pauseIcon:disabled {image: url(:/button/icons/Buttons/pauseDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}

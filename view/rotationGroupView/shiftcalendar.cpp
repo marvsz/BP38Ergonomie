@@ -5,40 +5,92 @@
 #include <QDebug>
 #include <QToolBar>
 #include <QDialogButtonBox>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include "../separator.h"
 
 ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTime &endTime) :
     SimpleNavigateableWidget(tr("Calendar"), parent),
     beginTime(beginTime),
     endTime(endTime),
+    lblAddRotationGroup(new QLabel(tr("Add Rotation Group:"))),
+    rotationGroupListContent(new QWidget()),
+    scRotationGroups(new QScrollArea()),
+    rotationGroupListLayout(new QVBoxLayout()),
+    lblAddBreak(new QLabel(tr("Add break:"))),
+    lblBreakDuration(new QLabel(tr("Duration [min]:"))),
+    numBxBreakDuration(new NumberLineEdit()),
+    btnAddBreak(new QPushButton()),
     painter(),
     picCalendar(),
     lblCalendar(new QLabel()),
     scCalendar(new QScrollArea()),
     calendarEntryLayout(new QVBoxLayout())
 { 
+    // ROTATION GROUPS
+    rotationGroupListContent->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    scRotationGroups->setWidget(rotationGroupListContent);
+    scRotationGroups->setWidgetResizable(true);
+    scRotationGroups->setFixedHeight(400);
+    scRotationGroups->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    scRotationGroups->setObjectName("saBordered");
+    rotationGroupListContent->setLayout(rotationGroupListLayout);
+
+    FlickCharm *flickCharmProducts = new FlickCharm(this);
+    flickCharmProducts->activateOn(scRotationGroups);
+
+    btnAddBreak->setFixedSize(45, 45);
+    btnAddBreak->setObjectName("plusIcon");
+    connect(btnAddBreak, SIGNAL(clicked()), this, SLOT(btnAddBreakClicked()));
+
+    // CALENDAR
+    lblCalendar->setAlignment(Qt::AlignTop);
     scCalendar->setWidget(lblCalendar);
     scCalendar->setAlignment(Qt::AlignTop);
     scCalendar->setWidgetResizable(true);
-    scCalendar->setMinimumWidth(500);
+    scCalendar->setFixedWidth(500);
     scCalendar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    lblCalendar->setLayout(calendarEntryLayout);
 
     FlickCharm *flickCharm = new FlickCharm(this);
     flickCharm->activateOn(scCalendar);
-
-    QHBoxLayout *mainLayout = new QHBoxLayout;
-    mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Expanding, QSizePolicy::Expanding));
-    mainLayout->addWidget(scCalendar);
-    mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Expanding, QSizePolicy::Expanding));
-    setLayout(mainLayout);
 
     calendarEntryLayout->setAlignment(Qt::AlignRight | Qt::AlignTop);
     calendarEntryLayout->setSpacing(0);
     calendarEntryLayout->setContentsMargins(0,0,0,0);
     calendarEntryLayout->addSpacerItem(new QSpacerItem(420, 50, QSizePolicy::Fixed, QSizePolicy::Fixed));
 
+    // LEFT PART
+    QGridLayout *leftLayout = new QGridLayout;
+    leftLayout->setAlignment(Qt::AlignTop);
+    leftLayout->addWidget(lblAddRotationGroup, 0, 0, 1, 3, Qt::AlignLeft);
+    leftLayout->addWidget(scRotationGroups, 1, 0, 1, 3, 0);
+    leftLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 2, 0, 1, 3, 0);
+    leftLayout->addWidget(lblAddBreak, 3, 0, 1, 3, Qt::AlignLeft);
+    leftLayout->addWidget(lblBreakDuration, 4, 0, 1, 1, Qt::AlignLeft);
+    leftLayout->addWidget(numBxBreakDuration, 4, 1, 1, 1, Qt::AlignLeft);
+    leftLayout->addWidget(btnAddBreak, 4, 2, 1, 1, Qt::AlignCenter);
+
+    // RIGHT PART
+    QVBoxLayout *rightLayout = new QVBoxLayout;
+    rightLayout->setAlignment(Qt::AlignTop);
+    rightLayout->addWidget(scCalendar);
+
+    // MAIN LAYOUT
+    QHBoxLayout *splitLayout = new QHBoxLayout;
+    splitLayout->addLayout(leftLayout);
+    splitLayout->addWidget(new Separator(Qt::Vertical, 3, this));
+    splitLayout->addLayout(rightLayout);
+
+    setLayout(splitLayout);
+
     addRotationGroup("Rotationsgruppe 1", 60);
     addRotationGroup("Rotationsgruppe 2", 90);
     addRotationGroup("Rotationsgruppe 3", 60);
+    addBreak(90);
+    addRotationGroup("Rotationsgruppe 1", 120);
+    addRotationGroup("Rotationsgruppe 3", 30);
+    addRotationGroup("Rotationsgruppe 2", 30);
     addBreak(90);
     addRotationGroup("Rotationsgruppe 1", 120);
     addRotationGroup("Rotationsgruppe 3", 30);
@@ -70,7 +122,7 @@ void ShiftCalendar::addRotationGroup(const QString &name, int duration){
 
 void ShiftCalendar::addBreak(int duration){
     QSpacerItem *newItem = new QSpacerItem(420, ((float) HOUR_HEIGHT / 60) * (float) duration);
-    calendarEntryLayout->addItem(newItem);
+    calendarEntryLayout->addSpacerItem(newItem);
 }
 
 void ShiftCalendar::clear(){
@@ -121,4 +173,8 @@ void ShiftCalendar::drawBackground(){
     lblCalendar->setPicture(picCalendar);
     lblCalendar->repaint();
     lblCalendar->adjustSize();
+}
+
+void ShiftCalendar::btnAddBreakClicked(){
+
 }

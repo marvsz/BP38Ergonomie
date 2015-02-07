@@ -6,8 +6,8 @@
 #include "separator.h"
 
 EmployeeView::EmployeeView(QWidget *parent) : SimpleNavigateableWidget(tr("Worker Data"), parent),
-    lblGender(new QLabel(tr("gender:"))),
-    lblStaffNumber(new QLabel(tr("PersonalID:"))),
+    lblGender(new QLabel(tr("Gender:"))),
+    lblStaffNumber(new QLabel(tr("Personal ID:"))),
     lblNote(new QLabel(tr("Remarks:"))),
     oscGender(new OptionSelectionControl()),
     vcAge(new ValueControl(VALUE)),
@@ -31,7 +31,8 @@ EmployeeView::EmployeeView(QWidget *parent) : SimpleNavigateableWidget(tr("Worke
 
     oscGender->setValues(genderTextValues);
 
-    QGridLayout *employeeDataLayout = new QGridLayout();
+    QGridLayout *employeeDataLayout = new QGridLayout;
+    employeeDataLayout->setAlignment(Qt::AlignTop);
     employeeDataLayout->addWidget(lblGender, 0, 0, 1, 1, 0);
     employeeDataLayout->addWidget(oscGender, 0, 1, 1, 1, 0);
     employeeDataLayout->addWidget(new Separator(Qt::Horizontal, 3, this), 1, 0, 1, 2, 0);
@@ -45,8 +46,8 @@ EmployeeView::EmployeeView(QWidget *parent) : SimpleNavigateableWidget(tr("Worke
     employeeDataLayout->addWidget(txtBxNote, 7, 1, 1, 1, 0);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->setAlignment(Qt::AlignTop);
     mainLayout->addLayout(employeeDataLayout);
-    mainLayout->addSpacerItem(new QSpacerItem(0, 10, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
     setLayout(mainLayout);
 }
