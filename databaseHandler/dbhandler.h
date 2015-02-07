@@ -15,8 +15,8 @@ public:
     ~DBHandler();
 
     
-    bool select(DB_TABLES tbl, const QString &filter, int col, Qt::SortOrder order);
-    bool select(DB_TABLES tbl, const QString &filter);
+    int select(DB_TABLES tbl, const QString &filter, int col, Qt::SortOrder order);
+    int select(DB_TABLES tbl, const QString &filter);
     int rowCount(DB_TABLES tbl);
     QSqlRecord record(DB_TABLES tbl, int row);
     bool insertRow(DB_TABLES tbl, const QSqlRecord &record);
@@ -28,39 +28,13 @@ public:
     int getNextID(DB_TABLES tbl, const QString &colName, const QString &filter = "");
     
 private:
-    QSqlDatabase myDB;
-
-    QSqlTableModel *tmAnalyst;
-    QSqlTableModel *tmEmployer;
-    QSqlTableModel *tmCorporation;
-    QSqlTableModel *tmFactory;
-    QSqlTableModel *tmRecording;
-    QSqlTableModel *tmRecordingObservesLine;
-    QSqlTableModel *tmRecordingObservesWorkplace;
-    QSqlTableModel *tmWorkplace;
-    QSqlTableModel *tmLine;
-    QSqlTableModel *tmComment;
-    QSqlTableModel *tmEmployee;
-    QSqlTableModel *tmEmployeeWorksShift;
-    QSqlTableModel *tmProduct;
-    QSqlTableModel *tmShift;
-    QSqlTableModel *tmBreak;
-    QSqlTableModel *tmActivity;
-    QSqlTableModel *tmBodyPosture;
-    QSqlTableModel *tmWorkProcess;
-    QSqlTableModel *tmLoadHandlingType;
-    QSqlTableModel *tmLoadHandling;
-    QSqlTableModel *tmAppliedForce;
-    QSqlTableModel *tmTransportation;
-    QSqlTableModel *tmTypeOfGrasping;
-    QSqlTableModel *tmEquipment;
-    QSqlTableModel *tmWorkCondition;
-    QSqlTableModel *tmBranchOfIndustry;
-
+    QSqlDatabase database;
 
     QHash<DB_TABLES, QSqlTableModel*> htSqlTableModels;
 
     QSqlTableModel* getTableModelRef(DB_TABLES tbl);
+
+    void registerTable(const QString &tblName, const DB_TABLES tblType);
 };
 
 #endif // DBHANDLER_H

@@ -40,6 +40,15 @@ public slots:
 
 private:
     const QString title;
+
+    void paintEvent(QPaintEvent *){
+        QStyleOption opt;
+        opt.init(this);
+        QPainter p(this);
+        style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+    }
+
+
 };
 
 #endif // TITLEDWIDGET_H

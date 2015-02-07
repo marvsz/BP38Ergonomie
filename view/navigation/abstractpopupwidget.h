@@ -18,7 +18,7 @@ public:
     void setLayout(QLayout *layout);
 
 signals:
-    void close();
+    void closePopUp();
     void confirm();
 
 private:
@@ -28,6 +28,7 @@ private:
     QPushButton *btnConfirm;
     QLabel *lblTitle;
 
+    void paintEvent(QPaintEvent *);
 };
 
 #endif // ABSTRACTPOPUPWIDGET_H

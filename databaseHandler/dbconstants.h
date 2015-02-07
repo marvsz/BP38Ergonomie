@@ -309,7 +309,8 @@ public:
     static const QString COL_WORK_CONDITION_LEFT_LOWER_LEG_SUPPORTED;
     static const QHash<QString, QVariant::Type> HASH_WORK_CONDITION_TYPES;
 
-
+    //Table list
+    static const QHash<QString, DB_TABLES> HASH_TBL_TO_DB_TABLES;
 };
 
 #endif // DBCONSTANTS_H

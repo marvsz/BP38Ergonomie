@@ -9,11 +9,12 @@ AbstractPopUpWidget::AbstractPopUpWidget(ConfirmMode mode, const QString &title,
     btnConfirm(new QPushButton()),
     lblTitle(new QLabel())
 {
+    setObjectName("popUpBackground");
     lblTitle->setText(getTitle());
 
     btnClose->setObjectName("cancelIcon");
     btnClose->setFixedSize(45, 45);
-    connect(btnClose, SIGNAL(clicked()), this, SIGNAL(close()));
+    connect(btnClose, SIGNAL(clicked()), this, SIGNAL(closePopUp()));
 
     btnConfirm->setFixedSize(45, 45);
     switch(mode){
@@ -28,7 +29,6 @@ AbstractPopUpWidget::AbstractPopUpWidget(ConfirmMode mode, const QString &title,
     connect(btnConfirm, SIGNAL(clicked()), this, SIGNAL(confirm()));
 
     QWidget *mainContent = new QWidget;
-
     mainContentLayout->addWidget(btnConfirm, 0, 0, 1, 1, Qt::AlignLeft);
     mainContentLayout->addWidget(lblTitle, 0, 1, 1, 1, Qt::AlignCenter);
     mainContentLayout->addWidget(btnClose, 0, 2, 1, 1, Qt::AlignRight);
@@ -57,6 +57,14 @@ AbstractPopUpWidget::~AbstractPopUpWidget()
 //PUBLIC
 void AbstractPopUpWidget::setLayout(QLayout *layout){
     mainContentLayout->addLayout(layout, 2, 0, 1, 3, Qt::AlignCenter);
+}
+
+//PRIVATE
+void AbstractPopUpWidget::paintEvent(QPaintEvent *){
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
 

@@ -95,7 +95,7 @@ void ViewController::registerPopUp(AbstractPopUpWidget *popUp, PopUpType type){
     if(!popUpTypeToWidget->contains(type) && popUp != 0){
         popUpTypeToWidget->insert(type, popUp);
         popUp->hide();
-        connect(popUp, SIGNAL(close()), this, SLOT(closePopUp()));
+        connect(popUp, SIGNAL(closePopUp()), this, SLOT(closePopUp()));
     }
 }
 
