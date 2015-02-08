@@ -8,7 +8,7 @@ class StandardPaths : public QObject
 {
     Q_OBJECT
 public:
-    explicit StandardPaths(QObject *parent = 0){
+    explicit StandardPaths(QObject *parent = 0) : QObject(parent){
 
     }
 

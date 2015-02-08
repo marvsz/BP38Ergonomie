@@ -2,7 +2,7 @@
 #define VIEWCONTROLLER_H
 
 #include <QStackedWidget>
-#include <QStackedLayout>
+#include "notificationwidget.h"
 #include "navigateablewidget.h"
 #include "abstractpopupwidget.h"
 #include <QStack>
@@ -12,7 +12,7 @@
 #include <QLabel>
 #include <QHBoxLayout>
 
-class ViewController : public QWidget
+class ViewController : public NotificationWidget
 {
     Q_OBJECT
 public:
@@ -42,7 +42,6 @@ private slots:
 
     void btnFeedbackClicked();
 private:
-    QStackedLayout *popUpLayout;
     QStackedWidget *content;
     QStack<ViewType> *previousViews;
     QHash<ViewType, int> *viewTypeToIndex;

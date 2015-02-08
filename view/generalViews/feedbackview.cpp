@@ -40,6 +40,8 @@ FeedbackView::FeedbackView(QWidget *parent) : AbstractPopUpWidget(ConfirmMode::S
     mainLayout->addWidget(lblDescription, 1, 0, 1, 1, 0);
     mainLayout->addWidget(txtBxDescription, 1, 1, 1, 6, 0);
 
+    connect(this, SIGNAL(confirm()), this, SLOT(sendData()));
+
     setLayout(mainLayout);
 }
 
@@ -54,4 +56,9 @@ void FeedbackView::onEnter(){
     cmbBxPriority->setCurrentIndex(0);
     chbxScreenshot->setChecked(true);
     txtBxDescription->setText("");
+}
+
+void FeedbackView::sendData(){
+
+    emit closePopUp();
 }

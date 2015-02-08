@@ -2,9 +2,9 @@ QMainWindow {background-color: #efeff4;}
 
 QWidget {background-color: #efeff4}
 QWidget#detailedListItemWidget {border:2px solid #007aff; border-radius: 10px;}
-QWidget#popUpContent {border:2px solid #007aff; border-radius: 10px;}
-AbstractPopUpWidget {background-color: rgba(150, 150, 150, 180);}
-
+AbstractPopUpWidget {border:2px solid #007aff; border-radius: 10px;}
+QWidget#popUpBackground {background-color: rgba(150, 150, 150, 180);}
+QWidget#notifiMessageBackground {background: transparent;}
 Separator {background-color: #c8c7cc; margin: 5px 5px 5px 5px;}
 
 QLabel {font: 100 18px "Serif"; color: #8e8e93;}
@@ -97,6 +97,10 @@ QPushButton#pauseIcon:disabled {image: url(:/button/icons/Buttons/pauseDisabled.
 QPushButton#recordIcon:disabled {image: url(:/button/icons/Buttons/recordDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#resetIcon:disabled {image: url(:/button/icons/Buttons/resetDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#stopIcon:disabled {image: url(:/button/icons/Buttons/stopDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
+
+NotificationMessage {font: 100 18px "Serif";color: #8e8e93; border: 2px solid #007aff; border-radius: 18px; background-color: #f5f5f5; padding: 4px;}
+NotificationMessage#saveIcon {image: url(:/button/icons/Buttons/check.png); width 45px; height 45px; border: none; background-color: transparent;}
+
 
 QScrollArea {background-color: #efeff4; margin: 0 0; border: none;}
 QScrollArea#saBordered {border: 1px solid #c8c7cc; border-radius: 2px;}

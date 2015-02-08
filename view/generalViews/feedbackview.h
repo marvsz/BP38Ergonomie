@@ -40,6 +40,9 @@ protected:
         return ConfirmMode::SEND;
     }
 
+private slots:
+    void sendData();
+
 private:
     QLabel *lblViewName;
     TextLineEdit *txtBxViewName;

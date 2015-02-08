@@ -8,8 +8,7 @@
 #include <QDateTime>
 #include <QTime>
 
-ViewController::ViewController(QWidget *parent) : QWidget(parent),
-    popUpLayout(new QStackedLayout),
+ViewController::ViewController(QWidget *parent) : NotificationWidget(parent),
     content(new QStackedWidget()),
     previousViews(new QStack<ViewType>()),
     viewTypeToIndex(new QHash<ViewType, int>()),
@@ -57,11 +56,10 @@ ViewController::ViewController(QWidget *parent) : QWidget(parent),
     mainLayout->addLayout(navigationBarLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3));
     mainLayout->addWidget(content);
+
     QWidget *mainContent = new QWidget();
     mainContent->setLayout(mainLayout);
-    popUpLayout->setStackingMode(QStackedLayout::StackAll);
-    popUpLayout->addWidget(mainContent);
-    this->setLayout(popUpLayout);
+    this->setMainWidget(mainContent);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
@@ -87,7 +85,7 @@ void ViewController::registerView(NavigateableWidget *widget, ViewType type){
         viewTypeToWidget->insert(type, widget);
         connect(widget, SIGNAL(showPopUp(PopUpType)), this, SLOT(showPopUp(PopUpType)));
         connect(widget, SIGNAL(showView(ViewType)), this, SLOT(goToView(ViewType)));
-
+        NotificationWidget::resize(widget->sizeHint());
     }
 }
 
@@ -148,16 +146,13 @@ void ViewController::showPopUp(PopUpType type){
     if(popUpTypeToWidget->contains(type)){
         AbstractPopUpWidget *popUp = popUpTypeToWidget->value(type);
         popUp->onEnter();
-        popUp->show();
-        popUpLayout->insertWidget(1, popUp);
-        popUpLayout->setCurrentIndex(1);
+        this->openPopUp(popUp);
         currentPopUp = type;
     }
 }
 
 void ViewController::closePopUp(){
-    popUpLayout->setCurrentIndex(0);
-    popUpTypeToWidget->value(currentPopUp)->onLeaving();
+    NotificationWidget::closePopUp();
 }
 
 void ViewController::btnFeedbackClicked(){
@@ -168,6 +163,7 @@ void ViewController::btnFeedbackClicked(){
         QDir().mkdir(StandardPaths::screenshotPath());
     pixmap.save(fileName);
     showPopUp(PopUpType::FEEDBACK_POPUP);
+    this->showMessage("Test");
 }
 
 //PRIVATE METHODS

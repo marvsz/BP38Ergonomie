@@ -62,7 +62,9 @@ HEADERS +=\
     $$PWD/datelineedit.h \
     $$PWD/navigation/abstractpopupwidget.h \
     $$PWD/navigation/titledwidget.h \
-    $$PWD/rotationGroupView/rotationgrouplistview.h
+    $$PWD/rotationGroupView/rotationgrouplistview.h \
+    $$PWD/navigation/notificationwidget.h \
+    $$PWD/navigation/notificationmessage.h
 
 
 SOURCES +=\
@@ -122,6 +124,8 @@ SOURCES +=\
     $$PWD/rotationGroupView/rotationgroupview.cpp \
     $$PWD/datelineedit.cpp \
     $$PWD/navigation/abstractpopupwidget.cpp \
-    $$PWD/rotationGroupView/rotationgrouplistview.cpp
+    $$PWD/rotationGroupView/rotationgrouplistview.cpp \
+    $$PWD/navigation/notificationwidget.cpp \
+    $$PWD/navigation/notificationmessage.cpp
 
 
