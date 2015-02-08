@@ -1,5 +1,7 @@
 #include "bodymeasurementview.h"
 #include "separator.h"
+#include <QScrollArea>
+#include "flickcharm.h"
 
 BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWidget(tr("Body Measurements"), parent),
     vcHeadNeck(new ValueControl(VALUE)),
@@ -34,19 +36,19 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWi
     lblLowerBody->setObjectName("lblHeader");
     lblSelectBodyPart->setObjectName("lblHeader");
 
-    btnHead->setFixedSize(250, 100);
+    btnHead->setFixedSize(200, 80);
     btnHead->setObjectName("headIcon");
 
-    btnArmLeft->setFixedSize(50, 300);
+    btnArmLeft->setFixedSize(40, 240);
     btnArmLeft->setObjectName("armLeftIcon");
 
-    btnArmRight->setFixedSize(50, 300);
+    btnArmRight->setFixedSize(40, 240);
     btnArmRight->setObjectName("armRightIcon");
 
-    btnTorso->setFixedSize(150, 300);
+    btnTorso->setFixedSize(120, 240);
     btnTorso->setObjectName("torsoIcon");
 
-    btnLegs->setFixedSize(250, 300);
+    btnLegs->setFixedSize(200, 240);
     btnLegs->setObjectName("legsIcon");
 
 
@@ -98,7 +100,8 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWi
     headLayout->addWidget(lblHeadNeck, 0, 0, 1, 1, Qt::AlignLeft);
     headLayout->addWidget(vcHeadNeck, 1, 0, 1, 1, Qt::AlignLeft);
     head->setLayout(headLayout);
-    head->hide();
+
+    btnHead->setSelected(true);
 
     QGridLayout *torsoLayout = new QGridLayout;
     torsoLayout->addWidget(lblUpperBody, 0, 0, 1, 1, Qt::AlignLeft);
@@ -132,6 +135,15 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWi
     rightLayout->addWidget(legs, 3, 0, 1, 2, 0);
     rightLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 4, 0, 1, 2, 0);
 
+    QWidget *rightContent = new QWidget();
+    rightContent->setLayout(rightLayout);
+
+    QScrollArea *saRightLayout = new QScrollArea();
+    saRightLayout->setWidget(rightContent);
+    saRightLayout->setWidgetResizable(true);
+    FlickCharm *flick = new FlickCharm();
+    flick->activateOn(saRightLayout);
+
     QGridLayout *leftLayout = new QGridLayout;
     leftLayout->setSpacing(0);
     leftLayout->setContentsMargins(0, 0, 0, 0);
@@ -145,12 +157,12 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWi
     leftLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 5, 0, 1, 3, 0);
 
     QHBoxLayout *splitLayout = new QHBoxLayout;
-    splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
+    //splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
     splitLayout->addLayout(leftLayout);
-    splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
+    //splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
     splitLayout->addWidget(new Separator(Qt::Vertical, 3, 0));
-    splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
-    splitLayout->addLayout(rightLayout);
+    //splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
+    splitLayout->addWidget(saRightLayout);
     splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
 
     setLayout(splitLayout);
