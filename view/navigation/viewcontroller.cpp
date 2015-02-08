@@ -164,6 +164,7 @@ void ViewController::btnFeedbackClicked(){
     pixmap.save(fileName);
     showPopUp(PopUpType::FEEDBACK_POPUP);
     this->showMessage("Test");
+    this->showMessage("Klick mich", NotificationMessage::INFORMATION, NotificationMessage::PERSISTENT);
 }
 
 //PRIVATE METHODS

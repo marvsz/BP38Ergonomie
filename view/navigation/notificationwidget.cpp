@@ -46,11 +46,12 @@ void NotificationWidget::closePopUp(){
 
 void NotificationWidget::showMessage(const QString &message, NotificationMessage::MessageType msgType, NotificationMessage::MessageDisplayType msgDisplayType){
     notifiMessage->showMessage(message, msgType, msgDisplayType);
-    QSize size = notifiMessage->sizeHint();
+    /*QSize size = notifiMessage->sizeHint();
+    //QSize size(notifiMessage->width(), notifiMessage->height());
     int xPos = (this->width() - size.width()) / 2;
     int yPos = this->height() - size.height() - 40;
     notifiMessage->setGeometry(xPos, yPos, size.width(), size.height());
-    qDebug()<<size.width()<<"    "<<size.height()<<"   "<<xPos<<"   "<<yPos;
+    qDebug()<<size.width()<<"    "<<size.height()<<"   "<<xPos<<"   "<<yPos;*/
 }
 
 void NotificationWidget::closeMessage(){
@@ -70,6 +71,9 @@ void NotificationWidget::resizeEvent(QResizeEvent *event){
     QWidget::resizeEvent(event);
     mainWidget->resize(this->width(), this->height());
     popUpWidget->resize(this->width(), this->height());
-    notificationMessageWidget->resize(this->width(), this->height());
+    QSize size(notifiMessage->width(), notifiMessage->height());
+    int xPos = (this->width() - size.width()) / 2;
+    int yPos = this->height() - size.height() - 40;
+    notifiMessage->setGeometry(xPos, yPos, size.width(), size.height());
 }
 

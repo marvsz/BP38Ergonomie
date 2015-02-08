@@ -9,7 +9,7 @@ NotificationMessage::NotificationMessage(QWidget *parent) : QPushButton(parent),
 {
     this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     this->setIconSize(QSize(30, 30));
-    this->setMinimumSize(100, 30);
+    this->setGeometry(0, 0, 100, 42);
     connect(this, SIGNAL(clicked()), this, SLOT(closeMessage()));
     this->hide();
 }
@@ -58,8 +58,10 @@ void NotificationMessage::processMessageQueue(){
             case INFORMATION: this->setIcon(QIcon(":/button/icons/Buttons/check.png")); break;
             default: this->setObjectName("saveIcon"); break;
         }
-
         this->setText(msg.text);
+        int width = 35 + msg.text.length() * 12;
+        int xPos = this->x() + (this->width() - width) / 2;
+        this->setGeometry(xPos, this->y(), width, this->height());
         this->show();
         update();
     }
