@@ -99,8 +99,6 @@ QPushButton#resetIcon:disabled {image: url(:/button/icons/Buttons/resetDisabled.
 QPushButton#stopIcon:disabled {image: url(:/button/icons/Buttons/stopDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
 
 NotificationMessage {font: 100 18px "Serif";color: #8e8e93; border: 2px solid #007aff; border-radius: 18px; background-color: #f5f5f5; padding: 4px;}
-NotificationMessage#saveIcon {image: url(:/button/icons/Buttons/check.png); width 45px; height 45px; border: none; background-color: transparent;}
-
 
 QScrollArea {background-color: #efeff4; margin: 0 0; border: none;}
 QScrollArea#saBordered {border: 1px solid #c8c7cc; border-radius: 2px;}

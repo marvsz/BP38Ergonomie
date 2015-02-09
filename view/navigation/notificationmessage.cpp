@@ -52,11 +52,11 @@ void NotificationMessage::processMessageQueue(){
             timerID = startTimer(duration);
         }
         switch(msg.type){
-            case ACCEPT: this->setObjectName("saveIcon"); break;
-            case ERROR: this->setObjectName("cancelIcon"); break;
-            case WARNING: this->setObjectName("btnWarning"); break;
+            case ACCEPT: this->setIcon(QIcon(":/button/icons/Buttons/check.png")); break;
+            case ERROR: this->setIcon(QIcon(":/button/icons/Buttons/cancel.png")); break;
+            case WARNING: this->setIcon(QIcon(":/button/icons/Buttons/cancel.png")); break;
             case INFORMATION: this->setIcon(QIcon(":/button/icons/Buttons/check.png")); break;
-            default: this->setObjectName("saveIcon"); break;
+            default: this->setIcon(QIcon(":/button/icons/Buttons/check.png")); break;
         }
         this->setText(msg.text);
         int width = 35 + msg.text.length() * 12;
