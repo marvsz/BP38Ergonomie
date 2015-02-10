@@ -102,6 +102,14 @@
         <file>icons/Buttons/rotation@2x.png</file>
         <file>icons/Buttons/rotationPressed.png</file>
         <file>icons/Buttons/rotationPressed@2x.png</file>
+        <file>icons/Buttons/downDisabled.png</file>
+        <file>icons/Buttons/downDisabled@2x.png</file>
+        <file>icons/Buttons/upDisabled.png</file>
+        <file>icons/Buttons/upDisabled@2x.png</file>
+        <file>icons/Buttons/checkBox.png</file>
+        <file>icons/Buttons/checkBox@2x.png</file>
+        <file>icons/Buttons/checkBoxChecked.png</file>
+        <file>icons/Buttons/checkBoxChecked@2x.png</file>
     </qresource>
     <qresource prefix="/misc">
         <file>icons/Misc/workplace.png</file>
@@ -126,6 +134,8 @@
         <file>icons/Misc/handle@2x.png</file>
         <file>icons/Misc/settingsPressed.png</file>
         <file>icons/Misc/settingsPressed@2x.png</file>
+        <file>icons/Misc/rotation.png</file>
+        <file>icons/Misc/rotation@2x.png</file>
     </qresource>
     <qresource prefix="/body">
         <file>icons/BodyMeasurement/armLeft.png</file>

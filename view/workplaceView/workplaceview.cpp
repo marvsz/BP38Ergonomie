@@ -68,20 +68,6 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     lineListTwo << tr("description");
     lineList << lineListOne << lineListTwo;
 
-    /*QList<QStringList> shiftList;
-    QStringList shiftListOne;
-    shiftListOne << "Schichtart" << "Stückzahl" << "Taktzeit";
-    QStringList shiftListTwo;
-    shiftListTwo << "Begin" << "Ende";
-    shiftList << shiftListOne << shiftListTwo;
-
-    QList<QStringList> employeeList;
-    QStringList employeeListOne;
-    employeeListOne << "Geschlecht" << "Alter" << "Größe";
-    QStringList employeeListTwo;
-    employeeListTwo << "Anmerkung";
-    employeeList << employeeListOne << employeeListTwo;*/
-
     QList<QStringList> activityList;
 
     QList<QStringList> commentList;

@@ -1,7 +1,7 @@
 #include "shiftcalendar.h"
 #include "flickcharm.h"
 #include "QFont"
-#include <QPushButton>
+#include "../selectablevaluebutton.h"
 #include <QDebug>
 #include <QToolBar>
 #include <QDialogButtonBox>
@@ -13,6 +13,7 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
     SimpleNavigateableWidget(tr("Calendar"), parent),
     beginTime(beginTime),
     endTime(endTime),
+    btnRotation(new QPushButton()),
     lblAddRotationGroup(new QLabel(tr("Add Rotation Group:"))),
     rotationGroupListContent(new QWidget()),
     scRotationGroups(new QScrollArea()),
@@ -20,13 +21,24 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
     lblAddBreak(new QLabel(tr("Add break:"))),
     lblBreakDuration(new QLabel(tr("Duration [min]:"))),
     numBxBreakDuration(new NumberLineEdit()),
+    lblBreakName(new QLabel(tr("Name:"))),
+    txtBxBreakName(new TextLineEdit()),
     btnAddBreak(new QPushButton()),
+    currentId(-1),
     painter(),
     picCalendar(),
     lblCalendar(new QLabel()),
     scCalendar(new QScrollArea()),
-    calendarEntryLayout(new QVBoxLayout())
+    calendarEntryLayout(new QVBoxLayout()),
+    calendarEntries(new QVector<SelectableValueButton*>),
+    btnMoveUp(new QPushButton()),
+    btnMoveDown(new QPushButton()),
+    btnDelete(new QPushButton())
 { 
+
+    btnRotation->setFixedSize(45, 45);
+    btnRotation->setObjectName("rotationIcon");
+
     // ROTATION GROUPS
     rotationGroupListContent->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     scRotationGroups->setWidget(rotationGroupListContent);
@@ -44,37 +56,65 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
     connect(btnAddBreak, SIGNAL(clicked()), this, SLOT(btnAddBreakClicked()));
 
     // CALENDAR
+    QVBoxLayout *calendarLayout = new QVBoxLayout;
+    calendarLayout->addSpacerItem(new QSpacerItem(0, 50, QSizePolicy::Fixed, QSizePolicy::Fixed));
+    calendarLayout->setSpacing(0);
+    calendarLayout->setContentsMargins(0,0,0,0);
+    calendarLayout->addLayout(calendarEntryLayout);
+
     lblCalendar->setAlignment(Qt::AlignTop);
     scCalendar->setWidget(lblCalendar);
     scCalendar->setAlignment(Qt::AlignTop);
     scCalendar->setWidgetResizable(true);
     scCalendar->setFixedWidth(500);
     scCalendar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    lblCalendar->setLayout(calendarEntryLayout);
+    lblCalendar->setLayout(calendarLayout);
 
     FlickCharm *flickCharm = new FlickCharm(this);
     flickCharm->activateOn(scCalendar);
 
-    calendarEntryLayout->setAlignment(Qt::AlignRight | Qt::AlignTop);
+    calendarEntryLayout->setAlignment(Qt::AlignCenter | Qt::AlignTop);
     calendarEntryLayout->setSpacing(0);
     calendarEntryLayout->setContentsMargins(0,0,0,0);
-    calendarEntryLayout->addSpacerItem(new QSpacerItem(420, 50, QSizePolicy::Fixed, QSizePolicy::Fixed));
+
+    btnMoveUp->setFixedSize(45, 45);
+    btnMoveUp->setObjectName("upIcon");
+    btnMoveUp->setEnabled(false);
+    connect(btnMoveUp, SIGNAL(clicked()), this, SLOT(btnMoveUpClicked()));
+
+    btnMoveDown->setFixedSize(45, 45);
+    btnMoveDown->setObjectName("downIcon");
+    btnMoveDown->setEnabled(false);
+    connect(btnMoveDown, SIGNAL(clicked()), this, SLOT(btnMoveDownClicked()));
+
+    btnDelete->setFixedSize(45, 45);
+    btnDelete->setObjectName("resetIcon");
+    btnDelete->setEnabled(false);
+    connect(btnDelete, SIGNAL(clicked()), this, SLOT(btnDeleteClicked()));
 
     // LEFT PART
     QGridLayout *leftLayout = new QGridLayout;
     leftLayout->setAlignment(Qt::AlignTop);
-    leftLayout->addWidget(lblAddRotationGroup, 0, 0, 1, 3, Qt::AlignLeft);
-    leftLayout->addWidget(scRotationGroups, 1, 0, 1, 3, 0);
-    leftLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 2, 0, 1, 3, 0);
-    leftLayout->addWidget(lblAddBreak, 3, 0, 1, 3, Qt::AlignLeft);
+    leftLayout->addWidget(lblAddRotationGroup, 0, 0, 1, 2, Qt::AlignLeft);
+    leftLayout->addWidget(scRotationGroups, 1, 0, 1, 2, 0);
+    leftLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 2, 0, 1, 2, 0);
+    leftLayout->addWidget(lblAddBreak, 3, 0, 1, 2, Qt::AlignLeft);
     leftLayout->addWidget(lblBreakDuration, 4, 0, 1, 1, Qt::AlignLeft);
     leftLayout->addWidget(numBxBreakDuration, 4, 1, 1, 1, Qt::AlignLeft);
-    leftLayout->addWidget(btnAddBreak, 4, 2, 1, 1, Qt::AlignCenter);
+    leftLayout->addWidget(lblBreakName, 5, 0, 1, 1, Qt::AlignLeft);
+    leftLayout->addWidget(txtBxBreakName, 5, 1, 1, 1, Qt::AlignLeft);
+    leftLayout->addWidget(btnAddBreak, 6, 0, 1, 2, Qt::AlignCenter);
 
     // RIGHT PART
+    QHBoxLayout *rightBottomLayout = new QHBoxLayout;
+    rightBottomLayout->addWidget(btnMoveUp);
+    rightBottomLayout->addWidget(btnMoveDown);
+    rightBottomLayout->addWidget(btnDelete);
+
     QVBoxLayout *rightLayout = new QVBoxLayout;
     rightLayout->setAlignment(Qt::AlignTop);
     rightLayout->addWidget(scCalendar);
+    rightLayout->addLayout(rightBottomLayout);
 
     // MAIN LAYOUT
     QHBoxLayout *splitLayout = new QHBoxLayout;
@@ -84,24 +124,20 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
 
     setLayout(splitLayout);
 
-    addRotationGroup("Rotationsgruppe 1", 60);
-    addRotationGroup("Rotationsgruppe 2", 90);
-    addRotationGroup("Rotationsgruppe 3", 60);
-    addBreak(90);
-    addRotationGroup("Rotationsgruppe 1", 120);
-    addRotationGroup("Rotationsgruppe 3", 30);
-    addRotationGroup("Rotationsgruppe 2", 30);
-    addBreak(90);
-    addRotationGroup("Rotationsgruppe 1", 120);
-    addRotationGroup("Rotationsgruppe 3", 30);
-    addRotationGroup("Rotationsgruppe 2", 30);
-
     drawBackground();
 
 }
 
 
 // PUBLIC
+QList<QAbstractButton*> * ShiftCalendar::getAdditionalNavigation() const {
+    QList<QAbstractButton*> *additions = new QList<QAbstractButton*>();
+    additions->append(btnRotation);
+    return additions;
+}
+
+// PUBLIC SLOTS
+
 void ShiftCalendar::setBeginTime(const QTime &beginTime){
     this->beginTime = beginTime;
     drawBackground();
@@ -112,26 +148,29 @@ void ShiftCalendar::setEndTime(const QTime &endTime){
     drawBackground();
 }
 
-// PUBLIC SLOTS
+void ShiftCalendar::addCalendarRotationGroup(int id, int duration, const QString &name){
+    SelectableValueButton *newItem = new SelectableValueButton(id, name, 0);
+    newItem->setText(name);
+    newItem->setFixedSize(350, ((float) HOUR_HEIGHT / 60) * (float) duration);
+    calendarEntryLayout->addWidget(newItem);
+    calendarEntries->append(newItem);
+}
 
-void ShiftCalendar::addRotationGroup(const QString &name, int duration){
-    QPushButton *newItem = new QPushButton(name);
-    newItem->setFixedSize(400, ((float) HOUR_HEIGHT / 60) * (float) duration);
+void ShiftCalendar::addCalendarBreak(int id, int duration, const QString &name){
+    SelectableValueButton *newItem = new SelectableValueButton(id, name, 0);
+    newItem->setText(name);
+    newItem->setFixedSize(350, ((float) HOUR_HEIGHT / 60) * (float) duration);
+    connect(newItem, SIGNAL(clickedWithID(int)), this, SLOT(setSelectedId(int)));
+    calendarEntries->append(newItem);
     calendarEntryLayout->addWidget(newItem);
 }
 
-void ShiftCalendar::addBreak(int duration){
-    QSpacerItem *newItem = new QSpacerItem(420, ((float) HOUR_HEIGHT / 60) * (float) duration);
-    calendarEntryLayout->addSpacerItem(newItem);
-}
-
-void ShiftCalendar::clear(){
+void ShiftCalendar::clearCalendar(){
     QLayoutItem *item;
     while((item = calendarEntryLayout->takeAt(0)) != NULL){
         delete item->widget();
         delete item;
     }
-    calendarEntryLayout->addSpacerItem(new QSpacerItem(420, 50, QSizePolicy::Fixed, QSizePolicy::Fixed));
 }
 
 // PRIVATE
@@ -175,6 +214,89 @@ void ShiftCalendar::drawBackground(){
     lblCalendar->adjustSize();
 }
 
+// PRIVATE SLOTS
 void ShiftCalendar::btnAddBreakClicked(){
+    emit createBreak();
+    numBxBreakDuration->clear();
+    txtBxBreakName->clear();
+}
+
+void ShiftCalendar::btnRotationClicked(){
+    emit showView(ViewType::ROTATION_GROUP_VIEW);
+}
+
+void ShiftCalendar::setSelectedId(int id){
+    currentId = id;
+    /*if(id >= 0 && id < calendarEntries->length()){
+            for(int i = 0; i < calendarEntries->length(); ++i){
+                SelectableValueButton *btn = calendarEntries->at(i);
+                if(btn->getID() == id){
+                   btn->setSelected(true);
+                }
+                else
+                    btn->setSelected(false);
+            }
+            btnDelete->setEnabled(true);
+    } else{
+        btnDelete->setEnabled(false);
+    }
+
+    if ( id <= 0){
+        btnMoveUp->setEnabled(false);
+    } else{
+        btnMoveUp->setEnabled(true);
+    }
+    if (id >= calendarEntries->length()-1){
+        btnMoveDown->setEnabled(false);
+    } else{
+        btnMoveDown->setEnabled(true);
+    }*/
+}
+
+void ShiftCalendar::btnMoveUpClicked(){
+    /*SelectableValueButton* item = calendarEntries->at(currentId);
+    calendarEntryLayout->removeWidget(item);
+    calendarEntryLayout->insertWidget(currentId-1, item);
+
+    calendarEntries->at(currentId)->setID(currentId-1);
+    calendarEntries->at(currentId-1)->setID(currentId);
+
+    calendarEntries->replace(currentId, calendarEntries->at(currentId-1));
+    calendarEntries->replace(currentId -1, item);
+
+    setSelectedId(currentId-1);*/
+}
+
+void ShiftCalendar::btnMoveDownClicked(){
+    /*SelectableValueButton* item = calendarEntries->at(currentId);
+    calendarEntryLayout->removeWidget(item);
+    calendarEntryLayout->insertWidget(currentId+1, item);
+
+    calendarEntries->at(currentId)->setID(currentId+1);
+    calendarEntries->at(currentId+1)->setID(currentId);
+
+    calendarEntries->replace(currentId, calendarEntries->at(currentId+1));
+    calendarEntries->replace(currentId+1, item);
+
+    setSelectedId(currentId+1);*/
+}
+
+void ShiftCalendar::btnDeleteClicked(){
+    /*SelectableValueButton* item = calendarEntries->at(currentId);
+    calendarEntryLayout->removeWidget(item);
+    delete item;
+
+    for(int i = currentId; i < calendarEntries->length(); i++){
+        calendarEntries->at(i)->setID(i-1);
+    }
+
+    calendarEntries->removeAt(currentId);
+    nextID--;
+    setSelectedId(-1);*/
 
 }
+
+ShiftCalendar::~ShiftCalendar(){
+
+}
+

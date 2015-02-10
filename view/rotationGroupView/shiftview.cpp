@@ -74,8 +74,8 @@ QTime ShiftView::getEndTime() const{
     return tsEnd->getTime();
 }
 
-QString ShiftView::getType() const{
-    return oscShiftType->getSelectedTexts();
+int ShiftView::getShiftType() const{
+    return oscShiftType->getSelectedID();
 }
 
 // PUBLIC SLOTS
@@ -85,6 +85,10 @@ void ShiftView::setStartTime(const QTime &time){
 
 void ShiftView::setEndTime(const QTime &time){
     tsEnd->setTime(time);
+}
+
+void ShiftView::setShiftType(int type){
+    oscShiftType->setSelectedValue(type);
 }
 
 // PRIVATE SLOTS
@@ -107,6 +111,9 @@ void ShiftView::updateShiftTimes(int type){
         setEndTime(QTime(0, 0));
         break;
     }
+    emit shiftTypeChanged(type);
+    emit beginTimeChanged(tsStart->getTime());
+    emit endTimeChanged(tsEnd->getTime());
 }
 
 void ShiftView::btnEmployeeClicked(){
@@ -118,5 +125,9 @@ void ShiftView::btnCalendarClicked(){
 }
 
 void ShiftView::btnRotationClicked(){
-    emit showView(ViewType::ROTATION_GROUP_VIEW);
+    emit showView(ViewType::ROTATION_GROUP_LIST_VIEW);
+}
+
+ShiftView::~ShiftView(){
+
 }

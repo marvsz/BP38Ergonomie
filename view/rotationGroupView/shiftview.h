@@ -22,6 +22,7 @@ class ShiftView : public SimpleNavigateableWidget
     Q_OBJECT
 public:
     explicit ShiftView(QWidget *parent = 0);
+    ~ShiftView();
 
     bool hasAdditionalNavigation() const {
         return true;
@@ -29,13 +30,17 @@ public:
 
     QList<QAbstractButton*> * getAdditionalNavigation() const;
 
-    QString getType() const;
+    int getShiftType() const;
     QTime getStartTime() const;
     QTime getEndTime() const;
 
 signals:
+    void shiftTypeChanged(int type);
+    void beginTimeChanged(QTime begin);
+    void endTimeChanged(QTime end);
 
 public slots:
+    void setShiftType(int type);
     void setStartTime(const QTime &time);
     void setEndTime(const QTime &time);
 

@@ -1,7 +1,6 @@
 #ifndef SHIFTCALENDAR_H
 #define SHIFTCALENDAR_H
 
-#include <QWidget>
 #include <QTime>
 #include <QScrollArea>
 #include <QPainter>
@@ -9,32 +8,55 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QPushButton>
+#include "../selectablevaluebutton.h"
 #include "../numberlineedit.h"
+#include "../textlineedit.h"
 #include "../view/navigation/simplenavigateablewidget.h"
 
 class ShiftCalendar : public SimpleNavigateableWidget
 {
     Q_OBJECT
 public:
-    explicit ShiftCalendar(QWidget *parent = 0, const QTime &beginTime = QTime(6,0), const QTime &endTime = QTime(22, 0));
+    explicit ShiftCalendar(QWidget *parent = 0, const QTime &beginTime = QTime(6,0), const QTime &endTime = QTime(14, 0));
+    ~ShiftCalendar();
+
+    bool hasAdditionalNavigation() const {
+        return true;
+    }
+
+    QList<QAbstractButton*> * getAdditionalNavigation() const;
+
+    QString getBreakName() const;
+    int getBreakDuration() const;
+signals:
+
+    void createBreak();
+
+
+public slots:
+    void addCalendarRotationGroup(int id, int duration = 60, const QString &name = "");
+    void addCalendarBreak(int id, int duration = 60, const QString &name = "");
+    void clearCalendar();
+
     void setBeginTime(const QTime &beginTime);
     void setEndTime(const QTime &endTime);
 
-signals:
-
-public slots:
-    void addRotationGroup(const QString &name, int duration);
-    void addBreak(int duration);
-    void clear();
-
 private slots:
     void btnAddBreakClicked();
+    void btnRotationClicked();
+    void setSelectedId(int id);
+
+    void btnMoveUpClicked();
+    void btnMoveDownClicked();
+    void btnDeleteClicked();
 
 private:
     static const int HOUR_HEIGHT = 80;
 
     QTime beginTime;
     QTime endTime;
+
+    QPushButton *btnRotation;
 
     QLabel *lblAddRotationGroup;
     QWidget *rotationGroupListContent;
@@ -44,13 +66,20 @@ private:
     QLabel *lblAddBreak;
     QLabel *lblBreakDuration;
     NumberLineEdit *numBxBreakDuration;
+    QLabel *lblBreakName;
+    TextLineEdit *txtBxBreakName;
     QPushButton *btnAddBreak;
+    int currentId;
 
     QPainter painter;
     QPicture picCalendar;
     QLabel *lblCalendar;
     QScrollArea *scCalendar;
     QVBoxLayout *calendarEntryLayout;
+    QVector<SelectableValueButton*>* calendarEntries;
+    QPushButton *btnMoveUp;
+    QPushButton *btnMoveDown;
+    QPushButton *btnDelete;
 
     void drawBackground();
 };

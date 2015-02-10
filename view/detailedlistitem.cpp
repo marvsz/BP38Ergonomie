@@ -34,14 +34,13 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
         lblIcon->setIcon(icon);
     }
     checkBox->setChecked(false);
-    checkBox->setFixedSize(45, 45);
     checkBox->setDisabled(true);
     btnDelete->setFixedSize(45, 45);
     btnDelete->setObjectName("resetIcon");
     btnForward->setFixedSize(45, 45);
     btnForward->setObjectName("rightIcon");
     connect(btnDelete, SIGNAL(clicked()), this, SLOT(deleteItem()));
-    connect(btnForward, SIGNAL(clicked()), this, SLOT(itemPressed()));
+    connect(btnForward, SIGNAL(clicked()), this, SIGNAL(clicked()));
 
     // ADD SCHEME (DESCRIPTIONS)
     for(int i = 0; i < scheme.count(); ++i){

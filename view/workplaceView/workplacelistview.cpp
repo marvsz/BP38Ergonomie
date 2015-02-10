@@ -8,7 +8,7 @@
 #include <QStringList>
 #include "iconconstants.h"
 
-const QList<QStringList> WorkplaceListView::workplaceCaptions = QList<QStringList>() << (QStringList() << "Beschreibung" << "Code");
+const QList<QStringList> WorkplaceListView::workplaceCaptions = QList<QStringList>() << (QStringList() << tr("Description") << tr("Code"));
 
 WorkplaceListView::WorkplaceListView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Workplaces"), parent),

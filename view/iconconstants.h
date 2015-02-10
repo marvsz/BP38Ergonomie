@@ -38,6 +38,7 @@ public:
     static const QString ICON_PRODUCT;
     static const QString ICON_TRANSPORTATION;
     static const QString ICON_USER;
+    static const QString ICON_ROTATION;
 
 };
 

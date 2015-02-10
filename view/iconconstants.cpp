@@ -31,6 +31,7 @@ const QString IconConstants::ICON_EQUIPMENT = ":/misc/icons/Misc/equipment.png";
 const QString IconConstants::ICON_PRODUCT = ":/misc/icons/Misc/product.png";
 const QString IconConstants::ICON_TRANSPORTATION= ":/misc/icons/Misc/transportation.png";
 const QString IconConstants::ICON_USER = ":/misc/icons/Misc/user.png";
+const QString IconConstants::ICON_ROTATION = ":/misc/icons/Misc/rotation.png";
 
 IconConstants::IconConstants()
 {

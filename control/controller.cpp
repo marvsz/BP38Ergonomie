@@ -20,6 +20,7 @@ Controller::Controller(QObject *parent) :
     shiftView(new ShiftView()),
     shiftCalendarView(new ShiftCalendar()),
     rotationGroupView(new RotationGroupView()),
+    rotationGroupListView(new RotationGroupListView()),
     settingsView(new SettingsView()),
     documentationView(new DocumentationView()),
     workProcessMetaDataView(new WorkProcessMetaDataView()),
@@ -71,6 +72,7 @@ Controller::Controller(QObject *parent) :
     viewCon->registerView(shiftView, ViewType::SHIFT_VIEW);
     viewCon->registerView(shiftCalendarView, ViewType::SHIFT_CALENDAR_VIEW);
     viewCon->registerView(rotationGroupView, ViewType::ROTATION_GROUP_VIEW);
+    viewCon->registerView(rotationGroupListView, ViewType::ROTATION_GROUP_LIST_VIEW);
     viewCon->registerView(employeeView, ViewType::EMPLOYEE_VIEW);
     viewCon->registerView(bodyMeasurementView, ViewType::BODY_MEASUREMENT_VIEW);
     viewCon->registerView(documentationView, ViewType::DOCUMENTATION_VIEW);
