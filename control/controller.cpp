@@ -108,6 +108,7 @@ Controller::Controller(QObject *parent) :
 
     connect(transportationView, SIGNAL(saveTransportation()), this, SLOT(createTransportation()));
     connect(transportationView, SIGNAL(deleteTransportation(int)), this, SLOT(deleteTransportation(int)));
+    connect(transportationPopUp, SIGNAL(confirm()), this, SLOT(createTransportationPopUp()));
 
     connect(activityView, SIGNAL(createActivity()), this, SLOT(createActivity()));
     connect(activityView, SIGNAL(selectActivity(int)), this, SLOT(selectActivity(int)));
@@ -583,8 +584,24 @@ void Controller::createTransportation(){
     values.insert(DBConstants::COL_TRANSPORTATION_MAX_LOAD, transportationView->getMaxLoad());
     values.insert(DBConstants::COL_TRANSPORTATION_BRAKES, transportationView->hasBrakes());
     values.insert(DBConstants::COL_TRANSPORTATION_FIXED_ROLLER, transportationView->hasFixedRoller());
+    int id = dbHandler->insert(DB_TABLES::TRANSPORTATION, DBConstants::HASH_TRANSPORTATION_TYPES, values, DBConstants::COL_TRANSPORTATION_ID);
+    transportationView->addTransportation(id, values.value(DBConstants::COL_TRANSPORTATION_NAME).toString(),
+                                          values.value(DBConstants::COL_TRANSPORTATION_EMPTY_WEIGHT).toInt(),
+                                          values.value(DBConstants::COL_TRANSPORTATION_MAX_LOAD).toInt(),
+                                          values.value(DBConstants::COL_TRANSPORTATION_FIXED_ROLLER).toBool(),
+                                          values.value(DBConstants::COL_TRANSPORTATION_BRAKES).toBool());
+}
+
+void Controller::createTransportationPopUp(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_TRANSPORTATION_NAME, transportationPopUp->getName());
+    values.insert(DBConstants::COL_TRANSPORTATION_EMPTY_WEIGHT, transportationPopUp->getWeight());
+    values.insert(DBConstants::COL_TRANSPORTATION_MAX_LOAD, transportationPopUp->getMaxLoad());
+    values.insert(DBConstants::COL_TRANSPORTATION_BRAKES, transportationPopUp->getHasBrakes());
+    values.insert(DBConstants::COL_TRANSPORTATION_FIXED_ROLLER, transportationPopUp->getHasFixedRoller());
     dbHandler->insert(DB_TABLES::TRANSPORTATION, DBConstants::HASH_TRANSPORTATION_TYPES, values, DBConstants::COL_TRANSPORTATION_ID);
-    updateTransportationView();
+    viewCon->closePopUp();
+    viewCon->showMessage(tr("Created new transporation"));
 }
 
 void Controller::deleteTransportation(int id){

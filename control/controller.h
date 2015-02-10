@@ -93,6 +93,7 @@ private slots:
 
     void updateTransportationView();
     void createTransportation();
+    void createTransportationPopUp();
     void deleteTransportation(int id);
 
     void updateActivityView();
