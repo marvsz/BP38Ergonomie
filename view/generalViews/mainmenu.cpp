@@ -10,6 +10,7 @@ MainMenu::MainMenu(QWidget *parent) :
     btnWorkplaceList(new QPushButton(tr("Work Stations"))),
     btnRessourceManagement(new QPushButton(tr ("Ressource Management"))),
     btnShift(new QPushButton(tr("Shift Data"))),
+    btnNewRecording(new QPushButton(tr("New recording"))),
     btnSettings(new QPushButton())
 
 {
@@ -19,6 +20,7 @@ MainMenu::MainMenu(QWidget *parent) :
     btnWorkplaceList->setMinimumSize(300, 60);
     btnRessourceManagement->setMinimumSize(300, 60);
     btnShift->setMinimumSize(300, 60);
+    btnNewRecording->setMinimumSize(300, 60);
 
     btnSettings->setObjectName("settingsIcon");
     btnSettings->setFixedSize(45, 45);
@@ -27,6 +29,7 @@ MainMenu::MainMenu(QWidget *parent) :
     connect(btnWorkplaceList, SIGNAL(clicked()), this, SLOT(btnWorkplaceListClicked()));
     connect(btnRessourceManagement, SIGNAL(clicked()), this, SLOT(btnRessourceManagementClicked()));
     connect(btnShift, SIGNAL(clicked()), this, SLOT(btnShiftClicked()));
+    connect(btnNewRecording, SIGNAL(clicked()), this, SLOT(btnNewRecordingClicked()));
     connect(btnSettings, SIGNAL(clicked()), this, SLOT(btnSettingsClicked()));
 
     lblViewName->setObjectName("lblHeader");
@@ -39,6 +42,8 @@ MainMenu::MainMenu(QWidget *parent) :
     mainLayout->addWidget(btnRessourceManagement, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
     mainLayout->addWidget(btnShift, 0, Qt::AlignCenter);
+    mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
+    mainLayout->addWidget(btnNewRecording, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Minimum, QSizePolicy::Expanding));
 
 
@@ -70,4 +75,9 @@ void MainMenu::btnRessourceManagementClicked(){
 
 void MainMenu::btnShiftClicked(){
     emit showView(ViewType::SHIFT_VIEW);
+}
+
+void MainMenu::btnNewRecordingClicked(){
+    emit createBlankRecording();
+    emit showView(ViewType::DOCUMENTATION_VIEW);
 }

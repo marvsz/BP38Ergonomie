@@ -21,12 +21,16 @@ public:
 
     QList<QAbstractButton*> * getAdditionalNavigation() const;
 
+signals:
+    void createBlankRecording();
+
 private slots:
     void btnSettingsClicked();
     void btnMetaDataViewClicked();
     void btnWorkplaceListClicked();
     void btnRessourceManagementClicked();
     void btnShiftClicked();
+    void btnNewRecordingClicked();
 
 private:
     QLabel *lblViewName;
@@ -35,6 +39,7 @@ private:
     QPushButton *btnRessourceManagement;
     QPushButton *btnShift;
     QPushButton *btnSettings;
+    QPushButton *btnNewRecording;
 
 };
 

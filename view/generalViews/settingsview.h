@@ -15,12 +15,14 @@ public:
         return false;
     }
 signals:
+    void resetRecordings();
     void resetDatabase();
 
 private slots:
     void btnResetClicked();
 
 private:
+    QPushButton *btnResetRecordings;
     QPushButton *btnReset;
 };
 
