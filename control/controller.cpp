@@ -31,7 +31,9 @@ Controller::Controller(QObject *parent) :
     gantTimerView(new GantTimerView()),
     timerViewController(new TimerViewController()),
     feedbackPopUp(new FeedbackPopUp()),
-    equipmentPopUp(new EquipmentPopUp())
+    equipmentPopUp(new EquipmentPopUp()),
+    transportationPopUp(new TransporationPopUp()),
+    sendDatabasePopUp(new SendDatabasePopUp())
 {
     dbHandler = new DBHandler();
 
@@ -79,6 +81,8 @@ Controller::Controller(QObject *parent) :
 
     viewCon->registerPopUp(feedbackPopUp, PopUpType::FEEDBACK_POPUP);
     viewCon->registerPopUp(equipmentPopUp, PopUpType::EQUIPMENT_POPUP);
+    viewCon->registerPopUp(sendDatabasePopUp, PopUpType::DB_SEND_POPUP);
+    viewCon->registerPopUp(transportationPopUp, PopUpType::TRANSPORTATION_POPUP);
 
     connect(viewCon, SIGNAL(update(ViewType)), this, SLOT(update(ViewType)));
     connect(viewCon, SIGNAL(save(ViewType)), this, SLOT(save(ViewType)));

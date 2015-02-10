@@ -11,7 +11,8 @@ MainMenu::MainMenu(QWidget *parent) :
     btnRessourceManagement(new QPushButton(tr ("Ressource Management"))),
     btnShift(new QPushButton(tr("Shift Data"))),
     btnNewRecording(new QPushButton(tr("New recording"))),
-    btnSettings(new QPushButton())
+    btnSettings(new QPushButton()),
+    btnSendDatabase(new QPushButton())
 
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -25,12 +26,16 @@ MainMenu::MainMenu(QWidget *parent) :
     btnSettings->setObjectName("settingsIcon");
     btnSettings->setFixedSize(45, 45);
 
+    btnSendDatabase->setObjectName("sendIcon");
+    btnSendDatabase->setFixedSize(45, 45);
+
     connect(btnMetaDataView, SIGNAL(clicked()), this, SLOT(btnMetaDataViewClicked()));
     connect(btnWorkplaceList, SIGNAL(clicked()), this, SLOT(btnWorkplaceListClicked()));
     connect(btnRessourceManagement, SIGNAL(clicked()), this, SLOT(btnRessourceManagementClicked()));
     connect(btnShift, SIGNAL(clicked()), this, SLOT(btnShiftClicked()));
     connect(btnNewRecording, SIGNAL(clicked()), this, SLOT(btnNewRecordingClicked()));
     connect(btnSettings, SIGNAL(clicked()), this, SLOT(btnSettingsClicked()));
+    connect(btnSendDatabase, SIGNAL(clicked()), this, SLOT(btnSendDatabaseClicked()));
 
     lblViewName->setObjectName("lblHeader");
 
@@ -48,12 +53,14 @@ MainMenu::MainMenu(QWidget *parent) :
 
 
     setLayout(mainLayout);
+
 }
 
 //PUBLIC METHODS
 QList<QAbstractButton*> * MainMenu::getAdditionalNavigation() const{
     QList<QAbstractButton*> *additions = new QList<QAbstractButton*>();
     additions->append(btnSettings);
+    additions->append(btnSendDatabase);
     return additions;
 }
 
@@ -80,4 +87,8 @@ void MainMenu::btnShiftClicked(){
 void MainMenu::btnNewRecordingClicked(){
     emit createBlankRecording();
     emit showView(ViewType::DOCUMENTATION_VIEW);
+}
+
+void MainMenu::btnSendDatabaseClicked(){
+    emit showPopUp(PopUpType::DB_SEND_POPUP);
 }

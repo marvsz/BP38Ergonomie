@@ -27,6 +27,8 @@
 #include "../view/generalViews/settingsview.h"
 #include "../view/popUps//feedbackpopup.h"
 #include "../view/popUps/equipmentpopup.h"
+#include "../view/popUps/transporationpopup.h"
+#include "../view/popUps/senddatabasepopup.h"
 #include "../view/documentationView/appliedforceview.h"
 #include "../view/documentationView/loadhandlingview.h"
 #include "../view/documentationView/executionconditionview.h"
@@ -154,6 +156,9 @@ private:
 
     FeedbackPopUp *feedbackPopUp;
     EquipmentPopUp *equipmentPopUp;
+    TransporationPopUp *transportationPopUp;
+    SendDatabasePopUp *sendDatabasePopUp;
+
 
     int analyst_ID;
     int recording_ID;

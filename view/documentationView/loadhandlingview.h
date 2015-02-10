@@ -28,7 +28,6 @@ public:
     int getSelectedTransportation() const;
 
 signals:
-    void showTransportationView();
     void exclusivTransporationSelection(int id);
 
 public slots:
@@ -50,7 +49,7 @@ public slots:
 private slots:
     void dliTransportationSelected(int id);
     void typeChanged(QString newType);
-
+    void btnEditTransportationClicked();
 
 private:
     ValueControl *vlcGraspType;

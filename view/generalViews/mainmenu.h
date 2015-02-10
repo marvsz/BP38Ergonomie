@@ -31,6 +31,7 @@ private slots:
     void btnRessourceManagementClicked();
     void btnShiftClicked();
     void btnNewRecordingClicked();
+    void btnSendDatabaseClicked();
 
 private:
     QLabel *lblViewName;
@@ -40,6 +41,7 @@ private:
     QPushButton *btnShift;
     QPushButton *btnSettings;
     QPushButton *btnNewRecording;
+    QPushButton *btnSendDatabase;
 
 };
 

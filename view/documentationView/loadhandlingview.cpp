@@ -90,7 +90,7 @@ LoadHandlingView::LoadHandlingView(QWidget *parent) :
     this->setLayout(mainLayout);
 
 
-    connect(btnEditTransportation, SIGNAL(clicked()), this, SIGNAL(showTransportationView()));
+    connect(btnEditTransportation, SIGNAL(clicked()), this, SLOT(btnEditTransportationClicked()));
 }
 
 
@@ -119,6 +119,7 @@ void LoadHandlingView::clearTransportation(){
     }
 }
 
+// PRIVATE SLOTS
 void LoadHandlingView::dliTransportationSelected(int id){
     emit exclusivTransporationSelection(id);
     selectedTransportation_ID = id;
@@ -130,6 +131,10 @@ void LoadHandlingView::typeChanged(QString newType){
         vlcWeight->setValues(1, 2000, heavyWeightValues, QString());
     else
         vlcWeight->setValues(1, 100, weightValues, QString());
+}
+
+void LoadHandlingView::btnEditTransportationClicked(){
+    emit showPopUp(PopUpType::TRANSPORTATION_POPUP);
 }
 
 // GETTER
