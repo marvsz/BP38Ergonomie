@@ -24,7 +24,6 @@ public:
     int getSelectedEquipment() const;
 
 signals:
-    void showEquipmentView();
     void selectEquipmentExclusive(int id);
 
 public slots:
@@ -35,6 +34,7 @@ public slots:
 
 private slots:
     void dliEquipmentClicked(int id);
+    void btnEditEquipmentClicked();
 
 private:
     QLabel *lblDescription;

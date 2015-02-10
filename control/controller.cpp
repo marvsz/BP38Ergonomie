@@ -29,7 +29,8 @@ Controller::Controller(QObject *parent) :
     executionConditionView(new ExecutionConditionView()),
     gantTimerView(new GantTimerView()),
     timerViewController(new TimerViewController()),
-    feedbackView(new FeedbackView())
+    feedbackPopUp(new FeedbackPopUp()),
+    equipmentPopUp(new EquipmentPopUp())
 {
     dbHandler = new DBHandler();
 
@@ -74,7 +75,8 @@ Controller::Controller(QObject *parent) :
     viewCon->registerView(bodyMeasurementView, ViewType::BODY_MEASUREMENT_VIEW);
     viewCon->registerView(documentationView, ViewType::DOCUMENTATION_VIEW);
 
-    viewCon->registerPopUp(feedbackView, PopUpType::FEEDBACK_POPUP);
+    viewCon->registerPopUp(feedbackPopUp, PopUpType::FEEDBACK_POPUP);
+    viewCon->registerPopUp(equipmentPopUp, PopUpType::EQUIPMENT_POPUP);
 
     connect(viewCon, SIGNAL(update(ViewType)), this, SLOT(update(ViewType)));
     connect(viewCon, SIGNAL(save(ViewType)), this, SLOT(save(ViewType)));
@@ -96,6 +98,7 @@ Controller::Controller(QObject *parent) :
 
     connect(equipmentView, SIGNAL(saveEquipment()), this, SLOT(createEquipment()));
     connect(equipmentView, SIGNAL(deleteEquipment(int)), this, SLOT(deleteEquipment(int)));
+    connect(equipmentPopUp, SIGNAL(confirm()), this, SLOT(createEquipmentPopUp()));
 
     connect(transportationView, SIGNAL(saveTransportation()), this, SLOT(createTransportation()));
     connect(transportationView, SIGNAL(deleteTransportation(int)), this, SLOT(deleteTransportation(int)));
@@ -459,6 +462,18 @@ void Controller::createEquipment(){
 void Controller::deleteEquipment(int id){
     dbHandler->deleteAll(DB_TABLES::EQUIPMENT, QString("%1 = %2").arg(DBConstants::COL_EQUIPMENT_ID).arg(id));
     updateEquipmentView();
+}
+
+void Controller::createEquipmentPopUp(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_EQUIPMENT_NAME, equipmentPopUp->getName());
+    values.insert(DBConstants::COL_EQUIPMENT_RECOIL_COUNT, equipmentPopUp->getRecoilCount());
+    values.insert(DBConstants::COL_EQUIPMENT_RECOIL_INTENSITY, equipmentPopUp->getRecoilIntensity());
+    values.insert(DBConstants::COL_EQUIPMENT_VIBRATION_COUNT, equipmentPopUp->getVibrationCount());
+    values.insert(DBConstants::COL_EQUIPMENT_VIBRATION_INTENSITY, equipmentPopUp->getVibrationIntensity());
+    dbHandler->insert(DB_TABLES::EQUIPMENT, DBConstants::HASH_EQUIPMENT_TYPES, values, DBConstants::COL_EQUIPMENT_ID);
+    viewCon->showMessage(tr("Created new Equipment"));
+    viewCon->closePopUp();
 }
 
 

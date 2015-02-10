@@ -2,7 +2,7 @@
 #include "separator.h"
 #include "iconconstants.h"
 #include "../standardpaths.h"
-#include "../view/generalViews/feedbackview.h"
+#include "../view/popUps/feedbackpopup.h"
 #include <QVBoxLayout>
 #include <QDir>
 #include <QDateTime>
@@ -153,15 +153,16 @@ void ViewController::showPopUp(PopUpType type){
 
 void ViewController::closePopUp(){
     NotificationWidget::closePopUp();
+    emit update(previousViews->top());
 }
 
 void ViewController::btnFeedbackClicked(){
-    QPixmap pixmap(this->size());
+    /*QPixmap pixmap(this->size());
     this->render(&pixmap);
     QString fileName = QString("%1%2.png").arg(StandardPaths::screenshotPath()).arg(QDateTime().currentDateTime().toString("ddMMyyyy_hhmmss"));
     if(!QDir(StandardPaths::screenshotPath()).exists())
         QDir().mkdir(StandardPaths::screenshotPath());
-    pixmap.save(fileName);
+    pixmap.save(fileName);*/
     showPopUp(PopUpType::FEEDBACK_POPUP);
     this->showMessage("Test");
     this->showMessage("Klick mich", NotificationMessage::INFORMATION, NotificationMessage::PERSISTENT);
@@ -176,22 +177,20 @@ void ViewController::adaptNavigationBar(ViewType type){
         if(backType == UNKNOWN){
             backType = previousViews->at(previousViews->count() - 2);
         }
-        lblBackTitle->show();
         lblBackTitle->setText(viewTypeToWidget->value(backType)->getTitle());
     }
     else {
         btnBack->hide();
-        lblBackTitle->hide();
+        lblBackTitle->setText("");
     }
 
     if(currentWidget->canGoForward() && viewTypeToWidget->contains(currentWidget->getForwardViewType())){
         btnForward->show();
-        lblForwardTitle->show();
         lblForwardTitle->setText(viewTypeToWidget->value(currentWidget->getForwardViewType())->getTitle());
     }
     else{
         btnForward->hide();
-        lblForwardTitle->hide();
+        lblForwardTitle->setText("");
     }
 
     if(additionalNavigation != 0){
@@ -223,6 +222,7 @@ void ViewController::adaptNavigationBar(ViewType type){
         lblTitle->show();
         internalNavigation = 0;
     }
+    QWidget::update();
 }
 
 

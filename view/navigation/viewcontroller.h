@@ -30,6 +30,7 @@ signals:
     void save(ViewType type);
 
 public slots:
+    void closePopUp();
 
 private slots:
     void btnBackClicked();
@@ -38,7 +39,6 @@ private slots:
     void backToView(ViewType type);
 
     void showPopUp(PopUpType type);
-    void closePopUp();
 
     void btnFeedbackClicked();
 private:

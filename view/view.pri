@@ -55,7 +55,6 @@ HEADERS +=\
     $$PWD/navigation/navigateablewidget.h \
     $$PWD/navigation/simplenavigateablewidget.h \
     $$PWD/navigation/viewtype.h \
-    $$PWD/generalViews/feedbackview.h \
     $$PWD/ressourceManagementView/bodymeasurementview.h \
     $$PWD/ressourceManagementView/employeeview.h \
     $$PWD/rotationGroupView/rotationgroupview.h \
@@ -64,7 +63,11 @@ HEADERS +=\
     $$PWD/navigation/titledwidget.h \
     $$PWD/rotationGroupView/rotationgrouplistview.h \
     $$PWD/navigation/notificationwidget.h \
-    $$PWD/navigation/notificationmessage.h
+    $$PWD/navigation/notificationmessage.h \
+    $$PWD/popUps/feedbackpopup.h \
+    $$PWD/popUps/senddatabasepopup.h \
+    $$PWD/popUps/equipmentpopup.h \
+    $$PWD/popUps/transporationpopup.h
 
 
 SOURCES +=\
@@ -118,7 +121,6 @@ SOURCES +=\
     $$PWD/timespinner.cpp \
     $$PWD/rotationGroupView/shiftcalendar.cpp \
     $$PWD/navigation/viewcontroller.cpp \
-    $$PWD/generalViews/feedbackview.cpp \
     $$PWD/ressourceManagementView/bodymeasurementview.cpp \
     $$PWD/ressourceManagementView/employeeview.cpp \
     $$PWD/rotationGroupView/rotationgroupview.cpp \
@@ -126,6 +128,10 @@ SOURCES +=\
     $$PWD/navigation/abstractpopupwidget.cpp \
     $$PWD/rotationGroupView/rotationgrouplistview.cpp \
     $$PWD/navigation/notificationwidget.cpp \
-    $$PWD/navigation/notificationmessage.cpp
+    $$PWD/navigation/notificationmessage.cpp \
+    $$PWD/popUps/feedbackpopup.cpp \
+    $$PWD/popUps/senddatabasepopup.cpp \
+    $$PWD/popUps/equipmentpopup.cpp \
+    $$PWD/popUps/transporationpopup.cpp
 
 

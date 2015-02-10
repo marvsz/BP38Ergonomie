@@ -26,7 +26,7 @@ AbstractPopUpWidget::AbstractPopUpWidget(ConfirmMode mode, const QString &title,
     default: break;
     }
     connect(btnConfirm, SIGNAL(clicked()), this, SIGNAL(confirm()));
-
+    mainContentLayout->setMargin(10);
     mainContentLayout->addWidget(btnConfirm, 0, 0, 1, 1, Qt::AlignLeft);
     mainContentLayout->addWidget(lblTitle, 0, 1, 1, 1, Qt::AlignCenter);
     mainContentLayout->addWidget(btnClose, 0, 2, 1, 1, Qt::AlignRight);

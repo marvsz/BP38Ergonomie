@@ -24,7 +24,8 @@
 #include "../view/ressourceManagementView/bodymeasurementview.h"
 #include "../view/ressourceManagementView/employeeview.h"
 #include "../view/generalViews/settingsview.h"
-#include "../view/generalViews/feedbackview.h"
+#include "../view/popUps//feedbackpopup.h"
+#include "../view/popUps/equipmentpopup.h"
 #include "../view/documentationView/appliedforceview.h"
 #include "../view/documentationView/loadhandlingview.h"
 #include "../view/documentationView/executionconditionview.h"
@@ -84,6 +85,7 @@ private slots:
 
     void updateEquipmentView();
     void createEquipment();
+    void createEquipmentPopUp();
     void deleteEquipment(int id);
 
     void updateTransportationView();
@@ -148,7 +150,8 @@ private:
 
     TimerViewController *timerViewController;
 
-    FeedbackView *feedbackView;
+    FeedbackPopUp *feedbackPopUp;
+    EquipmentPopUp *equipmentPopUp;
 
     int analyst_ID;
     int recording_ID;

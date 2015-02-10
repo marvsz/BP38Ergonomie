@@ -78,7 +78,7 @@ WorkProcessMetaDataView::WorkProcessMetaDataView(QWidget *parent) :
 
     setLayout(wrapLayout);
 
-    connect(btnEditEquipment, SIGNAL(clicked()), this, SIGNAL(showEquipmentView()));
+    connect(btnEditEquipment, SIGNAL(clicked()), this, SLOT(btnEditEquipmentClicked()));
 }
 
 WorkProcessMetaDataView::~WorkProcessMetaDataView()
@@ -123,6 +123,9 @@ void WorkProcessMetaDataView::dliEquipmentClicked(int id){
     emit selectEquipmentExclusive(id);
 }
 
+void WorkProcessMetaDataView::btnEditEquipmentClicked(){
+    emit showPopUp(PopUpType::EQUIPMENT_POPUP);
+}
 
 //GETTER
 QString WorkProcessMetaDataView::getDescription() const{

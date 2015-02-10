@@ -1,5 +1,5 @@
-#ifndef FEEDBACKVIEW_H
-#define FEEDBACKVIEW_H
+#ifndef FEEDBACKPOPUP_H
+#define FEEDBACKPOPUP_H
 
 #include "navigation/abstractpopupwidget.h"
 #include <QPushButton>
@@ -9,12 +9,12 @@
 #include "textlineedit.h"
 #include "textedit.h"
 
-class FeedbackView : public AbstractPopUpWidget
+class FeedbackPopUp : public AbstractPopUpWidget
 {
     Q_OBJECT
 public:
-    explicit FeedbackView(QWidget *parent = 0);
-    ~FeedbackView();
+    explicit FeedbackPopUp(QWidget *parent = 0);
+    ~FeedbackPopUp();
 
     int getPriority() const{
         return cmbBxPriority->currentData().toInt();
@@ -35,11 +35,6 @@ public:
 public slots:
     void onEnter();
 
-protected:
-    ConfirmMode getConfirmMode() const{
-        return ConfirmMode::SEND;
-    }
-
 private slots:
     void sendData();
 
@@ -56,4 +51,4 @@ private:
     QComboBox *cmbBxCategory;
 };
 
-#endif // FEEDBACKVIEW_H
+#endif // FEEDBACKPOPUP_H

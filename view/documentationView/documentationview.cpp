@@ -40,6 +40,7 @@ void DocumentationView::registerView(TitledWidget *widget, ViewType type){
         views->addItem(widget->getTitle(), type);
         viewTypeToWidget->insert(type, widget);
         connect(widget, SIGNAL(showView(ViewType)), this, SIGNAL(showView(ViewType)));
+        connect(widget, SIGNAL(showPopUp(PopUpType)), this, SIGNAL(showPopUp(PopUpType)));
     }
 }
 
