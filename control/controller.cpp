@@ -3,6 +3,8 @@
 #include <QTime>
 Controller::Controller(QObject *parent) :
     QObject(parent),
+    dbHandler(new DBHandler()),
+    viewCon(new ViewController()),
     analystSelectionView(new AnalystSelectionView()),
     mainMenuView(new MainMenu()),
     metaDataView(new MetaDataView()),
@@ -35,8 +37,6 @@ Controller::Controller(QObject *parent) :
     transportationPopUp(new TransporationPopUp()),
     sendDatabasePopUp(new SendDatabasePopUp())
 {
-    dbHandler = new DBHandler();
-
     analyst_ID = 0;
     recording_ID = 1;
     workplace_ID = 0;
@@ -48,48 +48,14 @@ Controller::Controller(QObject *parent) :
     workprocess_Type = AVType::BASIC;
     workprocess_ID = 0;
 
-    documentationView->registerView(workProcessMetaDataView, ViewType::WORK_PROCESS_META_DATA_VIEW);
-    documentationView->registerView(bodyPostureView, ViewType::BODY_POSTURE_VIEW);
-    documentationView->registerView(loadHandlingView, ViewType::LOAD_HANDLING_VIEW);
-    documentationView->registerView(appliedForceView, ViewType::APPLIED_FORCE_VIEW);
-    documentationView->registerView(executionConditionView, ViewType::WORKING_CONDITION_VIEW);
-    documentationView->registerView(gantTimerView, ViewType::GANT_VIEW);
-    documentationView->setTimerViewController(timerViewController);
-
-
-    viewCon = new ViewController();
-    viewCon->registerView(analystSelectionView, ViewType::ANALYST_SELECTION_VIEW);
-    viewCon->registerView(mainMenuView, ViewType::MAIN_MENU_VIEW);
-    viewCon->registerView(metaDataView, ViewType::METADATA_VIEW);
-    viewCon->registerView(workplaceListView, ViewType::WORKPLACELIST_VIEW);
-    viewCon->registerView(settingsView, ViewType::SETTINGS_VIEW);
-    viewCon->registerView(activityView, ViewType::ACTIVITY_VIEW);
-    viewCon->registerView(commentView, ViewType::COMMENT_VIEW);
-    viewCon->registerView(lineView, ViewType::LINE_VIEW);
-    viewCon->registerView(workplaceView, ViewType::WORKPLACE_VIEW);
-    viewCon->registerView(transportationView, ViewType::TRANSPORTATION_VIEW);
-    viewCon->registerView(ressourceManagementView, ViewType::RESSOURCE_MANAGMENT_VIEW);
-    viewCon->registerView(productView, ViewType::PRODUCT_VIEW);
-    viewCon->registerView(equipmentView, ViewType::EQUIPMENT_VIEW);
-    viewCon->registerView(shiftView, ViewType::SHIFT_VIEW);
-    viewCon->registerView(shiftCalendarView, ViewType::SHIFT_CALENDAR_VIEW);
-    viewCon->registerView(rotationGroupView, ViewType::ROTATION_GROUP_VIEW);
-    viewCon->registerView(rotationGroupListView, ViewType::ROTATION_GROUP_LIST_VIEW);
-    viewCon->registerView(employeeView, ViewType::EMPLOYEE_VIEW);
-    viewCon->registerView(bodyMeasurementView, ViewType::BODY_MEASUREMENT_VIEW);
-    viewCon->registerView(documentationView, ViewType::DOCUMENTATION_VIEW);
-
-    viewCon->registerPopUp(feedbackPopUp, PopUpType::FEEDBACK_POPUP);
-    viewCon->registerPopUp(equipmentPopUp, PopUpType::EQUIPMENT_POPUP);
-    viewCon->registerPopUp(sendDatabasePopUp, PopUpType::DB_SEND_POPUP);
-    viewCon->registerPopUp(transportationPopUp, PopUpType::TRANSPORTATION_POPUP);
-
     connect(viewCon, SIGNAL(update(ViewType)), this, SLOT(update(ViewType)));
     connect(viewCon, SIGNAL(save(ViewType)), this, SLOT(save(ViewType)));
 
     connect(analystSelectionView, SIGNAL(remove(int)), this, SLOT(removeAnalyst(int)));
     connect(analystSelectionView, SIGNAL(create()), this, SLOT(createAnalyst()));
     connect(analystSelectionView, SIGNAL(select(int)), this, SLOT(selectAnalyst(int)));
+
+    connect(mainMenuView, SIGNAL(createBlankRecording()), this, SLOT(createBlankRecording()));
 
     connect(workplaceListView, SIGNAL(remove(int)), this, SLOT(deleteWorkplace(int)));
     connect(workplaceListView, SIGNAL(create()), this, SLOT(createWorkplace()));
@@ -127,6 +93,44 @@ Controller::Controller(QObject *parent) :
 
     connect(settingsView, SIGNAL(resetDatabase()), this, SLOT(resetDatabase()));
 
+    // Register Documentation Views
+    documentationView->registerView(workProcessMetaDataView, ViewType::WORK_PROCESS_META_DATA_VIEW);
+    documentationView->registerView(bodyPostureView, ViewType::BODY_POSTURE_VIEW);
+    documentationView->registerView(loadHandlingView, ViewType::LOAD_HANDLING_VIEW);
+    documentationView->registerView(appliedForceView, ViewType::APPLIED_FORCE_VIEW);
+    documentationView->registerView(executionConditionView, ViewType::WORKING_CONDITION_VIEW);
+    documentationView->registerView(gantTimerView, ViewType::GANT_VIEW);
+    documentationView->setTimerViewController(timerViewController);
+
+    // Register ViewContoller Views
+    viewCon->registerView(analystSelectionView, ViewType::ANALYST_SELECTION_VIEW);
+    viewCon->registerView(mainMenuView, ViewType::MAIN_MENU_VIEW);
+    viewCon->registerView(metaDataView, ViewType::METADATA_VIEW);
+    viewCon->registerView(workplaceListView, ViewType::WORKPLACELIST_VIEW);
+    viewCon->registerView(settingsView, ViewType::SETTINGS_VIEW);
+    viewCon->registerView(activityView, ViewType::ACTIVITY_VIEW);
+    viewCon->registerView(commentView, ViewType::COMMENT_VIEW);
+    viewCon->registerView(lineView, ViewType::LINE_VIEW);
+    viewCon->registerView(workplaceView, ViewType::WORKPLACE_VIEW);
+    viewCon->registerView(transportationView, ViewType::TRANSPORTATION_VIEW);
+    viewCon->registerView(ressourceManagementView, ViewType::RESSOURCE_MANAGMENT_VIEW);
+    viewCon->registerView(productView, ViewType::PRODUCT_VIEW);
+    viewCon->registerView(equipmentView, ViewType::EQUIPMENT_VIEW);
+    viewCon->registerView(shiftView, ViewType::SHIFT_VIEW);
+    viewCon->registerView(shiftCalendarView, ViewType::SHIFT_CALENDAR_VIEW);
+    viewCon->registerView(rotationGroupView, ViewType::ROTATION_GROUP_VIEW);
+    viewCon->registerView(rotationGroupListView, ViewType::ROTATION_GROUP_LIST_VIEW);
+    viewCon->registerView(employeeView, ViewType::EMPLOYEE_VIEW);
+    viewCon->registerView(bodyMeasurementView, ViewType::BODY_MEASUREMENT_VIEW);
+    viewCon->registerView(documentationView, ViewType::DOCUMENTATION_VIEW);
+
+    // Register PopUps on ViewController
+    viewCon->registerPopUp(feedbackPopUp, PopUpType::FEEDBACK_POPUP);
+    viewCon->registerPopUp(equipmentPopUp, PopUpType::EQUIPMENT_POPUP);
+    viewCon->registerPopUp(sendDatabasePopUp, PopUpType::DB_SEND_POPUP);
+    viewCon->registerPopUp(transportationPopUp, PopUpType::TRANSPORTATION_POPUP);
+
+    //Set the start Views
     documentationView->showStartView(ViewType::BODY_POSTURE_VIEW);
     viewCon->showStartView(ViewType::ANALYST_SELECTION_VIEW);
 }
@@ -210,6 +214,23 @@ void Controller::selectAnalyst(int id){
     analyst_ID = id;
 }
 
+//MainMenuView
+void Controller::createBlankRecording(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_WORKPLACE_NAME, tr("Autogenerated workplace"));
+    workplace_ID = dbHandler->insert(DB_TABLES::WORKPLACE, DBConstants::HASH_WORKPLACE_TYPES, values, DBConstants::COL_WORKPLACE_ID);
+
+    values.clear();
+    values.insert(DBConstants::COL_ACTIVITY_DESCRIPTION, tr("Autogenerated activity"));
+    values.insert(DBConstants::COL_ACTIVITY_WORKPLACE_ID, workplace_ID);
+    activity_ID = dbHandler->insert(DB_TABLES::ACTIVITY, DBConstants::HASH_ACTIVITY_TYPES, values, DBConstants::COL_ACTIVITY_ID);
+
+    QList<ViewType> prevViews = QList<ViewType>();
+    prevViews.append(ViewType::WORKPLACE_VIEW);
+    prevViews.append(ViewType::ACTIVITY_VIEW);
+
+    viewCon->showView(ViewType::DOCUMENTATION_VIEW, &prevViews);
+}
 
 //MetaDataView
 void Controller::updateMetaDataView(){
@@ -357,7 +378,12 @@ void Controller::saveWorkplaceView(){
 
 void Controller::deleteWorkplace(int id){
     DB_TABLES tbl = DB_TABLES::WORKPLACE;
+    workplace_ID = id;
     dbHandler->deleteAll(tbl, QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(QString::number(id)));
+    int count = dbHandler->select(DB_TABLES::ACTIVITY, QString("%1 = %2").arg(DBConstants::COL_ACTIVITY_WORKPLACE_ID).arg(id));
+    for(int i = 0; i < count; ++i)
+        deleteActivity(dbHandler->record(DB_TABLES::ACTIVITY, i).value(DBConstants::COL_ACTIVITY_ID).toInt());
+    dbHandler->deleteAll(DB_TABLES::COMMENT, QString("%1 = %2").arg(DBConstants::COL_COMMENT_WORKPLACE_ID).arg(id));
     updateWorkplacesView();
     deleteRecordingOberservesWorkplace(id);
 }
@@ -488,9 +514,9 @@ void Controller::createEquipmentPopUp(){
 void Controller::updateActivityView(){
     activityView->clearProducts();
     DB_TABLES tbl = DB_TABLES::PRODUCT;
-    dbHandler->select(tbl, QString(""));
+    int count = dbHandler->select(tbl, QString(""));
 
-    for(int i = 0; i < dbHandler->rowCount(tbl); ++i){
+    for(int i = 0; i < count; ++i){
         QSqlRecord record = dbHandler->record(tbl, i);
         activityView->addProduct(record.value(DBConstants::COL_PRODUCT_ID).toInt(),
                                  record.value(DBConstants::COL_PRODUCT_NAME).toString(),
@@ -502,7 +528,7 @@ void Controller::updateActivityView(){
 void Controller::updateActivityViewActivities(){
     activityView->clearActivities();
     DB_TABLES tbl = DB_TABLES::ACTIVITY;
-    dbHandler->select(tbl, QString(""));
+    dbHandler->select(tbl, QString("%1 == %2").arg(DBConstants::COL_ACTIVITY_WORKPLACE_ID).arg(workplace_ID));
 
     for(int i = 0; i < dbHandler->rowCount(tbl); ++i){
         QSqlRecord record = dbHandler->record(tbl, i);
@@ -532,7 +558,6 @@ void Controller::deleteActivity(int id){
 void Controller::selectActivity(int id){
     activity_ID = id;
     workProcessTypeChanged(AVType::BASIC);
-    updateGantView();
 }
 
 //CommentView
@@ -593,15 +618,15 @@ void Controller::createTransportation(){
 }
 
 void Controller::createTransportationPopUp(){
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_TRANSPORTATION_NAME, transportationPopUp->getName());
-    values.insert(DBConstants::COL_TRANSPORTATION_EMPTY_WEIGHT, transportationPopUp->getWeight());
-    values.insert(DBConstants::COL_TRANSPORTATION_MAX_LOAD, transportationPopUp->getMaxLoad());
-    values.insert(DBConstants::COL_TRANSPORTATION_BRAKES, transportationPopUp->getHasBrakes());
-    values.insert(DBConstants::COL_TRANSPORTATION_FIXED_ROLLER, transportationPopUp->getHasFixedRoller());
-    dbHandler->insert(DB_TABLES::TRANSPORTATION, DBConstants::HASH_TRANSPORTATION_TYPES, values, DBConstants::COL_TRANSPORTATION_ID);
-    viewCon->closePopUp();
-    viewCon->showMessage(tr("Created new transporation"));
+        QHash<QString, QVariant> values = QHash<QString, QVariant>();
+        values.insert(DBConstants::COL_TRANSPORTATION_NAME, transportationPopUp->getName());
+        values.insert(DBConstants::COL_TRANSPORTATION_EMPTY_WEIGHT, transportationPopUp->getWeight());
+        values.insert(DBConstants::COL_TRANSPORTATION_MAX_LOAD, transportationPopUp->getMaxLoad());
+        values.insert(DBConstants::COL_TRANSPORTATION_BRAKES, transportationPopUp->getHasBrakes());
+        values.insert(DBConstants::COL_TRANSPORTATION_FIXED_ROLLER, transportationPopUp->getHasFixedRoller());
+        dbHandler->insert(DB_TABLES::TRANSPORTATION, DBConstants::HASH_TRANSPORTATION_TYPES, values, DBConstants::COL_TRANSPORTATION_ID);
+        viewCon->closePopUp();
+        viewCon->showMessage(tr("Created new transporation"));
 }
 
 void Controller::deleteTransportation(int id){

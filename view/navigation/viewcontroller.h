@@ -25,6 +25,8 @@ public:
 
     void registerPopUp(AbstractPopUpWidget *popUp, PopUpType type);
 
+    void showView(ViewType type, const QList<ViewType> *prevTypes = 0);
+
 signals:
     void update(ViewType type);
     void save(ViewType type);
@@ -35,7 +37,7 @@ public slots:
 private slots:
     void btnBackClicked();
     void btnForwardClicked();
-    void goToView(ViewType type);
+    void goToView(ViewType type, const QList<ViewType> *prevTypes = 0);
     void backToView(ViewType type);
 
     void showPopUp(PopUpType type);

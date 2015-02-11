@@ -86,7 +86,6 @@ void MainMenu::btnShiftClicked(){
 
 void MainMenu::btnNewRecordingClicked(){
     emit createBlankRecording();
-    emit showView(ViewType::DOCUMENTATION_VIEW);
 }
 
 void MainMenu::btnSendDatabaseClicked(){

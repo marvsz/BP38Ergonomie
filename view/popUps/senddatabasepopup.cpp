@@ -4,6 +4,8 @@
 SendDatabasePopUp::SendDatabasePopUp(QWidget *parent) : AbstractPopUpWidget(ConfirmMode::SEND, tr("Send database"), parent),
     cmBxFTPConnections(new QComboBox()),
     txtBxName( new TextLineEdit()),
+    txtBxUserName(new TextLineEdit()),
+    txtBxPassword(new TextLineEdit()),
     txtBxAddress( new TextLineEdit()),
     numBxPort(new NumberLineEdit()),
     chBxSave(new QCheckBox()),
@@ -11,7 +13,12 @@ SendDatabasePopUp::SendDatabasePopUp(QWidget *parent) : AbstractPopUpWidget(Conf
 {
     connect(cmBxFTPConnections, SIGNAL(currentIndexChanged(int)), this, SLOT(cmBxFTPConnectionsIndexChanged(int)));
 
+    txtBxPassword->setEchoMode(QLineEdit::Password);
+    txtBxPassword->setInputMethodHints(Qt::ImhHiddenText | Qt::ImhNoAutoUppercase | Qt::ImhNoPredictiveText);
+
     txtBxName->setPlaceholderText(tr("Connection name"));
+    txtBxUserName->setPlaceholderText(tr("Username"));
+    txtBxPassword->setPlaceholderText(tr("Password"));
     txtBxAddress->setPlaceholderText(tr("Server address"));
     numBxPort->setPlaceholderText(tr("Port"));
     chBxSave->setText(tr("Save"));
@@ -22,12 +29,16 @@ SendDatabasePopUp::SendDatabasePopUp(QWidget *parent) : AbstractPopUpWidget(Conf
     mainLayout->addWidget(cmBxFTPConnections, 0, 1, 1, 1, 0);
     mainLayout->addWidget(new QLabel(tr("Name:")), 1, 0, 1, 1, 0);
     mainLayout->addWidget(txtBxName, 1, 1, 1, 1, 0);
-    mainLayout->addWidget(new QLabel(tr("Server address:")), 2, 0, 1, 1, 0);
-    mainLayout->addWidget(txtBxAddress, 2, 1, 1, 1, 0);
-    mainLayout->addWidget(new QLabel(tr("Port:")), 3, 0, 1, 1, 0);
-    mainLayout->addWidget(numBxPort, 3, 1, 1, 1, 0);
-    mainLayout->addWidget(chBxSave, 4, 0, 1, 1, 0);
-    mainLayout->addWidget(chBxSetDefault, 4, 1, 1, 1, 0);
+    mainLayout->addWidget(new QLabel(tr("Username:")), 2, 0, 1, 1, 0);
+    mainLayout->addWidget(txtBxUserName, 2, 1, 1, 1, 0);
+    mainLayout->addWidget(new QLabel(tr("Password:")), 3, 0, 1, 1, 0);
+    mainLayout->addWidget(txtBxPassword, 3, 1, 1, 1, 0);
+    mainLayout->addWidget(new QLabel(tr("Server address:")), 4, 0, 1, 1, 0);
+    mainLayout->addWidget(txtBxAddress, 4, 1, 1, 1, 0);
+    mainLayout->addWidget(new QLabel(tr("Port:")), 5, 0, 1, 1, 0);
+    mainLayout->addWidget(numBxPort, 5, 1, 1, 1, 0);
+    mainLayout->addWidget(chBxSave, 6, 0, 1, 1, 0);
+    mainLayout->addWidget(chBxSetDefault, 6, 1, 1, 1, 0);
 
     setLayout(mainLayout);
     clear();
@@ -76,7 +87,18 @@ QString SendDatabasePopUp::getName() const{
 void SendDatabasePopUp::setName(const QString &name){
     txtBxName->setText(name);
 }
-
+QString SendDatabasePopUp::getUserName() const{
+    return txtBxUserName->text();
+}
+void SendDatabasePopUp::setUserName(const QString &username){
+    txtBxUserName->setText(username);
+}
+QString SendDatabasePopUp::getPassword() const{
+    return txtBxPassword->text();
+}
+void SendDatabasePopUp::setPassword(const QString &password){
+    txtBxPassword->setText(password);
+}
 QString SendDatabasePopUp::getAddress() const{
     return txtBxAddress->text();
 }

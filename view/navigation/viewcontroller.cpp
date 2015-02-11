@@ -97,6 +97,10 @@ void ViewController::registerPopUp(AbstractPopUpWidget *popUp, PopUpType type){
     }
 }
 
+void ViewController::showView(ViewType type, const QList<ViewType> *prevTypes){
+    goToView(type, prevTypes);
+}
+
 //PRIVATE SLOTS
 void ViewController::btnBackClicked(){
     ViewType currentType = previousViews->top();
@@ -110,11 +114,15 @@ void ViewController::btnForwardClicked(){
     goToView(currentView->getForwardViewType());
 }
 
-void ViewController::goToView(ViewType type){
+void ViewController::goToView(ViewType type, const QList<ViewType> *prevTypes){
     if(viewTypeToIndex->contains(type)){
         ViewType currentView = previousViews->top();
         viewTypeToWidget->value(currentView)->onLeaving();
         emit save(currentView);
+        if(prevTypes != 0){
+            for(int i = 0; i < prevTypes->count(); ++i)
+                previousViews->push(prevTypes->at(i));
+        }
         viewTypeToWidget->value(type)->onEnter();
         emit update(type);
         content->setCurrentIndex(viewTypeToIndex->value(type));

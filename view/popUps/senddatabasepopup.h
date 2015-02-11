@@ -15,6 +15,10 @@ public:
 
     QString getName() const;
     void setName(const QString &name);
+    QString getUserName() const;
+    void setUserName(const QString &username);
+    QString getPassword() const;
+    void setPassword(const QString &password);
     QString getAddress() const;
     void setAddress(const QString &address);
     int getPort() const;
@@ -39,6 +43,8 @@ private slots:
 private:
     QComboBox *cmBxFTPConnections;
     TextLineEdit *txtBxName;
+    TextLineEdit *txtBxUserName;
+    TextLineEdit *txtBxPassword;
     TextLineEdit *txtBxAddress;
     NumberLineEdit *numBxPort;
     QCheckBox *chBxSave;

@@ -1,6 +1,7 @@
 include(view/view.pri)
 include(control/control.pri)
 include(databaseHandler/databaseHandler.pri)
+include(ftpHandler/ftpHandler.pri)
 
 QT       += core gui widgets quick qml multimedia sql network
 
@@ -53,4 +54,7 @@ TRANSLATIONS = ergo_trans_de.ts
 deployment.files += myfile.sqlite
 deployment.path = /assets
 INSTALLS += deployment
+
+DISTFILES += \
+    ftpHandler/ftpHandler.pri
 

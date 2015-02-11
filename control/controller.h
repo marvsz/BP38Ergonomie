@@ -52,6 +52,8 @@ private slots:
     void removeAnalyst(int id);
     void selectAnalyst(int id);
 
+    void createBlankRecording();
+
     void updateMetaDataView();
     void saveMetaDataView();
 
