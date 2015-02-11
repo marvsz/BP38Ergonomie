@@ -171,6 +171,7 @@ void ShiftCalendar::clearCalendar(){
         delete item->widget();
         delete item;
     }
+    currentId = -1;
 }
 
 // PRIVATE
@@ -227,6 +228,11 @@ void ShiftCalendar::btnRotationClicked(){
 
 void ShiftCalendar::setSelectedId(int id){
     currentId = id;
+    for(int i = 0; i < calendarEntries->length(); ++i) {
+        SelectableValueButton *entry = calendarEntries->at(i);
+        entry->setSelected(entry->getID() == id);
+    }
+
     /*if(id >= 0 && id < calendarEntries->length()){
             for(int i = 0; i < calendarEntries->length(); ++i){
                 SelectableValueButton *btn = calendarEntries->at(i);
