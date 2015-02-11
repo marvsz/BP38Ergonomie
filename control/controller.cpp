@@ -50,6 +50,7 @@ Controller::Controller(QObject *parent) :
 
     connect(viewCon, SIGNAL(update(ViewType)), this, SLOT(update(ViewType)));
     connect(viewCon, SIGNAL(save(ViewType)), this, SLOT(save(ViewType)));
+    connect(viewCon, SIGNAL(update(PopUpType)), this, SLOT(update(PopUpType)));
 
     connect(analystSelectionView, SIGNAL(remove(int)), this, SLOT(removeAnalyst(int)));
     connect(analystSelectionView, SIGNAL(create()), this, SLOT(createAnalyst()));
@@ -90,6 +91,10 @@ Controller::Controller(QObject *parent) :
     connect(timerViewController, SIGNAL(previousWorkProcess()), this, SLOT(selectPreviousWorkProcess()));
     connect(timerViewController, SIGNAL(workProcessTypeChanged(AVType)), this, SLOT(workProcessTypeChanged(AVType)));
     connect(timerViewController, SIGNAL(resetWorkProcesses()), this, SLOT(resetWorkProcesses()));
+
+    connect(sendDatabasePopUp, SIGNAL(create()), this, SLOT(createConnection()));
+    connect(sendDatabasePopUp, SIGNAL(edit(int)), this, SLOT(editConnection(int)));
+    connect(sendDatabasePopUp, SIGNAL(selected(int)), this, SLOT(selectedConnectionChanged(int)));
 
     connect(settingsView, SIGNAL(resetDatabase()), this, SLOT(resetDatabase()));
 
@@ -156,6 +161,13 @@ void Controller::update(ViewType type){
     case ViewType::WORK_PROCESS_META_DATA_VIEW: updateWorkProcessMetaDataView(); break;
     case ViewType::GANT_VIEW: updateGantView(); break;
     case ViewType::SETTINGS_VIEW: break;
+    default: break;
+    }
+}
+
+void Controller::update(PopUpType type){
+    switch(type){
+    case PopUpType::DB_SEND_POPUP: updateSendDatabasePopUp(); break;
     default: break;
     }
 }
@@ -230,6 +242,7 @@ void Controller::createBlankRecording(){
     prevViews.append(ViewType::ACTIVITY_VIEW);
 
     viewCon->showView(ViewType::DOCUMENTATION_VIEW, &prevViews);
+    setSelectedWorkProcess(1, AVType::BASIC);
 }
 
 //MetaDataView
@@ -656,8 +669,8 @@ void Controller::setSelectedWorkProcess(int id , AVType type){
     QString filter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ID).arg(id).arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(type);
 
     DB_TABLES tbl = DB_TABLES::WORK_PROCESS;
-    dbHandler->select(tbl, filter);
-    if(dbHandler->rowCount(tbl) > 0){
+    int count = dbHandler->select(tbl, filter);
+    if(count > 0){
         QSqlRecord record = dbHandler->record(tbl, 0);
         bodyPosture_ID = record.value(DBConstants::COL_WORK_PROCESS_POSTURE_ID).toInt();
         appliedforce_ID = record.value(DBConstants::COL_WORK_PROCESS_APPLIED_FORCE_ID).toInt();
@@ -675,10 +688,12 @@ void Controller::setSelectedWorkProcess(int id , AVType type){
         updateWorkProcessMetaDataView();
         gantTimerView->setSelectedWorkProcess(id, type, record.value(DBConstants::COL_WORK_PROCESS_FREQUENCY).toInt());
         updateGantView();
+
     }
-    else{
+    else if(id == 1){
         timerViewController->setSelectedType(AVType::BASIC);
         timerViewController->setSelectedAV(0, QTime(0,0));
+        updateGantView();
     }
 }
 
@@ -972,7 +987,58 @@ void Controller::updateDocumentationViewRessources(){
     updateWorkProcessMetaDataEquipment();
 }
 
+//SendDatabasePopUp
+void Controller::updateSendDatabasePopUp(){
+    sendDatabasePopUp->clear();
+    int count = dbHandler->select(DB_TABLES::CONNECTION, QString("%1 = %2").arg(DBConstants::COL_CONNECTION_ANALYST_ID).arg(analyst_ID));
+    int defaultID = 0;
+    for(int i = 0; i < count; ++i){
+        QSqlRecord record = dbHandler->record(DB_TABLES::CONNECTION, i);
 
+        if(record.value(DBConstants::COL_CONNECTION_DEFAULT).toBool())
+            defaultID = record.value(DBConstants::COL_CONNECTION_ID).toInt();
+
+        sendDatabasePopUp->add(record.value(DBConstants::COL_CONNECTION_NAME).toString(),
+                               record.value(DBConstants::COL_CONNECTION_ID).toInt());
+    }
+    sendDatabasePopUp->select(defaultID);
+}
+
+void Controller::selectedConnectionChanged(int id){
+    if(dbHandler->select(DB_TABLES::CONNECTION, QString("%1 = %2").arg(DBConstants::COL_CONNECTION_ID).arg(id)) > 0){
+        QSqlRecord record = dbHandler->record(DB_TABLES::CONNECTION, 0);
+        sendDatabasePopUp->setName(record.value(DBConstants::COL_CONNECTION_NAME).toString());
+        sendDatabasePopUp->setUserName(record.value(DBConstants::COL_CONNECTION_USERNAME).toString());
+        sendDatabasePopUp->setPassword(record.value(DBConstants::COL_CONNECTION_PASSWORD).toString());
+        sendDatabasePopUp->setAddress(record.value(DBConstants::COL_CONNECTION_SERVER_ADDRESS).toString());
+        sendDatabasePopUp->setPort(record.value(DBConstants::COL_CONNECTION_PORT).toInt());
+        sendDatabasePopUp->setSetAsDefault(record.value(DBConstants::COL_CONNECTION_DEFAULT).toBool());
+    }
+}
+
+void Controller::createConnection(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_CONNECTION_NAME, sendDatabasePopUp->getName());
+    values.insert(DBConstants::COL_CONNECTION_USERNAME, sendDatabasePopUp->getUserName());
+    values.insert(DBConstants::COL_CONNECTION_PASSWORD, sendDatabasePopUp->getPassword());
+    values.insert(DBConstants::COL_CONNECTION_SERVER_ADDRESS, sendDatabasePopUp->getAddress());
+    values.insert(DBConstants::COL_CONNECTION_PORT, sendDatabasePopUp->getPort());
+    values.insert(DBConstants::COL_CONNECTION_DEFAULT, sendDatabasePopUp->getSetAsDefault());
+    values.insert(DBConstants::COL_CONNECTION_ANALYST_ID, analyst_ID);
+    dbHandler->insert(DB_TABLES::CONNECTION, DBConstants::HASH_CONNECTION_TYPES, values, DBConstants::COL_CONNECTION_ID);
+}
+
+void Controller::editConnection(int id){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_CONNECTION_NAME, sendDatabasePopUp->getName());
+    values.insert(DBConstants::COL_CONNECTION_USERNAME, sendDatabasePopUp->getUserName());
+    values.insert(DBConstants::COL_CONNECTION_PASSWORD, sendDatabasePopUp->getPassword());
+    values.insert(DBConstants::COL_CONNECTION_SERVER_ADDRESS, sendDatabasePopUp->getAddress());
+    values.insert(DBConstants::COL_CONNECTION_PORT, sendDatabasePopUp->getPort());
+    values.insert(DBConstants::COL_CONNECTION_DEFAULT, sendDatabasePopUp->getSetAsDefault());
+    values.insert(DBConstants::COL_CONNECTION_ANALYST_ID, analyst_ID);
+    dbHandler->update(DB_TABLES::CONNECTION, DBConstants::HASH_CONNECTION_TYPES, values, QString("%1 = %2").arg(DBConstants::COL_CONNECTION_ID).arg(id));
+}
 
 void Controller::resetDatabase(){
     analyst_ID = 0;
@@ -1012,6 +1078,7 @@ void Controller::resetDatabase(){
     dbHandler->deleteAll(DB_TABLES::WORKPLACE, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::WORK_CONDITION, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::WORK_PROCESS, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::CONNECTION, emptyFilter);
 }
 
 //PRIVATE METHODS

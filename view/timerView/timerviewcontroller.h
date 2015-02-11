@@ -34,7 +34,7 @@ public slots:
     void closeTimerView();
 
 protected:
-    void timerEvent(QTimerEvent *event);
+    void timerEvent(QTimerEvent *);
 
 private slots:
 

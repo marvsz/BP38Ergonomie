@@ -20,7 +20,7 @@ FtpHandler::~FtpHandler()
 void FtpHandler::uploadFile(const QString &filename){
     QFileInfo file(filename);
     if(file.exists()){
-        QUrl url(QString("ftp:://%1/%2").arg(address).arg(file.fileName()));
+        QUrl url(QString("ftp://%1/%2").arg(address).arg(file.fileName()));
         url.setUserName(username);
         url.setPassword(password);
         url.setPort(port);
@@ -32,16 +32,16 @@ void FtpHandler::uploadFile(const QString &filename){
             connect(reply, SIGNAL(uploadProgress(qint64,qint64)), this, SLOT(uploadProgress(qint64,qint64)));
         }
         else
-            errorOccurred("Could not read file: Permission denied!");
+            emit error(tr("Could not read file: Permission denied!"));
     }
     else
-        errorOccurred("File does not exists!");
+        emit error(tr("File does not exists!"));
 }
 
 //PRIVATE SLOTS
 void FtpHandler::managerFinished(QNetworkReply *reply){
     if(reply->error() != QNetworkReply::NetworkError::NoError)
-        errorOccurred(reply->errorString());
+        emit error(reply->errorString());
     emit finished();
     reply->deleteLater();
 }
@@ -51,19 +51,7 @@ void FtpHandler::uploadProgress(qint64 bytesSend, qint64 totalBytes){
     emit progress(percentage);
 }
 
-//PRIVATE METHODS
-
-void FtpHandler::errorOccurred(const QString &msg){
-    lastError = msg;
-    emit error();
-}
-
 // GETTER / SETTER
-QString FtpHandler::getLastError() const{
-    return lastError;
-}
-
-
 void FtpHandler::setUser(const QString &username, const QString &password){
     this->username = username;
     this->password = password;

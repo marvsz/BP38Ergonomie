@@ -1,4 +1,6 @@
 #include "senddatabasepopup.h"
+#include "ftpHandler/ftphandler.h"
+#include "standardpaths.h"
 #include <QGridLayout>
 
 SendDatabasePopUp::SendDatabasePopUp(QWidget *parent) : AbstractPopUpWidget(ConfirmMode::SEND, tr("Send database"), parent),
@@ -41,6 +43,9 @@ SendDatabasePopUp::SendDatabasePopUp(QWidget *parent) : AbstractPopUpWidget(Conf
     mainLayout->addWidget(chBxSetDefault, 6, 1, 1, 1, 0);
 
     setLayout(mainLayout);
+
+    connect(this, SIGNAL(confirm()), this, SLOT(onConfirm()));
+
     clear();
 }
 
@@ -70,7 +75,17 @@ void SendDatabasePopUp::clear(){
 
 //PRIVATE SLOTS
 void SendDatabasePopUp::cmBxFTPConnectionsIndexChanged(int index){
-    emit selected(cmBxFTPConnections->itemData(index).toInt());
+    if(index != 0)
+        emit selected(cmBxFTPConnections->itemData(index).toInt());
+    else{
+        txtBxName->setText("");
+        txtBxUserName->setText("");
+        txtBxPassword->setText("");
+        txtBxAddress->setText("");
+        numBxPort->setValue(21);
+        chBxSave->setChecked(true);
+        chBxSetDefault->setChecked(false);
+    }
 }
 
 void SendDatabasePopUp::onConfirm(){
@@ -78,6 +93,32 @@ void SendDatabasePopUp::onConfirm(){
         emit create();
     else if(chBxSave)
         emit edit(cmBxFTPConnections->currentData().toInt());
+
+    FtpHandler *ftpHandler = new FtpHandler();
+    connect(ftpHandler, SIGNAL(started()), this, SLOT(startedUpload()));
+    connect(ftpHandler, SIGNAL(finished()), this, SLOT(finishedUpload()));
+    connect(ftpHandler, SIGNAL(progress(int)), this, SLOT(progressUpload(int)));
+    connect(ftpHandler, SIGNAL(error(QString)), this, SLOT(errorDurringUpload(QString)));
+    ftpHandler->setUser(getUserName(), getPassword());
+    ftpHandler->setPort(getPort());
+    ftpHandler->setServer(getAddress());
+    ftpHandler->uploadFile(StandardPaths::databasePath());
+}
+
+void SendDatabasePopUp::startedUpload(){
+    emit showMessage(tr("Started Upload"), NotificationMessage::INFORMATION, NotificationMessage::SHORT);
+}
+
+void SendDatabasePopUp::finishedUpload(){
+    emit showMessage(tr("Finished Upload"), NotificationMessage::INFORMATION, NotificationMessage::SHORT);
+}
+
+void SendDatabasePopUp::progressUpload(int progress){
+
+}
+
+void SendDatabasePopUp::errorDurringUpload(const QString &error){
+    emit showMessage(error, NotificationMessage::ERROR, NotificationMessage::PERSISTENT);
 }
 
 // GETTER / SETTER

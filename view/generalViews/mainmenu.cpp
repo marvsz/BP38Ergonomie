@@ -10,8 +10,8 @@ MainMenu::MainMenu(QWidget *parent) :
     btnWorkplaceList(new QPushButton(tr("Work Stations"))),
     btnRessourceManagement(new QPushButton(tr ("Ressource Management"))),
     btnShift(new QPushButton(tr("Shift Data"))),
-    btnNewRecording(new QPushButton(tr("New recording"))),
     btnSettings(new QPushButton()),
+    btnNewRecording(new QPushButton(tr("New recording"))),
     btnSendDatabase(new QPushButton())
 
 {

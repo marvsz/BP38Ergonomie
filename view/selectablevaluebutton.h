@@ -27,14 +27,13 @@ public:
 signals:
     void clickedWithID(int id);
 
-public slots:
-
 private slots:
     void btnClicked();
 
 private:
     int id;
     QVariant value;
+    bool selected;
 };
 
 #endif // SelectableValueButton_H

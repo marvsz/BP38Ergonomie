@@ -6,7 +6,6 @@ SelectableValueButton::SelectableValueButton(int id, const QVariant &value, QWid
     QPushButton(parent),
     id(id)
 {
-    this->setCheckable(true);
     this->setSelected(false);
     this->setValue(value);
     connect(this, SIGNAL(clicked()), this, SLOT(btnClicked()));
@@ -19,11 +18,15 @@ void SelectableValueButton::btnClicked(){
 
 //GETTER AND SETTER
 void SelectableValueButton::setSelected(bool isSelected){
-    this->setChecked(isSelected);
+    selected = isSelected;
+    if(selected)
+        this->setStyleSheet("QPushButton {font: 100 18px \"Serif\"; color: #FFFFFF; border: 2px solid #007aff; border-radius: 10px; background-color: #007aff; padding: 4px;}");
+    else
+        this->setStyleSheet("QPushButton {font: 100 18px \"Serif\"; color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5; padding: 4px;}");
 }
 
 bool SelectableValueButton::isSelected() const{
-    return this->isChecked();
+    return selected;
 }
 
 void SelectableValueButton::setID(int id){

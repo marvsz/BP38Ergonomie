@@ -29,6 +29,7 @@ public:
 
 signals:
     void update(ViewType type);
+    void update(PopUpType type);
     void save(ViewType type);
 
 public slots:

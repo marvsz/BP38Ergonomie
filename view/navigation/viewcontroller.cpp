@@ -85,6 +85,7 @@ void ViewController::registerView(NavigateableWidget *widget, ViewType type){
         viewTypeToWidget->insert(type, widget);
         connect(widget, SIGNAL(showPopUp(PopUpType)), this, SLOT(showPopUp(PopUpType)));
         connect(widget, SIGNAL(showView(ViewType)), this, SLOT(goToView(ViewType)));
+        connect(widget, SIGNAL(showMessage(QString,NotificationMessage::MessageType,NotificationMessage::MessageDisplayType)), this, SLOT(showMessage(QString,NotificationMessage::MessageType,NotificationMessage::MessageDisplayType)));
         NotificationWidget::resize(widget->sizeHint());
     }
 }
@@ -94,6 +95,7 @@ void ViewController::registerPopUp(AbstractPopUpWidget *popUp, PopUpType type){
         popUpTypeToWidget->insert(type, popUp);
         popUp->hide();
         connect(popUp, SIGNAL(closePopUp()), this, SLOT(closePopUp()));
+        connect(popUp, SIGNAL(showMessage(QString,NotificationMessage::MessageType,NotificationMessage::MessageDisplayType)), this, SLOT(showMessage(QString,NotificationMessage::MessageType,NotificationMessage::MessageDisplayType)));
     }
 }
 
@@ -154,6 +156,7 @@ void ViewController::showPopUp(PopUpType type){
     if(popUpTypeToWidget->contains(type)){
         AbstractPopUpWidget *popUp = popUpTypeToWidget->value(type);
         popUp->onEnter();
+        emit update(type);
         this->openPopUp(popUp);
         currentPopUp = type;
     }

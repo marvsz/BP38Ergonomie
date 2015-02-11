@@ -6,6 +6,7 @@
 #include <QPainter>
 #include <QPaintEvent>
 #include "viewtype.h"
+#include "notificationmessage.h"
 
 class TitledWidget : public QWidget
 {
@@ -28,6 +29,7 @@ public:
 signals:
     void showView(ViewType type);
     void showPopUp(PopUpType type);
+    void showMessage(const QString &message, NotificationMessage::MessageType msgType = NotificationMessage::ACCEPT, NotificationMessage::MessageDisplayType msgDisplayType = NotificationMessage::MIDDLE);
 
 public slots:
     virtual void onLeaving(){

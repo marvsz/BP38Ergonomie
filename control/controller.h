@@ -35,6 +35,7 @@
 #include "../view/documentationView/workprocessmetadataview.h"
 #include "../view/documentationView/bodyPostureView/bodypostureview.h"
 #include <QSqlField>
+#include <QCryptographicHash>
 #include <QHash>
 
 class Controller : QObject
@@ -45,6 +46,7 @@ public:
 
 private slots:
     void update(ViewType type);
+    void update(PopUpType type);
     void save(ViewType type);
 
     void updateAnalystSelectionView();
@@ -120,6 +122,11 @@ private slots:
     void updateWorkProcessMetaDataEquipment();
 
     void updateDocumentationViewRessources();
+
+    void updateSendDatabasePopUp();
+    void selectedConnectionChanged(int id);
+    void createConnection();
+    void editConnection(int id);
 
     void resetDatabase();
 

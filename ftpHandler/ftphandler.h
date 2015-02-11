@@ -15,8 +15,6 @@ public:
 
     void uploadFile(const QString &filename);
 
-    QString getLastError() const;
-
     void setUser(const QString &username, const QString &password = "");
     void setPort(int port);
     void setServer(const QString &address);
@@ -25,7 +23,7 @@ signals:
     void progress(int progress);
     void started();
     void finished();
-    void error();
+    void error(const QString &error);
 
 private slots:
     void managerFinished(QNetworkReply *reply);
@@ -37,11 +35,8 @@ private:
     int port;
     QString address;
 
-    QString lastError;
-
     QNetworkAccessManager *manager;
 
-    void errorOccurred(const QString &msg);
 };
 
 #endif // FTPHANDLER_H

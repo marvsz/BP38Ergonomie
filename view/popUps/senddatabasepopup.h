@@ -39,6 +39,10 @@ public slots:
 private slots:
     void cmBxFTPConnectionsIndexChanged(int index);
     void onConfirm();
+    void startedUpload();
+    void finishedUpload();
+    void progressUpload(int progress);
+    void errorDurringUpload(const QString &error);
 
 private:
     QComboBox *cmBxFTPConnections;

@@ -211,7 +211,7 @@ void TimerViewController::syncCurrentTime(const QTime &currentTime){
 }
 
 // PROTECTED
-void TimerViewController::timerEvent(QTimerEvent *event){
+void TimerViewController::timerEvent(QTimerEvent *){
     currentTime = currentTime.addSecs(1);
     isBasicSet = false;
     maxTimerView->setTime(currentTime);
