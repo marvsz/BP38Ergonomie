@@ -5,6 +5,7 @@ TimerViewController::TimerViewController(QWidget *parent):
     QWidget(parent),
     isLeftSet(false),
     isRightSet(false),
+    isGantShown(false),
     startTimeBasic(QTime(0,0)),
     startTimeLeft(QTime(0,0)),
     startTimeRight(QTime(0,0)),
@@ -88,30 +89,35 @@ void TimerViewController::setSelectedType(AVType type){
     setWorkProcessType(type, TYPE_PREFIXE.at(type - 1));
 }
 
+void TimerViewController::gantViewShown(){
+    maxTimerView->disableMaximize();
+    if(displayState == TimerDisplayState::MINIMIZED)
+        maximizeView();
+    displayState = TimerDisplayState::GANT;
+    isGantShown = true;
+}
+
 void TimerViewController::gantViewHidden(){
     maxTimerView->enableMaximize();
-    displayState = TimerDisplayState::MAXIMIZED;
+    isGantShown = false;
 }
 
 void TimerViewController::closeTimerView(){
     maxTimerView->leaveTimer();
-    if(displayState == TimerDisplayState::GANT){
+    if(isGantShown)
         emit hideGantView();
-        displayState = TimerDisplayState::MAXIMIZED;
-    }
 }
 
 // PRIVATE SLOTS
 void TimerViewController::minimizeView(){
-    if(displayState == TimerDisplayState::MAXIMIZED){
+    if (displayState == TimerDisplayState::GANT){
+        emit hideGantView();
+        displayState = TimerDisplayState::MAXIMIZED;
+    }
+    else if(displayState == TimerDisplayState::MAXIMIZED && !isGantShown){
         maxTimerView->hide();
         minTimerView->show();
         displayState = TimerDisplayState::MINIMIZED;
-    }
-    else if (displayState == TimerDisplayState::GANT){
-        emit hideGantView();
-        maxTimerView->enableMaximize();
-        displayState = TimerDisplayState::MAXIMIZED;
     }
 }
 
@@ -121,9 +127,8 @@ void TimerViewController::maximizeView(){
         maxTimerView->show();
         displayState = TimerDisplayState::MAXIMIZED;
     }
-    else if(displayState == TimerDisplayState::MAXIMIZED || displayState == TimerDisplayState::GANT){
+    else if(displayState == TimerDisplayState::MAXIMIZED && !isGantShown){
         emit showGantView();
-        maxTimerView->disableMaximize();
         displayState = TimerDisplayState::GANT;
     }
 }

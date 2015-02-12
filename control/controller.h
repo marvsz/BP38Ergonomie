@@ -30,6 +30,7 @@
 #include "../view/popUps/transporationpopup.h"
 #include "../view/popUps/senddatabasepopup.h"
 #include "../view/popUps/analystpopup.h"
+#include "../view/popUps/productpopup.h"
 #include "../view/documentationView/appliedforceview.h"
 #include "../view/documentationView/loadhandlingview.h"
 #include "../view/documentationView/executionconditionview.h"
@@ -90,6 +91,7 @@ private slots:
 
     void updateProductView();
     void createProduct();
+    void createProductPopUp();
     void deleteProduct(int id);
 
     void updateEquipmentView();
@@ -171,6 +173,7 @@ private:
     TransporationPopUp *transportationPopUp;
     SendDatabasePopUp *sendDatabasePopUp;
     AnalystPopUp *analystPopUp;
+    ProductPopUp *productPopUp;
 
 
     int analyst_ID;

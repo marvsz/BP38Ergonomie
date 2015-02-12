@@ -36,6 +36,7 @@ public slots:
     void setWorkProcessLists(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs);
     void closeTimerView();
 
+    void gantViewShown();
     void gantViewHidden();
 
 protected:
@@ -63,6 +64,8 @@ private:
     bool isLeftSet;
     bool isRightSet;
     bool isBasicSet;
+
+    bool isGantShown;
 
     int timerID;
 

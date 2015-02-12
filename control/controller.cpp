@@ -36,7 +36,8 @@ Controller::Controller(QObject *parent) :
     equipmentPopUp(new EquipmentPopUp()),
     transportationPopUp(new TransporationPopUp()),
     sendDatabasePopUp(new SendDatabasePopUp()),
-    analystPopUp(new AnalystPopUp())
+    analystPopUp(new AnalystPopUp()),
+    productPopUp(new ProductPopUp())
 {
     analyst_ID = 0;
     recording_ID = 1;
@@ -69,6 +70,7 @@ Controller::Controller(QObject *parent) :
 
     connect(productView, SIGNAL(saveProduct()), this, SLOT(createProduct()));
     connect(productView, SIGNAL(deleteProduct(int)), this, SLOT(deleteProduct(int)));
+    connect(productPopUp, SIGNAL(confirm()), this, SLOT(createProductPopUp()));
 
     connect(equipmentView, SIGNAL(saveEquipment()), this, SLOT(createEquipment()));
     connect(equipmentView, SIGNAL(deleteEquipment(int)), this, SLOT(deleteEquipment(int)));
@@ -87,6 +89,8 @@ Controller::Controller(QObject *parent) :
 
     connect(gantTimerView, SIGNAL(workProcessSelected(int,AVType)), this, SLOT(setSelectedWorkProcess(int, AVType)));
 
+    connect(gantTimerView, SIGNAL(entered()), timerViewController, SLOT(gantViewShown()));
+    connect(gantTimerView, SIGNAL(left()), timerViewController, SLOT(gantViewHidden()));
     connect(timerViewController, SIGNAL(createWorkProcess(AVType,QTime,QTime)), this, SLOT(createWorkprocess(AVType,QTime,QTime)));
     connect(timerViewController, SIGNAL(nextWorkProcess()), this, SLOT(selectNextWorkProcess()));
     connect(timerViewController, SIGNAL(previousWorkProcess()), this, SLOT(selectPreviousWorkProcess()));
@@ -136,6 +140,7 @@ Controller::Controller(QObject *parent) :
     viewCon->registerPopUp(equipmentPopUp, PopUpType::EQUIPMENT_POPUP);
     viewCon->registerPopUp(sendDatabasePopUp, PopUpType::DB_SEND_POPUP);
     viewCon->registerPopUp(transportationPopUp, PopUpType::TRANSPORTATION_POPUP);
+    viewCon->registerPopUp(productPopUp, PopUpType::PRODUCT_POPUP);
     viewCon->registerPopUp(analystPopUp, PopUpType::ANALYST_POPUP);
 
     //Set the start Views
@@ -217,6 +222,8 @@ void Controller::createAnalyst(){
     valuesAnalyst.insert(DBConstants::COL_ANALYST_EXPERIENCE, analystPopUp->getAnalystExperience());
     dbHandler->insert(DB_TABLES::ANALYST, DBConstants::HASH_ANALYST_TYPES, valuesAnalyst, DBConstants::COL_ANALYST_ID);
     updateAnalystSelectionView();
+    viewCon->closePopUp();
+    viewCon->showMessage(tr("Created analyst"));
 }
 
 void Controller::removeAnalyst(int id){
@@ -474,6 +481,17 @@ void Controller::createProduct(){
     values.insert(DBConstants::COL_PRODUCT_TOTAL_PERCENTAGE, productView->getTotalPercentage());
     dbHandler->insert(DB_TABLES::PRODUCT, DBConstants::HASH_PRODUCT_TYPES, values, DBConstants::COL_PRODUCT_ID);
     updateProductView();
+}
+
+void Controller::createProductPopUp(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_PRODUCT_NAME, productPopUp->getName());
+    values.insert(DBConstants::COL_PRODUCT_NUMBER, productPopUp->getNumber());
+    values.insert(DBConstants::COL_PRODUCT_TOTAL_PERCENTAGE, productPopUp->getTotalPercentage());
+    dbHandler->insert(DB_TABLES::PRODUCT, DBConstants::HASH_PRODUCT_TYPES, values, DBConstants::COL_PRODUCT_ID);
+    viewCon->closePopUp();
+    viewCon->showMessage(tr("Created new product"));
+    updateActivityView();
 }
 
 void Controller::deleteProduct(int id){

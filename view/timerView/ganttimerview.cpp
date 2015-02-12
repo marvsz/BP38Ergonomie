@@ -130,7 +130,12 @@ void GantTimerView::setSelectedWorkProcess(int id, AVType type, int frequenz){
 }
 
 void GantTimerView::onEnter(){
+    emit entered();
     update();
+}
+
+void GantTimerView::onLeaving(){
+    emit left();
 }
 
 void GantTimerView::setWorkProcessLists(QVector<QVariant> *leftWorkProcesses, QVector<QVariant> *rightWorkProcesses, QVector<QVariant> *basicWorkProcesses){

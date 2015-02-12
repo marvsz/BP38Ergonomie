@@ -72,7 +72,8 @@ void DocumentationView::showGant(){
 }
 
 void DocumentationView::hideGant(){
-    views->setCurrentIndex(indexBeforeTimeLineView);
+    if(currentView == ViewType::GANT_VIEW)
+        views->setCurrentIndex(indexBeforeTimeLineView);
 }
 
 void DocumentationView::changeView(int index){

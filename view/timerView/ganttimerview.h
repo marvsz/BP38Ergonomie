@@ -24,6 +24,8 @@ public:
 signals:
     void workProcessSelected(int id, AVType type);
     void saveFrequenz();
+    void entered();
+    void left();
 
 public slots:
     void add(int id, AVType type, const QTime &start, const QTime &end);
@@ -32,6 +34,7 @@ public slots:
     void setSelectedWorkProcess(int id, AVType type, int frequenz);
 
     void onEnter();
+    void onLeaving();
 
 private slots:
     void btnZoomInClicked();

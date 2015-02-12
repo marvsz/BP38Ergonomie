@@ -113,7 +113,7 @@ void ActivityView::selectedProductChanged(int id){
 }
 
 void ActivityView::btnProductsClicked(){
-    emit showView(ViewType::PRODUCT_VIEW);
+    emit showPopUp(PopUpType::PRODUCT_POPUP);
 }
 
 void ActivityView::workprocessClicked(){
