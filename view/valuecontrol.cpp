@@ -46,6 +46,7 @@ ValueControl::ValueControl(ValueControlType controlType, QWidget *parent) :
     }
     else{
         txtBxValue = new TextLineEdit(this);
+        txtBxValue->setObjectName("notEditableTextBox");
         txtBxValue->setAlignment(Qt::AlignCenter);
         txtBxValue->setEnabled(false);
         txtBxValue->setMinimumSize(300, 40);

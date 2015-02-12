@@ -37,6 +37,8 @@ SelectableValueButton#armRightIcon::checked {image: url(:/body/icons/BodyMeasure
 SelectableValueButton#torsoIcon::checked {image: url(:/body/icons/BodyMeasurement/torsoPressed.png); width: 120px; height: 240px; border: 1px solid #ffffff; background-color: transparent; padding: 0px; margin: 0px;}
 SelectableValueButton#legsIcon::checked {image: url(:/body/icons/BodyMeasurement/legsPressed.png); width: 200px; height: 240px; border: 1px solid #ffffff; background-color: transparent; padding: 0px; margin: 0px;}
 
+QLineEdit#notEditableTextBox {border: 0px; background: transparent;}
+
 QCheckBox {font: 100 18px "Serif"; color: #8e8e93;}
 QCheckBox::indicator:checked {image: url(:/button/icons/Buttons/checkBoxChecked.png);}
 QCheckBox::indicator:unchecked {image: url(:/button/icons/Buttons/checkBox.png);}
