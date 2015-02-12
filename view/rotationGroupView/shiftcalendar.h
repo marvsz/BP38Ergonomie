@@ -30,12 +30,17 @@ public:
     int getBreakDuration() const;
 signals:
 
+    void createCalendarRotationGroup(int id);
     void createBreak();
 
 
 public slots:
-    void addCalendarRotationGroup(int id, int duration = 60, const QString &name = "");
-    void addCalendarBreak(int id, int duration = 60, const QString &name = "");
+
+    void addSelectionRotationGroup(int id, int duration = 60, int workplaces = 1, const QString &name = "");
+    void clearSelection();
+
+    void addCalendarRotationGroup(int id, int duration = 60, const QString &name = "Rotationsgruppe");
+    void addCalendarBreak(int id, int duration = 60, const QString &name = "Pause");
     void clearCalendar();
 
     void setBeginTime(const QTime &beginTime);
@@ -82,6 +87,9 @@ private:
     QPushButton *btnDelete;
 
     void drawBackground();
+
+    static const QList<QStringList> rotationGroupCaptions;
+
 };
 
 #endif // SHIFTCALENDAR_H

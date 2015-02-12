@@ -8,6 +8,10 @@
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include "../separator.h"
+#include "../detailedlistitem.h"
+#include "../iconconstants.h"
+
+const QList<QStringList> ShiftCalendar::rotationGroupCaptions = QList<QStringList>() << (QStringList() << tr("Duration") << tr("Workplaces"));
 
 ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTime &endTime) :
     SimpleNavigateableWidget(tr("Calendar"), parent),
@@ -126,6 +130,19 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
 
     drawBackground();
 
+    // Dummy Data
+    addSelectionRotationGroup(0, 60, 3, "Rotationsgruppe 1");
+    addSelectionRotationGroup(1, 120, 10, "Rotationsgruppe 2");
+    addSelectionRotationGroup(2, 20, 1, "Rotationsgruppe 3");
+    addSelectionRotationGroup(3, 60, 2, "Rotationsgruppe 4");
+
+    addCalendarRotationGroup(0, 60, "Rotationsgruppe 1");
+    addCalendarRotationGroup(1, 120, "Rotationsgruppe 2");
+    addCalendarRotationGroup(2, 90, "Rotationsgruppe 3");
+    addCalendarBreak(3, 90, "Pause");
+    addCalendarRotationGroup(4, 60, "Rotationsgruppe 4");
+    addCalendarRotationGroup(5, 120, "Rotationsgruppe 2");
+    addCalendarRotationGroup(6, 90, "Rotationsgruppe 3");
 }
 
 
@@ -146,6 +163,23 @@ void ShiftCalendar::setBeginTime(const QTime &beginTime){
 void ShiftCalendar::setEndTime(const QTime &endTime){
     this->endTime = endTime;
     drawBackground();
+}
+
+void ShiftCalendar::addSelectionRotationGroup(int id, int duration, int workplaces, const QString &name){
+    QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(duration).append(" min") << QString::number(workplaces));
+    DetailedListItem *newItem = new DetailedListItem(0, IconConstants::ICON_ROTATION, name, rotationGroupCaptions, false, false, false, true);
+    newItem->setValues(values);
+    newItem->setID(id);
+    connect(newItem, SIGNAL(addItem(int)), this, SIGNAL(createCalendarRotationGroup(int)));
+    rotationGroupListLayout->addWidget(newItem);
+}
+
+void ShiftCalendar::clearSelection(){
+    QLayoutItem *item;
+    while((item = rotationGroupListLayout->takeAt(0)) != NULL){
+        delete item->widget();
+        delete item;
+    }
 }
 
 void ShiftCalendar::addCalendarRotationGroup(int id, int duration, const QString &name){
@@ -223,7 +257,7 @@ void ShiftCalendar::btnAddBreakClicked(){
 }
 
 void ShiftCalendar::btnRotationClicked(){
-    emit showView(ViewType::ROTATION_GROUP_VIEW);
+    emit showView(ViewType::ROTATION_GROUP_LIST_VIEW);
 }
 
 void ShiftCalendar::setSelectedId(int id){

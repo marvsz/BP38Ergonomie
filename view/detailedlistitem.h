@@ -13,13 +13,14 @@ class DetailedListItem : public QAbstractButton
 {
     Q_OBJECT
 public:
-    explicit DetailedListItem(QWidget *parent = 0, const QString &iconPath = "", const QString &name = "", const QList<QStringList> &scheme = QList<QStringList>(), bool isDeletable = false, bool isCheckable = false, bool hasForwardButton = false);
+    explicit DetailedListItem(QWidget *parent = 0, const QString &iconPath = "", const QString &name = "", const QList<QStringList> &scheme = QList<QStringList>(), bool isDeletable = false, bool isCheckable = false, bool hasForwardButton = false, bool canBeAdded = false);
 
     int getID() const;
     void setID(int id);
 
 signals:
     void deleteItem(int id);
+    void addItem(int id);
     void pressed(int id);
     void selected(int id);
     void deselected(int id);
@@ -37,6 +38,7 @@ public slots:
 private slots:
     void itemPressed();
     void deleteItem();
+    void addItem();
 
 protected:
     void paintEvent(QPaintEvent *e);
@@ -51,6 +53,7 @@ private:
     QIcon icon;
     QLabel *lblName;
     QPushButton *btnDelete;
+    QPushButton *btnAdd;
     QCheckBox *checkBox;
     QPushButton *btnForward;
 

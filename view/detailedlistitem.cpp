@@ -4,7 +4,7 @@
 #include <QSpacerItem>
 #include <QDebug>
 
-DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, const QString &name, const QList<QStringList> &scheme, bool isDeletable, bool isCheckable, bool hasForwardButton) :
+DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, const QString &name, const QList<QStringList> &scheme, bool isDeletable, bool isCheckable, bool hasForwardButton, bool canBeAdded) :
     QAbstractButton(parent),
     isCheckable(isCheckable),
     isDeletable(isDeletable),
@@ -13,6 +13,7 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
     icon(QIcon(iconPath)),
     lblName(new QLabel(name)),
     btnDelete(new QPushButton()),
+    btnAdd(new QPushButton()),
     checkBox(new QCheckBox()),
     btnForward(new QPushButton),
     listLblValues(QList<QList<QLabel*>>())
@@ -37,6 +38,8 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
     checkBox->setDisabled(true);
     btnDelete->setFixedSize(45, 45);
     btnDelete->setObjectName("resetIcon");
+    btnAdd->setFixedSize(45, 45);
+    btnAdd->setObjectName("plusIcon");
     btnForward->setFixedSize(45, 45);
     btnForward->setObjectName("rightIcon");
     connect(btnDelete, SIGNAL(clicked()), this, SLOT(deleteItem()));
@@ -73,6 +76,13 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
     else {
         layout->addItem(new QSpacerItem(50, 0), 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
     }
+    if(canBeAdded){
+        layout->addWidget(btnAdd, 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
+        connect(btnAdd, SIGNAL(clicked()), this, SLOT(addItem()));
+    }
+    else {
+        layout->addItem(new QSpacerItem(50, 0), 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
+    }
     if(isCheckable){
         layout->addWidget(checkBox, 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
         connect(this, SIGNAL(clicked()), this, SLOT(changeSelection()));
@@ -100,6 +110,10 @@ void DetailedListItem::paintEvent(QPaintEvent *e){
 // PRIVATE SLOTS
 void DetailedListItem::deleteItem(){
     emit deleteItem(id);
+}
+
+void DetailedListItem::addItem(){
+    emit addItem(id);
 }
 
 void DetailedListItem::itemPressed(){

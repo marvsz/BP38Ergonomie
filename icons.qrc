@@ -110,6 +110,26 @@
         <file>icons/Buttons/checkBox@2x.png</file>
         <file>icons/Buttons/checkBoxChecked.png</file>
         <file>icons/Buttons/checkBoxChecked@2x.png</file>
+        <file>icons/Buttons/warning.png</file>
+        <file>icons/Buttons/warning@2x.png</file>
+        <file>icons/Buttons/warningPressed.png</file>
+        <file>icons/Buttons/warningPressed@2x.png</file>
+        <file>icons/Buttons/information.png</file>
+        <file>icons/Buttons/information@2x.png</file>
+        <file>icons/Buttons/informationPressed.png</file>
+        <file>icons/Buttons/informationPressed@2x.png</file>
+        <file>icons/Buttons/error.png</file>
+        <file>icons/Buttons/error@2x.png</file>
+        <file>icons/Buttons/errorPressed.png</file>
+        <file>icons/Buttons/errorPressed@2x.png</file>
+        <file>icons/Buttons/accept.png</file>
+        <file>icons/Buttons/accept@2x.png</file>
+        <file>icons/Buttons/acceptPressed.png</file>
+        <file>icons/Buttons/acceptPressed@2x.png</file>
+        <file>icons/Buttons/quickRecording.png</file>
+        <file>icons/Buttons/quickRecording@2x.png</file>
+        <file>icons/Buttons/quickRecordingPressed.png</file>
+        <file>icons/Buttons/quickRecordingPressed@2x.png</file>
     </qresource>
     <qresource prefix="/misc">
         <file>icons/Misc/workplace.png</file>
