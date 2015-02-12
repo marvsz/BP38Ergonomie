@@ -35,7 +35,8 @@ Controller::Controller(QObject *parent) :
     feedbackPopUp(new FeedbackPopUp()),
     equipmentPopUp(new EquipmentPopUp()),
     transportationPopUp(new TransporationPopUp()),
-    sendDatabasePopUp(new SendDatabasePopUp())
+    sendDatabasePopUp(new SendDatabasePopUp()),
+    analystPopUp(new AnalystPopUp())
 {
     analyst_ID = 0;
     recording_ID = 1;
@@ -53,8 +54,8 @@ Controller::Controller(QObject *parent) :
     connect(viewCon, SIGNAL(update(PopUpType)), this, SLOT(update(PopUpType)));
 
     connect(analystSelectionView, SIGNAL(remove(int)), this, SLOT(removeAnalyst(int)));
-    connect(analystSelectionView, SIGNAL(create()), this, SLOT(createAnalyst()));
     connect(analystSelectionView, SIGNAL(select(int)), this, SLOT(selectAnalyst(int)));
+    connect(analystPopUp, SIGNAL(confirm()), this, SLOT(createAnalyst()));
 
     connect(mainMenuView, SIGNAL(createBlankRecording()), this, SLOT(createBlankRecording()));
 
@@ -135,6 +136,7 @@ Controller::Controller(QObject *parent) :
     viewCon->registerPopUp(equipmentPopUp, PopUpType::EQUIPMENT_POPUP);
     viewCon->registerPopUp(sendDatabasePopUp, PopUpType::DB_SEND_POPUP);
     viewCon->registerPopUp(transportationPopUp, PopUpType::TRANSPORTATION_POPUP);
+    viewCon->registerPopUp(analystPopUp, PopUpType::ANALYST_POPUP);
 
     //Set the start Views
     documentationView->showStartView(ViewType::BODY_POSTURE_VIEW);
@@ -203,16 +205,16 @@ void Controller::updateAnalystSelectionView(){
 }
 
 void Controller::createAnalyst(){
-    QString filter = QString("%1 = %2").arg(DBConstants::COL_EMPLOYER_NAME).arg(analystSelectionView->getAnalystEmployer());
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_EMPLOYER_NAME).arg(analystPopUp->getAnalystEmployer());
     QHash<QString, QVariant> valuesEmployer = QHash<QString, QVariant>();
-    valuesEmployer.insert(DBConstants::COL_EMPLOYER_NAME, analystSelectionView->getAnalystEmployer());
+    valuesEmployer.insert(DBConstants::COL_EMPLOYER_NAME, analystPopUp->getAnalystEmployer());
     int emp_ID = dbHandler->save(DB_TABLES::EMPLOYER, DBConstants::HASH_EMPLOYER_TYPES, valuesEmployer, filter, DBConstants::COL_EMPLOYER_ID);
 
     QHash<QString, QVariant> valuesAnalyst = QHash<QString, QVariant>();
-    valuesAnalyst.insert(DBConstants::COL_ANALYST_LASTNAME, analystSelectionView->getAnalystLastName());
-    valuesAnalyst.insert(DBConstants::COL_ANALYST_FIRSTNAME, analystSelectionView->getAnalystFirstName());
+    valuesAnalyst.insert(DBConstants::COL_ANALYST_LASTNAME, analystPopUp->getAnalystLastName());
+    valuesAnalyst.insert(DBConstants::COL_ANALYST_FIRSTNAME, analystPopUp->getAnalystFirstName());
     valuesAnalyst.insert(DBConstants::COL_ANALYST_EMPLOYER_ID, emp_ID);
-    valuesAnalyst.insert(DBConstants::COL_ANALYST_EXPERIENCE, analystSelectionView->getAnalystExperience());
+    valuesAnalyst.insert(DBConstants::COL_ANALYST_EXPERIENCE, analystPopUp->getAnalystExperience());
     dbHandler->insert(DB_TABLES::ANALYST, DBConstants::HASH_ANALYST_TYPES, valuesAnalyst, DBConstants::COL_ANALYST_ID);
     updateAnalystSelectionView();
 }

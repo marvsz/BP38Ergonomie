@@ -29,6 +29,7 @@
 #include "../view/popUps/equipmentpopup.h"
 #include "../view/popUps/transporationpopup.h"
 #include "../view/popUps/senddatabasepopup.h"
+#include "../view/popUps/analystpopup.h"
 #include "../view/documentationView/appliedforceview.h"
 #include "../view/documentationView/loadhandlingview.h"
 #include "../view/documentationView/executionconditionview.h"
@@ -169,6 +170,7 @@ private:
     EquipmentPopUp *equipmentPopUp;
     TransporationPopUp *transportationPopUp;
     SendDatabasePopUp *sendDatabasePopUp;
+    AnalystPopUp *analystPopUp;
 
 
     int analyst_ID;
