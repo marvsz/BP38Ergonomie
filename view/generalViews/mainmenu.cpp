@@ -11,7 +11,7 @@ MainMenu::MainMenu(QWidget *parent) :
     btnRessourceManagement(new QPushButton(tr ("Ressource Management"))),
     btnShift(new QPushButton(tr("Shift Data"))),
     btnSettings(new QPushButton()),
-    btnNewRecording(new QPushButton(tr("New recording"))),
+    btnNewRecording(new QPushButton()),
     btnSendDatabase(new QPushButton())
 
 {
@@ -21,13 +21,15 @@ MainMenu::MainMenu(QWidget *parent) :
     btnWorkplaceList->setMinimumSize(300, 60);
     btnRessourceManagement->setMinimumSize(300, 60);
     btnShift->setMinimumSize(300, 60);
-    btnNewRecording->setMinimumSize(300, 60);
 
     btnSettings->setObjectName("settingsIcon");
     btnSettings->setFixedSize(45, 45);
 
     btnSendDatabase->setObjectName("sendIcon");
     btnSendDatabase->setFixedSize(45, 45);
+
+    btnNewRecording->setObjectName("quickRecordingIcon");
+    btnNewRecording->setFixedSize(45, 45);
 
     connect(btnMetaDataView, SIGNAL(clicked()), this, SLOT(btnMetaDataViewClicked()));
     connect(btnWorkplaceList, SIGNAL(clicked()), this, SLOT(btnWorkplaceListClicked()));
@@ -47,10 +49,7 @@ MainMenu::MainMenu(QWidget *parent) :
     mainLayout->addWidget(btnRessourceManagement, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
     mainLayout->addWidget(btnShift, 0, Qt::AlignCenter);
-    mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
-    mainLayout->addWidget(btnNewRecording, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Minimum, QSizePolicy::Expanding));
-
 
     setLayout(mainLayout);
 
@@ -61,6 +60,7 @@ QList<QAbstractButton*> * MainMenu::getAdditionalNavigation() const{
     QList<QAbstractButton*> *additions = new QList<QAbstractButton*>();
     additions->append(btnSettings);
     additions->append(btnSendDatabase);
+    additions->append(btnNewRecording);
     return additions;
 }
 
