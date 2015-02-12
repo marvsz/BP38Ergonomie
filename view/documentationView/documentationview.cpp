@@ -36,9 +36,9 @@ void DocumentationView::showStartView(ViewType type){
 
 void DocumentationView::registerView(TitledWidget *widget, ViewType type){
     if(!viewTypeToIndex->contains(type) && widget != 0){
+        viewTypeToWidget->insert(type, widget);
         viewTypeToIndex->insert(type, mainContent->addWidget(widget));
         views->addItem(widget->getTitle(), type);
-        viewTypeToWidget->insert(type, widget);
         connect(widget, SIGNAL(showView(ViewType)), this, SIGNAL(showView(ViewType)));
         connect(widget, SIGNAL(showPopUp(PopUpType)), this, SIGNAL(showPopUp(PopUpType)));
     }
@@ -60,8 +60,10 @@ void DocumentationView::setTimerViewController(TimerViewController *timerViewCon
 
 // PUBLIC SLOTS
 void DocumentationView::onLeaving(){
+    emit save((ViewType) views->currentData().toInt());
     timerViewController->closeTimerView();
 }
+
 
 // PRIVATE SLOTS
 void DocumentationView::showGant(){
@@ -70,15 +72,23 @@ void DocumentationView::showGant(){
 }
 
 void DocumentationView::hideGant(){
-    changeView(indexBeforeTimeLineView);
+    views->setCurrentIndex(indexBeforeTimeLineView);
 }
 
 void DocumentationView::changeView(int index){
-    emit save(currentView);
+    if(viewTypeToIndex->contains(currentView)){
+        viewTypeToWidget->value(currentView)->onLeaving();
+        if(currentView == GANT_VIEW)
+            timerViewController->gantViewHidden();
+        emit save(currentView);
+    }
     ViewType nextView = (ViewType) views->currentData().toInt();
-    emit update(nextView);
-    mainContent->setCurrentIndex(index);
-    currentView = nextView;
+    if(viewTypeToIndex->contains(nextView)){
+        emit update(nextView);
+        mainContent->setCurrentIndex(index);
+        currentView = nextView;
+        viewTypeToWidget->value(nextView)->onEnter();
+    }
 }
 
 //GETTER / SETTER

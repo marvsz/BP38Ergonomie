@@ -84,7 +84,7 @@ private slots:
     void resetWorkProcesses();
     void saveCurrentWorkProcess();
 
-    void updateGantView();
+    void initializeRecording();
 
     void updateProductView();
     void createProduct();

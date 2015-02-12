@@ -52,16 +52,21 @@ void NotificationMessage::processMessageQueue(){
             timerID = startTimer(duration);
         }
         switch(msg.type){
-            case ACCEPT: this->setIcon(QIcon(":/button/icons/Buttons/check.png")); break;
-            case ERROR: this->setIcon(QIcon(":/button/icons/Buttons/cancel.png")); break;
-            case WARNING: this->setIcon(QIcon(":/button/icons/Buttons/cancel.png")); break;
-            case INFORMATION: this->setIcon(QIcon(":/button/icons/Buttons/check.png")); break;
-            default: this->setIcon(QIcon(":/button/icons/Buttons/check.png")); break;
+            case ACCEPT: this->setIcon(QIcon(":/button/icons/Buttons/accept.png")); break;
+            case ERROR: this->setIcon(QIcon(":/button/icons/Buttons/error.png")); break;
+            case WARNING: this->setIcon(QIcon(":/button/icons/Buttons/warning.png")); break;
+            case INFORMATION: this->setIcon(QIcon(":/button/icons/Buttons/information.png")); break;
+            default: this->setIcon(QIcon(":/button/icons/Buttons/information.png")); break;
         }
         this->setText(msg.text);
-        int width = 35 + msg.text.length() * 12;
+        int length = msg.text.length();
+        int width = 40 + (length > 30 ? 30 : length) * 10;
+        int height = 42;
+        if (length > 30)
+            height += 35 * length / 30;
         int xPos = this->x() + (this->width() - width) / 2;
-        this->setGeometry(xPos, this->y(), width, this->height());
+        int yPos = this->y() + (this->height() - height);
+        this->setGeometry(xPos, yPos, width, height);
         this->show();
         update();
     }

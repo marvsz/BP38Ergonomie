@@ -19,6 +19,9 @@ signals:
 public slots:
     void setSelectedAV(int avNum);
     void setAVPrefix(const QString &pref);
+    void setSelectedAVNone();
+    void setHasPreviousAV(bool hasPrevious);
+    void setHasNextAV(bool hasNext);
 
 private:
     QPushButton *btnRight;

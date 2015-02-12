@@ -43,4 +43,16 @@ void WorkProcessSelector::setAVPrefix(const QString &pref){
     prefix = pref;
 }
 
+void WorkProcessSelector::setSelectedAVNone(){
+    lblSelectedAV->setText(tr("empty"));
+}
+
+void WorkProcessSelector::setHasPreviousAV(bool hasPrevious){
+    btnLeft->setEnabled(hasPrevious);
+}
+
+void WorkProcessSelector::setHasNextAV(bool hasNext){
+    btnRight->setEnabled(hasNext);
+}
+
 

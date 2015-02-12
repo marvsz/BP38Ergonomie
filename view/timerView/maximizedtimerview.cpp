@@ -193,6 +193,18 @@ void MaximizedTimerView::setWorkProcessType(AVType type, const QString &prefix){
     wpSelector->setAVPrefix(prefix);
 }
 
+void MaximizedTimerView::setSelectedAVNone(){
+    wpSelector->setSelectedAVNone();
+}
+
+void MaximizedTimerView::setHasPreviousAV(bool hasPrevious){
+    wpSelector->setHasPreviousAV(hasPrevious);
+}
+
+void MaximizedTimerView::setHasNextAV(bool hasNext){
+    wpSelector->setHasNextAV(hasNext);
+}
+
 void MaximizedTimerView::leftStarted(const QTime &startTime){
     graphTimer->leftStarted(startTime);
 }

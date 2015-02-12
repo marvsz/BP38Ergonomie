@@ -159,7 +159,6 @@ void Controller::update(ViewType type){
     case ViewType::LOAD_HANDLING_VIEW: updateLoadHandlingView(); break;
     case ViewType::WORKING_CONDITION_VIEW: updateExecutionConditionView(); break;
     case ViewType::WORK_PROCESS_META_DATA_VIEW: updateWorkProcessMetaDataView(); break;
-    case ViewType::GANT_VIEW: updateGantView(); break;
     case ViewType::SETTINGS_VIEW: break;
     default: break;
     }
@@ -243,6 +242,7 @@ void Controller::createBlankRecording(){
 
     viewCon->showView(ViewType::DOCUMENTATION_VIEW, &prevViews);
     setSelectedWorkProcess(1, AVType::BASIC);
+    initializeRecording();
 }
 
 //MetaDataView
@@ -571,6 +571,7 @@ void Controller::deleteActivity(int id){
 void Controller::selectActivity(int id){
     activity_ID = id;
     workProcessTypeChanged(AVType::BASIC);
+    initializeRecording();
 }
 
 //CommentView
@@ -660,13 +661,17 @@ int Controller::createWorkprocess(AVType type, const QTime &start, const QTime &
     values.insert(DBConstants::COL_WORK_PROCESS_END, end.toString());
     dbHandler->insert(DB_TABLES::WORK_PROCESS, DBConstants::HASH_WORK_PROCESS_TYPES, values, DBConstants::COL_WORK_PROCESS_ID);
     gantTimerView->add(id, type, start, end);
+    if(workprocess_ID == 0){
+        setSelectedWorkProcess(id, type);
+    }
     return id;
 }
 
 
 void Controller::setSelectedWorkProcess(int id , AVType type){
     saveCurrentWorkProcess();
-    QString filter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ID).arg(id).arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(type);
+    QString absFilter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(type).arg(DBConstants::COL_WORK_PROCESS_ID);
+    QString filter = absFilter.arg(id);
 
     DB_TABLES tbl = DB_TABLES::WORK_PROCESS;
     int count = dbHandler->select(tbl, filter);
@@ -679,21 +684,21 @@ void Controller::setSelectedWorkProcess(int id , AVType type){
         QTime duration = QTime(0,0).addSecs(record.value(DBConstants::COL_WORK_PROCESS_BEGIN).toTime().secsTo(record.value(DBConstants::COL_WORK_PROCESS_END).toTime()));
         workprocess_ID = id;
         workprocess_Type = type;
+        update(documentationView->getCurrentView());
         timerViewController->setSelectedType(type);
         timerViewController->setSelectedAV(id, duration);
-        updateBodyPostureView();
-        updateAppliedForceView();
-        updateLoadHandlingView();
-        updateExecutionConditionView();
-        updateWorkProcessMetaDataView();
         gantTimerView->setSelectedWorkProcess(id, type, record.value(DBConstants::COL_WORK_PROCESS_FREQUENCY).toInt());
-        updateGantView();
+        timerViewController->setHasPreviousAV(dbHandler->select(tbl, absFilter.arg(id - 1)) > 0);
+        timerViewController->setHasNextAV(dbHandler->select(tbl, absFilter.arg(id + 1)) > 0);
 
     }
-    else if(id == 1){
-        timerViewController->setSelectedType(AVType::BASIC);
+    else {
+        timerViewController->setSelectedType(type);
         timerViewController->setSelectedAV(0, QTime(0,0));
-        updateGantView();
+        timerViewController->setSelectedAVNone();
+        timerViewController->setHasPreviousAV(false);
+        timerViewController->setHasNextAV(false);
+        workprocess_ID = 0;
     }
 }
 
@@ -711,14 +716,10 @@ void Controller::workProcessTypeChanged(AVType type){
 
 void Controller::resetWorkProcesses(){
     deleteWorkProcesses(activity_ID);
-    updateGantView();
+    setSelectedWorkProcess(1, AVType::BASIC);
 }
 
 void Controller::saveCurrentWorkProcess(){
-    saveBodyPostureView();
-    saveLoadHandlingView();
-    saveAppliedForceView();
-    saveExecutionConditionView();
     QString filter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_ID).arg(workprocess_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(workprocess_Type);
 
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
@@ -737,7 +738,7 @@ void Controller::saveCurrentWorkProcess(){
     dbHandler->save(DB_TABLES::WORK_PROCESS, DBConstants::HASH_WORK_PROCESS_TYPES, values, filter);
 }
 
-void Controller::updateGantView(){
+void Controller::initializeRecording(){
     gantTimerView->clear();
     QVector<QVariant> *leftWorkProcesses = new QVector<QVariant>();
     QVector<QVariant> *rightWorkProcesses = new QVector<QVariant>();

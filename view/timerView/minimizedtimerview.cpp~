@@ -90,18 +90,6 @@ void MinimizedTimerView::setSelectedAV(int id){
     wpSelector->setSelectedAV(id);
 }
 
-void MinimizedTimerView::setSelectedAVNone(){
-    wpSelector->setSelectedAVNone();
-}
-
-void MinimizedTimerView::setHasPreviousAV(bool hasPrevious){
-    wpSelector->setHasPreviousAV(hasPrevious);
-}
-
-void MinimizedTimerView::setHasNextAV(bool hasNext){
-    wpSelector->setHasNextAV(hasNext);
-}
-
 void MinimizedTimerView::setWorkProcessType(AVType type, const QString &prefix){
     wpSelector->setAVPrefix(prefix);
     wpTypePicker->setSelectedType(type);

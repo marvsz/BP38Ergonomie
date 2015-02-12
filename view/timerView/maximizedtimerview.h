@@ -50,6 +50,9 @@ public slots:
     void setTime(const QTime &time);
     void setSelectedAV(int id, const QTime &duration);
     void setWorkProcessType(AVType type, const QString &prefix);
+    void setSelectedAVNone();
+    void setHasPreviousAV(bool hasPrevious);
+    void setHasNextAV(bool hasNext);
 
     void leftStarted(const QTime &startTime);
     void leftEnded(const QTime &endTime);

@@ -56,6 +56,21 @@ void TimerViewController::setSelectedAV(int id, const QTime &duration){
     maxTimerView->setSelectedAV(id, duration);
 }
 
+void TimerViewController::setSelectedAVNone(){
+    maxTimerView->setSelectedAVNone();
+    minTimerView->setSelectedAVNone();
+}
+
+void TimerViewController::setHasPreviousAV(bool hasPrevious){
+    maxTimerView->setHasPreviousAV(hasPrevious);
+    minTimerView->setHasPreviousAV(hasPrevious);
+}
+
+void TimerViewController::setHasNextAV(bool hasNext){
+    maxTimerView->setHasNextAV(hasNext);
+    minTimerView->setHasNextAV(hasNext);
+}
+
 void TimerViewController::setWorkProcessLists(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs){
     maxTimerView->initialize(leftWPs, rightWPs, basicWPs);
     if(leftWPs->count() != 0 || rightWPs->count() != 0 || basicWPs->count() != 0){
@@ -71,6 +86,11 @@ void TimerViewController::setWorkProcessLists(QVector<QVariant> *leftWPs, QVecto
 
 void TimerViewController::setSelectedType(AVType type){
     setWorkProcessType(type, TYPE_PREFIXE.at(type - 1));
+}
+
+void TimerViewController::gantViewHidden(){
+    maxTimerView->enableMaximize();
+    displayState = TimerDisplayState::MAXIMIZED;
 }
 
 void TimerViewController::closeTimerView(){

@@ -34,6 +34,9 @@ public slots:
     void setState(TimerState state);
     void setTime(const QTime &time);
     void setSelectedAV(int id);
+    void setSelectedAVNone();
+    void setHasPreviousAV(bool hasPrevious);
+    void setHasNextAV(bool hasNext);
     void setWorkProcessType(AVType type, const QString &prefix);
 
 private slots:

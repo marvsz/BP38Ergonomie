@@ -126,6 +126,11 @@ void GantTimerView::setSelectedWorkProcess(int id, AVType type, int frequenz){
     selWP_ID = id;
     selWP_Type = type;
     numBxFrequenz->setValue(frequenz);
+    update();
+}
+
+void GantTimerView::onEnter(){
+    update();
 }
 
 void GantTimerView::setWorkProcessLists(QVector<QVariant> *leftWorkProcesses, QVector<QVariant> *rightWorkProcesses, QVector<QVariant> *basicWorkProcesses){
