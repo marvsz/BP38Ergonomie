@@ -83,6 +83,7 @@ private slots:
     void workProcessTypeChanged(AVType type);
     void resetWorkProcesses();
     void saveCurrentWorkProcess();
+    void workProcessDurationChanged(QTime time);
 
     void initializeRecording();
 

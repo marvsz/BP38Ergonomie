@@ -90,7 +90,7 @@ void TimeLineEdit::updateTime(){
     switch(this->type){
     case(TimeLineType::MINUTE_SECOND):
         if(hms.length() == 2)
-            currentTime = QTime(hms.at(0).toInt(), hms.at(1).toInt());
+            currentTime = QTime(0, hms.at(0).toInt(), hms.at(1).toInt());
         break;
     case(TimeLineType::HOUR_MINUTE):
         if(hms.length() == 2)

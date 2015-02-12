@@ -91,6 +91,7 @@ Controller::Controller(QObject *parent) :
     connect(timerViewController, SIGNAL(previousWorkProcess()), this, SLOT(selectPreviousWorkProcess()));
     connect(timerViewController, SIGNAL(workProcessTypeChanged(AVType)), this, SLOT(workProcessTypeChanged(AVType)));
     connect(timerViewController, SIGNAL(resetWorkProcesses()), this, SLOT(resetWorkProcesses()));
+    connect(timerViewController, SIGNAL(durationChanged(QTime)), this, SLOT(workProcessDurationChanged(QTime)));
 
     connect(sendDatabasePopUp, SIGNAL(create()), this, SLOT(createConnection()));
     connect(sendDatabasePopUp, SIGNAL(edit(int)), this, SLOT(editConnection(int)));
@@ -660,6 +661,8 @@ int Controller::createWorkprocess(AVType type, const QTime &start, const QTime &
     values.insert(DBConstants::COL_WORK_PROCESS_BEGIN, start.toString());
     values.insert(DBConstants::COL_WORK_PROCESS_END, end.toString());
     dbHandler->insert(DB_TABLES::WORK_PROCESS, DBConstants::HASH_WORK_PROCESS_TYPES, values, DBConstants::COL_WORK_PROCESS_ID);
+    if(type == workprocess_Type)
+        timerViewController->setHasNextAV(id == workprocess_ID + 1);
     gantTimerView->add(id, type, start, end);
     if(workprocess_ID == 0){
         setSelectedWorkProcess(id, type);
@@ -669,7 +672,10 @@ int Controller::createWorkprocess(AVType type, const QTime &start, const QTime &
 
 
 void Controller::setSelectedWorkProcess(int id , AVType type){
-    saveCurrentWorkProcess();
+    if(workplace_ID > 0){
+        saveCurrentWorkProcess();
+        save(documentationView->getCurrentView());
+    }
     QString absFilter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(type).arg(DBConstants::COL_WORK_PROCESS_ID);
     QString filter = absFilter.arg(id);
 
@@ -717,6 +723,7 @@ void Controller::workProcessTypeChanged(AVType type){
 void Controller::resetWorkProcesses(){
     deleteWorkProcesses(activity_ID);
     setSelectedWorkProcess(1, AVType::BASIC);
+    initializeRecording();
 }
 
 void Controller::saveCurrentWorkProcess(){
@@ -736,6 +743,29 @@ void Controller::saveCurrentWorkProcess(){
     values.insert(DBConstants::COL_WORK_PROCESS_APPLIED_FORCE_ID, appliedforce_ID);
     values.insert(DBConstants::COL_WORK_PROCESS_CONDITION_ID, workcondition_ID);
     dbHandler->save(DB_TABLES::WORK_PROCESS, DBConstants::HASH_WORK_PROCESS_TYPES, values, filter);
+}
+
+void Controller::workProcessDurationChanged(QTime time){
+    DB_TABLES tbl = WORK_PROCESS;
+    QString filter = QString("%1 = %2 AND %3 = %4 AND %5 >= %6").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(workprocess_Type).arg(DBConstants::COL_WORK_PROCESS_ID).arg(workprocess_ID);
+    int count = dbHandler->select(tbl, filter);
+    if(count > 0){
+        QSqlRecord record = dbHandler->record(tbl, 0);
+        QTime begin = record.value(DBConstants::COL_WORK_PROCESS_BEGIN).toTime();
+        QTime end = record.value(DBConstants::COL_WORK_PROCESS_END).toTime();
+        int diff = QTime(0, 0).addSecs(begin.secsTo(end)).secsTo(time);
+        record.setValue(DBConstants::COL_WORK_PROCESS_END, end.addSecs(diff));
+        dbHandler->updateRow(tbl, 0, record);
+        for(int i = 1; i < count; ++i){
+            record = dbHandler->record(tbl, i);
+            begin = record.value(DBConstants::COL_WORK_PROCESS_BEGIN).toTime();
+            end = record.value(DBConstants::COL_WORK_PROCESS_END).toTime();
+            record.setValue(DBConstants::COL_WORK_PROCESS_BEGIN, begin.addSecs(diff));
+            record.setValue(DBConstants::COL_WORK_PROCESS_END, end.addSecs(diff));
+            dbHandler->updateRow(tbl, i, record);
+        }
+        initializeRecording();
+    }
 }
 
 void Controller::initializeRecording(){

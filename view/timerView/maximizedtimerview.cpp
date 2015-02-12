@@ -127,6 +127,8 @@ void MaximizedTimerView::setState(TimerState state){
             btnStopReset->style()->unpolish(btnStopReset);
             btnStopReset->style()->polish(btnStopReset);
             btnStopReset->setEnabled(false);
+
+            timePicker->setEnabled(false);
             break;
     case TimerState::STARTED:
             btnSetAV->setEnabled(true);
@@ -175,6 +177,8 @@ void MaximizedTimerView::setState(TimerState state){
             btnStopReset->style()->unpolish(btnStopReset);
             btnStopReset->style()->polish(btnStopReset);
             btnStopReset->setEnabled(true);
+
+            timePicker->setEnabled(true);
             break;
     }
 }
