@@ -46,7 +46,6 @@ CommentView::CommentView(QWidget *parent) : SimpleNavigateableWidget(tr("Remarks
     commentLayout->addWidget(txtBxPerceptionDescription, 9, 1, 1, 1, 0);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(commentLayout);
 
     setLayout(mainLayout);
