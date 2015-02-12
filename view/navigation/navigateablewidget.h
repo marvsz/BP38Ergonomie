@@ -28,6 +28,7 @@ public:
     virtual bool hasAdditionalNavigation() const = 0;
 
 
+
 };
 
 #endif // NAVIGATABELWIDGET_H

@@ -12,8 +12,8 @@ DocumentationView::DocumentationView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Documentation"), parent),
     indexBeforeTimeLineView(0),
     registeredTimerViewController(false),
-    views(new QComboBox()),
-    mainContent(new QStackedWidget),
+    views(new QComboBox(this)),
+    mainContent(new QStackedWidget(this)),
     mainLayout(new QVBoxLayout),
     viewTypeToWidget(new QHash<ViewType, TitledWidget*>()),
     viewTypeToIndex(new QHash<ViewType, int>())

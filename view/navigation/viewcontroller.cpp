@@ -226,7 +226,7 @@ void ViewController::adaptNavigationBar(ViewType type){
         lblTitle->hide();
         internalNavigation = currentWidget->getInternalNavigation();
         internalNavigation->show();
-        middleNavigationLayout->addWidget(internalNavigation);
+        middleNavigationLayout->addWidget(internalNavigation, 0, Qt::AlignCenter);
     }
     else{
         lblTitle->setText(currentWidget->getTitle());

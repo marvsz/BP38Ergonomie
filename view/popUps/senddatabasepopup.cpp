@@ -106,11 +106,11 @@ void SendDatabasePopUp::onConfirm(){
 }
 
 void SendDatabasePopUp::startedUpload(){
-    emit showMessage(tr("Started Upload"), NotificationMessage::INFORMATION, NotificationMessage::SHORT);
+    emit showMessage(tr("Started Upload"), NotificationMessage::INFORMATION, NotificationMessage::MIDDLE);
 }
 
 void SendDatabasePopUp::finishedUpload(){
-    emit showMessage(tr("Finished Upload"), NotificationMessage::INFORMATION, NotificationMessage::SHORT);
+    emit showMessage(tr("Finished Upload"), NotificationMessage::INFORMATION, NotificationMessage::MIDDLE);
 }
 
 void SendDatabasePopUp::progressUpload(int progress){

@@ -12,7 +12,7 @@ const QList<QStringList> WorkplaceListView::workplaceCaptions = QList<QStringLis
 
 WorkplaceListView::WorkplaceListView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Workplaces"), parent),
-    btnPlus(new QPushButton()),
+    btnPlus(new QPushButton(this)),
     listContentLayout(new QVBoxLayout),
     scWorkplaces(new QScrollArea())
 {

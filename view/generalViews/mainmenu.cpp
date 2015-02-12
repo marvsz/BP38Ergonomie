@@ -10,9 +10,9 @@ MainMenu::MainMenu(QWidget *parent) :
     btnWorkplaceList(new QPushButton(tr("Work Stations"))),
     btnRessourceManagement(new QPushButton(tr ("Ressource Management"))),
     btnShift(new QPushButton(tr("Shift Data"))),
-    btnSettings(new QPushButton()),
-    btnNewRecording(new QPushButton()),
-    btnSendDatabase(new QPushButton())
+    btnSettings(new QPushButton(this)),
+    btnNewRecording(new QPushButton(this)),
+    btnSendDatabase(new QPushButton(this))
 
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
