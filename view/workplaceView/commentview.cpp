@@ -23,10 +23,7 @@ CommentView::CommentView(QWidget *parent) : SimpleNavigateableWidget(tr("Remarks
     lblWorkerPerception->setObjectName("lblHeader");
 
     txtBxProblemName->setPlaceholderText(tr("name of the problem"));
-    txtBxProblemDescription->setPlaceholderText(tr("description of the problem"));
     txtBxMeasureName->setPlaceholderText(tr("name of the measure"));
-    txtBxMeasureDescription->setPlaceholderText(tr("description of the mesaure"));
-    txtBxPerceptionDescription->setPlaceholderText(tr("the workers annotation"));
 
     QGridLayout *commentLayout = new QGridLayout;
     commentLayout->addWidget(lblProblem, 0, 0, 1, 2, 0);

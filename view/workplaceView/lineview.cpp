@@ -20,7 +20,6 @@ LineView::LineView(QWidget *parent) : SimpleNavigateableWidget(tr("Line"), paren
 {
     txtBxDescription->setMaximumHeight(100);
     txtBxName->setPlaceholderText(tr("name of the line"));
-    txtBxDescription->setPlaceholderText(tr("description of the line"));
     numBxWorkplaceCount->setPlaceholderText(tr("amount of work places"));
 
     btnAdd->setObjectName("plusIcon");
