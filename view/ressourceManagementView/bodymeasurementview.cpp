@@ -139,7 +139,7 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWi
     rightContent->setLayout(rightLayout);
 
     QScrollArea *saRightLayout = new QScrollArea();
-    saRightLayout->setMinimumWidth(600);
+    saRightLayout->setMinimumWidth(620);
     saRightLayout->setWidget(rightContent);
     saRightLayout->setWidgetResizable(true);
     FlickCharm *flick = new FlickCharm();
