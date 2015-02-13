@@ -91,7 +91,7 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
         layout->addWidget(btnForward, 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
     }
     else {
-        layout->addItem(new QSpacerItem(50, 50, QSizePolicy::Fixed, QSizePolicy::Fixed), layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
+        layout->addItem(new QSpacerItem(50, 0, QSizePolicy::Fixed, QSizePolicy::Fixed), layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
     }
     groupBox->setLayout(layout);
     mainLayout->addWidget(groupBox);
