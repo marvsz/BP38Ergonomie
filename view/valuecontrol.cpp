@@ -30,12 +30,12 @@ ValueControl::ValueControl(ValueControlType controlType, QWidget *parent) :
         connect(txtBxValue, SIGNAL(editingFinished()), this, SLOT(txtBxValueHasChanged()));
 
         btnPlus = new QPushButton (this);
-        btnPlus->setText("+");
+        btnPlus->setObjectName("plusIcon");
         btnPlus->setFixedSize(txtBxValue->height(), txtBxValue->height());
         connect(btnPlus, SIGNAL(pressed()), this, SLOT(btnPlusClicked()));
 
         btnMinus = new QPushButton (this);
-        btnMinus->setText("-");
+        btnMinus->setObjectName("minusIcon");
         btnMinus->setFixedSize(txtBxValue->height(),txtBxValue->height());
         connect(btnMinus, SIGNAL(pressed()), this, SLOT(btnMinusClicked()));
 
@@ -219,11 +219,17 @@ void ValueControl::btnTextHasClicked(int id){
 }
 
 void ValueControl::btnPlusClicked(){
+    btnMinus->setEnabled(true);
     sldrValue->setValue(sldrValue->value() + 1);
+    if(sldrValue->value() == lblMax->text().toInt())
+        btnPlus->setDisabled(true);
 }
 
 void ValueControl::btnMinusClicked(){
+    btnPlus->setEnabled(true);
     sldrValue->setValue(sldrValue->value() - 1);
+    if(sldrValue->value() == lblMin->text().toInt())
+        btnMinus->setDisabled(true);
 }
 
 void ValueControl::txtChanged(const QString &value){
