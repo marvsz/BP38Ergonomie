@@ -4,16 +4,16 @@
 #include <QSpacerItem>
 #include <QDebug>
 
-DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, const QString &name, const QList<QStringList> &scheme, bool isDeletable, bool isCheckable, bool hasForwardButton, bool canBeAdded) :
+DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, const QString &name, const QList<QStringList> &scheme, bool isDeletable, bool isCheckable, bool hasForwardButton, bool canBeAdded, bool isEditable) :
     QAbstractButton(parent),
     isCheckable(isCheckable),
-    isDeletable(isDeletable),
     layout(new QGridLayout),
     lblIcon(new QPushButton()),
     icon(QIcon(iconPath)),
     lblName(new QLabel(name)),
     btnDelete(new QPushButton()),
     btnAdd(new QPushButton()),
+    btnEdit(new QPushButton()),
     checkBox(new QCheckBox()),
     btnForward(new QPushButton),
     listLblValues(QList<QList<QLabel*>>())
@@ -40,6 +40,8 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
     btnDelete->setObjectName("resetIcon");
     btnAdd->setFixedSize(45, 45);
     btnAdd->setObjectName("plusIcon");
+    btnEdit->setFixedSize(45, 45);
+    btnEdit->setObjectName("editIcon");
     btnForward->setFixedSize(45, 45);
     btnForward->setObjectName("rightIcon");
     connect(btnDelete, SIGNAL(clicked()), this, SLOT(deleteItem()));
@@ -83,6 +85,13 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
     else {
         layout->addItem(new QSpacerItem(50, 0), 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
     }
+    if(isEditable){
+        layout->addWidget(btnEdit, 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
+        connect(btnEdit, SIGNAL(clicked()), this, SLOT(editItem()));
+    }
+    else {
+        layout->addItem(new QSpacerItem(50, 0), 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
+    }
     if(isCheckable){
         layout->addWidget(checkBox, 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
         connect(this, SIGNAL(clicked()), this, SLOT(changeSelection()));
@@ -114,6 +123,10 @@ void DetailedListItem::deleteItem(){
 
 void DetailedListItem::addItem(){
     emit addItem(id);
+}
+
+void DetailedListItem::editItem(){
+    emit editItem(id);
 }
 
 void DetailedListItem::itemPressed(){

@@ -37,7 +37,8 @@ Controller::Controller(QObject *parent) :
     transportationPopUp(new TransporationPopUp()),
     sendDatabasePopUp(new SendDatabasePopUp()),
     analystPopUp(new AnalystPopUp()),
-    productPopUp(new ProductPopUp())
+    productPopUp(new ProductPopUp()),
+    activityPopUp(new ActivityPopUp())
 {
     analyst_ID = 0;
     recording_ID = 1;
@@ -83,6 +84,8 @@ Controller::Controller(QObject *parent) :
     connect(activityView, SIGNAL(createActivity()), this, SLOT(createActivity()));
     connect(activityView, SIGNAL(selectActivity(int)), this, SLOT(selectActivity(int)));
     connect(activityView, SIGNAL(deleteActivity(int)), this, SLOT(deleteActivity(int)));
+    //connect(activityView, SIGNAL(editActivity(int)), this, SLOT(  update Popup mit activity id werten...
+    //connect(activityPopUp, SIGNAL(confirm()), this, SLOT(save daten in activity mit id, update activity view
 
     connect(documentationView, SIGNAL(update(ViewType)), this, SLOT(update(ViewType)));
     connect(documentationView, SIGNAL(save(ViewType)), this, SLOT(save(ViewType)));
@@ -142,6 +145,7 @@ Controller::Controller(QObject *parent) :
     viewCon->registerPopUp(transportationPopUp, PopUpType::TRANSPORTATION_POPUP);
     viewCon->registerPopUp(productPopUp, PopUpType::PRODUCT_POPUP);
     viewCon->registerPopUp(analystPopUp, PopUpType::ANALYST_POPUP);
+    viewCon->registerPopUp(activityPopUp, PopUpType::ACTIVITY_POPUP);
 
     //Set the start Views
     documentationView->showStartView(ViewType::BODY_POSTURE_VIEW);

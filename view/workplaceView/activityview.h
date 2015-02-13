@@ -42,6 +42,8 @@ private slots:
     void workprocessClicked();
     void selectedProductChanged(int id);
 
+    void editActivity(int id);
+
 private:
     const QList<QStringList> productItemScheme = QList<QStringList>() << (QStringList() << tr("product number"));
     const QList<QStringList> activityItemScheme = QList<QStringList>() << (QStringList() << tr("repetitions"));

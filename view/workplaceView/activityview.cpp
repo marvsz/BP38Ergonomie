@@ -122,7 +122,7 @@ void ActivityView::workprocessClicked(){
 
 // PUBLIC SLOTS
 void ActivityView::addProduct(int id, const QString &name, const QString &productNumber){
-    DetailedListItem *newListItem = new DetailedListItem(0, IconConstants::ICON_PRODUCT, name, productItemScheme, false, true, false);
+    DetailedListItem *newListItem = new DetailedListItem(0, IconConstants::ICON_PRODUCT, name, productItemScheme, false, true, false, false, true);
     newListItem->setID(id);
     QList<QStringList> values = QList<QStringList>() << (QStringList() << productNumber);
     newListItem->setValues(values);
@@ -151,13 +151,14 @@ void ActivityView::setActivity(const QString &description, int repetitions, int 
 }
 
 void ActivityView::addActivity(int id, const QString &description, int repetitions){
-    DetailedListItem *newListItem = new DetailedListItem(0, IconConstants::ICON_ACTIVITY, description, activityItemScheme, true, false, true);
+    DetailedListItem *newListItem = new DetailedListItem(0, IconConstants::ICON_ACTIVITY, description, activityItemScheme, true, false, true, false, true);
     newListItem->setID(id);
     QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(repetitions));
     newListItem->setValues(values);
     connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteActivity(int)));
     connect(newListItem, SIGNAL(pressed(int)), this, SIGNAL(selectActivity(int)));
     connect(newListItem, SIGNAL(clicked()), this, SLOT(workprocessClicked()));
+    connect(newListItem, SIGNAL(editItem(int)), this, SLOT(editActivity(int)));
     activityListLayout->addWidget(newListItem);
 }
 
@@ -167,4 +168,9 @@ void ActivityView::clearActivities(){
         delete item->widget();
         delete item;
     }
+}
+
+void ActivityView::editActivity(int id){
+    emit showPopUp(PopUpType::ACTIVITY_POPUP);
+    // ID?
 }

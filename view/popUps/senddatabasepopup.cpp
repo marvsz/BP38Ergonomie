@@ -1,5 +1,5 @@
 #include "senddatabasepopup.h"
-#include "ftpHandler/ftphandler.h"
+#include "../ftpHandler/ftphandler.h"
 #include "standardpaths.h"
 #include <QGridLayout>
 

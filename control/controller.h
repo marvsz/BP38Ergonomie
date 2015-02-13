@@ -31,6 +31,7 @@
 #include "../view/popUps/senddatabasepopup.h"
 #include "../view/popUps/analystpopup.h"
 #include "../view/popUps/productpopup.h"
+#include "../view/popUps/activitypopup.h"
 #include "../view/documentationView/appliedforceview.h"
 #include "../view/documentationView/loadhandlingview.h"
 #include "../view/documentationView/executionconditionview.h"
@@ -174,7 +175,7 @@ private:
     SendDatabasePopUp *sendDatabasePopUp;
     AnalystPopUp *analystPopUp;
     ProductPopUp *productPopUp;
-
+    ActivityPopUp *activityPopUp;
 
     int analyst_ID;
     int recording_ID;
