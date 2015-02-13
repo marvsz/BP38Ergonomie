@@ -71,7 +71,9 @@ HEADERS +=\
     $$PWD/popUps/transporationpopup.h \
     $$PWD/popUps/analystpopup.h \
     $$PWD/popUps/productpopup.h \
-    $$PWD/popUps/activitypopup.h
+    $$PWD/popUps/activitypopup.h \
+    $$PWD/quicklegposturecontrol.h \
+    $$PWD/quickarmposturecontrol.h
 
 
 SOURCES +=\
@@ -140,6 +142,8 @@ SOURCES +=\
     $$PWD/popUps/transporationpopup.cpp \
     $$PWD/popUps/analystpopup.cpp \
     $$PWD/popUps/productpopup.cpp \
-    $$PWD/popUps/activitypopup.cpp
+    $$PWD/popUps/activitypopup.cpp \
+    $$PWD/quicklegposturecontrol.cpp \
+    $$PWD/quickarmposturecontrol.cpp
 
 

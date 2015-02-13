@@ -31,13 +31,12 @@ const QVector<int> BodyPostureView::ANKLE_ANGLE_SIDEWAYS_VALUES = QVector<int>()
 
 BodyPostureView::BodyPostureView(QWidget *parent) :
     TitledWidget(tr("Body posture"), parent),
-    varConQuick(new VariantControl()),
     varConTrunk(new VariantControl()),
     varConArms(new VariantControl()),
     varConLegs(new VariantControl()),
     varConHead(new VariantControl()),
-    voscQuickLegPosture(new VerticalOptionSelectionControl()),
-    voscQuickArmPosture(new VerticalOptionSelectionControl()),
+    qlpcQuickLegPosture(new QuickLegPostureControl()),
+    voscQuickArmPosture(new QuickLegPostureControl()),
     voscQuickTrunkPosture(new VerticalOptionSelectionControl()),
     vcTrunkTilt(new ValueControl(VALUE)),
     vcTrunkSidewaysTilt(new ValueControl(VALUE)),
@@ -177,12 +176,12 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
     vcHeadTwist->setValues(0, 45, HEAD_TWIST_VALUES, QString(tr("head_twist_icon_path")));
     connect(vcHeadTwist, SIGNAL(valueChanged(int)), this, SLOT(vcHeadTwistValueChanged(int)));
 
-    voscQuickLegPosture->setValues(QUICK_LEG_POSTURE_TEXTS,LEFT_RIGHT_TEXTS,tr("Quick Leg Posture"));
+    qlpcQuickLegPosture->setValues(QUICK_LEG_POSTURE_TEXTS,LEFT_RIGHT_TEXTS,tr("Quick Leg Posture"));
     voscQuickArmPosture->setValues(QUICK_ARM_POSTURE_TEXTS,LEFT_RIGHT_TEXTS, tr("Quick Arm Posture"));
-    voscQuickTrunkPosture->setValues(QUICK_TRUNK_POSTURE_TEXTS,LEFT_RIGHT_TEXTS, tr("Quick Trunk Posture") );
+    voscQuickTrunkPosture->setValues(QUICK_TRUNK_POSTURE_TEXTS, tr("Quick Trunk Posture") );
 
     QHBoxLayout *quickLayout = new QHBoxLayout();
-    quickLayout->addWidget(voscQuickLegPosture);
+    quickLayout->addWidget(qlpcQuickLegPosture);
     quickLayout->addWidget(new Separator(Qt::Vertical, 3, this));
     quickLayout->addWidget(voscQuickArmPosture);
     quickLayout->addWidget(new Separator(Qt::Vertical, 3, this));
