@@ -228,7 +228,7 @@ int BodyMeasurementView::getHeadNeckLength() const{
 
 
 int BodyMeasurementView::getThighLength() const{
-    return vcThighLength->getLength();
+    return vcThighLength->getValue();
 }
 
 int BodyMeasurementView::getTibialLength() const{
