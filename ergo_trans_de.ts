@@ -386,7 +386,7 @@
     <message>
         <location filename="view/documentationView/appliedforceview.cpp" line="10"/>
         <source>Applied force</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktionskraft</translation>
     </message>
     <message>
         <location filename="view/documentationView/appliedforceview.cpp" line="16"/>
@@ -414,82 +414,82 @@
     <message>
         <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="4"/>
         <source>Body Measurements</source>
-        <translation type="unfinished">Körpermaße</translation>
+        <translation>Körpermaße</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="16"/>
         <source>Head and neck:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopf und Hals:</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="17"/>
         <source>Upper part of the body:</source>
-        <translation type="unfinished"></translation>
+        <translation>Oberkörper:</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="18"/>
         <source>Arms and hands:</source>
-        <translation type="unfinished"></translation>
+        <translation>Arme und Hände:</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="19"/>
         <source>Lower part of the body:</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterkörper:</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="20"/>
         <source>Tap to select body part:</source>
-        <translation type="unfinished"></translation>
+        <translation>Körperteil auswählen:</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="59"/>
         <source>Head neck height [mm]</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopf-Hals-Höhe [mm]</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="63"/>
         <source>Shoulder width [mm]</source>
-        <translation type="unfinished"></translation>
+        <translation>Schulterbreite [mm]</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="66"/>
         <source>Shoulder biacromial [mm]</source>
-        <translation type="unfinished"></translation>
+        <translation>Schulterbreite biacromial [mm]</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="69"/>
         <source>Shoulder bideltoid [mm]</source>
-        <translation type="unfinished"></translation>
+        <translation>Schulterbreite bideltoid [mm]</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="76"/>
         <source>Upper arm length [mm]</source>
-        <translation type="unfinished"></translation>
+        <translation>Oberarmlänge [mm]</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="79"/>
         <source>Forearm length [mm]</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterarmlänge [mm]</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="82"/>
         <source>Hand length [mm]</source>
-        <translation type="unfinished"></translation>
+        <translation>Handlänge [mm]</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="86"/>
         <source>Thigh Length [mm]</source>
-        <translation type="unfinished"></translation>
+        <translation>Oberschenkellänge [mm]</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="89"/>
         <source>Tibial height [mm]</source>
-        <translation type="unfinished"></translation>
+        <translation>Schienbeinhöhe [mm]</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="92"/>
         <source>Foot Length [mm]</source>
-        <translation type="unfinished"></translation>
+        <translation>Fußlänge [mm]</translation>
     </message>
 </context>
 <context>
@@ -497,7 +497,7 @@
     <message>
         <location filename="view/documentationView/bodyPostureView/bodypostureview.cpp" line="32"/>
         <source>Body posture</source>
-        <translation type="unfinished"></translation>
+        <translation>Körperhaltung</translation>
     </message>
     <message>
         <location filename="view/documentationView/bodyPostureView/bodypostureview.cpp" line="66"/>
@@ -917,7 +917,7 @@
     <message>
         <location filename="view/documentationView/documentationview.cpp" line="12"/>
         <source>Documentation</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentation</translation>
     </message>
 </context>
 <context>
@@ -1057,7 +1057,7 @@
     <message>
         <location filename="view/documentationView/executionconditionview.cpp" line="10"/>
         <source>Working conditions</source>
-        <translation type="unfinished"></translation>
+        <translation>Arbeitsbedingungen</translation>
     </message>
     <message>
         <location filename="view/documentationView/executionconditionview.cpp" line="49"/>
@@ -1253,7 +1253,7 @@
     <message>
         <location filename="view/timerView/ganttimerview.cpp" line="7"/>
         <source>Gant diagram</source>
-        <translation type="unfinished"></translation>
+        <translation>Gantt Diagramm</translation>
     </message>
 </context>
 <context>
@@ -1309,7 +1309,7 @@
     <message>
         <location filename="view/documentationView/loadhandlingview.cpp" line="19"/>
         <source>Load handling</source>
-        <translation type="unfinished"></translation>
+        <translation>Lastenhandhabung</translation>
     </message>
     <message>
         <location filename="view/documentationView/loadhandlingview.cpp" line="34"/>
@@ -1678,7 +1678,7 @@
     <message>
         <location filename="view/ressourceManagementView/productview.cpp" line="9"/>
         <source>Products</source>
-        <translation type="unfinished">Produkte</translation>
+        <translation>Produkte</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/productview.cpp" line="12"/>
@@ -1688,7 +1688,7 @@
     <message>
         <location filename="view/ressourceManagementView/productview.cpp" line="13"/>
         <source>Product number:</source>
-        <translation type="unfinished"></translation>
+        <translation>Produktnummer:</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/productview.cpp" line="14"/>
@@ -1744,7 +1744,7 @@
     <message>
         <location filename="view/rotationGroupView/rotationgroupview.cpp" line="4"/>
         <source>Rotation groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotationsgruppen</translation>
     </message>
 </context>
 <context>
@@ -1769,7 +1769,7 @@
     <message>
         <location filename="view/rotationGroupView/shiftcalendar.cpp" line="10"/>
         <source>Calendar</source>
-        <translation type="unfinished"></translation>
+        <translation>Kalender</translation>
     </message>
 </context>
 <context>
@@ -1934,7 +1934,7 @@
     <message>
         <location filename="view/ressourceManagementView/transportationview.h" line="62"/>
         <source>max. load:</source>
-        <translation>Maximalgewicht:</translation>
+        <translation>Maximales Lastengewicht:</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/transportationview.h" line="62"/>
@@ -1983,7 +1983,7 @@
     <message>
         <location filename="view/ressourceManagementView/transportationview.cpp" line="17"/>
         <source>Max. load [kg]:</source>
-        <translation>Maximalgewicht [kg]:</translation>
+        <translation>Maximales Lastengewicht [kg]:</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/transportationview.cpp" line="18"/>
@@ -2008,7 +2008,7 @@
     <message>
         <location filename="view/ressourceManagementView/transportationview.cpp" line="35"/>
         <source>maximum load weight of the transportation</source>
-        <translation>Maximalgewicht</translation>
+        <translation>Maximales Lastengewicht des Transportmittels</translation>
     </message>
 </context>
 <context>
@@ -2080,7 +2080,7 @@
     <message>
         <location filename="view/documentationView/workprocessmetadataview.cpp" line="11"/>
         <source>Meta data</source>
-        <translation type="unfinished">Metadaten</translation>
+        <translation>Metadaten</translation>
     </message>
     <message>
         <location filename="view/documentationView/workprocessmetadataview.cpp" line="12"/>

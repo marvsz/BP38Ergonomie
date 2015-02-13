@@ -14,7 +14,7 @@ ActivityPopUp::ActivityPopUp(QWidget *parent) :
     txtBxActivityDescription(new TextLineEdit()),
     numBxActivityRepetitions(new NumberLineEdit())
 {
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QGridLayout *mainLayout = new QGridLayout;
 
     productListLayout->setAlignment(Qt::AlignCenter);
     scProducts->setWidget(productListContent);
@@ -31,23 +31,13 @@ ActivityPopUp::ActivityPopUp(QWidget *parent) :
     numBxActivityRepetitions->setPlaceholderText(tr("amout of repetitions"));
     lblChooseProduct->setObjectName("lblHeader");
 
-    mainLayout->addWidget(lblActivityDescription);
-    mainLayout->addWidget(txtBxActivityDescription);
-    mainLayout->addWidget(lblActivityRepetitions);
-    mainLayout->addWidget(numBxActivityRepetitions);
-    mainLayout->addWidget(scProducts);
+    mainLayout->addWidget(lblActivityDescription, 0, 0, 1, 1, 0);
+    mainLayout->addWidget(txtBxActivityDescription, 0, 1, 1, 1, 0);
+    mainLayout->addWidget(lblActivityRepetitions, 1, 0, 1, 1, 0);
+    mainLayout->addWidget(numBxActivityRepetitions, 1, 1, 1, 1, 0);
+    mainLayout->addWidget(scProducts, 2, 0, 1, 2, 0);
 
     setLayout(mainLayout);
-
-    addProduct(0, "Produkt 1", "ABCD1234");
-    addProduct(1, "Produkt 2", "ABCD1234");
-    addProduct(2, "Produkt 3", "ABCD1234");
-    addProduct(3, "Produkt 4", "ABCD1234");
-    addProduct(0, "Produkt 1", "ABCD1234");
-    addProduct(1, "Produkt 2", "ABCD1234");
-    addProduct(2, "Produkt 3", "ABCD1234");
-    addProduct(3, "Produkt 4", "ABCD1234");
-
 }
 
 ActivityPopUp::~ActivityPopUp(){

@@ -98,8 +98,8 @@ struct FlickData {
                     const int max = 4000; // px by seconds
                     const int oldSpeedY = speed.y();
                     const int oldSpeedX = speed.x();
-                    if ((oldSpeedY <= 0 && newSpeedY <= 0) ||  (oldSpeedY >= 0 && newSpeedY >= 0)
-                        && (oldSpeedX <= 0 && newSpeedX <= 0) ||  (oldSpeedX >= 0 && newSpeedX >= 0)) {
+                    if ((oldSpeedY <= 0 && newSpeedY <= 0) ||  ((oldSpeedY >= 0 && newSpeedY >= 0)
+                        && (oldSpeedX <= 0 && newSpeedX <= 0)) ||  (oldSpeedX >= 0 && newSpeedX >= 0)) {
                         speed.setY(qBound(-max, (oldSpeedY + (newSpeedY / 4)), max));
                         speed.setX(qBound(-max, (oldSpeedX + (newSpeedX / 4)), max));
                     } else {

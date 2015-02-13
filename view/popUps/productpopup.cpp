@@ -1,5 +1,4 @@
 #include "productpopup.h"
-#include <QVBoxLayout>
 
 ProductPopUp::ProductPopUp(QWidget *parent) :
     AbstractPopUpWidget(ConfirmMode::ACCEPT, tr("Create product"), parent),
@@ -11,14 +10,14 @@ ProductPopUp::ProductPopUp(QWidget *parent) :
     txtBxNumber->setPlaceholderText(tr("Product Number"));
     numBxTotalPercentage->setPlaceholderText(tr("Total Percentage"));
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    QGridLayout *mainLayout = new QGridLayout;
     mainLayout->setAlignment(Qt::AlignTop);
-    mainLayout->addWidget(new QLabel(tr("Name:")));
-    mainLayout->addWidget(txtBxName);
-    mainLayout->addWidget(new QLabel(tr("Product Number:")));
-    mainLayout->addWidget(txtBxNumber);
-    mainLayout->addWidget(new QLabel(tr("Total Percentage:")));
-    mainLayout->addWidget(numBxTotalPercentage);
+    mainLayout->addWidget(new QLabel(tr("Name:")), 0, 0, 1, 1, 0);
+    mainLayout->addWidget(txtBxName, 0, 1, 1, 1, 0);
+    mainLayout->addWidget(new QLabel(tr("Product Number:")), 1, 0, 1, 1, 0);
+    mainLayout->addWidget(txtBxNumber, 1, 1, 1, 1, 0);
+    mainLayout->addWidget(new QLabel(tr("Total Percentage:")), 2, 0, 1, 1, 0);
+    mainLayout->addWidget(numBxTotalPercentage, 2, 1, 1, 1, 0);
 
     setLayout(mainLayout);
 }
