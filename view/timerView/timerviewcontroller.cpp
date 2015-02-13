@@ -21,7 +21,6 @@ TimerViewController::TimerViewController(QWidget *parent):
     connect(maxTimerView, SIGNAL(pause()), this, SLOT(pauseTimer()));
     connect(maxTimerView, SIGNAL(stop()), this, SLOT(stopTimer()));
     connect(maxTimerView, SIGNAL(reset()), this, SLOT(resetTimer()));
-    connect(maxTimerView, SIGNAL(minimize()), this, SIGNAL(hideGantView()));
     connect(maxTimerView, SIGNAL(avSet()), this, SLOT(createBasicWorkProcessRequested()));
     connect(maxTimerView, SIGNAL(leftSet()), this, SLOT(createLeftWorkProcessRequested()));
     connect(maxTimerView, SIGNAL(rightSet()), this, SLOT(createRightWorkProcessRequested()));
@@ -91,9 +90,6 @@ void TimerViewController::setSelectedType(AVType type){
 
 void TimerViewController::gantViewShown(){
     maxTimerView->disableMaximize();
-    if(displayState == TimerDisplayState::MINIMIZED)
-        maximizeView();
-    displayState = TimerDisplayState::GANT;
     isGantShown = true;
 }
 
@@ -110,11 +106,11 @@ void TimerViewController::closeTimerView(){
 
 // PRIVATE SLOTS
 void TimerViewController::minimizeView(){
-    if (displayState == TimerDisplayState::GANT){
+    if (isGantShown){
         emit hideGantView();
         displayState = TimerDisplayState::MAXIMIZED;
     }
-    else if(displayState == TimerDisplayState::MAXIMIZED && !isGantShown){
+    else if(!isGantShown){
         maxTimerView->hide();
         minTimerView->show();
         displayState = TimerDisplayState::MINIMIZED;
@@ -129,7 +125,7 @@ void TimerViewController::maximizeView(){
     }
     else if(displayState == TimerDisplayState::MAXIMIZED && !isGantShown){
         emit showGantView();
-        displayState = TimerDisplayState::GANT;
+        //displayState = TimerDisplayState::GANT;
     }
 }
 

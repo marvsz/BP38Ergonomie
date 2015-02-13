@@ -32,7 +32,6 @@ signals:
     void durationDecreased();
     void minimize();
     void maximize();
-    void showGantView();
     void play();
     void pause();
     void stop();
