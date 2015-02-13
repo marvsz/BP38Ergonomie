@@ -6,7 +6,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <textlineedit.h>
-#include <selectablevaluebutton.h>
+#include <selectableiconbutton.h>
 #include <valuecontrol.h>
 #include "../view/navigation/simplenavigateablewidget.h"
 
@@ -53,11 +53,11 @@ private:
     QWidget *legs;
 
 
-    SelectableValueButton *btnHead;
-    SelectableValueButton *btnTorso;
-    SelectableValueButton *btnArmLeft;
-    SelectableValueButton *btnArmRight;
-    SelectableValueButton *btnLegs;
+    SelectableIconButton *btnHead;
+    SelectableIconButton *btnTorso;
+    SelectableIconButton *btnArmLeft;
+    SelectableIconButton *btnArmRight;
+    SelectableIconButton *btnLegs;
 };
 
 #endif // BODYMEASUREMENTVIEW_H

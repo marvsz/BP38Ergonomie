@@ -24,11 +24,11 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWi
     torso(new QWidget()),
     arms(new QWidget()),
     legs(new QWidget()),
-    btnHead(new SelectableValueButton(0, 0, this)),
-    btnTorso(new SelectableValueButton(1, 1, this)),
-    btnArmLeft(new SelectableValueButton(2, 2, this)),
-    btnArmRight(new SelectableValueButton(2, 2, this)),
-    btnLegs(new SelectableValueButton(3, 2, this))
+    btnHead(new SelectableIconButton(0, this)),
+    btnTorso(new SelectableIconButton(1, this)),
+    btnArmLeft(new SelectableIconButton(2, this)),
+    btnArmRight(new SelectableIconButton(2, this)),
+    btnLegs(new SelectableIconButton(3, this))
 {
     lblHeadNeck->setObjectName("lblHeader");
     lblUpperBody->setObjectName("lblHeader");
@@ -101,7 +101,7 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWi
     headLayout->addWidget(vcHeadNeck, 1, 0, 1, 1, Qt::AlignLeft);
     head->setLayout(headLayout);
 
-    btnHead->setSelected(true);
+    btnHead->setChecked(true);
 
     QGridLayout *torsoLayout = new QGridLayout;
     torsoLayout->addWidget(lblUpperBody, 0, 0, 1, 1, Qt::AlignLeft);
@@ -174,11 +174,11 @@ void BodyMeasurementView::btnHeadClicked(){
     arms->hide();
     legs->hide();
     head->show();
-    btnHead->setSelected(true);
-    btnArmLeft->setSelected(false);
-    btnArmRight->setSelected(false);
-    btnTorso->setSelected(false);
-    btnLegs->setSelected(false);
+    btnHead->setChecked(true);
+    btnArmLeft->setChecked(false);
+    btnArmRight->setChecked(false);
+    btnTorso->setChecked(false);
+    btnLegs->setChecked(false);
 }
 
 void BodyMeasurementView::btnTorsoClicked(){
@@ -186,11 +186,11 @@ void BodyMeasurementView::btnTorsoClicked(){
     arms->hide();
     legs->hide();
     torso->show();
-    btnHead->setSelected(false);
-    btnArmLeft->setSelected(false);
-    btnArmRight->setSelected(false);
-    btnTorso->setSelected(true);
-    btnLegs->setSelected(false);
+    btnHead->setChecked(false);
+    btnArmLeft->setChecked(false);
+    btnArmRight->setChecked(false);
+    btnTorso->setChecked(true);
+    btnLegs->setChecked(false);
 }
 
 void BodyMeasurementView::btnLegsClicked(){
@@ -198,11 +198,11 @@ void BodyMeasurementView::btnLegsClicked(){
     torso->hide();
     arms->hide();
     legs->show();
-    btnHead->setSelected(false);
-    btnTorso->setSelected(false);
-    btnArmLeft->setSelected(false);
-    btnArmRight->setSelected(false);
-    btnLegs->setSelected(true);
+    btnHead->setChecked(false);
+    btnTorso->setChecked(false);
+    btnArmLeft->setChecked(false);
+    btnArmRight->setChecked(false);
+    btnLegs->setChecked(true);
 }
 
 void BodyMeasurementView::btnArmClicked(){
@@ -210,9 +210,9 @@ void BodyMeasurementView::btnArmClicked(){
     torso->hide();
     legs->hide();
     arms->show();
-    btnHead->setSelected(false);
-    btnTorso->setSelected(false);
-    btnLegs->setSelected(false);
-    btnArmLeft->setSelected(true);
-    btnArmRight->setSelected(true);
+    btnHead->setChecked(false);
+    btnTorso->setChecked(false);
+    btnLegs->setChecked(false);
+    btnArmLeft->setChecked(true);
+    btnArmRight->setChecked(true);
 }

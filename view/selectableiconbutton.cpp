@@ -4,10 +4,11 @@ SelectableIconButton::SelectableIconButton(int id, QWidget *parent) :
     QPushButton(parent),
     id(id)
 {
-    connect(this, SIGNAL(clicked()), this, SLOT(btnClicked());
+    setCheckable(true);
+    connect(this, SIGNAL(clicked()), this, SLOT(btnClicked()));
 }
 
-int SelectableIconButton::getID(){
+int SelectableIconButton::getID() const{
     return id;
 }
 
