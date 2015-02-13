@@ -252,7 +252,7 @@ int BodyMeasurementView::getShoulderBideltoid() const{
 }
 
 int BodyMeasurementView::getUpperArmLength() const{
-    vcUpperArmLength->getValue();
+    return vcUpperArmLength->getValue();
 }
 
 int BodyMeasurementView::getForearmLength() const{

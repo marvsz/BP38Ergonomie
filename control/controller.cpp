@@ -50,6 +50,8 @@ Controller::Controller(QObject *parent) :
     loadhandling_ID = 0;
     workprocess_Type = AVType::BASIC;
     workprocess_ID = 0;
+    bodyMeasurement_ID = 1;
+    employee_ID = 1;
 
     connect(viewCon, SIGNAL(update(ViewType)), this, SLOT(update(ViewType)));
     connect(viewCon, SIGNAL(save(ViewType)), this, SLOT(save(ViewType)));
@@ -755,10 +757,12 @@ void Controller::updateBodyMeasurementView(){
     DB_TABLES tbl = BODY_MEASUREMENT;
     int count = dbHandler->select(tbl, QString(""));
     QSqlRecord record;
-    if(count != 0){
+    if(count == 0){
        QHash <QString, QVariant> values = QHash<QString, QVariant>();
-       bodyMeasurement_ID = dbHandler->insert(tbl, DBConstants::HASH_BODY_MEASUREMENT_TYPES, values, DBConstants::COL_BODY_MEASUREMENT_ID);
+       values.insert(DBConstants::COL_BODY_MEASUREMENT_ID, bodyMeasurement_ID);
+       dbHandler->insert(tbl, DBConstants::HASH_BODY_MEASUREMENT_TYPES, values);
     }
+    dbHandler->select(tbl, QString(""));
     record = dbHandler->record(tbl, 0);
     bodyMeasurement_ID = record.value(DBConstants::COL_BODY_MEASUREMENT_ID).toInt();
     bodyMeasurementView->setHeadNeckLength(record.value(DBConstants::COL_BODY_MEASUREMENT_HEAD_NECK_HEIGHT).toInt());
