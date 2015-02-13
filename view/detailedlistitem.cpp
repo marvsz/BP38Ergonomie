@@ -75,35 +75,20 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
     if(isDeletable){
         layout->addWidget(btnDelete, 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
     }
-    else {
-        layout->addItem(new QSpacerItem(50, 0), 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
-    }
     if(canBeAdded){
         layout->addWidget(btnAdd, 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
         connect(btnAdd, SIGNAL(clicked()), this, SLOT(addItem()));
-    }
-    else {
-        layout->addItem(new QSpacerItem(50, 0), 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
     }
     if(isEditable){
         layout->addWidget(btnEdit, 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
         connect(btnEdit, SIGNAL(clicked()), this, SLOT(editItem()));
     }
-    else {
-        layout->addItem(new QSpacerItem(50, 0), 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
-    }
     if(isCheckable){
         layout->addWidget(checkBox, 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
         connect(this, SIGNAL(clicked()), this, SLOT(changeSelection()));
     }
-    else {
-        layout->addItem(new QSpacerItem(50, 0), 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
-    }
     if(hasForwardButton){
         layout->addWidget(btnForward, 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
-    }
-    else {
-        layout->addItem(new QSpacerItem(50, 0), 0, layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
     }
     groupBox->setLayout(layout);
     mainLayout->addWidget(groupBox);
