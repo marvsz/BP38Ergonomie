@@ -111,7 +111,8 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWi
     torsoLayout->addWidget(lblUpperBody, 0, 0, 1, 1, Qt::AlignLeft);
     torsoLayout->addWidget(vcShoulderWidth, 1, 0, 1, 1, Qt::AlignLeft);
     torsoLayout->addWidget(vcShoulderBiacromial, 2, 0, 1, 1, Qt::AlignLeft);
-    torsoLayout->addWidget(vcTorsoHeight, 3, 0, 1, 1, Qt::AlignLeft);
+    torsoLayout->addWidget(vcShoulderBideltoid, 3, 0, 1, 1, Qt::AlignLeft);
+    torsoLayout->addWidget(vcTorsoHeight, 4, 0, 1, 1, Qt::AlignLeft);
     torso->setLayout(torsoLayout);
     torso->hide();
 
