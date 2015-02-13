@@ -1437,6 +1437,11 @@
         <translation>Priorität:</translation>
     </message>
     <message>
+        <location filename="view/popUps/feedbackpopup.cpp" line="12"/>
+        <source>Category:</source>
+        <translation>Kategorie:</translation>
+    </message>
+    <message>
         <location filename="view/popUps/feedbackpopup.cpp" line="17"/>
         <source>attach screenshot</source>
         <translation>Screenshot anhängen</translation>

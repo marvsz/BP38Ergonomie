@@ -9,7 +9,7 @@ FeedbackPopUp::FeedbackPopUp(QWidget *parent) : AbstractPopUpWidget(ConfirmMode:
     txtBxDescription(new TextEdit()),
     lblPriority(new QLabel(tr("Priority:"))),
     cmbBxPriority(new QComboBox()),
-    lblCategory(new QLabel("Category:")),
+    lblCategory(new QLabel(tr("Category:"))),
     cmbBxCategory(new QComboBox())
 {
     txtBxViewName->setEnabled(false);
