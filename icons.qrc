@@ -130,6 +130,14 @@
         <file>icons/Buttons/quickRecording@2x.png</file>
         <file>icons/Buttons/quickRecordingPressed.png</file>
         <file>icons/Buttons/quickRecordingPressed@2x.png</file>
+        <file>icons/Buttons/leftDisabled.png</file>
+        <file>icons/Buttons/leftDisabled@2x.png</file>
+        <file>icons/Buttons/minusDisabled.png</file>
+        <file>icons/Buttons/minusDisabled@2x.png</file>
+        <file>icons/Buttons/plusDisabled.png</file>
+        <file>icons/Buttons/plusDisabled@2x.png</file>
+        <file>icons/Buttons/rightDisabled.png</file>
+        <file>icons/Buttons/rightDisabled@2x.png</file>
     </qresource>
     <qresource prefix="/misc">
         <file>icons/Misc/workplace.png</file>

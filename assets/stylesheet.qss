@@ -114,6 +114,10 @@ QPushButton#resetIcon:disabled {image: url(:/button/icons/Buttons/resetDisabled.
 QPushButton#stopIcon:disabled {image: url(:/button/icons/Buttons/stopDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#upIcon:disabled {image: url(:/button/icons/Buttons/upDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#downIcon:disabled {image: url(:/button/icons/Buttons/downDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#leftIcon:disabled {image: url(:/button/icons/Buttons/leftDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#rightIcon:disabled {image: url(:/button/icons/Buttons/rightDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#plusIcon:disabled {image: url(:/button/icons/Buttons/plusDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#minusIcon:disabled {image: url(:/button/icons/Buttons/minusDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
 
 NotificationMessage {font: 100 18px "Serif";color: #8e8e93; border: 2px solid #007aff; border-radius: 18px; background-color: #f5f5f5; padding: 4px;}
 
