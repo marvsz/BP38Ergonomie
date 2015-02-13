@@ -80,34 +80,18 @@ RotationGroupView::RotationGroupView(QWidget *parent) :
 
 
     // DUMMY DATA
-    setRotationGroupDuration(8292);
+    setRotationGroupDuration(160);
     addRotationGroupTask(0, "Arbeitsplatz 1", 10);
     addRotationGroupTask(1, "Arbeitsplatz 2", 20);
     addRotationGroupTask(2, "Arbeitsplatz 3", 50);
-    addRotationGroupTask(3, "Arbeitsplatz 5", 1990);
-    addRotationGroupTask(4, "Arbeitsplatz 1", 10);
-    addRotationGroupTask(5, "Arbeitsplatz 2", 20);
-    addRotationGroupTask(6, "Arbeitsplatz 3", 50);
-    addRotationGroupTask(7, "Arbeitsplatz 5", 1990);
-    addRotationGroupTask(8, "Arbeitsplatz 1", 10);
-    addRotationGroupTask(9, "Arbeitsplatz 2", 20);
-    addRotationGroupTask(10, "Arbeitsplatz 3", 50);
-    addRotationGroupTask(11, "Arbeitsplatz 5", 1990);
-    addRotationGroupTask(12, "Arbeitsplatz 1", 10);
-    addRotationGroupTask(13, "Arbeitsplatz 2", 20);
-    addRotationGroupTask(14, "Arbeitsplatz 3", 50);
-    addRotationGroupTask(15, "Arbeitsplatz 5", 1990);
+    addRotationGroupTask(0, "Arbeitsplatz 1", 10);
+    addRotationGroupTask(1, "Arbeitsplatz 2", 20);
+    addRotationGroupTask(2, "Arbeitsplatz 3", 50);
+
 
     addWorkplace(0, "Arbeitsplatz 1", 10);
     addWorkplace(1, "Arbeitsplatz 2", 20);
     addWorkplace(2, "Arbeitsplatz 3", 50);
-    addWorkplace(3, "Arbeitsplatz 4", 12);
-    addWorkplace(4, "Arbeitsplatz 5", 432);
-    addWorkplace(5, "Arbeitsplatz 6", 42);
-    addWorkplace(6, "Arbeitsplatz 7", 512);
-    addWorkplace(7, "Arbeitsplatz 8", 5123);
-    addWorkplace(8, "Arbeitsplatz 9", 1990);
-    addWorkplace(9, "Arbeitsplatz 10", 1943290);
 
     emit selectedWorkplaceChanged(-1);
 }

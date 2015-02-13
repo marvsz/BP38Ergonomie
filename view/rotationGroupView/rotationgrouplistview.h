@@ -24,7 +24,7 @@ signals:
 
 public slots:
     void clear();
-    void addRotationGroup(int id, const QString &name, const QString &wpCount, const QString &totalDuration);
+    void addRotationGroup(int id, const QString &name, int wpCount, int totalDuration);
 
 private slots:
     void btnPlusClicked();

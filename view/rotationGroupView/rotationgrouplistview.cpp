@@ -29,6 +29,13 @@ RotationGroupListView::RotationGroupListView(QWidget *parent) :
 
     mainLayout->addWidget(scRotationGroups);
     setLayout(mainLayout);
+
+    // DUMMY DATA
+    addRotationGroup(0, "Rotationsgruppe 1", 3, 120);
+    addRotationGroup(1, "Rotationsgruppe 2", 10, 42);
+    addRotationGroup(2, "Rotationsgruppe 3", 40, 23);
+    addRotationGroup(3, "Rotationsgruppe 4", 1, 58);
+
 }
 
 // PUBLIC SLOTS
@@ -40,8 +47,8 @@ void RotationGroupListView::clear(){
     }
 }
 
-void RotationGroupListView::addRotationGroup(int id, const QString &name, const QString &wpCount, const QString &totalDuration){
-    QList<QStringList> values = QList<QStringList>() << (QStringList() << wpCount << totalDuration);
+void RotationGroupListView::addRotationGroup(int id, const QString &name, int wpCount, int totalDuration){
+    QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(wpCount) << QString::number(totalDuration));
     DetailedListItem *newListItem = new DetailedListItem(this, IconConstants::ICON_ROTATION, name, rotationGroupCaptions, true, false, true);
     newListItem->setID(id);
     newListItem->setValues(values);

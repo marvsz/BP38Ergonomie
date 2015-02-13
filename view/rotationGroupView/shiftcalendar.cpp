@@ -137,12 +137,12 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
     addSelectionRotationGroup(3, 60, 2, "Rotationsgruppe 4");
 
     addCalendarRotationGroup(0, 60, "Rotationsgruppe 1");
-    addCalendarRotationGroup(1, 120, "Rotationsgruppe 2");
-    addCalendarRotationGroup(2, 90, "Rotationsgruppe 3");
-    addCalendarBreak(3, 90, "Pause");
-    addCalendarRotationGroup(4, 60, "Rotationsgruppe 4");
-    addCalendarRotationGroup(5, 120, "Rotationsgruppe 2");
-    addCalendarRotationGroup(6, 90, "Rotationsgruppe 3");
+    addCalendarBreak(1, 70, "Pause");
+    addCalendarRotationGroup(2, 60, "Rotationsgruppe 4");
+    addCalendarRotationGroup(2, 60, "Rotationsgruppe 3");
+    addCalendarBreak(1, 70, "Pause");
+    addCalendarRotationGroup(2, 60, "Rotationsgruppe 3");
+
 }
 
 
