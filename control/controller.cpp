@@ -232,11 +232,12 @@ void Controller::createAnalyst(){
     dbHandler->insert(DB_TABLES::ANALYST, DBConstants::HASH_ANALYST_TYPES, valuesAnalyst, DBConstants::COL_ANALYST_ID);
     updateAnalystSelectionView();
     viewCon->closePopUp();
-    viewCon->showMessage(tr("Created analyst"));
+    viewCon->showMessage(tr("Created analyst"), NotificationMessage::ACCEPT);
 }
 
 void Controller::removeAnalyst(int id){
     dbHandler->deleteAll(DB_TABLES::ANALYST, QString("%1 = %2").arg(DBConstants::COL_ANALYST_ID).arg(id));
+    viewCon->showMessage(tr("Deleted analyst"), NotificationMessage::ACCEPT);
     updateAnalystSelectionView();
 }
 
@@ -467,7 +468,7 @@ void Controller::deleteLine(int id){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_WORKPLACE_LINE_ID, 0);
     dbHandler->update(DB_TABLES::WORKPLACE, DBConstants::HASH_WORKPLACE_TYPES, values, filter);
-    viewCon->showMessage(tr("Deleted line"));
+    viewCon->showMessage(tr("Deleted line"), NotificationMessage::ACCEPT);
     updateLineView();
 }
 
@@ -551,7 +552,7 @@ void Controller::createEquipmentPopUp(){
     values.insert(DBConstants::COL_EQUIPMENT_VIBRATION_COUNT, equipmentPopUp->getVibrationCount());
     values.insert(DBConstants::COL_EQUIPMENT_VIBRATION_INTENSITY, equipmentPopUp->getVibrationIntensity());
     dbHandler->insert(DB_TABLES::EQUIPMENT, DBConstants::HASH_EQUIPMENT_TYPES, values, DBConstants::COL_EQUIPMENT_ID);
-    viewCon->showMessage(tr("Created new Equipment"));
+    viewCon->showMessage(tr("Created new Equipment"), NotificationMessage::ACCEPT);
     viewCon->closePopUp();
 }
 
@@ -1247,6 +1248,7 @@ void Controller::resetDatabaseRecording(){
     dbHandler->deleteAll(DB_TABLES::WORK_CONDITION, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::WORK_PROCESS, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::CONNECTION, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::BODY_MEASUREMENT, emptyFilter);
 }
 
 void Controller::resetDatabaseFactory(){
