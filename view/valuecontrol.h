@@ -109,6 +109,8 @@ private:
     QString unit;
     int currentSelectedBtnID;
     int emitChangeValue;
+    int min;
+    int max;
     ValueControlType conType;
 
     QLineEdit *txtBxValue;

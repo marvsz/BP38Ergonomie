@@ -123,6 +123,8 @@ void ValueControl::setValue(const QString &text){
 
 //Public functions
 void ValueControl::setValues(int min, int max, const QVector<int> &btnValues, const QString &iconSetPath){
+    this->min = min;
+    this->max = max;
     btnRanges = new QVector<int>();
     btnRanges->append(min);
     for(int i = 0; i < btnValues.length() - 1; ++i)
@@ -203,6 +205,14 @@ void ValueControl::sldrValueHasChanged(){
         emit valueChanged(QVariant(sldrValue->value()));
     }
     emitChangeValue = true;
+    if(sldrValue->value() == min)
+        btnMinus->setEnabled(false);
+    else
+        btnMinus->setEnabled(true);
+    if(sldrValue->value() == max)
+        btnPlus->setEnabled(false);
+    else
+        btnPlus->setEnabled(true);
 }
 
 void ValueControl::btnValueHasClicked(int id){
@@ -219,17 +229,11 @@ void ValueControl::btnTextHasClicked(int id){
 }
 
 void ValueControl::btnPlusClicked(){
-    btnMinus->setEnabled(true);
     sldrValue->setValue(sldrValue->value() + 1);
-    if(sldrValue->value() == lblMax->text().toInt())
-        btnPlus->setDisabled(true);
 }
 
 void ValueControl::btnMinusClicked(){
-    btnPlus->setEnabled(true);
     sldrValue->setValue(sldrValue->value() - 1);
-    if(sldrValue->value() == lblMin->text().toInt())
-        btnMinus->setDisabled(true);
 }
 
 void ValueControl::txtChanged(const QString &value){
