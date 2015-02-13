@@ -3,6 +3,7 @@
 #include "separator.h"
 #include <QVBoxLayout>
 #include <QScrollArea>
+#include <QHBoxLayout>
 
 const QVector<int> BodyPostureView::TRUNK_TILT_VALUES = QVector<int>()<<-45<<-20<<0<<20<<45<<90<<110;
 const QVector<int> BodyPostureView::TRUNK_TILT_SIDEWAYS_VALUES = QVector<int>()<<0<<20<<45<<60<<90;
@@ -30,10 +31,14 @@ const QVector<int> BodyPostureView::ANKLE_ANGLE_SIDEWAYS_VALUES = QVector<int>()
 
 BodyPostureView::BodyPostureView(QWidget *parent) :
     TitledWidget(tr("Body posture"), parent),
+    varConQuick(new VariantControl()),
     varConTrunk(new VariantControl()),
     varConArms(new VariantControl()),
     varConLegs(new VariantControl()),
     varConHead(new VariantControl()),
+    voscQuickLegPosture(new VerticalOptionSelectionControl()),
+    voscQuickArmPosture(new VerticalOptionSelectionControl()),
+    voscQuickTrunkPosture(new VerticalOptionSelectionControl()),
     vcTrunkTilt(new ValueControl(VALUE)),
     vcTrunkSidewaysTilt(new ValueControl(VALUE)),
     vcTrunkTwist(new ValueControl(VALUE)),
@@ -172,6 +177,17 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
     vcHeadTwist->setValues(0, 45, HEAD_TWIST_VALUES, QString(tr("head_twist_icon_path")));
     connect(vcHeadTwist, SIGNAL(valueChanged(int)), this, SLOT(vcHeadTwistValueChanged(int)));
 
+    voscQuickLegPosture->setValues(QUICK_LEG_POSTURE_TEXTS,LEFT_RIGHT_TEXTS,tr("Quick Leg Posture"));
+    voscQuickArmPosture->setValues(QUICK_ARM_POSTURE_TEXTS,LEFT_RIGHT_TEXTS, tr("Quick Arm Posture"));
+    voscQuickTrunkPosture->setValues(QUICK_TRUNK_POSTURE_TEXTS,LEFT_RIGHT_TEXTS, tr("Quick Trunk Posture") );
+
+    QHBoxLayout *quickLayout = new QHBoxLayout();
+    quickLayout->addWidget(voscQuickLegPosture);
+    quickLayout->addWidget(new Separator(Qt::Vertical, 3, this));
+    quickLayout->addWidget(voscQuickArmPosture);
+    quickLayout->addWidget(new Separator(Qt::Vertical, 3, this));
+    quickLayout->addWidget(voscQuickTrunkPosture);
+
     varConTrunk->setName(tr("Trunk"));
     varConTrunk->addVariant(tr("Tilt"));
     varConTrunk->addSubVariant(0, vcTrunkTilt);
@@ -234,6 +250,8 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
     connect(this, SIGNAL(showExclusiveContentByName(QString)), varConHead, SLOT(setExclusiveDisplayByName(QString)));
 
     QWidget *main = new QWidget();;
+    categoryLayout->addLayout(quickLayout);
+    categoryLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     categoryLayout->addWidget(varConTrunk);
     categoryLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     categoryLayout->addWidget(varConArms);
@@ -241,6 +259,7 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
     categoryLayout->addWidget(varConLegs);
     categoryLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     categoryLayout->addWidget(varConHead);
+
     main->setLayout(categoryLayout);
 
     categoryScrollArea->setWidget(main);
