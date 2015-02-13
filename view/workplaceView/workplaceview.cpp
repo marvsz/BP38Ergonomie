@@ -17,9 +17,9 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     txtBxDescription(new TextLineEdit()),
     txtBxCode(new TextLineEdit()),
     numBxWomanPercentage(new NumberLineEdit()),
-    lblAllowedTime(new QLabel(tr("initial time"), this)),
+    lblAllowedTime(new QLabel(tr("initial time  [mm:ss]"), this)),
     lblSetupTime(new QLabel(tr("setup time:"), this)),
-    lblBasicTime(new QLabel(tr("halt! hammer time:"), this)),
+    lblBasicTime(new QLabel(tr("basic time:"), this)),
     lblRestTime(new QLabel(tr("rest time:"), this)),
     lblAllowanceTime(new QLabel(tr("deploy time:"),this)),
     lblCycleTime(new QLabel(tr("cycle time:"))),
@@ -51,7 +51,7 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     QGridLayout *timeLayout = new QGridLayout;
 
     timeLayout->addWidget(lblSetupTime, 0, 0, 1, 1, Qt::AlignRight);
-    timeLayout->addWidget(timeSetupTime, 0, 1, 1, 1, Qt::AlignLeft);
+    timeLayout->addWidget(timeSetupTime, 0, 1, 1, 2, Qt::AlignLeft);
     timeLayout->addWidget(lblBasicTime, 0, 2, 1, 1, Qt::AlignRight);
     timeLayout->addWidget(timeBasicTime, 0, 3, 1, 1, Qt::AlignLeft);
     timeLayout->addWidget(lblRestTime, 0, 4, 1, 1, Qt::AlignRight);

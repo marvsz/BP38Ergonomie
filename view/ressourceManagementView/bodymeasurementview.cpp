@@ -139,6 +139,7 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWi
     rightContent->setLayout(rightLayout);
 
     QScrollArea *saRightLayout = new QScrollArea();
+    saRightLayout->setMinimumWidth(800);
     saRightLayout->setWidget(rightContent);
     saRightLayout->setWidgetResizable(true);
     FlickCharm *flick = new FlickCharm();
@@ -157,11 +158,11 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWi
     leftLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 5, 0, 1, 3, 0);
 
     QHBoxLayout *splitLayout = new QHBoxLayout;
-    //splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
+    splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
     splitLayout->addLayout(leftLayout);
-    //splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
+    splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
     splitLayout->addWidget(new Separator(Qt::Vertical, 3, 0));
-    //splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
+    splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
     splitLayout->addWidget(saRightLayout);
     splitLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
 
