@@ -24,11 +24,11 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWi
     torso(new QWidget()),
     arms(new QWidget()),
     legs(new QWidget()),
-    btnHead(new SelectableIconButton(0, this)),
-    btnTorso(new SelectableIconButton(1, this)),
-    btnArmLeft(new SelectableIconButton(2, this)),
-    btnArmRight(new SelectableIconButton(2, this)),
-    btnLegs(new SelectableIconButton(3, this))
+    btnHead(new QPushButton(this)),
+    btnTorso(new QPushButton(this)),
+    btnArmLeft(new QPushButton(this)),
+    btnArmRight(new QPushButton(this)),
+    btnLegs(new QPushButton(this))
 {
     lblHeadNeck->setObjectName("lblHeader");
     lblUpperBody->setObjectName("lblHeader");
@@ -38,19 +38,23 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWi
 
     btnHead->setFixedSize(200, 80);
     btnHead->setObjectName("headIcon");
+    btnHead->setCheckable(true);
 
     btnArmLeft->setFixedSize(40, 240);
     btnArmLeft->setObjectName("armLeftIcon");
+    btnArmLeft->setCheckable(true);
 
     btnArmRight->setFixedSize(40, 240);
     btnArmRight->setObjectName("armRightIcon");
+    btnArmRight->setCheckable(true);
 
     btnTorso->setFixedSize(120, 240);
     btnTorso->setObjectName("torsoIcon");
+    btnTorso->setCheckable(true);
 
     btnLegs->setFixedSize(200, 240);
     btnLegs->setObjectName("legsIcon");
-
+    btnLegs->setCheckable(true);
 
     connect(btnHead, SIGNAL(clicked()), this, SLOT(btnHeadClicked()));
     connect(btnTorso, SIGNAL(clicked()), this, SLOT(btnTorsoClicked()));

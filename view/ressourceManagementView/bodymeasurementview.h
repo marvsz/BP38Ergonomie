@@ -53,11 +53,11 @@ private:
     QWidget *legs;
 
 
-    SelectableIconButton *btnHead;
-    SelectableIconButton *btnTorso;
-    SelectableIconButton *btnArmLeft;
-    SelectableIconButton *btnArmRight;
-    SelectableIconButton *btnLegs;
+    QPushButton *btnHead;
+    QPushButton *btnTorso;
+    QPushButton *btnArmLeft;
+    QPushButton *btnArmRight;
+    QPushButton *btnLegs;
 };
 
 #endif // BODYMEASUREMENTVIEW_H
