@@ -220,3 +220,94 @@ void BodyMeasurementView::btnArmClicked(){
     btnArmLeft->setChecked(true);
     btnArmRight->setChecked(true);
 }
+
+//GETTER
+int BodyMeasurementView::getHeadNeckLength() const{
+    return vcHeadNeck->getValue();
+}
+
+
+int BodyMeasurementView::getThighLength() const{
+    return vcThighLength->getLength();
+}
+
+int BodyMeasurementView::getTibialLength() const{
+    return vcTibialHeight->getValue();
+}
+
+int BodyMeasurementView::getFootLength() const{
+    return vcFootLength->getValue();
+}
+
+int BodyMeasurementView::getShoulderWidth() const{
+    return vcShoulderWidth->getValue();
+}
+
+int BodyMeasurementView::getShoulderBiacromial() const{
+    return vcShoulderBiacromial->getValue();
+}
+
+int BodyMeasurementView::getShoulderBideltoid() const{
+    return vcShoulderBideltoid->getValue();
+}
+
+int BodyMeasurementView::getUpperArmLength() const{
+    vcUpperArmLength->getValue();
+}
+
+int BodyMeasurementView::getForearmLength() const{
+    return vcForearmLength->getValue();
+}
+
+int BodyMeasurementView::getHandLength() const{
+    return vcHandLength->getValue();
+}
+
+int BodyMeasurementView::getTorsoHeight() const{
+    return vcTorsoHeight->getValue();
+}
+
+//SETTER
+void BodyMeasurementView::setHeadNeckLength(int headNeckLength){
+    vcHeadNeck->setValue(headNeckLength);
+}
+
+void BodyMeasurementView::setThighLength(int thighLength){
+    vcThighLength->setValue(thighLength);
+}
+
+void BodyMeasurementView::setTibialLength(int tibialLength){
+    vcTibialHeight->setValue(tibialLength);
+}
+
+void BodyMeasurementView::setFootLength(int footLength){
+    vcFootLength->setValue(footLength);
+}
+
+void BodyMeasurementView::setShoulderWidth(int shoulderWidth){
+    vcShoulderWidth->setValue(shoulderWidth);
+}
+
+void BodyMeasurementView::setShoulderBiacromial(int shoulderBiacromial){
+    vcShoulderBiacromial->setValue(shoulderBiacromial);
+}
+
+void BodyMeasurementView::setShoulderBideltoid(int shoulderBideltoid){
+    vcShoulderBideltoid->setValue(shoulderBideltoid);
+}
+
+void BodyMeasurementView::setUpperArmLength(int upperArmLength){
+    vcUpperArmLength->setValue(upperArmLength);
+}
+
+void BodyMeasurementView::setForearmLength(int forearmLength){
+    vcForearmLength->setValue(forearmLength);
+}
+
+void BodyMeasurementView::setHandLength(int handLength){
+    vcHandLength->setValue(handLength);
+}
+
+void BodyMeasurementView::setTorsoHeight(int torsoHeight){
+    vcTorsoHeight->setValue(torsoHeight);
+}

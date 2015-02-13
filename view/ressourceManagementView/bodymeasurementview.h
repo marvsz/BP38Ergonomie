@@ -16,8 +16,33 @@ class BodyMeasurementView : public SimpleNavigateableWidget
 public:
     explicit BodyMeasurementView(QWidget *parent = 0);
 
+    int getHeadNeckLength() const;
+    int getThighLength() const;
+    int getTibialLength() const;
+    int getFootLength() const;
+    int getShoulderWidth() const;
+    int getShoulderBiacromial() const;
+    int getShoulderBideltoid() const;
+    int getUpperArmLength() const;
+    int getForearmLength() const;
+    int getHandLength() const;
+    int getTorsoHeight() const;
+
 
 signals:
+
+public slots:
+    void setHeadNeckLength(int headNeckLength);
+    void setThighLength(int thighLength);
+    void setTibialLength(int tibialLength);
+    void setFootLength(int footLength);
+    void setShoulderWidth(int shoulderWidth);
+    void setShoulderBiacromial(int shoulderBiacromial);
+    void setShoulderBideltoid(int shoulderBideltoid);
+    void setUpperArmLength(int upperArmLength);
+    void setForearmLength(int forearmLength);
+    void setHandLength(int handLength);
+    void setTorsoHeight(int torsoHeight);
 
 private slots:
     void btnHeadClicked();
@@ -27,7 +52,6 @@ private slots:
 
 private:
     ValueControl *vcHeadNeck;
-
     ValueControl *vcThighLength;
     ValueControl *vcTibialHeight;
     ValueControl *vcFootLength;
