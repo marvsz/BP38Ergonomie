@@ -122,7 +122,7 @@ void ActivityView::workprocessClicked(){
 
 // PUBLIC SLOTS
 void ActivityView::addProduct(int id, const QString &name, const QString &productNumber){
-    DetailedListItem *newListItem = new DetailedListItem(0, IconConstants::ICON_PRODUCT, name, productItemScheme, false, true, false, false, true);
+    DetailedListItem *newListItem = new DetailedListItem(0, IconConstants::ICON_PRODUCT, name, productItemScheme, false, true, false, false, false);
     newListItem->setID(id);
     QList<QStringList> values = QList<QStringList>() << (QStringList() << productNumber);
     newListItem->setValues(values);
