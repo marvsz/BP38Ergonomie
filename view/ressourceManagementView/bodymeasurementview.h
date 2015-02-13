@@ -6,7 +6,6 @@
 #include <QPushButton>
 #include <QLabel>
 #include <textlineedit.h>
-#include <selectableiconbutton.h>
 #include <valuecontrol.h>
 #include "../view/navigation/simplenavigateablewidget.h"
 
