@@ -419,6 +419,7 @@ void Controller::deleteWorkplace(int id){
     for(int i = 0; i < count; ++i)
         deleteActivity(dbHandler->record(DB_TABLES::ACTIVITY, i).value(DBConstants::COL_ACTIVITY_ID).toInt());
     dbHandler->deleteAll(DB_TABLES::COMMENT, QString("%1 = %2").arg(DBConstants::COL_COMMENT_WORKPLACE_ID).arg(id));
+    viewCon->showMessage(tr("Deleted workplace"), NotificationMessage::ACCEPT);
     updateWorkplacesView();
     deleteRecordingOberservesWorkplace(id);
 }
