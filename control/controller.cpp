@@ -808,8 +808,8 @@ int Controller::createWorkprocess(AVType type, const QTime &start, const QTime &
     values.insert(DBConstants::COL_WORK_PROCESS_BEGIN, start.toString());
     values.insert(DBConstants::COL_WORK_PROCESS_END, end.toString());
     dbHandler->insert(DB_TABLES::WORK_PROCESS, DBConstants::HASH_WORK_PROCESS_TYPES, values, DBConstants::COL_WORK_PROCESS_ID);
-    if(type == workprocess_Type)
-        timerViewController->setHasNextAV(id == workprocess_ID + 1);
+    if(type == workprocess_Type && id == workprocess_ID + 1 )
+        timerViewController->setHasNextAV(true);
     gantTimerView->add(id, type, start, end);
     if(workprocess_ID == 0){
         setSelectedWorkProcess(id, type);
