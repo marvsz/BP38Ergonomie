@@ -72,7 +72,7 @@ private slots:
 
     void updateLineView();
     int saveSelectedLine(int id);
-    int saveLine();
+    int createLine();
     void deleteLine(int id);
 
     void updateComment();
@@ -105,10 +105,18 @@ private slots:
     void createTransportationPopUp();
     void deleteTransportation(int id);
 
+    void updateEmployeeView();
+    void saveEmployeeView();
+
+    void updateBodyMeasurementView();
+    void saveBodyMeasurementView();
+
     void updateActivityView();
     void createActivity();
     void deleteActivity(int id);
     void selectActivity(int id);
+    void updateActivityPopUp(int id);
+    void updateActivity();
 
     void saveBodyPostureView();
     void updateBodyPostureView();
@@ -133,7 +141,8 @@ private slots:
     void createConnection();
     void editConnection(int id);
 
-    void resetDatabase();
+    void resetDatabaseRecording();
+    void resetDatabaseFactory();
 
 private:
     DBHandler *dbHandler;
@@ -188,6 +197,8 @@ private:
     int appliedforce_ID;
     int loadhandling_ID;
     int bodyPosture_ID;
+    int employee_ID;
+    int bodyMeasurement_ID;
 
 
     int saveWorkplace(int id);

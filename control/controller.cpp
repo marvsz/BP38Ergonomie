@@ -65,7 +65,7 @@ Controller::Controller(QObject *parent) :
     connect(workplaceListView, SIGNAL(create()), this, SLOT(createWorkplace()));
     connect(workplaceListView, SIGNAL(selected(int)), this, SLOT(updateWorkplaceView(int)));
 
-    connect(lineView, SIGNAL(saveLine()), this, SLOT(saveLine()));
+    connect(lineView, SIGNAL(saveLine()), this, SLOT(createLine()));
     connect(lineView, SIGNAL(saveSelectedLine(int)), SLOT(saveSelectedLine(int)));
     connect(lineView, SIGNAL(deleteLine(int)), SLOT(deleteLine(int)));
 
@@ -84,8 +84,8 @@ Controller::Controller(QObject *parent) :
     connect(activityView, SIGNAL(createActivity()), this, SLOT(createActivity()));
     connect(activityView, SIGNAL(selectActivity(int)), this, SLOT(selectActivity(int)));
     connect(activityView, SIGNAL(deleteActivity(int)), this, SLOT(deleteActivity(int)));
-    //connect(activityView, SIGNAL(editActivity(int)), this, SLOT(  update Popup mit activity id werten...
-    //connect(activityPopUp, SIGNAL(confirm()), this, SLOT(save daten in activity mit id, update activity view
+    connect(activityView, SIGNAL(editActivity(int)), this, SLOT(updateActivityPopUp(int)));
+    connect(activityPopUp, SIGNAL(confirm()), this, SLOT(updateActivity()));
 
     connect(documentationView, SIGNAL(update(ViewType)), this, SLOT(update(ViewType)));
     connect(documentationView, SIGNAL(save(ViewType)), this, SLOT(save(ViewType)));
@@ -105,7 +105,8 @@ Controller::Controller(QObject *parent) :
     connect(sendDatabasePopUp, SIGNAL(edit(int)), this, SLOT(editConnection(int)));
     connect(sendDatabasePopUp, SIGNAL(selected(int)), this, SLOT(selectedConnectionChanged(int)));
 
-    connect(settingsView, SIGNAL(resetDatabase()), this, SLOT(resetDatabase()));
+    connect(settingsView, SIGNAL(resetDatabase()), this, SLOT(resetDatabaseFactory()));
+    connect(settingsView, SIGNAL(resetRecordings()), this, SLOT(resetDatabaseRecording()));
 
     // Register Documentation Views
     documentationView->registerView(workProcessMetaDataView, ViewType::WORK_PROCESS_META_DATA_VIEW);
@@ -171,6 +172,8 @@ void Controller::update(ViewType type){
     case ViewType::LOAD_HANDLING_VIEW: updateLoadHandlingView(); break;
     case ViewType::WORKING_CONDITION_VIEW: updateExecutionConditionView(); break;
     case ViewType::WORK_PROCESS_META_DATA_VIEW: updateWorkProcessMetaDataView(); break;
+    case ViewType::EMPLOYEE_VIEW: updateEmployeeView(); break;
+    case ViewType::BODY_MEASUREMENT_VIEW: updateBodyMeasurementView(); break;
     case ViewType::SETTINGS_VIEW: break;
     default: break;
     }
@@ -195,6 +198,8 @@ void Controller::save(ViewType type){
     case ViewType::LOAD_HANDLING_VIEW: saveLoadHandlingView(); break;
     case ViewType::WORKING_CONDITION_VIEW: saveExecutionConditionView(); break;
     case ViewType::WORK_PROCESS_META_DATA_VIEW: saveCurrentWorkProcess(); break;
+    case ViewType::BODY_MEASUREMENT_VIEW: saveBodyMeasurementView(); break;
+    case ViewType::EMPLOYEE_VIEW: saveEmployeeView(); break;
     default: break;
     }
 }
@@ -439,7 +444,7 @@ int Controller::saveSelectedLine(int id){
     return dbHandler->save(tbl, DBConstants::HASH_WORKPLACE_TYPES, values, filter, DBConstants::COL_WORKPLACE_ID);
 }
 
-int Controller::saveLine(){
+int Controller::createLine(){
     DB_TABLES tbl = DB_TABLES::LINE;
     QString filter = QString("%1 = %2").arg(DBConstants::COL_LINE_ID).arg(QString::number(0));
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
@@ -449,6 +454,7 @@ int Controller::saveLine(){
     values.insert(DBConstants::COL_LINE_FACTORY_ID, factory_ID);
     int lineID = dbHandler->save(tbl, DBConstants::HASH_LINE_TYPES, values, filter, DBConstants::COL_LINE_ID);
     saveRecordingObservesLine(lineID);
+    viewCon->showMessage(tr("Created line"), NotificationMessage::ACCEPT);
     updateLineView();
     return lineID;
 }
@@ -461,6 +467,7 @@ void Controller::deleteLine(int id){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_WORKPLACE_LINE_ID, 0);
     dbHandler->update(DB_TABLES::WORKPLACE, DBConstants::HASH_WORKPLACE_TYPES, values, filter);
+    viewCon->showMessage(tr("Deleted line"));
     updateLineView();
 }
 
@@ -484,6 +491,7 @@ void Controller::createProduct(){
     values.insert(DBConstants::COL_PRODUCT_NUMBER, productView->getNumber());
     values.insert(DBConstants::COL_PRODUCT_TOTAL_PERCENTAGE, productView->getTotalPercentage());
     dbHandler->insert(DB_TABLES::PRODUCT, DBConstants::HASH_PRODUCT_TYPES, values, DBConstants::COL_PRODUCT_ID);
+    viewCon->showMessage(tr("Created new product"), NotificationMessage::ACCEPT);
     updateProductView();
 }
 
@@ -494,7 +502,7 @@ void Controller::createProductPopUp(){
     values.insert(DBConstants::COL_PRODUCT_TOTAL_PERCENTAGE, productPopUp->getTotalPercentage());
     dbHandler->insert(DB_TABLES::PRODUCT, DBConstants::HASH_PRODUCT_TYPES, values, DBConstants::COL_PRODUCT_ID);
     viewCon->closePopUp();
-    viewCon->showMessage(tr("Created new product"));
+    viewCon->showMessage(tr("Created new product"), NotificationMessage::ACCEPT);
     updateActivityView();
 }
 
@@ -584,12 +592,14 @@ void Controller::createActivity(){
     values.insert(DBConstants::COL_ACTIVITY_REPETITIONS, activityView->getRepetitions());
     values.insert(DBConstants::COL_ACTIVITY_WORKPLACE_ID, workplace_ID);
     dbHandler->insert(DB_TABLES::ACTIVITY, DBConstants::HASH_ACTIVITY_TYPES, values, DBConstants::COL_ACTIVITY_ID);
+    viewCon->showMessage(tr("Created activity"), NotificationMessage::ACCEPT);
     updateActivityViewActivities();
 }
 
 void Controller::deleteActivity(int id){
     dbHandler->deleteAll(DB_TABLES::ACTIVITY, QString("%1 = %2").arg(DBConstants::COL_ACTIVITY_ID).arg(id));
     deleteWorkProcesses(id);
+    viewCon->showMessage(tr("Deleted activity"), NotificationMessage::ACCEPT);
     updateActivityViewActivities();
 }
 
@@ -598,6 +608,44 @@ void Controller::selectActivity(int id){
     workProcessTypeChanged(AVType::BASIC);
     initializeRecording();
 }
+
+void Controller::updateActivityPopUp(int id){
+    activityPopUp->clearProducts();
+
+    DB_TABLES tbl = DB_TABLES::ACTIVITY;
+    int count = dbHandler->select(tbl, QString("%1 = %2").arg(DBConstants::COL_ACTIVITY_ID).arg(id));
+    if(count == 1){
+        activity_ID = id;
+        QSqlRecord activityRecord = dbHandler->record(tbl, 0);
+
+        tbl = DB_TABLES::PRODUCT;
+        count = dbHandler->select(tbl, QString(""));
+        for(int i = 0; i < count; ++i){
+            QSqlRecord record = dbHandler->record(tbl, i);
+            activityPopUp->addProduct(record.value(DBConstants::COL_PRODUCT_ID).toInt(),
+                                     record.value(DBConstants::COL_PRODUCT_NAME).toString(),
+                                     record.value(DBConstants::COL_PRODUCT_NUMBER).toString());
+        }
+
+        activityPopUp->setActivity(activityRecord.value(DBConstants::COL_ACTIVITY_DESCRIPTION).toString(),
+                                   activityRecord.value(DBConstants::COL_ACTIVITY_REPETITIONS).toInt(),
+                                   activityRecord.value(DBConstants::COL_ACTIVITY_PRODUCT_ID).toInt());
+    }
+}
+
+void Controller::updateActivity(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_ACTIVITY_ID, activity_ID);
+    values.insert(DBConstants::COL_ACTIVITY_DESCRIPTION, activityPopUp->getDescription());
+    values.insert(DBConstants::COL_ACTIVITY_REPETITIONS, activityPopUp->getRepetitions());
+    values.insert(DBConstants::COL_ACTIVITY_PRODUCT_ID, activityPopUp->getSelectedProduct());
+    dbHandler->update(DB_TABLES::ACTIVITY, DBConstants::HASH_ACTIVITY_TYPES, values, QString("%1 = %2").arg(DBConstants::COL_ACTIVITY_ID).arg(activity_ID));
+    viewCon->showMessage(tr("Updated activity"), NotificationMessage::ACCEPT);
+    viewCon->closePopUp();
+    updateActivityViewActivities();
+}
+
+
 
 //CommentView
 void Controller::updateComment(){
@@ -654,6 +702,7 @@ void Controller::createTransportation(){
                                           values.value(DBConstants::COL_TRANSPORTATION_MAX_LOAD).toInt(),
                                           values.value(DBConstants::COL_TRANSPORTATION_FIXED_ROLLER).toBool(),
                                           values.value(DBConstants::COL_TRANSPORTATION_BRAKES).toBool());
+    viewCon->showMessage(tr("Created new transportation"), NotificationMessage::ACCEPT);
 }
 
 void Controller::createTransportationPopUp(){
@@ -665,12 +714,70 @@ void Controller::createTransportationPopUp(){
         values.insert(DBConstants::COL_TRANSPORTATION_FIXED_ROLLER, transportationPopUp->getHasFixedRoller());
         dbHandler->insert(DB_TABLES::TRANSPORTATION, DBConstants::HASH_TRANSPORTATION_TYPES, values, DBConstants::COL_TRANSPORTATION_ID);
         viewCon->closePopUp();
-        viewCon->showMessage(tr("Created new transporation"));
+        viewCon->showMessage(tr("Created new transporation"), NotificationMessage::ACCEPT);
 }
 
 void Controller::deleteTransportation(int id){
     dbHandler->deleteAll(DB_TABLES::TRANSPORTATION, QString("%1 = %2").arg(DBConstants::COL_TRANSPORTATION_ID).arg(id));
+    viewCon->showMessage(tr("Deleted transportation"), NotificationMessage::ACCEPT);
     updateTransportationView();
+}
+
+//EMPLOYEE VIEW
+void Controller::updateEmployeeView(){
+    DB_TABLES tbl = EMPLOYEE;
+    int count = dbHandler->select(tbl, QString(""));
+    if(count != 0){
+        QSqlRecord record = dbHandler->record(tbl, 0);
+        employeeView->setEmployee(record.value(DBConstants::COL_EMPLOYEE_GENDER).toInt(),
+                                  record.value(DBConstants::COL_EMPLOYEE_AGE).toInt(),
+                                  record.value(DBConstants::COL_EMPLOYEE_HEIGHT).toInt(),
+                                  record.value(DBConstants::COL_EMPLOYEE_STAFF_NUMBER).toString(),
+                                  record.value(DBConstants::COL_EMPLOYEE_NOTE).toString());
+    }
+}
+
+void Controller::saveEmployeeView(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_EMPLOYEE_ID, employee_ID);
+    values.insert(DBConstants::COL_EMPLOYEE_AGE, employeeView->getAge());
+    values.insert(DBConstants::COL_EMPLOYEE_GENDER, employeeView->getGender());
+    values.insert(DBConstants::COL_EMPLOYEE_HEIGHT, employeeView->getHeight());
+    values.insert(DBConstants::COL_EMPLOYEE_STAFF_NUMBER, employeeView->getStaffNumber());
+    values.insert(DBConstants::COL_EMPLOYEE_NOTE, employeeView->getNote());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_ID, bodyMeasurement_ID);
+    dbHandler->save(DB_TABLES::EMPLOYEE, DBConstants::HASH_EMPLOYEE_TYPES, values);
+}
+
+//BODY MEASUREMENT VIEW
+void Controller::updateBodyMeasurementView(){
+    DB_TABLES tbl = BODY_MEASUREMENT;
+    int count = dbHandler->select(tbl, QString(""));
+    QSqlRecord record;
+    if(count == 0){
+       QHash <QString, QVariant> values = QHash<QString, QVariant>();
+       bodyMeasurement_ID = dbHandler->insert(tbl, DBConstants::HASH_BODY_MEASUREMENT_TYPES, values, DBConstants::COL_BODY_MEASUREMENT_ID);
+    }
+    record = dbHandler->record(tbl, 0);
+    bodyMeasurement_ID = record.value(DBConstants::COL_BODY_MEASUREMENT_ID).toInt();
+    //bodyMeasurementView->set
+}
+
+void Controller::saveBodyMeasurementView(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_HEAD_NECK_HEIGHT, 0);
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH, 0);
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH_BIACROMIAL, 0);
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH_BIDELTOID, 0);
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_UPPER_ARM_LENGTH, 0);
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_FOREARM_LENGTH, 0);
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_HAND_LENGTH_GRIP_AXIS, 0);
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_THIGHT_LENGTH, 0);
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_TIBIAL_HEIGHT, 0);
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_TORSO_HEIGHT, 0);
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_FOOT_LENGTH, 0);
+    dbHandler->save(BODY_MEASUREMENT, DBConstants::HASH_BODY_MEASUREMENT_TYPES, values, QString(""), DBConstants::COL_BODY_MEASUREMENT_ID);
+
 }
 
 //WORKPROCESS
@@ -843,17 +950,19 @@ void Controller::saveBodyPostureView(){
     DB_TABLES tbl = DB_TABLES::BODY_POSTURE;
     QString filter = QString("%1 = %2").arg(DBConstants::COL_BODY_POSTURE_ID).arg(bodyPosture_ID);
     dbHandler->select(tbl, filter);
-    QSqlRecord record = bodyPostureView->getRecord();
-    if(dbHandler->rowCount(tbl) == 0){
-        int id = dbHandler->getNextID(tbl, DBConstants::COL_BODY_POSTURE_ID);
-        record.setValue(DBConstants::COL_BODY_POSTURE_ID, id);
-        dbHandler->insertRow(tbl, record);
-        bodyPosture_ID = id;
+    if(activity_ID != 0){
+        QSqlRecord record = bodyPostureView->getRecord();
+        if(dbHandler->rowCount(tbl) == 0){
+            int id = dbHandler->getNextID(tbl, DBConstants::COL_BODY_POSTURE_ID);
+            record.setValue(DBConstants::COL_BODY_POSTURE_ID, id);
+            dbHandler->insertRow(tbl, record);
+            bodyPosture_ID = id;
+        }
+        else {
+            dbHandler->updateRow(tbl, 0, record);
+        }
+        bodyPosture_ID = record.value(DBConstants::COL_BODY_POSTURE_ID).toInt();
     }
-    else {
-        dbHandler->updateRow(tbl, 0, record);
-    }
-    bodyPosture_ID = record.value(DBConstants::COL_BODY_POSTURE_ID).toInt();
 }
 
 // ExecutionConditionView
@@ -1095,8 +1204,7 @@ void Controller::editConnection(int id){
     dbHandler->update(DB_TABLES::CONNECTION, DBConstants::HASH_CONNECTION_TYPES, values, QString("%1 = %2").arg(DBConstants::COL_CONNECTION_ID).arg(id));
 }
 
-void Controller::resetDatabase(){
-    analyst_ID = 0;
+void Controller::resetDatabaseRecording(){
     recording_ID = 1;
     workplace_ID = 0;
     workcondition_ID = 0;
@@ -1106,34 +1214,43 @@ void Controller::resetDatabase(){
     loadhandling_ID = 0;
     workprocess_Type = AVType::BASIC;
     workprocess_ID = 0;
+    employee_ID = 1;
+    bodyMeasurement_ID = 1;
     QString emptyFilter = QString("");
     dbHandler->deleteAll(DB_TABLES::ACTIVITY, emptyFilter);
-    dbHandler->deleteAll(DB_TABLES::ANALYST, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::APPLIED_FORCE, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::BODY_POSTURE, emptyFilter);
-    dbHandler->deleteAll(DB_TABLES::BRANCH_OF_INDUSTRY, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::BREAK, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::COMMENT, emptyFilter);
-    dbHandler->deleteAll(DB_TABLES::CORPORATION, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::EMPLOYEE, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::EMPLOYEE_WORKS_SHIFT, emptyFilter);
-    dbHandler->deleteAll(DB_TABLES::EMPLOYER, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::EQUIPMENT, emptyFilter);
-    dbHandler->deleteAll(DB_TABLES::FACTORY, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::LINE, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::LOAD_HANDLING, emptyFilter);
-    dbHandler->deleteAll(DB_TABLES::LOAD_HANDLING_TYPE, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::PRODUCT, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::RECORDING, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::RECORDING_OBSERVES_LINE, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::RECORDING_OBSERVES_WORKPLACE, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::SHIFT, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::TRANSPORTATION, emptyFilter);
-    dbHandler->deleteAll(DB_TABLES::TYPE_OF_GRASPING, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::WORKPLACE, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::WORK_CONDITION, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::WORK_PROCESS, emptyFilter);
     dbHandler->deleteAll(DB_TABLES::CONNECTION, emptyFilter);
+}
+
+void Controller::resetDatabaseFactory(){
+    resetDatabaseRecording();
+    analyst_ID = 0;
+    QString emptyFilter = QString("");
+    dbHandler->deleteAll(DB_TABLES::ANALYST, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::BRANCH_OF_INDUSTRY, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::CORPORATION, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::EMPLOYER, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::FACTORY, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::TYPE_OF_GRASPING, emptyFilter);
+    dbHandler->deleteAll(DB_TABLES::LOAD_HANDLING_TYPE, emptyFilter);
+
 }
 
 //PRIVATE METHODS
