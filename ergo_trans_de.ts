@@ -33,9 +33,47 @@
     </message>
 </context>
 <context>
+    <name>ActivityPopUp</name>
+    <message>
+        <location filename="view/popUps/activitypopup.h" line="34"/>
+        <source>product number</source>
+        <translation>Produktnummer</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/activitypopup.cpp" line="7"/>
+        <source>Edit Activity</source>
+        <translation>Aktivität bearbeiten</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/activitypopup.cpp" line="11"/>
+        <source>Description:</source>
+        <translation>Beschreibung:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/activitypopup.cpp" line="12"/>
+        <source>Repetitions:</source>
+        <translation>Wiederholungen:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/activitypopup.cpp" line="13"/>
+        <source>Choose Product</source>
+        <translation>Produkt wählen</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/activitypopup.cpp" line="30"/>
+        <source>description</source>
+        <translation>Beschreibung</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/activitypopup.cpp" line="31"/>
+        <source>amout of repetitions</source>
+        <translation>Anzahl der Wiederholungen</translation>
+    </message>
+</context>
+<context>
     <name>ActivityView</name>
     <message>
-        <location filename="view/workplaceView/activityview.h" line="46"/>
+        <location filename="view/workplaceView/activityview.h" line="48"/>
         <source>product number</source>
         <translation>Produktnumer</translation>
     </message>
@@ -44,7 +82,7 @@
         <translation type="vanished">Prozent der Gesamtproduktion</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/activityview.h" line="47"/>
+        <location filename="view/workplaceView/activityview.h" line="49"/>
         <source>repetitions</source>
         <translation>Wiederholungen</translation>
     </message>
@@ -85,6 +123,55 @@
     </message>
 </context>
 <context>
+    <name>AnalystPopUp</name>
+    <message>
+        <location filename="view/popUps/analystpopup.cpp" line="6"/>
+        <source>Create Analyst</source>
+        <translation>Analyst erstellen</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/analystpopup.cpp" line="12"/>
+        <source>last name</source>
+        <translation>Nachname</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/analystpopup.cpp" line="13"/>
+        <source>prename</source>
+        <translation>Vorname</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/analystpopup.cpp" line="14"/>
+        <source>employer</source>
+        <translation>Arbeitgeber</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/analystpopup.cpp" line="15"/>
+        <source>experience</source>
+        <translation>Erfahrung</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/analystpopup.cpp" line="18"/>
+        <source>Last Name:</source>
+        <translation>Nachname:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/analystpopup.cpp" line="20"/>
+        <source>First Name:</source>
+        <translation>Vorname:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/analystpopup.cpp" line="22"/>
+        <source>Employer:</source>
+        <translation>Arbeitgeber:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/analystpopup.cpp" line="24"/>
+        <source>Experience:</source>
+        <oldsource>Experience</oldsource>
+        <translation>Erfahrung:</translation>
+    </message>
+</context>
+<context>
     <name>AnalystSelectionView</name>
     <message>
         <source>Create new Analyst</source>
@@ -104,29 +191,24 @@
         <translation>Analystenauswahl</translation>
     </message>
     <message>
-        <location filename="view/generalViews/analystselectionview.cpp" line="12"/>
         <source>Choose or create new profile</source>
-        <translation>Wähle oder erstelle ein neues Profil</translation>
+        <translation type="vanished">Wähle oder erstelle ein neues Profil</translation>
     </message>
     <message>
-        <location filename="view/generalViews/analystselectionview.cpp" line="13"/>
         <source>last name:</source>
-        <translation>Nachname:</translation>
+        <translation type="vanished">Nachname:</translation>
     </message>
     <message>
-        <location filename="view/generalViews/analystselectionview.cpp" line="15"/>
         <source>employer:</source>
-        <translation>Arbeitgeber:</translation>
+        <translation type="vanished">Arbeitgeber:</translation>
     </message>
     <message>
-        <location filename="view/generalViews/analystselectionview.cpp" line="16"/>
         <source>experience:</source>
-        <translation>Erfahrung:</translation>
+        <translation type="vanished">Erfahrung:</translation>
     </message>
     <message>
-        <location filename="view/generalViews/analystselectionview.cpp" line="14"/>
         <source>prename:</source>
-        <translation>Vorname:</translation>
+        <translation type="vanished">Vorname:</translation>
     </message>
 </context>
 <context>
@@ -412,82 +494,82 @@
 <context>
     <name>BodyMeasurementView</name>
     <message>
-        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="4"/>
+        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="6"/>
         <source>Body Measurements</source>
         <translation>Körpermaße</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="16"/>
+        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="18"/>
         <source>Head and neck:</source>
         <translation>Kopf und Hals:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="17"/>
+        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="19"/>
         <source>Upper part of the body:</source>
         <translation>Oberkörper:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="18"/>
+        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="20"/>
         <source>Arms and hands:</source>
         <translation>Arme und Hände:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="19"/>
+        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="21"/>
         <source>Lower part of the body:</source>
         <translation>Unterkörper:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="20"/>
+        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="22"/>
         <source>Tap to select body part:</source>
         <translation>Körperteil auswählen:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="59"/>
+        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="61"/>
         <source>Head neck height [mm]</source>
         <translation>Kopf-Hals-Höhe [mm]</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="63"/>
+        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="65"/>
         <source>Shoulder width [mm]</source>
         <translation>Schulterbreite [mm]</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="66"/>
+        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="68"/>
         <source>Shoulder biacromial [mm]</source>
         <translation>Schulterbreite biacromial [mm]</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="69"/>
+        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="71"/>
         <source>Shoulder bideltoid [mm]</source>
         <translation>Schulterbreite bideltoid [mm]</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="76"/>
+        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="78"/>
         <source>Upper arm length [mm]</source>
         <translation>Oberarmlänge [mm]</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="79"/>
+        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="81"/>
         <source>Forearm length [mm]</source>
         <translation>Unterarmlänge [mm]</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="82"/>
+        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="84"/>
         <source>Hand length [mm]</source>
         <translation>Handlänge [mm]</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="86"/>
+        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="88"/>
         <source>Thigh Length [mm]</source>
         <translation>Oberschenkellänge [mm]</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="89"/>
+        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="91"/>
         <source>Tibial height [mm]</source>
         <translation>Schienbeinhöhe [mm]</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="92"/>
+        <location filename="view/ressourceManagementView/bodymeasurementview.cpp" line="94"/>
         <source>Foot Length [mm]</source>
         <translation>Fußlänge [mm]</translation>
     </message>
@@ -617,7 +699,7 @@
     <message>
         <location filename="view/documentationView/bodyPostureView/bodypostureview.cpp" line="117"/>
         <source>wrist_angle_icon_path</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="view/documentationView/bodyPostureView/bodypostureview.cpp" line="121"/>
@@ -627,7 +709,7 @@
     <message>
         <location filename="view/documentationView/bodyPostureView/bodypostureview.cpp" line="122"/>
         <source>wrist_angle_sideways_icon_path</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="view/documentationView/bodyPostureView/bodypostureview.cpp" line="126"/>
@@ -637,7 +719,7 @@
     <message>
         <location filename="view/documentationView/bodyPostureView/bodypostureview.cpp" line="127"/>
         <source>wrist_movement_icon_path</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="view/documentationView/bodyPostureView/bodypostureview.cpp" line="131"/>
@@ -657,7 +739,7 @@
     <message>
         <location filename="view/documentationView/bodyPostureView/bodypostureview.cpp" line="137"/>
         <source>hip_angle_sideways_icon_path</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="view/documentationView/bodyPostureView/bodypostureview.cpp" line="141"/>
@@ -667,7 +749,7 @@
     <message>
         <location filename="view/documentationView/bodyPostureView/bodypostureview.cpp" line="142"/>
         <source>hip_twist_icon_path</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="view/documentationView/bodyPostureView/bodypostureview.cpp" line="146"/>
@@ -697,7 +779,7 @@
     <message>
         <location filename="view/documentationView/bodyPostureView/bodypostureview.cpp" line="157"/>
         <source>ankle_angle_sideways_icon_path</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="view/documentationView/bodyPostureView/bodypostureview.cpp" line="161"/>
@@ -859,24 +941,54 @@
         <translation>Bezeichnung</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/commentview.cpp" line="26"/>
         <source>description of the problem</source>
-        <translation>Beschreibung</translation>
+        <translation type="vanished">Beschreibung</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/commentview.cpp" line="27"/>
+        <location filename="view/workplaceView/commentview.cpp" line="26"/>
         <source>name of the measure</source>
         <translation>Bezeichnung</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/commentview.cpp" line="28"/>
         <source>description of the mesaure</source>
-        <translation>Beschreibung</translation>
+        <translation type="vanished">Beschreibung</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/commentview.cpp" line="29"/>
         <source>the workers annotation</source>
-        <translation>Anmerkung des Arbeiters</translation>
+        <translation type="vanished">Anmerkung des Arbeiters</translation>
+    </message>
+</context>
+<context>
+    <name>Controller</name>
+    <message>
+        <location filename="control/controller.cpp" line="230"/>
+        <source>Created analyst</source>
+        <translation>Analyst wurde erstellt</translation>
+    </message>
+    <message>
+        <location filename="control/controller.cpp" line="245"/>
+        <source>Autogenerated workplace</source>
+        <translation>Autogenerierter Arbeitsplatz</translation>
+    </message>
+    <message>
+        <location filename="control/controller.cpp" line="249"/>
+        <source>Autogenerated activity</source>
+        <translation>Autogenerierte Aktivität</translation>
+    </message>
+    <message>
+        <location filename="control/controller.cpp" line="497"/>
+        <source>Created new product</source>
+        <translation>Produkt wurde erstellt</translation>
+    </message>
+    <message>
+        <location filename="control/controller.cpp" line="546"/>
+        <source>Created new Equipment</source>
+        <translation>Betriebsmittel wurde erstellt</translation>
+    </message>
+    <message>
+        <location filename="control/controller.cpp" line="668"/>
+        <source>Created new transporation</source>
+        <translation>Transportmittel wurde erstellt</translation>
     </message>
 </context>
 <context>
@@ -932,14 +1044,12 @@
         <translation>Arbeiterdaten</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/employeeview.cpp" line="9"/>
         <source>gender:</source>
-        <translation>Geschlecht:</translation>
+        <translation type="vanished">Geschlecht:</translation>
     </message>
     <message>
-        <location filename="view/ressourceManagementView/employeeview.cpp" line="10"/>
         <source>PersonalID:</source>
-        <translation>Personalnummer:</translation>
+        <translation type="vanished">Personalnummer:</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/employeeview.cpp" line="11"/>
@@ -953,6 +1063,16 @@
     <message>
         <source>back</source>
         <translation type="vanished">Zurück</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/employeeview.cpp" line="9"/>
+        <source>Gender:</source>
+        <translation>Geschlecht:</translation>
+    </message>
+    <message>
+        <location filename="view/ressourceManagementView/employeeview.cpp" line="10"/>
+        <source>Personal ID:</source>
+        <translation>Personalnummer:</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/employeeview.cpp" line="24"/>
@@ -973,6 +1093,64 @@
         <location filename="view/ressourceManagementView/employeeview.h" line="52"/>
         <source>female</source>
         <translation>Weiblich</translation>
+    </message>
+</context>
+<context>
+    <name>EquipmentPopUp</name>
+    <message>
+        <location filename="view/popUps/equipmentpopup.cpp" line="6"/>
+        <source>Create Equipment</source>
+        <translation>Betriebsmittel erstellen</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/equipmentpopup.cpp" line="13"/>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/equipmentpopup.cpp" line="14"/>
+        <source>Recoil count</source>
+        <translation>Rückschlagsanzahl</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/equipmentpopup.cpp" line="15"/>
+        <source>Recoil intensity</source>
+        <translation>Rückschlagsintensität</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/equipmentpopup.cpp" line="16"/>
+        <source>Vibration count</source>
+        <translation>Vibrationsanzahl</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/equipmentpopup.cpp" line="17"/>
+        <source>Vibration intensity</source>
+        <translation>Vibrationsintensität</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/equipmentpopup.cpp" line="20"/>
+        <source>Name:</source>
+        <translation>Name:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/equipmentpopup.cpp" line="22"/>
+        <source>Recoil count:</source>
+        <translation>Rückschlagsanzahl:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/equipmentpopup.cpp" line="24"/>
+        <source>Recoil intensity [N]:</source>
+        <translation>Rückschlagsintensität [N]:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/equipmentpopup.cpp" line="26"/>
+        <source>Vibration count:</source>
+        <translation>Vibrationsanzahl:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/equipmentpopup.cpp" line="28"/>
+        <source>Vibration intensity [N]:</source>
+        <translation>Vibrationsintensität [N]:</translation>
     </message>
 </context>
 <context>
@@ -1075,177 +1253,232 @@
         <translation>Kopf:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="60"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="66"/>
         <source>Right upper arm:</source>
         <translation>Rechter Oberarm:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="62"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="63"/>
         <source>Left upper arm:</source>
         <translation>Linker Oberarm:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="64"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="71"/>
         <source>Right forearm:</source>
         <translation>Rechter Unterarm:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="66"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="68"/>
         <source>Left forearm:</source>
         <translation>Linker Unterarm:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="68"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="76"/>
         <source>Right hand:</source>
         <translation>Rechte Hand:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="70"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="73"/>
         <source>Left hand:</source>
         <translation>Linke Hand:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="72"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="61"/>
         <source>trunk:</source>
         <translation>Rumpf:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="74"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="81"/>
         <source>Right thigh:</source>
         <translation>Rechter Oberschenkel:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="76"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="78"/>
         <source>Left thigh:</source>
         <translation>Linker Oberschenkel:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="78"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="86"/>
         <source>Right lower leg:</source>
         <translation>Rechter Unterschenkel:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="80"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="83"/>
         <source>Left lower leg:</source>
         <translation>Linker Unterschenkel:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="84"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="90"/>
         <source>Needed precision:</source>
         <translation>Notwendige Präzesion:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="86"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="92"/>
         <source>Needed velocity:</source>
         <translation>Notwendige Geschwindigkeit:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="88"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="94"/>
         <source>Needed acceleration:</source>
         <translation>Notwendige Beschleunigung:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="90"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="96"/>
         <source>Present vibration:</source>
         <translation>Vorhandene Vibration:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="95"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="101"/>
         <source>Grasping condition:</source>
         <translation>Greifbedingung:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="97"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="103"/>
         <source>Accessibility:</source>
         <translation>Zugänglichkeit:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="99"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="105"/>
         <source>Ground:</source>
         <translation>Untergrund (Boden):</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="101"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="107"/>
         <source>Lighting:</source>
         <translation>Lichtverhältnisse:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="103"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="109"/>
         <source>Climate:</source>
         <translation>Klima:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="105"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="111"/>
         <source>Wind:</source>
         <translation>Wind:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="107"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="113"/>
         <source>Clothing:</source>
         <translation>Kleidung:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/executionconditionview.cpp" line="109"/>
+        <location filename="view/documentationView/executionconditionview.cpp" line="115"/>
         <source>Elbowroom:</source>
         <translation>Bewegungsfreiheit:</translation>
     </message>
 </context>
 <context>
-    <name>FeedbackView</name>
+    <name>FeedbackPopUp</name>
     <message>
-        <location filename="view/generalViews/feedbackview.cpp" line="4"/>
+        <location filename="view/popUps/feedbackpopup.cpp" line="4"/>
         <source>Feedback</source>
         <translation>Feedback</translation>
     </message>
     <message>
-        <location filename="view/generalViews/feedbackview.cpp" line="6"/>
+        <location filename="view/popUps/feedbackpopup.cpp" line="5"/>
         <source>View name:</source>
         <translation>Name des Views:</translation>
     </message>
     <message>
-        <location filename="view/generalViews/feedbackview.cpp" line="9"/>
+        <location filename="view/popUps/feedbackpopup.cpp" line="8"/>
         <source>Description:</source>
         <translation>Beschreibung:</translation>
     </message>
     <message>
-        <location filename="view/generalViews/feedbackview.cpp" line="11"/>
+        <location filename="view/popUps/feedbackpopup.cpp" line="10"/>
         <source>Priority:</source>
         <translation>Priorität:</translation>
     </message>
     <message>
-        <location filename="view/generalViews/feedbackview.cpp" line="16"/>
-        <source>Send</source>
-        <translation>Senden</translation>
-    </message>
-    <message>
-        <location filename="view/generalViews/feedbackview.cpp" line="20"/>
+        <location filename="view/popUps/feedbackpopup.cpp" line="17"/>
         <source>attach screenshot</source>
         <translation>Screenshot anhängen</translation>
     </message>
     <message>
-        <location filename="view/generalViews/feedbackview.cpp" line="28"/>
+        <location filename="view/popUps/feedbackpopup.cpp" line="25"/>
         <source>Bug</source>
         <translation>Bug</translation>
     </message>
     <message>
-        <location filename="view/generalViews/feedbackview.cpp" line="29"/>
+        <location filename="view/popUps/feedbackpopup.cpp" line="26"/>
         <source>Wish</source>
         <translation>Wunsch</translation>
     </message>
     <message>
-        <location filename="view/generalViews/feedbackview.cpp" line="30"/>
+        <location filename="view/popUps/feedbackpopup.cpp" line="27"/>
         <source>Missing function</source>
         <translation>Fehlende Funktion</translation>
     </message>
     <message>
-        <location filename="view/generalViews/feedbackview.cpp" line="31"/>
+        <location filename="view/popUps/feedbackpopup.cpp" line="28"/>
         <source>Wrong implementation</source>
         <translation>Falsche Umsetzung</translation>
     </message>
     <message>
-        <location filename="view/generalViews/feedbackview.cpp" line="32"/>
+        <location filename="view/popUps/feedbackpopup.cpp" line="29"/>
         <source>Usability comment</source>
         <translation>Anmerkung zur Usabillity</translation>
+    </message>
+</context>
+<context>
+    <name>FeedbackView</name>
+    <message>
+        <source>Feedback</source>
+        <translation type="vanished">Feedback</translation>
+    </message>
+    <message>
+        <source>View name:</source>
+        <translation type="vanished">Name des Views:</translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="vanished">Beschreibung:</translation>
+    </message>
+    <message>
+        <source>Priority:</source>
+        <translation type="vanished">Priorität:</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation type="vanished">Senden</translation>
+    </message>
+    <message>
+        <source>attach screenshot</source>
+        <translation type="vanished">Screenshot anhängen</translation>
+    </message>
+    <message>
+        <source>Bug</source>
+        <translation type="vanished">Bug</translation>
+    </message>
+    <message>
+        <source>Wish</source>
+        <translation type="vanished">Wunsch</translation>
+    </message>
+    <message>
+        <source>Missing function</source>
+        <translation type="vanished">Fehlende Funktion</translation>
+    </message>
+    <message>
+        <source>Wrong implementation</source>
+        <translation type="vanished">Falsche Umsetzung</translation>
+    </message>
+    <message>
+        <source>Usability comment</source>
+        <translation type="vanished">Anmerkung zur Usabillity</translation>
+    </message>
+</context>
+<context>
+    <name>FtpHandler</name>
+    <message>
+        <location filename="ftpHandler/ftphandler.cpp" line="35"/>
+        <source>Could not read file: Permission denied!</source>
+        <translation>Datei konnte nicht gelesen werden: Zugriff verweigert!</translation>
+    </message>
+    <message>
+        <location filename="ftpHandler/ftphandler.cpp" line="38"/>
+        <source>File does not exists!</source>
+        <translation>Datei existiert nicht!</translation>
     </message>
 </context>
 <context>
@@ -1294,12 +1527,11 @@
         <translation>Bezeichnung</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/lineview.cpp" line="23"/>
         <source>description of the line</source>
-        <translation>Beschreibung</translation>
+        <translation type="vanished">Beschreibung</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/lineview.cpp" line="24"/>
+        <location filename="view/workplaceView/lineview.cpp" line="23"/>
         <source>amount of work places</source>
         <translation>Anzahl</translation>
     </message>
@@ -1378,83 +1610,83 @@
         <translation>Nein</translation>
     </message>
     <message>
-        <location filename="view/documentationView/loadhandlingview.cpp" line="129"/>
-        <location filename="view/documentationView/loadhandlingview.h" line="73"/>
+        <location filename="view/documentationView/loadhandlingview.cpp" line="130"/>
+        <location filename="view/documentationView/loadhandlingview.h" line="72"/>
         <source>pulling and pushing</source>
         <translation>Ziehen &amp; Schieben</translation>
     </message>
     <message>
-        <location filename="view/documentationView/loadhandlingview.h" line="69"/>
+        <location filename="view/documentationView/loadhandlingview.h" line="68"/>
         <source>Thumbcontact grasp</source>
         <translation>Daumenkontaktgriff</translation>
     </message>
     <message>
-        <location filename="view/documentationView/loadhandlingview.h" line="69"/>
+        <location filename="view/documentationView/loadhandlingview.h" line="68"/>
         <source>Indexcontact grasp</source>
         <translation>Zeigefingerkontaktgriff</translation>
     </message>
     <message>
-        <location filename="view/documentationView/loadhandlingview.h" line="69"/>
+        <location filename="view/documentationView/loadhandlingview.h" line="68"/>
         <source>Handcontact grasp</source>
         <translation>Handkontaktgriff</translation>
     </message>
     <message>
-        <location filename="view/documentationView/loadhandlingview.h" line="69"/>
+        <location filename="view/documentationView/loadhandlingview.h" line="68"/>
         <source>Thumb to 2 Fingers</source>
         <translation>Daumen auf 2 Finger</translation>
     </message>
     <message>
-        <location filename="view/documentationView/loadhandlingview.h" line="69"/>
+        <location filename="view/documentationView/loadhandlingview.h" line="68"/>
         <source>Fingergrasp</source>
         <translation>Fingerzufassungsgriff</translation>
     </message>
     <message>
-        <location filename="view/documentationView/loadhandlingview.h" line="69"/>
+        <location filename="view/documentationView/loadhandlingview.h" line="68"/>
         <source>Thumbindex</source>
         <translation>Daumen-Zeigefinger</translation>
     </message>
     <message>
-        <location filename="view/documentationView/loadhandlingview.h" line="69"/>
+        <location filename="view/documentationView/loadhandlingview.h" line="68"/>
         <source>Wrench</source>
         <translation>Zange</translation>
     </message>
     <message>
-        <location filename="view/documentationView/loadhandlingview.h" line="69"/>
+        <location filename="view/documentationView/loadhandlingview.h" line="68"/>
         <source>Fullgrasp</source>
         <translation>Umfassungsgriff</translation>
     </message>
     <message>
-        <location filename="view/documentationView/loadhandlingview.h" line="73"/>
+        <location filename="view/documentationView/loadhandlingview.h" line="72"/>
         <source>holding</source>
         <translation>Halten</translation>
     </message>
     <message>
-        <location filename="view/documentationView/loadhandlingview.h" line="73"/>
+        <location filename="view/documentationView/loadhandlingview.h" line="72"/>
         <source>replacing</source>
         <translation>Umsetzen</translation>
     </message>
     <message>
-        <location filename="view/documentationView/loadhandlingview.h" line="73"/>
+        <location filename="view/documentationView/loadhandlingview.h" line="72"/>
         <source>carrying</source>
         <translation>Tragen</translation>
     </message>
     <message>
-        <location filename="view/documentationView/loadhandlingview.h" line="75"/>
+        <location filename="view/documentationView/loadhandlingview.h" line="74"/>
         <source>empty weight:</source>
         <translation>Leergewicht:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/loadhandlingview.h" line="75"/>
+        <location filename="view/documentationView/loadhandlingview.h" line="74"/>
         <source>max. load:</source>
         <translation>Maximalgewicht:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/loadhandlingview.h" line="75"/>
+        <location filename="view/documentationView/loadhandlingview.h" line="74"/>
         <source>fixed rollers:</source>
         <translation>Bockrollen:</translation>
     </message>
     <message>
-        <location filename="view/documentationView/loadhandlingview.h" line="75"/>
+        <location filename="view/documentationView/loadhandlingview.h" line="74"/>
         <source>brakes:</source>
         <translation>Bremsen:</translation>
     </message>
@@ -1643,6 +1875,44 @@
     </message>
 </context>
 <context>
+    <name>ProductPopUp</name>
+    <message>
+        <location filename="view/popUps/productpopup.cpp" line="4"/>
+        <source>Create product</source>
+        <translation>Produkt erstellen</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/productpopup.cpp" line="9"/>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/productpopup.cpp" line="10"/>
+        <source>Product Number</source>
+        <translation>Produktnummer</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/productpopup.cpp" line="11"/>
+        <source>Total Percentage</source>
+        <translation>Prozent</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/productpopup.cpp" line="15"/>
+        <source>Name:</source>
+        <translation>Name:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/productpopup.cpp" line="17"/>
+        <source>Product Number:</source>
+        <translation>Produktnummer:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/productpopup.cpp" line="19"/>
+        <source>Total Percentage:</source>
+        <translation>Prozent der Gesamtproduktion:</translation>
+    </message>
+</context>
+<context>
     <name>ProductView</name>
     <message>
         <location filename="view/ressourceManagementView/productview.h" line="38"/>
@@ -1652,7 +1922,7 @@
     <message>
         <location filename="view/ressourceManagementView/productview.h" line="38"/>
         <source>total percentage</source>
-        <translation>Prozent</translation>
+        <translation>Prozent der Gesamtproduktion</translation>
     </message>
     <message>
         <location filename="view/ressourceManagementView/productview.cpp" line="11"/>
@@ -1740,11 +2010,147 @@
     </message>
 </context>
 <context>
+    <name>RotationGroupListView</name>
+    <message>
+        <location filename="view/rotationGroupView/rotationgrouplistview.h" line="38"/>
+        <source>Workplace Count</source>
+        <translation>Anzahl Arbeitsplätze</translation>
+    </message>
+    <message>
+        <location filename="view/rotationGroupView/rotationgrouplistview.h" line="38"/>
+        <source>Total Duration</source>
+        <translation>Gesamtdauer</translation>
+    </message>
+    <message>
+        <location filename="view/rotationGroupView/rotationgrouplistview.cpp" line="9"/>
+        <source>Rotation Groups</source>
+        <translation>Rotationsgruppen</translation>
+    </message>
+</context>
+<context>
     <name>RotationGroupView</name>
     <message>
-        <location filename="view/rotationGroupView/rotationgroupview.cpp" line="4"/>
         <source>Rotation groups</source>
-        <translation>Rotationsgruppen</translation>
+        <translation type="vanished">Rotationsgruppen</translation>
+    </message>
+    <message>
+        <location filename="view/rotationGroupView/rotationgroupview.cpp" line="9"/>
+        <location filename="view/rotationGroupView/rotationgroupview.cpp" line="10"/>
+        <source>Duration:</source>
+        <translation>Dauer:</translation>
+    </message>
+    <message>
+        <location filename="view/rotationGroupView/rotationgroupview.cpp" line="13"/>
+        <source>New Rotation Group</source>
+        <translation>Neue Rotationsgruppe</translation>
+    </message>
+    <message>
+        <location filename="view/rotationGroupView/rotationgroupview.cpp" line="14"/>
+        <source>Name:</source>
+        <translation>Name:</translation>
+    </message>
+    <message>
+        <location filename="view/rotationGroupView/rotationgroupview.cpp" line="15"/>
+        <source>Total duration:</source>
+        <translation>Gesamtdauer:</translation>
+    </message>
+    <message>
+        <location filename="view/rotationGroupView/rotationgroupview.cpp" line="24"/>
+        <source>Add Workplace to Rotation Group</source>
+        <translation>Arbeitsplatz zu Rotationsgruppe hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="view/rotationGroupView/rotationgroupview.cpp" line="25"/>
+        <source>Duration [min]:</source>
+        <translation>Dauer [min]:</translation>
+    </message>
+</context>
+<context>
+    <name>SendDatabasePopUp</name>
+    <message>
+        <location filename="view/popUps/senddatabasepopup.cpp" line="6"/>
+        <source>Send database</source>
+        <translation>Datenbank senden</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/senddatabasepopup.cpp" line="21"/>
+        <source>Connection name</source>
+        <translation>Verbindungsname</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/senddatabasepopup.cpp" line="22"/>
+        <source>Username</source>
+        <translation>Benutzername</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/senddatabasepopup.cpp" line="23"/>
+        <source>Password</source>
+        <translation>Passwort</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/senddatabasepopup.cpp" line="24"/>
+        <source>Server address</source>
+        <translation>Serveradresse</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/senddatabasepopup.cpp" line="25"/>
+        <source>Port</source>
+        <translation>Port</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/senddatabasepopup.cpp" line="26"/>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/senddatabasepopup.cpp" line="27"/>
+        <source>Set as default</source>
+        <translation>Als Standard setzen</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/senddatabasepopup.cpp" line="30"/>
+        <source>Select connection:</source>
+        <translation>Verbindung auswählen:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/senddatabasepopup.cpp" line="32"/>
+        <source>Name:</source>
+        <translation>Name:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/senddatabasepopup.cpp" line="34"/>
+        <source>Username:</source>
+        <translation>Benutzername:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/senddatabasepopup.cpp" line="36"/>
+        <source>Password:</source>
+        <translation>Passwort:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/senddatabasepopup.cpp" line="38"/>
+        <source>Server address:</source>
+        <translation>Serveradresse:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/senddatabasepopup.cpp" line="40"/>
+        <source>Port:</source>
+        <translation>Port:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/senddatabasepopup.cpp" line="73"/>
+        <source>New Connection</source>
+        <translation>Neue Verbindung</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/senddatabasepopup.cpp" line="109"/>
+        <source>Started Upload</source>
+        <translation>Upload gestartet</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/senddatabasepopup.cpp" line="113"/>
+        <source>Finished Upload</source>
+        <translation>Uploaded beendet</translation>
     </message>
 </context>
 <context>
@@ -1756,8 +2162,17 @@
     </message>
     <message>
         <location filename="view/generalViews/settingsview.cpp" line="8"/>
+        <source>Reset recordings</source>
+        <translation>Aufnahmen zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="view/generalViews/settingsview.cpp" line="9"/>
+        <source>Restore factory settings</source>
+        <translation>Auf Werkseinstellungen zurücksetzen</translation>
+    </message>
+    <message>
         <source>Reset database</source>
-        <translation>Datenbank zurücksetzen</translation>
+        <translation type="vanished">Datenbank zurücksetzen</translation>
     </message>
 </context>
 <context>
@@ -1767,9 +2182,39 @@
         <translation type="vanished">Kalender:</translation>
     </message>
     <message>
-        <location filename="view/rotationGroupView/shiftcalendar.cpp" line="10"/>
+        <location filename="view/rotationGroupView/shiftcalendar.cpp" line="14"/>
+        <source>Duration</source>
+        <translation>Dauer</translation>
+    </message>
+    <message>
+        <location filename="view/rotationGroupView/shiftcalendar.cpp" line="14"/>
+        <source>Workplaces</source>
+        <translation>Arbeitsplätze</translation>
+    </message>
+    <message>
+        <location filename="view/rotationGroupView/shiftcalendar.cpp" line="17"/>
         <source>Calendar</source>
         <translation>Kalender</translation>
+    </message>
+    <message>
+        <location filename="view/rotationGroupView/shiftcalendar.cpp" line="21"/>
+        <source>Add Rotation Group:</source>
+        <translation>Rotationsgruppe hinzufügen:</translation>
+    </message>
+    <message>
+        <location filename="view/rotationGroupView/shiftcalendar.cpp" line="25"/>
+        <source>Add break:</source>
+        <translation>Pause hinzufügen:</translation>
+    </message>
+    <message>
+        <location filename="view/rotationGroupView/shiftcalendar.cpp" line="26"/>
+        <source>Duration [min]:</source>
+        <translation>Dauer [min]:</translation>
+    </message>
+    <message>
+        <location filename="view/rotationGroupView/shiftcalendar.cpp" line="28"/>
+        <source>Name:</source>
+        <translation>Name:</translation>
     </message>
 </context>
 <context>
@@ -1780,9 +2225,13 @@
         <translation>Schichtdaten</translation>
     </message>
     <message>
-        <location filename="view/rotationGroupView/shiftview.cpp" line="10"/>
         <source>Shift data:</source>
-        <translation>Schichtdaten:</translation>
+        <translation type="vanished">Schichtdaten:</translation>
+    </message>
+    <message>
+        <location filename="view/rotationGroupView/shiftview.cpp" line="10"/>
+        <source>Shift data</source>
+        <translation>Schichtdaten</translation>
     </message>
     <message>
         <location filename="view/rotationGroupView/shiftview.cpp" line="11"/>
@@ -1791,11 +2240,16 @@
     </message>
     <message>
         <location filename="view/rotationGroupView/shiftview.cpp" line="12"/>
+        <source>Shift times:</source>
+        <translation>Schichtzeiten:</translation>
+    </message>
+    <message>
+        <location filename="view/rotationGroupView/shiftview.cpp" line="13"/>
         <source>Begin:</source>
         <translation>Begin:</translation>
     </message>
     <message>
-        <location filename="view/rotationGroupView/shiftview.cpp" line="13"/>
+        <location filename="view/rotationGroupView/shiftview.cpp" line="14"/>
         <source>End:</source>
         <translation>Ende:</translation>
     </message>
@@ -1804,37 +2258,34 @@
         <translation type="vanished">Mitarbeiter auswählen:</translation>
     </message>
     <message>
-        <location filename="view/rotationGroupView/shiftview.cpp" line="14"/>
         <source>Add break:</source>
-        <translation>Pause hinzufügen:</translation>
+        <translation type="vanished">Pause hinzufügen:</translation>
     </message>
     <message>
-        <location filename="view/rotationGroupView/shiftview.cpp" line="15"/>
         <source>Duration [min]:</source>
-        <translation>Dauer [min]:</translation>
+        <translation type="vanished">Dauer [min]:</translation>
     </message>
     <message>
-        <location filename="view/rotationGroupView/shiftview.cpp" line="18"/>
         <source>Add Rotation Group:</source>
-        <translation>Rotationsgruppe hinzufügen:</translation>
+        <translation type="vanished">Rotationsgruppe hinzufügen:</translation>
     </message>
     <message>
-        <location filename="view/rotationGroupView/shiftview.h" line="74"/>
+        <location filename="view/rotationGroupView/shiftview.h" line="70"/>
         <source>early shift</source>
         <translation>Frühschicht</translation>
     </message>
     <message>
-        <location filename="view/rotationGroupView/shiftview.h" line="74"/>
+        <location filename="view/rotationGroupView/shiftview.h" line="70"/>
         <source>late shift</source>
         <translation>Spätschicht</translation>
     </message>
     <message>
-        <location filename="view/rotationGroupView/shiftview.h" line="74"/>
+        <location filename="view/rotationGroupView/shiftview.h" line="70"/>
         <source>night shift</source>
         <translation>Nachtschicht</translation>
     </message>
     <message>
-        <location filename="view/rotationGroupView/shiftview.h" line="74"/>
+        <location filename="view/rotationGroupView/shiftview.h" line="70"/>
         <source>special shift</source>
         <translation>Sonderschicht</translation>
     </message>
@@ -1879,6 +2330,64 @@
         <location filename="view/subactivitycontrol.cpp" line="36"/>
         <source>description:</source>
         <translation>Beschreibung:</translation>
+    </message>
+</context>
+<context>
+    <name>TransporationPopUp</name>
+    <message>
+        <location filename="view/popUps/transporationpopup.h" line="31"/>
+        <source>yes</source>
+        <translation>Ja</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/transporationpopup.h" line="31"/>
+        <source>no</source>
+        <translation>Nein</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/transporationpopup.cpp" line="5"/>
+        <source>Create transportation</source>
+        <translation>Transportmittel erstellen</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/transporationpopup.cpp" line="12"/>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/transporationpopup.cpp" line="13"/>
+        <source>Weight</source>
+        <translation>Leergewicht</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/transporationpopup.cpp" line="14"/>
+        <source>Maximum load</source>
+        <translation>Maximales Lastgewicht</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/transporationpopup.cpp" line="21"/>
+        <source>Name:</source>
+        <translation>Name:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/transporationpopup.cpp" line="23"/>
+        <source>Weight [kg]:</source>
+        <translation>Leergewicht [kg]:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/transporationpopup.cpp" line="25"/>
+        <source>Maximum load [kg]:</source>
+        <translation>Maximales Lastgewicht [kg]:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/transporationpopup.cpp" line="27"/>
+        <source>Fixed roller:</source>
+        <translation>Bockrollen:</translation>
+    </message>
+    <message>
+        <location filename="view/popUps/transporationpopup.cpp" line="29"/>
+        <source>Brakes:</source>
+        <translation>Bremsen:</translation>
     </message>
 </context>
 <context>
@@ -2144,6 +2653,14 @@
     </message>
 </context>
 <context>
+    <name>WorkProcessSelector</name>
+    <message>
+        <location filename="view/timerView/workprocessselector.cpp" line="47"/>
+        <source>empty</source>
+        <translation>Leer</translation>
+    </message>
+</context>
+<context>
     <name>WorkProcessTypePicker</name>
     <message>
         <location filename="view/timerView/workprocesstypepicker.cpp" line="10"/>
@@ -2166,6 +2683,16 @@
     <message>
         <source>work stations</source>
         <translation type="vanished">Arbeitsplätze</translation>
+    </message>
+    <message>
+        <location filename="view/workplaceView/workplacelistview.cpp" line="11"/>
+        <source>Description</source>
+        <translation>Beschreibung</translation>
+    </message>
+    <message>
+        <location filename="view/workplaceView/workplacelistview.cpp" line="11"/>
+        <source>Code</source>
+        <translation>Code</translation>
     </message>
     <message>
         <location filename="view/workplaceView/workplacelistview.cpp" line="14"/>
@@ -2205,9 +2732,8 @@
         <translation>Nutzerpopulation:</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="20"/>
         <source>initial time</source>
-        <translation>Vorgabezeiten [REFA]</translation>
+        <translation type="vanished">Vorgabezeiten [REFA]</translation>
     </message>
     <message>
         <location filename="view/workplaceView/workplaceview.cpp" line="21"/>
@@ -2215,9 +2741,18 @@
         <translation>Grundzeit:</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="22"/>
         <source>halt! hammer time:</source>
-        <translation>Rüstzeit:</translation>
+        <translation type="vanished">Rüstzeit:</translation>
+    </message>
+    <message>
+        <location filename="view/workplaceView/workplaceview.cpp" line="20"/>
+        <source>initial time  [mm:ss]</source>
+        <translation>Vorgabezeiten [REFA] [mm:ss]</translation>
+    </message>
+    <message>
+        <location filename="view/workplaceView/workplaceview.cpp" line="22"/>
+        <source>basic time:</source>
+        <translation>Grundzeit:</translation>
     </message>
     <message>
         <location filename="view/workplaceView/workplaceview.cpp" line="23"/>
@@ -2260,27 +2795,27 @@
         <translation>Beschreibung</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="89"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="75"/>
         <source>problem label</source>
         <translation>Bezeichnung</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="91"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="77"/>
         <source>sanction label</source>
         <translation>Bezeichnung</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="94"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="80"/>
         <source>line</source>
         <translation>Linie</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="95"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="81"/>
         <source>activities</source>
         <translation>Aktivitäten</translation>
     </message>
     <message>
-        <location filename="view/workplaceView/workplaceview.cpp" line="96"/>
+        <location filename="view/workplaceView/workplaceview.cpp" line="82"/>
         <source>remarks</source>
         <translation>Bemerkungen</translation>
     </message>

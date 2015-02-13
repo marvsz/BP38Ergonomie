@@ -29,8 +29,6 @@ RotationGroupListView::RotationGroupListView(QWidget *parent) :
 
     mainLayout->addWidget(scRotationGroups);
     setLayout(mainLayout);
-
-    addRotationGroup(0, "Rotationsgruppe 1", "3", "2h45");
 }
 
 // PUBLIC SLOTS

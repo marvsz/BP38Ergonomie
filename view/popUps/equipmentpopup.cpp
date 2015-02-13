@@ -38,11 +38,11 @@ EquipmentPopUp::~EquipmentPopUp()
 
 //PUBLIC SLOTS
 void EquipmentPopUp::onEnter(){
-    txtBxName->setText("");
-    numBxRecoilCount->setText("");
-    numBxRecoilIntensity->setText("");
-    numBxVibrationCount->setText("");
-    numBxVibrationIntensity->setText("");
+    txtBxName->clear();
+    numBxRecoilCount->clear();
+    numBxRecoilIntensity->clear();
+    numBxVibrationCount->clear();
+    numBxVibrationIntensity->clear();
 }
 
 //GETTER

@@ -55,7 +55,7 @@ void FeedbackPopUp::onEnter(){
     cmbBxCategory->setCurrentIndex(0);
     cmbBxPriority->setCurrentIndex(0);
     chbxScreenshot->setChecked(true);
-    txtBxDescription->setText("");
+    txtBxDescription->clear();
 }
 
 void FeedbackPopUp::sendData(){

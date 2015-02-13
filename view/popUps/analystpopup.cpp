@@ -21,7 +21,7 @@ AnalystPopUp::AnalystPopUp(QWidget *parent):
     mainLayout->addWidget(txtBxAnalystFirstName, 1, 1, 1, 1, 0);
     mainLayout->addWidget(new QLabel(tr("Employer:")), 2, 0, 1, 1, 0);
     mainLayout->addWidget(txtBxAnalystEmployer, 2, 1, 1, 1, 0);
-    mainLayout->addWidget(new QLabel(tr("Experience")), 3, 0, 1, 1, 0);
+    mainLayout->addWidget(new QLabel(tr("Experience:")), 3, 0, 1, 1, 0);
     mainLayout->addWidget(txtBxAnalystExperience, 3, 1, 1, 1, 0);
 
     setLayout(mainLayout);
@@ -34,10 +34,10 @@ AnalystPopUp::~AnalystPopUp()
 
 //PUBLIC SLOTS
 void AnalystPopUp::onEnter(){
-    txtBxAnalystLastName->setText("");
-    txtBxAnalystFirstName->setText("");
-    txtBxAnalystEmployer->setText("");
-    txtBxAnalystExperience->setText("");
+    txtBxAnalystLastName->clear();
+    txtBxAnalystFirstName->clear();
+    txtBxAnalystEmployer->clear();
+    txtBxAnalystExperience->clear();
 }
 
 //GETTER

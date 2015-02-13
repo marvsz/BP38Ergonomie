@@ -31,10 +31,12 @@ private slots:
     void dliRotationGroupClicked(int id);
 
 private:
-    static const QList<QStringList> rotationGroupCaptions;
     QPushButton *btnPlus;
     QVBoxLayout *listContentLayout;
     QScrollArea *scRotationGroups;
+
+    const QList<QStringList> rotationGroupCaptions = QList<QStringList>() << (QStringList() << tr("Workplace Count") <<tr("Total Duration"));
+
 };
 
 #endif // ROTATIONGROUPLISTVIEW_H

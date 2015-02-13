@@ -29,9 +29,9 @@ ProductPopUp::~ProductPopUp(){
 // PUBLIC SLOTS
 
 void ProductPopUp::onEnter(){
-    txtBxName->setText("");
-    txtBxNumber->setText("");
-    numBxTotalPercentage->setText("");
+    txtBxName->clear();
+    txtBxNumber->clear();
+    numBxTotalPercentage->clear();
 }
 // GETTER
 

@@ -9,9 +9,9 @@ TransporationPopUp::TransporationPopUp(QWidget *parent) :
     oscFixedRoller(new OptionSelectionControl()),
     oscBrakes(new OptionSelectionControl())
 {
-    txtBxName->setPlaceholderText("Name");
-    numBxWeight->setPlaceholderText("Weight");
-    numBxMaxLoad->setPlaceholderText("Maximum load");
+    txtBxName->setPlaceholderText(tr("Name"));
+    numBxWeight->setPlaceholderText(tr("Weight"));
+    numBxMaxLoad->setPlaceholderText(tr("Maximum load"));
 
 
     oscFixedRoller->setValues(YES_NO_TEXTS, YES_NO_VALUE);
@@ -39,9 +39,9 @@ TransporationPopUp::~TransporationPopUp()
 
 //PUBLIC SLOTS
 void TransporationPopUp::onEnter(){
-    txtBxName->setText("");
-    numBxMaxLoad->setText("");
-    numBxWeight->setText("");
+    txtBxName->clear();
+    numBxMaxLoad->clear();
+    numBxWeight->clear();
     oscFixedRoller->setSelectedValue(1);
     oscBrakes->setSelectedValue(1);
 }
