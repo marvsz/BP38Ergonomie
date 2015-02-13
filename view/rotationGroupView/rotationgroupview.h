@@ -22,8 +22,8 @@ public:
     int getSelectedWorkplace() const;
 
 signals:
-    void createRotationGroupTask();
-    void removeRotationGroupTask(int id);
+    void createRotationGroupTaskEntry();
+    void removeRotationGroupTaskEntry(int id);
     void selectedWorkplaceChanged(int id);
 
 public slots:

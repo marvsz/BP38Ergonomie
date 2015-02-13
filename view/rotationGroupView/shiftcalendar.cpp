@@ -17,7 +17,7 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
     SimpleNavigateableWidget(tr("Calendar"), parent),
     beginTime(beginTime),
     endTime(endTime),
-    btnRotation(new QPushButton()),
+    btnRotation(new QPushButton(this)),
     lblAddRotationGroup(new QLabel(tr("Add Rotation Group:"))),
     rotationGroupListContent(new QWidget()),
     scRotationGroups(new QScrollArea()),
@@ -27,7 +27,7 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
     numBxBreakDuration(new NumberLineEdit()),
     lblBreakName(new QLabel(tr("Name:"))),
     txtBxBreakName(new TextLineEdit()),
-    btnAddBreak(new QPushButton()),
+    btnAddBreak(new QPushButton(this)),
     currentId(-1),
     painter(),
     picCalendar(),
@@ -35,14 +35,14 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
     scCalendar(new QScrollArea()),
     calendarEntryLayout(new QVBoxLayout()),
     calendarEntries(new QVector<SelectableValueButton*>),
-    btnMoveUp(new QPushButton()),
-    btnMoveDown(new QPushButton()),
-    btnDelete(new QPushButton())
+    btnMoveUp(new QPushButton(this)),
+    btnMoveDown(new QPushButton(this)),
+    btnDelete(new QPushButton(this))
 { 
 
     btnRotation->setFixedSize(45, 45);
     btnRotation->setObjectName("rotationIcon");
-
+    connect(btnRotation, SIGNAL(clicked()), this, SLOT(btnRotationClicked()));
     // ROTATION GROUPS
     rotationGroupListContent->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     scRotationGroups->setWidget(rotationGroupListContent);

@@ -12,9 +12,9 @@ ShiftView::ShiftView(QWidget *parent) :
     lblShiftTimes(new QLabel(tr("Shift times:"))),
     lblStart(new QLabel(tr("Begin:"))),
     lblEnd(new QLabel(tr("End:"))),
-    btnRotation(new QPushButton()),
-    btnEmployee(new QPushButton()),
-    btnCalendar(new QPushButton())
+    btnRotation(new QPushButton(this)),
+    btnEmployee(new QPushButton(this)),
+    btnCalendar(new QPushButton(this))
 
 {
     btnRotation->setFixedSize(45, 45);

@@ -24,7 +24,7 @@ RotationGroupView::RotationGroupView(QWidget *parent) :
     lblAddWorkplace(new QLabel(tr("Add Workplace to Rotation Group"))),
     lblWorkplaceDuration(new QLabel(tr("Duration [min]:"))),
     numBxWorkplaceDuration(new NumberLineEdit()),
-    btnAdd(new QPushButton)
+    btnAdd(new QPushButton(this))
 {
     QHBoxLayout *mainLayout = new QHBoxLayout;
     QGridLayout *leftLayout = new QGridLayout;
@@ -146,7 +146,7 @@ void RotationGroupView::addRotationGroupTask(int id, const QString &name, int du
     DetailedListItem *newListItem = new DetailedListItem(this, IconConstants::ICON_WORKPLACE, name, rotationGroupTaskCaptions, true, false, false);
     newListItem->setID(id);
     newListItem->setValues(values);
-    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(removeRotationGroupTask(int)));
+    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(removeRotationGroupTaskEntry(int)));
     rotationGroupTaskListLayout->addWidget(newListItem);
 }
 
@@ -187,7 +187,7 @@ void RotationGroupView::setSelectedWorkplace(int id){
 
 void RotationGroupView::btnAddClicked(){
     if(selectedWorkplaceID > -1){
-        emit createRotationGroupTask();
+        emit createRotationGroupTaskEntry();
         numBxWorkplaceDuration->clear();
         setSelectedWorkplace(-1);
     }

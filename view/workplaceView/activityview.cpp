@@ -158,7 +158,7 @@ void ActivityView::addActivity(int id, const QString &description, int repetitio
     connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteActivity(int)));
     connect(newListItem, SIGNAL(pressed(int)), this, SIGNAL(selectActivity(int)));
     connect(newListItem, SIGNAL(clicked()), this, SLOT(workprocessClicked()));
-    connect(newListItem, SIGNAL(editItem(int)), this, SLOT(editActivity(int)));
+    connect(newListItem, SIGNAL(editItem(int)), this, SLOT(editActivityClicked(int)));
     activityListLayout->addWidget(newListItem);
 }
 
@@ -170,7 +170,7 @@ void ActivityView::clearActivities(){
     }
 }
 
-void ActivityView::editActivity(int id){
+void ActivityView::editActivityClicked(int id){
+    emit editActivity(id);
     emit showPopUp(PopUpType::ACTIVITY_POPUP);
-    // ID?
 }

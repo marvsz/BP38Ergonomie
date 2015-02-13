@@ -8,7 +8,7 @@ const QList<QStringList> RotationGroupListView::rotationGroupCaptions = QList<QS
 
 RotationGroupListView::RotationGroupListView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Rotation Groups"), parent),
-    btnPlus(new QPushButton()),
+    btnPlus(new QPushButton(this)),
     listContentLayout(new QVBoxLayout),
     scRotationGroups(new QScrollArea())
 {

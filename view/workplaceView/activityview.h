@@ -26,6 +26,7 @@ signals:
     void selectedProduct(int id);
     void createActivity();
     void selectActivity(int id);
+    void editActivity(int id);
 
 public slots:
     void addProduct(int id, const QString &name, const QString &productNumber);
@@ -42,7 +43,7 @@ private slots:
     void workprocessClicked();
     void selectedProductChanged(int id);
 
-    void editActivity(int id);
+    void editActivityClicked(int id);
 
 private:
     const QList<QStringList> productItemScheme = QList<QStringList>() << (QStringList() << tr("product number"));
