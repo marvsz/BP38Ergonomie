@@ -139,7 +139,7 @@ public:
     static const QString COL_BODY_MEASUREMENT_FOREARM_LENGTH;
     static const QString COL_BODY_MEASUREMENT_HAND_LENGTH_GRIP_AXIS;
     static const QString COL_BODY_MEASUREMENT_TORSO_HEIGHT;
-    static const QString COL_BODY_MEASUREMENT_THIGHT_LENGTH;
+    static const QString COL_BODY_MEASUREMENT_THIGH_LENGTH;
     static const QString COL_BODY_MEASUREMENT_TIBIAL_HEIGHT;
     static const QString COL_BODY_MEASUREMENT_FOOT_LENGTH;
     static const QHash<QString, QVariant::Type> HASH_BODY_MEASUREMENT_TYPES;

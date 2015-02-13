@@ -754,28 +754,38 @@ void Controller::updateBodyMeasurementView(){
     DB_TABLES tbl = BODY_MEASUREMENT;
     int count = dbHandler->select(tbl, QString(""));
     QSqlRecord record;
-    if(count == 0){
+    if(count != 0){
        QHash <QString, QVariant> values = QHash<QString, QVariant>();
        bodyMeasurement_ID = dbHandler->insert(tbl, DBConstants::HASH_BODY_MEASUREMENT_TYPES, values, DBConstants::COL_BODY_MEASUREMENT_ID);
     }
     record = dbHandler->record(tbl, 0);
     bodyMeasurement_ID = record.value(DBConstants::COL_BODY_MEASUREMENT_ID).toInt();
-    //bodyMeasurementView->set
+    bodyMeasurementView->setHeadNeckLength(record.value(DBConstants::COL_BODY_MEASUREMENT_HEAD_NECK_HEIGHT).toInt());
+    bodyMeasurementView->setShoulderWidth(record.value(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH).toInt());
+    bodyMeasurementView->setShoulderBiacromial(record.value(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH_BIACROMIAL).toInt());
+    bodyMeasurementView->setShoulderBideltoid(record.value(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH_BIDELTOID).toInt());
+    bodyMeasurementView->setUpperArmLength(record.value(DBConstants::COL_BODY_MEASUREMENT_UPPER_ARM_LENGTH).toInt());
+    bodyMeasurementView->setForearmLength(record.value(DBConstants::COL_BODY_MEASUREMENT_FOREARM_LENGTH).toInt());
+    bodyMeasurementView->setHandLength(record.value(DBConstants::COL_BODY_MEASUREMENT_HAND_LENGTH_GRIP_AXIS).toInt());
+    bodyMeasurementView->setThighLength(record.value(DBConstants::COL_BODY_MEASUREMENT_THIGH_LENGTH).toInt());
+    bodyMeasurementView->setTibialLength(record.value(DBConstants::COL_BODY_MEASUREMENT_TIBIAL_HEIGHT).toInt());
+    bodyMeasurementView->setTorsoHeight(record.value(DBConstants::COL_BODY_MEASUREMENT_TORSO_HEIGHT).toInt());
+    bodyMeasurementView->setFootLength(record.value(DBConstants::COL_BODY_MEASUREMENT_FOOT_LENGTH).toInt());
 }
 
 void Controller::saveBodyMeasurementView(){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_HEAD_NECK_HEIGHT, 0);
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH, 0);
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH_BIACROMIAL, 0);
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH_BIDELTOID, 0);
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_UPPER_ARM_LENGTH, 0);
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_FOREARM_LENGTH, 0);
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_HAND_LENGTH_GRIP_AXIS, 0);
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_THIGHT_LENGTH, 0);
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_TIBIAL_HEIGHT, 0);
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_TORSO_HEIGHT, 0);
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_FOOT_LENGTH, 0);
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_HEAD_NECK_HEIGHT, bodyMeasurementView->getHeadNeckLength());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH, bodyMeasurementView->getShoulderWidth());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH_BIACROMIAL, bodyMeasurementView->getShoulderBiacromial());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH_BIDELTOID, bodyMeasurementView->getShoulderBideltoid());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_UPPER_ARM_LENGTH, bodyMeasurementView->getUpperArmLength());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_FOREARM_LENGTH, bodyMeasurementView->getForearmLength());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_HAND_LENGTH_GRIP_AXIS, bodyMeasurementView->getHandLength());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_THIGH_LENGTH, bodyMeasurementView->getThighLength());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_TIBIAL_HEIGHT, bodyMeasurementView->getTibialLength());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_TORSO_HEIGHT, bodyMeasurementView->getTorsoHeight());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_FOOT_LENGTH, bodyMeasurementView->getFootLength());
     dbHandler->save(BODY_MEASUREMENT, DBConstants::HASH_BODY_MEASUREMENT_TYPES, values, QString(""), DBConstants::COL_BODY_MEASUREMENT_ID);
 
 }
