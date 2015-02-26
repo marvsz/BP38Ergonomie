@@ -512,6 +512,7 @@ void Controller::createProductPopUp(){
 
 void Controller::deleteProduct(int id){
     dbHandler->deleteAll(DB_TABLES::PRODUCT, QString("%1 = %2").arg(DBConstants::COL_PRODUCT_ID).arg(QString::number(id)));
+    viewCon->showMessage(tr("Deleted product"), NotificationMessage::ACCEPT);
     updateProductView();
 }
 
@@ -539,11 +540,13 @@ void Controller::createEquipment(){
     values.insert(DBConstants::COL_EQUIPMENT_VIBRATION_COUNT, equipmentView->getVibrationCount());
     values.insert(DBConstants::COL_EQUIPMENT_VIBRATION_INTENSITY, equipmentView->getVibrationIntensity());
     dbHandler->insert(DB_TABLES::EQUIPMENT, DBConstants::HASH_EQUIPMENT_TYPES, values, DBConstants::COL_EQUIPMENT_ID);
+    viewCon->showMessage(tr("Created new equipment"), NotificationMessage::ACCEPT);
     updateEquipmentView();
 }
 
 void Controller::deleteEquipment(int id){
     dbHandler->deleteAll(DB_TABLES::EQUIPMENT, QString("%1 = %2").arg(DBConstants::COL_EQUIPMENT_ID).arg(id));
+    viewCon->showMessage(tr("Deleted equipment"), NotificationMessage::ACCEPT);
     updateEquipmentView();
 }
 
