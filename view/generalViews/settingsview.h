@@ -20,10 +20,12 @@ signals:
 
 private slots:
     void btnResetClicked();
+    void btnSelectLanguageClicked();
 
 private:
     QPushButton *btnResetRecordings;
     QPushButton *btnReset;
+    QPushButton *btnSelectLanguage;
 };
 
 #endif // SETTINGSVIEW_H

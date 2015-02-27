@@ -32,6 +32,7 @@
 #include "../view/popUps/analystpopup.h"
 #include "../view/popUps/productpopup.h"
 #include "../view/popUps/activitypopup.h"
+#include "../view/popUps/languagepopup.h"
 #include "../view/documentationView/appliedforceview.h"
 #include "../view/documentationView/loadhandlingview.h"
 #include "../view/documentationView/executionconditionview.h"
@@ -144,6 +145,8 @@ private slots:
     void resetDatabaseRecording();
     void resetDatabaseFactory();
 
+    void languageChanged();
+
 private:
     DBHandler *dbHandler;
     ViewController *viewCon;
@@ -185,6 +188,7 @@ private:
     AnalystPopUp *analystPopUp;
     ProductPopUp *productPopUp;
     ActivityPopUp *activityPopUp;
+    LanguagePopUp *languagePopUp;
 
     int analyst_ID;
     int recording_ID;

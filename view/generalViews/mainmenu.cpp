@@ -17,10 +17,10 @@ MainMenu::MainMenu(QWidget *parent) :
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
 
-    btnMetaDataView->setMinimumSize(300, 60);
-    btnWorkplaceList->setMinimumSize(300, 60);
-    btnRessourceManagement->setMinimumSize(300, 60);
-    btnShift->setMinimumSize(300, 60);
+    btnMetaDataView->setMinimumSize(320, 60);
+    btnWorkplaceList->setMinimumSize(320, 60);
+    btnRessourceManagement->setMinimumSize(320, 60);
+    btnShift->setMinimumSize(320, 60);
 
     btnSettings->setObjectName("settingsIcon");
     btnSettings->setFixedSize(45, 45);
