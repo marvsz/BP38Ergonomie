@@ -35,6 +35,10 @@ ios {
    QMAKE_BUNDLE_DATA += LAUNCH_IMAGES
    QMAKE_BUNDLE_DATA += DATABASES
    QMAKE_INFO_PLIST = ios/Info.plist
+   QMAKE_LFLAGS += -F $$PWD/opencv/opencv2.framework
+   LIBS += \
+    -F $$PWD/opencv2.framework \
+    -framework opencv2 \
 }
 
 unix {

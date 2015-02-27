@@ -24,6 +24,7 @@
 #include "../view/ressourceManagementView/ressourcemanagementview.h"
 #include "../view/ressourceManagementView/bodymeasurementview.h"
 #include "../view/ressourceManagementView/employeeview.h"
+#include "../view/ressourceManagementView/employeelistview.h"
 #include "../view/generalViews/settingsview.h"
 #include "../view/popUps//feedbackpopup.h"
 #include "../view/popUps/equipmentpopup.h"
@@ -161,6 +162,7 @@ private:
     EquipmentView *equipmentView;
     TransportationView *transportationView;
     EmployeeView *employeeView;
+    EmployeeListView *employeeListView;
     BodyMeasurementView *bodyMeasurementView;
     ShiftView *shiftView;
     ShiftCalendar *shiftCalendarView;

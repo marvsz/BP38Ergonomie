@@ -1,9 +1,6 @@
 #include "workplacelistview.h"
-#include "separator.h"
 #include "flickcharm.h"
-#include <QGridLayout>
 #include <QVBoxLayout>
-#include <QLabel>
 #include <QList>
 #include <QStringList>
 #include "iconconstants.h"

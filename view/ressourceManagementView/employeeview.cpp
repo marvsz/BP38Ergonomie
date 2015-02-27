@@ -15,11 +15,16 @@ EmployeeView::EmployeeView(QWidget *parent) : SimpleNavigateableWidget(tr("Worke
     txtBxStaffNumber(new TextLineEdit()),
     txtBxNote(new TextEdit()),
     btnBodyMeasurements(new QPushButton())
+
 {
     btnBodyMeasurements->setFixedSize(45, 45);
     btnBodyMeasurements->setObjectName("bodyMeasurementIcon");
 
+    btnCamera->setFixedSize(45, 45);
+    btnCamera->setObjectName("cameraIcon");
+
     connect(btnBodyMeasurements, SIGNAL(clicked()), this, SLOT(btnBodyMeasurementsClicked()));
+    connect(btnCamera, SIGNAL(clicked()), this, SLOT(btnCameraClicked()));
 
     vcAge->setText(tr("age"));
     vcAge->setValues(16, 70, ageValues, QString(""));
@@ -77,7 +82,6 @@ QList<QAbstractButton*> * EmployeeView::getAdditionalNavigation() const{
 void EmployeeView::btnBodyMeasurementsClicked(){
     emit showView(ViewType::BODY_MEASUREMENT_VIEW);
 }
-
 
 //GETTER
 int EmployeeView::getGender() const{
