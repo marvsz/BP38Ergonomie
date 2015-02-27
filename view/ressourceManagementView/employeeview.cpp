@@ -20,11 +20,7 @@ EmployeeView::EmployeeView(QWidget *parent) : SimpleNavigateableWidget(tr("Worke
     btnBodyMeasurements->setFixedSize(45, 45);
     btnBodyMeasurements->setObjectName("bodyMeasurementIcon");
 
-    btnCamera->setFixedSize(45, 45);
-    btnCamera->setObjectName("cameraIcon");
-
     connect(btnBodyMeasurements, SIGNAL(clicked()), this, SLOT(btnBodyMeasurementsClicked()));
-    connect(btnCamera, SIGNAL(clicked()), this, SLOT(btnCameraClicked()));
 
     vcAge->setText(tr("age"));
     vcAge->setValues(16, 70, ageValues, QString(""));
