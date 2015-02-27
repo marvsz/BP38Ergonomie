@@ -15,6 +15,7 @@ EmployeeView::EmployeeView(QWidget *parent) : SimpleNavigateableWidget(tr("Worke
     txtBxStaffNumber(new TextLineEdit()),
     txtBxNote(new TextEdit()),
     btnBodyMeasurements(new QPushButton())
+
 {
     btnBodyMeasurements->setFixedSize(45, 45);
     btnBodyMeasurements->setObjectName("bodyMeasurementIcon");
@@ -77,7 +78,6 @@ QList<QAbstractButton*> * EmployeeView::getAdditionalNavigation() const{
 void EmployeeView::btnBodyMeasurementsClicked(){
     emit showView(ViewType::BODY_MEASUREMENT_VIEW);
 }
-
 
 //GETTER
 int EmployeeView::getGender() const{

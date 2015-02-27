@@ -49,5 +49,5 @@ void RessourceManagementView::btnTransportationClicked(){
 }
 
 void RessourceManagementView::btnEmployeeClicked(){
-    emit showView(ViewType::EMPLOYEE_VIEW);
+    emit showView(ViewType::EMPLOYEE_LIST_VIEW);
 }

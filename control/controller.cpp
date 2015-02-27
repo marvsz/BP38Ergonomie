@@ -18,6 +18,7 @@ Controller::Controller(QObject *parent) :
     equipmentView(new EquipmentView()),
     transportationView(new TransportationView()),
     employeeView(new EmployeeView()),
+    employeeListView(new EmployeeListView()),
     bodyMeasurementView(new BodyMeasurementView()),
     shiftView(new ShiftView()),
     shiftCalendarView(new ShiftCalendar()),
@@ -67,6 +68,11 @@ Controller::Controller(QObject *parent) :
     connect(workplaceListView, SIGNAL(remove(int)), this, SLOT(deleteWorkplace(int)));
     connect(workplaceListView, SIGNAL(create()), this, SLOT(createWorkplace()));
     connect(workplaceListView, SIGNAL(selected(int)), this, SLOT(updateWorkplaceView(int)));
+
+    // EMPLOYEES TODO
+    //connect(employeeListView, SIGNAL(remove(int)), this, SLOT(deleteEmployee(int)));
+    //connect(employeeListView, SIGNAL(create()), this, SLOT(createEmployee()));
+    //connect(employeeListView, SIGNAL(selected(int)), this, SLOT(updateEmployeeView(int)));
 
     connect(lineView, SIGNAL(saveLine()), this, SLOT(createLine()));
     connect(lineView, SIGNAL(saveSelectedLine(int)), SLOT(saveSelectedLine(int)));
@@ -140,6 +146,7 @@ Controller::Controller(QObject *parent) :
     viewCon->registerView(rotationGroupView, ViewType::ROTATION_GROUP_VIEW);
     viewCon->registerView(rotationGroupListView, ViewType::ROTATION_GROUP_LIST_VIEW);
     viewCon->registerView(employeeView, ViewType::EMPLOYEE_VIEW);
+    viewCon->registerView(employeeListView, ViewType::EMPLOYEE_LIST_VIEW);
     viewCon->registerView(bodyMeasurementView, ViewType::BODY_MEASUREMENT_VIEW);
     viewCon->registerView(documentationView, ViewType::DOCUMENTATION_VIEW);
 

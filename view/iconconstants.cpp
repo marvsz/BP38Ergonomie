@@ -2,36 +2,36 @@
 
 
 // ARROWS
-const QString IconConstants::ICON_UP = ":/button/icons/Buttons/up.png";
-const QString IconConstants::ICON_DOWN = ":/button/icons/Buttons/down.png";
-const QString IconConstants::ICON_LEFT = ":/button/icons/Buttons/left.png";
-const QString IconConstants::ICON_RIGHT = ":/button/icons/Buttons/right.png";
+const QString IconConstants::ICON_UP = ":/blue/icons/Buttons/blue/up.png";
+const QString IconConstants::ICON_DOWN = ":/blue/icons/Buttons/blue/down.png";
+const QString IconConstants::ICON_LEFT = ":/blue/icons/Buttons/blue/left.png";
+const QString IconConstants::ICON_RIGHT = ":/blue/icons/Buttons/blue/right.png";
 
 // TIMER ICONS
-const QString IconConstants::ICON_PLAY = ":/button/icons/Buttons/play.png";
-const QString IconConstants::ICON_PAUSE = ":/button/icons/Buttons/pause.png";
-const QString IconConstants::ICON_RECORD = ":/button/icons/Buttons/record.png";
-const QString IconConstants::ICON_RESET = ":/button/icons/Buttons/reset.png";
-const QString IconConstants::ICON_STOP = ":/button/icons/Buttons/stop.png";
+const QString IconConstants::ICON_PLAY = ":/blue/icons/Buttons/blue/play.png";
+const QString IconConstants::ICON_PAUSE = ":/blue/icons/Buttons/blue/pause.png";
+const QString IconConstants::ICON_RECORD = ":/blue/icons/Buttons/blue/record.png";
+const QString IconConstants::ICON_RESET = ":/blue/icons/Buttons/blue/reset.png";
+const QString IconConstants::ICON_STOP = ":/blue/icons/Buttons/blue/stop.png";
 
-const QString IconConstants::ICON_ZOOM_IN = ":/button/icons/Buttons/zoomIn.png";
-const QString IconConstants::ICON_ZOOM_OUT = ":/button/icons/Buttons/zoomOut.png";
+const QString IconConstants::ICON_ZOOM_IN = ":/blue/icons/Buttons/blue/zoomIn.png";
+const QString IconConstants::ICON_ZOOM_OUT = ":/blue/icons/Buttons/blue/zoomOut.png";
 
 // PLUS MINUS
-const QString IconConstants::ICON_PLUS = ":/button/icons/Buttons/plus.png";
-const QString IconConstants::ICON_MINUS = ":/button/icons/Buttons/minus.png";
+const QString IconConstants::ICON_PLUS = ":/blue/icons/Buttons/blue/plus.png";
+const QString IconConstants::ICON_MINUS = ":/blue/icons/Buttons/blue/minus.png";
 
 // MISC
-const QString IconConstants::ICON_WORKPLACE = ":/misc/icons/Misc/workplace.png";
-const QString IconConstants::ICON_COMMENT = ":/misc/icons/Misc/comment.png";
-const QString IconConstants::ICON_ACTIVITY = ":/misc/icons/Misc/activity.png";
-const QString IconConstants::ICON_LINE = ":/misc/icons/Misc/line.png";
-const QString IconConstants::ICON_SETTINGS = ":/misc/icons/Misc/settings.png";
-const QString IconConstants::ICON_EQUIPMENT = ":/misc/icons/Misc/equipment.png";
-const QString IconConstants::ICON_PRODUCT = ":/misc/icons/Misc/product.png";
-const QString IconConstants::ICON_TRANSPORTATION= ":/misc/icons/Misc/transportation.png";
-const QString IconConstants::ICON_USER = ":/misc/icons/Misc/user.png";
-const QString IconConstants::ICON_ROTATION = ":/misc/icons/Misc/rotation.png";
+const QString IconConstants::ICON_WORKPLACE = ":/blue/icons/Buttons/blue/workplace.png";
+const QString IconConstants::ICON_COMMENT = ":/blue/icons/Buttons/blue/comment.png";
+const QString IconConstants::ICON_ACTIVITY = ":/blue/icons/Buttons/blue/activity.png";
+const QString IconConstants::ICON_LINE = ":/blue/icons/Buttons/blue/line.png";
+const QString IconConstants::ICON_SETTINGS = ":/blue/icons/Buttons/blue/settings.png";
+const QString IconConstants::ICON_EQUIPMENT = ":/blue/icons/Buttons/blue/equipment.png";
+const QString IconConstants::ICON_PRODUCT = ":/blue/icons/Buttons/blue/product.png";
+const QString IconConstants::ICON_TRANSPORTATION= ":/blue/icons/Buttons/blue/transportation.png";
+const QString IconConstants::ICON_USER = ":/blue/icons/Buttons/blue/user.png";
+const QString IconConstants::ICON_ROTATION = ":/blue/icons/Buttons/blue/rotation.png";
 
 IconConstants::IconConstants()
 {

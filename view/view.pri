@@ -57,6 +57,7 @@ HEADERS +=\
     $$PWD/navigation/viewtype.h \
     $$PWD/ressourceManagementView/bodymeasurementview.h \
     $$PWD/ressourceManagementView/employeeview.h \
+    $$PWD/ressourceManagementView/employeelistview.h \
     $$PWD/rotationGroupView/rotationgroupview.h \
     $$PWD/datelineedit.h \
     $$PWD/navigation/abstractpopupwidget.h \
@@ -72,6 +73,7 @@ HEADERS +=\
     $$PWD/popUps/productpopup.h \
     $$PWD/popUps/activitypopup.h \
     $$PWD/popUps/languagepopup.h
+
 
 
 SOURCES +=\
@@ -127,6 +129,7 @@ SOURCES +=\
     $$PWD/navigation/viewcontroller.cpp \
     $$PWD/ressourceManagementView/bodymeasurementview.cpp \
     $$PWD/ressourceManagementView/employeeview.cpp \
+    $$PWD/ressourceManagementView/employeelistview.cpp \
     $$PWD/rotationGroupView/rotationgroupview.cpp \
     $$PWD/datelineedit.cpp \
     $$PWD/navigation/abstractpopupwidget.cpp \
@@ -141,5 +144,6 @@ SOURCES +=\
     $$PWD/popUps/productpopup.cpp \
     $$PWD/popUps/activitypopup.cpp \
     $$PWD/popUps/languagepopup.cpp
+
 
 

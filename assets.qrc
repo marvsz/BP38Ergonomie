@@ -2,6 +2,7 @@
     <qresource prefix="/">
         <file>assets/stylesheet.qss</file>
         <file>assets/ergoAppDB.sqlite</file>
-        <file>ergo_trans_de.qm</file>
+        <file>assets/stylesheetGreen.qss</file>
+        <file>translations/ergo_trans_de.qm</file>
     </qresource>
 </RCC>
