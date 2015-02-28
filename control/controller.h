@@ -34,6 +34,7 @@
 #include "../view/popUps/productpopup.h"
 #include "../view/popUps/activitypopup.h"
 #include "../view/popUps/languagepopup.h"
+#include "../view/popUps/themepopup.h"
 #include "../view/documentationView/appliedforceview.h"
 #include "../view/documentationView/loadhandlingview.h"
 #include "../view/documentationView/executionconditionview.h"
@@ -42,12 +43,13 @@
 #include <QSqlField>
 #include <QCryptographicHash>
 #include <QHash>
+#include <QApplication>
 
 class Controller : QObject
 {
 Q_OBJECT
 public:
-    explicit Controller(QObject *parent = 0);
+    explicit Controller(QObject *parent = 0, QApplication *app = 0);
 
 private slots:
     void update(ViewType type);
@@ -147,8 +149,10 @@ private slots:
     void resetDatabaseFactory();
 
     void languageChanged();
+    void themeChanged();
 
 private:
+    QApplication *application;
     DBHandler *dbHandler;
     ViewController *viewCon;
 
@@ -191,6 +195,7 @@ private:
     ProductPopUp *productPopUp;
     ActivityPopUp *activityPopUp;
     LanguagePopUp *languagePopUp;
+    ThemePopUp *themePopUp;
 
     int analyst_ID;
     int recording_ID;
@@ -220,6 +225,8 @@ private:
 
     void deleteWorkProcesses(int activity_ID);
     void saveWorkProcessEvaluationID(const QString &colName, const int id);
+
+    QString stringFromResource(const QString &resName);
 };
 
 #endif // CONTROLLER_H

@@ -7,10 +7,10 @@
 
 RessourceManagementView::RessourceManagementView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Ressource Management"), parent),
-    btnEquipmentView(new QPushButton(tr("Equipment"))),
-    btnProductView(new QPushButton(tr("Products"))),
-    btnTransportationView(new QPushButton(tr("Transportations"))),
-    btnEmployeeView(new QPushButton(tr("Employee")))
+    btnEquipmentView(new IconButton(this, IconConstants::ICON_EQUIPMENT, tr("Equipment"))),
+    btnProductView(new IconButton(this, IconConstants::ICON_PRODUCT, tr("Products"))),
+    btnTransportationView(new IconButton(this, IconConstants::ICON_TRANSPORTATION, tr("Transportations"))),
+    btnEmployeeView(new IconButton(this, IconConstants::ICON_USER, tr("Employee")))
 {
     btnEquipmentView->setMinimumSize(300, 60);
     btnProductView->setMinimumSize(300, 60);

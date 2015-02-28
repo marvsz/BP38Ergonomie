@@ -167,6 +167,12 @@
         <file>icons/Buttons/green/zoomOut@2x.png</file>
         <file>icons/Buttons/green/zoomOutPressed.png</file>
         <file>icons/Buttons/green/zoomOutPressed@2x.png</file>
+        <file>icons/Buttons/green/blue.png</file>
+        <file>icons/Buttons/green/blue@2x.png</file>
+        <file>icons/Buttons/green/green.png</file>
+        <file>icons/Buttons/green/green@2x.png</file>
+        <file>icons/Buttons/green/resetFactory.png</file>
+        <file>icons/Buttons/green/resetFactory@2x.png</file>
     </qresource>
     <qresource prefix="/blue">
         <file>icons/Buttons/blue/accept.png</file>
@@ -336,5 +342,11 @@
         <file>icons/Buttons/blue/zoomOut@2x.png</file>
         <file>icons/Buttons/blue/zoomOutPressed.png</file>
         <file>icons/Buttons/blue/zoomOutPressed@2x.png</file>
+        <file>icons/Buttons/blue/blue.png</file>
+        <file>icons/Buttons/blue/blue@2x.png</file>
+        <file>icons/Buttons/blue/green.png</file>
+        <file>icons/Buttons/blue/green@2x.png</file>
+        <file>icons/Buttons/blue/resetFactory.png</file>
+        <file>icons/Buttons/blue/resetFactory@2x.png</file>
     </qresource>
 </RCC>

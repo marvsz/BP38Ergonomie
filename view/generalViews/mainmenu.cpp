@@ -2,14 +2,15 @@
 #include "separator.h"
 #include <QGridLayout>
 #include <QVBoxLayout>
+#include "../view/iconconstants.h"
 
 MainMenu::MainMenu(QWidget *parent) :
     SimpleNavigateableWidget(tr("Main menu"), parent),
     lblViewName(new QLabel(tr("Ergonomieapp"))),
-    btnMetaDataView(new QPushButton(tr("Head Data"))),
-    btnWorkplaceList(new QPushButton(tr("Work Stations"))),
-    btnRessourceManagement(new QPushButton(tr ("Ressource Management"))),
-    btnShift(new QPushButton(tr("Shift Data"))),
+    btnMetaDataView(new IconButton(this, IconConstants::ICON_COMMENT, tr("Head Data"))),
+    btnWorkplaceList(new IconButton(this, IconConstants::ICON_WORKPLACE, tr("Workplaces"))),
+    btnRessourceManagement(new IconButton(this,IconConstants::ICON_EQUIPMENT, tr ("Ressource Management"))),
+    btnShift(new IconButton(this, IconConstants::ICON_CALENDAR, tr("Shift Data"))),
     btnSettings(new QPushButton(this)),
     btnNewRecording(new QPushButton(this)),
     btnSendDatabase(new QPushButton(this))
@@ -17,10 +18,10 @@ MainMenu::MainMenu(QWidget *parent) :
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
 
-    btnMetaDataView->setMinimumSize(320, 60);
-    btnWorkplaceList->setMinimumSize(320, 60);
-    btnRessourceManagement->setMinimumSize(320, 60);
-    btnShift->setMinimumSize(320, 60);
+    btnMetaDataView->setMinimumSize(300, 60);
+    btnWorkplaceList->setMinimumSize(300, 60);
+    btnRessourceManagement->setMinimumSize(300, 60);
+    btnShift->setMinimumSize(300, 60);
 
     btnSettings->setObjectName("settingsIcon");
     btnSettings->setFixedSize(45, 45);

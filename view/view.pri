@@ -72,7 +72,9 @@ HEADERS +=\
     $$PWD/popUps/analystpopup.h \
     $$PWD/popUps/productpopup.h \
     $$PWD/popUps/activitypopup.h \
-    $$PWD/popUps/languagepopup.h
+    $$PWD/popUps/languagepopup.h \
+    $$PWD/iconbutton.h \
+    $$PWD/popUps/themepopup.h
 
 
 
@@ -143,7 +145,9 @@ SOURCES +=\
     $$PWD/popUps/analystpopup.cpp \
     $$PWD/popUps/productpopup.cpp \
     $$PWD/popUps/activitypopup.cpp \
-    $$PWD/popUps/languagepopup.cpp
+    $$PWD/popUps/languagepopup.cpp \
+    $$PWD/iconbutton.cpp \
+    $$PWD/popUps/themepopup.cpp
 
 
 

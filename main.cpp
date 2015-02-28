@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     a.installTranslator(&translator);
 
 
-    Controller c;
+    Controller c(&a);
 
     return a.exec();
 }

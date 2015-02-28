@@ -3,6 +3,8 @@
 #include <QWidget>
 #include <QSpacerItem>
 #include <QDebug>
+#include <QStylePainter>
+#include <QStyleOption>
 
 DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, const QString &name, const QList<QStringList> &scheme, bool isDeletable, bool isCheckable, bool hasForwardButton, bool canBeAdded, bool isEditable) :
     QAbstractButton(parent),
@@ -18,13 +20,6 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
     btnForward(new QPushButton),
     listLblValues(QList<QList<QLabel*>>())
 {
-
-    QWidget *groupBox = new QWidget;
-    groupBox->setMinimumHeight(50);
-    groupBox->setObjectName("detailedListItemWidget");
-
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-
     // SETTINGS FOR GENERAL ELEMENTS
     lblName->setObjectName("lblHeader");
     lblIcon->setObjectName("btnIcon");
@@ -35,7 +30,7 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
         lblIcon->setIcon(icon);
     }
     checkBox->setChecked(false);
-    checkBox->setDisabled(true);
+    checkBox->setEnabled(false);
     btnDelete->setFixedSize(45, 45);
     btnDelete->setObjectName("resetIcon");
     btnAdd->setFixedSize(45, 45);
@@ -93,16 +88,16 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
     else {
         layout->addItem(new QSpacerItem(50, 0, QSizePolicy::Fixed, QSizePolicy::Fixed), layout->columnCount(), layout->rowCount(), 1, Qt::AlignRight);
     }
-    groupBox->setLayout(layout);
-    mainLayout->addWidget(groupBox);
-    setLayout(mainLayout);
+    setLayout(layout);
 
     connect(this, SIGNAL(clicked()), this, SLOT(itemPressed()));
 }
 
 void DetailedListItem::paintEvent(QPaintEvent *e){
-    QWidget::paintEvent(e);
-}
+    QStylePainter p(this);
+    QStyleOption opt;
+    opt.initFrom(this);
+    p.drawPrimitive(QStyle::PE_Widget, opt);}
 
 // PRIVATE SLOTS
 void DetailedListItem::deleteItem(){
@@ -124,7 +119,6 @@ void DetailedListItem::itemPressed(){
 // PUBLIC SLOTS
 void DetailedListItem::
 checkState(int id){
-    qDebug() << "State: " << id;
 }
 
 void DetailedListItem::setValues(const QList<QStringList> &values){

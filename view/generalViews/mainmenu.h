@@ -2,6 +2,7 @@
 #define MAINMENU_H
 
 #include "navigation/simplenavigateablewidget.h"
+#include "../view/iconbutton.h"
 #include <QPushButton>
 #include <QWidget>
 #include <QLabel>
@@ -35,10 +36,10 @@ private slots:
 
 private:
     QLabel *lblViewName;
-    QPushButton *btnMetaDataView;
-    QPushButton *btnWorkplaceList;
-    QPushButton *btnRessourceManagement;
-    QPushButton *btnShift;
+    IconButton *btnMetaDataView;
+    IconButton *btnWorkplaceList;
+    IconButton *btnRessourceManagement;
+    IconButton *btnShift;
     QPushButton *btnSettings;
     QPushButton *btnNewRecording;
     QPushButton *btnSendDatabase;

@@ -1,8 +1,12 @@
 #include "controller.h"
 #include <QDebug>
 #include <QTime>
-Controller::Controller(QObject *parent) :
+#include <QFile>
+#include <QTextStream>
+
+Controller::Controller(QObject *parent, QApplication *app) :
     QObject(parent),
+    application(app),
     dbHandler(new DBHandler()),
     viewCon(new ViewController()),
     analystSelectionView(new AnalystSelectionView()),
@@ -40,7 +44,8 @@ Controller::Controller(QObject *parent) :
     analystPopUp(new AnalystPopUp()),
     productPopUp(new ProductPopUp()),
     activityPopUp(new ActivityPopUp()),
-    languagePopUp(new LanguagePopUp())
+    languagePopUp(new LanguagePopUp()),
+    themePopUp(new ThemePopUp())
 {
     analyst_ID = 0;
     recording_ID = 1;
@@ -117,6 +122,7 @@ Controller::Controller(QObject *parent) :
     connect(settingsView, SIGNAL(resetDatabase()), this, SLOT(resetDatabaseFactory()));
     connect(settingsView, SIGNAL(resetRecordings()), this, SLOT(resetDatabaseRecording()));
     connect(languagePopUp, SIGNAL(confirm()), this, SLOT(languageChanged()));
+    connect(themePopUp, SIGNAL(confirm()), this, SLOT(themeChanged()));
 
     // Register Documentation Views
     documentationView->registerView(workProcessMetaDataView, ViewType::WORK_PROCESS_META_DATA_VIEW);
@@ -159,6 +165,7 @@ Controller::Controller(QObject *parent) :
     viewCon->registerPopUp(analystPopUp, PopUpType::ANALYST_POPUP);
     viewCon->registerPopUp(activityPopUp, PopUpType::ACTIVITY_POPUP);
     viewCon->registerPopUp(languagePopUp, PopUpType::LANGUAGE_POPUP);
+    viewCon->registerPopUp(themePopUp, PopUpType::THEME_POPUP);
 
     //Set the start Views
     documentationView->showStartView(ViewType::BODY_POSTURE_VIEW);
@@ -1285,10 +1292,37 @@ void Controller::resetDatabaseFactory(){
 
 void Controller::languageChanged(){
     viewCon->closePopUp();
-    viewCon->showMessage(tr("Language selected"), NotificationMessage::ACCEPT);
+    viewCon->showMessage(tr("Language changed"), NotificationMessage::ACCEPT);
+}
+
+void Controller::themeChanged(){
+    int themeID = themePopUp->getSelectedTheme();
+    switch(themeID){
+    case(0):
+        application->setStyleSheet(stringFromResource(":/assets/stylesheet.qss"));
+        settingsView->setCurrentThemeIcon(IconConstants::ICON_BLUE);
+        break;
+    case(1):
+        application->setStyleSheet(stringFromResource(":/assets/stylesheetGreen.qss"));
+        settingsView->setCurrentThemeIcon(IconConstants::ICON_GREEN);
+        break;
+    default:
+        application->setStyleSheet(stringFromResource(":/assets/stylesheet.qss"));
+        settingsView->setCurrentThemeIcon(IconConstants::ICON_BLUE);
+        break;
+    }
+    viewCon->closePopUp();
+    viewCon->showMessage(tr("Theme changed"), NotificationMessage::ACCEPT);
 }
 
 //PRIVATE METHODS
+QString Controller::stringFromResource(const QString &resName)
+{
+    QFile file(resName);
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    QTextStream ts(&file);
+    return ts.readAll();
+}
 
 void Controller::saveRecordingObservesLine(int lineID){
     QString filter = QString("%1 = %2 AND %3 = %4").arg(DBConstants::COL_RECORDING_OB_LINE_RECORDING_ID).arg(QString::number(recording_ID)).arg(DBConstants::COL_RECORDING_OB_LINE_LINE_ID).arg(QString::number(lineID));

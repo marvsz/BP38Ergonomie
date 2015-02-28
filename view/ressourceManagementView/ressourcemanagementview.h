@@ -2,7 +2,7 @@
 #define RESSOURCEMANAGEMENTVIEW_H
 
 #include <QWidget>
-#include <QPushButton>
+#include "../view/iconbutton.h"
 #include <QLabel>
 #include "../navigation/simplenavigateablewidget.h"
 
@@ -19,10 +19,10 @@ private slots:
     void btnEmployeeClicked();
     
 private:
-    QPushButton *btnEquipmentView;
-    QPushButton *btnProductView;
-    QPushButton *btnTransportationView;
-    QPushButton *btnEmployeeView;
+    IconButton *btnEquipmentView;
+    IconButton *btnProductView;
+    IconButton *btnTransportationView;
+    IconButton *btnEmployeeView;
 
 
 };
