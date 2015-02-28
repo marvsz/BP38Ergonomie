@@ -3,7 +3,6 @@
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include "flickcharm.h"
-#include "iconconstants.h"
 
 LineView::LineView(QWidget *parent) : SimpleNavigateableWidget(tr("Line"), parent),
     listContentLayout(new QVBoxLayout),
@@ -85,7 +84,7 @@ void LineView::setLine(const QString &name, const QString &description, int work
 
 void LineView::addLine(int id, const QString &name){
 
-    DetailedListItem *newListItem = new DetailedListItem(this, IconConstants::ICON_LINE, name, QList<QStringList>(), true, true, false);
+    DetailedListItem *newListItem = new DetailedListItem(this, "lineIcon", name, QList<QStringList>(), true, true, false);
     newListItem->setID(id);
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedLineChanged(int)));
     connect(this, SIGNAL(lineSelected(int)), newListItem, SLOT(selectExclusiveWithID(int)));

@@ -1,6 +1,5 @@
 #include "analystselectionview.h"
 #include "separator.h"
-#include "iconconstants.h"
 #include "flickcharm.h"
 
 AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
@@ -42,7 +41,7 @@ QList<QAbstractButton*> * AnalystSelectionView::getAdditionalNavigation() const{
 void AnalystSelectionView::add(int id, const QString &lastName, const QString &firstName){
     QString name = lastName + ", " + firstName;
 
-    DetailedListItem *newListItem = new DetailedListItem(this, IconConstants::ICON_USER, name, QList<QStringList>(), true, false, true);
+    DetailedListItem *newListItem = new DetailedListItem(this, "userIcon", name, QList<QStringList>(), true, false, true);
 
     newListItem->setID(id);
     connect(newListItem, SIGNAL(pressed(int)), this, SLOT(dliPressed(int)));

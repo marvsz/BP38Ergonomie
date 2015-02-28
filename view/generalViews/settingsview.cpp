@@ -2,14 +2,13 @@
 #include "separator.h"
 #include <QGridLayout>
 #include <QVBoxLayout>
-#include "../view/iconconstants.h"
 
 SettingsView::SettingsView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Settings"), parent),
-    btnResetRecordings(new IconButton(this, IconConstants::ICON_RESET, tr("Reset Recordings"))),
-    btnReset(new IconButton(this, IconConstants::ICON_RESET_FACTORY, tr("Restore Factory Settings"))),
-    btnSelectLanguage(new IconButton(this, IconConstants::ICON_GERMAN, tr("Change Language"))),
-    btnSelectTheme(new IconButton(this, IconConstants::ICON_BLUE, tr("Change Theme")))
+    btnResetRecordings(new IconButton(this, "resetIcon", tr("Reset Recordings"))),
+    btnReset(new IconButton(this, "resetFactoryIcon", tr("Restore Factory Settings"))),
+    btnSelectLanguage(new IconButton(this, "germanIcon", tr("Change Language"))),
+    btnSelectTheme(new IconButton(this, "blueIcon", tr("Change Theme")))
 {
     btnResetRecordings->setMinimumSize(320, 60);
     connect(btnResetRecordings, SIGNAL(clicked()), this, SIGNAL(resetRecordings()));
@@ -49,10 +48,10 @@ void SettingsView::btnSelectThemeClicked(){
     emit showPopUp(PopUpType::THEME_POPUP);
 }
 
-void SettingsView::setCurrentLanguageIcon(const QString &iconPath){
-    btnSelectLanguage->setIcon(QIcon(iconPath));
+void SettingsView::setCurrentLanguageIcon(const QString &objectName){
+    btnSelectLanguage->setIcon(objectName);
 }
 
-void SettingsView::setCurrentThemeIcon(const QString &iconPath){
-    btnSelectTheme->setIcon(QIcon(iconPath));
+void SettingsView::setCurrentThemeIcon(const QString &objectName){
+    btnSelectTheme->setIcon(objectName);
 }

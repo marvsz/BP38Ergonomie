@@ -1,5 +1,5 @@
 #include "employeelistview.h"
-#include "../view/iconconstants.h"
+
 #include <QList>
 #include "../view/flickcharm.h"
 
@@ -42,7 +42,7 @@ void EmployeeListView::clear(){
 
 void EmployeeListView::addEmployee(int id, const QString &name, const QString &description, const QString &personalID){
     QList<QStringList> values = QList<QStringList>() << (QStringList() << description << personalID);
-    DetailedListItem *newListItem = new DetailedListItem(this, IconConstants::ICON_USER, name, employeeCaptions, true, false, true);
+    DetailedListItem *newListItem = new DetailedListItem(this, "userIcon", name, employeeCaptions, true, false, true);
     newListItem->setValues(values);
     newListItem->setID(id);
     connect(newListItem, SIGNAL(pressed(int)), this, SLOT(dliEmployeeClicked(int)));

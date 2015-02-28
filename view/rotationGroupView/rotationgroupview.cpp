@@ -4,7 +4,6 @@
 #include "../view/separator.h"
 #include "../view/flickcharm.h"
 #include "../view/detailedlistitem.h"
-#include "../view/iconconstants.h"
 
 const QList<QStringList> RotationGroupView::rotationGroupTaskCaptions = QList<QStringList>() << (QStringList() << tr("Duration:"));
 const QList<QStringList> RotationGroupView::workplaceCaptions = QList<QStringList>() << (QStringList() << tr("Duration:"));
@@ -127,7 +126,7 @@ void RotationGroupView::setWorkplaceDuration(int duration){
 
 void RotationGroupView::addRotationGroupTask(int id, const QString &name, int duration){
     QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(duration).append(" min"));
-    DetailedListItem *newListItem = new DetailedListItem(this, IconConstants::ICON_WORKPLACE, name, rotationGroupTaskCaptions, true, false, false);
+    DetailedListItem *newListItem = new DetailedListItem(this, "workplaceIcon", name, rotationGroupTaskCaptions, true, false, false);
     newListItem->setID(id);
     newListItem->setValues(values);
     connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(removeRotationGroupTaskEntry(int)));
@@ -144,7 +143,7 @@ void RotationGroupView::clearRotationGroupTasks(){
 
 void RotationGroupView::addWorkplace(int id, const QString &name, int duration){
     QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(duration).append(" min"));
-    DetailedListItem *newListItem = new DetailedListItem(this, IconConstants::ICON_WORKPLACE, name, workplaceCaptions, false, true, false);
+    DetailedListItem *newListItem = new DetailedListItem(this, "workplaceIcon", name, workplaceCaptions, false, true, false);
     newListItem->setID(id);
     newListItem->setValues(values);
     connect(this, SIGNAL(selectedWorkplaceChanged(int)), newListItem, SLOT(selectExclusiveWithID(int)));

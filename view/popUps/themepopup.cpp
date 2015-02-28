@@ -1,11 +1,11 @@
 #include "themepopup.h"
 #include <QVBoxLayout>
-#include "../view/iconconstants.h"
+
 
 ThemePopUp::ThemePopUp(QWidget *parent) :
     AbstractPopUpWidget(ConfirmMode::ACCEPT, tr("Change Theme"), parent),
-    blue(new DetailedListItem(0, IconConstants::ICON_BLUE, tr("Blue"), QList<QStringList>(), false, true, false, false, false)),
-    green(new DetailedListItem(0, IconConstants::ICON_GREEN, tr("Green"), QList<QStringList>(), false, true, false, false, false)),
+    blue(new DetailedListItem(0, "blueIcon", tr("Blue"), QList<QStringList>(), false, true, false, false, false)),
+    green(new DetailedListItem(0, "greenIcon", tr("Green"), QList<QStringList>(), false, true, false, false, false)),
     themes(new QList<DetailedListItem*>())
 {
     QVBoxLayout *layout = new QVBoxLayout;

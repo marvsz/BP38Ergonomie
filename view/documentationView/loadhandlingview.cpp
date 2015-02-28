@@ -100,7 +100,7 @@ LoadHandlingView::~LoadHandlingView()
 }
 
 void LoadHandlingView::addTransportation(int id, const QString &name, int weight, int maxLoad, bool hasBrakes, bool hasFixedRoller){
-    DetailedListItem *newListItem = new DetailedListItem(0, IconConstants::ICON_TRANSPORTATION, name, transportationItemScheme, false, true, false);
+    DetailedListItem *newListItem = new DetailedListItem(0, "transportationIcon", name, transportationItemScheme, false, true, false);
     newListItem->setID(id);
     QString brakes = hasBrakes ? tr("yes") : tr("no");
     QString fixedRoller = hasFixedRoller ? tr("yes") : tr("no");

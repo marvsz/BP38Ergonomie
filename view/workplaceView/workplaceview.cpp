@@ -1,6 +1,5 @@
 #include "workplaceview.h"
 #include "separator.h"
-#include "iconconstants.h"
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -77,9 +76,9 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     commentListTwo << tr("sanction label");
     commentList << commentListOne << commentListTwo;
 
-    line = new DetailedListItem(this, IconConstants::ICON_LINE, tr("line"), lineList, false, false, true);
-    activity = new DetailedListItem(this, IconConstants::ICON_ACTIVITY, tr("activities"), activityList, false, false, true);
-    comment = new DetailedListItem(this, IconConstants::ICON_COMMENT, tr("remarks"), commentList, false, false, true);
+    line = new DetailedListItem(this, "lineIcon", tr("line"), lineList, false, false, true);
+    activity = new DetailedListItem(this, "activityIcon", tr("activities"), activityList, false, false, true);
+    comment = new DetailedListItem(this, "commentIcon", tr("remarks"), commentList, false, false, true);
 
     connect(line, SIGNAL(clicked()), this, SLOT(btnLineClicked()));
     connect(activity, SIGNAL(clicked()), this, SLOT(btnActivityClicked()));

@@ -173,6 +173,16 @@
         <file>icons/Buttons/green/green@2x.png</file>
         <file>icons/Buttons/green/resetFactory.png</file>
         <file>icons/Buttons/green/resetFactory@2x.png</file>
+        <file>icons/Buttons/green/pauseDisabled.png</file>
+        <file>icons/Buttons/green/pauseDisabled@2x.png</file>
+        <file>icons/Buttons/green/playDisabled.png</file>
+        <file>icons/Buttons/green/playDisabled@2x.png</file>
+        <file>icons/Buttons/green/recordDisabled.png</file>
+        <file>icons/Buttons/green/recordDisabled@2x.png</file>
+        <file>icons/Buttons/green/resetDisabled.png</file>
+        <file>icons/Buttons/green/resetDisabled@2x.png</file>
+        <file>icons/Buttons/green/stopDisabled.png</file>
+        <file>icons/Buttons/green/stopDisabled@2x.png</file>
     </qresource>
     <qresource prefix="/blue">
         <file>icons/Buttons/blue/accept.png</file>
@@ -348,5 +358,15 @@
         <file>icons/Buttons/blue/green@2x.png</file>
         <file>icons/Buttons/blue/resetFactory.png</file>
         <file>icons/Buttons/blue/resetFactory@2x.png</file>
+        <file>icons/Buttons/blue/pauseDisabled.png</file>
+        <file>icons/Buttons/blue/pauseDisabled@2x.png</file>
+        <file>icons/Buttons/blue/playDisabled.png</file>
+        <file>icons/Buttons/blue/playDisabled@2x.png</file>
+        <file>icons/Buttons/blue/recordDisabled.png</file>
+        <file>icons/Buttons/blue/recordDisabled@2x.png</file>
+        <file>icons/Buttons/blue/resetDisabled.png</file>
+        <file>icons/Buttons/blue/resetDisabled@2x.png</file>
+        <file>icons/Buttons/blue/stopDisabled.png</file>
+        <file>icons/Buttons/blue/stopDisabled@2x.png</file>
     </qresource>
 </RCC>

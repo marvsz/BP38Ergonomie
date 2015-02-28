@@ -1,6 +1,5 @@
 #include "viewcontroller.h"
 #include "separator.h"
-#include "iconconstants.h"
 #include "../standardpaths.h"
 #include "../view/popUps/feedbackpopup.h"
 #include <QVBoxLayout>

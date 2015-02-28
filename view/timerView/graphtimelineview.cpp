@@ -67,7 +67,7 @@ void GraphTimelineView::updateGraphTimeLine(const QTime &currentTime){
     painter.drawLine(0, -70, 1, -70);
     painter.drawLine(0, 80, 1, 80);
 
-    painter.setPen(QPen(QColor(0, 122, 255), 6, Qt::SolidLine, Qt::FlatCap));
+    painter.setPen(QPen(QColor(142, 142, 147), 6, Qt::SolidLine, Qt::FlatCap));
 
     if(!basicWPs->empty()){
         QTime lastEnd = QTime(0,0);
@@ -83,7 +83,7 @@ void GraphTimelineView::updateGraphTimeLine(const QTime &currentTime){
                painter.setPen(QPen(Qt::gray, 2, Qt::SolidLine, Qt::FlatCap));
                painter.drawLine(paintX + freeSecs*10, -50, paintX + freeSecs*10, -30);
                painter.drawLine(paintX + (freeSecs + duration)*10, -50, paintX + (freeSecs + duration)*10, -30);
-               painter.setPen(QPen(QColor(0, 122, 255), 6, Qt::SolidLine, Qt::FlatCap));
+               painter.setPen(QPen(QColor(142, 142, 147), 6, Qt::SolidLine, Qt::FlatCap));
                painter.drawLine(paintX + freeSecs*10, -40, paintX + (freeSecs + duration)*10, -40);
                lastEnd = curEnd;
             }
@@ -91,7 +91,7 @@ void GraphTimelineView::updateGraphTimeLine(const QTime &currentTime){
                duration = curStart.secsTo(currentTime);
                painter.setPen(QPen(Qt::gray, 2, Qt::SolidLine, Qt::FlatCap));
                painter.drawLine(paintX + freeSecs*10, -50, paintX + freeSecs*10, -30);
-               painter.setPen(QPen(QColor(0, 122, 255), 6, Qt::SolidLine, Qt::FlatCap));
+               painter.setPen(QPen(QColor(142, 142, 147), 6, Qt::SolidLine, Qt::FlatCap));
                painter.drawLine(paintX + freeSecs*10, -40, paintX + (freeSecs + duration)*10, -40);
             }
             paintX = paintX + (freeSecs + duration)*10;
@@ -110,7 +110,7 @@ void GraphTimelineView::updateGraphTimeLine(const QTime &currentTime){
                painter.setPen(QPen(Qt::gray, 2, Qt::SolidLine, Qt::FlatCap));
                painter.drawLine(paintX + freeSecs*10, -10, paintX + freeSecs*10, 10);
                painter.drawLine(paintX + (freeSecs + duration)*10, -10, paintX + (freeSecs + duration)*10, 10);
-               painter.setPen(QPen(QColor(0, 122, 255), 6, Qt::SolidLine, Qt::FlatCap));
+               painter.setPen(QPen(QColor(142, 142, 147), 6, Qt::SolidLine, Qt::FlatCap));
                painter.drawLine(paintX + freeSecs*10, 0, paintX + (freeSecs + duration)*10, 0);
                lastEnd = curEnd;
             }
@@ -118,7 +118,7 @@ void GraphTimelineView::updateGraphTimeLine(const QTime &currentTime){
                duration = curStart.secsTo(currentTime);
                painter.setPen(QPen(Qt::gray, 2, Qt::SolidLine, Qt::FlatCap));
                painter.drawLine(paintX + freeSecs*10, -10, paintX + freeSecs*10, 10);
-               painter.setPen(QPen(QColor(0, 122, 255), 6, Qt::SolidLine, Qt::FlatCap));
+               painter.setPen(QPen(QColor(142, 142, 147), 6, Qt::SolidLine, Qt::FlatCap));
                painter.drawLine(paintX + freeSecs*10, 0, paintX + (freeSecs + duration)*10, 0);
             }
             paintX = paintX + (freeSecs + duration)*10;
@@ -137,7 +137,7 @@ void GraphTimelineView::updateGraphTimeLine(const QTime &currentTime){
                painter.drawLine(paintX + freeSecs*10, 40, paintX + (freeSecs + duration)*10, 40);
                painter.setPen(QPen(Qt::gray, 2, Qt::SolidLine, Qt::FlatCap));
                painter.drawLine(paintX + (freeSecs + duration)*10, 30, paintX + (freeSecs + duration)*10, 50);
-               painter.setPen(QPen(QColor(0, 122, 255), 6, Qt::SolidLine, Qt::FlatCap));
+               painter.setPen(QPen(QColor(142, 142, 147), 6, Qt::SolidLine, Qt::FlatCap));
                lastEnd = curEnd;
             }
             else {

@@ -6,12 +6,11 @@
 #include <QStylePainter>
 #include <QStyleOption>
 
-DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, const QString &name, const QList<QStringList> &scheme, bool isDeletable, bool isCheckable, bool hasForwardButton, bool canBeAdded, bool isEditable) :
+DetailedListItem::DetailedListItem(QWidget *parent, const QString &objectName, const QString &name, const QList<QStringList> &scheme, bool isDeletable, bool isCheckable, bool hasForwardButton, bool canBeAdded, bool isEditable) :
     QAbstractButton(parent),
     isCheckable(isCheckable),
     layout(new QGridLayout),
     lblIcon(new QPushButton()),
-    icon(QIcon(iconPath)),
     lblName(new QLabel(name)),
     btnDelete(new QPushButton()),
     btnAdd(new QPushButton()),
@@ -22,7 +21,7 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &iconPath, con
 {
     // SETTINGS FOR GENERAL ELEMENTS
     lblName->setObjectName("lblHeader");
-    lblIcon->setObjectName("btnIcon");
+    lblIcon->setObjectName(objectName);
     lblIcon->setFixedSize(45, 45);
     connect(lblIcon, SIGNAL(clicked()), this, SIGNAL(clicked()));
     if(!icon.isNull()){

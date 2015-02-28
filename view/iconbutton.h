@@ -13,8 +13,7 @@ class IconButton : public QAbstractButton
 public:
     explicit IconButton(QWidget *parent = 0, const QString &iconPath = "", const QString &text = "");
 
-    void setIcon(const QIcon &icon);
-    void setIconSize(const QSize &size);
+    void setIcon(const QString &objectName);
     void setText(const QString &text);
 
 signals:

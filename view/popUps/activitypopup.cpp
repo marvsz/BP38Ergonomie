@@ -1,7 +1,7 @@
 #include "activitypopup.h"
 #include "../view/flickcharm.h"
 #include "../view/detailedlistitem.h"
-#include "../view/iconconstants.h"
+
 
 ActivityPopUp::ActivityPopUp(QWidget *parent) :
     AbstractPopUpWidget(ConfirmMode::ACCEPT, tr("Edit Activity"), parent),
@@ -65,7 +65,7 @@ void ActivityPopUp::setActivity(const QString &description, int repetitions, int
 }
 
 void ActivityPopUp::addProduct(int id, const QString &name, const QString &productNumber){
-    DetailedListItem *newListItem = new DetailedListItem(0, IconConstants::ICON_PRODUCT, name, productItemScheme, false, true, false, false, false);
+    DetailedListItem *newListItem = new DetailedListItem(0, "productIcon", name, productItemScheme, false, true, false, false, false);
     newListItem->setID(id);
     QList<QStringList> values = QList<QStringList>() << (QStringList() << productNumber);
     newListItem->setValues(values);

@@ -2,7 +2,6 @@
 #include "separator.h"
 #include "flickcharm.h"
 #include "detailedlistitem.h"
-#include "iconconstants.h"
 
 ActivityView::ActivityView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Activities"), parent),
@@ -122,7 +121,7 @@ void ActivityView::workprocessClicked(){
 
 // PUBLIC SLOTS
 void ActivityView::addProduct(int id, const QString &name, const QString &productNumber){
-    DetailedListItem *newListItem = new DetailedListItem(0, IconConstants::ICON_PRODUCT, name, productItemScheme, false, true, false, false, false);
+    DetailedListItem *newListItem = new DetailedListItem(0, "productIcon", name, productItemScheme, false, true, false, false, false);
     newListItem->setID(id);
     QList<QStringList> values = QList<QStringList>() << (QStringList() << productNumber);
     newListItem->setValues(values);
@@ -151,7 +150,7 @@ void ActivityView::setActivity(const QString &description, int repetitions, int 
 }
 
 void ActivityView::addActivity(int id, const QString &description, int repetitions){
-    DetailedListItem *newListItem = new DetailedListItem(0, IconConstants::ICON_ACTIVITY, description, activityItemScheme, true, false, true, false, true);
+    DetailedListItem *newListItem = new DetailedListItem(0, "activityIcon", description, activityItemScheme, true, false, true, false, true);
     newListItem->setID(id);
     QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(repetitions));
     newListItem->setValues(values);

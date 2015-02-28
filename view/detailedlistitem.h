@@ -13,7 +13,7 @@ class DetailedListItem : public QAbstractButton
 {
     Q_OBJECT
 public:
-    explicit DetailedListItem(QWidget *parent = 0, const QString &iconPath = "", const QString &name = "", const QList<QStringList> &scheme = QList<QStringList>(), bool isDeletable = false, bool isCheckable = false, bool hasForwardButton = false, bool canBeAdded = false, bool isEditable = false);
+    explicit DetailedListItem(QWidget *parent = 0, const QString &objectName = "btnIcon", const QString &name = "", const QList<QStringList> &scheme = QList<QStringList>(), bool isDeletable = false, bool isCheckable = false, bool hasForwardButton = false, bool canBeAdded = false, bool isEditable = false);
 
     int getID() const;
     void setID(int id);

@@ -2,15 +2,14 @@
 #include "separator.h"
 #include <QGridLayout>
 #include <QVBoxLayout>
-#include "../view/iconconstants.h"
 
 MainMenu::MainMenu(QWidget *parent) :
     SimpleNavigateableWidget(tr("Main menu"), parent),
     lblViewName(new QLabel(tr("Ergonomieapp"))),
-    btnMetaDataView(new IconButton(this, IconConstants::ICON_COMMENT, tr("Head Data"))),
-    btnWorkplaceList(new IconButton(this, IconConstants::ICON_WORKPLACE, tr("Workplaces"))),
-    btnRessourceManagement(new IconButton(this,IconConstants::ICON_EQUIPMENT, tr ("Ressource Management"))),
-    btnShift(new IconButton(this, IconConstants::ICON_CALENDAR, tr("Shift Data"))),
+    btnMetaDataView(new IconButton(this, "commentIcon", tr("Head Data"))),
+    btnWorkplaceList(new IconButton(this, "workplaceIcon", tr("Workplaces"))),
+    btnRessourceManagement(new IconButton(this, "equipmentIcon", tr ("Ressource Management"))),
+    btnShift(new IconButton(this, "calendarIcon", tr("Shift Data"))),
     btnSettings(new QPushButton(this)),
     btnNewRecording(new QPushButton(this)),
     btnSendDatabase(new QPushButton(this))

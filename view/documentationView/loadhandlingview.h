@@ -5,7 +5,6 @@
 #include "../view/navigation/titledwidget.h"
 #include <QPushButton>
 #include "valuecontrol.h"
-#include "iconconstants.h"
 
 /**
  * @brief A class providing a view for transporthandling. The class contains

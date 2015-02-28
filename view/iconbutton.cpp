@@ -2,17 +2,15 @@
 #include <QStylePainter>
 #include <QStyleOption>
 
-IconButton::IconButton(QWidget *parent, const QString &iconPath, const QString &text) :
+IconButton::IconButton(QWidget *parent, const QString &objectName, const QString &text) :
     QAbstractButton(parent),
     layout(new QGridLayout()),
-    icon(QIcon(iconPath)),
     lblIcon(new QPushButton()),
     lblText(new QLabel(text)),
     lblSpacer(new QLabel())
 {
-    lblIcon->setObjectName("btnIcon");
-    lblIcon->setIcon(icon);
-    lblIcon->setIconSize(QSize(32, 32));
+    lblIcon->setObjectName(objectName);
+    lblIcon->setFixedSize(45, 45);
     connect(lblIcon, SIGNAL(clicked()), this, SIGNAL(clicked()));
 
     lblText->setObjectName("lblLight");
@@ -25,13 +23,8 @@ IconButton::IconButton(QWidget *parent, const QString &iconPath, const QString &
     setLayout(layout);
 }
 
-void IconButton::setIcon(const QIcon &icon){
-    lblIcon->setIcon(icon);
-    lblIcon->setIconSize(QSize(32, 32));
-}
-
-void IconButton::setIconSize(const QSize &size){
-    lblIcon->setIconSize(size);
+void IconButton::setIcon(const QString &objectName){
+    lblIcon->setObjectName(objectName);
 }
 
 void IconButton::paintEvent(QPaintEvent *e){

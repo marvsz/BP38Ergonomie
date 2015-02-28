@@ -1299,16 +1299,16 @@ void Controller::themeChanged(){
     int themeID = themePopUp->getSelectedTheme();
     switch(themeID){
     case(0):
+        settingsView->setCurrentThemeIcon("blueIcon");
         application->setStyleSheet(stringFromResource(":/assets/stylesheet.qss"));
-        settingsView->setCurrentThemeIcon(IconConstants::ICON_BLUE);
         break;
     case(1):
+        settingsView->setCurrentThemeIcon("greenIcon");
         application->setStyleSheet(stringFromResource(":/assets/stylesheetGreen.qss"));
-        settingsView->setCurrentThemeIcon(IconConstants::ICON_GREEN);
         break;
     default:
+        settingsView->setCurrentThemeIcon("blueIcon");
         application->setStyleSheet(stringFromResource(":/assets/stylesheet.qss"));
-        settingsView->setCurrentThemeIcon(IconConstants::ICON_BLUE);
         break;
     }
     viewCon->closePopUp();

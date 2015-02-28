@@ -3,14 +3,13 @@
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include "separator.h"
-#include "iconconstants.h"
 
 RessourceManagementView::RessourceManagementView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Ressource Management"), parent),
-    btnEquipmentView(new IconButton(this, IconConstants::ICON_EQUIPMENT, tr("Equipment"))),
-    btnProductView(new IconButton(this, IconConstants::ICON_PRODUCT, tr("Products"))),
-    btnTransportationView(new IconButton(this, IconConstants::ICON_TRANSPORTATION, tr("Transportations"))),
-    btnEmployeeView(new IconButton(this, IconConstants::ICON_USER, tr("Employee")))
+    btnEquipmentView(new IconButton(this, "equipmentIcon", tr("Equipment"))),
+    btnProductView(new IconButton(this, "productIcon", tr("Products"))),
+    btnTransportationView(new IconButton(this, "transportationIcon", tr("Transportations"))),
+    btnEmployeeView(new IconButton(this, "userIcon", tr("Employee")))
 {
     btnEquipmentView->setMinimumSize(300, 60);
     btnProductView->setMinimumSize(300, 60);

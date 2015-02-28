@@ -1,7 +1,6 @@
 #include "workprocessselector.h"
 #include <QHBoxLayout>
 #include <QIcon>
-#include "iconconstants.h"
 
 WorkProcessSelector::WorkProcessSelector(QWidget *parent) : QWidget(parent),
     btnRight(new QPushButton()),

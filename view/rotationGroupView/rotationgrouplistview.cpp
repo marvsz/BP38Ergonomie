@@ -1,7 +1,6 @@
 #include "rotationgrouplistview.h"
 #include "../view/flickcharm.h"
 #include "../view/detailedlistitem.h"
-#include "../view/iconconstants.h"
 #include <QList>
 
 const QList<QStringList> RotationGroupListView::rotationGroupCaptions = QList<QStringList>() << (QStringList() << tr("Workplace Count") <<tr("Total Duration"));
@@ -49,7 +48,7 @@ void RotationGroupListView::clear(){
 
 void RotationGroupListView::addRotationGroup(int id, const QString &name, int wpCount, int totalDuration){
     QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(wpCount) << QString::number(totalDuration));
-    DetailedListItem *newListItem = new DetailedListItem(this, IconConstants::ICON_ROTATION, name, rotationGroupCaptions, true, false, true);
+    DetailedListItem *newListItem = new DetailedListItem(this, "rotationIcon", name, rotationGroupCaptions, true, false, true);
     newListItem->setID(id);
     newListItem->setValues(values);
     connect(newListItem, SIGNAL(pressed(int)), this, SLOT(dliRotationGroupClicked(int)));

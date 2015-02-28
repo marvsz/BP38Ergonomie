@@ -4,7 +4,6 @@
 #include <QDebug>
 #include "detailedlistitem.h"
 #include "flickcharm.h"
-#include "iconconstants.h"
 
 ProductView::ProductView(QWidget *parent) : SimpleNavigateableWidget(tr("Products"),parent),
     scProducts(new QScrollArea),
@@ -82,7 +81,7 @@ void ProductView::setProduct(const QString &name, const QString &number, int tot
 }
 
 void ProductView::addProduct(int id, const QString &name, const QString &productNumber, int totalPercentage){
-    DetailedListItem *newListItem = new DetailedListItem(0, IconConstants::ICON_PRODUCT, name, productItemScheme, true, false, false);
+    DetailedListItem *newListItem = new DetailedListItem(0, "productIcon", name, productItemScheme, true, false, false);
     newListItem->setID(id);
     QList<QStringList> values = QList<QStringList>() << (QStringList() << productNumber) << (QStringList() << QString::number(totalPercentage));
     newListItem->setValues(values);

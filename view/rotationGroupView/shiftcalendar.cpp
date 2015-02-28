@@ -9,7 +9,6 @@
 #include <QGridLayout>
 #include "../separator.h"
 #include "../detailedlistitem.h"
-#include "../iconconstants.h"
 
 const QList<QStringList> ShiftCalendar::rotationGroupCaptions = QList<QStringList>() << (QStringList() << tr("Duration") << tr("Workplaces"));
 
@@ -167,7 +166,7 @@ void ShiftCalendar::setEndTime(const QTime &endTime){
 
 void ShiftCalendar::addSelectionRotationGroup(int id, int duration, int workplaces, const QString &name){
     QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(duration).append(" min") << QString::number(workplaces));
-    DetailedListItem *newItem = new DetailedListItem(0, IconConstants::ICON_ROTATION, name, rotationGroupCaptions, false, false, false, true);
+    DetailedListItem *newItem = new DetailedListItem(0, "rotationIcon", name, rotationGroupCaptions, false, false, false, true);
     newItem->setValues(values);
     newItem->setID(id);
     connect(newItem, SIGNAL(addItem(int)), this, SIGNAL(createCalendarRotationGroup(int)));

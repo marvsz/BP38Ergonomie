@@ -34,7 +34,6 @@ HEADERS +=\
     $$PWD/timerView/ganttimerview.h \
     $$PWD/timerView/workprocessbutton.h \
     $$PWD/timerView/timerviewcontroller.h \
-    $$PWD/iconconstants.h \
     $$PWD/ressourceManagementView/ressourcemanagementview.h \
     $$PWD/ressourceManagementView/equipmentview.h \
     $$PWD/ressourceManagementView/transportationview.h \
@@ -111,7 +110,6 @@ SOURCES +=\
     $$PWD/timerView/ganttimerview.cpp \
     $$PWD/timerView/workprocessbutton.cpp \
     $$PWD/timerView/timerviewcontroller.cpp \
-    $$PWD/iconconstants.cpp \
     $$PWD/ressourceManagementView/ressourcemanagementview.cpp \
     $$PWD/ressourceManagementView/equipmentview.cpp \
     $$PWD/ressourceManagementView/transportationview.cpp \

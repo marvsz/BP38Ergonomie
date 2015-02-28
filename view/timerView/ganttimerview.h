@@ -8,7 +8,6 @@
 #include <QStringList>
 #include "workprocessbutton.h"
 #include "numberlineedit.h"
-#include "iconconstants.h"
 #include "spaceritemtimer.h"
 #include "../enum.h"
 

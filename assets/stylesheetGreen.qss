@@ -80,6 +80,19 @@ QPushButton#errorIcon {image: url(:/green/icons/Buttons/green/error.png); width 
 QPushButton#informationIcon {image: url(:/green/icons/Buttons/green/information.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#warningIcon {image: url(:/green/icons/Buttons/green/warning.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#quickRecordingIcon {image: url(:/green/icons/Buttons/green/quickRecording.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#greenIcon {image: url(:/green/icons/Buttons/green/green.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#blueIcon {image: url(:/green/icons/Buttons/green/blue.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#germanIcon {image: url(:/green/icons/Buttons/green/german.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#englishIco {image: url(:/green/icons/Buttons/green/english.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#resetFactoryIcon {image: url(:/green/icons/Buttons/green/resetFactory.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#equipmentIcon {image: url(:/green/icons/Buttons/green/equipment.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#workplaceIcon {image: url(:/green/icons/Buttons/green/workplace.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#commentIcon {image: url(:/green/icons/Buttons/green/comment.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#userIcon {image: url(:/green/icons/Buttons/green/user.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#transportationIcon {image: url(:/green/icons/Buttons/green/transportation.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#productIcon {image: url(:/green/icons/Buttons/green/product.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#lineIcon {image: url(:/green/icons/Buttons/green/line.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#activityIcon {image: url(:/green/icons/Buttons/green/activity.png); width 45px; height 45px; border: none; background-color: transparent;}
 
 QPushButton#cameraIcon:pressed {image: url(:/green/icons/Buttons/green/cameraPressed.png); width: 50px; height: 50px; border: none; background-color: transparent;}
 QPushButton#upIcon:pressed {image: url(:/green/icons/Buttons/green/upPressed.png); width 45px; height 45px; border: none; background-color: transparent;}

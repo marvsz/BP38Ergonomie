@@ -1,11 +1,11 @@
 #include "languagepopup.h"
 #include <QGridLayout>
-#include "iconconstants.h"
+
 
 LanguagePopUp::LanguagePopUp(QWidget *parent):
    AbstractPopUpWidget(ConfirmMode::ACCEPT, tr("Select language"), parent),
-   german(new DetailedListItem(this, IconConstants::ICON_GERMAN,  "Deutsch", QList<QStringList>(), false, true, false, false, false)),
-   english(new DetailedListItem(this, IconConstants::ICON_ENGLISH,  "English", QList<QStringList>(), false, true, false, false, false)),
+   german(new DetailedListItem(this, "germanIcon",  "Deutsch", QList<QStringList>(), false, true, false, false, false)),
+   english(new DetailedListItem(this, "englishIcon",  "English", QList<QStringList>(), false, true, false, false, false)),
    languages(new QList<DetailedListItem*>())
 {
     languages->append(german);

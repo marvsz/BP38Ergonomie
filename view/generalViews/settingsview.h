@@ -20,8 +20,8 @@ signals:
     void resetDatabase();
 
 public slots:
-    void setCurrentLanguageIcon(const QString &iconPath);
-    void setCurrentThemeIcon(const QString &iconPath);
+    void setCurrentLanguageIcon(const QString &objectName);
+    void setCurrentThemeIcon(const QString &objectName);
 
 private slots:
     void btnResetClicked();

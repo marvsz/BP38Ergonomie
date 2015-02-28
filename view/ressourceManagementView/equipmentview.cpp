@@ -3,7 +3,6 @@
 #include "flickcharm.h"
 #include "separator.h"
 #include "detailedlistitem.h"
-#include "iconconstants.h"
 
 EquipmentView::EquipmentView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Equipment"), parent),
@@ -76,7 +75,7 @@ void EquipmentView::setEquipment(const QString &name, int recoilCount, int recoi
 }
 
 void EquipmentView::addEquipment(int id, const QString &name, int recoilCount, int recoilIntensity, int vibrationCount, int vibrationIntensity){
-    DetailedListItem *newListItem = new DetailedListItem(0, IconConstants::ICON_EQUIPMENT, name, equipmentItemScheme, true, false, false);
+    DetailedListItem *newListItem = new DetailedListItem(0, "equipmentIcon", name, equipmentItemScheme, true, false, false);
     newListItem->setID(id);
     QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(recoilCount) << QString::number(recoilIntensity)) << (QStringList() << QString::number(vibrationCount) << QString::number(vibrationIntensity));
     newListItem->setValues(values);
