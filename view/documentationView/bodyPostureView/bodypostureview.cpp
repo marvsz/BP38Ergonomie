@@ -36,7 +36,7 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
     varConLegs(new VariantControl()),
     varConHead(new VariantControl()),
     qlpcQuickLegPosture(new QuickLegPostureControl()),
-    voscQuickArmPosture(new QuickLegPostureControl()),
+    voscQuickArmPosture(new QuickArmPostureControl()),
     voscQuickTrunkPosture(new VerticalOptionSelectionControl()),
     vcTrunkTilt(new ValueControl(VALUE)),
     vcTrunkSidewaysTilt(new ValueControl(VALUE)),

@@ -12,6 +12,7 @@
 #include "../databaseHandler/dbconstants.h"
 #include "../view/verticaloptionselectioncontrol.h"
 #include "../view/quicklegposturecontrol.h"
+#include "../view/quickarmposturecontrol.h"
 
 
 class BodyPostureView : public TitledWidget
@@ -91,7 +92,7 @@ private:
     VariantControl *varConHead;
 
     QuickLegPostureControl *qlpcQuickLegPosture;
-    QuickLegPostureControl *voscQuickArmPosture;
+    QuickArmPostureControl *voscQuickArmPosture;
     VerticalOptionSelectionControl *voscQuickTrunkPosture;
 
     ValueControl *vcTrunkTilt;
@@ -126,7 +127,7 @@ private:
     int legSpeci_Type;
 
     const QStringList QUICK_LEG_POSTURE_TEXTS = QStringList()<<tr("Standing")<<tr("false")<<tr("Sitting")<<"false"<<tr("Kneeling")<<"true"<<tr("Walking")<<"false"<<tr("Running")<<"false";
-    const QStringList QUICK_ARM_POSTURE_TEXTS = QStringList()<<tr("At Elbow height")<<"true"<<tr("At Shoulder height")<<"true"<<tr("At Head height")<<"true";
+    const QStringList QUICK_ARM_POSTURE_TEXTS = QStringList()<<tr("At Elbow height")<<tr("At Shoulder height")<<tr("At Head height");
     const QStringList QUICK_TRUNK_POSTURE_TEXTS = QStringList()<<tr("strong bending to the front")<<tr("light bending to the front")<<tr("no bending at all")<<tr("light bending to behind")<<tr("strong bending to behind");
     const QStringList LEFT_RIGHT_TEXTS = QStringList()<<tr("left")<<tr("right");
 };
