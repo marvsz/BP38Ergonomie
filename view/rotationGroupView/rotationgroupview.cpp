@@ -23,11 +23,16 @@ RotationGroupView::RotationGroupView(QWidget *parent) :
     lblAddWorkplace(new QLabel(tr("Add Workplace to Rotation Group"))),
     lblWorkplaceDuration(new QLabel(tr("Duration [min]:"))),
     numBxWorkplaceDuration(new NumberLineEdit()),
-    btnAdd(new QPushButton(this))
+    btnAdd(new QPushButton(this)),
+    btnAddWorkplace(new QPushButton(this))
 {
     QHBoxLayout *mainLayout = new QHBoxLayout;
     QGridLayout *leftLayout = new QGridLayout;
     QGridLayout *rightLayout = new QGridLayout;
+
+    btnAddWorkplace->setObjectName("workplaceIcon");
+    btnAddWorkplace->setFixedSize(45, 45);
+    connect(btnAddWorkplace, SIGNAL(clicked()), this, SLOT(btnAddWorkplaceClicked()));
 
     // left part:
 
@@ -50,6 +55,7 @@ RotationGroupView::RotationGroupView(QWidget *parent) :
 
     // right part:
     lblAddWorkplace->setObjectName("lblHeader");
+
     btnAdd->setObjectName("plusIcon");
     btnAdd->setFixedSize(45, 45);
     connect(btnAdd, SIGNAL(clicked()), this, SLOT(btnAddClicked()));
@@ -77,21 +83,6 @@ RotationGroupView::RotationGroupView(QWidget *parent) :
     mainLayout->addLayout(rightLayout);
     setLayout(mainLayout);
 
-
-    // DUMMY DATA
-    setRotationGroupDuration(160);
-    addRotationGroupTask(0, "Arbeitsplatz 1", 10);
-    addRotationGroupTask(1, "Arbeitsplatz 2", 20);
-    addRotationGroupTask(2, "Arbeitsplatz 3", 50);
-    addRotationGroupTask(0, "Arbeitsplatz 1", 10);
-    addRotationGroupTask(1, "Arbeitsplatz 2", 20);
-    addRotationGroupTask(2, "Arbeitsplatz 3", 50);
-
-
-    addWorkplace(0, "Arbeitsplatz 1", 10);
-    addWorkplace(1, "Arbeitsplatz 2", 20);
-    addWorkplace(2, "Arbeitsplatz 3", 50);
-
     emit selectedWorkplaceChanged(-1);
 }
 
@@ -108,6 +99,12 @@ int RotationGroupView::getSelectedWorkplace() const {
 
 int RotationGroupView::getWorkplaceDuration() const {
     return numBxWorkplaceDuration->getValue();
+}
+
+QList<QAbstractButton*> * RotationGroupView::getAdditionalNavigation() const{
+    QList<QAbstractButton*> *additions = new QList<QAbstractButton*>();
+    additions->append(btnAddWorkplace);
+    return additions;
 }
 
 // PUBLIC SLOTS
@@ -174,6 +171,10 @@ void RotationGroupView::btnAddClicked(){
         numBxWorkplaceDuration->clear();
         setSelectedWorkplace(-1);
     }
+}
+
+void RotationGroupView::btnAddWorkplaceClicked(){
+    showPopUp(PopUpType::WORKPLACE_POPUP);
 }
 
 

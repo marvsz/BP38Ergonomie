@@ -83,7 +83,7 @@ QPushButton#quickRecordingIcon {image: url(:/green/icons/Buttons/green/quickReco
 QPushButton#greenIcon {image: url(:/green/icons/Buttons/green/green.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#blueIcon {image: url(:/green/icons/Buttons/green/blue.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#germanIcon {image: url(:/green/icons/Buttons/green/german.png); width 45px; height 45px; border: none; background-color: transparent;}
-QPushButton#englishIco {image: url(:/green/icons/Buttons/green/english.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#englishIcon {image: url(:/green/icons/Buttons/green/english.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#resetFactoryIcon {image: url(:/green/icons/Buttons/green/resetFactory.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#equipmentIcon {image: url(:/green/icons/Buttons/green/equipment.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#workplaceIcon {image: url(:/green/icons/Buttons/green/workplace.png); width 45px; height 45px; border: none; background-color: transparent;}

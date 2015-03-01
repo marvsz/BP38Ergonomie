@@ -35,6 +35,7 @@
 #include "../view/popUps/activitypopup.h"
 #include "../view/popUps/languagepopup.h"
 #include "../view/popUps/themepopup.h"
+#include "../view/popUps/workplacepopup.h"
 #include "../view/documentationView/appliedforceview.h"
 #include "../view/documentationView/loadhandlingview.h"
 #include "../view/documentationView/executionconditionview.h"
@@ -73,6 +74,7 @@ private slots:
     int createWorkplace();
     void saveWorkplaceView();
     void deleteWorkplace(int id);
+    void createWorkplacePopup();
 
     void updateLineView();
     int saveSelectedLine(int id);
@@ -196,6 +198,7 @@ private:
     ActivityPopUp *activityPopUp;
     LanguagePopUp *languagePopUp;
     ThemePopUp *themePopUp;
+    WorkplacePopUp *workplacePopUp;
 
     int analyst_ID;
     int recording_ID;

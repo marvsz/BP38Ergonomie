@@ -42,12 +42,12 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
     btnRotation->setFixedSize(45, 45);
     btnRotation->setObjectName("rotationIcon");
     connect(btnRotation, SIGNAL(clicked()), this, SLOT(btnRotationClicked()));
+
     // ROTATION GROUPS
     rotationGroupListContent->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     scRotationGroups->setWidget(rotationGroupListContent);
     scRotationGroups->setWidgetResizable(true);
-    scRotationGroups->setFixedHeight(400);
-    scRotationGroups->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    scRotationGroups->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     scRotationGroups->setObjectName("saBordered");
     rotationGroupListContent->setLayout(rotationGroupListLayout);
 
@@ -128,20 +128,6 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
     setLayout(splitLayout);
 
     drawBackground();
-
-    // Dummy Data
-    addSelectionRotationGroup(0, 60, 3, "Rotationsgruppe 1");
-    addSelectionRotationGroup(1, 120, 10, "Rotationsgruppe 2");
-    addSelectionRotationGroup(2, 20, 1, "Rotationsgruppe 3");
-    addSelectionRotationGroup(3, 60, 2, "Rotationsgruppe 4");
-
-    addCalendarRotationGroup(0, 60, "Rotationsgruppe 1");
-    addCalendarBreak(1, 70, "Pause");
-    addCalendarRotationGroup(2, 60, "Rotationsgruppe 4");
-    addCalendarRotationGroup(2, 60, "Rotationsgruppe 3");
-    addCalendarBreak(1, 70, "Pause");
-    addCalendarRotationGroup(2, 60, "Rotationsgruppe 3");
-
 }
 
 

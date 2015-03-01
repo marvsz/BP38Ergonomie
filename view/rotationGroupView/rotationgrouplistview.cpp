@@ -29,12 +29,6 @@ RotationGroupListView::RotationGroupListView(QWidget *parent) :
     mainLayout->addWidget(scRotationGroups);
     setLayout(mainLayout);
 
-    // DUMMY DATA
-    addRotationGroup(0, "Rotationsgruppe 1", 3, 120);
-    addRotationGroup(1, "Rotationsgruppe 2", 10, 42);
-    addRotationGroup(2, "Rotationsgruppe 3", 40, 23);
-    addRotationGroup(3, "Rotationsgruppe 4", 1, 58);
-
 }
 
 // PUBLIC SLOTS
