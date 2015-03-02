@@ -16,7 +16,7 @@ LanguagePopUp::LanguagePopUp(QWidget *parent):
     for(int i = 0; i < languages->length(); ++i){
         DetailedListItem *language = languages->at(i);
         language->setID(i);
-        connect(language, SIGNAL(selected(int)), this, SIGNAL(languageSelected(int)));
+        connect(language, SIGNAL(selected(int)), this, SLOT(selectedLanguageChanged(int)));
         connect(this, SIGNAL(languageSelected(int)), language, SLOT(selectExclusiveWithID(int)));
         mainLayout->addWidget(language);
     }
@@ -27,4 +27,22 @@ LanguagePopUp::LanguagePopUp(QWidget *parent):
 LanguagePopUp::~LanguagePopUp()
 {
 
+}
+
+void LanguagePopUp::onEnter(){
+    //GET LANGUAGE FROM DATABASE
+    //setSelectedLanguage();
+}
+
+void LanguagePopUp::selectedLanguageChanged(int id){
+    selectedLanguageID = id;
+    emit languageSelected(id);
+}
+
+int LanguagePopUp::getSelectedLanguage() const{
+    return selectedLanguageID;
+}
+
+void LanguagePopUp::setSelectedLanguage(int id){
+    selectedLanguageChanged(id);
 }

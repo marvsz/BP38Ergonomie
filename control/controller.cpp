@@ -4,9 +4,10 @@
 #include <QFile>
 #include <QTextStream>
 
-Controller::Controller(QObject *parent, QApplication *app) :
+Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     QObject(parent),
     application(app),
+    translator(trans),
     dbHandler(new DBHandler()),
     viewCon(new ViewController()),
     analystSelectionView(new AnalystSelectionView()),
@@ -170,9 +171,10 @@ Controller::Controller(QObject *parent, QApplication *app) :
     viewCon->registerPopUp(themePopUp, PopUpType::THEME_POPUP);
     viewCon->registerPopUp(workplacePopUp, PopUpType::WORKPLACE_POPUP);
 
-    //Set the start Views
+    //Set the start Views    
     documentationView->showStartView(ViewType::BODY_POSTURE_VIEW);
     viewCon->showStartView(ViewType::ANALYST_SELECTION_VIEW);
+
 }
 //PRIVATE SLOTS
 
@@ -1322,6 +1324,21 @@ void Controller::resetDatabaseFactory(){
 }
 
 void Controller::languageChanged(){
+    int languageID = languagePopUp->getSelectedLanguage();
+    switch(languageID){
+    case(0):
+         translator->setLanguage("trans_DE");
+         settingsView->setCurrentLanguageIcon("germanIcon");
+         break;
+    case(1):
+         application->removeTranslator(translator->getCurrentTranslator());
+         settingsView->setCurrentLanguageIcon("englishIcon");
+         break;
+    default:
+         application->removeTranslator(translator->getCurrentTranslator());
+         settingsView->setCurrentLanguageIcon("englishIcon");
+         break;
+    }
     viewCon->closePopUp();
     viewCon->showMessage(tr("Language changed"), NotificationMessage::ACCEPT);
 }
