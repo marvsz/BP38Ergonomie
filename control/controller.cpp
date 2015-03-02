@@ -47,7 +47,8 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     activityPopUp(new ActivityPopUp()),
     languagePopUp(new LanguagePopUp()),
     themePopUp(new ThemePopUp()),
-    workplacePopUp(new WorkplacePopUp())
+    workplacePopUp(new WorkplacePopUp()),
+    resetPopUp(new ResetPopUp())
 {
     analyst_ID = 0;
     recording_ID = 1;
@@ -123,9 +124,9 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     connect(sendDatabasePopUp, SIGNAL(selected(int)), this, SLOT(selectedConnectionChanged(int)));
 
     connect(settingsView, SIGNAL(resetDatabase()), this, SLOT(resetDatabaseFactory()));
-    connect(settingsView, SIGNAL(resetRecordings()), this, SLOT(resetDatabaseRecording()));
     connect(languagePopUp, SIGNAL(confirm()), this, SLOT(languageChanged()));
     connect(themePopUp, SIGNAL(confirm()), this, SLOT(themeChanged()));
+    connect(resetPopUp, SIGNAL(confirm()), this, SLOT(resetSelectedEntries()));
 
     // Register Documentation Views
     documentationView->registerView(workProcessMetaDataView, ViewType::WORK_PROCESS_META_DATA_VIEW);
@@ -170,6 +171,7 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     viewCon->registerPopUp(languagePopUp, PopUpType::LANGUAGE_POPUP);
     viewCon->registerPopUp(themePopUp, PopUpType::THEME_POPUP);
     viewCon->registerPopUp(workplacePopUp, PopUpType::WORKPLACE_POPUP);
+    viewCon->registerPopUp(resetPopUp, PopUpType::RESET_POPUP);
 
     //Set the start Views    
     documentationView->showStartView(ViewType::BODY_POSTURE_VIEW);
@@ -1433,5 +1435,32 @@ void Controller::deleteWorkProcesses(int activity_ID){
     }
 }
 
+void Controller::resetSelectedEntries(){
+    QString emptyFilter = QString("");
+    if(resetPopUp->headDataSelected()){
+
+    }
+    if(resetPopUp->workplacesSelected()){
+
+    }
+    if(resetPopUp->equipmentSelected()){
+        dbHandler->deleteAll(DB_TABLES::EQUIPMENT, emptyFilter);
+    }
+    if(resetPopUp->productsSelected()){
+        dbHandler->deleteAll(DB_TABLES::PRODUCT, emptyFilter);
+    }
+    if(resetPopUp->transportationSelected()){
+        dbHandler->deleteAll(DB_TABLES::TRANSPORTATION, emptyFilter);
+    }
+    if(resetPopUp->employeeSelected()){
+
+    }
+    if(resetPopUp->shiftDataSelected()){
+
+    }
+
+    viewCon->closePopUp();
+    viewCon->showMessage(tr("Reset successful"), NotificationMessage::ACCEPT);
+}
 
 

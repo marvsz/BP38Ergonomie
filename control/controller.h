@@ -36,6 +36,7 @@
 #include "../view/popUps/languagepopup.h"
 #include "../view/popUps/themepopup.h"
 #include "../view/popUps/workplacepopup.h"
+#include "../view/popUps/resetpopup.h"
 #include "../view/documentationView/appliedforceview.h"
 #include "../view/documentationView/loadhandlingview.h"
 #include "../view/documentationView/executionconditionview.h"
@@ -151,6 +152,7 @@ private slots:
 
     void resetDatabaseRecording();
     void resetDatabaseFactory();
+    void resetSelectedEntries();
 
     void languageChanged();
     void themeChanged();
@@ -202,6 +204,7 @@ private:
     LanguagePopUp *languagePopUp;
     ThemePopUp *themePopUp;
     WorkplacePopUp *workplacePopUp;
+    ResetPopUp *resetPopUp;
 
     int analyst_ID;
     int recording_ID;

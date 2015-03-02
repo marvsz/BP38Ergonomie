@@ -74,7 +74,8 @@ HEADERS +=\
     $$PWD/popUps/languagepopup.h \
     $$PWD/iconbutton.h \
     $$PWD/popUps/themepopup.h \
-    $$PWD/popUps/workplacepopup.h
+    $$PWD/popUps/workplacepopup.h \
+    $$PWD/popUps/resetpopup.h
 
 
 
@@ -147,7 +148,8 @@ SOURCES +=\
     $$PWD/popUps/languagepopup.cpp \
     $$PWD/iconbutton.cpp \
     $$PWD/popUps/themepopup.cpp \
-    $$PWD/popUps/workplacepopup.cpp
+    $$PWD/popUps/workplacepopup.cpp \
+    $$PWD/popUps/resetpopup.cpp
 
 
 
