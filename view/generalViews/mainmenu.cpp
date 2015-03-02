@@ -12,7 +12,8 @@ MainMenu::MainMenu(QWidget *parent) :
     btnShift(new IconButton(this, "calendarIcon", tr("Shift Data"))),
     btnSettings(new QPushButton(this)),
     btnNewRecording(new QPushButton(this)),
-    btnSendDatabase(new QPushButton(this))
+    btnSendDatabase(new QPushButton(this)),
+    btnCamera(new QPushButton(this))
 
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -31,6 +32,9 @@ MainMenu::MainMenu(QWidget *parent) :
     btnNewRecording->setObjectName("quickRecordingIcon");
     btnNewRecording->setFixedSize(45, 45);
 
+    btnCamera->setObjectName("cameraIcon");
+    btnCamera->setFixedSize(45, 45);
+
     connect(btnMetaDataView, SIGNAL(clicked()), this, SLOT(btnMetaDataViewClicked()));
     connect(btnWorkplaceList, SIGNAL(clicked()), this, SLOT(btnWorkplaceListClicked()));
     connect(btnRessourceManagement, SIGNAL(clicked()), this, SLOT(btnRessourceManagementClicked()));
@@ -38,6 +42,7 @@ MainMenu::MainMenu(QWidget *parent) :
     connect(btnNewRecording, SIGNAL(clicked()), this, SLOT(btnNewRecordingClicked()));
     connect(btnSettings, SIGNAL(clicked()), this, SLOT(btnSettingsClicked()));
     connect(btnSendDatabase, SIGNAL(clicked()), this, SLOT(btnSendDatabaseClicked()));
+    connect(btnCamera, SIGNAL(clicked()), this, SLOT(btnCameraClicked()));
 
     lblViewName->setObjectName("lblHeader");
 
@@ -61,6 +66,7 @@ QList<QAbstractButton*> * MainMenu::getAdditionalNavigation() const{
     additions->append(btnSettings);
     additions->append(btnSendDatabase);
     additions->append(btnNewRecording);
+    additions->append(btnCamera);
     return additions;
 }
 
@@ -90,4 +96,8 @@ void MainMenu::btnNewRecordingClicked(){
 
 void MainMenu::btnSendDatabaseClicked(){
     emit showPopUp(PopUpType::DB_SEND_POPUP);
+}
+
+void MainMenu::btnCameraClicked(){
+    emit showPopUp(PopUpType::CAMERA_POPUP);
 }

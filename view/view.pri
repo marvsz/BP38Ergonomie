@@ -74,7 +74,11 @@ HEADERS +=\
     $$PWD/popUps/languagepopup.h \
     $$PWD/iconbutton.h \
     $$PWD/popUps/themepopup.h \
-    $$PWD/popUps/workplacepopup.h
+    $$PWD/popUps/workplacepopup.h \
+    $$PWD/popUps/camerapopup.h \
+    $$PWD/capture.h \
+    $$PWD/converter.h \
+    $$PWD/imageviewer.h
 
 
 
@@ -147,7 +151,11 @@ SOURCES +=\
     $$PWD/popUps/languagepopup.cpp \
     $$PWD/iconbutton.cpp \
     $$PWD/popUps/themepopup.cpp \
-    $$PWD/popUps/workplacepopup.cpp
+    $$PWD/popUps/workplacepopup.cpp \
+    $$PWD/popUps/camerapopup.cpp \
+    $$PWD/capture.cpp \
+    $$PWD/converter.cpp \
+    $$PWD/imageviewer.cpp
 
 
 

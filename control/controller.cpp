@@ -46,7 +46,8 @@ Controller::Controller(QObject *parent, QApplication *app) :
     activityPopUp(new ActivityPopUp()),
     languagePopUp(new LanguagePopUp()),
     themePopUp(new ThemePopUp()),
-    workplacePopUp(new WorkplacePopUp())
+    workplacePopUp(new WorkplacePopUp()),
+    cameraPopUp(new CameraPopUp())
 {
     analyst_ID = 0;
     recording_ID = 1;
@@ -169,6 +170,7 @@ Controller::Controller(QObject *parent, QApplication *app) :
     viewCon->registerPopUp(languagePopUp, PopUpType::LANGUAGE_POPUP);
     viewCon->registerPopUp(themePopUp, PopUpType::THEME_POPUP);
     viewCon->registerPopUp(workplacePopUp, PopUpType::WORKPLACE_POPUP);
+    viewCon->registerPopUp(cameraPopUp, PopUpType::CAMERA_POPUP);
 
     //Set the start Views
     documentationView->showStartView(ViewType::BODY_POSTURE_VIEW);

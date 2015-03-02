@@ -36,6 +36,7 @@
 #include "../view/popUps/languagepopup.h"
 #include "../view/popUps/themepopup.h"
 #include "../view/popUps/workplacepopup.h"
+#include "../view/popUps/camerapopup.h"
 #include "../view/documentationView/appliedforceview.h"
 #include "../view/documentationView/loadhandlingview.h"
 #include "../view/documentationView/executionconditionview.h"
@@ -199,6 +200,7 @@ private:
     LanguagePopUp *languagePopUp;
     ThemePopUp *themePopUp;
     WorkplacePopUp *workplacePopUp;
+    CameraPopUp *cameraPopUp;
 
     int analyst_ID;
     int recording_ID;
