@@ -76,7 +76,9 @@ HEADERS +=\
     $$PWD/iconbutton.h \
     $$PWD/popUps/themepopup.h \
     $$PWD/quicklegposturecontrol.h \
-    $$PWD/quickarmposturecontrol.h
+    $$PWD/quickarmposturecontrol.h \
+    $$PWD/popUps/workplacepopup.h \
+    $$PWD/popUps/resetpopup.h
 
 
 SOURCES +=\
@@ -150,6 +152,9 @@ SOURCES +=\
     $$PWD/iconbutton.cpp \
     $$PWD/popUps/themepopup.cpp \
     $$PWD/quicklegposturecontrol.cpp \
-    $$PWD/quickarmposturecontrol.cpp
+    $$PWD/quickarmposturecontrol.cpp \
+    $$PWD/popUps/workplacepopup.cpp \
+    $$PWD/popUps/resetpopup.cpp
+
 
 

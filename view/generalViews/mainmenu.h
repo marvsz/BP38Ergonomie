@@ -25,7 +25,12 @@ public:
 signals:
     void createBlankRecording();
 
+protected:
+    void changeEvent(QEvent* e);
+
 private slots:
+    void retranslate();
+
     void btnSettingsClicked();
     void btnMetaDataViewClicked();
     void btnWorkplaceListClicked();

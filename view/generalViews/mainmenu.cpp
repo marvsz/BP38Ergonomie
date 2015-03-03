@@ -91,3 +91,17 @@ void MainMenu::btnNewRecordingClicked(){
 void MainMenu::btnSendDatabaseClicked(){
     emit showPopUp(PopUpType::DB_SEND_POPUP);
 }
+
+//TRANSLATE
+void MainMenu::changeEvent(QEvent *e){
+    if(e->type() == QEvent::LanguageChange){
+        retranslate();
+    }
+}
+
+void MainMenu::retranslate(){
+    btnMetaDataView->setText(tr("Head Data"));
+    btnWorkplaceList->setText(tr("Workplaces"));
+    btnRessourceManagement->setText(tr("Ressource Management"));
+    btnShift->setText(tr("Shift Data"));
+}

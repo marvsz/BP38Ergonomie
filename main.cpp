@@ -3,6 +3,7 @@
 #include <QFile>
 #include <QTextStream>
 #include "control/controller.h"
+#include "translator.h"
 
 QString stringFromResource(const QString &resName)
 {
@@ -23,12 +24,12 @@ int main(int argc, char *argv[])
     a.setStyleSheet(stringFromResource(":/assets/stylesheet.qss"));
     a.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 
-    QTranslator translator;
-    translator.load(":/translations/ergo_trans_de");
-    a.installTranslator(&translator);
+    Translator t(&a);
+    t.loadTranslations(":/translations");
+    t.setLanguage("trans_DE");
 
 
-    Controller c(&a);
+    Controller c(0, &a, &t);
 
     return a.exec();
 }

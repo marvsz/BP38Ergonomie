@@ -6,15 +6,15 @@
 SettingsView::SettingsView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Settings"), parent),
     btnResetRecordings(new IconButton(this, "resetIcon", tr("Reset Recordings"))),
-    btnReset(new IconButton(this, "resetFactoryIcon", tr("Restore Factory Settings"))),
+    btnRestoreFactory(new IconButton(this, "resetFactoryIcon", tr("Restore Factory Settings"))),
     btnSelectLanguage(new IconButton(this, "germanIcon", tr("Change Language"))),
     btnSelectTheme(new IconButton(this, "blueIcon", tr("Change Theme")))
 {
     btnResetRecordings->setMinimumSize(320, 60);
-    connect(btnResetRecordings, SIGNAL(clicked()), this, SIGNAL(resetRecordings()));
+    connect(btnResetRecordings, SIGNAL(clicked()), this, SLOT(btnResetRecordingsClicked()));
 
-    btnReset->setMinimumSize(320, 60);
-    connect(btnReset, SIGNAL(clicked()), this, SLOT(btnResetClicked()));
+    btnRestoreFactory->setMinimumSize(320, 60);
+    connect(btnRestoreFactory, SIGNAL(clicked()), this, SLOT(btnRestoreFactoryClicked()));
 
     btnSelectLanguage->setMinimumSize(320, 60);
     connect(btnSelectLanguage, SIGNAL(clicked()), this, SLOT(btnSelectLanguageClicked()));
@@ -26,7 +26,7 @@ SettingsView::SettingsView(QWidget *parent) :
     mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Minimum, QSizePolicy::Expanding));
     mainLayout->addWidget(btnResetRecordings, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
-    mainLayout->addWidget(btnReset, 0, Qt::AlignCenter);
+    mainLayout->addWidget(btnRestoreFactory, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
     mainLayout->addWidget(btnSelectLanguage, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
@@ -35,9 +35,13 @@ SettingsView::SettingsView(QWidget *parent) :
     setLayout(mainLayout);
 }
 
-void SettingsView::btnResetClicked(){
+void SettingsView::btnRestoreFactoryClicked(){
     emit resetDatabase();
     emit showView(ViewType::ANALYST_SELECTION_VIEW);
+}
+
+void SettingsView::btnResetRecordingsClicked(){
+    emit showPopUp(PopUpType::RESET_POPUP);
 }
 
 void SettingsView::btnSelectLanguageClicked(){

@@ -1,21 +1,18 @@
-#ifndef WORKPLACEVIEW_H
-#define WORKPLACEVIEW_H
+#ifndef WORKPLACEPOPUP_H
+#define WORKPLACEPOPUP_H
 
-#include <QWidget>
+#include "../view/navigation/abstractpopupwidget.h"
 #include <QLabel>
-#include <QPushButton>
-#include <QList>
-#include "timelineedit.h"
-#include "detailedlistitem.h"
-#include "numberlineedit.h"
-#include "../navigation/simplenavigateablewidget.h"
+#include "../view/textlineedit.h"
+#include "../view/numberlineedit.h"
+#include "../view/timelineedit.h"
 
-class WorkplaceView : public SimpleNavigateableWidget
+class WorkplacePopUp : public AbstractPopUpWidget
 {
     Q_OBJECT
 public:
-    explicit WorkplaceView(QWidget *parent = 0);
-    explicit WorkplaceView(int id, QWidget *parent = 0);
+    explicit WorkplacePopUp(QWidget *parent = 0);
+    ~WorkplacePopUp();
 
     QString getName() const;
     QString getDescription() const;
@@ -29,9 +26,9 @@ public:
     QTime getCycleTime() const;
 
 signals:
-    void show(ViewType type);
 
 public slots:
+    void onEnter();
 
     void setName(const QString &name);
     void setDescription(const QString &description);
@@ -44,28 +41,22 @@ public slots:
     void setAllowanceTime(const QTime &allowance);
     void setCycleTime(const QTime &cycle);
 
-    void setLine(const QString &name, const QString &description);
-    void setComment(const QString &problemName, const QString &measureName);
-
 private slots:
-    void btnLineClicked();
-    void btnActivityClicked();
-    void btnCommentClicked();
 
 private:
-    int id;
-
     QLabel *lblName;
     QLabel *lblDescription;
     QLabel *lblCode;
-    QLabel *lblPercentageWoman;
+    QLabel *lblPercentageWomen;
 
     TextLineEdit *txtBxName;
     TextLineEdit *txtBxDescription;
     TextLineEdit *txtBxCode;
-    NumberLineEdit *numBxWomanPercentage;
+    NumberLineEdit *numBxPercentageWomen;
 
-    QLabel* lblGuidelineTimes;
+
+    QLabel *lblGuidelineTimes;
+    QLabel* lblAllowedTime;
     QLabel* lblSetupTime;
     QLabel* lblBasicTime;
     QLabel* lblRestTime;
@@ -77,12 +68,6 @@ private:
     TimeLineEdit* timeRestTime;
     TimeLineEdit* timeAllowanceTime;
     TimeLineEdit* timeCycleTime;
-
-    DetailedListItem *line;
-    DetailedListItem *activity;
-    DetailedListItem *comment;
-
-    QList<DetailedListItem*> *additions;
 };
 
-#endif // WORKPLACEVIEW_H
+#endif // WORKPLACEPOPUP_H

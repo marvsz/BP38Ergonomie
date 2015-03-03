@@ -19,10 +19,12 @@ RESOURCES += \
 
 HEADERS += \
     enum.h \
-    standardpaths.h
+    standardpaths.h \
+    translator.h
 
 SOURCES += \
-    main.cpp
+    main.cpp \
+    translator.cpp
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 

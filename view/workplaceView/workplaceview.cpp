@@ -8,20 +8,20 @@
 WorkplaceView::WorkplaceView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Workplace"), parent),
     id(-1),
-    lblName(new QLabel(tr("label:"))),
-    lblDescription(new QLabel(tr("description:"))),
-    lblCode(new QLabel(tr("workstation code:"))),
-    lblPercentageWoman(new QLabel(tr("user population:"))),
+    lblName(new QLabel(tr("Name:"))),
+    lblDescription(new QLabel(tr("Description:"))),
+    lblCode(new QLabel(tr("Code:"))),
+    lblPercentageWoman(new QLabel(tr("User population:"))),
     txtBxName(new TextLineEdit()),
     txtBxDescription(new TextLineEdit()),
     txtBxCode(new TextLineEdit()),
     numBxWomanPercentage(new NumberLineEdit()),
-    lblAllowedTime(new QLabel(tr("initial time  [mm:ss]"), this)),
-    lblSetupTime(new QLabel(tr("setup time:"), this)),
-    lblBasicTime(new QLabel(tr("basic time:"), this)),
-    lblRestTime(new QLabel(tr("rest time:"), this)),
-    lblAllowanceTime(new QLabel(tr("deploy time:"),this)),
-    lblCycleTime(new QLabel(tr("cycle time:"))),
+    lblGuidelineTimes(new QLabel(tr("Guideline times  [mm:ss]"), this)),
+    lblSetupTime(new QLabel(tr("Setup time:"), this)),
+    lblBasicTime(new QLabel(tr("Basic time:"), this)),
+    lblRestTime(new QLabel(tr("Rest time:"), this)),
+    lblAllowanceTime(new QLabel(tr("Deploy time:"),this)),
+    lblCycleTime(new QLabel(tr("Cycle time:"))),
     timeSetupTime(new TimeLineEdit(this)),
     timeBasicTime(new TimeLineEdit(this)),
     timeRestTime(new TimeLineEdit(this)),
@@ -30,7 +30,7 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     additions(new QList<DetailedListItem*>())
 
 {
-    lblAllowedTime->setObjectName("lblHeader");
+    lblGuidelineTimes->setObjectName("lblHeader");
 
     txtBxName->setPlaceholderText(tr("name of the workplace"));
     txtBxDescription->setPlaceholderText(tr("description of the workplace"));
@@ -106,7 +106,7 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addLayout(workplaceMetaDataLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
-    mainLayout->addWidget(lblAllowedTime);
+    mainLayout->addWidget(lblGuidelineTimes);
     mainLayout->addLayout(timeLayout);
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     mainLayout->addLayout(additionsLayout);
@@ -120,11 +120,41 @@ WorkplaceView::WorkplaceView(int id, QWidget *parent) : WorkplaceView(parent){
 }
 
 //public slots
-void WorkplaceView::setWorkplaceMetaData(const QString &name, const QString &description, const QString &code, int percentageWoman){
+
+void WorkplaceView::setName(const QString &name){
     txtBxName->setText(name);
+}
+
+void WorkplaceView::setDescription(const QString &description){
     txtBxDescription->setText(description);
+}
+
+void WorkplaceView::setCode(const QString &code){
     txtBxCode->setText(code);
-    numBxWomanPercentage->setValue(percentageWoman);
+}
+
+void WorkplaceView::setWomanPercentage(int womenPercentage){
+    numBxWomanPercentage->setValue(womenPercentage);
+}
+
+void WorkplaceView::setBasicTime(const QTime &basic){
+    timeBasicTime->setTime(basic);
+}
+
+void WorkplaceView::setSetupTime(const QTime &setup){
+    timeSetupTime->setTime(setup);
+}
+
+void WorkplaceView::setRestTime(const QTime &rest){
+    timeRestTime->setTime(rest);
+}
+
+void WorkplaceView::setAllowanceTime(const QTime &allowance){
+    timeAllowanceTime->setTime(allowance);
+}
+
+void WorkplaceView::setCycleTime(const QTime &cycle){
+    timeCycleTime->setTime(cycle);
 }
 
 void WorkplaceView::setLine(const QString &name, const QString &description){
@@ -135,14 +165,6 @@ void WorkplaceView::setLine(const QString &name, const QString &description){
 void WorkplaceView::setComment(const QString &problemName, const QString &measureName){
     QList<QStringList> values = QList<QStringList>() << (QStringList() << problemName) << (QStringList() << measureName);
     comment->setValues(values);
-}
-
-void WorkplaceView::setWorkplaceTimes(const QTime &basicTime, const QTime &setupTime, const QTime &restTime, const QTime &allowanceTime, const QTime &cycleTime){
-    timeBasicTime->setTime(basicTime);
-    timeSetupTime->setTime(setupTime);
-    timeRestTime->setTime(restTime);
-    timeAllowanceTime->setTime(allowanceTime);
-    timeCycleTime->setTime(cycleTime);
 }
 
 //private slots

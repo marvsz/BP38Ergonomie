@@ -4,9 +4,10 @@
 #include <QFile>
 #include <QTextStream>
 
-Controller::Controller(QObject *parent, QApplication *app) :
+Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     QObject(parent),
     application(app),
+    translator(trans),
     dbHandler(new DBHandler()),
     viewCon(new ViewController()),
     analystSelectionView(new AnalystSelectionView()),
@@ -45,7 +46,9 @@ Controller::Controller(QObject *parent, QApplication *app) :
     productPopUp(new ProductPopUp()),
     activityPopUp(new ActivityPopUp()),
     languagePopUp(new LanguagePopUp()),
-    themePopUp(new ThemePopUp())
+    themePopUp(new ThemePopUp()),
+    workplacePopUp(new WorkplacePopUp()),
+    resetPopUp(new ResetPopUp())
 {
     analyst_ID = 0;
     recording_ID = 1;
@@ -73,6 +76,7 @@ Controller::Controller(QObject *parent, QApplication *app) :
     connect(workplaceListView, SIGNAL(remove(int)), this, SLOT(deleteWorkplace(int)));
     connect(workplaceListView, SIGNAL(create()), this, SLOT(createWorkplace()));
     connect(workplaceListView, SIGNAL(selected(int)), this, SLOT(updateWorkplaceView(int)));
+    connect(workplacePopUp, SIGNAL(confirm()), this, SLOT(createWorkplacePopup()));
 
     // EMPLOYEES TODO
     //connect(employeeListView, SIGNAL(remove(int)), this, SLOT(deleteEmployee(int)));
@@ -120,9 +124,9 @@ Controller::Controller(QObject *parent, QApplication *app) :
     connect(sendDatabasePopUp, SIGNAL(selected(int)), this, SLOT(selectedConnectionChanged(int)));
 
     connect(settingsView, SIGNAL(resetDatabase()), this, SLOT(resetDatabaseFactory()));
-    connect(settingsView, SIGNAL(resetRecordings()), this, SLOT(resetDatabaseRecording()));
     connect(languagePopUp, SIGNAL(confirm()), this, SLOT(languageChanged()));
     connect(themePopUp, SIGNAL(confirm()), this, SLOT(themeChanged()));
+    connect(resetPopUp, SIGNAL(confirm()), this, SLOT(resetSelectedEntries()));
 
     // Register Documentation Views
     documentationView->registerView(workProcessMetaDataView, ViewType::WORK_PROCESS_META_DATA_VIEW);
@@ -166,10 +170,13 @@ Controller::Controller(QObject *parent, QApplication *app) :
     viewCon->registerPopUp(activityPopUp, PopUpType::ACTIVITY_POPUP);
     viewCon->registerPopUp(languagePopUp, PopUpType::LANGUAGE_POPUP);
     viewCon->registerPopUp(themePopUp, PopUpType::THEME_POPUP);
+    viewCon->registerPopUp(workplacePopUp, PopUpType::WORKPLACE_POPUP);
+    viewCon->registerPopUp(resetPopUp, PopUpType::RESET_POPUP);
 
-    //Set the start Views
+    //Set the start Views    
     documentationView->showStartView(ViewType::BODY_POSTURE_VIEW);
     viewCon->showStartView(ViewType::ANALYST_SELECTION_VIEW);
+
 }
 //PRIVATE SLOTS
 
@@ -372,10 +379,11 @@ void Controller::updateWorkplaceView(int id){
     DB_TABLES tbl = DB_TABLES::WORKPLACE;
     dbHandler->select(tbl, QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(QString::number(id)));
     QSqlRecord record = dbHandler->record(tbl, 0);
-    workplaceView->setWorkplaceMetaData(record.value(DBConstants::COL_WORKPLACE_NAME).toString(),
-                                  record.value(DBConstants::COL_WORKPLACE_DESCRIPTION).toString(),
-                                  record.value(DBConstants::COL_WORKPLACE_CODE).toString(),
-                                  record.value(DBConstants::COL_WORKPLACE_PERCENTAGE_WOMAN).toInt());
+
+    workplaceView->setName(record.value(DBConstants::COL_WORKPLACE_NAME).toString());
+    workplaceView->setDescription(record.value(DBConstants::COL_WORKPLACE_DESCRIPTION).toString());
+    workplaceView->setCode(record.value(DBConstants::COL_WORKPLACE_CODE).toString());
+    workplaceView->setWomanPercentage(record.value(DBConstants::COL_WORKPLACE_PERCENTAGE_WOMAN).toInt());
 
     QTime basicTime = QTime(0, 0);
     basicTime = basicTime.addSecs(record.value(DBConstants::COL_WORKPLACE_BASIC_TIME).toInt());
@@ -388,7 +396,11 @@ void Controller::updateWorkplaceView(int id){
     QTime cycleTime = QTime(0, 0);
     cycleTime = cycleTime.addSecs(record.value(DBConstants::COL_WORKPLACE_CYCLE_TIME).toInt());
 
-    workplaceView->setWorkplaceTimes(basicTime, setupTime, restTime, allowanceTime, cycleTime);
+    workplaceView->setBasicTime(basicTime);
+    workplaceView->setSetupTime(setupTime);
+    workplaceView->setRestTime(restTime);
+    workplaceView->setAllowanceTime(allowanceTime);
+    workplaceView->setCycleTime(cycleTime);
 
     tbl = DB_TABLES::LINE;
     if(dbHandler->select(tbl, QString("%1 = %2").arg(DBConstants::COL_LINE_ID).arg(record.value(DBConstants::COL_WORKPLACE_LINE_ID).toString())) > 0){
@@ -426,6 +438,29 @@ int Controller::createWorkplace(){
 
 void Controller::saveWorkplaceView(){
    saveWorkplace(workplace_ID);
+}
+
+void Controller::createWorkplacePopup(){
+
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(QString::number(0));
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+
+    values.insert(DBConstants::COL_WORKPLACE_NAME, workplacePopUp->getName());
+    values.insert(DBConstants::COL_WORKPLACE_DESCRIPTION, workplacePopUp->getDescription());
+    values.insert(DBConstants::COL_WORKPLACE_CODE, workplacePopUp->getCode());
+    values.insert(DBConstants::COL_WORKPLACE_PERCENTAGE_WOMAN, workplacePopUp->getWomanPercentage());
+    values.insert(DBConstants::COL_WORKPLACE_BASIC_TIME, qTimeToSeconds(workplacePopUp->getBasicTime()));
+    values.insert(DBConstants::COL_WORKPLACE_REST_TIME, qTimeToSeconds(workplacePopUp->getRestTime()));
+    values.insert(DBConstants::COL_WORKPLACE_ALLOWANCE_TIME, qTimeToSeconds(workplacePopUp->getAllowanceTime()));
+    values.insert(DBConstants::COL_WORKPLACE_SETUP_TIME, qTimeToSeconds(workplacePopUp->getSetupTime()));
+    values.insert(DBConstants::COL_WORKPLACE_CYCLE_TIME, qTimeToSeconds(workplacePopUp->getCycleTime()));
+
+    dbHandler->save(DB_TABLES::WORKPLACE, DBConstants::HASH_WORKPLACE_TYPES, values, filter, DBConstants::COL_WORKPLACE_ID);
+
+    // TODO update rotationgroupview workplaces
+    viewCon->closePopUp();
+    viewCon->showMessage(tr("Created new workplace"), NotificationMessage::ACCEPT);
+
 }
 
 void Controller::deleteWorkplace(int id){
@@ -1291,6 +1326,21 @@ void Controller::resetDatabaseFactory(){
 }
 
 void Controller::languageChanged(){
+    int languageID = languagePopUp->getSelectedLanguage();
+    switch(languageID){
+    case(0):
+         translator->setLanguage("trans_DE");
+         settingsView->setCurrentLanguageIcon("germanIcon");
+         break;
+    case(1):
+         application->removeTranslator(translator->getCurrentTranslator());
+         settingsView->setCurrentLanguageIcon("englishIcon");
+         break;
+    default:
+         application->removeTranslator(translator->getCurrentTranslator());
+         settingsView->setCurrentLanguageIcon("englishIcon");
+         break;
+    }
     viewCon->closePopUp();
     viewCon->showMessage(tr("Language changed"), NotificationMessage::ACCEPT);
 }
@@ -1385,5 +1435,32 @@ void Controller::deleteWorkProcesses(int activity_ID){
     }
 }
 
+void Controller::resetSelectedEntries(){
+    QString emptyFilter = QString("");
+    if(resetPopUp->headDataSelected()){
+
+    }
+    if(resetPopUp->workplacesSelected()){
+
+    }
+    if(resetPopUp->equipmentSelected()){
+        dbHandler->deleteAll(DB_TABLES::EQUIPMENT, emptyFilter);
+    }
+    if(resetPopUp->productsSelected()){
+        dbHandler->deleteAll(DB_TABLES::PRODUCT, emptyFilter);
+    }
+    if(resetPopUp->transportationSelected()){
+        dbHandler->deleteAll(DB_TABLES::TRANSPORTATION, emptyFilter);
+    }
+    if(resetPopUp->employeeSelected()){
+
+    }
+    if(resetPopUp->shiftDataSelected()){
+
+    }
+
+    viewCon->closePopUp();
+    viewCon->showMessage(tr("Reset successful"), NotificationMessage::ACCEPT);
+}
 
 

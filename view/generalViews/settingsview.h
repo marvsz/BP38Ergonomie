@@ -16,7 +16,6 @@ public:
         return false;
     }
 signals:
-    void resetRecordings();
     void resetDatabase();
 
 public slots:
@@ -24,13 +23,14 @@ public slots:
     void setCurrentThemeIcon(const QString &objectName);
 
 private slots:
-    void btnResetClicked();
+    void btnResetRecordingsClicked();
+    void btnRestoreFactoryClicked();
     void btnSelectLanguageClicked();
     void btnSelectThemeClicked();
 
 private:
     IconButton *btnResetRecordings;
-    IconButton *btnReset;
+    IconButton *btnRestoreFactory;
     IconButton *btnSelectLanguage;
     IconButton *btnSelectTheme;
 };

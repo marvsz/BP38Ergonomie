@@ -16,6 +16,12 @@ class RotationGroupView : public SimpleNavigateableWidget
 public:
     explicit RotationGroupView(QWidget *parent = 0);
 
+    bool hasAdditionalNavigation() const{
+        return true;
+    }
+
+    QList<QAbstractButton*> * getAdditionalNavigation() const;
+
     QString getName() const;
 
     int getWorkplaceDuration() const;
@@ -41,6 +47,7 @@ public slots:
 private slots:
     void setSelectedWorkplace(int id);
     void btnAddClicked();
+    void btnAddWorkplaceClicked();
 
 private:
     int id;
@@ -64,6 +71,7 @@ private:
     NumberLineEdit *numBxWorkplaceDuration;
 
     QPushButton *btnAdd;
+    QPushButton *btnAddWorkplace;
 
     static const QList<QStringList> rotationGroupTaskCaptions;
     static const QList<QStringList> workplaceCaptions;

@@ -35,6 +35,8 @@
 #include "../view/popUps/activitypopup.h"
 #include "../view/popUps/languagepopup.h"
 #include "../view/popUps/themepopup.h"
+#include "../view/popUps/workplacepopup.h"
+#include "../view/popUps/resetpopup.h"
 #include "../view/documentationView/appliedforceview.h"
 #include "../view/documentationView/loadhandlingview.h"
 #include "../view/documentationView/executionconditionview.h"
@@ -44,12 +46,14 @@
 #include <QCryptographicHash>
 #include <QHash>
 #include <QApplication>
+#include "translator.h"
+
 
 class Controller : QObject
 {
 Q_OBJECT
 public:
-    explicit Controller(QObject *parent = 0, QApplication *app = 0);
+    explicit Controller(QObject *parent = 0, QApplication *app = 0, Translator *trans = 0);
 
 private slots:
     void update(ViewType type);
@@ -73,6 +77,7 @@ private slots:
     int createWorkplace();
     void saveWorkplaceView();
     void deleteWorkplace(int id);
+    void createWorkplacePopup();
 
     void updateLineView();
     int saveSelectedLine(int id);
@@ -147,12 +152,14 @@ private slots:
 
     void resetDatabaseRecording();
     void resetDatabaseFactory();
+    void resetSelectedEntries();
 
     void languageChanged();
     void themeChanged();
 
 private:
     QApplication *application;
+    Translator *translator;
     DBHandler *dbHandler;
     ViewController *viewCon;
 
@@ -196,6 +203,8 @@ private:
     ActivityPopUp *activityPopUp;
     LanguagePopUp *languagePopUp;
     ThemePopUp *themePopUp;
+    WorkplacePopUp *workplacePopUp;
+    ResetPopUp *resetPopUp;
 
     int analyst_ID;
     int recording_ID;
