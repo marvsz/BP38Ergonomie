@@ -36,6 +36,10 @@ private slots:
     void armSpeciChanged(int type);
     void legSpeciChanged(int type);
 
+    void voscQuickTrunkPostureChanged(int id);
+    void voscQuickArmPostureChanged(int id);
+    void voscQuickArmPostureSpecificationChanged(int id);
+
     void vcTrunkTiltValueChanged(int value);
     void vcTrunkTiltSidewaysValueChanged(int value);
     void vcTrunkTwistValueChanged(int value);
@@ -61,6 +65,8 @@ private slots:
     void vcHeadTwistValueChanged(int value);
 
 private:
+    static const QVector<int> QUICK_TRUNK_POSTURE_VALUES;
+
     static const QVector<int> TRUNK_TILT_VALUES;
     static const QVector<int> TRUNK_TILT_SIDEWAYS_VALUES;
     static const QVector<int> TRUNK_TWIST_VALUES;

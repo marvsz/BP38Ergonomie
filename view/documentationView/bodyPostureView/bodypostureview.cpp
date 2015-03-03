@@ -4,6 +4,9 @@
 #include <QVBoxLayout>
 #include <QScrollArea>
 #include <QHBoxLayout>
+#include <QDebug>
+
+const QVector<int> BodyPostureView::QUICK_TRUNK_POSTURE_VALUES = QVector<int>()<<110<<20<<0<<-20<<-45;
 
 const QVector<int> BodyPostureView::TRUNK_TILT_VALUES = QVector<int>()<<-45<<-20<<0<<20<<45<<90<<110;
 const QVector<int> BodyPostureView::TRUNK_TILT_SIDEWAYS_VALUES = QVector<int>()<<0<<20<<45<<60<<90;
@@ -177,8 +180,14 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
     connect(vcHeadTwist, SIGNAL(valueChanged(int)), this, SLOT(vcHeadTwistValueChanged(int)));
 
     qlpcQuickLegPosture->setValues(QUICK_LEG_POSTURE_TEXTS,LEFT_RIGHT_TEXTS,tr("Quick Leg Posture"));
+
+    //connect(qlpcQuickLegPosture, SIGNAL(requestS))
     voscQuickArmPosture->setValues(QUICK_ARM_POSTURE_TEXTS,LEFT_RIGHT_TEXTS, tr("Quick Arm Posture"));
+    connect(voscQuickArmPosture, SIGNAL(selectionChanged(int)), this, SLOT(voscQuickArmPostureChanged(int)));
+    connect(voscQuickArmPosture, SIGNAL(specificationChanged(int)), this, SLOT(voscQuickArmPostureSpecificationChanged(int)));
+
     voscQuickTrunkPosture->setValues(QUICK_TRUNK_POSTURE_TEXTS, tr("Quick Trunk Posture") );
+    connect(voscQuickTrunkPosture, SIGNAL(selectionChanged(int)), this, SLOT(voscQuickTrunkPostureChanged(int)));
 
     QHBoxLayout *quickLayout = new QHBoxLayout();
     quickLayout->addWidget(qlpcQuickLegPosture);
@@ -320,6 +329,49 @@ void BodyPostureView::legSpeciChanged(int type){
     vcKneeAngle->setValue(record.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_RIGHT).toInt());
     vcAnkleAngle->setValue(record.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT).toInt());
     vcAnkleAngleSideways->setValue(record.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_SIDEWAYS_LEFT : DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_SIDEWAYS_RIGHT).toInt());
+}
+
+void BodyPostureView::voscQuickTrunkPostureChanged(int id){
+    //qDebug()<<id;
+
+    switch(id){
+
+        case 0:
+            //record.setValue(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,110);
+            vcTrunkTilt->setValue(110);
+            break;
+
+        case 1:
+            //record.setValue(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,20);
+            vcTrunkTilt->setValue(20);
+            break;
+
+        case 2:
+            //record.setValue(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,0);
+            vcTrunkTilt->setValue(0);
+            break;
+
+
+        case 3:
+            //record.setValue(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,-20);
+            vcTrunkTilt->setValue(-20);
+            break;
+
+
+        case 4:
+            //record.setValue(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,-45);
+            vcTrunkTilt->setValue(-45);
+            break;
+
+    }
+}
+
+void BodyPostureView::voscQuickArmPostureChanged(int id){
+qDebug()<<"Option"<<id;
+}
+
+void BodyPostureView::voscQuickArmPostureSpecificationChanged(int id){
+qDebug()<<"Spezifikation"<<id;
 }
 
 void BodyPostureView::vcTrunkTiltValueChanged(int value){
