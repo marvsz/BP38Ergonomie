@@ -18,7 +18,7 @@ public:
     int getSelectedID() const;
 
 signals:
-    void selectionChanged(int id);
+    void selectionChanged(int id, int sel);
     void specificationChanged(int id);
 
 public slots:

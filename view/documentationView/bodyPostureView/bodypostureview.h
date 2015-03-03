@@ -37,7 +37,7 @@ private slots:
     void legSpeciChanged(int type);
 
     void voscQuickTrunkPostureChanged(int id);
-    void voscQuickArmPostureChanged(int id);
+    void voscQuickArmPostureChanged(int id, int sel);
     void voscQuickArmPostureSpecificationChanged(int id);
 
     void vcTrunkTiltValueChanged(int value);

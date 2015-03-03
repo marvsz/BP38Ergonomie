@@ -25,13 +25,55 @@ void QuickArmPostureControl::setSelectedValue(int id){
         btnOptions.at(currentSelectedBtn->getID())->setSelected(false);
         currentSelectedBtn = btnOptions.at(id);
         currentSelectedBtn->setSelected(true);
-        emit selectionChanged(id);
+        //emit selectionChanged(id);
+        if(speciOptions.at(0)->isSelected()&&speciOptions.at(1)->isSelected()){
+            emit selectionChanged(id,2);
+        }
+        else{
+            if(speciOptions.at(0)->isSelected()){
+                emit selectionChanged(id,0);
+            }
+            if(speciOptions.at(1)->isSelected()){
+                emit selectionChanged(id,1);
+            }
+        }
+
 
     }
 }
 
 void QuickArmPostureControl::setSelectedSpecification(int id){
     if(id >= 0 && id < speciOptions.length() && currentSpeciBtn != NULL){
+        switch (id) {
+        case 0:
+            if(!speciOptions.at(0)->isSelected()){
+                speciOptions.at(0)->setSelected(true);
+                emit specificationChanged(2);
+            }
+            else{
+                if(speciOptions.at(0)->isSelected()&&speciOptions.at(1)->isSelected()){
+                    speciOptions.at(0)->setSelected(false);
+                    emit specificationChanged(1);
+                }
+            }
+            break;
+        case 1:
+            if(!speciOptions.at(1)->isSelected()){
+                speciOptions.at(1)->setSelected(true);
+                emit specificationChanged(2);
+            }
+            else{
+                if(speciOptions.at(1)->isSelected()&&speciOptions.at(0)->isSelected()){
+                    speciOptions.at(1)->setSelected(false);
+                    emit specificationChanged(0);
+                }
+            }
+            break;
+        default:
+            break;
+        }
+
+        /*
         if(currentSpeciBtn->getID() != id){
             //speciOptions.at(currentSpeciBtn->getID())->setSelected(false);
             currentSpeciBtn = speciOptions.at(id);
@@ -44,7 +86,7 @@ void QuickArmPostureControl::setSelectedSpecification(int id){
                 currentSpeciBtn = speciOptions.at(id);
                 emit specificationChanged(id);
             //}
-        }
+        }*/
     }
 }
 

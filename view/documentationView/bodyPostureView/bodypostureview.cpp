@@ -181,9 +181,8 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
 
     qlpcQuickLegPosture->setValues(QUICK_LEG_POSTURE_TEXTS,LEFT_RIGHT_TEXTS,tr("Quick Leg Posture"));
 
-    //connect(qlpcQuickLegPosture, SIGNAL(requestS))
     voscQuickArmPosture->setValues(QUICK_ARM_POSTURE_TEXTS,LEFT_RIGHT_TEXTS, tr("Quick Arm Posture"));
-    connect(voscQuickArmPosture, SIGNAL(selectionChanged(int)), this, SLOT(voscQuickArmPostureChanged(int)));
+    connect(voscQuickArmPosture, SIGNAL(selectionChanged(int,int)), this, SLOT(voscQuickArmPostureChanged(int,int)));
     connect(voscQuickArmPosture, SIGNAL(specificationChanged(int)), this, SLOT(voscQuickArmPostureSpecificationChanged(int)));
 
     voscQuickTrunkPosture->setValues(QUICK_TRUNK_POSTURE_TEXTS, tr("Quick Trunk Posture") );
@@ -337,37 +336,120 @@ void BodyPostureView::voscQuickTrunkPostureChanged(int id){
     switch(id){
 
         case 0:
-            //record.setValue(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,110);
+            record.setValue(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,110);
             vcTrunkTilt->setValue(110);
             break;
 
         case 1:
-            //record.setValue(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,20);
+            record.setValue(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,20);
             vcTrunkTilt->setValue(20);
             break;
 
         case 2:
-            //record.setValue(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,0);
+            record.setValue(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,0);
             vcTrunkTilt->setValue(0);
             break;
 
 
         case 3:
-            //record.setValue(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,-20);
+            record.setValue(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,-20);
             vcTrunkTilt->setValue(-20);
             break;
 
 
         case 4:
-            //record.setValue(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,-45);
+            record.setValue(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,-45);
             vcTrunkTilt->setValue(-45);
             break;
 
     }
 }
 
-void BodyPostureView::voscQuickArmPostureChanged(int id){
-qDebug()<<"Option"<<id;
+void BodyPostureView::voscQuickArmPostureChanged(int id, int sel){
+qDebug()<<"Option"<<id<<"Spezifikation"<<sel;
+    switch(id){
+        case 0:
+        switch(sel){
+        case 0:
+            record.setValue(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_LEFT,0);
+            vcUpperArmAngle->setValue(0);
+            record.setValue(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_LEFT,90);
+            vcForearmAngle->setValue(90);
+            break;
+
+        case 1:
+            record.setValue(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_RIGHT,0);
+            vcUpperArmAngle->setValue(0);
+            record.setValue(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_RIGHT,90);
+            vcForearmAngle->setValue(90);
+            break;
+
+        case 2:
+            record.setValue(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_RIGHT,0);
+            record.setValue(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_LEFT,0);
+            vcUpperArmAngle->setValue(0);
+            record.setValue(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_RIGHT,90);
+            record.setValue(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_LEFT,90);
+            vcForearmAngle->setValue(90);
+            break;
+        }
+
+        break;
+
+        case 1:
+        switch(sel){
+        case 0:
+            record.setValue(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_LEFT,90);
+            vcUpperArmAngle->setValue(90);
+            record.setValue(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_LEFT,180);
+            vcForearmAngle->setValue(180);
+            break;
+
+        case 1:
+            record.setValue(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_RIGHT,90);
+            vcUpperArmAngle->setValue(90);
+            record.setValue(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_RIGHT,180);
+            vcForearmAngle->setValue(180);
+            break;
+
+        case 2:
+            record.setValue(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_RIGHT,90);
+            record.setValue(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_LEFT,90);
+            vcUpperArmAngle->setValue(90);
+            record.setValue(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_RIGHT,180);
+            record.setValue(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_LEFT,180);
+            vcForearmAngle->setValue(180);
+            break;
+        }
+        break;
+
+        case 2:
+        switch(sel){
+        case 0:
+            record.setValue(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_LEFT,135);
+            vcUpperArmAngle->setValue(135);
+            record.setValue(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_LEFT,180);
+            vcForearmAngle->setValue(180);
+            break;
+
+        case 1:
+            record.setValue(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_RIGHT,135);
+            vcUpperArmAngle->setValue(135);
+            record.setValue(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_RIGHT,180);
+            vcForearmAngle->setValue(180);
+            break;
+
+        case 2:
+            record.setValue(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_RIGHT,135);
+            record.setValue(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_LEFT,135);
+            vcUpperArmAngle->setValue(135);
+            record.setValue(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_RIGHT,180);
+            record.setValue(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_LEFT,180);
+            vcForearmAngle->setValue(180);
+            break;
+        }
+        break;
+    }
 }
 
 void BodyPostureView::voscQuickArmPostureSpecificationChanged(int id){
