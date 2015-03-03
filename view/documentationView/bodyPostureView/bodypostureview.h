@@ -10,6 +10,9 @@
 #include <QLabel>
 #include <QSqlRecord>
 #include "../databaseHandler/dbconstants.h"
+#include "../view/verticaloptionselectioncontrol.h"
+#include "../view/quicklegposturecontrol.h"
+#include "../view/quickarmposturecontrol.h"
 
 
 class BodyPostureView : public TitledWidget
@@ -32,6 +35,12 @@ private slots:
     void varConRequestShowContent(const QString &name);
     void armSpeciChanged(int type);
     void legSpeciChanged(int type);
+
+    void voscQuickTrunkPostureChanged(int id);
+    void voscQuickArmPostureChanged(int id, int sel);
+    void voscQuickArmPostureSpecificationChanged(int id);
+    void qlpcQuickLegPostureChanged(int id, int speci);
+    void qlpcQuickLegPostureSpecificationChagend(int id);
 
     void vcTrunkTiltValueChanged(int value);
     void vcTrunkTiltSidewaysValueChanged(int value);
@@ -58,6 +67,8 @@ private slots:
     void vcHeadTwistValueChanged(int value);
 
 private:
+    static const QVector<int> QUICK_TRUNK_POSTURE_VALUES;
+
     static const QVector<int> TRUNK_TILT_VALUES;
     static const QVector<int> TRUNK_TILT_SIDEWAYS_VALUES;
     static const QVector<int> TRUNK_TWIST_VALUES;
@@ -82,10 +93,15 @@ private:
     static const QVector<int> ANKLE_ANGLE_VALUES;
     static const QVector<int> ANKLE_ANGLE_SIDEWAYS_VALUES;
 
+    VariantControl *varConQuick;
     VariantControl *varConTrunk;
     VariantControl *varConArms;
     VariantControl *varConLegs;
     VariantControl *varConHead;
+
+    QuickLegPostureControl *qlpcQuickLegPosture;
+    QuickArmPostureControl *voscQuickArmPosture;
+    VerticalOptionSelectionControl *voscQuickTrunkPosture;
 
     ValueControl *vcTrunkTilt;
     ValueControl *vcTrunkSidewaysTilt;
@@ -117,6 +133,11 @@ private:
     QSqlRecord record;
     int armSpeci_Type;
     int legSpeci_Type;
+
+    const QStringList QUICK_LEG_POSTURE_TEXTS = QStringList()<<tr("Standing")<<tr("false")<<tr("Sitting")<<"false"<<tr("Kneeling")<<"true"<<tr("Walking")<<"false"<<tr("Running")<<"false";
+    const QStringList QUICK_ARM_POSTURE_TEXTS = QStringList()<<tr("At Elbow height")<<tr("At Shoulder height")<<tr("At Head height");
+    const QStringList QUICK_TRUNK_POSTURE_TEXTS = QStringList()<<tr("strong bending to the front")<<tr("light bending to the front")<<tr("no bending at all")<<tr("light bending to behind")<<tr("strong bending to behind");
+    const QStringList LEFT_RIGHT_TEXTS = QStringList()<<tr("left")<<tr("right");
 };
 
 #endif // BODYPOSTUREVIEW_H

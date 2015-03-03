@@ -9,6 +9,7 @@ HEADERS +=\
     $$PWD/generalViews/mainmenu.h\
     $$PWD/documentationView/loadhandlingview.h\
     $$PWD/optionselectioncontrol.h \
+    $$PWD/verticaloptionselectioncontrol.h \
     $$PWD/documentationView/executionconditionview.h \
     $$PWD/flickcharm.h \
     $$PWD/documentationView/documentationview.h \
@@ -73,8 +74,9 @@ HEADERS +=\
     $$PWD/popUps/activitypopup.h \
     $$PWD/popUps/languagepopup.h \
     $$PWD/iconbutton.h \
-    $$PWD/popUps/themepopup.h
-
+    $$PWD/popUps/themepopup.h \
+    $$PWD/quicklegposturecontrol.h \
+    $$PWD/quickarmposturecontrol.h
 
 
 SOURCES +=\
@@ -85,6 +87,7 @@ SOURCES +=\
     $$PWD/documentationView/loadhandlingview.cpp\
     $$PWD/generalViews/mainmenu.cpp\
     $$PWD/optionselectioncontrol.cpp \
+    $$PWD/verticaloptionselectioncontrol.cpp \
     $$PWD/documentationView/executionconditionview.cpp \
     $$PWD/flickcharm.cpp \
     $$PWD/documentationView/documentationview.cpp \
@@ -145,7 +148,8 @@ SOURCES +=\
     $$PWD/popUps/activitypopup.cpp \
     $$PWD/popUps/languagepopup.cpp \
     $$PWD/iconbutton.cpp \
-    $$PWD/popUps/themepopup.cpp
-
+    $$PWD/popUps/themepopup.cpp \
+    $$PWD/quicklegposturecontrol.cpp \
+    $$PWD/quickarmposturecontrol.cpp
 
 
