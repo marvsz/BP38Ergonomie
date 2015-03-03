@@ -39,6 +39,8 @@ private slots:
     void voscQuickTrunkPostureChanged(int id);
     void voscQuickArmPostureChanged(int id, int sel);
     void voscQuickArmPostureSpecificationChanged(int id);
+    void qlpcQuickLegPostureChanged(int id, int speci);
+    void qlpcQuickLegPostureSpecificationChagend(int id);
 
     void vcTrunkTiltValueChanged(int value);
     void vcTrunkTiltSidewaysValueChanged(int value);

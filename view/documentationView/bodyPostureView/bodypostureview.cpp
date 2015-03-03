@@ -180,6 +180,8 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
     connect(vcHeadTwist, SIGNAL(valueChanged(int)), this, SLOT(vcHeadTwistValueChanged(int)));
 
     qlpcQuickLegPosture->setValues(QUICK_LEG_POSTURE_TEXTS,LEFT_RIGHT_TEXTS,tr("Quick Leg Posture"));
+    connect(qlpcQuickLegPosture, SIGNAL(selectionChanged(int,int)), this, SLOT(qlpcQuickLegPostureChanged(int,int)));
+    connect(qlpcQuickLegPosture, SIGNAL(specificationChanged(int)), this, SLOT(qlpcQuickLegPostureSpecificationChagend(int)));
 
     voscQuickArmPosture->setValues(QUICK_ARM_POSTURE_TEXTS,LEFT_RIGHT_TEXTS, tr("Quick Arm Posture"));
     connect(voscQuickArmPosture, SIGNAL(selectionChanged(int,int)), this, SLOT(voscQuickArmPostureChanged(int,int)));
@@ -335,32 +337,34 @@ void BodyPostureView::voscQuickTrunkPostureChanged(int id){
 
     switch(id){
 
-        case 0:
+    case 0:
             record.setValue(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,110);
             vcTrunkTilt->setValue(110);
             break;
 
-        case 1:
+    case 1:
             record.setValue(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,20);
             vcTrunkTilt->setValue(20);
             break;
 
-        case 2:
+    case 2:
             record.setValue(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,0);
             vcTrunkTilt->setValue(0);
             break;
 
 
-        case 3:
+    case 3:
             record.setValue(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,-20);
             vcTrunkTilt->setValue(-20);
             break;
 
 
-        case 4:
+    case 4:
             record.setValue(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,-45);
             vcTrunkTilt->setValue(-45);
             break;
+    default:
+        break;
 
     }
 }
@@ -392,6 +396,8 @@ qDebug()<<"Option"<<id<<"Spezifikation"<<sel;
             record.setValue(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_LEFT,90);
             vcForearmAngle->setValue(90);
             break;
+        default:
+            break;
         }
 
         break;
@@ -420,6 +426,8 @@ qDebug()<<"Option"<<id<<"Spezifikation"<<sel;
             record.setValue(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_LEFT,180);
             vcForearmAngle->setValue(180);
             break;
+        default:
+            break;
         }
         break;
 
@@ -447,13 +455,147 @@ qDebug()<<"Option"<<id<<"Spezifikation"<<sel;
             record.setValue(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_LEFT,180);
             vcForearmAngle->setValue(180);
             break;
+        default:
+            break;
         }
+        break;
+    default:
         break;
     }
 }
 
 void BodyPostureView::voscQuickArmPostureSpecificationChanged(int id){
 qDebug()<<"Spezifikation"<<id;
+}
+
+void BodyPostureView::qlpcQuickLegPostureChanged(int id, int speci){
+    qDebug()<<"Bein Option"<<id<<"Bein Spezifikation"<<speci;
+    switch (id) {
+    case 0:
+        record.setValue(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,180);
+        record.setValue(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,180);
+        vcHipAngle->setValue(180);
+        record.setValue(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_LEFT,180);
+        record.setValue(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_RIGHT,180);
+        vcKneeAngle->setValue(180);
+        record.setValue(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_LEFT,90);
+        record.setValue(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT,90);
+        vcAnkleAngle->setValue(90);
+        break;
+    case 1:
+        record.setValue(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,90);
+        record.setValue(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,90);
+        vcHipAngle->setValue(90);
+        record.setValue(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_LEFT,45);
+        record.setValue(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_RIGHT,45);
+        vcKneeAngle->setValue(45);
+        record.setValue(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_LEFT,90);
+        record.setValue(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT,90);
+        vcAnkleAngle->setValue(90);
+        break;
+    case 2:
+        switch(speci){
+        case 0:
+            record.setValue(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,135);
+            record.setValue(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,90);
+            vcHipAngle->setValue(90);
+            record.setValue(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_LEFT,0);
+            record.setValue(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_RIGHT,45);
+            vcKneeAngle->setValue(45);
+            record.setValue(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_LEFT,90);
+            record.setValue(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT,90);
+            vcAnkleAngle->setValue(90);
+            break;
+        case 1:
+            record.setValue(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,90);
+            record.setValue(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,135);
+            vcHipAngle->setValue(90);
+            record.setValue(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_LEFT,45);
+            record.setValue(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_RIGHT,0);
+            vcKneeAngle->setValue(45);
+            record.setValue(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_LEFT,90);
+            record.setValue(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT,90);
+            vcAnkleAngle->setValue(90);
+            break;
+        case 2:
+            record.setValue(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,135);
+            record.setValue(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,135);
+            vcHipAngle->setValue(135);
+            record.setValue(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_LEFT,0);
+            record.setValue(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_RIGHT,0);
+            vcKneeAngle->setValue(0);
+            record.setValue(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_LEFT,90);
+            record.setValue(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT,90);
+            vcAnkleAngle->setValue(90);
+            break;
+        }
+
+        break;
+    case 3:
+        record.setValue(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,180);
+        record.setValue(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,180);
+        vcHipAngle->setValue(180);
+        record.setValue(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_LEFT,180);
+        record.setValue(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_RIGHT,180);
+        vcKneeAngle->setValue(180);
+        record.setValue(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_LEFT,90);
+        record.setValue(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT,90);
+        vcAnkleAngle->setValue(90);
+        break;
+    case 4:
+        record.setValue(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,180);
+        record.setValue(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,180);
+        vcHipAngle->setValue(180);
+        record.setValue(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_LEFT,180);
+        record.setValue(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_RIGHT,180);
+        vcKneeAngle->setValue(180);
+        record.setValue(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_LEFT,90);
+        record.setValue(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT,90);
+        vcAnkleAngle->setValue(90);
+        break;
+
+    default:
+        break;
+    }
+}
+
+void BodyPostureView::qlpcQuickLegPostureSpecificationChagend(int id){
+    qDebug()<<"Bein Spezifikation"<<id;
+    switch(id){
+    case 0:
+        record.setValue(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,135);
+        record.setValue(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,90);
+        vcHipAngle->setValue(90);
+        record.setValue(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_LEFT,0);
+        record.setValue(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_RIGHT,45);
+        vcKneeAngle->setValue(45);
+        record.setValue(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_LEFT,90);
+        record.setValue(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT,90);
+        vcAnkleAngle->setValue(90);
+        break;
+    case 1:
+        record.setValue(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,90);
+        record.setValue(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,135);
+        vcHipAngle->setValue(90);
+        record.setValue(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_LEFT,45);
+        record.setValue(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_RIGHT,0);
+        vcKneeAngle->setValue(45);
+        record.setValue(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_LEFT,90);
+        record.setValue(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT,90);
+        vcAnkleAngle->setValue(90);
+        break;
+    case 2:
+        record.setValue(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,135);
+        record.setValue(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,135);
+        vcHipAngle->setValue(135);
+        record.setValue(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_LEFT,0);
+        record.setValue(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_RIGHT,0);
+        vcKneeAngle->setValue(0);
+        record.setValue(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_LEFT,90);
+        record.setValue(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT,90);
+        vcAnkleAngle->setValue(90);
+        break;
+    }
 }
 
 void BodyPostureView::vcTrunkTiltValueChanged(int value){
