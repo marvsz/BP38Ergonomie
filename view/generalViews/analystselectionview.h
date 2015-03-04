@@ -5,8 +5,8 @@
 #include "../navigation/simplenavigateablewidget.h"
 #include <QLabel>
 #include <QVBoxLayout>
-#include <view/textlineedit.h>
-#include <view/detailedlistitem.h>
+#include "../textlineedit.h"
+#include "../detailedlistitem.h"
 #include <QScrollArea>
 
 class AnalystSelectionView : public SimpleNavigateableWidget

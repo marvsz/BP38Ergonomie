@@ -11,7 +11,7 @@
 #include "../selectablevaluebutton.h"
 #include "../numberlineedit.h"
 #include "../textlineedit.h"
-#include "view/navigation/simplenavigateablewidget.h"
+#include "../navigation/simplenavigateablewidget.h"
 
 class ShiftCalendar : public SimpleNavigateableWidget
 {

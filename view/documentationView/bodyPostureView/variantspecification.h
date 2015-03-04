@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QVector>
-#include "view/selectablevaluebutton.h"
+#include "../../selectablevaluebutton.h"
 
 class VariantSpecification : public QWidget
 {

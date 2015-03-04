@@ -8,7 +8,7 @@
 #include <QHash>
 #include <QList>
 #include <QScrollArea>
-#include "view/numberlineedit.h"
+#include "../numberlineedit.h"
 #include "../navigation/simplenavigateablewidget.h"
 
 class ProductView : public SimpleNavigateableWidget

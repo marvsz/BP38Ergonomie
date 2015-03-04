@@ -2,7 +2,7 @@
 #define ANALYSTPOPUP_H
 
 #include "../navigation/abstractpopupwidget.h"
-#include "view/textlineedit.h"
+#include "../textlineedit.h"
 
 class AnalystPopUp : public AbstractPopUpWidget
 {

@@ -14,7 +14,7 @@ CameraPopUp::CameraPopUp(QWidget *parent) :
     btnSwitchCamera->setFixedSize(60, 60);
     btnSwitchCamera->setObjectName("rotationIcon");
     connect(btnSwitchCamera, SIGNAL(clicked()), this, SLOT(btnSwitchCameraClicked()));
-    btnSwitchCamera->setEnabled(capture.cameraCount() > 1);
+    btnSwitchCamera->setEnabled(false);//capture.cameraCount() > 1);
     converter.setProcessAll(false);
 
     connect(&capture, SIGNAL(matReady(cv::Mat, int)), &converter, SLOT(processFrame(cv::Mat, int)));

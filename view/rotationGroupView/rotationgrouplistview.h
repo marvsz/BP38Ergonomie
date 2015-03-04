@@ -1,7 +1,7 @@
 #ifndef ROTATIONGROUPLISTVIEW_H
 #define ROTATIONGROUPLISTVIEW_H
 
-#include "view/navigation/simplenavigateablewidget.h"
+#include "../navigation/simplenavigateablewidget.h"
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QScrollArea>

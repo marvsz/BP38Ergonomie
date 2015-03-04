@@ -1,7 +1,7 @@
 #ifndef GANTTIMERVIEW_H
 #define GANTTIMERVIEW_H
 
-#include "view/navigation/titledwidget.h"
+#include "../navigation/titledwidget.h"
 #include <QPushButton>
 #include <QLabel>
 #include <QHBoxLayout>

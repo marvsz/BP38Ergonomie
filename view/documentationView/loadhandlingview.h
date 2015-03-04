@@ -2,7 +2,7 @@
 #define LOADHANDLINGVIEW_H
 
 #include <QLabel>
-#include "view/navigation/titledwidget.h"
+#include "../navigation/titledwidget.h"
 #include <QPushButton>
 #include "../valuecontrol.h"
 

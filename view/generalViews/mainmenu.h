@@ -2,7 +2,7 @@
 #define MAINMENU_H
 
 #include "../navigation/simplenavigateablewidget.h"
-#include "view/iconbutton.h"
+#include "../iconbutton.h"
 #include <QPushButton>
 #include <QWidget>
 #include <QLabel>

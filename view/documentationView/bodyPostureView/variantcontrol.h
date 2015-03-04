@@ -5,8 +5,8 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include "view/selectablevaluebutton.h"
-#include "view/valuecontrol.h"
+#include "../../selectablevaluebutton.h"
+#include "../../valuecontrol.h"
 #include "variantspecification.h"
 
 class VariantControl : public QWidget

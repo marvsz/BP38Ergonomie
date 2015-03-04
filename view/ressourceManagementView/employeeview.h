@@ -5,10 +5,10 @@
 #include <QLabel>
 #include <QVector>
 #include <QPushButton>
-#include "view/optionselectioncontrol.h"
-#include "view/textedit.h"
-#include "view/textlineedit.h"
-#include "view/valuecontrol.h"
+#include "../optionselectioncontrol.h"
+#include "../textedit.h"
+#include "../textlineedit.h"
+#include "../valuecontrol.h"
 #include "../navigation/simplenavigateablewidget.h"
 
 class EmployeeView : public SimpleNavigateableWidget

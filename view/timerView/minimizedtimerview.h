@@ -8,7 +8,7 @@
 #include <QTime>
 #include "workprocesstypepicker.h"
 #include "workprocessselector.h"
-#include "enum.h"
+#include "../../enum.h"
 
 class MinimizedTimerView : public QWidget
 {
