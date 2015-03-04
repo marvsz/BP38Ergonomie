@@ -24,11 +24,13 @@ public slots:
     void setCurrentThemeIcon(const QString &objectName);
 
 private slots:
+    void btnImportDataClicked();
     void btnResetClicked();
     void btnSelectLanguageClicked();
     void btnSelectThemeClicked();
 
 private:
+    IconButton *btnImportData;
     IconButton *btnResetRecordings;
     IconButton *btnReset;
     IconButton *btnSelectLanguage;

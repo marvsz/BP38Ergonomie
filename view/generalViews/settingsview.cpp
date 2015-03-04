@@ -5,11 +5,14 @@
 
 SettingsView::SettingsView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Settings"), parent),
+    btnImportData(new IconButton(this, "importData", tr("Import Data"))),
     btnResetRecordings(new IconButton(this, "resetIcon", tr("Reset Recordings"))),
     btnReset(new IconButton(this, "resetFactoryIcon", tr("Restore Factory Settings"))),
     btnSelectLanguage(new IconButton(this, "germanIcon", tr("Change Language"))),
     btnSelectTheme(new IconButton(this, "blueIcon", tr("Change Theme")))
 {
+    btnImportData->setMinimumSize(320, 60);
+    connect(btnImportData, SIGNAL(clicked()), this, SLOT(btnImportDataClicked()));
     btnResetRecordings->setMinimumSize(320, 60);
     connect(btnResetRecordings, SIGNAL(clicked()), this, SIGNAL(resetRecordings()));
 
@@ -24,6 +27,8 @@ SettingsView::SettingsView(QWidget *parent) :
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Minimum, QSizePolicy::Expanding));
+    mainLayout->addWidget(btnImportData, 0, Qt::AlignCenter);
+    mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
     mainLayout->addWidget(btnResetRecordings, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
     mainLayout->addWidget(btnReset, 0, Qt::AlignCenter);
@@ -33,6 +38,10 @@ SettingsView::SettingsView(QWidget *parent) :
     mainLayout->addWidget(btnSelectTheme, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Minimum, QSizePolicy::Expanding));
     setLayout(mainLayout);
+}
+
+void SettingsView::btnImportDataClicked(){
+    emit showPopUp(PopUpType::IMPORT_DATA_POPUP);
 }
 
 void SettingsView::btnResetClicked(){

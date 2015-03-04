@@ -1,19 +1,26 @@
-#ifndef SENDDATABASEPOPUP_H
-#define SENDDATABASEPOPUP_H
+#ifndef IMPORTDATAPOPUP_H
+#define IMPORTDATAPOPUP_H
 
 #include "../view/navigation/abstractpopupwidget.h"
 #include "iftpconnections.h"
 #include "ftpconnectionswidget.h"
 
-class SendDatabasePopUp : public AbstractPopUpWidget, public IFTPConnections
+class ImportDataPopUp : public AbstractPopUpWidget, public IFTPConnections
 {
     Q_OBJECT
     Q_INTERFACES(IFTPConnections)
-
 public:
-    explicit SendDatabasePopUp(QWidget *parent = 0);
-    ~SendDatabasePopUp();
+    explicit ImportDataPopUp(QWidget *parent = 0);
+    ~ImportDataPopUp();
 
+    QString getImportMode() const;
+    bool importTransportations() const;
+    bool importEquipments() const;
+    bool importProducts() const;
+    bool importEmployees() const;
+    bool importWorkplaces() const;
+
+    //Inherited from IFTPConnections
     QString getName() const;
     void setName(const QString &name);
     QString getUserName() const;
@@ -41,13 +48,15 @@ public slots:
 private slots:
     void selectedConnectionChanged(int id);
 
-    void startedUpload();
-    void finishedUpload(const QString filename);
-    void errorDurringUpload(const QString &error);
-
 private:
+    int countFinDownload;
     FTPConnectionsWidget *ftpConnectionWidget;
-
+    QComboBox *cmbxImportMethod;
+    QCheckBox *chBxTransportation;
+    QCheckBox *chBxEquipment;
+    QCheckBox *chBxProduct;
+    QCheckBox *chBxEmployee;
+    QCheckBox *chBxWorkplace;
 };
 
-#endif // SENDDATABASEPOPUP_H
+#endif // IMPORTDATAPOPUP_H

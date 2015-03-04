@@ -59,16 +59,25 @@ void NotificationMessage::processMessageQueue(){
             default: this->setIcon(QIcon(":/blue/icons/Buttons/blue/information.png")); break;
         }
         this->setText(msg.text);
-        int length = msg.text.length();
+        /*int length = msg.text.length();
         int width = 40 + (length > 30 ? 30 : length) * 10;
         int height = 42;
         if (length > 30)
-            height += 35 * length / 30;
-        int xPos = this->x() + (this->width() - width) / 2;
-        int yPos = this->y() + (this->height() - height);
-        this->setGeometry(xPos, yPos, width, height);
+            height += 35 * length / 30;*/
+
+        int oldWidth = this->width();
+        int oldHeight = this->height();
+        this->adjustSize();
+
+        //int xPos = this->x() + (this->width() - width) / 2;
+        //int yPos = this->y() + (this->height() - height);
+        int xPos = this->x() + (oldWidth - this->width()) / 2;
+        int yPos = this->y() + (oldHeight - this->height());
+        this->setGeometry(xPos, yPos, this->width(), this->height());
+
         this->show();
         update();
+
     }
 }
 

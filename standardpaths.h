@@ -42,6 +42,10 @@ public:
         return QString("%1/%2/%3").arg(StandardPaths::writeableLocation()).arg("screenshots").arg("screenshot.png");
     }
 
+    static QString xmlDirectoryPath(){
+        return QString("%1/%2").arg(StandardPaths::writeableLocation()).arg("xmlData");
+    }
+
 };
 
 #endif // STANDARDPATHS_H

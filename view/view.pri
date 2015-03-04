@@ -74,7 +74,10 @@ HEADERS +=\
     $$PWD/popUps/languagepopup.h \
     $$PWD/iconbutton.h \
     $$PWD/popUps/themepopup.h \
-    $$PWD/popUps/workplacepopup.h
+    $$PWD/popUps/workplacepopup.h \
+    $$PWD/popUps/importdatapopup.h \
+    $$PWD/ftpconnectionswidget.h \
+    $$PWD/popUps/iftpconnections.h
 
 
 
@@ -147,7 +150,9 @@ SOURCES +=\
     $$PWD/popUps/languagepopup.cpp \
     $$PWD/iconbutton.cpp \
     $$PWD/popUps/themepopup.cpp \
-    $$PWD/popUps/workplacepopup.cpp
+    $$PWD/popUps/workplacepopup.cpp \
+    $$PWD/popUps/importdatapopup.cpp \
+    $$PWD/ftpconnectionswidget.cpp
 
 
 

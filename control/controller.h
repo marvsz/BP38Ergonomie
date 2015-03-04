@@ -4,6 +4,8 @@
 #include <QObject>
 #include "../databaseHandler/dbhandler.h"
 #include "../view/navigation/viewcontroller.h"
+#include "../xmlHandler/xmlparser.h"
+#include "standardpaths.h"
 #include "../view/generalViews/mainmenu.h"
 #include "../view/generalViews/metadataview.h"
 #include "../view/workplaceView/activityview.h"
@@ -36,6 +38,8 @@
 #include "../view/popUps/languagepopup.h"
 #include "../view/popUps/themepopup.h"
 #include "../view/popUps/workplacepopup.h"
+#include "../view/popUps/importdatapopup.h"
+#include "../view/popUps/iftpconnections.h"
 #include "../view/documentationView/appliedforceview.h"
 #include "../view/documentationView/loadhandlingview.h"
 #include "../view/documentationView/executionconditionview.h"
@@ -48,7 +52,7 @@
 
 class Controller : QObject
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     explicit Controller(QObject *parent = 0, QApplication *app = 0);
 
@@ -75,6 +79,7 @@ private slots:
     void saveWorkplaceView();
     void deleteWorkplace(int id);
     void createWorkplacePopup();
+    void createWorkplace(QHash<QString, QVariant> values, QList<QHash<QString, QVariant>> activityValues);
 
     void updateLineView();
     int saveSelectedLine(int id);
@@ -99,20 +104,24 @@ private slots:
     void updateProductView();
     void createProduct();
     void createProductPopUp();
+    void createProduct(QHash<QString, QVariant> values);
     void deleteProduct(int id);
 
     void updateEquipmentView();
     void createEquipment();
     void createEquipmentPopUp();
+    void createEquipment(QHash<QString, QVariant> values);
     void deleteEquipment(int id);
 
     void updateTransportationView();
     void createTransportation();
     void createTransportationPopUp();
+    void createTransportation(QHash<QString, QVariant> values);
     void deleteTransportation(int id);
 
     void updateEmployeeView();
     void saveEmployeeView();
+    void createEmployee(QHash<QString, QVariant> values, QHash<QString, QVariant> bodyMeasurementValues);
 
     void updateBodyMeasurementView();
     void saveBodyMeasurementView();
@@ -142,10 +151,14 @@ private slots:
 
     void updateDocumentationViewRessources();
 
-    void updateSendDatabasePopUp();
-    void selectedConnectionChanged(int id);
-    void createConnection();
-    void editConnection(int id);
+    void updateFTPConnectionPopUp(IFTPConnections *widget);
+    void selectedConnectionChanged(IFTPConnections *widget, int id);
+    void createConnection(IFTPConnections *widget);
+    void editConnection(IFTPConnections *widget, int id);
+
+    void parseImportData();
+    void importDataDownloadFinished(const QString filename);
+    void importDataDownloadError(const QString &error);
 
     void resetDatabaseRecording();
     void resetDatabaseFactory();
@@ -199,6 +212,7 @@ private:
     LanguagePopUp *languagePopUp;
     ThemePopUp *themePopUp;
     WorkplacePopUp *workplacePopUp;
+    ImportDataPopUp *importDataPopUp;
 
     int analyst_ID;
     int recording_ID;
@@ -213,6 +227,9 @@ private:
     int bodyPosture_ID;
     int employee_ID;
     int bodyMeasurement_ID;
+
+    IImportDataParser *parser;
+    QString downloadDir;
 
 
     int saveWorkplace(int id);
