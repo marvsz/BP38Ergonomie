@@ -75,11 +75,20 @@ HEADERS +=\
     $$PWD/popUps/languagepopup.h \
     $$PWD/iconbutton.h \
     $$PWD/popUps/themepopup.h \
+<<<<<<< HEAD
     $$PWD/quicklegposturecontrol.h \
     $$PWD/quickarmposturecontrol.h \
     $$PWD/popUps/workplacepopup.h \
     $$PWD/popUps/resetpopup.h \
     $$PWD/popUps/employeepopup.h
+=======
+    $$PWD/popUps/workplacepopup.h \
+    $$PWD/popUps/camerapopup.h \
+    $$PWD/capture.h \
+    $$PWD/converter.h \
+    $$PWD/imageviewer.h
+
+>>>>>>> camera
 
 
 SOURCES +=\
@@ -152,11 +161,19 @@ SOURCES +=\
     $$PWD/popUps/languagepopup.cpp \
     $$PWD/iconbutton.cpp \
     $$PWD/popUps/themepopup.cpp \
+<<<<<<< HEAD
     $$PWD/quicklegposturecontrol.cpp \
     $$PWD/quickarmposturecontrol.cpp \
     $$PWD/popUps/workplacepopup.cpp \
     $$PWD/popUps/resetpopup.cpp \
     $$PWD/popUps/employeepopup.cpp
+=======
+    $$PWD/popUps/workplacepopup.cpp \
+    $$PWD/popUps/camerapopup.cpp \
+    $$PWD/capture.cpp \
+    $$PWD/converter.cpp \
+    $$PWD/imageviewer.cpp
+>>>>>>> camera
 
 
 

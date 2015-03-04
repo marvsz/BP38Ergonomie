@@ -6,7 +6,7 @@
 #include <QComboBox>
 #include <QHash>
 #include <QStack>
-#include "timerView/timerviewcontroller.h"
+#include "../view/timerView/timerviewcontroller.h"
 /**
  * @brief The DocumentationView contains all view elements needed when
  * documenting a workflow.

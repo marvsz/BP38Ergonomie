@@ -38,6 +38,7 @@ private slots:
     void btnShiftClicked();
     void btnNewRecordingClicked();
     void btnSendDatabaseClicked();
+    void btnCameraClicked();
 
 private:
     QLabel *lblViewName;
@@ -48,6 +49,7 @@ private:
     QPushButton *btnSettings;
     QPushButton *btnNewRecording;
     QPushButton *btnSendDatabase;
+    QPushButton *btnCamera;
 
 };
 
