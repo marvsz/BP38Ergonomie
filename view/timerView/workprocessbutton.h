@@ -1,7 +1,7 @@
 #ifndef WORKPROCESSBUTTON_H
 #define WORKPROCESSBUTTON_H
 
-#include "selectablevaluebutton.h"
+#include "../selectablevaluebutton.h"
 #include <QTime>
 
 class WorkProcessButton : public SelectableValueButton

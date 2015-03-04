@@ -2,8 +2,8 @@
 #define THEMEPOPUP_H
 
 #include <QList>
-#include "../view/navigation/abstractpopupwidget.h"
-#include "../view/detailedlistitem.h"
+#include "view/navigation/abstractpopupwidget.h"
+#include "view/detailedlistitem.h"
 
 class ThemePopUp : public AbstractPopUpWidget
 {

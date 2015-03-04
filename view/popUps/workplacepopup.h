@@ -1,11 +1,11 @@
 #ifndef WORKPLACEPOPUP_H
 #define WORKPLACEPOPUP_H
 
-#include "../view/navigation/abstractpopupwidget.h"
+#include "view/navigation/abstractpopupwidget.h"
 #include <QLabel>
-#include "../view/textlineedit.h"
-#include "../view/numberlineedit.h"
-#include "../view/timelineedit.h"
+#include "view/textlineedit.h"
+#include "view/numberlineedit.h"
+#include "view/timelineedit.h"
 
 class WorkplacePopUp : public AbstractPopUpWidget
 {

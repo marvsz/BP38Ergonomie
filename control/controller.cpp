@@ -48,12 +48,9 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     languagePopUp(new LanguagePopUp()),
     themePopUp(new ThemePopUp()),
     workplacePopUp(new WorkplacePopUp()),
-<<<<<<< HEAD
     resetPopUp(new ResetPopUp()),
-    employeePopUp(new EmployeePopUp())
-=======
+    employeePopUp(new EmployeePopUp()),
     cameraPopUp(new CameraPopUp())
->>>>>>> camera
 {
     analyst_ID = 0;
     recording_ID = 1;
@@ -177,12 +174,9 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     viewCon->registerPopUp(languagePopUp, PopUpType::LANGUAGE_POPUP);
     viewCon->registerPopUp(themePopUp, PopUpType::THEME_POPUP);
     viewCon->registerPopUp(workplacePopUp, PopUpType::WORKPLACE_POPUP);
-<<<<<<< HEAD
     viewCon->registerPopUp(resetPopUp, PopUpType::RESET_POPUP);
     viewCon->registerPopUp(employeePopUp,PopUpType::EMPlOYEE_POPUP);
-=======
     viewCon->registerPopUp(cameraPopUp, PopUpType::CAMERA_POPUP);
->>>>>>> camera
 
     //Set the start Views    
     documentationView->showStartView(ViewType::BODY_POSTURE_VIEW);

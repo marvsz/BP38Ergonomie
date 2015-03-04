@@ -6,8 +6,8 @@
 #include <QScrollArea>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include "textlineedit.h"
-#include "numberlineedit.h"
+#include "view/textlineedit.h"
+#include "view/numberlineedit.h"
 #include "../navigation/simplenavigateablewidget.h"
 
 class EquipmentView : public SimpleNavigateableWidget

@@ -1,8 +1,8 @@
 #ifndef MAINMENU_H
 #define MAINMENU_H
 
-#include "navigation/simplenavigateablewidget.h"
-#include "../view/iconbutton.h"
+#include "../navigation/simplenavigateablewidget.h"
+#include "view/iconbutton.h"
 #include <QPushButton>
 #include <QWidget>
 #include <QLabel>

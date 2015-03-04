@@ -1,12 +1,12 @@
 #ifndef DOCUMENTATIONVIEW_H
 #define DOCUMENTATIONVIEW_H
 
-#include "../view/navigation/simplenavigateablewidget.h"
+#include "view/navigation/simplenavigateablewidget.h"
 #include <QStackedWidget>
 #include <QComboBox>
 #include <QHash>
 #include <QStack>
-#include "../view/timerView/timerviewcontroller.h"
+#include "view/timerView/timerviewcontroller.h"
 /**
  * @brief The DocumentationView contains all view elements needed when
  * documenting a workflow.

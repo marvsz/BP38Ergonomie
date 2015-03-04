@@ -7,8 +7,8 @@
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QScrollArea>
-#include "textlineedit.h"
-#include "numberlineedit.h"
+#include "../textlineedit.h"
+#include "../numberlineedit.h"
 #include "../navigation/simplenavigateablewidget.h"
 
 class ActivityView : public SimpleNavigateableWidget

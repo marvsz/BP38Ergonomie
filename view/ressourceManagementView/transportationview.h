@@ -5,9 +5,9 @@
 #include <QLabel>
 #include <QScrollArea>
 #include <QVBoxLayout>
-#include "optionselectioncontrol.h"
-#include "textlineedit.h"
-#include "numberlineedit.h"
+#include "view/optionselectioncontrol.h"
+#include "view/textlineedit.h"
+#include "view/numberlineedit.h"
 #include "../navigation/simplenavigateablewidget.h"
 
 class TransportationView : public SimpleNavigateableWidget

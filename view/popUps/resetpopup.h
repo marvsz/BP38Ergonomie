@@ -1,8 +1,8 @@
 #ifndef RESETPOPUP_H
 #define RESETPOPUP_H
 
-#include "navigation/abstractpopupwidget.h"
-#include "detailedlistitem.h"
+#include "../navigation/abstractpopupwidget.h"
+#include "../detailedlistitem.h"
 
 class ResetPopUp : public AbstractPopUpWidget
 {

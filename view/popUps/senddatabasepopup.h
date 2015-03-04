@@ -1,8 +1,8 @@
 #ifndef SENDDATABASEPOPUP_H
 #define SENDDATABASEPOPUP_H
 
-#include "../view/navigation/abstractpopupwidget.h"
-#include "numberlineedit.h"
+#include "view/navigation/abstractpopupwidget.h"
+#include "../numberlineedit.h"
 #include <QComboBox>
 #include <QCheckBox>
 

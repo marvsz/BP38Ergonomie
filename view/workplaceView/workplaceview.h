@@ -5,9 +5,9 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QList>
-#include "timelineedit.h"
-#include "detailedlistitem.h"
-#include "numberlineedit.h"
+#include "../timelineedit.h"
+#include "../detailedlistitem.h"
+#include "../numberlineedit.h"
 #include "../navigation/simplenavigateablewidget.h"
 
 class WorkplaceView : public SimpleNavigateableWidget

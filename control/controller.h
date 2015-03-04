@@ -36,12 +36,9 @@
 #include "../view/popUps/languagepopup.h"
 #include "../view/popUps/themepopup.h"
 #include "../view/popUps/workplacepopup.h"
-<<<<<<< HEAD
 #include "../view/popUps/resetpopup.h"
 #include "../view/popUps/employeepopup.h"
-=======
 #include "../view/popUps/camerapopup.h"
->>>>>>> camera
 #include "../view/documentationView/appliedforceview.h"
 #include "../view/documentationView/loadhandlingview.h"
 #include "../view/documentationView/executionconditionview.h"
@@ -210,12 +207,9 @@ private:
     LanguagePopUp *languagePopUp;
     ThemePopUp *themePopUp;
     WorkplacePopUp *workplacePopUp;
-<<<<<<< HEAD
     ResetPopUp *resetPopUp;
     EmployeePopUp *employeePopUp;
-=======
     CameraPopUp *cameraPopUp;
->>>>>>> camera
 
     int analyst_ID;
     int recording_ID;

@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QTime>
 #include <QList>
-#include "../enum.h"
+#include "enum.h"
 #include "minimizedtimerview.h"
 #include "maximizedtimerview.h"
 #include "ganttimerview.h"

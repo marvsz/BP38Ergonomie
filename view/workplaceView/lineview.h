@@ -8,9 +8,9 @@
 #include <QCheckBox>
 #include <QVBoxLayout>
 #include <QScrollArea>
-#include "detailedlistitem.h"
-#include "numberlineedit.h"
-#include "textedit.h"
+#include "../detailedlistitem.h"
+#include "../numberlineedit.h"
+#include "../textedit.h"
 #include "../navigation/simplenavigateablewidget.h"
 
 class LineView : public SimpleNavigateableWidget

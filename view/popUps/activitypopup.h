@@ -1,11 +1,11 @@
 #ifndef ACTIVITYPOPUP_H
 #define ACTIVITYPOPUP_H
 
-#include "../view/navigation/abstractpopupwidget.h"
+#include "view/navigation/abstractpopupwidget.h"
 #include <QScrollArea>
 #include <QVBoxLayout>
-#include "../view/textlineedit.h"
-#include "../view/numberlineedit.h"
+#include "view/textlineedit.h"
+#include "view/numberlineedit.h"
 
 class ActivityPopUp : public AbstractPopUpWidget
 {
