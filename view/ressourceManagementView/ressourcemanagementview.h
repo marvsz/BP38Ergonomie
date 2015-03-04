@@ -2,8 +2,7 @@
 #define RESSOURCEMANAGEMENTVIEW_H
 
 #include <QWidget>
-#include "../view/iconbutton.h"
-#include <QLabel>
+#include "../iconbutton.h"
 #include "../navigation/simplenavigateablewidget.h"
 
 class RessourceManagementView : public SimpleNavigateableWidget

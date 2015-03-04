@@ -1,7 +1,7 @@
 #include "employeelistview.h"
 
 #include <QList>
-#include "../view/flickcharm.h"
+#include "../flickcharm.h"
 
 const QList<QStringList> EmployeeListView::employeeCaptions = QList<QStringList>() <<(QStringList() << tr("Description"));
 

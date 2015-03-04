@@ -3,7 +3,7 @@
 #include "QVBoxLayout"
 #include "QHBoxLayout"
 #include <QSpacerItem>
-#include "separator.h"
+#include "../separator.h"
 
 EmployeeView::EmployeeView(QWidget *parent) : SimpleNavigateableWidget(tr("Worker Data"), parent),
     lblGender(new QLabel(tr("Gender:"))),

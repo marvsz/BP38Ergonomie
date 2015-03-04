@@ -1,13 +1,13 @@
 #ifndef FEEDBACKPOPUP_H
 #define FEEDBACKPOPUP_H
 
-#include "navigation/abstractpopupwidget.h"
+#include "../navigation/abstractpopupwidget.h"
 #include <QPushButton>
 #include <QLabel>
 #include <QComboBox>
 #include <QCheckBox>
-#include "textlineedit.h"
-#include "textedit.h"
+#include "../textlineedit.h"
+#include "../textedit.h"
 
 class FeedbackPopUp : public AbstractPopUpWidget
 {

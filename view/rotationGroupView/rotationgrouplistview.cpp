@@ -1,6 +1,6 @@
 #include "rotationgrouplistview.h"
-#include "../view/flickcharm.h"
-#include "../view/detailedlistitem.h"
+#include "../flickcharm.h"
+#include "../detailedlistitem.h"
 #include <QList>
 
 const QList<QStringList> RotationGroupListView::rotationGroupCaptions = QList<QStringList>() << (QStringList() << tr("Workplace Count") <<tr("Total Duration"));

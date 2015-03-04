@@ -1,7 +1,7 @@
 #include "bodymeasurementview.h"
-#include "separator.h"
+#include "../separator.h"
 #include <QScrollArea>
-#include "flickcharm.h"
+#include "../flickcharm.h"
 
 BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWidget(tr("Body Measurements"), parent),
     vcHeadNeck(new ValueControl(VALUE)),

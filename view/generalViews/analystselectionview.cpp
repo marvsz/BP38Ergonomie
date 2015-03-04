@@ -1,6 +1,6 @@
 #include "analystselectionview.h"
-#include "separator.h"
-#include "flickcharm.h"
+#include "../separator.h"
+#include "../flickcharm.h"
 
 AnalystSelectionView::AnalystSelectionView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Analyst selection"), parent),

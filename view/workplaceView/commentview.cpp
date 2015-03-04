@@ -1,7 +1,7 @@
 #include "commentview.h"
 #include <QGridLayout>
 #include <QVBoxLayout>
-#include "separator.h"
+#include "../separator.h"
 
 CommentView::CommentView(QWidget *parent) : SimpleNavigateableWidget(tr("Remarks"), parent),
     lblProblem(new QLabel(tr("problems"))),

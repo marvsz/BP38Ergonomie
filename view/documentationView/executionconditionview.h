@@ -1,10 +1,11 @@
 #ifndef EXECUTIONCONDITIONVIEW_H
 #define EXECUTIONCONDITIONVIEW_H
 
-#include "../view/navigation/titledwidget.h"
+
+#include "../navigation/titledwidget.h"
 #include <QLabel>
-#include "slidercontrol.h"
-#include "optionselectioncontrol.h"
+#include "../slidercontrol.h"
+#include "../optionselectioncontrol.h"
 
 class ExecutionConditionView : public TitledWidget
 {

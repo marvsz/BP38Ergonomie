@@ -2,7 +2,7 @@
 #include <QIcon>
 #include <QVBoxLayout>
 #include <QGridLayout>
-#include "separator.h"
+#include "../separator.h"
 
 RessourceManagementView::RessourceManagementView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Ressource Management"), parent),

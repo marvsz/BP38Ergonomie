@@ -1,8 +1,8 @@
 #ifndef ANALYSTPOPUP_H
 #define ANALYSTPOPUP_H
 
-#include "navigation/abstractpopupwidget.h"
-#include "textlineedit.h"
+#include "../navigation/abstractpopupwidget.h"
+#include "../textlineedit.h"
 
 class AnalystPopUp : public AbstractPopUpWidget
 {

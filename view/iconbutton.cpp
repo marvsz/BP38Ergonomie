@@ -25,6 +25,12 @@ IconButton::IconButton(QWidget *parent, const QString &objectName, const QString
 
 void IconButton::setIcon(const QString &objectName){
     lblIcon->setObjectName(objectName);
+    lblIcon->style()->unpolish(lblIcon);
+    lblIcon->style()->polish(lblIcon);
+}
+
+void IconButton::setText(const QString &text){
+    lblText->setText(text);
 }
 
 void IconButton::paintEvent(QPaintEvent *e){

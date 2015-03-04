@@ -1,12 +1,12 @@
 #ifndef WORKPROCESSMETADATAVIEW_H
 #define WORKPROCESSMETADATAVIEW_H
 
-#include "../view/navigation/titledwidget.h"
+#include "../navigation/titledwidget.h"
 #include <QLabel>
 #include <QPushButton>
-#include "numberlineedit.h"
-#include "valuecontrol.h"
-#include "optionselectioncontrol.h"
+#include "../numberlineedit.h"
+#include "../valuecontrol.h"
+#include "../optionselectioncontrol.h"
 
 class WorkProcessMetaDataView : public TitledWidget
 {

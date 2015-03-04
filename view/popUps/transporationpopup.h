@@ -1,9 +1,9 @@
 #ifndef TRANSPORATIONPOPUP_H
 #define TRANSPORATIONPOPUP_H
 
-#include "../view/navigation/abstractpopupwidget.h"
-#include "numberlineedit.h"
-#include "optionselectioncontrol.h"
+#include "../navigation/abstractpopupwidget.h"
+#include "../numberlineedit.h"
+#include "../optionselectioncontrol.h"
 
 class TransporationPopUp : public AbstractPopUpWidget
 {

@@ -1,8 +1,8 @@
 #ifndef EQUIPMENTPOPUP_H
 #define EQUIPMENTPOPUP_H
 
-#include "navigation/abstractpopupwidget.h"
-#include "numberlineedit.h"
+#include "../navigation/abstractpopupwidget.h"
+#include "../numberlineedit.h"
 
 class EquipmentPopUp : public AbstractPopUpWidget
 {

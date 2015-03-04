@@ -1,9 +1,9 @@
 #include "productview.h"
-#include "separator.h"
+#include "../separator.h"
 #include <QGridLayout>
 #include <QDebug>
-#include "detailedlistitem.h"
-#include "flickcharm.h"
+#include "../detailedlistitem.h"
+#include "../flickcharm.h"
 
 ProductView::ProductView(QWidget *parent) : SimpleNavigateableWidget(tr("Products"),parent),
     scProducts(new QScrollArea),

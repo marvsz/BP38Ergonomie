@@ -4,8 +4,8 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QLabel>
-#include "navigation/simplenavigateablewidget.h"
-#include "../view/iconbutton.h"
+#include "../navigation/simplenavigateablewidget.h"
+#include "../iconbutton.h"
 
 class SettingsView : public SimpleNavigateableWidget
 {
@@ -16,7 +16,6 @@ public:
         return false;
     }
 signals:
-    void resetRecordings();
     void resetDatabase();
 
 public slots:
@@ -25,14 +24,15 @@ public slots:
 
 private slots:
     void btnImportDataClicked();
-    void btnResetClicked();
+    void btnResetRecordingsClicked();
+    void btnRestoreFactoryClicked();
     void btnSelectLanguageClicked();
     void btnSelectThemeClicked();
 
 private:
     IconButton *btnImportData;
     IconButton *btnResetRecordings;
-    IconButton *btnReset;
+    IconButton *btnRestoreFactory;
     IconButton *btnSelectLanguage;
     IconButton *btnSelectTheme;
 };

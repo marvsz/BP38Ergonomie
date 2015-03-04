@@ -2,13 +2,14 @@ INCLUDEPATH +=$$PWD
 DEPENDPATH += $$PWD
 
 HEADERS +=\
-    $$PWD/documentationView/bodyPostureView/variantspecification.h\
-    $$PWD/selectablevaluebutton.h\
-    $$PWD/valuecontrol.h\
-    $$PWD/separator.h\
-    $$PWD/generalViews/mainmenu.h\
-    $$PWD/documentationView/loadhandlingview.h\
+    $$PWD/documentationView/bodyPostureView/variantspecification.h \
+    $$PWD/selectablevaluebutton.h \
+    $$PWD/valuecontrol.h \
+    $$PWD/separator.h \
+    $$PWD/generalViews/mainmenu.h \
+    $$PWD/documentationView/loadhandlingview.h \
     $$PWD/optionselectioncontrol.h \
+    $$PWD/verticaloptionselectioncontrol.h \
     $$PWD/documentationView/executionconditionview.h \
     $$PWD/flickcharm.h \
     $$PWD/documentationView/documentationview.h \
@@ -77,9 +78,16 @@ HEADERS +=\
     $$PWD/popUps/workplacepopup.h \
     $$PWD/popUps/importdatapopup.h \
     $$PWD/ftpconnectionswidget.h \
-    $$PWD/popUps/iftpconnections.h
-
-
+    $$PWD/popUps/iftpconnections.h \
+    $$PWD/quicklegposturecontrol.h \
+    $$PWD/quickarmposturecontrol.h \
+    $$PWD/popUps/workplacepopup.h \
+    $$PWD/popUps/resetpopup.h \
+    $$PWD/popUps/employeepopup.h \
+    $$PWD/popUps/camerapopup.h \
+    $$PWD/capture.h \
+    $$PWD/converter.h \
+    $$PWD/imageviewer.h
 
 SOURCES +=\
     $$PWD/documentationView/bodyPostureView/variantspecification.cpp\
@@ -89,6 +97,7 @@ SOURCES +=\
     $$PWD/documentationView/loadhandlingview.cpp\
     $$PWD/generalViews/mainmenu.cpp\
     $$PWD/optionselectioncontrol.cpp \
+    $$PWD/verticaloptionselectioncontrol.cpp \
     $$PWD/documentationView/executionconditionview.cpp \
     $$PWD/flickcharm.cpp \
     $$PWD/documentationView/documentationview.cpp \
@@ -152,7 +161,13 @@ SOURCES +=\
     $$PWD/popUps/themepopup.cpp \
     $$PWD/popUps/workplacepopup.cpp \
     $$PWD/popUps/importdatapopup.cpp \
-    $$PWD/ftpconnectionswidget.cpp
-
-
-
+    $$PWD/ftpconnectionswidget.cpp \
+    $$PWD/quicklegposturecontrol.cpp \
+    $$PWD/quickarmposturecontrol.cpp \
+    $$PWD/popUps/workplacepopup.cpp \
+    $$PWD/popUps/resetpopup.cpp \
+    $$PWD/popUps/employeepopup.cpp \
+    $$PWD/popUps/camerapopup.cpp \
+    $$PWD/capture.cpp \
+    $$PWD/converter.cpp \
+    $$PWD/imageviewer.cpp

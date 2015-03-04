@@ -1,5 +1,5 @@
 #include "workplacelistview.h"
-#include "flickcharm.h"
+#include "../flickcharm.h"
 #include <QVBoxLayout>
 #include <QList>
 #include <QStringList>

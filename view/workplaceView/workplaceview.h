@@ -5,9 +5,9 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QList>
-#include "timelineedit.h"
-#include "detailedlistitem.h"
-#include "numberlineedit.h"
+#include "../timelineedit.h"
+#include "../detailedlistitem.h"
+#include "../numberlineedit.h"
 #include "../navigation/simplenavigateablewidget.h"
 
 class WorkplaceView : public SimpleNavigateableWidget
@@ -16,6 +16,12 @@ class WorkplaceView : public SimpleNavigateableWidget
 public:
     explicit WorkplaceView(QWidget *parent = 0);
     explicit WorkplaceView(int id, QWidget *parent = 0);
+
+    bool hasAdditionalNavigation() const{
+        return true;
+    }
+
+    QList<QAbstractButton*> * getAdditionalNavigation() const;
 
     QString getName() const;
     QString getDescription() const;
@@ -48,12 +54,16 @@ public slots:
     void setComment(const QString &problemName, const QString &measureName);
 
 private slots:
+    void showEmployeeView();
     void btnLineClicked();
     void btnActivityClicked();
     void btnCommentClicked();
+    void btnEmployeeClicked();
 
 private:
     int id;
+
+    QPushButton *btnEmployees;
 
     QLabel *lblName;
     QLabel *lblDescription;
@@ -81,6 +91,7 @@ private:
     DetailedListItem *line;
     DetailedListItem *activity;
     DetailedListItem *comment;
+    DetailedListItem *employee;
 
     QList<DetailedListItem*> *additions;
 };

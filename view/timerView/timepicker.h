@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QTime>
 #include <QPushButton>
-#include "timelineedit.h"
+#include "../timelineedit.h"
 
 class TimePicker : public QWidget
 {

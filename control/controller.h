@@ -40,21 +40,26 @@
 #include "../view/popUps/workplacepopup.h"
 #include "../view/popUps/importdatapopup.h"
 #include "../view/popUps/iftpconnections.h"
+#include "../view/popUps/resetpopup.h"
+#include "../view/popUps/employeepopup.h"
+#include "../view/popUps/camerapopup.h"
 #include "../view/documentationView/appliedforceview.h"
 #include "../view/documentationView/loadhandlingview.h"
 #include "../view/documentationView/executionconditionview.h"
 #include "../view/documentationView/workprocessmetadataview.h"
 #include "../view/documentationView/bodyPostureView/bodypostureview.h"
+#include "translator.h"
 #include <QSqlField>
 #include <QCryptographicHash>
 #include <QHash>
 #include <QApplication>
 
+
 class Controller : QObject
 {
     Q_OBJECT
 public:
-    explicit Controller(QObject *parent = 0, QApplication *app = 0);
+    explicit Controller(QObject *parent = 0, QApplication *app = 0, Translator *trans = 0);
 
 private slots:
     void update(ViewType type);
@@ -122,6 +127,7 @@ private slots:
     void updateEmployeeView();
     void saveEmployeeView();
     void createEmployee(QHash<QString, QVariant> values, QHash<QString, QVariant> bodyMeasurementValues);
+    void employeeSelected();
 
     void updateBodyMeasurementView();
     void saveBodyMeasurementView();
@@ -162,12 +168,14 @@ private slots:
 
     void resetDatabaseRecording();
     void resetDatabaseFactory();
+    void resetSelectedEntries();
 
     void languageChanged();
     void themeChanged();
 
 private:
     QApplication *application;
+    Translator *translator;
     DBHandler *dbHandler;
     ViewController *viewCon;
 
@@ -213,6 +221,9 @@ private:
     ThemePopUp *themePopUp;
     WorkplacePopUp *workplacePopUp;
     ImportDataPopUp *importDataPopUp;
+    ResetPopUp *resetPopUp;
+    EmployeePopUp *employeePopUp;
+    CameraPopUp *cameraPopUp;
 
     int analyst_ID;
     int recording_ID;

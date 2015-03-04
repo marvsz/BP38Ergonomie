@@ -4,10 +4,10 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QScrollArea>
-#include "valuecontrol.h"
-#include "separator.h"
-#include "flickcharm.h"
-#include "detailedlistitem.h"
+#include "../valuecontrol.h"
+#include "../separator.h"
+#include "../flickcharm.h"
+#include "../detailedlistitem.h"
 
 /**
  * @brief Constructs a new Transportview

@@ -2,9 +2,9 @@
 #define LOADHANDLINGVIEW_H
 
 #include <QLabel>
-#include "../view/navigation/titledwidget.h"
+#include "../navigation/titledwidget.h"
 #include <QPushButton>
-#include "valuecontrol.h"
+#include "../valuecontrol.h"
 
 /**
  * @brief A class providing a view for transporthandling. The class contains

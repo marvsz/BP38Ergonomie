@@ -2,8 +2,8 @@
 #define WORKPROCESSTYPEPICKER_H
 
 #include <QWidget>
-#include "selectablevaluebutton.h"
-#include "../enum.h"
+#include "../selectablevaluebutton.h"
+#include "../../enum.h"
 
 class WorkProcessTypePicker : public QWidget
 {

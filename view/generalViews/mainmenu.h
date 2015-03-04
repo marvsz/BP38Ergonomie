@@ -1,8 +1,8 @@
 #ifndef MAINMENU_H
 #define MAINMENU_H
 
-#include "navigation/simplenavigateablewidget.h"
-#include "../view/iconbutton.h"
+#include "../navigation/simplenavigateablewidget.h"
+#include "../iconbutton.h"
 #include <QPushButton>
 #include <QWidget>
 #include <QLabel>
@@ -25,7 +25,12 @@ public:
 signals:
     void createBlankRecording();
 
+protected:
+    void changeEvent(QEvent* e);
+
 private slots:
+    void retranslate();
+
     void btnSettingsClicked();
     void btnMetaDataViewClicked();
     void btnWorkplaceListClicked();
@@ -33,6 +38,7 @@ private slots:
     void btnShiftClicked();
     void btnNewRecordingClicked();
     void btnSendDatabaseClicked();
+    void btnCameraClicked();
 
 private:
     QLabel *lblViewName;
@@ -43,6 +49,7 @@ private:
     QPushButton *btnSettings;
     QPushButton *btnNewRecording;
     QPushButton *btnSendDatabase;
+    QPushButton *btnCamera;
 
 };
 

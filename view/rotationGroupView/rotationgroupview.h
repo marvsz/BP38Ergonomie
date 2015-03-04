@@ -6,9 +6,9 @@
 #include <QScrollArea>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include "../view/navigation/simplenavigateablewidget.h"
-#include "../view/textlineedit.h"
-#include "../view/numberlineedit.h"
+#include "../navigation/simplenavigateablewidget.h"
+#include "../textlineedit.h"
+#include "../numberlineedit.h"
 
 class RotationGroupView : public SimpleNavigateableWidget
 {
