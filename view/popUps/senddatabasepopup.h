@@ -1,16 +1,9 @@
 #ifndef SENDDATABASEPOPUP_H
 #define SENDDATABASEPOPUP_H
 
-<<<<<<< HEAD
 #include "../view/navigation/abstractpopupwidget.h"
 #include "iftpconnections.h"
 #include "ftpconnectionswidget.h"
-=======
-#include "../navigation/abstractpopupwidget.h"
-#include "../numberlineedit.h"
-#include <QComboBox>
-#include <QCheckBox>
->>>>>>> origin/Unstable
 
 class SendDatabasePopUp : public AbstractPopUpWidget, public IFTPConnections
 {
