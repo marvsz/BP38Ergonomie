@@ -7,14 +7,14 @@ CameraPopUp::CameraPopUp(QWidget *parent) :
     btnCapture(new QPushButton(this)),
     btnSwitchCamera(new QPushButton(this))
 {
-    btnCapture->setFixedSize(45 ,45);
+    btnCapture->setFixedSize(60, 60);
     btnCapture->setObjectName("cameraIcon");
     connect(btnCapture, SIGNAL(clicked()), this, SLOT(btnCaptureClicked()));
 
-    btnSwitchCamera->setFixedSize(45, 45);
+    btnSwitchCamera->setFixedSize(60, 60);
     btnSwitchCamera->setObjectName("rotationIcon");
     connect(btnSwitchCamera, SIGNAL(clicked()), this, SLOT(btnSwitchCameraClicked()));
-
+    btnSwitchCamera->setEnabled(capture.cameraCount() > 1);
     converter.setProcessAll(false);
 
     connect(&capture, SIGNAL(matReady(cv::Mat, int)), &converter, SLOT(processFrame(cv::Mat, int)));
@@ -22,8 +22,8 @@ CameraPopUp::CameraPopUp(QWidget *parent) :
 
     QGridLayout *mainLayout = new QGridLayout;
     mainLayout->setAlignment(Qt::AlignTop);
-    mainLayout->addWidget(&viewer, 0, 0, 1, 2, Qt::AlignCenter);
-    mainLayout->addWidget(btnCapture, 1, 0, 1, 1, Qt::AlignCenter);
+    mainLayout->addWidget(&viewer, 0, 0, 2, 1, Qt::AlignCenter);
+    mainLayout->addWidget(btnCapture, 0, 1, 1, 1, Qt::AlignCenter);
     mainLayout->addWidget(btnSwitchCamera, 1, 1, 1, 1, Qt::AlignCenter);
     this->setLayout(mainLayout);
 }
@@ -47,9 +47,11 @@ void CameraPopUp::onLeaving(){
 }
 
 void CameraPopUp::btnCaptureClicked(){
-    bool success = viewer.saveImage();
-    if(success)
+    QString path = viewer.saveImage();
+    if(path != NULL){
         showMessage(tr("Photo Saved"), NotificationMessage::ACCEPT);
+        qDebug() << path;
+    }
     else
         showMessage(tr("Saving Photo Failed!"), NotificationMessage::ERROR);
 }

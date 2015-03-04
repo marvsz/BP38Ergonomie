@@ -1,6 +1,7 @@
 #include "converter.h"
 #include <QDebug>
-#include <opencv2/imgproc/types_c.h>
+#include <QPixmap>
+#include <QPainter>
 
 Converter::Converter(QObject *parent) :
     QObject(parent),
@@ -20,7 +21,7 @@ void Converter::queue(const cv::Mat &frame, int cam){
 }
 
 void Converter::process(cv::Mat frame, int cam){
-
+    //cv::resize(frame, frame, cv::Size(), 1.3, 1.3, cv::INTER_AREA);
     cv::transpose(frame, frame);
     cv::flip(frame, frame, 0);
     if (cam == 1){

@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QImage>
 #include <QLabel>
+#include <QPainter>
 
 class ImageViewer : public QWidget
 {
@@ -15,7 +16,7 @@ signals:
 
 public slots:
     void setImage(const QImage &img);
-    bool saveImage();
+    QString saveImage();
 
 private:
     QImage image;

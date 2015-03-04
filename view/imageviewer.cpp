@@ -23,7 +23,12 @@ void ImageViewer::setImage(const QImage &img){
     update();
 }
 
-bool ImageViewer::saveImage(){
-    QString timestamp = QDateTime::currentDateTime().toString("ddMMyyyy-HHmmss");
-    return image.save(StandardPaths::writeableLocation().append("/img").append(timestamp).append(".png"), "PNG", 100);
+QString ImageViewer::saveImage(){
+    QString timestamp = QDateTime::currentDateTime().toString("dd-MM-yy-hh-mm-ss");
+    QString filePath = QString("%1%2%3%4").arg(StandardPaths::writeableLocation()).arg("/img-").arg(timestamp).arg(".png");
+    if(image.save(filePath, "PNG", 100))
+        return filePath;
+    else
+        qDebug() << "Image could not be saved!";
+        return NULL;
 }

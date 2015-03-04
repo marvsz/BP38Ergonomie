@@ -33,7 +33,9 @@ android {
 
     OPENCV_LIB_PATH = $$PWD/assets/opencv/android/sdk/native/libs/armeabi-v7a
     OPENCV_3RD_PARTY_LIB_PATH = $$PWD/assets/opencv/android/sdk/native/3rdparty/libs/armeabi-v7a
-    LIBS += $$OPENCV_LIB_PATH/libopencv_calib3d.a \
+
+    LIBS += \
+        $$OPENCV_LIB_PATH/libopencv_calib3d.a \
         $$OPENCV_LIB_PATH/libopencv_features2d.a \
         $$OPENCV_LIB_PATH/libopencv_flann.a \
         $$OPENCV_LIB_PATH/libopencv_photo.a \
@@ -50,27 +52,15 @@ android {
         $$OPENCV_LIB_PATH/libopencv_videostab.a \
         $$OPENCV_LIB_PATH/libopencv_highgui.a \
         $$OPENCV_LIB_PATH/libopencv_androidcamera.a \
-        $$OPENCV_LIB_PATH/libopencv_core.a \
+        $$OPENCV_LIB_PATH/libopencv_core.a
 
-    LIBS += $$OPENCV_3RD_PARTY_LIB_PATH/liblibtiff.a \
+    LIBS += \
+        $$OPENCV_3RD_PARTY_LIB_PATH/liblibtiff.a \
         $$OPENCV_3RD_PARTY_LIB_PATH/liblibjpeg.a \
         $$OPENCV_3RD_PARTY_LIB_PATH/liblibjasper.a \
         $$OPENCV_3RD_PARTY_LIB_PATH/liblibpng.a \
         $$OPENCV_3RD_PARTY_LIB_PATH/libIlmImf.a \
         $$OPENCV_3RD_PARTY_LIB_PATH/libtbb.a
-
-    LIBS += $$PWD/android/libs/libopencv_java.so \
-        $$PWD/android/libs/libopencv_info.so \
-        $$PWD/android/libs/libnative_camera_r2.2.0.so \
-        $$PWD/android/libs/libnative_camera_r2.3.3.so \
-        $$PWD/android/libs/libnative_camera_r3.0.1.so \
-        $$PWD/android/libs/libnative_camera_r4.0.0.so \
-        $$PWD/android/libs/libnative_camera_r4.0.3.so \
-        $$PWD/android/libs/libnative_camera_r4.1.1.so \
-        $$PWD/android/libs/libnative_camera_r4.2.0.so \
-        $$PWD/android/libs/libnative_camera_r4.3.0.so \
-        $$PWD/android/libs/libnative_camera_r4.4.0.so \
-
 }
 
 ios {
