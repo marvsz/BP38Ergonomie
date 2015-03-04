@@ -28,14 +28,22 @@ ResetPopUp::ResetPopUp(QWidget *parent):
     connect(employee, SIGNAL(clicked()), this, SLOT(employeeClicked()));
     connect(shiftData, SIGNAL(clicked()), this, SLOT(shiftDataClicked()));
 
+    headData->setFixedSize(250, 60);
+    workplaces->setFixedSize(250, 60);
+    equipment->setFixedSize(250, 60);
+    products->setFixedSize(250, 60);
+    transportation->setFixedSize(250, 60);
+    employee->setFixedSize(250, 60);
+    shiftData->setFixedSize(250, 60);
+
     QGridLayout *mainLayout = new QGridLayout;
     mainLayout->addWidget(headData, 0, 0, 1, 1, 0);
-    mainLayout->addWidget(workplaces, 1, 0, 1, 1, 0);
-    mainLayout->addWidget(equipment, 2, 0, 1, 1, 0);
-    mainLayout->addWidget(products, 3, 0, 1, 1, 0);
-    mainLayout->addWidget(transportation, 4, 0, 1, 1, 0);
-    mainLayout->addWidget(employee, 5, 0, 1, 1, 0);
-    mainLayout->addWidget(shiftData, 6, 0, 1, 1, 0);
+    mainLayout->addWidget(workplaces, 0, 1, 1, 1, 0);
+    mainLayout->addWidget(equipment, 1, 0, 1, 1, 0);
+    mainLayout->addWidget(products, 1, 1, 1, 1, 0);
+    mainLayout->addWidget(transportation, 2, 0, 1, 1, 0);
+    mainLayout->addWidget(employee, 2, 1, 1, 1, 0);
+    mainLayout->addWidget(shiftData, 3, 0, 1, 1, 0);
 
     setLayout(mainLayout);
 }
