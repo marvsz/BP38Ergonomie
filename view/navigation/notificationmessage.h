@@ -11,7 +11,7 @@ public:
     NotificationMessage(QWidget *parent = 0);
     ~NotificationMessage();
 
-    enum MessageType{ACCEPT, ERROR, WARNING, INFORMATION};
+    enum MessageType{ACCEPT, ERROR, WARNING, INFORMATION, RESTART};
     enum MessageDisplayType{PERSISTENT, SHORT, MIDDLE, LONG};
 
 public slots:

@@ -1,6 +1,8 @@
 #include "notificationmessage.h"
 #include <QStyleOption>
 #include <QPainter>
+#include <QApplication>
+#include <QProcess>
 
 NotificationMessage::NotificationMessage(QWidget *parent) : QPushButton(parent),
     timerID(-1),
@@ -31,9 +33,14 @@ void NotificationMessage::showMessage(const QString &message, MessageType msgTyp
 
 void NotificationMessage::closeMessage(){
     idle = true;
-    msgQueue.removeFirst();
+    Message msg = msgQueue.takeAt(0);
     this->hide();
     processMessageQueue();
+
+    if(msg.type == RESTART){
+        QProcess::startDetached(QApplication::applicationFilePath());
+        exit(12);
+    }
 }
 
 //PRIVATE METHODS
@@ -56,6 +63,7 @@ void NotificationMessage::processMessageQueue(){
             case ERROR: this->setIcon(QIcon(":/blue/icons/Buttons/blue/error.png")); break;
             case WARNING: this->setIcon(QIcon(":/blue/icons/Buttons/blue/warning.png")); break;
             case INFORMATION: this->setIcon(QIcon(":/blue/icons/Buttons/blue/information.png")); break;
+            case RESTART: this->setIcon(QIcon(":/blue/icons/Buttons/blue/information.png")); break;
             default: this->setIcon(QIcon(":/blue/icons/Buttons/blue/information.png")); break;
         }
         this->setText(msg.text);
