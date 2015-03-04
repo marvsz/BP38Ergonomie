@@ -22,12 +22,14 @@ void Converter::queue(const cv::Mat &frame, int cam){
 
 void Converter::process(cv::Mat frame, int cam){
     //cv::resize(frame, frame, cv::Size(), 1.3, 1.3, cv::INTER_AREA);
-    cv::transpose(frame, frame);
-    cv::flip(frame, frame, 0);
-    if (cam == 1){
-        cv::Point2f center(frame.cols/2.0F, frame.rows/2.0F);
-        cv::Mat rotationMatrix = cv::getRotationMatrix2D(center, 180, 1.0);
-        cv::warpAffine(frame, frame, rotationMatrix, frame.size());
+    if(frame.rows > frame.cols){
+        cv::transpose(frame, frame);
+        cv::flip(frame, frame, 0);
+        if (cam == 1){
+            cv::Point2f center(frame.cols/2.0F, frame.rows/2.0F);
+            cv::Mat rotationMatrix = cv::getRotationMatrix2D(center, 180, 1.0);
+            cv::warpAffine(frame, frame, rotationMatrix, frame.size());
+        }
     }
     cv::cvtColor(frame, frame, CV_BGR2RGB);
     const QImage image(frame.data, frame.cols, frame.rows, frame.step, QImage::Format_RGB888, &matDeleter, new cv::Mat(frame));

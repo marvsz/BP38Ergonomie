@@ -8,8 +8,11 @@ Capture::Capture(QObject *parent) :
 }
 
 void Capture::start(int cam){
-    if(!this->videoCapture)
+    if(!this->videoCapture){
         this->videoCapture.reset(new cv::VideoCapture(cam));
+        currentCamera = cam;
+        qDebug() << "camera started " << currentCamera;
+    }
     if (this->videoCapture->isOpened()) {
         this->timer.start(0, this);
         emit started();
@@ -35,6 +38,7 @@ void Capture::timerEvent(QTimerEvent * ev) {
 int Capture::cameraCount(){
     cv::VideoCapture tempCam(1);
     bool res = (tempCam.isOpened());
+    qDebug() << res;
     tempCam.release();
     return res ? 2 : 1;
 }
@@ -45,5 +49,5 @@ int Capture::currentCam(){
 
 void Capture::switchCam(){
     currentCamera = (currentCamera + 1) % 2;
-    this->videoCapture.reset(new cv::VideoCapture(currentCamera));
+    videoCapture->open(currentCamera);
 }

@@ -33,7 +33,7 @@ CameraPopUp::~CameraPopUp(){
 }
 
 void CameraPopUp::onEnter(){
-    QMetaObject::invokeMethod(&capture, "start");
+    QMetaObject::invokeMethod(&capture, "start", Q_ARG(int, 0));
     captureThread.start();
     converterThread.start();
     capture.moveToThread(&captureThread);
@@ -57,7 +57,6 @@ void CameraPopUp::btnCaptureClicked(){
 }
 
 void CameraPopUp::btnSwitchCameraClicked(){
-    QMetaObject::invokeMethod(&capture, "stop");
     capture.switchCam();
     QMetaObject::invokeMethod(&capture, "start", Q_ARG(int, capture.currentCam()));
 }
