@@ -1,10 +1,10 @@
 #ifndef CAMERAPOPUP_H
 #define CAMERAPOPUP_H
 
-#include "../view/navigation/abstractpopupwidget.h"
-#include "imageviewer.h"
-#include "capture.h"
-#include "converter.h"
+#include "../navigation/abstractpopupwidget.h"
+#include "../imageviewer.h"
+#include "../capture.h"
+#include "../converter.h"
 #include <QThread>
 #include <QPushButton>
 

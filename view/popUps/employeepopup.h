@@ -1,7 +1,7 @@
 #ifndef EMPLOYEEPOPUP_H
 #define EMPLOYEEPOPUP_H
 
-#include "navigation/abstractpopupwidget.h"
+#include "../navigation/abstractpopupwidget.h"
 
 class EmployeePopUp : public AbstractPopUpWidget
 {
