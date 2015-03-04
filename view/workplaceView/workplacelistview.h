@@ -1,8 +1,8 @@
 #ifndef WORKPLACELISTVIEW_H
 #define WORKPLACELISTVIEW_H
 
-#include "detailedlistitem.h"
-#include "navigation/simplenavigateablewidget.h"
+#include "../detailedlistitem.h"
+#include "../navigation/simplenavigateablewidget.h"
 #include <QPushButton>
 #include <QScrollArea>
 

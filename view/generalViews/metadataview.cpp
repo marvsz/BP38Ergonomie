@@ -3,7 +3,7 @@
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include <QSpacerItem>
-#include "separator.h"
+#include "../separator.h"
 
 MetaDataView::MetaDataView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Meta data"), parent),

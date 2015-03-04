@@ -1,5 +1,5 @@
 #include "ganttimerview.h"
-#include "flickcharm.h"
+#include "../flickcharm.h"
 #include <QVBoxLayout>
 #include <QScrollArea>
 

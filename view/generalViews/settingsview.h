@@ -4,8 +4,8 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QLabel>
-#include "navigation/simplenavigateablewidget.h"
-#include "../view/iconbutton.h"
+#include "../navigation/simplenavigateablewidget.h"
+#include "../iconbutton.h"
 
 class SettingsView : public SimpleNavigateableWidget
 {

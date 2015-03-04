@@ -1,6 +1,6 @@
 #include "shiftview.h"
-#include "separator.h"
-#include "flickcharm.h"
+#include "../separator.h"
+#include "../flickcharm.h"
 
 ShiftView::ShiftView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Shift Data"), parent),

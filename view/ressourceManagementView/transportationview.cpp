@@ -1,9 +1,9 @@
 #include <QGridLayout>
 #include "transportationview.h"
-#include "../enum.h"
-#include "flickcharm.h"
-#include "separator.h"
-#include "detailedlistitem.h"
+#include "../../enum.h"
+#include "../flickcharm.h"
+#include "../separator.h"
+#include "../detailedlistitem.h"
 
 const QVector<QVariant> TransportationView::YES_NO_VALUE = QVector<QVariant>()<<true<<false;
 

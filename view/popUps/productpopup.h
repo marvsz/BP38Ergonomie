@@ -1,9 +1,9 @@
 #ifndef PRODUCTPOPUP_H
 #define PRODUCTPOPUP_H
 
-#include "../view/navigation/abstractpopupwidget.h"
-#include "../view/textlineedit.h"
-#include "../view/numberlineedit.h"
+#include "../navigation/abstractpopupwidget.h"
+#include "../textlineedit.h"
+#include "../numberlineedit.h"
 
 class ProductPopUp : public AbstractPopUpWidget
 {

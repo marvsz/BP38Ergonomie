@@ -1,8 +1,8 @@
 #ifndef EMPLOYEELISTVIEW_H
 #define EMPLOYEELISTVIEW_H
 
-#include "../view/navigation/simplenavigateablewidget.h"
-#include "../view/detailedlistitem.h"
+#include "../navigation/simplenavigateablewidget.h"
+#include "../detailedlistitem.h"
 #include <QPushButton>
 #include <QScrollArea>
 

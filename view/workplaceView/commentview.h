@@ -4,8 +4,8 @@
 #include <QWidget>
 #include <QLabel>
 #include <QPushButton>
-#include "textlineedit.h"
-#include "textedit.h"
+#include "../textlineedit.h"
+#include "../textedit.h"
 #include "../navigation/simplenavigateablewidget.h"
 
 class CommentView : public SimpleNavigateableWidget

@@ -1,6 +1,6 @@
 #include "bodypostureview.h"
-#include "flickcharm.h"
-#include "separator.h"
+#include "../../flickcharm.h"
+#include "../../separator.h"
 #include <QVBoxLayout>
 #include <QScrollArea>
 #include <QHBoxLayout>

@@ -1,8 +1,8 @@
 #ifndef LANGUAGEPOPUP_H
 #define LANGUAGEPOPUP_H
 
-#include "navigation/abstractpopupwidget.h"
-#include "detailedlistitem.h"
+#include "../navigation/abstractpopupwidget.h"
+#include "../detailedlistitem.h"
 #include <QList>
 
 class LanguagePopUp : public AbstractPopUpWidget

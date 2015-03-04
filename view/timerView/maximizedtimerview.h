@@ -3,13 +3,13 @@
 
 #include <QWidget>
 #include <QTime>
-#include "../enum.h"
+#include "../../enum.h"
 
 #include "workprocessselector.h"
-#include "optionselectioncontrol.h"
+#include "../optionselectioncontrol.h"
 #include "graphtimelineview.h"
 #include "timepicker.h"
-#include "selectablevaluebutton.h"
+#include "../selectablevaluebutton.h"
 #include "workprocesstypepicker.h"
 
 class MaximizedTimerView : public QWidget

@@ -1,15 +1,15 @@
 #ifndef GANTTIMERVIEW_H
 #define GANTTIMERVIEW_H
 
-#include "../view/navigation/titledwidget.h"
+#include "../navigation/titledwidget.h"
 #include <QPushButton>
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QStringList>
 #include "workprocessbutton.h"
-#include "numberlineedit.h"
+#include "../numberlineedit.h"
 #include "spaceritemtimer.h"
-#include "../enum.h"
+#include "../../enum.h"
 
 class GantTimerView : public TitledWidget
 {

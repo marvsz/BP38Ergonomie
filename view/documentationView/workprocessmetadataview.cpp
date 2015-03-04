@@ -2,9 +2,9 @@
 #include <QGridLayout>
 #include <QScrollArea>
 #include <QVBoxLayout>
-#include "separator.h"
-#include "detailedlistitem.h"
-#include "flickcharm.h"
+#include "../separator.h"
+#include "../detailedlistitem.h"
+#include "../flickcharm.h"
 
 
 WorkProcessMetaDataView::WorkProcessMetaDataView(QWidget *parent) :

@@ -1,12 +1,12 @@
 #ifndef METADATAVIEW_H
 #define METADATAVIEW_H
 
-#include "navigation/simplenavigateablewidget.h"
+#include "../navigation/simplenavigateablewidget.h"
 #include <QPushButton>
 #include <QLabel>
 #include <QDateTimeEdit>
-#include "numberlineedit.h"
-#include "datetimespinner.h"
+#include "../numberlineedit.h"
+#include "../datetimespinner.h"
 
 class MetaDataView : public SimpleNavigateableWidget
 {

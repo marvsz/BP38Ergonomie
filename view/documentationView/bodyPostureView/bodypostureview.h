@@ -1,18 +1,18 @@
 #ifndef BODYPOSTUREVIEW_H
 #define BODYPOSTUREVIEW_H
 
-#include "../view/navigation/titledwidget.h"
+#include "../../navigation/titledwidget.h"
 #include <QVector>
 #include "variantspecification.h"
 #include "variantcontrol.h"
-#include "../enum.h"
+#include "../../../enum.h"
 #include <QPushButton>
 #include <QLabel>
 #include <QSqlRecord>
-#include "../databaseHandler/dbconstants.h"
-#include "../view/verticaloptionselectioncontrol.h"
-#include "../view/quicklegposturecontrol.h"
-#include "../view/quickarmposturecontrol.h"
+#include "../../../databaseHandler/dbconstants.h"
+#include "../../verticaloptionselectioncontrol.h"
+#include "../../quicklegposturecontrol.h"
+#include "../../quickarmposturecontrol.h"
 
 
 class BodyPostureView : public TitledWidget

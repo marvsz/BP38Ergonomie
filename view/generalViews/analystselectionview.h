@@ -2,11 +2,11 @@
 #define ANALYSTSELECTIONVIEW_H
 
 #include <QPushButton>
-#include "navigation/simplenavigateablewidget.h"
+#include "../navigation/simplenavigateablewidget.h"
 #include <QLabel>
 #include <QVBoxLayout>
-#include <textlineedit.h>
-#include <detailedlistitem.h>
+#include "../textlineedit.h"
+#include "../detailedlistitem.h"
 #include <QScrollArea>
 
 class AnalystSelectionView : public SimpleNavigateableWidget

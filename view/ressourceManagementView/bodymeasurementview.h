@@ -5,9 +5,9 @@
 #include <QBoxLayout>
 #include <QPushButton>
 #include <QLabel>
-#include <textlineedit.h>
-#include <valuecontrol.h>
-#include "../view/navigation/simplenavigateablewidget.h"
+#include "../textlineedit.h"
+#include "../valuecontrol.h"
+#include "../navigation/simplenavigateablewidget.h"
 
 
 class BodyMeasurementView : public SimpleNavigateableWidget

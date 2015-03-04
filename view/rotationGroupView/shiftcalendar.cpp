@@ -1,5 +1,5 @@
 #include "shiftcalendar.h"
-#include "flickcharm.h"
+#include "../flickcharm.h"
 #include "QFont"
 #include "../selectablevaluebutton.h"
 #include <QDebug>
