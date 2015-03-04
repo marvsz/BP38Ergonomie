@@ -1,5 +1,5 @@
 #include "settingsview.h"
-#include "separator.h"
+#include "../separator.h"
 #include <QGridLayout>
 #include <QVBoxLayout>
 

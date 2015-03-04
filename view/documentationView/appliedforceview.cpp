@@ -1,6 +1,6 @@
 #include "appliedforceview.h"
-#include "separator.h"
-#include "flickcharm.h"
+#include "../separator.h"
+#include "../flickcharm.h"
 #include <QScroller>
 
 const QVector<int> AppliedForceView::INTENSITY_VALUES = QVector<int>()<<5<<20<<50<<100<<150;

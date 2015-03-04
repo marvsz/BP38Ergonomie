@@ -1,5 +1,5 @@
 #include "variantcontrol.h"
-#include "separator.h"
+#include "../../separator.h"
 
 VariantControl::VariantControl(QWidget *parent) : QWidget(parent),
     variantsLayout(new QVBoxLayout),

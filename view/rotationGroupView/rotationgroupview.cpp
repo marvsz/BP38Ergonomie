@@ -1,9 +1,9 @@
 #include "rotationgroupview.h"
 #include <QHBoxLayout>
 #include <QGridLayout>
-#include "../view/separator.h"
-#include "../view/flickcharm.h"
-#include "../view/detailedlistitem.h"
+#include "../separator.h"
+#include "../flickcharm.h"
+#include "../detailedlistitem.h"
 
 const QList<QStringList> RotationGroupView::rotationGroupTaskCaptions = QList<QStringList>() << (QStringList() << tr("Duration:"));
 const QList<QStringList> RotationGroupView::workplaceCaptions = QList<QStringList>() << (QStringList() << tr("Duration:"));

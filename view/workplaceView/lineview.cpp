@@ -1,8 +1,8 @@
 #include "lineview.h"
-#include "separator.h"
+#include "../separator.h"
 #include <QGridLayout>
 #include <QHBoxLayout>
-#include "flickcharm.h"
+#include "../flickcharm.h"
 
 LineView::LineView(QWidget *parent) : SimpleNavigateableWidget(tr("Line"), parent),
     listContentLayout(new QVBoxLayout),

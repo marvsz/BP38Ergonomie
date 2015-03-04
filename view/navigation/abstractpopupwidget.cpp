@@ -1,5 +1,5 @@
 #include "abstractpopupwidget.h"
-#include "separator.h"
+#include "../separator.h"
 #include <QStyleOption>
 #include <QPainter>
 

@@ -1,7 +1,7 @@
 #include "viewcontroller.h"
-#include "separator.h"
-#include "../standardpaths.h"
-#include "../view/popUps/feedbackpopup.h"
+#include "../separator.h"
+#include "../../standardpaths.h"
+#include "../popUps/feedbackpopup.h"
 #include <QVBoxLayout>
 #include <QDir>
 #include <QDateTime>

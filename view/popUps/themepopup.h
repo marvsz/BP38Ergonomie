@@ -4,6 +4,8 @@
 #include <QList>
 #include "view/navigation/abstractpopupwidget.h"
 #include "view/detailedlistitem.h"
+#include "../navigation/abstractpopupwidget.h"
+#include "../detailedlistitem.h"
 
 class ThemePopUp : public AbstractPopUpWidget
 {

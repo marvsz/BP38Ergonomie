@@ -9,7 +9,6 @@
 #include <view/valuecontrol.h>
 #include "view/navigation/simplenavigateablewidget.h"
 
-
 class BodyMeasurementView : public SimpleNavigateableWidget
 {
     Q_OBJECT

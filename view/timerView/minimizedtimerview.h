@@ -10,7 +10,6 @@
 #include "workprocessselector.h"
 #include "enum.h"
 
-
 class MinimizedTimerView : public QWidget
 {
     Q_OBJECT

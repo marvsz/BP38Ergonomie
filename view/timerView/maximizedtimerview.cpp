@@ -1,7 +1,7 @@
 #include "maximizedtimerview.h"
 #include <QGridLayout>
 #include <QVBoxLayout>
-#include "separator.h"
+#include "../separator.h"
 #include <QIcon>
 #include <QStyle>
 

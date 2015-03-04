@@ -1,11 +1,7 @@
 #ifndef WORKPROCESSMETADATAVIEW_H
 #define WORKPROCESSMETADATAVIEW_H
 
-<<<<<<< HEAD
 #include "view/navigation/titledwidget.h"
-=======
-#include "../navigation/titledwidget.h"
->>>>>>> origin/Unstable
 #include <QLabel>
 #include <QPushButton>
 #include "../numberlineedit.h"

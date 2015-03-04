@@ -1,6 +1,6 @@
 #include "activitypopup.h"
-#include "../view/flickcharm.h"
-#include "../view/detailedlistitem.h"
+#include "../flickcharm.h"
+#include "../detailedlistitem.h"
 
 
 ActivityPopUp::ActivityPopUp(QWidget *parent) :

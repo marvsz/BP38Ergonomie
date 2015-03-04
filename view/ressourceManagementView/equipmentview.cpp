@@ -1,8 +1,8 @@
 #include "equipmentview.h"
 #include <QGridLayout>
-#include "flickcharm.h"
-#include "separator.h"
-#include "detailedlistitem.h"
+#include "../flickcharm.h"
+#include "../separator.h"
+#include "../detailedlistitem.h"
 
 EquipmentView::EquipmentView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Equipment"), parent),

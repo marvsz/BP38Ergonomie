@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include "view/iconbutton.h"
-#include <QLabel>
 #include "../navigation/simplenavigateablewidget.h"
 
 class RessourceManagementView : public SimpleNavigateableWidget

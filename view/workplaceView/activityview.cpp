@@ -1,7 +1,7 @@
 #include "activityview.h"
-#include "separator.h"
-#include "flickcharm.h"
-#include "detailedlistitem.h"
+#include "../separator.h"
+#include "../flickcharm.h"
+#include "../detailedlistitem.h"
 
 ActivityView::ActivityView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Activities"), parent),

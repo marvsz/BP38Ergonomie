@@ -1,7 +1,7 @@
 #ifndef ACTIONFORCEVIEW_H
 #define ACTIONFORCEVIEW_H
 
-#include "view/navigation/titledwidget.h"
+#include "../navigation/titledwidget.h"
 #include <QScrollArea>
 #include <QVector>
 #include <QString>

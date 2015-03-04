@@ -1,6 +1,7 @@
 #ifndef EXECUTIONCONDITIONVIEW_H
 #define EXECUTIONCONDITIONVIEW_H
 
+
 #include "view/navigation/titledwidget.h"
 #include <QLabel>
 #include "../slidercontrol.h"

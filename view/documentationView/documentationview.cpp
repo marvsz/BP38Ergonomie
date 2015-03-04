@@ -1,6 +1,6 @@
 #include "documentationview.h"
 #include <QVBoxLayout>
-#include "separator.h"
+#include "../separator.h"
 
 /**
  * @brief Constructs a DocumentationView widget which is a child of parent.

@@ -1,6 +1,6 @@
 #include "executionconditionview.h"
-#include "separator.h"
-#include "flickcharm.h"
+#include "../separator.h"
+#include "../flickcharm.h"
 #include <QScrollArea>
 
 
