@@ -44,11 +44,11 @@
 #include "../view/documentationView/executionconditionview.h"
 #include "../view/documentationView/workprocessmetadataview.h"
 #include "../view/documentationView/bodyPostureView/bodypostureview.h"
+#include "translator.h"
 #include <QSqlField>
 #include <QCryptographicHash>
 #include <QHash>
 #include <QApplication>
-#include "translator.h"
 
 
 class Controller : QObject

@@ -1,11 +1,7 @@
 #ifndef CAMERAPOPUP_H
 #define CAMERAPOPUP_H
 
-<<<<<<< HEAD
-#include "view/navigation/abstractpopupwidget.h"
-=======
 #include "../navigation/abstractpopupwidget.h"
->>>>>>> origin/Unstable
 #include "../imageviewer.h"
 #include "../capture.h"
 #include "../converter.h"

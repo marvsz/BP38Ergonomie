@@ -2,12 +2,12 @@ INCLUDEPATH +=$$PWD
 DEPENDPATH += $$PWD
 
 HEADERS +=\
-    $$PWD/documentationView/bodyPostureView/variantspecification.h\
-    $$PWD/selectablevaluebutton.h\
-    $$PWD/valuecontrol.h\
-    $$PWD/separator.h\
-    $$PWD/generalViews/mainmenu.h\
-    $$PWD/documentationView/loadhandlingview.h\
+    $$PWD/documentationView/bodyPostureView/variantspecification.h \
+    $$PWD/selectablevaluebutton.h \
+    $$PWD/valuecontrol.h \
+    $$PWD/separator.h \
+    $$PWD/generalViews/mainmenu.h \
+    $$PWD/documentationView/loadhandlingview.h \
     $$PWD/optionselectioncontrol.h \
     $$PWD/verticaloptionselectioncontrol.h \
     $$PWD/documentationView/executionconditionview.h \
@@ -79,14 +79,12 @@ HEADERS +=\
     $$PWD/quickarmposturecontrol.h \
     $$PWD/popUps/workplacepopup.h \
     $$PWD/popUps/resetpopup.h \
-    $$PWD/popUps/employeepopup.h
+    $$PWD/popUps/employeepopup.h \
     $$PWD/popUps/workplacepopup.h \
     $$PWD/popUps/camerapopup.h \
     $$PWD/capture.h \
     $$PWD/converter.h \
     $$PWD/imageviewer.h
-
-
 
 SOURCES +=\
     $$PWD/documentationView/bodyPostureView/variantspecification.cpp\
@@ -162,12 +160,9 @@ SOURCES +=\
     $$PWD/quickarmposturecontrol.cpp \
     $$PWD/popUps/workplacepopup.cpp \
     $$PWD/popUps/resetpopup.cpp \
-    $$PWD/popUps/employeepopup.cpp
+    $$PWD/popUps/employeepopup.cpp \
     $$PWD/popUps/workplacepopup.cpp \
     $$PWD/popUps/camerapopup.cpp \
     $$PWD/capture.cpp \
     $$PWD/converter.cpp \
     $$PWD/imageviewer.cpp
-
-
-
