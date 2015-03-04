@@ -98,7 +98,6 @@ void MainMenu::btnSendDatabaseClicked(){
     emit showPopUp(PopUpType::DB_SEND_POPUP);
 }
 
-<<<<<<< HEAD
 //TRANSLATE
 void MainMenu::changeEvent(QEvent *e){
     if(e->type() == QEvent::LanguageChange){
@@ -111,8 +110,8 @@ void MainMenu::retranslate(){
     btnWorkplaceList->setText(tr("Workplaces"));
     btnRessourceManagement->setText(tr("Ressource Management"));
     btnShift->setText(tr("Shift Data"));
-=======
+}
+
 void MainMenu::btnCameraClicked(){
     emit showPopUp(PopUpType::CAMERA_POPUP);
->>>>>>> camera
 }

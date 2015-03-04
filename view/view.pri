@@ -80,7 +80,6 @@ HEADERS +=\
     $$PWD/popUps/workplacepopup.h \
     $$PWD/popUps/resetpopup.h \
     $$PWD/popUps/employeepopup.h \
-    $$PWD/popUps/workplacepopup.h \
     $$PWD/popUps/camerapopup.h \
     $$PWD/capture.h \
     $$PWD/converter.h \
@@ -161,7 +160,6 @@ SOURCES +=\
     $$PWD/popUps/workplacepopup.cpp \
     $$PWD/popUps/resetpopup.cpp \
     $$PWD/popUps/employeepopup.cpp \
-    $$PWD/popUps/workplacepopup.cpp \
     $$PWD/popUps/camerapopup.cpp \
     $$PWD/capture.cpp \
     $$PWD/converter.cpp \
