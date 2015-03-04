@@ -78,7 +78,8 @@ HEADERS +=\
     $$PWD/quicklegposturecontrol.h \
     $$PWD/quickarmposturecontrol.h \
     $$PWD/popUps/workplacepopup.h \
-    $$PWD/popUps/resetpopup.h
+    $$PWD/popUps/resetpopup.h \
+    $$PWD/popUps/employeepopup.h
 
 
 SOURCES +=\
@@ -154,7 +155,8 @@ SOURCES +=\
     $$PWD/quicklegposturecontrol.cpp \
     $$PWD/quickarmposturecontrol.cpp \
     $$PWD/popUps/workplacepopup.cpp \
-    $$PWD/popUps/resetpopup.cpp
+    $$PWD/popUps/resetpopup.cpp \
+    $$PWD/popUps/employeepopup.cpp
 
 
 

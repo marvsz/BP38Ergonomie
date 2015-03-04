@@ -8,6 +8,7 @@
 WorkplaceView::WorkplaceView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Workplace"), parent),
     id(-1),
+    btnEmployees(new QPushButton(this)),
     lblName(new QLabel(tr("Name:"))),
     lblDescription(new QLabel(tr("Description:"))),
     lblCode(new QLabel(tr("Code:"))),
@@ -30,6 +31,10 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     additions(new QList<DetailedListItem*>())
 
 {
+    btnEmployees->setObjectName("employeeIcon");
+    btnEmployees->setFixedSize(45, 45);
+    connect(btnEmployees, SIGNAL(clicked()), this, SLOT(showEmployeeView()));
+
     lblGuidelineTimes->setObjectName("lblHeader");
 
     txtBxName->setPlaceholderText(tr("name of the workplace"));
@@ -79,14 +84,17 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     line = new DetailedListItem(this, "lineIcon", tr("line"), lineList, false, false, true);
     activity = new DetailedListItem(this, "activityIcon", tr("activities"), activityList, false, false, true);
     comment = new DetailedListItem(this, "commentIcon", tr("remarks"), commentList, false, false, true);
+    employee = new DetailedListItem(this, "employeeIcon", tr("employee"), QList<QStringList>(), false, false, true);
 
     connect(line, SIGNAL(clicked()), this, SLOT(btnLineClicked()));
     connect(activity, SIGNAL(clicked()), this, SLOT(btnActivityClicked()));
     connect(comment, SIGNAL(clicked()), this, SLOT(btnCommentClicked()));
+    connect(employee, SIGNAL(clicked()), this, SLOT(btnEmployeeClicked()));
 
     additions->append(line);
     additions->append(activity);
     additions->append(comment);
+    additions->append(employee);
 
     QGridLayout *workplaceMetaDataLayout = new QGridLayout;
     workplaceMetaDataLayout->addWidget(lblName, 0, 0, 1, 1, 0);
@@ -120,6 +128,11 @@ WorkplaceView::WorkplaceView(int id, QWidget *parent) : WorkplaceView(parent){
 }
 
 //public slots
+QList<QAbstractButton*> * WorkplaceView::getAdditionalNavigation() const{
+    QList<QAbstractButton*> *additions = new QList<QAbstractButton*>();
+    additions->append(btnEmployees);
+    return additions;
+}
 
 void WorkplaceView::setName(const QString &name){
     txtBxName->setText(name);
@@ -168,6 +181,10 @@ void WorkplaceView::setComment(const QString &problemName, const QString &measur
 }
 
 //private slots
+void WorkplaceView::showEmployeeView(){
+    emit showView(ViewType::EMPLOYEE_LIST_VIEW);
+}
+
 void WorkplaceView::btnLineClicked(){
     emit showView(ViewType::LINE_VIEW);
 }
@@ -178,6 +195,10 @@ void WorkplaceView::btnActivityClicked(){
 
 void WorkplaceView::btnCommentClicked(){
     emit showView(ViewType::COMMENT_VIEW);
+}
+
+void WorkplaceView::btnEmployeeClicked(){
+    emit showPopUp(PopUpType::EMPlOYEE_POPUP);
 }
 
 // GETTER

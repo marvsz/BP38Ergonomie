@@ -48,7 +48,8 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     languagePopUp(new LanguagePopUp()),
     themePopUp(new ThemePopUp()),
     workplacePopUp(new WorkplacePopUp()),
-    resetPopUp(new ResetPopUp())
+    resetPopUp(new ResetPopUp()),
+    employeePopUp(new EmployeePopUp())
 {
     analyst_ID = 0;
     recording_ID = 1;
@@ -82,6 +83,7 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     //connect(employeeListView, SIGNAL(remove(int)), this, SLOT(deleteEmployee(int)));
     //connect(employeeListView, SIGNAL(create()), this, SLOT(createEmployee()));
     //connect(employeeListView, SIGNAL(selected(int)), this, SLOT(updateEmployeeView(int)));
+    connect(employeePopUp, SIGNAL(confirm()), this, SLOT(employeeSelected()));
 
     connect(lineView, SIGNAL(saveLine()), this, SLOT(createLine()));
     connect(lineView, SIGNAL(saveSelectedLine(int)), SLOT(saveSelectedLine(int)));
@@ -172,6 +174,7 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     viewCon->registerPopUp(themePopUp, PopUpType::THEME_POPUP);
     viewCon->registerPopUp(workplacePopUp, PopUpType::WORKPLACE_POPUP);
     viewCon->registerPopUp(resetPopUp, PopUpType::RESET_POPUP);
+    viewCon->registerPopUp(employeePopUp,PopUpType::EMPlOYEE_POPUP);
 
     //Set the start Views    
     documentationView->showStartView(ViewType::BODY_POSTURE_VIEW);
@@ -808,6 +811,11 @@ void Controller::saveEmployeeView(){
     values.insert(DBConstants::COL_EMPLOYEE_NOTE, employeeView->getNote());
     values.insert(DBConstants::COL_BODY_MEASUREMENT_ID, bodyMeasurement_ID);
     dbHandler->save(DB_TABLES::EMPLOYEE, DBConstants::HASH_EMPLOYEE_TYPES, values);
+}
+
+void Controller::employeeSelected(){
+    viewCon->showMessage(tr("Employee selected"), NotificationMessage::ACCEPT);
+    viewCon->closePopUp();
 }
 
 //BODY MEASUREMENT VIEW

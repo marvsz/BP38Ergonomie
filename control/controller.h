@@ -37,6 +37,7 @@
 #include "../view/popUps/themepopup.h"
 #include "../view/popUps/workplacepopup.h"
 #include "../view/popUps/resetpopup.h"
+#include "../view/popUps/employeepopup.h"
 #include "../view/documentationView/appliedforceview.h"
 #include "../view/documentationView/loadhandlingview.h"
 #include "../view/documentationView/executionconditionview.h"
@@ -116,6 +117,7 @@ private slots:
 
     void updateEmployeeView();
     void saveEmployeeView();
+    void employeeSelected();
 
     void updateBodyMeasurementView();
     void saveBodyMeasurementView();
@@ -205,6 +207,7 @@ private:
     ThemePopUp *themePopUp;
     WorkplacePopUp *workplacePopUp;
     ResetPopUp *resetPopUp;
+    EmployeePopUp *employeePopUp;
 
     int analyst_ID;
     int recording_ID;
