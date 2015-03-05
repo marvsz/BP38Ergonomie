@@ -62,6 +62,8 @@ private:
     QList<QAbstractButton*> *additionalNavigation;
     QHBoxLayout *middleNavigationLayout;
     QHBoxLayout *additionalNavigationLayout;
+    QSpacerItem *leftSpacer;
+    QSpacerItem *rightSpacer;
 
 
     void adaptNavigationBar(ViewType type);

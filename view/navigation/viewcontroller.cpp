@@ -37,15 +37,18 @@ ViewController::ViewController(QWidget *parent) : NotificationWidget(parent),
     connect(btnFeedback, SIGNAL(clicked()), this, SLOT(btnFeedbackClicked()));
 
     middleNavigationLayout->addWidget(lblTitle);
-    QWidget *middleNavigationWidget = new QWidget(this);
-    middleNavigationWidget->setLayout(middleNavigationLayout);
+
+    leftSpacer = new QSpacerItem(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+    rightSpacer = new QSpacerItem(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
 
     QHBoxLayout *navigationBarLayout = new QHBoxLayout;
     navigationBarLayout->addWidget(btnBack, 0, Qt::AlignLeft);
     navigationBarLayout->addWidget(lblBackTitle, 0, Qt::AlignLeft);
+    navigationBarLayout->addSpacerItem(leftSpacer);
     navigationBarLayout->addSpacerItem(new QSpacerItem(20, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
-    navigationBarLayout->addWidget(middleNavigationWidget, 0, Qt::AlignCenter);
+    navigationBarLayout->addLayout(middleNavigationLayout);
     navigationBarLayout->addSpacerItem(new QSpacerItem(20, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
+    navigationBarLayout->addSpacerItem(rightSpacer);
     navigationBarLayout->addLayout(additionalNavigationLayout);
     navigationBarLayout->addWidget(btnFeedback, 0, Qt::AlignRight);
     navigationBarLayout->addSpacerItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed));
@@ -183,6 +186,8 @@ void ViewController::btnFeedbackClicked(){
 //PRIVATE METHODS
 void ViewController::adaptNavigationBar(ViewType type){
     NavigateableWidget *currentWidget = viewTypeToWidget->value(type);
+    int leftWidth = 0;
+    int rightWidth = 0;
     if(currentWidget->canGoBack()){
         btnBack->show();
         ViewType backType = currentWidget->getBackViewType();
@@ -190,6 +195,9 @@ void ViewController::adaptNavigationBar(ViewType type){
             backType = previousViews->at(previousViews->count() - 2);
         }
         lblBackTitle->setText(viewTypeToWidget->value(backType)->getTitle());
+        lblBackTitle->adjustSize();
+        leftWidth += btnBack->sizeHint().width();
+        leftWidth += lblBackTitle->sizeHint().width();
     }
     else {
         btnBack->hide();
@@ -199,6 +207,9 @@ void ViewController::adaptNavigationBar(ViewType type){
     if(currentWidget->canGoForward() && viewTypeToWidget->contains(currentWidget->getForwardViewType())){
         btnForward->show();
         lblForwardTitle->setText(viewTypeToWidget->value(currentWidget->getForwardViewType())->getTitle());
+        lblForwardTitle->adjustSize();
+        rightWidth += btnForward->sizeHint().width();
+        rightWidth += lblForwardTitle->sizeHint().width();
     }
     else{
         btnForward->hide();
@@ -215,6 +226,8 @@ void ViewController::adaptNavigationBar(ViewType type){
             QAbstractButton *btnAdditional = additionalNavigation->at(i);
             btnAdditional->show();
             additionalNavigationLayout->addWidget(btnAdditional, 0, Qt::AlignRight);
+            btnAdditional->adjustSize();
+            rightWidth += btnAdditional->sizeHint().width();
         }
     }
     else{
@@ -234,6 +247,10 @@ void ViewController::adaptNavigationBar(ViewType type){
         lblTitle->show();
         internalNavigation = 0;
     }
+
+    leftSpacer->changeSize(rightWidth, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+    rightSpacer->changeSize(leftWidth, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+
     QWidget::update();
 }
 
