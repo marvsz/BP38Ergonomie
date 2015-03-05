@@ -5,14 +5,10 @@
 QuickArmPostureControl::QuickArmPostureControl(QWidget *parent) :
     QWidget(parent),
     btnOptions(QVector<SelectableValueButton*>()),
-    //leftOptions(QVector<SelectableValueButton*>()),
-    //rightOptions(QVector<SelectableValueButton*>()),
     speciOptions(QVector<SelectableValueButton*>()),
     mainLayout(new QVBoxLayout),
     id(0),
     idSpeci(0)
-    /*idLeft(0),
-    idRight(0)*/
 {
     mainLayout->setContentsMargins(0,0,0,0);
     this->setLayout(mainLayout);
@@ -25,7 +21,6 @@ void QuickArmPostureControl::setSelectedValue(int id){
         btnOptions.at(currentSelectedBtn->getID())->setSelected(false);
         currentSelectedBtn = btnOptions.at(id);
         currentSelectedBtn->setSelected(true);
-        //emit selectionChanged(id);
         if(speciOptions.at(0)->isSelected()&&speciOptions.at(1)->isSelected()){
             emit selectionChanged(id,2);
         }
@@ -72,59 +67,8 @@ void QuickArmPostureControl::setSelectedSpecification(int id){
         default:
             break;
         }
-
-        /*
-        if(currentSpeciBtn->getID() != id){
-            //speciOptions.at(currentSpeciBtn->getID())->setSelected(false);
-            currentSpeciBtn = speciOptions.at(id);
-            currentSpeciBtn->setSelected(true);
-            emit specificationChanged(id);
-        }
-        else{
-            //if(currentSpeciBtn->isSelected()){
-                speciOptions.at(currentSpeciBtn->getID())->setSelected(false);
-                currentSpeciBtn = speciOptions.at(id);
-                emit specificationChanged(id);
-            //}
-        }*/
     }
 }
-
-/*void QuickArmPostureControl::setSelectedLeft(int id){
-    if(id >= 0 && id < leftOptions.length() && currentLeftBtn != NULL){
-        if(!leftOptions.at(currentLeftBtn->getID() != id)->isSelected()){
-            leftOptions.at(currentLeftBtn->getID())->setSelected(false);
-            currentLeftBtn = leftOptions.at(id);
-            currentLeftBtn->setSelected(true);
-            emit specificationChanged(id);
-        }
-        else{
-            if(currentRightBtn->isSelected()){
-                leftOptions.at(currentLeftBtn->getID())->setSelected(false);
-                currentLeftBtn = leftOptions.at(id);
-                emit specificationChanged(id);
-            }
-        }
-    }
-}
-
-void QuickArmPostureControl::setSelectedRight(int id){
-    if(id >= 0 && id < rightOptions.length() && currentRightBtn != NULL){
-        if(!rightOptions.at(currentRightBtn->getID() != id)->isSelected()){
-            rightOptions.at(currentRightBtn->getID())->setSelected(false);
-            currentRightBtn = rightOptions.at(id);
-            currentRightBtn->setSelected(true);
-            emit specificationChanged(id);
-        }
-        else{
-            if(currentLeftBtn->isSelected()){
-                rightOptions.at(currentRightBtn->getID())->setSelected(false);
-                currentRightBtn = rightOptions.at(id);
-                emit specificationChanged(id);
-            }
-        }
-    }
-}*/
 
 void QuickArmPostureControl::setSelectedValue(const QString &text){
     for(int i = 0; i < btnOptions.length(); ++i){
