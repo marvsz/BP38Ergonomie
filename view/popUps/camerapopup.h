@@ -1,3 +1,4 @@
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
 #ifndef CAMERAPOPUP_H
 #define CAMERAPOPUP_H
 
@@ -24,8 +25,10 @@ public slots:
 private slots:
     void btnCaptureClicked();
     void btnSwitchCameraClicked();
+    void btnStartRecordingClicked();
 
 private:
+    bool isRecording;
     int currentCamera;
     QThread captureThread;
     QThread converterThread;
@@ -34,7 +37,9 @@ private:
     Converter converter;
 
     QPushButton *btnCapture;
+    QPushButton *btnStartRecording;
     QPushButton *btnSwitchCamera;
 };
 
 #endif // CAMERAPOPUP_H
+#endif

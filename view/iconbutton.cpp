@@ -13,9 +13,6 @@ IconButton::IconButton(QWidget *parent, const QString &objectName, const QString
     lblIcon->setFixedSize(45, 45);
     connect(lblIcon, SIGNAL(clicked()), this, SIGNAL(clicked()));
 
-    lblText->setObjectName("lblLight");
-    lblSpacer->setObjectName("lblLight");
-
     layout->addWidget(lblIcon, 0, 0, 1, 1, Qt::AlignLeft);
     layout->addWidget(lblText, 0, 1, 1, 1, Qt::AlignCenter);
     layout->addWidget(lblSpacer, 0, 2, 1, 1, Qt::AlignRight);

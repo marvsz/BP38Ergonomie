@@ -1,3 +1,4 @@
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
 #include "converter.h"
 #include <QDebug>
 #include <QPixmap>
@@ -54,3 +55,4 @@ void Converter::processFrame(const cv::Mat &frame, int cam){
     else
         queue(frame, cam);
 }
+#endif

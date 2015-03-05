@@ -12,9 +12,10 @@ MainMenu::MainMenu(QWidget *parent) :
     btnShift(new IconButton(this, "calendarIcon", tr("Shift Data"))),
     btnSettings(new QPushButton(this)),
     btnNewRecording(new QPushButton(this)),
-    btnSendDatabase(new QPushButton(this)),
-    btnCamera(new QPushButton(this))
-
+    #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
+    btnCamera(new QPushButton(this)),
+    #endif
+    btnSendDatabase(new QPushButton(this))
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
 
@@ -32,8 +33,10 @@ MainMenu::MainMenu(QWidget *parent) :
     btnNewRecording->setObjectName("quickRecordingIcon");
     btnNewRecording->setFixedSize(45, 45);
 
+    #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     btnCamera->setObjectName("cameraIcon");
     btnCamera->setFixedSize(45, 45);
+    #endif
 
     connect(btnMetaDataView, SIGNAL(clicked()), this, SLOT(btnMetaDataViewClicked()));
     connect(btnWorkplaceList, SIGNAL(clicked()), this, SLOT(btnWorkplaceListClicked()));
@@ -42,7 +45,9 @@ MainMenu::MainMenu(QWidget *parent) :
     connect(btnNewRecording, SIGNAL(clicked()), this, SLOT(btnNewRecordingClicked()));
     connect(btnSettings, SIGNAL(clicked()), this, SLOT(btnSettingsClicked()));
     connect(btnSendDatabase, SIGNAL(clicked()), this, SLOT(btnSendDatabaseClicked()));
+    #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     connect(btnCamera, SIGNAL(clicked()), this, SLOT(btnCameraClicked()));
+    #endif
 
     lblViewName->setObjectName("lblHeader");
 
@@ -66,7 +71,9 @@ QList<QAbstractButton*> * MainMenu::getAdditionalNavigation() const{
     additions->append(btnSettings);
     additions->append(btnSendDatabase);
     additions->append(btnNewRecording);
+    #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     additions->append(btnCamera);
+    #endif
     return additions;
 }
 
@@ -112,6 +119,8 @@ void MainMenu::retranslate(){
     btnShift->setText(tr("Shift Data"));
 }
 
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
 void MainMenu::btnCameraClicked(){
     emit showPopUp(PopUpType::CAMERA_POPUP);
 }
+#endif

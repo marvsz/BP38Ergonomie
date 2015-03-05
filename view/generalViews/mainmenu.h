@@ -37,8 +37,11 @@ private slots:
     void btnRessourceManagementClicked();
     void btnShiftClicked();
     void btnNewRecordingClicked();
-    void btnSendDatabaseClicked();
+    #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     void btnCameraClicked();
+    #endif
+    void btnSendDatabaseClicked();
+
 
 private:
     QLabel *lblViewName;
@@ -49,7 +52,9 @@ private:
     QPushButton *btnSettings;
     QPushButton *btnNewRecording;
     QPushButton *btnSendDatabase;
+    #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     QPushButton *btnCamera;
+    #endif
 
 };
 

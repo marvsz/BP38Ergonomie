@@ -1,8 +1,10 @@
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
 #ifndef CAPTURE_H
 #define CAPTURE_H
 
 #include <QObject>
 #include <QBasicTimer>
+#include <QString>
 #include <QScopedPointer>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -23,14 +25,19 @@ signals:
 public slots:
     void start(int cam = 0);
     void stop();
+    QString startRecording();
+    void stopRecording();
     void switchCam();
 
 private:
+    bool recording;
     int currentCamera;
     QBasicTimer timer;
     QScopedPointer<cv::VideoCapture> videoCapture;
+    QScopedPointer<cv::VideoWriter> videoWriter;
 
     void timerEvent(QTimerEvent * ev);
 };
 
 #endif // CAPTURE_H
+#endif

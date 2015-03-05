@@ -42,7 +42,9 @@
 #include "../view/popUps/iftpconnections.h"
 #include "../view/popUps/resetpopup.h"
 #include "../view/popUps/employeepopup.h"
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
 #include "../view/popUps/camerapopup.h"
+#endif
 #include "../view/documentationView/appliedforceview.h"
 #include "../view/documentationView/loadhandlingview.h"
 #include "../view/documentationView/executionconditionview.h"
@@ -222,8 +224,10 @@ private:
     WorkplacePopUp *workplacePopUp;
     ImportDataPopUp *importDataPopUp;
     ResetPopUp *resetPopUp;
-    EmployeePopUp *employeePopUp;
+    #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     CameraPopUp *cameraPopUp;
+    #endif
+    EmployeePopUp *employeePopUp;
 
     int analyst_ID;
     int recording_ID;
