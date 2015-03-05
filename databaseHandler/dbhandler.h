@@ -1,44 +1,52 @@
 #ifndef DBHANDLER_H
 #define DBHANDLER_H
 
-#include <QHash>
-#include <QSql>
+#include <QObject>
 #include <QSqlQuery>
 #include <QSqlTableModel>
+#include <QSqlField>
 #include <QSqlRecord>
+#include <QFile>
+#include <QFileInfo>
 #include "dbconstants.h"
 
-class DBHandler
+class DBHandler : public QObject
 {
+    Q_OBJECT
 public:
-    DBHandler();
+    explicit DBHandler(QObject *parent = 0);
     ~DBHandler();
 
-    int getNextID(DB_TABLES tbl, const QString &colName, const QString &filter = "");
+    void setDatabasePath(const QString &path);
+    void registerTable(const QString &tblName);
 
-    int select(DB_TABLES tbl, const QString &filter, int col, Qt::SortOrder order);
-    int select(DB_TABLES tbl, const QString &filter);
-    int insert(DB_TABLES tbl, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue, const QString &colID = "");
-    int save(DB_TABLES tbl, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue, const QString &filter = "", const QString &colID = "");
-    int update(DB_TABLES tbl, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue, const QString &filter = "");
-    bool deleteRow(DB_TABLES tbl, int row);
-    bool deleteAll(DB_TABLES tbl, const QString &filter);
+    int getNextID(const QString &tbl, const QString &colName, const QString &filter = "");
 
-    int rowCount(DB_TABLES tbl);
-    QSqlRecord record(DB_TABLES tbl, int row);
+    QList<QHash<QString, QVariant>> select(const QString &tbl, const QString &filter, Qt::SortOrder order = Qt::SortOrder::AscendingOrder);
+    QHash<QString, QVariant> selectFirst(const QString &tbl, const QString &filter, Qt::SortOrder order = Qt::SortOrder::AscendingOrder);
+    int selectCount(const QString &tbl, const QString &filter, Qt::SortOrder order = Qt::SortOrder::AscendingOrder);
+    bool isSelectEmpty(const QString &tbl, const QString &filter, Qt::SortOrder order = Qt::SortOrder::AscendingOrder);
+
+    int insert(const QString &tbl, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue, const QString &colID = "");
+    int save(const QString &tbl, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue, const QString &filter = "", const QString &colID = "");
+    int update(const QString &tbl, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue, const QString &filter = "");
+    bool deleteRow(const QString &tbl, int row);
+    bool deleteAll(const QString &tbl, const QString &filter);
 
     //PUBLIC ONLY UNTIL BODY POSTURE UPDATE
-    bool insertRow(DB_TABLES tbl, const QSqlRecord &record);
-    bool updateRow(DB_TABLES tbl, int row, const QSqlRecord &record);
+    bool insertRow(const QString &tbl, const QSqlRecord &record);
+    bool updateRow(const QString &tbl, int row, const QSqlRecord &record);
+
+signals:
+    void databaseError(QString errorMessage);
 
 private:
     QSqlDatabase database;
-    QHash<DB_TABLES, QSqlTableModel*> htSqlTableModels;
+    QHash<const QString, QSqlTableModel*> htSqlTableModels;
 
-    QSqlTableModel* getTableModelRef(DB_TABLES tbl);
+    QSqlTableModel* getTableModelRef(const QString &tbl);
 
-    void registerTable(const QString &tblName, const DB_TABLES tblType);
-    bool updateAll(DB_TABLES tbl, const QString &filter, const QSqlRecord &record);
+    bool updateAll(const QString &tbl, const QString &filter, const QSqlRecord &record);
 
 };
 

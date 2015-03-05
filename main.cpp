@@ -37,9 +37,9 @@ int main(int argc, char *argv[])
     t.setLanguage("trans_DE");
 
     Controller c(0, &a, &t);
-    QTranslator translator;
+    /*QTranslator translator;
     translator.load(":/translations/ergo_trans_de");
-    a.installTranslator(&translator);
+    a.installTranslator(&translator);*/
 
     return a.exec();
 }

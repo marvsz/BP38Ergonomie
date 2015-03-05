@@ -87,7 +87,9 @@ HEADERS +=\
     $$PWD/capture.h \
     $$PWD/converter.h \
     $$PWD/imageviewer.h \
-    $$PWD/documentationView/bodyPostureView/quickselectioncontrol.h
+    $$PWD/documentationView/bodyPostureView/quickselectioncontrol.h \
+    $$PWD/interfaces/iemployeelist.h \
+    $$PWD/interfaces/iemployee.h
 
 SOURCES +=\
     $$PWD/documentationView/bodyPostureView/variantspecification.cpp\
