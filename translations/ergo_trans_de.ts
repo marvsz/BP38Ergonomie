@@ -347,397 +347,380 @@
 <context>
     <name>BodyPostureView</name>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="36"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="34"/>
         <source>Body posture</source>
         <translation>Körperhaltung</translation>
     </message>
     <message>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="69"/>
         <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="73"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="77"/>
         <source>both</source>
         <translation>Beide</translation>
     </message>
     <message>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="70"/>
         <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="74"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="78"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.h" line="140"/>
         <source>left</source>
         <translation>Links</translation>
     </message>
     <message>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="71"/>
         <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="75"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="79"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.h" line="140"/>
         <source>right</source>
         <translation>Rechts</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="83"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="79"/>
         <source>Trunk tilt</source>
         <translation>Beugungswinkel</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="84"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="80"/>
         <source>trunk_tilt_icon_path</source>
         <translation>:/BodyPostureIcons/Torso/Flexion/</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="88"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="84"/>
         <source>Trunk sideways tilt</source>
         <translation>Seitliche Neigung</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="89"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="85"/>
         <source>trunk_tilt_sideways_icon_path</source>
         <translation>:/BodyPostureIcons/Torso/Sidewise_Inclination/</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="93"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="89"/>
         <source>Trunk twist</source>
         <translation>Oberkörperdrehung</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="94"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="90"/>
         <source>trunk_twist_icon_path</source>
         <translation>:/BodyPostureIcons/Torso/Twist/</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="97"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="102"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="107"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="112"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="117"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="122"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="127"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="132"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="93"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="98"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="103"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="108"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="113"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="118"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="123"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="128"/>
         <source>°</source>
         <translation>°</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="98"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="94"/>
         <source>Upper arm angle</source>
         <translation>Oberarmwinkel</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="99"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="95"/>
         <source>upper_arm_angle_icon_path</source>
         <translation>:/BodyPostureIcons/Arms/Posture/Upper_Arm/</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="103"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="99"/>
         <source>Forearm angle</source>
         <translation>Unterarmwinkel</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="104"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="100"/>
         <source>forearm_angle_icon_path</source>
         <translation>:/BodyPostureIcons/Arms/Posture/Forearm/</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="108"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="104"/>
         <source>Upper arm twist</source>
         <translation>Oberarmdrehungswinkel</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="109"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="105"/>
         <source>upper_arm_twist_icon_path</source>
         <translation>:/BodyPostureIcons/Arms/Twist/Upper_Arm/</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="113"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="109"/>
         <source>Forearm twist</source>
         <translation>Unterarmdrehungswinkel</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="114"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="110"/>
         <source>forearm_twist_icon_path</source>
         <translation>:/BodyPostureIcons/Arms/Twist/Forearm/</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="118"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="114"/>
         <source>Arm opening</source>
         <translation>Oberarmöffnungswinkel</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="119"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="115"/>
         <source>arm_opening_icon_path</source>
         <translation>:/BodyPostureIcons/Arms/Opening/</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="123"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="119"/>
         <source>Wrist angle</source>
         <translation>Handgelenkwinkel</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="124"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="120"/>
         <source>wrist_angle_icon_path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="128"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="124"/>
         <source>Wrist sideways angle</source>
         <translation>Handgelenkneigungswinkel</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="129"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="125"/>
         <source>wrist_angle_sideways_icon_path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="133"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="129"/>
         <source>Wrist movement</source>
         <translation>Handgelenkbewegung</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="134"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="130"/>
         <source>wrist_movement_icon_path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="138"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="134"/>
         <source>Hip angle</source>
         <translation>Hüftwinkel</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="139"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="135"/>
         <source>hip_angle_icon_path</source>
         <translation>:/BodyPostureIcons/Legs/Hip/Flexion/</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="143"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="139"/>
         <source>Hip sideways angle</source>
         <translation>Hüftneigungswinkel</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="144"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="140"/>
         <source>hip_angle_sideways_icon_path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="148"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="144"/>
         <source>Hip twist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="149"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="145"/>
         <source>hip_twist_icon_path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="153"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="149"/>
         <source>Knee angle</source>
         <translation>Kniewinkel</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="154"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="150"/>
         <source>knee_angle_icon_path</source>
         <translation>:/BodyPostureIcons/Legs/Knee/Flexion/</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="158"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="154"/>
         <source>Ankle angle</source>
         <translation>Sprunggelenkwinkel</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="159"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="155"/>
         <source>ankle_angle_icon_path</source>
         <translation>:/BodyPostureIcons/Legs/Ankle/Flexion/</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="163"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="159"/>
         <source>Ankle sideways angle</source>
         <translation>Sprunggelenkneigungswinkel</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="164"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="160"/>
         <source>ankle_angle_sideways_icon_path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="168"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="164"/>
         <source>Head tilt</source>
         <translation>Kopfneigungswinkel</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="169"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="165"/>
         <source>head_tilt_icon_path</source>
         <translation>:/BodyPostureIcons/Head/inclination/</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="173"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="169"/>
         <source>Head sideways tilt</source>
         <translation>Seitlicher Kopfneigungswinkel</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="174"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="170"/>
         <source>head_tilt_sideways_icon_path</source>
         <translation>:/BodyPostureIcons/Head/sidewise_inclination/</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="178"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="174"/>
         <source>Head twist</source>
         <translation>Kopfdrehungswinkel</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="179"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="175"/>
         <source>head_twist_icon_path</source>
         <translation>:/BodyPostureIcons/Head/twist/</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="182"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="178"/>
+        <source>Quick Selection</source>
+        <translation>Schnellauswahl</translation>
+    </message>
+    <message>
         <source>Quick Leg Posture</source>
-        <translation>Schnelle Beinhaltung</translation>
+        <translation type="vanished">Schnelle Beinhaltung</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="186"/>
         <source>Quick Arm Posture</source>
-        <translation>Schnelle Armhaltung</translation>
+        <translation type="vanished">Schnelle Armhaltung</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="190"/>
         <source>Quick Trunk Posture</source>
-        <translation>Schnelle Körperhaltung</translation>
+        <translation type="vanished">Schnelle Körperhaltung</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="200"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="300"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="183"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="287"/>
         <source>Trunk</source>
         <translation>Rumpf</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="201"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="250"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="184"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="232"/>
         <source>Tilt</source>
         <translation>Beugung</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="203"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="252"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="186"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="234"/>
         <source>Sideways tilt</source>
         <translation>Seitl. Neigung</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="205"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="217"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="254"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="188"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="199"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="236"/>
         <source>Twist</source>
         <translation>Drehung</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="213"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="297"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="195"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="284"/>
         <source>Arms</source>
         <translation>Arme</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="214"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="196"/>
         <source>Posture</source>
         <translation>Haltung</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="220"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="202"/>
         <source>Opening</source>
         <translation>Öffnung</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="222"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="204"/>
         <source>Wrist</source>
         <translation>Handgelenk</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="233"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="215"/>
         <source>Legs</source>
         <translation>Beine</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="234"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="216"/>
         <source>Hip</source>
         <translation>Hüfte</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="237"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="219"/>
         <source>Knee</source>
         <translation>Knie</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="239"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="221"/>
         <source>Ankle</source>
         <translation>Sprunggelenk</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="249"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="231"/>
         <source>Head</source>
         <translation>Kopf</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="303"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="290"/>
         <source>Nothing</source>
         <translation>Nichts</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.h" line="137"/>
         <source>Standing</source>
-        <translation>Stehend</translation>
+        <translation type="vanished">Stehend</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.h" line="137"/>
         <source>Sitting</source>
-        <translation>Sitzend</translation>
+        <translation type="vanished">Sitzend</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.h" line="137"/>
         <source>Kneeling</source>
-        <translation>Knieend</translation>
+        <translation type="vanished">Knieend</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.h" line="137"/>
         <source>Walking</source>
-        <translation>Laufend</translation>
+        <translation type="vanished">Laufend</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.h" line="137"/>
         <source>Running</source>
-        <translation>Gehend</translation>
+        <translation type="vanished">Gehend</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.h" line="138"/>
         <source>At Elbow height</source>
-        <translation>Auf Ellebogenhöhe</translation>
+        <translation type="vanished">Auf Ellebogenhöhe</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.h" line="138"/>
         <source>At Shoulder height</source>
-        <translation>Auf Schulterhöhe</translation>
+        <translation type="vanished">Auf Schulterhöhe</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.h" line="138"/>
         <source>At Head height</source>
-        <translation>Überkopf</translation>
+        <translation type="vanished">Überkopf</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.h" line="139"/>
-        <source>strong bending to the front</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.h" line="139"/>
         <source>light bending to the front</source>
-        <translation>Starke Neigung nach Vorne</translation>
+        <translation type="vanished">Starke Neigung nach Vorne</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.h" line="139"/>
         <source>no bending at all</source>
-        <translation>Keine Neigung</translation>
+        <translation type="vanished">Keine Neigung</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.h" line="139"/>
         <source>light bending to behind</source>
-        <translation>Leichte Neigung nach Hinten</translation>
+        <translation type="vanished">Leichte Neigung nach Hinten</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.h" line="139"/>
         <source>strong bending to behind</source>
-        <translation>Starke Neigung nach Hinten</translation>
+        <translation type="vanished">Starke Neigung nach Hinten</translation>
     </message>
 </context>
 <context>
@@ -825,22 +808,22 @@
 <context>
     <name>Controller</name>
     <message>
-        <location filename="../control/controller.cpp" line="358"/>
+        <location filename="../control/controller.cpp" line="362"/>
         <source>Created analyst</source>
         <translation>Analyst erstellt</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="364"/>
+        <location filename="../control/controller.cpp" line="368"/>
         <source>Deleted analyst</source>
         <translation>Analyst gelöscht</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="378"/>
+        <location filename="../control/controller.cpp" line="382"/>
         <source>Autogenerated workplace</source>
         <translation>Autogenerierter Arbeitsplatz</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="382"/>
+        <location filename="../control/controller.cpp" line="386"/>
         <source>Autogenerated activity</source>
         <translation>Autogenerierte Aktivität</translation>
     </message>
@@ -865,90 +848,99 @@
         <translation>Linie gelöscht</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="693"/>
-        <location filename="../control/controller.cpp" line="705"/>
+        <location filename="../control/controller.cpp" line="692"/>
+        <location filename="../control/controller.cpp" line="704"/>
         <source>Created new product</source>
         <translation>Neues Produkt erstellt</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="716"/>
+        <location filename="../control/controller.cpp" line="715"/>
         <source>Deleted product</source>
         <translation>Produkt gelöscht</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="747"/>
+        <location filename="../control/controller.cpp" line="746"/>
         <source>Created new equipment</source>
         <translation>Neues Betriebsmittel erstelllt</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="754"/>
+        <location filename="../control/controller.cpp" line="753"/>
         <source>Deleted equipment</source>
         <translation>Betriebsmittel gelöscht</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="767"/>
+        <location filename="../control/controller.cpp" line="766"/>
         <source>Created new Equipment</source>
         <translation>Neues Betriebsmittel erstellt</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="815"/>
+        <location filename="../control/controller.cpp" line="812"/>
         <source>Created activity</source>
         <translation>Aktivität erstellt</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="823"/>
+        <location filename="../control/controller.cpp" line="820"/>
         <source>Deleted activity</source>
         <translation>Aktivität gelöscht</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="869"/>
+        <location filename="../control/controller.cpp" line="864"/>
         <source>Updated activity</source>
         <translation>Aktivität aktualisiert</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="936"/>
+        <location filename="../control/controller.cpp" line="929"/>
         <source>Created new transportation</source>
         <translation>Neues Transportmittel erstellt</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="949"/>
+        <location filename="../control/controller.cpp" line="942"/>
         <source>Created new transporation</source>
         <translation>Neues Transportmittel erstellt</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="959"/>
+        <location filename="../control/controller.cpp" line="952"/>
         <source>Deleted transportation</source>
         <translation>Transportmittel gelöscht</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="1000"/>
+        <location filename="../control/controller.cpp" line="991"/>
         <source>Employee selected</source>
         <translation>Mitarbeiter ausgewählt</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="1519"/>
+        <location filename="../control/controller.cpp" line="1488"/>
         <source>Start parsing</source>
         <translation>Starte Parsen</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="1674"/>
+        <location filename="../control/controller.cpp" line="1643"/>
         <source>Language changed</source>
         <translation>Sprache geändert</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="1675"/>
+        <location filename="../control/controller.cpp" line="1644"/>
         <source>Restart app and apply changes</source>
         <translation>Zum Anwenden der Änderungen App neustarten</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="1697"/>
+        <location filename="../control/controller.cpp" line="1666"/>
         <source>Theme changed</source>
         <translation>Thema geändert</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="1832"/>
+        <location filename="../control/controller.cpp" line="1801"/>
         <source>Reset successful</source>
         <translation>Erfolgreich zurückgesetzt</translation>
+    </message>
+</context>
+<context>
+    <name>DBHandler</name>
+    <message>
+        <location filename="../databaseHandler/dbhandler.cpp" line="102"/>
+        <location filename="../databaseHandler/dbhandler.cpp" line="121"/>
+        <source>Select: %1 from %2</source>
+        <translation>Select: %1 from %2</translation>
     </message>
 </context>
 <context>
@@ -1954,6 +1946,99 @@
         <location filename="../view/ressourceManagementView/productview.h" line="38"/>
         <source>total percentage</source>
         <translation>Anteil an der Gesamtproduktion</translation>
+    </message>
+</context>
+<context>
+    <name>QuickSelectionControl</name>
+    <message>
+        <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.cpp" line="20"/>
+        <source>Quick Leg Posture</source>
+        <translation>Schnelle Beinhaltung</translation>
+    </message>
+    <message>
+        <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.cpp" line="26"/>
+        <source>Quick Arm Posture</source>
+        <translation>Schnelle Armhaltung</translation>
+    </message>
+    <message>
+        <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.cpp" line="31"/>
+        <source>Quick Trunk Posture</source>
+        <translation>Schnelle Körperhaltung</translation>
+    </message>
+    <message>
+        <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="65"/>
+        <source>Standing</source>
+        <translation>Stehend</translation>
+    </message>
+    <message>
+        <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="65"/>
+        <source>Sitting</source>
+        <translation>Sitzend</translation>
+    </message>
+    <message>
+        <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="65"/>
+        <source>Kneeling</source>
+        <translation>Knieend</translation>
+    </message>
+    <message>
+        <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="65"/>
+        <source>Walking</source>
+        <translation>Laufend</translation>
+    </message>
+    <message>
+        <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="65"/>
+        <source>Running</source>
+        <translation>Gehend</translation>
+    </message>
+    <message>
+        <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="66"/>
+        <source>At Elbow height</source>
+        <translation>Auf Ellebogenhöhe</translation>
+    </message>
+    <message>
+        <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="66"/>
+        <source>At Shoulder height</source>
+        <translation>Auf Schulterhöhe</translation>
+    </message>
+    <message>
+        <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="66"/>
+        <source>At Head height</source>
+        <translation>Überkopf</translation>
+    </message>
+    <message>
+        <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="67"/>
+        <source>strong bending to the front</source>
+        <translation>Starke Beugung nach Vorne</translation>
+    </message>
+    <message>
+        <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="67"/>
+        <source>light bending to the front</source>
+        <translation>Starke Neigung nach Vorne</translation>
+    </message>
+    <message>
+        <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="67"/>
+        <source>no bending at all</source>
+        <translation>Keine Beugung</translation>
+    </message>
+    <message>
+        <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="67"/>
+        <source>light bending to behind</source>
+        <translation>Leichte Beugung nach Hinten</translation>
+    </message>
+    <message>
+        <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="67"/>
+        <source>strong bending to behind</source>
+        <translation>Starke Beugung nach Hinten</translation>
+    </message>
+    <message>
+        <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="68"/>
+        <source>left</source>
+        <translation>Links</translation>
+    </message>
+    <message>
+        <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="68"/>
+        <source>right</source>
+        <translation>Rechts</translation>
     </message>
 </context>
 <context>

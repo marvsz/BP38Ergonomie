@@ -25,6 +25,10 @@ public:
 signals:
     void QuickSelectionChanged(int id);
     void requestShowContent(const QString &name);
+    void quickTrunkPostureChanged(int id);
+    void quickArmPostureChanged(int id, int sel);
+    void quickLegPostureChanged(int id, int sel);
+    void quickLegPostureSpecificationChanged(int sel);
 
 public slots:
 
@@ -32,6 +36,10 @@ public slots:
     void showContent();
     void setName(const QString &name);
     void setExclusiveDisplayByName(const QString &name);
+    void voscQuickTrunkPostureChanged(int id);
+    void voscQuickArmPostureChanged(int id, int sel);
+    void qlpcQuickLegPostureChanged(int id, int sel);
+    void qlpcQuickLegPostureSpecificationChagend(int sel);
     /*
     void voscQuickTrunkPostureChanged(int id);
     void voscQuickArmPostureChanged(int id, int sel);
