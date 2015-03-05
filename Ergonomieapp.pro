@@ -94,7 +94,8 @@ unix {
 OTHER_FILES += \
     android/AndroidManifest.xml
 
-TRANSLATIONS = ergo_trans_de.ts
+TRANSLATIONS = translations/ergo_trans_de.ts \
+                translations/ergo_trans_en.ts
 
 deployment.files += myfile.sqlite
 deployment.path = /assets

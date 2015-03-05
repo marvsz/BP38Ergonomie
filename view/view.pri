@@ -86,7 +86,8 @@ HEADERS +=\
     $$PWD/popUps/camerapopup.h \
     $$PWD/capture.h \
     $$PWD/converter.h \
-    $$PWD/imageviewer.h
+    $$PWD/imageviewer.h \
+    $$PWD/documentationView/bodyPostureView/quickselectioncontrol.h
 
 SOURCES +=\
     $$PWD/documentationView/bodyPostureView/variantspecification.cpp\
@@ -168,4 +169,5 @@ SOURCES +=\
     $$PWD/popUps/camerapopup.cpp \
     $$PWD/capture.cpp \
     $$PWD/converter.cpp \
-    $$PWD/imageviewer.cpp
+    $$PWD/imageviewer.cpp \
+    $$PWD/documentationView/bodyPostureView/quickselectioncontrol.cpp

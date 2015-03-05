@@ -75,7 +75,7 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWi
     vcShoulderBideltoid->setText(tr("Shoulder bideltoid [mm]"));
     vcShoulderBideltoid->setValues(400, 600, QVector<int>()<<450<<475<<500<<525<<550, QString(""));
     vcShoulderBideltoid->setValue(480);
-    vcTorsoHeight->setText("Torso Height [mm]");
+    vcTorsoHeight->setText(tr("Torso Height [mm]"));
     vcTorsoHeight->setValues(500, 800, QVector<int>()<<550<<600<<650<<700<<750, QString(""));
     vcTorsoHeight->setValue(620);
 
