@@ -37,12 +37,14 @@ ViewController::ViewController(QWidget *parent) : NotificationWidget(parent),
     connect(btnFeedback, SIGNAL(clicked()), this, SLOT(btnFeedbackClicked()));
 
     middleNavigationLayout->addWidget(lblTitle);
+    QWidget *middleNavigationWidget = new QWidget(this);
+    middleNavigationWidget->setLayout(middleNavigationLayout);
 
     QHBoxLayout *navigationBarLayout = new QHBoxLayout;
     navigationBarLayout->addWidget(btnBack, 0, Qt::AlignLeft);
     navigationBarLayout->addWidget(lblBackTitle, 0, Qt::AlignLeft);
     navigationBarLayout->addSpacerItem(new QSpacerItem(20, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
-    navigationBarLayout->addLayout(middleNavigationLayout);
+    navigationBarLayout->addWidget(middleNavigationWidget, 0, Qt::AlignCenter);
     navigationBarLayout->addSpacerItem(new QSpacerItem(20, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
     navigationBarLayout->addLayout(additionalNavigationLayout);
     navigationBarLayout->addWidget(btnFeedback, 0, Qt::AlignRight);

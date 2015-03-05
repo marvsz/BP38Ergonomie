@@ -50,9 +50,9 @@ void NotificationMessage::processMessageQueue(){
         idle = false;
         int duration;
         switch(msg.displayType){
-            case SHORT: duration = 500; break;
-            case MIDDLE: duration = 1000; break;
-            case LONG: duration = 2000; break;
+            case SHORT: duration = 1000; break;
+            case MIDDLE: duration = 1500; break;
+            case LONG: duration = 2500; break;
             default: duration = 1000; break;
         }
         if(msg.displayType != PERSISTENT){
@@ -67,18 +67,11 @@ void NotificationMessage::processMessageQueue(){
             default: this->setIcon(QIcon(":/blue/icons/Buttons/blue/information.png")); break;
         }
         this->setText(msg.text);
-        /*int length = msg.text.length();
-        int width = 40 + (length > 30 ? 30 : length) * 10;
-        int height = 42;
-        if (length > 30)
-            height += 35 * length / 30;*/
 
         int oldWidth = this->width();
         int oldHeight = this->height();
         this->adjustSize();
 
-        //int xPos = this->x() + (this->width() - width) / 2;
-        //int yPos = this->y() + (this->height() - height);
         int xPos = this->x() + (oldWidth - this->width()) / 2;
         int yPos = this->y() + (oldHeight - this->height());
         this->setGeometry(xPos, yPos, this->width(), this->height());

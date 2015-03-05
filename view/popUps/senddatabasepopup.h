@@ -2,7 +2,7 @@
 #define SENDDATABASEPOPUP_H
 
 #include "../view/navigation/abstractpopupwidget.h"
-#include "iftpconnections.h"
+#include "../view/interfaces/iftpconnections.h"
 #include "ftpconnectionswidget.h"
 
 class SendDatabasePopUp : public AbstractPopUpWidget, public IFTPConnections

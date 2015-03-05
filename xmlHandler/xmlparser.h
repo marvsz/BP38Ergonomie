@@ -11,6 +11,8 @@
 class XMLParser : public QObject, IImportDataParser
 {
     Q_OBJECT
+    Q_INTERFACES(IImportDataParser)
+
 public:
     explicit XMLParser(QObject *parent = 0);
     ~XMLParser();

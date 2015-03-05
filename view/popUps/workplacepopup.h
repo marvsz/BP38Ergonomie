@@ -2,8 +2,6 @@
 #define WORKPLACEPOPUP_H
 
 #include "../navigation/abstractpopupwidget.h"
-#include <QLabel>
-#include "../textlineedit.h"
 #include "../numberlineedit.h"
 #include "../timelineedit.h"
 

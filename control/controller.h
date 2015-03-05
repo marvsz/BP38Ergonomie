@@ -39,7 +39,7 @@
 #include "../view/popUps/themepopup.h"
 #include "../view/popUps/workplacepopup.h"
 #include "../view/popUps/importdatapopup.h"
-#include "../view/popUps/iftpconnections.h"
+#include "../view/interfaces/iftpconnections.h"
 #include "../view/popUps/resetpopup.h"
 #include "../view/popUps/employeepopup.h"
 #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
