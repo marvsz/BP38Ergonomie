@@ -2,17 +2,10 @@
 #define DBCONSTANTS_H
 
 #include <QString>
-#include <QStringList>
 #include <QList>
 #include <QVariant>
 #include <QHash>
 
-enum DB_TABLES {ANALYST, EMPLOYER, CORPORATION, BRANCH_OF_INDUSTRY, FACTORY, RECORDING,
-                RECORDING_OBSERVES_LINE, RECORDING_OBSERVES_WORKPLACE, LINE, WORKPLACE,
-                COMMENT, EMPLOYEE, EMPLOYEE_WORKS_SHIFT, PRODUCT, SHIFT, BREAK,
-               ACTIVITY, BODY_POSTURE, WORK_PROCESS, LOAD_HANDLING_TYPE, LOAD_HANDLING,
-               APPLIED_FORCE, TRANSPORTATION, TYPE_OF_GRASPING, EQUIPMENT, WORK_CONDITION,
-               CONNECTION, BODY_MEASUREMENT};
 
 class DBConstants
 {
@@ -340,7 +333,8 @@ public:
 
 
     //Table list
-    static const QHash<QString, DB_TABLES> HASH_TBL_TO_DB_TABLES;
+    //static const QHash<QString, DB_TABLES> HASH_TBL_TO_DB_TABLES;
+    static const QList<QString> LIST_TABLE_NAMES;
 };
 
 #endif // DBCONSTANTS_H
