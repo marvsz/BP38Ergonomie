@@ -6,7 +6,7 @@
 
 class EquipmentPopUp : public AbstractPopUpWidget
 {
-
+    Q_OBJECT
 public:
     explicit EquipmentPopUp(QWidget *parent = 0);
     ~EquipmentPopUp();

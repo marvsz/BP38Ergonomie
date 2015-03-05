@@ -6,6 +6,7 @@
 
 class AnalystPopUp : public AbstractPopUpWidget
 {
+    Q_OBJECT
 public:
     explicit AnalystPopUp(QWidget *parent = 0);
     ~AnalystPopUp();
