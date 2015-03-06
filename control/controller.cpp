@@ -88,6 +88,7 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     connect(this, SIGNAL(removedEmployee(int)), employeeListView, SLOT(removeEmployee(int)));
     connect(employeeListView, SIGNAL(createEmployee(QHash<QString,QVariant>)), this, SLOT(createEmployee(QHash<QString,QVariant>)));
     connect(this, SIGNAL(createdEmployee(QHash<QString,QVariant>)), employeeListView, SLOT(addEmployee(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(createdEmployee(QHash<QString,QVariant>)), employeePopUp, SLOT(addEmployee(QHash<QString,QVariant>)));
     connect(employeeListView, SIGNAL(selectEmployee(int)), this, SLOT(selectEmployee(int)));
     connect(this, SIGNAL(updatedEmployee(QHash<QString,QVariant>)), employeeListView, SLOT(updateEmployee(QHash<QString,QVariant>)));
     connect(this, SIGNAL(selectedEmployee(QHash<QString,QVariant>)), employeeView, SLOT(setEmployee(QHash<QString,QVariant>)));
