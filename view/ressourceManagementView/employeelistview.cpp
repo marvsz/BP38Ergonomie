@@ -44,25 +44,30 @@ void EmployeeListView::addEmployee(QHash<QString, QVariant> values){
 void EmployeeListView::updateEmployee(QHash<QString, QVariant> values){
     QLayoutItem *item;
     int id = values.value(DBConstants::COL_EMPLOYEE_ID).toInt();
-    while((item = listContentLayout->takeAt(0)) != NULL){
+    int i = 0;
+    while((item = listContentLayout->itemAt(i)) != NULL){
         DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
         if(dli->getID() == id){
             QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_EMPLOYEE_STAFF_NUMBER).toString());
             dli->setValues(dliValues);
             break;
         }
+        i++;
     }
 }
 
 void EmployeeListView::removeEmployee(int id){
     QLayoutItem *item;
-    while((item = listContentLayout->takeAt(0)) != NULL){
+    int i = 0;
+    while((item = listContentLayout->itemAt(i)) != NULL){
         DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
         if(dli->getID() == id){
-            delete dli;
+            listContentLayout->removeItem(item);
+            delete item->widget();
             delete item;
             break;
         }
+        i++;
     }
 }
 

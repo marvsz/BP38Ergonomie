@@ -131,6 +131,7 @@ private slots:
     void createTransportation(QHash<QString, QVariant> values);
     void deleteTransportation(int id);
 
+    void initializeEmployees();
     void createEmployee(QHash<QString, QVariant> values);
     void createEmployee(QHash<QString, QVariant> values, QHash<QString, QVariant> bodyMeasurementValues);
     void deleteEmployee(int id);

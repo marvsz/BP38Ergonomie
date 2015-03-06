@@ -196,6 +196,7 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     documentationView->showStartView(ViewType::BODY_POSTURE_VIEW);
     viewCon->showStartView(ViewType::ANALYST_SELECTION_VIEW);
 
+    initializeEmployees();
 }
 //PRIVATE SLOTS
 
@@ -948,6 +949,12 @@ void Controller::deleteTransportation(int id)
 }
 
 //EMPLOYEE VIEW
+void Controller::initializeEmployees(){
+    QList<QHash<QString, QVariant>> values = dbHandler->select(DBConstants::TBL_EMPLOYEE, QString(""));
+    for(int i = 0; i < values.count(); ++i)
+        emit createdEmployee(values.at(i));
+}
+
 void Controller::createEmployee(QHash<QString, QVariant> values){
     int id = dbHandler->insert(DBConstants::TBL_EMPLOYEE, DBConstants::HASH_EMPLOYEE_TYPES, values, DBConstants::COL_EMPLOYEE_ID);
     values.insert(DBConstants::COL_EMPLOYEE_ID, id);
@@ -959,6 +966,7 @@ void Controller::createEmployee(QHash<QString, QVariant> values, QHash<QString, 
     values.insert(DBConstants::COL_EMPLOYEE_BODY_MEASUREMENT_ID, bmID);
     int empID = dbHandler->insert(DBConstants::TBL_EMPLOYEE, DBConstants::HASH_EMPLOYEE_TYPES, values, DBConstants::COL_EMPLOYEE_ID);
     values.insert(DBConstants::COL_EMPLOYEE_ID, empID);
+    emit createEmployee(values);
 }
 
 void Controller::deleteEmployee(int id){
@@ -976,7 +984,7 @@ void Controller::selectEmployee(int id){
 
 void Controller::saveEmployee(QHash<QString, QVariant> values){
     values.insert(DBConstants::COL_EMPLOYEE_ID, employee_ID);
-    QString filter = QString("%1 = %2").arg(DBConstants::COL_EMPLOYEE_ID, employee_ID);
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_EMPLOYEE_ID, employee_ID).arg(employee_ID);
     dbHandler->save(DBConstants::TBL_EMPLOYEE, DBConstants::HASH_EMPLOYEE_TYPES, values, filter, DBConstants::COL_EMPLOYEE_ID);
     emit updatedEmployee(values);
 }
