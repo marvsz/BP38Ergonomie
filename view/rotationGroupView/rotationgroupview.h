@@ -6,13 +6,19 @@
 #include <QScrollArea>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include "../interfaces/irotationgroup.h"
+#include "../interfaces/irotationgrouptasklist.h"
+#include "../interfaces/iworkplacelist.h"
 #include "../navigation/simplenavigateablewidget.h"
 #include "../textlineedit.h"
 #include "../numberlineedit.h"
 
-class RotationGroupView : public SimpleNavigateableWidget
+class RotationGroupView : public SimpleNavigateableWidget, IRotationGroup, IWorkplaceList, IRotationGroupTaskList
 {
     Q_OBJECT
+    Q_INTERFACES(IRotationGroupTaskList)
+    Q_INTERFACES(IRotationGroup)
+    Q_INTERFACES(IWorkplaceList)
 public:
     explicit RotationGroupView(QWidget *parent = 0);
 
@@ -28,20 +34,29 @@ public:
     int getSelectedWorkplace() const;
 
 signals:
-    void createRotationGroupTaskEntry();
-    void removeRotationGroupTaskEntry(int id);
-    void selectedWorkplaceChanged(int id);
+    void saveRotationGroup(QHash<QString, QVariant> values);
+    void createRotationGroupTask(QHash<QString, QVariant> values);
+    void deleteRotationGroupTask(int id);
+    void selectRotationGroupTask(int id);
+
+    void createWorkplace(QHash<QString, QVariant> values);
+    void deleteWorkplace(int id);
+    void selectWorkplace(int id);
 
 public slots:
+    void setRotationGroup(QHash<QString, QVariant> values);
+    /*void setRotationGroupName(const QString &name);
+    void setRotationGroupDuration(int duration);*/
+    //void setWorkplaceDuration(int duration);
 
-    void setRotationGroupName(const QString &name);
-    void setRotationGroupDuration(int duration);
-    void setWorkplaceDuration(int duration);
-
-    void addRotationGroupTask(int id, const QString &name, int duration);
+    void addRotationGroupTask(QHash<QString, QVariant> values);
+    void updateRotationGroupTask(QHash<QString, QVariant> values);
+    void removeRotationGroupTask(int id);
     void clearRotationGroupTasks();
 
-    void addWorkplace(int id, const QString &name, int duration);
+    void addWorkplace(QHash<QString, QVariant> values);
+    void updateWorkplace(QHash<QString, QVariant> values);
+    void removeWorkplace(int id);
     void clearWorkplaces();
 
 private slots:

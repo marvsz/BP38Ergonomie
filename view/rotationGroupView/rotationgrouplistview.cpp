@@ -1,9 +1,8 @@
 #include "rotationgrouplistview.h"
 #include "../flickcharm.h"
 #include "../detailedlistitem.h"
+#include "../../databaseHandler/dbconstants.h"
 #include <QList>
-
-const QList<QStringList> RotationGroupListView::rotationGroupCaptions = QList<QStringList>() << (QStringList() << tr("Workplace Count") <<tr("Total Duration"));
 
 RotationGroupListView::RotationGroupListView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Rotation Groups"), parent),
@@ -32,22 +31,52 @@ RotationGroupListView::RotationGroupListView(QWidget *parent) :
 }
 
 // PUBLIC SLOTS
+void RotationGroupListView::addRotationGroup(QHash<QString, QVariant> values){
+    /*QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBCONSTANTS:: ROTATION ZEUG).toString());
+    DetailedListItem *newListItem = new DetailedListItem(this, "rotationIcon", //values. name/, rotationGroupCaptions, true, false, true);
+    newListItem->setValues(dliValues);
+    newListItem->setID(values.value(DBConstants::).toInt());
+    connect(newListItem, SIGNAL(pressed(int)), this, SLOT(dliRotationGroupClicked(int)));
+    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteRotationGroup(int)));
+    listContentLayout->addWidget(newListItem);*/
+}
+
+void RotationGroupListView::updateRotationGroup(QHash<QString, QVariant> values){
+    /*QLayoutItem *item;
+    // id aus der db constants... int id = values.value(DBConstants::).toInt();
+    int i = 0;
+    while((item = listContentLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(//DBConstants:: Rotation zeug).toString());
+            dli->setValues(dliValues);
+            break;
+        }
+        i++;
+    }*/
+}
+
+void RotationGroupListView::removeRotationGroup(int id){
+    QLayoutItem *item;
+    int i = 0;
+    while((item = listContentLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            listContentLayout->removeItem(item);
+            delete item->widget();
+            delete item;
+            break;
+        }
+        i++;
+    }
+}
+
 void RotationGroupListView::clear(){
     QLayoutItem *item;
     while((item = listContentLayout->takeAt(0)) != NULL){
         delete item->widget();
         delete item;
     }
-}
-
-void RotationGroupListView::addRotationGroup(int id, const QString &name, int wpCount, int totalDuration){
-    QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(wpCount) << QString::number(totalDuration));
-    DetailedListItem *newListItem = new DetailedListItem(this, "rotationIcon", name, rotationGroupCaptions, true, false, true);
-    newListItem->setID(id);
-    newListItem->setValues(values);
-    connect(newListItem, SIGNAL(pressed(int)), this, SLOT(dliRotationGroupClicked(int)));
-    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(remove(int)));
-    listContentLayout->addWidget(newListItem);
 }
 
 // PUBLIC METHODS
@@ -59,11 +88,11 @@ QList<QAbstractButton*> * RotationGroupListView::getAdditionalNavigation() const
 
 // PRIVATE SLOTS
 void RotationGroupListView::btnPlusClicked(){
-    emit create();
-    emit showView(ViewType::ROTATION_GROUP_VIEW);
+    emit createRotationGroup(QHash<QString, QVariant>());
+    // emit showView(ViewType::ROTATION_GROUP_VIEW);
 }
 
 void RotationGroupListView::dliRotationGroupClicked(int id){
-    emit selected(id);
+    emit selectRotationGroup(id);
     emit showView(ViewType::ROTATION_GROUP_VIEW);
 }
