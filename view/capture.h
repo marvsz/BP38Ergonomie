@@ -1,3 +1,4 @@
+#if defined(Q_OS_IOS)
 #ifndef CAPTURE_H
 #define CAPTURE_H
 
@@ -39,3 +40,4 @@ private:
 };
 
 #endif // CAPTURE_H
+#endif

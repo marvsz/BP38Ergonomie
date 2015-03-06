@@ -1,3 +1,4 @@
+#if defined(Q_OS_IOS)
 #ifndef CAMERAPOPUP_H
 #define CAMERAPOPUP_H
 
@@ -45,3 +46,4 @@ private:
 };
 
 #endif // CAMERAPOPUP_H
+#endif

@@ -1,3 +1,4 @@
+#if defined(Q_OS_IOS)
 #include "capture.h"
 #include <QVector>
 #include <QTimerEvent>
@@ -83,3 +84,4 @@ void Capture::switchCam(){
     this->videoCapture.reset(new cv::VideoCapture(currentCamera));
     videoCapture->open(currentCamera);
 }
+#endif
