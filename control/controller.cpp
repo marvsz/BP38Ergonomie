@@ -53,7 +53,8 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     workplacePopUp(new WorkplacePopUp()),
     importDataPopUp(new ImportDataPopUp()),
     resetPopUp(new ResetPopUp()),
-    employeePopUp(new EmployeePopUp())
+    employeePopUp(new EmployeePopUp()),
+    cameraPopUp(new CameraPopUp())
 
 {
     analyst_ID = 0;
@@ -191,7 +192,7 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     viewCon->registerPopUp(importDataPopUp, PopUpType::IMPORT_DATA_POPUP);
     viewCon->registerPopUp(resetPopUp, PopUpType::RESET_POPUP);
     viewCon->registerPopUp(employeePopUp,PopUpType::EMPlOYEE_POPUP);
-
+    viewCon->registerPopUp(cameraPopUp, PopUpType::CAMERA_POPUP);
     //Set the start Views
     documentationView->showStartView(ViewType::BODY_POSTURE_VIEW);
     viewCon->showStartView(ViewType::ANALYST_SELECTION_VIEW);
