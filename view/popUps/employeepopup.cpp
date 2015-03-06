@@ -16,7 +16,8 @@ void EmployeePopUp::addEmployee(QHash<QString, QVariant> values){
     DetailedListItem *newListItem = new DetailedListItem(this, "userIcon", tr("Employee"), employeeCaptions, false, true, false, false, false);
     newListItem->setValues(dliValues);
     newListItem->setID(values.value(DBConstants::COL_EMPLOYEE_ID).toInt());
-    connect(newListItem, SIGNAL(pressed(int)), this, SLOT(dliEmployeeClicked(int)));
+    connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedEmployeeChanged(int)));
+    connect(this, SIGNAL(selectedEmployee(int)), newListItem, SLOT(selectExclusiveWithID(int)));
     connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteEmployee(int)));
     mainLayout->addWidget(newListItem);
 }
