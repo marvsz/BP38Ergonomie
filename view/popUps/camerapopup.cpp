@@ -1,4 +1,3 @@
-#if defined(Q_OS_IOS)
 #include "camerapopup.h"
 #include <QGridLayout>
 #include <QDebug>
@@ -120,5 +119,5 @@ void CameraPopUp::btnStartRecordingClicked() {
         else
             showMessage(tr("Saving Video Failed!"), NotificationMessage::ERROR);*/
 }
-#endif
+
 

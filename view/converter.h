@@ -1,4 +1,3 @@
-#if defined(Q_OS_IOS)
 #ifndef CONVERTER_H
 #define CONVERTER_H
 
@@ -38,4 +37,3 @@ private:
 };
 
 #endif // CONVERTER_H
-#endif
