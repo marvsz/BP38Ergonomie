@@ -4,7 +4,7 @@
 #include "../navigation/abstractpopupwidget.h"
 #include <QGridLayout>
 #include "../interfaces/iemployeelist.h"
-#include "../databaseHandler/dbconstants.h"
+#include "../../databaseHandler/dbconstants.h"
 #include "../detailedlistitem.h"
 
 class EmployeePopUp : public AbstractPopUpWidget, IEmployeeList
