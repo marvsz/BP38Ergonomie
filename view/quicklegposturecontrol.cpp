@@ -83,59 +83,9 @@ void QuickLegPostureControl::setSelectedSpecification(int id){
         default:
             break;
         }
-
-        /*
-        if(currentSpeciBtn->getID() != id){
-            //speciOptions.at(currentSpeciBtn->getID())->setSelected(false);
-            currentSpeciBtn = speciOptions.at(id);
-            currentSpeciBtn->setSelected(true);
-            emit specificationChanged(id);
-        }
-        else{
-            //if(currentSpeciBtn->isSelected()){
-                speciOptions.at(currentSpeciBtn->getID())->setSelected(false);
-                currentSpeciBtn = speciOptions.at(id);
-                emit specificationChanged(id);
-            //}
-        }*/
     }
 }
 
-/*void QuickLegPostureControl::setSelectedLeft(int id){
-    if(id >= 0 && id < leftOptions.length() && currentLeftBtn != NULL  && (currentSelectedBtn->getID() == 2)){
-        if(!leftOptions.at(currentLeftBtn->getID() != id)->isSelected()){
-            leftOptions.at(currentLeftBtn->getID())->setSelected(false);
-            currentLeftBtn = leftOptions.at(id);
-            currentLeftBtn->setSelected(true);
-            emit selectionChanged(id);
-        }
-        else{
-            if(currentRightBtn->isSelected()){
-                leftOptions.at(currentLeftBtn->getID())->setSelected(false);
-                currentLeftBtn = leftOptions.at(id);
-                emit selectionChanged(id);
-            }
-        }
-    }
-}
-
-void QuickLegPostureControl::setSelectedRight(int id){
-    if(id >= 0 && id < rightOptions.length() && currentRightBtn != NULL && (currentSelectedBtn->getID() == 2)){
-        if(!rightOptions.at(currentRightBtn->getID() != id)->isSelected()){
-            rightOptions.at(currentRightBtn->getID())->setSelected(false);
-            currentRightBtn = rightOptions.at(id);
-            currentRightBtn->setSelected(true);
-            emit selectionChanged(id);
-        }
-        else{
-            if(currentLeftBtn->isSelected()){
-                rightOptions.at(currentRightBtn->getID())->setSelected(false);
-                currentRightBtn = rightOptions.at(id);
-                emit selectionChanged(id);
-            }
-        }
-    }
-}*/
 void QuickLegPostureControl::setSelectedValue(const QString &text){
     for(int i = 0; i < btnOptions.length(); ++i){
         SelectableValueButton *btn = btnOptions.at(i);
@@ -187,13 +137,12 @@ void QuickLegPostureControl::setValues(const QStringList &texts){
 void QuickLegPostureControl::setValues(const QStringList &texts, const QStringList &differ, const QString &label){
     clear();
     mainLayout->addWidget(new QLabel(label));
+    QHBoxLayout *generalButtonLayout = new QHBoxLayout();
+    QVBoxLayout *variantButtonLayout = new QVBoxLayout();
+
     for(int i=0; i < texts.length(); i=i+2){
 
         if(texts.at(i+1)=="true"){
-
-            QHBoxLayout *generalButtonLayout = new QHBoxLayout();
-            QVBoxLayout *variantButtonLayout = new QVBoxLayout();
-
             SelectableValueButton *btn = new SelectableValueButton(id++, QVariant(texts.at(i)), this);
             SelectableValueButton *leftBtn = new SelectableValueButton(idSpeci++, QVariant(differ.at(0)), this);
             SelectableValueButton *rightBtn = new SelectableValueButton(idSpeci++, QVariant(differ.at(1)), this);
