@@ -369,6 +369,9 @@ void Controller::removeAnalyst(int id)
 void Controller::selectAnalyst(int id)
 {
     analyst_ID = id;
+    viewCon->showMessage(tr("Hello ") + dbHandler->select(DBConstants::TBL_ANALYST, QString("")).
+                         at(id -1).value(DBConstants::COL_ANALYST_FIRSTNAME).toString() + "! ",
+                         NotificationMessage::INFORMATION, NotificationMessage::LONG);
 }
 
 //MainMenuView
