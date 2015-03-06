@@ -91,6 +91,10 @@ HEADERS +=\
     $$PWD/interfaces/iworkplacelist.h \
     $$PWD/interfaces/irotationgrouptasklist.h \
     $$PWD/interfaces/ibodymeasurement.h
+    $$PWD/capture.h \
+    $$PWD/converter.h \
+    $$PWD/imageviewer.h \
+    $$PWD/popUps/camerapopup.h
 
 SOURCES +=\
     $$PWD/documentationView/bodyPostureView/variantspecification.cpp\
@@ -169,4 +173,8 @@ SOURCES +=\
     $$PWD/popUps/workplacepopup.cpp \
     $$PWD/popUps/resetpopup.cpp \
     $$PWD/popUps/employeepopup.cpp \
-    $$PWD/documentationView/bodyPostureView/quickselectioncontrol.cpp
+    $$PWD/documentationView/bodyPostureView/quickselectioncontrol.cpp \
+    $$PWD/capture.cpp \
+    $$PWD/converter.cpp \
+    $$PWD/imageviewer.cpp \
+    $$PWD/popUps/camerapopup.cpp
