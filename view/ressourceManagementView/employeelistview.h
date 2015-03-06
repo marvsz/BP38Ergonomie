@@ -2,13 +2,16 @@
 #define EMPLOYEELISTVIEW_H
 
 #include "../navigation/simplenavigateablewidget.h"
+#include "../interfaces/iemployeelist.h"
 #include "../detailedlistitem.h"
+#include "../databaseHandler/dbconstants.h"
 #include <QPushButton>
 #include <QScrollArea>
 
-class EmployeeListView : public SimpleNavigateableWidget
+class EmployeeListView : public SimpleNavigateableWidget, IEmployeeList
 {
     Q_OBJECT
+    Q_INTERFACES(IEmployeeList)
 public:
     EmployeeListView(QWidget *parent = 0);
 
@@ -19,20 +22,21 @@ public:
     QList<QAbstractButton*> * getAdditionalNavigation() const;
 
 signals:
-    void create();
-    void selected(int id);
-    void remove(int id);
+    void createEmployee(QHash<QString, QVariant> values);
+    void deleteEmployee(int id);
+    void selectEmployee(int id);
 
 public slots:
+    void addEmployee(QHash<QString, QVariant> values);
+    void removeEmployee(int id);
     void clear();
-    void addEmployee(int id, const QString &name, const QString &description, const QString &personalID);
 
 private slots:
     void btnPlusClicked();
     void dliEmployeeClicked(int id);
 
 private:
-    static const QList<QStringList> employeeCaptions;
+    const QList<QStringList> employeeCaptions = QList<QStringList>() <<(QStringList() << tr("Staff number"));
     QPushButton *btnPlus;
     QVBoxLayout *listContentLayout;
     QScrollArea *scEmployees;

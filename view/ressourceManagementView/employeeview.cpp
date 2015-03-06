@@ -58,40 +58,34 @@ EmployeeView::~EmployeeView()
 
 }
 
-//PUBLIC SLOTS
-void EmployeeView::setEmployee(int gender, int age, int height, const QString &staffNumber, const QString &note){
-    oscGender->setSelectedValue(gender);
-    vcAge->setValue(age);
-    vcHeight->setValue(height);
-    txtBxStaffNumber->setText(staffNumber);
-    txtBxNote->setText(note);
-}
-
+//PUBLIC METHODS
 QList<QAbstractButton*> * EmployeeView::getAdditionalNavigation() const{
     QList<QAbstractButton*> *additions = new QList<QAbstractButton*>();
     additions->append(btnBodyMeasurements);
     return additions;
 }
 
+//PUBLIC SLOTS
+void EmployeeView::setEmployee(QHash<QString, QVariant> values){
+    oscGender->setSelectedValue(values.value(DBConstants::COL_EMPLOYEE_GENDER).toInt());
+    vcAge->setValue(values.value(DBConstants::COL_EMPLOYEE_AGE).toInt());
+    vcHeight->setValue(values.value(DBConstants::COL_EMPLOYEE_HEIGHT).toInt());
+    txtBxStaffNumber->setText(values.value(DBConstants::COL_EMPLOYEE_STAFF_NUMBER).toString());
+    txtBxNote->setText(values.value(DBConstants::COL_EMPLOYEE_NOTE).toString());
+}
+
+void EmployeeView::onLeaving(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_EMPLOYEE_GENDER, oscGender->getSelectedValue());
+    values.insert(DBConstants::COL_EMPLOYEE_AGE, vcAge->getValue());
+    values.insert(DBConstants::COL_EMPLOYEE_HEIGHT, vcHeight->getValue());
+    values.insert(DBConstants::COL_EMPLOYEE_STAFF_NUMBER, txtBxStaffNumber->text());
+    values.insert(DBConstants::COL_EMPLOYEE_NOTE, txtBxNote->toPlainText());
+    emit saveEmployee(values);
+}
 
 //PRIVATE SLOTS
 void EmployeeView::btnBodyMeasurementsClicked(){
     emit showView(ViewType::BODY_MEASUREMENT_VIEW);
 }
 
-//GETTER
-int EmployeeView::getGender() const{
-    return oscGender->getSelectedID();
-}
-int EmployeeView::getAge() const{
-    return vcAge->getValue();
-}
-int EmployeeView::getHeight() const{
-    return vcHeight->getValue();
-}
-QString EmployeeView::getStaffNumber() const{
-    return txtBxStaffNumber->text();
-}
-QString EmployeeView::getNote() const{
-    return txtBxNote->toPlainText();
-}

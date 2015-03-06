@@ -17,9 +17,9 @@ signals:
 
 };
 
-#define IEmployee_iid "IEmployeeList"
+#define IEmployeeList_iid "IEmployeeList"
 
-Q_DECLARE_INTERFACE(IEmployeeList, IEmployee_iid)
+Q_DECLARE_INTERFACE(IEmployeeList, IEmployeeList_iid)
 
 #endif // IEMPLOYEELIST
 

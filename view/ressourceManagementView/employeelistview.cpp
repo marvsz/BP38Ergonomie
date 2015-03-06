@@ -3,8 +3,6 @@
 #include <QList>
 #include "../flickcharm.h"
 
-const QList<QStringList> EmployeeListView::employeeCaptions = QList<QStringList>() <<(QStringList() << tr("Description"));
-
 EmployeeListView::EmployeeListView(QWidget *parent) :
        SimpleNavigateableWidget(tr("Employees"), parent),
        btnPlus(new QPushButton(this)),
@@ -32,22 +30,35 @@ EmployeeListView::EmployeeListView(QWidget *parent) :
     this->setLayout(mainLayout);
 }
 
+//PUBLIC SLOTS
+void EmployeeListView::addEmployee(QHash<QString, QVariant> values){
+    QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_EMPLOYEE_STAFF_NUMBER).toString());
+    DetailedListItem *newListItem = new DetailedListItem(this, "userIcon", tr("Employee"), employeeCaptions, true, false, true);
+    newListItem->setValues(dliValues);
+    newListItem->setID(values.value(DBConstants::COL_EMPLOYEE_ID).toInt());
+    connect(newListItem, SIGNAL(pressed(int)), this, SLOT(dliEmployeeClicked(int)));
+    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteEmployee(int)));
+    listContentLayout->addWidget(newListItem);
+}
+
+void EmployeeListView::removeEmployee(int id){
+    QLayoutItem *item;
+    while((item = listContentLayout->takeAt(0)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            delete dli;
+            delete item;
+            break;
+        }
+    }
+}
+
 void EmployeeListView::clear(){
     QLayoutItem *item;
     while((item = listContentLayout->takeAt(0)) != NULL){
         delete item->widget();
         delete item;
     }
-}
-
-void EmployeeListView::addEmployee(int id, const QString &name, const QString &description, const QString &personalID){
-    QList<QStringList> values = QList<QStringList>() << (QStringList() << description << personalID);
-    DetailedListItem *newListItem = new DetailedListItem(this, "userIcon", name, employeeCaptions, true, false, true);
-    newListItem->setValues(values);
-    newListItem->setID(id);
-    connect(newListItem, SIGNAL(pressed(int)), this, SLOT(dliEmployeeClicked(int)));
-    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(remove(int)));
-    listContentLayout->addWidget(newListItem);
 }
 
 //PUBLIC METHODS
@@ -59,11 +70,11 @@ QList<QAbstractButton*> * EmployeeListView::getAdditionalNavigation() const{
 
 //PRIVATE SLOTS
 void EmployeeListView::btnPlusClicked(){
-    emit create();
+    emit selectEmployee(0);
     emit showView(ViewType::EMPLOYEE_VIEW);
 }
 
 void EmployeeListView::dliEmployeeClicked(int id){
-    emit selected(id);
+    emit selectEmployee(id);
     emit showView(ViewType::EMPLOYEE_VIEW);
 }

@@ -93,10 +93,11 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     connect(workplaceListView, SIGNAL(selected(int)), this, SLOT(updateWorkplaceView(int)));
     connect(workplacePopUp, SIGNAL(confirm()), this, SLOT(createWorkplacePopup()));
 
-    // EMPLOYEES TODO
-    //connect(employeeListView, SIGNAL(remove(int)), this, SLOT(deleteEmployee(int)));
-    //connect(employeeListView, SIGNAL(create()), this, SLOT(createEmployee()));
-    //connect(employeeListView, SIGNAL(selected(int)), this, SLOT(updateEmployeeView(int)));
+    connect(employeeListView, SIGNAL(deleteEmployee(int)), this, SLOT(deleteEmployee(int)));
+    connect(employeeListView, SIGNAL(createEmployee(QHash<QString,QVariant>)), this, SLOT(createEmployee(QHash<QString,QVariant>)));
+    connect(employeeListView, SIGNAL(selectEmployee(int)), this, SLOT(selectEmployee(int)));
+    connect(employeeView, SIGNAL(saveEmployee(QHash<QString,QVariant>)), this, SLOT(saveEmployee(QHash<QString,QVariant>)));
+
     connect(employeePopUp, SIGNAL(confirm()), this, SLOT(employeeSelected()));
 
     connect(lineView, SIGNAL(saveLine()), this, SLOT(createLine()));
@@ -956,7 +957,7 @@ void Controller::deleteTransportation(int id)
 //EMPLOYEE VIEW
 void Controller::updateEmployeeView()
 {
-    QString tbl = DBConstants::TBL_EMPLOYEE;
+    /*QString tbl = DBConstants::TBL_EMPLOYEE;
     QHash<QString, QVariant> row = dbHandler->selectFirst(tbl, QString(""));
     if(!row.isEmpty()){
         employeeView->setEmployee(row.value(DBConstants::COL_EMPLOYEE_GENDER).toInt(),
@@ -964,12 +965,12 @@ void Controller::updateEmployeeView()
                                   row.value(DBConstants::COL_EMPLOYEE_HEIGHT).toInt(),
                                   row.value(DBConstants::COL_EMPLOYEE_STAFF_NUMBER).toString(),
                                   row.value(DBConstants::COL_EMPLOYEE_NOTE).toString());
-    }
+    }*/
 }
 
 void Controller::saveEmployeeView()
 {
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    /*QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_EMPLOYEE_ID, employee_ID);
     values.insert(DBConstants::COL_EMPLOYEE_AGE, employeeView->getAge());
     values.insert(DBConstants::COL_EMPLOYEE_GENDER, employeeView->getGender());
@@ -977,14 +978,29 @@ void Controller::saveEmployeeView()
     values.insert(DBConstants::COL_EMPLOYEE_STAFF_NUMBER, employeeView->getStaffNumber());
     values.insert(DBConstants::COL_EMPLOYEE_NOTE, employeeView->getNote());
     values.insert(DBConstants::COL_BODY_MEASUREMENT_ID, bodyMeasurement_ID);
-    dbHandler->save(DBConstants::TBL_EMPLOYEE, DBConstants::HASH_EMPLOYEE_TYPES, values);
+    dbHandler->save(DBConstants::TBL_EMPLOYEE, DBConstants::HASH_EMPLOYEE_TYPES, values);*/
 }
 
+void Controller::createEmployee(QHash<QString, QVariant> values){
+    dbHandler->insert(DBConstants::TBL_EMPLOYEE, DBConstants::HASH_EMPLOYEE_TYPES, values, DBConstants::COL_EMPLOYEE_ID);
+}
 
 void Controller::createEmployee(QHash<QString, QVariant> values, QHash<QString, QVariant> bodyMeasurementValues){
     int bmID = dbHandler->insert(DBConstants::TBL_BODY_MEASUREMENT, DBConstants::HASH_BODY_MEASUREMENT_TYPES, bodyMeasurementValues, DBConstants::COL_BODY_MEASUREMENT_ID);
     values.insert(DBConstants::COL_EMPLOYEE_BODY_MEASUREMENT_ID, bmID);
     dbHandler->insert(DBConstants::TBL_EMPLOYEE, DBConstants::HASH_EMPLOYEE_TYPES, values, DBConstants::COL_EMPLOYEE_ID);
+}
+
+void Controller::deleteEmployee(int id){
+
+}
+
+void Controller::selectEmployee(int id){
+
+}
+
+void Controller::saveEmployee(QHash<QString, QVariant> values){
+
 }
 
 void Controller::employeeSelected(){

@@ -10,10 +10,13 @@
 #include "../textlineedit.h"
 #include "../valuecontrol.h"
 #include "../navigation/simplenavigateablewidget.h"
+#include "../interfaces/iemployee.h"
+#include "../databaseHandler/dbconstants.h"
 
-class EmployeeView : public SimpleNavigateableWidget
+class EmployeeView : public SimpleNavigateableWidget, IEmployee
 {
     Q_OBJECT
+    Q_INTERFACES(IEmployee)
 public:
     explicit EmployeeView(QWidget *parent = 0);
     ~EmployeeView();
@@ -24,14 +27,13 @@ public:
 
     QList<QAbstractButton*> * getAdditionalNavigation() const;
 
-    int getGender() const;
-    int getAge() const;
-    int getHeight() const;
-    QString getStaffNumber() const;
-    QString getNote() const;
+signals:
+    void saveEmployee(QHash<QString, QVariant> values);
+
 
 public slots:
-    void setEmployee(int gender, int age, int height, const QString &staffNumber, const QString &note);
+    void setEmployee(QHash<QString, QVariant> values);
+    void onLeaving();
 
 private slots:
     void btnBodyMeasurementsClicked();

@@ -128,7 +128,14 @@ private slots:
 
     void updateEmployeeView();
     void saveEmployeeView();
+
+    void createEmployee(QHash<QString, QVariant> values);
     void createEmployee(QHash<QString, QVariant> values, QHash<QString, QVariant> bodyMeasurementValues);
+    void deleteEmployee(int id);
+    void selectEmployee(int id);
+    void saveEmployee(QHash<QString, QVariant> values);
+
+
     void employeeSelected();
 
     void updateBodyMeasurementView();
