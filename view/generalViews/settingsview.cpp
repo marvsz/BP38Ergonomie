@@ -2,17 +2,18 @@
 #include "../separator.h"
 #include <QGridLayout>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QLabel>
 
 SettingsView::SettingsView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Settings"), parent),
-    btnImportData(new IconButton(this, "importData", tr("Import Data"))),
     btnResetRecordings(new IconButton(this, "resetIcon", tr("Reset Recordings"))),
     btnRestoreFactory(new IconButton(this, "resetFactoryIcon", tr("Restore Factory Settings"))),
     btnSelectLanguage(new IconButton(this, "germanIcon", tr("Change Language"))),
-    btnSelectTheme(new IconButton(this, "blueIcon", tr("Change Theme")))
+    btnSelectTheme(new IconButton(this, "blueIcon", tr("Change Theme"))),
+    dliShowTitles(new DetailedListItem(this, "titleIcon", tr("Show Titles"), QList<QStringList>(), false, true, false, false, false)),
+    dliShowNotifications(new DetailedListItem(this, "notificationIcon", tr("Show Notifications"), QList<QStringList>(), false, true, false, false, false))
 {
-    btnImportData->setMinimumSize(320, 60);
-    connect(btnImportData, SIGNAL(clicked()), this, SLOT(btnImportDataClicked()));
     btnResetRecordings->setMinimumSize(320, 60);
     connect(btnResetRecordings, SIGNAL(clicked()), this, SLOT(btnResetRecordingsClicked()));
 
@@ -25,25 +26,53 @@ SettingsView::SettingsView(QWidget *parent) :
     btnSelectTheme->setMinimumSize(320, 60);
     connect(btnSelectTheme, SIGNAL(clicked()), this, SLOT(btnSelectThemeClicked()));
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Minimum, QSizePolicy::Expanding));
-    mainLayout->addWidget(btnImportData, 0, Qt::AlignCenter);
-    mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
-    mainLayout->addWidget(btnResetRecordings, 0, Qt::AlignCenter);
-    mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
-    mainLayout->addWidget(btnRestoreFactory, 0, Qt::AlignCenter);
-    mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
-    mainLayout->addWidget(btnSelectLanguage, 0, Qt::AlignCenter);
-    mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
-    mainLayout->addWidget(btnSelectTheme, 0, Qt::AlignCenter);
-    mainLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Minimum, QSizePolicy::Expanding));
+    QLabel *lblUiSettings = new QLabel(tr("User Interface Settings"));
+    QLabel *lblAdvancedSettings = new QLabel(tr("Advanced Settings"));
+    lblUiSettings->setObjectName("lblBig");
+    lblAdvancedSettings->setObjectName("lblBig");
+    QLabel *lblShowTitlesDescription = new QLabel(tr("Disabling this option will cause the the Application not to show titles in the navigation bar."));
+    QLabel *lblShowNotificationsDescription = new QLabel(tr("Disabling this option will cause the the Application not to provide notification messages."));
+    lblShowTitlesDescription->setWordWrap(true);
+    lblShowNotificationsDescription->setWordWrap(true);
+
+    QVBoxLayout *leftLayout = new QVBoxLayout;
+    leftLayout->setAlignment(Qt::AlignTop);
+    leftLayout->addWidget(lblUiSettings, 0, Qt::AlignCenter);
+    leftLayout->addSpacerItem(new QSpacerItem(0,20, QSizePolicy::Minimum, QSizePolicy::Fixed));
+    leftLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
+    leftLayout->addSpacerItem(new QSpacerItem(0,20, QSizePolicy::Minimum, QSizePolicy::Fixed));
+
+    leftLayout->addWidget(dliShowNotifications);
+    leftLayout->addWidget(lblShowNotificationsDescription);
+    leftLayout->addSpacerItem(new QSpacerItem(0,60, QSizePolicy::Minimum, QSizePolicy::Fixed));
+    leftLayout->addWidget(dliShowTitles);
+    leftLayout->addWidget(lblShowTitlesDescription);
+
+    QVBoxLayout *rightLayout = new QVBoxLayout;
+    rightLayout->setAlignment(Qt::AlignTop);
+    rightLayout->addWidget(lblAdvancedSettings, 0, Qt::AlignCenter);
+    rightLayout->addSpacerItem(new QSpacerItem(0,20, QSizePolicy::Minimum, QSizePolicy::Fixed));
+    rightLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
+    rightLayout->addSpacerItem(new QSpacerItem(0,20, QSizePolicy::Minimum, QSizePolicy::Fixed));
+    rightLayout->addWidget(btnResetRecordings, 0, Qt::AlignCenter);
+    rightLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
+    rightLayout->addWidget(btnRestoreFactory, 0, Qt::AlignCenter);
+    rightLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
+    rightLayout->addWidget(btnSelectLanguage, 0, Qt::AlignCenter);
+    rightLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
+    rightLayout->addWidget(btnSelectTheme, 0, Qt::AlignCenter);
+    rightLayout->addSpacerItem(new QSpacerItem(0,0, QSizePolicy::Minimum, QSizePolicy::Fixed));
+
+    QHBoxLayout *mainLayout = new QHBoxLayout;
+    mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
+    mainLayout->addLayout(leftLayout);
+    mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
+    mainLayout->addWidget(new Separator(Qt::Vertical, 3, this));
+    mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
+    mainLayout->addLayout(rightLayout);
+    mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
     setLayout(mainLayout);
 }
-
-void SettingsView::btnImportDataClicked(){
-    emit showPopUp(PopUpType::IMPORT_DATA_POPUP);
-}
-
 
 void SettingsView::btnRestoreFactoryClicked(){
     emit resetDatabase();

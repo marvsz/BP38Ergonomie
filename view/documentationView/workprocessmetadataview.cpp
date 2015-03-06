@@ -96,7 +96,7 @@ void WorkProcessMetaDataView::setWorkProcessMetaData(const QString &desc, const 
 }
 
 void WorkProcessMetaDataView::addEquipment(int id, const QString &name, int recoilCount, int recoilIntensity, int vibrationCount, int vibrationIntensity){
-    DetailedListItem *newListItem = new DetailedListItem(0, "", name, equipmentItemScheme, false, true, false);
+    DetailedListItem *newListItem = new DetailedListItem(0, "equipmentIcon", name, equipmentItemScheme, false, true, false);
     newListItem->setID(id);
     QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(recoilCount) << QString::number(recoilIntensity)) << (QStringList() << QString::number(vibrationCount) << QString::number(vibrationIntensity));
     newListItem->setValues(values);

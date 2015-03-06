@@ -1,4 +1,3 @@
-#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
 #ifndef CAPTURE_H
 #define CAPTURE_H
 
@@ -22,6 +21,7 @@ signals:
     void started();
     void matReady(const cv::Mat &, int cam);
 
+
 public slots:
     void start(int cam = 0);
     void stop();
@@ -35,9 +35,7 @@ private:
     QBasicTimer timer;
     QScopedPointer<cv::VideoCapture> videoCapture;
     QScopedPointer<cv::VideoWriter> videoWriter;
-
     void timerEvent(QTimerEvent * ev);
 };
 
 #endif // CAPTURE_H
-#endif

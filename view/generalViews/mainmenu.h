@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QWidget>
 #include <QLabel>
+
 class MainMenu : public SimpleNavigateableWidget
 {
     Q_OBJECT
@@ -37,10 +38,9 @@ private slots:
     void btnRessourceManagementClicked();
     void btnShiftClicked();
     void btnNewRecordingClicked();
-    #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     void btnCameraClicked();
-    #endif
     void btnSendDatabaseClicked();
+    void btnImportClicked();
 
 
 private:
@@ -51,10 +51,12 @@ private:
     IconButton *btnShift;
     QPushButton *btnSettings;
     QPushButton *btnNewRecording;
-    QPushButton *btnSendDatabase;
     #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     QPushButton *btnCamera;
     #endif
+    QPushButton *btnSendDatabase;
+    QPushButton *btnImport;
+
 
 };
 

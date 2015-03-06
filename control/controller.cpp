@@ -4,7 +4,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDir>
-#include "ftpHandler/ftphandler.h"
+#include "../ftpHandler/ftphandler.h"
 
 
 Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
@@ -53,9 +53,7 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     workplacePopUp(new WorkplacePopUp()),
     importDataPopUp(new ImportDataPopUp()),
     resetPopUp(new ResetPopUp()),
-    #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     cameraPopUp(new CameraPopUp()),
-    #endif
     employeePopUp(new EmployeePopUp())
 
 {
@@ -196,9 +194,7 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     viewCon->registerPopUp(importDataPopUp, PopUpType::IMPORT_DATA_POPUP);
     viewCon->registerPopUp(resetPopUp, PopUpType::RESET_POPUP);
     viewCon->registerPopUp(employeePopUp,PopUpType::EMPlOYEE_POPUP);
-    #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     viewCon->registerPopUp(cameraPopUp, PopUpType::CAMERA_POPUP);
-    #endif
 
     //Set the start Views
     documentationView->showStartView(ViewType::BODY_POSTURE_VIEW);

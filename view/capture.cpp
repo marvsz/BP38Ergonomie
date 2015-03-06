@@ -1,4 +1,3 @@
-#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
 #include "capture.h"
 #include <QVector>
 #include <QTimerEvent>
@@ -52,8 +51,8 @@ int Capture::currentCam(){
 }
 
 QString Capture::startRecording(){
-    cv::Size s = cv::Size((int) videoCapture->get(cv::CAP_PROP_FRAME_WIDTH),
-                  (int) videoCapture->get(cv::CAP_PROP_FRAME_HEIGHT));
+    /*cv::Size s = cv::Size((int) videoCapture->get(CV_CAP_PROP_FRAME_WIDTH),
+                  (int) videoCapture->get(CV_CAP_PROP_FRAME_HEIGHT));
 
     videoWriter.reset(new cv::VideoWriter());
     QString timestamp = QDateTime::currentDateTime().toString("dd-MM-yy-hh-mm-ss");
@@ -71,12 +70,13 @@ QString Capture::startRecording(){
         videoWriter->write(frame);
         qDebug() << "Wrote Frame";
     }
-    return filePath;
+    return filePath;*/
+    return "";
 }
 
 void Capture::stopRecording(){
-    this->recording = false;
-    this->videoWriter->release();
+    /*this->recording = false;
+    this->videoWriter->release();*/
 }
 
 void Capture::switchCam(){
@@ -84,4 +84,3 @@ void Capture::switchCam(){
     this->videoCapture.reset(new cv::VideoCapture(currentCamera));
     videoCapture->open(currentCamera);
 }
-#endif

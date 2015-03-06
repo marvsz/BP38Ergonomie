@@ -15,7 +15,8 @@ MainMenu::MainMenu(QWidget *parent) :
     #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     btnCamera(new QPushButton(this)),
     #endif
-    btnSendDatabase(new QPushButton(this))
+    btnSendDatabase(new QPushButton(this)),
+    btnImport(new QPushButton(this))
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
 
@@ -29,6 +30,9 @@ MainMenu::MainMenu(QWidget *parent) :
 
     btnSendDatabase->setObjectName("sendIcon");
     btnSendDatabase->setFixedSize(45, 45);
+
+    btnImport->setObjectName("receiveIcon");
+    btnImport->setFixedSize(45, 45);
 
     btnNewRecording->setObjectName("quickRecordingIcon");
     btnNewRecording->setFixedSize(45, 45);
@@ -44,6 +48,7 @@ MainMenu::MainMenu(QWidget *parent) :
     connect(btnShift, SIGNAL(clicked()), this, SLOT(btnShiftClicked()));
     connect(btnNewRecording, SIGNAL(clicked()), this, SLOT(btnNewRecordingClicked()));
     connect(btnSettings, SIGNAL(clicked()), this, SLOT(btnSettingsClicked()));
+    connect(btnImport, SIGNAL(clicked()), this, SLOT(btnImportClicked()));
     connect(btnSendDatabase, SIGNAL(clicked()), this, SLOT(btnSendDatabaseClicked()));
     #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     connect(btnCamera, SIGNAL(clicked()), this, SLOT(btnCameraClicked()));
@@ -69,6 +74,7 @@ MainMenu::MainMenu(QWidget *parent) :
 QList<QAbstractButton*> * MainMenu::getAdditionalNavigation() const{
     QList<QAbstractButton*> *additions = new QList<QAbstractButton*>();
     additions->append(btnSettings);
+    additions->append(btnImport);
     additions->append(btnSendDatabase);
     additions->append(btnNewRecording);
     #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
@@ -105,6 +111,10 @@ void MainMenu::btnSendDatabaseClicked(){
     emit showPopUp(PopUpType::DB_SEND_POPUP);
 }
 
+void MainMenu::btnImportClicked(){
+    emit showPopUp(PopUpType::IMPORT_DATA_POPUP);
+}
+
 //TRANSLATE
 void MainMenu::changeEvent(QEvent *e){
     if(e->type() == QEvent::LanguageChange){
@@ -119,8 +129,9 @@ void MainMenu::retranslate(){
     btnShift->setText(tr("Shift Data"));
 }
 
-#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
 void MainMenu::btnCameraClicked(){
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     emit showPopUp(PopUpType::CAMERA_POPUP);
-}
 #endif
+}
+

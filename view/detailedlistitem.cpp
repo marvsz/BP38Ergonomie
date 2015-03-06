@@ -21,13 +21,12 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &objectName, c
 {
     // SETTINGS FOR GENERAL ELEMENTS
     lblName->setObjectName("lblHeader");
-    lblIcon->setObjectName(objectName);
+    if(objectName != "")
+        lblIcon->setObjectName(objectName);
+    else
+        lblIcon->setObjectName("transparent");
     lblIcon->setFixedSize(45, 45);
     connect(lblIcon, SIGNAL(clicked()), this, SIGNAL(clicked()));
-    if(!icon.isNull()){
-        lblIcon->setIconSize(QSize(45, 45));
-        lblIcon->setIcon(icon);
-    }
     checkBox->setChecked(false);
     checkBox->setEnabled(false);
     btnDelete->setFixedSize(45, 45);

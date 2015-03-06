@@ -183,6 +183,30 @@
         <file>icons/Buttons/green/resetDisabled@2x.png</file>
         <file>icons/Buttons/green/stopDisabled.png</file>
         <file>icons/Buttons/green/stopDisabled@2x.png</file>
+        <file>icons/Buttons/green/receive.png</file>
+        <file>icons/Buttons/green/receive@2x.png</file>
+        <file>icons/Buttons/green/receivePressed.png</file>
+        <file>icons/Buttons/green/receivePressed@2x.png</file>
+        <file>icons/Buttons/green/notification.png</file>
+        <file>icons/Buttons/green/notification@2x.png</file>
+        <file>icons/Buttons/green/title.png</file>
+        <file>icons/Buttons/green/title@2x.png</file>
+        <file>icons/Buttons/green/switchCamera.png</file>
+        <file>icons/Buttons/green/switchCamera@2x.png</file>
+        <file>icons/Buttons/green/switchCameraPressed.png</file>
+        <file>icons/Buttons/green/switchCameraPressed@2x.png</file>
+        <file>icons/Buttons/green/savePhoto.png</file>
+        <file>icons/Buttons/green/savePhoto@2x.png</file>
+        <file>icons/Buttons/green/savePhotoPressed.png</file>
+        <file>icons/Buttons/green/savePhotoPressed@2x.png</file>
+        <file>icons/Buttons/green/discard.png</file>
+        <file>icons/Buttons/green/discard@2x.png</file>
+        <file>icons/Buttons/green/discardPressed.png</file>
+        <file>icons/Buttons/green/discardPressed@2x.png</file>
+        <file>icons/Buttons/green/capture.png</file>
+        <file>icons/Buttons/green/capture@2x.png</file>
+        <file>icons/Buttons/green/capturePressed.png</file>
+        <file>icons/Buttons/green/capturePressed@2x.png</file>
     </qresource>
     <qresource prefix="/blue">
         <file>icons/Buttons/blue/accept.png</file>
@@ -368,5 +392,29 @@
         <file>icons/Buttons/blue/resetDisabled@2x.png</file>
         <file>icons/Buttons/blue/stopDisabled.png</file>
         <file>icons/Buttons/blue/stopDisabled@2x.png</file>
+        <file>icons/Buttons/blue/receive.png</file>
+        <file>icons/Buttons/blue/receive@2x.png</file>
+        <file>icons/Buttons/blue/receivePressed.png</file>
+        <file>icons/Buttons/blue/receivePressed@2x.png</file>
+        <file>icons/Buttons/blue/notification.png</file>
+        <file>icons/Buttons/blue/notification@2x.png</file>
+        <file>icons/Buttons/blue/title.png</file>
+        <file>icons/Buttons/blue/title@2x.png</file>
+        <file>icons/Buttons/blue/switchCamera.png</file>
+        <file>icons/Buttons/blue/switchCamera@2x.png</file>
+        <file>icons/Buttons/blue/switchCameraPressed.png</file>
+        <file>icons/Buttons/blue/switchCameraPressed@2x.png</file>
+        <file>icons/Buttons/blue/savePhoto.png</file>
+        <file>icons/Buttons/blue/savePhoto@2x.png</file>
+        <file>icons/Buttons/blue/savePhotoPressed.png</file>
+        <file>icons/Buttons/blue/savePhotoPressed@2x.png</file>
+        <file>icons/Buttons/blue/discard.png</file>
+        <file>icons/Buttons/blue/discard@2x.png</file>
+        <file>icons/Buttons/blue/discardPressed.png</file>
+        <file>icons/Buttons/blue/discardPressed@2x.png</file>
+        <file>icons/Buttons/blue/capture.png</file>
+        <file>icons/Buttons/blue/capture@2x.png</file>
+        <file>icons/Buttons/blue/capturePressed.png</file>
+        <file>icons/Buttons/blue/capturePressed@2x.png</file>
     </qresource>
 </RCC>

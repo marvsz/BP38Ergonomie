@@ -8,6 +8,7 @@ QWidget#notifiMessageBackground {background: transparent;}
 Separator {background-color: #c8c7cc; margin: 5px 5px 5px 5px;}
 
 QLabel {font: 100 18px "Serif"; color: #8e8e93; background-color: transparent}
+QLabel#lblBig {font: 100 20px "Serif"; color: #007aff;}
 QLabel#lblHeader {font: 100 18px "Serif"; color: #007aff;}
 QLabel#lblCaption {font: 100 17px "Serif"; color: #007aff;}
 QLabel#lblValue {font: 100 16px "Serif"; color: #8e8e93;}
@@ -29,6 +30,7 @@ SelectableValueButton::checked {font: 100 18px "Serif"; color: #FFFFFF; border: 
 
 IconButton {font: 100 18px "Serif"; color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5;}
 DetailedListItem {font: 100 18px "Serif"; color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #efeff4;}
+DetailedListItem#dliBorderless {border: none;}
 
 QPushButton#headIcon {image: url(:/blue/icons/Buttons/blue/head.png); width: 200px; height: 80px; border: none; background-color: transparent; padding: 0px; margin: 0px;}
 QPushButton#armLeftIcon {image: url(:/blue/icons/Buttons/blue/armLeft.png); width: 40px; height: 240px; border: none; background-color: transparent; padding: 0px; margin: 0px;}
@@ -50,6 +52,8 @@ QCheckBox::indicator:unchecked {image: url(:/blue/icons/Buttons/blue/checkBox.pn
 
 QPushButton {font: 100 18px "Serif";color: #007aff; border: 2px solid #007aff; border-radius: 10px; background-color: #f5f5f5; padding: 4px;}
 QPushButton:pressed {color: #ffffff; background-color: #007aff;}
+QPushButton#noIcon {background-color: transparent;}
+
 QPushButton#cameraIcon {image: url(:/blue/icons/Buttons/blue/camera.png); width: 50px; height: 50px; border: none; background-color: transparent;}
 QPushButton#btnNavigation {border: none; background-color: transparent;}
 QPushButton#btnIcon {border: none; background-color: transparent;}
@@ -94,6 +98,13 @@ QPushButton#transportationIcon {image: url(:/blue/icons/Buttons/blue/transportat
 QPushButton#productIcon {image: url(:/blue/icons/Buttons/blue/product.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#lineIcon {image: url(:/blue/icons/Buttons/blue/line.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#activityIcon {image: url(:/blue/icons/Buttons/blue/activity.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#receiveIcon {image: url(:/blue/icons/Buttons/blue/receive.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#notificationIcon {image: url(:/blue/icons/Buttons/blue/notification.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#titleIcon {image: url(:/blue/icons/Buttons/blue/title.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#switchCameraIcon {image: url(:/blue/icons/Buttons/blue/switchCamera.png); width 70px; height 70px; border: none; background-color: transparent;}
+QPushButton#savePhotoIcon {image: url(:/blue/icons/Buttons/blue/savePhoto.png); width 70px; height 70px; border: none; background-color: transparent;}
+QPushButton#discardIcon {image: url(:/blue/icons/Buttons/blue/discard.png); width 70px; height 70px; border: none; background-color: transparent;}
+QPushButton#captureIcon{image: url(:/blue/icons/Buttons/blue/capture.png); width 70px; height 70px; border: none; background-color: transparent;}
 
 QPushButton#cameraIcon:pressed {image: url(:/blue/icons/Buttons/blue/cameraPressed.png); width: 50px; height: 50px; border: none; background-color: transparent;}
 QPushButton#upIcon:pressed {image: url(:/blue/icons/Buttons/blue/upPressed.png); width 45px; height 45px; border: none; background-color: transparent;}
@@ -124,6 +135,11 @@ QPushButton#errorIcon:pressed {image: url(:/blue/icons/Buttons/blue/errorPressed
 QPushButton#informationIcon:pressed {image: url(:/blue/icons/Buttons/blue/informationPressed.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#warningIcon:pressed {image: url(:/blue/icons/Buttons/blue/warningPressed.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#quickRecordingIcon:pressed {image: url(:/blue/icons/Buttons/blue/quickRecordingPressed.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#receiveIcon:pressed {image: url(:/blue/icons/Buttons/blue/receivePressed.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#switchCameraIcon:pressed {image: url(:/blue/icons/Buttons/blue/switchCameraPressed.png); width 70px; height 70px; border: none; background-color: transparent;}
+QPushButton#savePhotoIcon:pressed {image: url(:/blue/icons/Buttons/blue/savePhotoPressed.png); width 70px; height 70px; border: none; background-color: transparent;}
+QPushButton#discardIcon:pressed {image: url(:/blue/icons/Buttons/blue/discardPressed.png); width 70px; height 70px; border: none; background-color: transparent;}
+QPushButton#captureIcon:pressed {image: url(:/blue/icons/Buttons/blue/capturePressed.png); width 70px; height 70px; border: none; background-color: transparent;}
 
 QPushButton#playIcon:disabled {image: url(:/blue/icons/Buttons/blue/playDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#pauseIcon:disabled {image: url(:/blue/icons/Buttons/blue/pauseDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}

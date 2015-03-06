@@ -6,6 +6,7 @@
 #include <QLabel>
 #include "../navigation/simplenavigateablewidget.h"
 #include "../iconbutton.h"
+#include "../detailedlistitem.h"
 
 class SettingsView : public SimpleNavigateableWidget
 {
@@ -23,18 +24,19 @@ public slots:
     void setCurrentThemeIcon(const QString &objectName);
 
 private slots:
-    void btnImportDataClicked();
     void btnResetRecordingsClicked();
     void btnRestoreFactoryClicked();
     void btnSelectLanguageClicked();
     void btnSelectThemeClicked();
 
 private:
-    IconButton *btnImportData;
     IconButton *btnResetRecordings;
     IconButton *btnRestoreFactory;
     IconButton *btnSelectLanguage;
     IconButton *btnSelectTheme;
+    DetailedListItem *dliShowTitles;
+    DetailedListItem *dliShowNotifications;
+
 };
 
 #endif // SETTINGSVIEW_H
