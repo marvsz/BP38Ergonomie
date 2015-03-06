@@ -33,14 +33,9 @@ void NotificationMessage::showMessage(const QString &message, MessageType msgTyp
 
 void NotificationMessage::closeMessage(){
     idle = true;
-    Message msg = msgQueue.takeAt(0);
+    msgQueue.removeFirst();
     this->hide();
     processMessageQueue();
-
-    if(msg.type == RESTART){
-        QProcess::startDetached(QApplication::applicationFilePath());
-        exit(12);
-    }
 }
 
 //PRIVATE METHODS
@@ -63,7 +58,7 @@ void NotificationMessage::processMessageQueue(){
             case ERROR: this->setIcon(QIcon(":/blue/icons/Buttons/blue/error.png")); break;
             case WARNING: this->setIcon(QIcon(":/blue/icons/Buttons/blue/warning.png")); break;
             case INFORMATION: this->setIcon(QIcon(":/blue/icons/Buttons/blue/information.png")); break;
-            case RESTART: this->setIcon(QIcon(":/blue/icons/Buttons/blue/information.png")); break;
+            case WELCOME: this->setIcon(QIcon(":/blue/icons/Buttons/blue/welcome.png")); break;
             default: this->setIcon(QIcon(":/blue/icons/Buttons/blue/information.png")); break;
         }
         this->setText(msg.text);
