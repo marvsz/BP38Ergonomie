@@ -1656,7 +1656,6 @@ void Controller::languageChanged(){
     }
     viewCon->closePopUp();
     viewCon->showMessage(tr("Language changed"), NotificationMessage::ACCEPT);
-    viewCon->showMessage(tr("Restart app and apply changes"), NotificationMessage::RESTART, NotificationMessage::PERSISTENT);
 }
 
 void Controller::themeChanged()
