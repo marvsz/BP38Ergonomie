@@ -53,18 +53,9 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     workplacePopUp(new WorkplacePopUp()),
     importDataPopUp(new ImportDataPopUp()),
     resetPopUp(new ResetPopUp()),
-    cameraPopUp(new CameraPopUp()),
     employeePopUp(new EmployeePopUp())
 
 {
-    //Init Database handler
-    //connect(dbHandler, SIGNAL(databaseError(QString)), this, SLOT(databaseError(QString)));
-    dbHandler->setDatabasePath(StandardPaths::originDatabasePath(), StandardPaths::databasePath());
-    QList<QString> tblNames = DBConstants::LIST_TABLE_NAMES;
-    for(int i = 0; i < tblNames.size(); ++i)
-        dbHandler->registerTable(tblNames.at(i));
-
-
     analyst_ID = 0;
     recording_ID = 1;
     workplace_ID = 0;
@@ -200,7 +191,6 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     viewCon->registerPopUp(importDataPopUp, PopUpType::IMPORT_DATA_POPUP);
     viewCon->registerPopUp(resetPopUp, PopUpType::RESET_POPUP);
     viewCon->registerPopUp(employeePopUp,PopUpType::EMPlOYEE_POPUP);
-    viewCon->registerPopUp(cameraPopUp, PopUpType::CAMERA_POPUP);
 
     //Set the start Views
     documentationView->showStartView(ViewType::BODY_POSTURE_VIEW);

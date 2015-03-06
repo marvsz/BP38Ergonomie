@@ -1,41 +1,41 @@
 #include "dbhandler.h"
+#include "standardpaths.h"
 
 
 DBHandler::DBHandler()
 {
+    QFileInfo databaseFileInfo = QFileInfo(StandardPaths::databasePath());
+    QString databaseOriginPath = StandardPaths::originDatabasePath();
+    QString databasePath = databaseFileInfo.absoluteFilePath();
+
+    if ( !databaseFileInfo.exists() ){
+           bool copySuccess = QFile::copy( databaseOriginPath, databasePath );
+           if ( !copySuccess ){
+               QMessageBox::critical(0, "Error:", QString("Could not copy database from \n %1 to \n %2").arg(databaseOriginPath).arg(databasePath));
+               databasePath.clear();
+           }
+           else{
+                if(!QFile::setPermissions(databasePath,QFile::WriteOwner | QFile::ReadOwner)){
+                   QMessageBox::critical(0, "Error:", "Could not set permissions");
+                }
+           }
+       }
+
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName(databasePath);
+    if(!database.open())
+        QMessageBox::critical(0, "Error:", "Could not open database!");
+
     htSqlTableModels = QHash<const QString, QSqlTableModel*>();
+    QList<QString> tblNames = DBConstants::LIST_TABLE_NAMES;
+    for(int i = 0; i < tblNames.size(); ++i)
+        registerTable(tblNames.at(i));
 }
 
 DBHandler::~DBHandler(){
     database.close();
 }
 
-//PUBLIC METHODS
-void DBHandler::setDatabasePath(const QString &originPath, const QString &path){
-    QFileInfo databaseFileInfo = QFileInfo(path);
-    QString databaseOriginPath = originPath;
-    QString databasePath = databaseFileInfo.absoluteFilePath();
-
-    if ( !databaseFileInfo.exists() ){
-           bool copySuccess = QFile::copy( databaseOriginPath, databasePath );
-           if ( !copySuccess ){
-               emit databaseError(QString("Could not copy database from \n %1 to \n %2").arg(databaseOriginPath).arg(databasePath));
-               databasePath.clear();
-           }
-           else{
-                if(!QFile::setPermissions(databasePath,QFile::WriteOwner | QFile::ReadOwner)){
-                   emit databaseError("Could not set permissions");
-                }
-           }
-       }
-
-    database.setDatabaseName(databasePath);
-    database = QSqlDatabase::addDatabase("QSQLITE");
-    if(!database.open()){
-        emit databaseError(database.lastError().text());
-        emit databaseError(QString("Could not open database: \n %1").arg(databasePath));
-    }
-}
 
 void DBHandler::registerTable(const QString &tblName){
     QSqlTableModel *tbl = new QSqlTableModel(0, database);
@@ -100,8 +100,6 @@ QList<QHash<QString, QVariant>> DBHandler::select(const QString &tbl, const QStr
             selectValues.append(rowValues);
         }
     }
-    //else
-        //emit databaseError(tr("Select: %1 from %2").arg(filter).arg(model->tableName()));
 
     return selectValues;
 }
@@ -119,8 +117,6 @@ int DBHandler::selectCount(const QString &tbl, const QString &filter, Qt::SortOr
     model->setSort(0, order);
     if(model->select())
         return model->rowCount();
-    //else
-        //emit databaseError(tr("Select: %1 from %2").arg(filter).arg(model->tableName()));
     return 0;
 }
 

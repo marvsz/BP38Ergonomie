@@ -83,10 +83,6 @@ HEADERS +=\
     $$PWD/popUps/workplacepopup.h \
     $$PWD/popUps/resetpopup.h \
     $$PWD/popUps/employeepopup.h \
-    $$PWD/popUps/camerapopup.h \
-    $$PWD/capture.h \
-    $$PWD/converter.h \
-    $$PWD/imageviewer.h \
     $$PWD/documentationView/bodyPostureView/quickselectioncontrol.h \
     $$PWD/interfaces/iemployeelist.h \
     $$PWD/interfaces/iemployee.h
@@ -168,8 +164,4 @@ SOURCES +=\
     $$PWD/popUps/workplacepopup.cpp \
     $$PWD/popUps/resetpopup.cpp \
     $$PWD/popUps/employeepopup.cpp \
-    $$PWD/popUps/camerapopup.cpp \
-    $$PWD/capture.cpp \
-    $$PWD/converter.cpp \
-    $$PWD/imageviewer.cpp \
     $$PWD/documentationView/bodyPostureView/quickselectioncontrol.cpp
