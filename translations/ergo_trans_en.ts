@@ -599,78 +599,78 @@
         <translation type="vanished">Quick Trunk Posture</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="183"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="287"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="187"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="286"/>
         <source>Trunk</source>
         <translation>Trunk</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="184"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="232"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="188"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="236"/>
         <source>Tilt</source>
         <translation>Tilt </translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="186"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="234"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="190"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="238"/>
         <source>Sideways tilt</source>
         <translation>Tilt Sideways</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="188"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="199"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="236"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="192"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="203"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="240"/>
         <source>Twist</source>
         <translation>Twist</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="195"/>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="284"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="199"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="283"/>
         <source>Arms</source>
         <translation>Arms</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="196"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="200"/>
         <source>Posture</source>
         <translation>Posture</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="202"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="206"/>
         <source>Opening</source>
         <translation>Opening</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="204"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="208"/>
         <source>Wrist</source>
         <translation>Wrist</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="215"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="219"/>
         <source>Legs</source>
         <translation>Legs</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="216"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="220"/>
         <source>Hip</source>
         <translation>Hip</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="219"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="223"/>
         <source>Knee</source>
         <translation>Knee</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="221"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="225"/>
         <source>Ankle</source>
         <translation>Ankle</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="231"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="235"/>
         <source>Head</source>
         <translation>Head</translation>
     </message>
     <message>
-        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="290"/>
+        <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="289"/>
         <source>Nothing</source>
         <translation>Nothing</translation>
     </message>
@@ -812,128 +812,128 @@
 <context>
     <name>Controller</name>
     <message>
-        <location filename="../control/controller.cpp" line="362"/>
+        <location filename="../control/controller.cpp" line="363"/>
         <source>Created analyst</source>
         <translation>Analyst Created</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="368"/>
+        <location filename="../control/controller.cpp" line="369"/>
         <source>Deleted analyst</source>
         <translation>Analyst Deleted</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="382"/>
+        <location filename="../control/controller.cpp" line="383"/>
         <source>Autogenerated workplace</source>
         <translation>Autogenerated Workplace</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="386"/>
+        <location filename="../control/controller.cpp" line="387"/>
         <source>Autogenerated activity</source>
         <translation>Autogenerated Activity</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="576"/>
+        <location filename="../control/controller.cpp" line="577"/>
         <source>Created new workplace</source>
         <translation>New Workplace Created</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="609"/>
+        <location filename="../control/controller.cpp" line="610"/>
         <source>Deleted workplace</source>
         <translation>Workplace Deleted</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="652"/>
+        <location filename="../control/controller.cpp" line="653"/>
         <source>Created line</source>
         <translation>Line Created</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="666"/>
+        <location filename="../control/controller.cpp" line="667"/>
         <source>Deleted line</source>
         <translation>Line Deleted</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="692"/>
-        <location filename="../control/controller.cpp" line="704"/>
+        <location filename="../control/controller.cpp" line="693"/>
+        <location filename="../control/controller.cpp" line="705"/>
         <source>Created new product</source>
         <translation>New Product Created</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="715"/>
+        <location filename="../control/controller.cpp" line="716"/>
         <source>Deleted product</source>
         <translation>Product Deleted</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="746"/>
+        <location filename="../control/controller.cpp" line="747"/>
         <source>Created new equipment</source>
         <translation>New Equipment Created</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="753"/>
+        <location filename="../control/controller.cpp" line="754"/>
         <source>Deleted equipment</source>
         <translation>Equipment Deleted</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="766"/>
+        <location filename="../control/controller.cpp" line="767"/>
         <source>Created new Equipment</source>
         <translation>New Equipment Created</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="812"/>
+        <location filename="../control/controller.cpp" line="813"/>
         <source>Created activity</source>
         <translation>Activity Created</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="820"/>
+        <location filename="../control/controller.cpp" line="821"/>
         <source>Deleted activity</source>
         <translation>Activity Deleted</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="864"/>
+        <location filename="../control/controller.cpp" line="865"/>
         <source>Updated activity</source>
         <translation>Activity Updated</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="929"/>
+        <location filename="../control/controller.cpp" line="930"/>
         <source>Created new transportation</source>
         <translation>New Transportation Created</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="942"/>
+        <location filename="../control/controller.cpp" line="943"/>
         <source>Created new transporation</source>
         <translation>New Transportation Created</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="952"/>
+        <location filename="../control/controller.cpp" line="953"/>
         <source>Deleted transportation</source>
         <translation>Transportation Deleted</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="991"/>
+        <location filename="../control/controller.cpp" line="1007"/>
         <source>Employee selected</source>
         <translation>Employee Selected</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="1488"/>
+        <location filename="../control/controller.cpp" line="1504"/>
         <source>Start parsing</source>
         <translation>Parsing Started</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="1643"/>
+        <location filename="../control/controller.cpp" line="1659"/>
         <source>Language changed</source>
         <translation>Language Changed</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="1644"/>
+        <location filename="../control/controller.cpp" line="1660"/>
         <source>Restart app and apply changes</source>
         <translation>Click to Restart App and Apply Changes</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="1666"/>
+        <location filename="../control/controller.cpp" line="1682"/>
         <source>Theme changed</source>
         <translation>Theme Changed</translation>
     </message>
     <message>
-        <location filename="../control/controller.cpp" line="1801"/>
+        <location filename="../control/controller.cpp" line="1817"/>
         <source>Reset successful</source>
         <translation>Reset Succesful</translation>
     </message>
@@ -944,7 +944,7 @@
         <location filename="../databaseHandler/dbhandler.cpp" line="102"/>
         <location filename="../databaseHandler/dbhandler.cpp" line="121"/>
         <source>Select: %1 from %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Select: %1 from %2</translation>
     </message>
 </context>
 <context>
@@ -971,14 +971,23 @@
 <context>
     <name>EmployeeListView</name>
     <message>
-        <location filename="../view/ressourceManagementView/employeelistview.cpp" line="6"/>
         <source>Description</source>
-        <translation>Description</translation>
+        <translation type="vanished">Description</translation>
     </message>
     <message>
-        <location filename="../view/ressourceManagementView/employeelistview.cpp" line="9"/>
+        <location filename="../view/ressourceManagementView/employeelistview.cpp" line="7"/>
         <source>Employees</source>
         <translation>Employees</translation>
+    </message>
+    <message>
+        <location filename="../view/ressourceManagementView/employeelistview.cpp" line="36"/>
+        <source>Employee</source>
+        <translation>Employee</translation>
+    </message>
+    <message>
+        <location filename="../view/ressourceManagementView/employeelistview.h" line="39"/>
+        <source>Staff number</source>
+        <translation>Staff Number</translation>
     </message>
 </context>
 <context>
@@ -1022,12 +1031,12 @@
         <translation>Height</translation>
     </message>
     <message>
-        <location filename="../view/ressourceManagementView/employeeview.h" line="52"/>
+        <location filename="../view/ressourceManagementView/employeeview.h" line="54"/>
         <source>male</source>
         <translation>Male</translation>
     </message>
     <message>
-        <location filename="../view/ressourceManagementView/employeeview.h" line="52"/>
+        <location filename="../view/ressourceManagementView/employeeview.h" line="54"/>
         <source>female</source>
         <translation>Female</translation>
     </message>
@@ -1957,92 +1966,92 @@
     <message>
         <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.cpp" line="20"/>
         <source>Quick Leg Posture</source>
-        <translation type="unfinished">Quick Leg Posture</translation>
+        <translation>Quick Leg Posture</translation>
     </message>
     <message>
         <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.cpp" line="26"/>
         <source>Quick Arm Posture</source>
-        <translation type="unfinished">Quick Arm Posture</translation>
+        <translation>Quick Arm Posture</translation>
     </message>
     <message>
         <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.cpp" line="31"/>
         <source>Quick Trunk Posture</source>
-        <translation type="unfinished">Quick Trunk Posture</translation>
+        <translation>Quick Trunk Posture</translation>
     </message>
     <message>
         <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="65"/>
         <source>Standing</source>
-        <translation type="unfinished">Standing</translation>
+        <translation>Standing</translation>
     </message>
     <message>
         <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="65"/>
         <source>Sitting</source>
-        <translation type="unfinished">Sitting</translation>
+        <translation>Sitting</translation>
     </message>
     <message>
         <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="65"/>
         <source>Kneeling</source>
-        <translation type="unfinished">Kneeling</translation>
+        <translation>Kneeling</translation>
     </message>
     <message>
         <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="65"/>
         <source>Walking</source>
-        <translation type="unfinished">Walking</translation>
+        <translation>Walking</translation>
     </message>
     <message>
         <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="65"/>
         <source>Running</source>
-        <translation type="unfinished">Running</translation>
+        <translation>Running</translation>
     </message>
     <message>
         <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="66"/>
         <source>At Elbow height</source>
-        <translation type="unfinished">At Elbow Height</translation>
+        <translation>At Elbow Height</translation>
     </message>
     <message>
         <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="66"/>
         <source>At Shoulder height</source>
-        <translation type="unfinished">At Shoulder Height</translation>
+        <translation>At Shoulder Height</translation>
     </message>
     <message>
         <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="66"/>
         <source>At Head height</source>
-        <translation type="unfinished">At Head Height</translation>
+        <translation>At Head Height</translation>
     </message>
     <message>
         <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="67"/>
         <source>strong bending to the front</source>
-        <translation type="unfinished">Strong Bending to the Front</translation>
+        <translation>Strong Bending to the Front</translation>
     </message>
     <message>
         <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="67"/>
         <source>light bending to the front</source>
-        <translation type="unfinished">Light Bending to the Front</translation>
+        <translation>Light Bending to the Front</translation>
     </message>
     <message>
         <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="67"/>
         <source>no bending at all</source>
-        <translation type="unfinished">No Bending at All</translation>
+        <translation>No Bending at All</translation>
     </message>
     <message>
         <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="67"/>
         <source>light bending to behind</source>
-        <translation type="unfinished">Light Bending to the Back</translation>
+        <translation>Light Bending to the Back</translation>
     </message>
     <message>
         <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="67"/>
         <source>strong bending to behind</source>
-        <translation type="unfinished">Strong Bending to the Back</translation>
+        <translation>Strong Bending to the Back</translation>
     </message>
     <message>
         <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="68"/>
         <source>left</source>
-        <translation type="unfinished">Left</translation>
+        <translation>Left</translation>
     </message>
     <message>
         <location filename="../view/documentationView/bodyPostureView/quickselectioncontrol.h" line="68"/>
         <source>right</source>
-        <translation type="unfinished">Right</translation>
+        <translation>Right</translation>
     </message>
 </context>
 <context>

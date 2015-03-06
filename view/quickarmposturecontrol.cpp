@@ -155,6 +155,8 @@ void QuickArmPostureControl::setValues(const QStringList &texts, const QStringLi
 
     generalButtonLayout->addLayout(optionButtonLayout);
     mainLayout->addLayout(generalButtonLayout);
+    mainLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Fixed, QSizePolicy::Expanding));
+    //mainLayout->addSpacerItem(new QSpacerItem());
     currentSelectedBtn = btnOptions.at(0);
     currentSelectedBtn->setSelected(true);
     setSelectedValue(-1);
