@@ -14,16 +14,16 @@ SettingsView::SettingsView(QWidget *parent) :
     dliShowTitles(new DetailedListItem(this, "titleIcon", tr("Show Titles"), QList<QStringList>(), false, true, false, false, false)),
     dliShowNotifications(new DetailedListItem(this, "notificationIcon", tr("Show Notifications"), QList<QStringList>(), false, true, false, false, false))
 {
-    btnResetRecordings->setMinimumSize(320, 60);
+    btnResetRecordings->setMinimumSize(400, 60);
     connect(btnResetRecordings, SIGNAL(clicked()), this, SLOT(btnResetRecordingsClicked()));
 
-    btnRestoreFactory->setMinimumSize(320, 60);
+    btnRestoreFactory->setMinimumSize(400, 60);
     connect(btnRestoreFactory, SIGNAL(clicked()), this, SLOT(btnRestoreFactoryClicked()));
 
-    btnSelectLanguage->setMinimumSize(320, 60);
+    btnSelectLanguage->setMinimumSize(400, 60);
     connect(btnSelectLanguage, SIGNAL(clicked()), this, SLOT(btnSelectLanguageClicked()));
 
-    btnSelectTheme->setMinimumSize(320, 60);
+    btnSelectTheme->setMinimumSize(400, 60);
     connect(btnSelectTheme, SIGNAL(clicked()), this, SLOT(btnSelectThemeClicked()));
 
     QLabel *lblUiSettings = new QLabel(tr("User Interface Settings"));

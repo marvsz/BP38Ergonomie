@@ -41,7 +41,6 @@ void Capture::timerEvent(QTimerEvent * ev) {
 int Capture::cameraCount(){
     cv::VideoCapture tempCam(1);
     bool res = (tempCam.isOpened());
-    qDebug() << res;
     tempCam.release();
     return res ? 2 : 1;
 }

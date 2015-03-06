@@ -416,5 +416,7 @@
         <file>icons/Buttons/blue/capture@2x.png</file>
         <file>icons/Buttons/blue/capturePressed.png</file>
         <file>icons/Buttons/blue/capturePressed@2x.png</file>
+        <file>icons/Buttons/blue/welcome.png</file>
+        <file>icons/Buttons/blue/welcome@2x.png</file>
     </qresource>
 </RCC>
