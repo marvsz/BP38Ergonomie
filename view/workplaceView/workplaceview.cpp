@@ -92,9 +92,9 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     connect(employee, SIGNAL(clicked()), this, SLOT(btnEmployeeClicked()));
 
     additions->append(line);
+    additions->append(employee);
     additions->append(activity);
     additions->append(comment);
-    additions->append(employee);
 
     QGridLayout *workplaceMetaDataLayout = new QGridLayout;
     workplaceMetaDataLayout->addWidget(lblName, 0, 0, 1, 1, 0);

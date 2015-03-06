@@ -84,15 +84,20 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     connect(workplaceListView, SIGNAL(selected(int)), this, SLOT(updateWorkplaceView(int)));
     connect(workplacePopUp, SIGNAL(confirm()), this, SLOT(createWorkplacePopup()));
 
+    connect(this, SIGNAL(clearEmployees()), employeeListView, SLOT(clear()));
+    connect(this, SIGNAL(clearAll()), employeeListView, SLOT(clear()));
     connect(employeeListView, SIGNAL(deleteEmployee(int)), this, SLOT(deleteEmployee(int)));
     connect(this, SIGNAL(removedEmployee(int)), employeeListView, SLOT(removeEmployee(int)));
     connect(employeeListView, SIGNAL(createEmployee(QHash<QString,QVariant>)), this, SLOT(createEmployee(QHash<QString,QVariant>)));
     connect(this, SIGNAL(createdEmployee(QHash<QString,QVariant>)), employeeListView, SLOT(addEmployee(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(createdEmployee(QHash<QString,QVariant>)), employeePopUp, SLOT(addEmployee(QHash<QString,QVariant>)));
     connect(employeeListView, SIGNAL(selectEmployee(int)), this, SLOT(selectEmployee(int)));
     connect(this, SIGNAL(updatedEmployee(QHash<QString,QVariant>)), employeeListView, SLOT(updateEmployee(QHash<QString,QVariant>)));
     connect(this, SIGNAL(selectedEmployee(QHash<QString,QVariant>)), employeeView, SLOT(setEmployee(QHash<QString,QVariant>)));
     connect(employeeView, SIGNAL(saveEmployee(QHash<QString,QVariant>)), this, SLOT(saveEmployee(QHash<QString,QVariant>)));
 
+    connect(bodyMeasurementView, SIGNAL(saveBodyMeasurement(QHash<QString,QVariant>)), this, SLOT(saveBodyMeasurement(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(selectedBodyMeasurement(QHash<QString,QVariant>)), bodyMeasurementView, SLOT(setBodyMeasurement(QHash<QString,QVariant>)));
     //connect(employeePopUp, SIGNAL(confirm()), this, SLOT(employeeSelected()));
 
     connect(lineView, SIGNAL(saveLine()), this, SLOT(createLine()));
@@ -256,9 +261,6 @@ void Controller::update(ViewType type)
         case ViewType::WORK_PROCESS_META_DATA_VIEW:
             updateWorkProcessMetaDataView();
             break;
-        case ViewType::BODY_MEASUREMENT_VIEW:
-            updateBodyMeasurementView();
-            break;
         case ViewType::SETTINGS_VIEW:
             break;
         default:
@@ -313,9 +315,6 @@ void Controller::save(ViewType type)
             break;
         case ViewType::WORK_PROCESS_META_DATA_VIEW:
             saveCurrentWorkProcess();
-            break;
-        case ViewType::BODY_MEASUREMENT_VIEW:
-            saveBodyMeasurementView();
             break;
         default:
             break;
@@ -394,35 +393,34 @@ void Controller::createBlankRecording(){
 //MetaDataView
 void Controller::updateMetaDataView()
 {
-    if(recording_ID <= 0)
-        {
-            metaDataView->setRecordTime(QDateTime::currentDateTime(), QDateTime::currentDateTime());
-        }
-    else
-        {
-            QHash<QString, QVariant> row = dbHandler->selectFirst(DBConstants::TBL_RECORDING, QString("%1 = %2").arg(DBConstants::COL_RECORDING_ID).arg(QString::number(recording_ID)));
-            metaDataView->setRecordTime(row.value(DBConstants::COL_RECORDING_START).toDateTime(),
-                                        row.value(DBConstants::COL_RECORDING_END).toDateTime());
+    QHash<QString, QVariant> row = dbHandler->selectFirst(DBConstants::TBL_RECORDING, QString("%1 = %2").arg(DBConstants::COL_RECORDING_ID).arg(QString::number(recording_ID)));
+    QString dtFormat = "dd.MM.yyyy hh:mm:ss.zzz";
+    QDateTime begin = QDateTime();
+    begin = begin.fromString(row.value(DBConstants::COL_RECORDING_START).toString(), dtFormat);
+    QDateTime end = QDateTime();
+    end = end.fromString(row.value(DBConstants::COL_RECORDING_END).toString(), dtFormat);
+    metaDataView->setRecordTime(begin,end);
+    if(!begin.isValid())
+        viewCon->showMessage(begin.toString(dtFormat));
 
-            factory_ID = row.value(DBConstants::COL_RECORDING_FACTORY_ID).toInt();
-            row = dbHandler->selectFirst(DBConstants::TBL_FACTORY, QString("%1 = %2").arg(DBConstants::COL_FACTORY_ID).arg(QString::number(factory_ID)));
-            metaDataView->setFactory(row.value(DBConstants::COL_FACTORY_NAME).toString(),
-                                     row.value(DBConstants::COL_FACTORY_STREET).toString(),
-                                     row.value(DBConstants::COL_FACTORY_ZIP).toInt(),
-                                     row.value(DBConstants::COL_FACTORY_CITY).toString(),
-                                     row.value(DBConstants::COL_FACTORY_COUNTRY).toString(),
-                                     row.value(DBConstants::COL_FACTORY_CONTACT_PERSON).toString(),
-                                     row.value(DBConstants::COL_FACTORY_HEADCOUNT).toInt());
+    factory_ID = row.value(DBConstants::COL_RECORDING_FACTORY_ID).toInt();
+    row = dbHandler->selectFirst(DBConstants::TBL_FACTORY, QString("%1 = %2").arg(DBConstants::COL_FACTORY_ID).arg(QString::number(factory_ID)));
+    metaDataView->setFactory(row.value(DBConstants::COL_FACTORY_NAME).toString(),
+                             row.value(DBConstants::COL_FACTORY_STREET).toString(),
+                             row.value(DBConstants::COL_FACTORY_ZIP).toInt(),
+                             row.value(DBConstants::COL_FACTORY_CITY).toString(),
+                             row.value(DBConstants::COL_FACTORY_COUNTRY).toString(),
+                             row.value(DBConstants::COL_FACTORY_CONTACT_PERSON).toString(),
+                             row.value(DBConstants::COL_FACTORY_HEADCOUNT).toInt());
 
-            int corp_ID = row.value(DBConstants::COL_FACTORY_CORPORATION_ID).toInt();
-            row = dbHandler->selectFirst(DBConstants::TBL_CORPORATION, QString("%1 = %2").arg(DBConstants::COL_CORPORATION_ID).arg(QString::number(corp_ID)));
-            metaDataView->setCorporation(row.value(DBConstants::COL_CORPORATION_NAME).toString());
+    int corp_ID = row.value(DBConstants::COL_FACTORY_CORPORATION_ID).toInt();
+    row = dbHandler->selectFirst(DBConstants::TBL_CORPORATION, QString("%1 = %2").arg(DBConstants::COL_CORPORATION_ID).arg(QString::number(corp_ID)));
+    metaDataView->setCorporation(row.value(DBConstants::COL_CORPORATION_NAME).toString());
 
-            int boi_ID = row.value(DBConstants::COL_CORPORATION_BRANCH_OF_INDUSTRY_ID).toInt();
-            row = dbHandler->selectFirst(DBConstants::TBL_BRANCH_OF_INDUSTRY, QString("%1 = %2").arg(DBConstants::COL_BRANCH_OF_INDUSTRY_ID).arg(boi_ID));
-            metaDataView->setBranchOfIndustry(row.value(DBConstants::COL_BRANCH_OF_INDUSTRY_NAME).toString(),
-                                              row.value(DBConstants::COL_BRANCH_OF_INDUSTRY_DESCRIPTION).toString());
-        }
+    int boi_ID = row.value(DBConstants::COL_CORPORATION_BRANCH_OF_INDUSTRY_ID).toInt();
+    row = dbHandler->selectFirst(DBConstants::TBL_BRANCH_OF_INDUSTRY, QString("%1 = %2").arg(DBConstants::COL_BRANCH_OF_INDUSTRY_ID).arg(boi_ID));
+    metaDataView->setBranchOfIndustry(row.value(DBConstants::COL_BRANCH_OF_INDUSTRY_NAME).toString(),
+                                      row.value(DBConstants::COL_BRANCH_OF_INDUSTRY_DESCRIPTION).toString());
 }
 
 void Controller::saveMetaDataView()
@@ -453,13 +451,13 @@ void Controller::saveMetaDataView()
 
 
     filter = QString("");
-    QString dtFormat = "dd.MM.yyyy hh:mm";
+    QString dtFormat = "dd.MM.yyyy hh:mm:ss.zzz";
     values.clear();
     values.insert(DBConstants::COL_RECORDING_START, metaDataView->getRecordTimeBegin().toString(dtFormat));
     values.insert(DBConstants::COL_RECORDING_END, metaDataView->getRecordTimeEnd().toString(dtFormat));
     values.insert(DBConstants::COL_RECORDING_FACTORY_ID, factory_ID);
     values.insert(DBConstants::COL_RECORDING_ANALYST_ID, analyst_ID);
-    recording_ID = dbHandler->save(DBConstants::TBL_RECORDING, DBConstants::HASH_RECORDING_TYPES, values, filter, DBConstants::COL_RECORDING_ID);
+    dbHandler->save(DBConstants::TBL_RECORDING, DBConstants::HASH_RECORDING_TYPES, values, filter, DBConstants::COL_RECORDING_ID);
 }
 
 //WorkplacesView
@@ -948,7 +946,7 @@ void Controller::deleteTransportation(int id)
     updateTransportationView();
 }
 
-//EMPLOYEE VIEW
+//EMPLOYEE
 void Controller::initializeEmployees(){
     QList<QHash<QString, QVariant>> values = dbHandler->select(DBConstants::TBL_EMPLOYEE, QString(""));
     for(int i = 0; i < values.count(); ++i)
@@ -956,6 +954,9 @@ void Controller::initializeEmployees(){
 }
 
 void Controller::createEmployee(QHash<QString, QVariant> values){
+    QHash<QString, QVariant> bmValues = QHash<QString, QVariant>();
+    int bmID = dbHandler->insert(DBConstants::TBL_BODY_MEASUREMENT, DBConstants::HASH_BODY_MEASUREMENT_TYPES, bmValues, DBConstants::COL_BODY_MEASUREMENT_ID);
+    values.insert(DBConstants::COL_EMPLOYEE_BODY_MEASUREMENT_ID, bmID);
     int id = dbHandler->insert(DBConstants::TBL_EMPLOYEE, DBConstants::HASH_EMPLOYEE_TYPES, values, DBConstants::COL_EMPLOYEE_ID);
     values.insert(DBConstants::COL_EMPLOYEE_ID, id);
     emit createdEmployee(values);
@@ -971,15 +972,22 @@ void Controller::createEmployee(QHash<QString, QVariant> values, QHash<QString, 
 
 void Controller::deleteEmployee(int id){
     QString filter = QString("%1 = %2").arg(DBConstants::COL_EMPLOYEE_ID).arg(id);
+    QHash<QString, QVariant> values = dbHandler->selectFirst(DBConstants::TBL_EMPLOYEE, filter);
     dbHandler->deleteAll(DBConstants::TBL_EMPLOYEE, filter);
     emit removedEmployee(id);
+    filter = QString("%1 = %2").arg(DBConstants::COL_EMPLOYEE_BODY_MEASUREMENT_ID).arg(values.value(DBConstants::COL_EMPLOYEE_BODY_MEASUREMENT_ID).toInt());
+    dbHandler->deleteAll(DBConstants::TBL_BODY_MEASUREMENT, filter);
 }
 
 void Controller::selectEmployee(int id){
     QString filter = QString("%1 = %2").arg(DBConstants::COL_EMPLOYEE_ID).arg(id);
     QHash<QString, QVariant> values = dbHandler->selectFirst(DBConstants::TBL_EMPLOYEE, filter);
     employee_ID = id;
+    bodyMeasurement_ID = values.value(DBConstants::COL_EMPLOYEE_BODY_MEASUREMENT_ID).toInt();
     emit selectedEmployee(values);
+    filter = QString("%1 = %2").arg(DBConstants::COL_BODY_MEASUREMENT_ID).arg(bodyMeasurement_ID);
+    values = dbHandler->selectFirst(DBConstants::TBL_BODY_MEASUREMENT, filter);
+    emit selectedBodyMeasurement(values);
 }
 
 void Controller::saveEmployee(QHash<QString, QVariant> values){
@@ -990,47 +998,12 @@ void Controller::saveEmployee(QHash<QString, QVariant> values){
 }
 
 
-//BODY MEASUREMENT VIEW
-void Controller::updateBodyMeasurementView()
-{
-    QString tbl = DBConstants::TBL_BODY_MEASUREMENT;
-    if(dbHandler->isSelectEmpty(tbl, QString(""))){
-        QHash <QString, QVariant> values = QHash<QString, QVariant>();
-        values.insert(DBConstants::COL_BODY_MEASUREMENT_ID, bodyMeasurement_ID);
-        dbHandler->insert(tbl, DBConstants::HASH_BODY_MEASUREMENT_TYPES, values);
-    }
-    QHash<QString, QVariant> row = dbHandler->selectFirst(tbl, QString(""));
-    bodyMeasurement_ID = row.value(DBConstants::COL_BODY_MEASUREMENT_ID).toInt();
-    bodyMeasurementView->setHeadNeckLength(row.value(DBConstants::COL_BODY_MEASUREMENT_HEAD_NECK_HEIGHT).toInt());
-    bodyMeasurementView->setShoulderWidth(row.value(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH).toInt());
-    bodyMeasurementView->setShoulderBiacromial(row.value(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH_BIACROMIAL).toInt());
-    bodyMeasurementView->setShoulderBideltoid(row.value(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH_BIDELTOID).toInt());
-    bodyMeasurementView->setUpperArmLength(row.value(DBConstants::COL_BODY_MEASUREMENT_UPPER_ARM_LENGTH).toInt());
-    bodyMeasurementView->setForearmLength(row.value(DBConstants::COL_BODY_MEASUREMENT_FOREARM_LENGTH).toInt());
-    bodyMeasurementView->setHandLength(row.value(DBConstants::COL_BODY_MEASUREMENT_HAND_LENGTH_GRIP_AXIS).toInt());
-    bodyMeasurementView->setThighLength(row.value(DBConstants::COL_BODY_MEASUREMENT_THIGH_LENGTH).toInt());
-    bodyMeasurementView->setTibialLength(row.value(DBConstants::COL_BODY_MEASUREMENT_TIBIAL_HEIGHT).toInt());
-    bodyMeasurementView->setTorsoHeight(row.value(DBConstants::COL_BODY_MEASUREMENT_TORSO_HEIGHT).toInt());
-    bodyMeasurementView->setFootLength(row.value(DBConstants::COL_BODY_MEASUREMENT_FOOT_LENGTH).toInt());
+//BodyMeasurement
+void Controller::saveBodyMeasurement(QHash<QString, QVariant> values){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_BODY_MEASUREMENT_ID).arg(bodyMeasurement_ID);
+    dbHandler->save(DBConstants::TBL_BODY_MEASUREMENT, DBConstants::HASH_BODY_MEASUREMENT_TYPES, values, filter, DBConstants::COL_BODY_MEASUREMENT_ID);
 }
 
-void Controller::saveBodyMeasurementView()
-{
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_HEAD_NECK_HEIGHT, bodyMeasurementView->getHeadNeckLength());
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH, bodyMeasurementView->getShoulderWidth());
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH_BIACROMIAL, bodyMeasurementView->getShoulderBiacromial());
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH_BIDELTOID, bodyMeasurementView->getShoulderBideltoid());
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_UPPER_ARM_LENGTH, bodyMeasurementView->getUpperArmLength());
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_FOREARM_LENGTH, bodyMeasurementView->getForearmLength());
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_HAND_LENGTH_GRIP_AXIS, bodyMeasurementView->getHandLength());
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_THIGH_LENGTH, bodyMeasurementView->getThighLength());
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_TIBIAL_HEIGHT, bodyMeasurementView->getTibialLength());
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_TORSO_HEIGHT, bodyMeasurementView->getTorsoHeight());
-    values.insert(DBConstants::COL_BODY_MEASUREMENT_FOOT_LENGTH, bodyMeasurementView->getFootLength());
-    dbHandler->save(DBConstants::TBL_BODY_MEASUREMENT, DBConstants::HASH_BODY_MEASUREMENT_TYPES, values, QString(""), DBConstants::COL_BODY_MEASUREMENT_ID);
-
-}
 
 //WORKPROCESS
 int Controller::createWorkprocess(AVType type, const QTime &start, const QTime &end)
@@ -1567,9 +1540,10 @@ void Controller::importDataDownloadError(const QString &error){
 }
 
 
-// ResetDatabaseRecording evtl resetDatabaseFactory hinzufügen,
-// methode wird aktuell nur dort aufgerufen
-void Controller::resetDatabaseRecording(){
+void Controller::resetDatabaseFactory()
+{
+    QString emptyFilter = QString("");
+    analyst_ID = 0;
     recording_ID = 1;
     workplace_ID = 0;
     workcondition_ID = 0;
@@ -1581,13 +1555,13 @@ void Controller::resetDatabaseRecording(){
     workprocess_ID = 0;
     employee_ID = 1;
     bodyMeasurement_ID = 1;
-    QString emptyFilter = QString("");
     dbHandler->deleteAll(DBConstants::TBL_ACTIVITY, emptyFilter);
     dbHandler->deleteAll(DBConstants::TBL_APPLIED_FORCE, emptyFilter);
     dbHandler->deleteAll(DBConstants::TBL_BODY_POSTURE, emptyFilter);
     dbHandler->deleteAll(DBConstants::TBL_BREAK, emptyFilter);
     dbHandler->deleteAll(DBConstants::TBL_COMMENT, emptyFilter);
     dbHandler->deleteAll(DBConstants::TBL_EMPLOYEE, emptyFilter);
+    dbHandler->deleteAll(DBConstants::TBL_BODY_MEASUREMENT, emptyFilter);
     dbHandler->deleteAll(DBConstants::TBL_EMPLOYEE_WORKS_SHIFT, emptyFilter);
     dbHandler->deleteAll(DBConstants::TBL_EQUIPMENT, emptyFilter);
     dbHandler->deleteAll(DBConstants::TBL_LINE, emptyFilter);
@@ -1602,14 +1576,6 @@ void Controller::resetDatabaseRecording(){
     dbHandler->deleteAll(DBConstants::TBL_WORK_CONDITION, emptyFilter);
     dbHandler->deleteAll(DBConstants::TBL_WORK_PROCESS, emptyFilter);
     dbHandler->deleteAll(DBConstants::TBL_CONNECTION, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_BODY_MEASUREMENT, emptyFilter);
-}
-
-void Controller::resetDatabaseFactory()
-{
-    resetDatabaseRecording();
-    analyst_ID = 0;
-    QString emptyFilter = QString("");
     dbHandler->deleteAll(DBConstants::TBL_ANALYST, emptyFilter);
     dbHandler->deleteAll(DBConstants::TBL_BRANCH_OF_INDUSTRY, emptyFilter);
     dbHandler->deleteAll(DBConstants::TBL_CORPORATION, emptyFilter);
@@ -1617,7 +1583,8 @@ void Controller::resetDatabaseFactory()
     dbHandler->deleteAll(DBConstants::TBL_FACTORY, emptyFilter);
     dbHandler->deleteAll(DBConstants::TBL_TYPE_OF_GRASPING, emptyFilter);
     dbHandler->deleteAll(DBConstants::TBL_LOAD_HANDLING_TYPE, emptyFilter);
-
+    dbHandler->deleteAll(DBConstants::TBL_BODY_MEASUREMENT, emptyFilter);
+    emit clearAll();
 }
 
 
@@ -1788,6 +1755,7 @@ void Controller::resetSelectedEntries(){
         dbHandler->deleteAll(DBConstants::TBL_EMPLOYEE, emptyFilter);
         dbHandler->deleteAll(DBConstants::TBL_EMPLOYEE_WORKS_SHIFT, emptyFilter);
         dbHandler->deleteAll(DBConstants::TBL_BODY_MEASUREMENT, emptyFilter);
+        emit clearEmployees();
     }
     if(resetPopUp->shiftDataSelected()){
         dbHandler->deleteAll(DBConstants::TBL_SHIFT, emptyFilter);

@@ -61,10 +61,17 @@ public:
     explicit Controller(QObject *parent = 0, QApplication *app = 0, Translator *trans = 0);
 
 signals:
+    void clearAll();
+
+    //Employee
+    void clearEmployees();
     void createdEmployee(QHash<QString, QVariant> values);
     void selectedEmployee(QHash<QString, QVariant> values);
     void updatedEmployee(QHash<QString, QVariant> values);
     void removedEmployee(int id);
+
+    //BodyMeasurement
+    void selectedBodyMeasurement(QHash<QString, QVariant> values);
 
 private slots:
     void databaseError(QString error);
@@ -138,8 +145,7 @@ private slots:
     void selectEmployee(int id);
     void saveEmployee(QHash<QString, QVariant> values);
 
-    void updateBodyMeasurementView();
-    void saveBodyMeasurementView();
+    void saveBodyMeasurement(QHash<QString, QVariant> values);
 
     void updateActivityView();
     void createActivity();
@@ -175,7 +181,6 @@ private slots:
     void importDataDownloadFinished(const QString filename);
     void importDataDownloadError(const QString &error);
 
-    void resetDatabaseRecording();
     void resetDatabaseFactory();
     void resetSelectedEntries();
 
