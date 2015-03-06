@@ -76,7 +76,7 @@ void EmployeeView::setEmployee(QHash<QString, QVariant> values){
 
 void EmployeeView::onLeaving(){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_EMPLOYEE_GENDER, oscGender->getSelectedValue());
+    values.insert(DBConstants::COL_EMPLOYEE_GENDER, oscGender->getSelectedID());
     values.insert(DBConstants::COL_EMPLOYEE_AGE, vcAge->getValue());
     values.insert(DBConstants::COL_EMPLOYEE_HEIGHT, vcHeight->getValue());
     values.insert(DBConstants::COL_EMPLOYEE_STAFF_NUMBER, txtBxStaffNumber->text());

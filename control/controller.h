@@ -61,7 +61,15 @@ class Controller : QObject
 public:
     explicit Controller(QObject *parent = 0, QApplication *app = 0, Translator *trans = 0);
 
+signals:
+    void createdEmployee(QHash<QString, QVariant> values);
+    void selectedEmployee(QHash<QString, QVariant> values);
+    void updatedEmployee(QHash<QString, QVariant> values);
+    void removedEmployee(int id);
+
 private slots:
+    void databaseError(QString error);
+
     void update(ViewType type);
     void update(PopUpType type);
     void save(ViewType type);
@@ -124,17 +132,11 @@ private slots:
     void createTransportation(QHash<QString, QVariant> values);
     void deleteTransportation(int id);
 
-    void updateEmployeeView();
-    void saveEmployeeView();
-
     void createEmployee(QHash<QString, QVariant> values);
     void createEmployee(QHash<QString, QVariant> values, QHash<QString, QVariant> bodyMeasurementValues);
     void deleteEmployee(int id);
     void selectEmployee(int id);
     void saveEmployee(QHash<QString, QVariant> values);
-
-
-    void employeeSelected();
 
     void updateBodyMeasurementView();
     void saveBodyMeasurementView();

@@ -41,6 +41,19 @@ void EmployeeListView::addEmployee(QHash<QString, QVariant> values){
     listContentLayout->addWidget(newListItem);
 }
 
+void EmployeeListView::updateEmployee(QHash<QString, QVariant> values){
+    QLayoutItem *item;
+    int id = values.value(DBConstants::COL_EMPLOYEE_ID).toInt();
+    while((item = listContentLayout->takeAt(0)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_EMPLOYEE_STAFF_NUMBER).toString());
+            dli->setValues(dliValues);
+            break;
+        }
+    }
+}
+
 void EmployeeListView::removeEmployee(int id){
     QLayoutItem *item;
     while((item = listContentLayout->takeAt(0)) != NULL){
@@ -70,8 +83,8 @@ QList<QAbstractButton*> * EmployeeListView::getAdditionalNavigation() const{
 
 //PRIVATE SLOTS
 void EmployeeListView::btnPlusClicked(){
-    emit selectEmployee(0);
-    emit showView(ViewType::EMPLOYEE_VIEW);
+    emit createEmployee(QHash<QString, QVariant>());
+    //emit showView(ViewType::EMPLOYEE_VIEW);
 }
 
 void EmployeeListView::dliEmployeeClicked(int id){

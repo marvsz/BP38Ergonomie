@@ -7,6 +7,7 @@ class IEmployeeList{
 
 public slots:
     virtual void addEmployee(QHash<QString, QVariant> values) = 0;
+    virtual void updateEmployee(QHash<QString, QVariant> values) = 0;
     virtual void removeEmployee(int id) = 0;
     virtual void clear() = 0;
 
