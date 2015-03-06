@@ -58,12 +58,12 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
 
 {
     //Init Database handler
-    dbHandler->setDatabasePath(StandardPaths::databasePath());
+    //connect(dbHandler, SIGNAL(databaseError(QString)), this, SLOT(databaseError(QString)));
+    dbHandler->setDatabasePath(StandardPaths::originDatabasePath(), StandardPaths::databasePath());
     QList<QString> tblNames = DBConstants::LIST_TABLE_NAMES;
     for(int i = 0; i < tblNames.size(); ++i)
         dbHandler->registerTable(tblNames.at(i));
 
-    connect(dbHandler, SIGNAL(databaseError(QString)), this, SLOT(databaseError(QString)));
 
     analyst_ID = 0;
     recording_ID = 1;

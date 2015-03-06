@@ -1,7 +1,8 @@
 #ifndef DBHANDLER_H
 #define DBHANDLER_H
 
-#include <QObject>
+#include <QSqlDatabase>
+#include <QSqlError>
 #include <QSqlQuery>
 #include <QSqlTableModel>
 #include <QSqlField>
@@ -10,14 +11,13 @@
 #include <QFileInfo>
 #include "dbconstants.h"
 
-class DBHandler : public QObject
+class DBHandler
 {
-    Q_OBJECT
 public:
-    explicit DBHandler(QObject *parent = 0);
+    DBHandler();
     ~DBHandler();
 
-    void setDatabasePath(const QString &path);
+    void setDatabasePath(const QString &originPath, const QString &path);
     void registerTable(const QString &tblName);
 
     int getNextID(const QString &tbl, const QString &colName, const QString &filter = "");
@@ -37,8 +37,8 @@ public:
     bool insertRow(const QString &tbl, const QSqlRecord &record);
     bool updateRow(const QString &tbl, int row, const QSqlRecord &record);
 
-signals:
-    void databaseError(QString errorMessage);
+//signals:
+    void databaseError(QString errorMessage){}
 
 private:
     QSqlDatabase database;

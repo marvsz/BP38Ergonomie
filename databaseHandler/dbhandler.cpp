@@ -1,7 +1,7 @@
 #include "dbhandler.h"
 
 
-DBHandler::DBHandler(QObject *parent) : QObject(parent)
+DBHandler::DBHandler()
 {
     htSqlTableModels = QHash<const QString, QSqlTableModel*>();
 }
@@ -11,15 +11,15 @@ DBHandler::~DBHandler(){
 }
 
 //PUBLIC METHODS
-void DBHandler::setDatabasePath(const QString &path){
+void DBHandler::setDatabasePath(const QString &originPath, const QString &path){
     QFileInfo databaseFileInfo = QFileInfo(path);
-    QString databaseOriginPath = path;
+    QString databaseOriginPath = originPath;
     QString databasePath = databaseFileInfo.absoluteFilePath();
 
     if ( !databaseFileInfo.exists() ){
            bool copySuccess = QFile::copy( databaseOriginPath, databasePath );
            if ( !copySuccess ){
-               emit databaseError(QString("Could not copy database from %1 to %2").arg(databaseOriginPath).arg(databasePath));
+               emit databaseError(QString("Could not copy database from \n %1 to \n %2").arg(databaseOriginPath).arg(databasePath));
                databasePath.clear();
            }
            else{
@@ -29,10 +29,12 @@ void DBHandler::setDatabasePath(const QString &path){
            }
        }
 
-    database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName(databasePath);
-    if(!database.open())
-        emit databaseError("Could not open database!");
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    if(!database.open()){
+        emit databaseError(database.lastError().text());
+        emit databaseError(QString("Could not open database: \n %1").arg(databasePath));
+    }
 }
 
 void DBHandler::registerTable(const QString &tblName){
@@ -98,8 +100,8 @@ QList<QHash<QString, QVariant>> DBHandler::select(const QString &tbl, const QStr
             selectValues.append(rowValues);
         }
     }
-    else
-        emit databaseError(tr("Select: %1 from %2").arg(filter).arg(model->tableName()));
+    //else
+        //emit databaseError(tr("Select: %1 from %2").arg(filter).arg(model->tableName()));
 
     return selectValues;
 }
@@ -117,8 +119,8 @@ int DBHandler::selectCount(const QString &tbl, const QString &filter, Qt::SortOr
     model->setSort(0, order);
     if(model->select())
         return model->rowCount();
-    else
-        emit databaseError(tr("Select: %1 from %2").arg(filter).arg(model->tableName()));
+    //else
+        //emit databaseError(tr("Select: %1 from %2").arg(filter).arg(model->tableName()));
     return 0;
 }
 
