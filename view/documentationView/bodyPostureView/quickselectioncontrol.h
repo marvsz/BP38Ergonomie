@@ -2,16 +2,9 @@
 #define QUICKSELECTIONCONTROL_H
 
 #include <QWidget>
-#include <QHBoxLayout>
 #include <QStringList>
 #include <QPushButton>
 #include <QString>
-
-
-#include <QVector>
-#include <QLabel>
-#include <QSqlRecord>
-#include "../../../databaseHandler/dbconstants.h"
 #include "../../verticaloptionselectioncontrol.h"
 #include "../../quickarmposturecontrol.h"
 #include "../../quicklegposturecontrol.h"
@@ -40,12 +33,6 @@ public slots:
     void voscQuickArmPostureChanged(int id, int sel);
     void qlpcQuickLegPostureChanged(int id, int sel);
     void qlpcQuickLegPostureSpecificationChagend(int sel);
-    /*
-    void voscQuickTrunkPostureChanged(int id);
-    void voscQuickArmPostureChanged(int id, int sel);
-    void voscQuickArmPostureSpecificationChanged(int id);
-    void qlpcQuickLegPostureChanged(int id, int speci);
-    void qlpcQuickLegPostureSpecificationChagend(int id);*/
 
 private slots:
 

@@ -11,27 +11,19 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     voscQuickTrunkPosture(new VerticalOptionSelectionControl),
     mainLayout(new QVBoxLayout)
 {
-    //mainLayout->setContentsMargins(0,0,0,0);
-
 
     btnName->setMaximumWidth(150);
     connect(btnName, SIGNAL(clicked()), this, SLOT(btnNameClicked()));
 
     qlpcQuickLegPosture->setValues(QUICK_LEG_POSTURE_TEXTS,LEFT_RIGHT_TEXTS,tr("Quick Leg Posture"));
-    //connect(qlpcQuickLegPosture, SIGNAL(selectionChanged(int,int)), this, SLOT(qlpcQuickLegPostureChanged(int,int)));
-    //connect(qlpcQuickLegPosture, SIGNAL(specificationChanged(int)), this, SLOT(qlpcQuickLegPostureSpecificationChagend(int)));
     connect(qlpcQuickLegPosture, SIGNAL(selectionChanged(int,int)), this, SLOT(qlpcQuickLegPostureChanged(int,int)));
     connect(qlpcQuickLegPosture, SIGNAL(specificationChanged(int)), this, SLOT(qlpcQuickLegPostureSpecificationChagend(int)));
 
     voscQuickArmPosture->setValues(QUICK_ARM_POSTURE_TEXTS,LEFT_RIGHT_TEXTS, tr("Quick Arm Posture"));
-    //connect(voscQuickArmPosture, SIGNAL(selectionChanged(int,int)), this, SLOT(voscQuickArmPostureChanged(int,int)));
-    //connect(voscQuickArmPosture, SIGNAL(specificationChanged(int)), this, SLOT(voscQuickArmPostureSpecificationChanged(int)));
     connect(voscQuickArmPosture, SIGNAL(selectionChanged(int,int)), this, SLOT(voscQuickArmPostureChanged(int,int)));
 
     voscQuickTrunkPosture->setValues(QUICK_TRUNK_POSTURE_TEXTS, tr("Quick Trunk Posture") );
-    //connect(voscQuickTrunkPosture, SIGNAL(selectionChanged(int)), this, SLOT(voscQuickTrunkPostureChanged(int)));
     connect(voscQuickTrunkPosture, SIGNAL(selectionChanged(int)), this, SLOT(voscQuickTrunkPostureChanged(int)));
-
 
     verticalLayout->addWidget(qlpcQuickLegPosture);
     verticalLayout->addWidget(new Separator(Qt::Vertical, 3, this));
