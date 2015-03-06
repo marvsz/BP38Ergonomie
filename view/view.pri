@@ -85,7 +85,8 @@ HEADERS +=\
     $$PWD/popUps/employeepopup.h \
     $$PWD/documentationView/bodyPostureView/quickselectioncontrol.h \
     $$PWD/interfaces/iemployeelist.h \
-    $$PWD/interfaces/iemployee.h
+    $$PWD/interfaces/iemployee.h \
+    $$PWD/interfaces/ibodymeasurement.h
 
 SOURCES +=\
     $$PWD/documentationView/bodyPostureView/variantspecification.cpp\

@@ -8,40 +8,21 @@
 #include "../textlineedit.h"
 #include "../valuecontrol.h"
 #include "../navigation/simplenavigateablewidget.h"
+#include "../interfaces/ibodymeasurement.h"
 
-class BodyMeasurementView : public SimpleNavigateableWidget
+class BodyMeasurementView : public SimpleNavigateableWidget, IBodyMeasurement
 {
     Q_OBJECT
+    Q_INTERFACES(IBodyMeasurement)
 public:
     explicit BodyMeasurementView(QWidget *parent = 0);
 
-    int getHeadNeckLength() const;
-    int getThighLength() const;
-    int getTibialLength() const;
-    int getFootLength() const;
-    int getShoulderWidth() const;
-    int getShoulderBiacromial() const;
-    int getShoulderBideltoid() const;
-    int getUpperArmLength() const;
-    int getForearmLength() const;
-    int getHandLength() const;
-    int getTorsoHeight() const;
-
-
 signals:
+    void saveBodyMeasurement(QHash<QString, QVariant> values);
 
 public slots:
-    void setHeadNeckLength(int headNeckLength);
-    void setThighLength(int thighLength);
-    void setTibialLength(int tibialLength);
-    void setFootLength(int footLength);
-    void setShoulderWidth(int shoulderWidth);
-    void setShoulderBiacromial(int shoulderBiacromial);
-    void setShoulderBideltoid(int shoulderBideltoid);
-    void setUpperArmLength(int upperArmLength);
-    void setForearmLength(int forearmLength);
-    void setHandLength(int handLength);
-    void setTorsoHeight(int torsoHeight);
+    void setBodyMeasurement(QHash<QString, QVariant> values);
+    void onLeaving();
 
 private slots:
     void btnHeadClicked();

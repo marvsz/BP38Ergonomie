@@ -152,8 +152,10 @@ bool DBHandler::deleteRow(const QString &tbl, int row){
 }
 
 bool DBHandler::deleteAll(const QString &tbl, const QString &filter){
-    int count = selectCount(tbl, filter);
-    return getTableModelRef(tbl)->removeRows(0, count);
+    /*int count = selectCount(tbl, filter);
+    return getTableModelRef(tbl)->removeRows(0, count);*/
+    for(int i = selectCount(tbl, filter) - 1; i >= 0; --i)
+        deleteRow(tbl, i);
 }
 
 int DBHandler::getNextID(const QString &tbl, const QString &colName, const QString &filter){

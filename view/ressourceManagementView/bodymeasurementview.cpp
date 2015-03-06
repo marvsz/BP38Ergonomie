@@ -2,6 +2,7 @@
 #include "../separator.h"
 #include <QScrollArea>
 #include "../flickcharm.h"
+#include "../../databaseHandler/dbconstants.h"
 
 BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWidget(tr("Body Measurements"), parent),
     vcHeadNeck(new ValueControl(VALUE)),
@@ -174,6 +175,37 @@ BodyMeasurementView::BodyMeasurementView(QWidget *parent) : SimpleNavigateableWi
     setLayout(splitLayout);
 }
 
+//PUBLIC SLOTS
+void BodyMeasurementView::setBodyMeasurement(QHash<QString, QVariant> values){
+    vcHeadNeck->setValue(values.value(DBConstants::COL_BODY_MEASUREMENT_HEAD_NECK_HEIGHT).toInt());
+    vcThighLength->setValue(values.value(DBConstants::COL_BODY_MEASUREMENT_THIGH_LENGTH).toInt());
+    vcTibialHeight->setValue(values.value(DBConstants::COL_BODY_MEASUREMENT_TIBIAL_HEIGHT).toInt());
+    vcFootLength->setValue(values.value(DBConstants::COL_BODY_MEASUREMENT_FOOT_LENGTH).toInt());
+    vcShoulderWidth->setValue(values.value(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH).toInt());
+    vcShoulderBiacromial->setValue(values.value(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH_BIACROMIAL).toInt());
+    vcShoulderBideltoid->setValue(values.value(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH_BIDELTOID).toInt());
+    vcUpperArmLength->setValue(values.value(DBConstants::COL_BODY_MEASUREMENT_UPPER_ARM_LENGTH).toInt());
+    vcForearmLength->setValue(values.value(DBConstants::COL_BODY_MEASUREMENT_FOREARM_LENGTH).toInt());
+    vcHandLength->setValue(values.value(DBConstants::COL_BODY_MEASUREMENT_HAND_LENGTH_GRIP_AXIS).toInt());
+    vcTorsoHeight->setValue(values.value(DBConstants::COL_BODY_MEASUREMENT_TORSO_HEIGHT).toInt());
+}
+
+void BodyMeasurementView::onLeaving(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_HEAD_NECK_HEIGHT, vcHeadNeck->getValue());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_THIGH_LENGTH, vcThighLength->getValue());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_TIBIAL_HEIGHT, vcTibialHeight->getValue());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_FOOT_LENGTH, vcFootLength->getValue());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH, vcShoulderWidth->getValue());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH_BIACROMIAL, vcShoulderBiacromial->getValue());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_SHOULDER_WIDTH_BIDELTOID, vcShoulderBideltoid->getValue());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_UPPER_ARM_LENGTH, vcUpperArmLength->getValue());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_FOREARM_LENGTH, vcForearmLength->getValue());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_HAND_LENGTH_GRIP_AXIS, vcHandLength->getValue());
+    values.insert(DBConstants::COL_BODY_MEASUREMENT_TORSO_HEIGHT, vcTorsoHeight->getValue());
+    emit saveBodyMeasurement(values);
+}
+
 void BodyMeasurementView::btnHeadClicked(){
     torso->hide();
     arms->hide();
@@ -220,95 +252,4 @@ void BodyMeasurementView::btnArmClicked(){
     btnLegs->setChecked(false);
     btnArmLeft->setChecked(true);
     btnArmRight->setChecked(true);
-}
-
-//GETTER
-int BodyMeasurementView::getHeadNeckLength() const{
-    return vcHeadNeck->getValue();
-}
-
-
-int BodyMeasurementView::getThighLength() const{
-    return vcThighLength->getValue();
-}
-
-int BodyMeasurementView::getTibialLength() const{
-    return vcTibialHeight->getValue();
-}
-
-int BodyMeasurementView::getFootLength() const{
-    return vcFootLength->getValue();
-}
-
-int BodyMeasurementView::getShoulderWidth() const{
-    return vcShoulderWidth->getValue();
-}
-
-int BodyMeasurementView::getShoulderBiacromial() const{
-    return vcShoulderBiacromial->getValue();
-}
-
-int BodyMeasurementView::getShoulderBideltoid() const{
-    return vcShoulderBideltoid->getValue();
-}
-
-int BodyMeasurementView::getUpperArmLength() const{
-    return vcUpperArmLength->getValue();
-}
-
-int BodyMeasurementView::getForearmLength() const{
-    return vcForearmLength->getValue();
-}
-
-int BodyMeasurementView::getHandLength() const{
-    return vcHandLength->getValue();
-}
-
-int BodyMeasurementView::getTorsoHeight() const{
-    return vcTorsoHeight->getValue();
-}
-
-//SETTER
-void BodyMeasurementView::setHeadNeckLength(int headNeckLength){
-    vcHeadNeck->setValue(headNeckLength);
-}
-
-void BodyMeasurementView::setThighLength(int thighLength){
-    vcThighLength->setValue(thighLength);
-}
-
-void BodyMeasurementView::setTibialLength(int tibialLength){
-    vcTibialHeight->setValue(tibialLength);
-}
-
-void BodyMeasurementView::setFootLength(int footLength){
-    vcFootLength->setValue(footLength);
-}
-
-void BodyMeasurementView::setShoulderWidth(int shoulderWidth){
-    vcShoulderWidth->setValue(shoulderWidth);
-}
-
-void BodyMeasurementView::setShoulderBiacromial(int shoulderBiacromial){
-    vcShoulderBiacromial->setValue(shoulderBiacromial);
-}
-
-void BodyMeasurementView::setShoulderBideltoid(int shoulderBideltoid){
-    vcShoulderBideltoid->setValue(shoulderBideltoid);
-}
-
-void BodyMeasurementView::setUpperArmLength(int upperArmLength){
-    vcUpperArmLength->setValue(upperArmLength);
-}
-
-void BodyMeasurementView::setForearmLength(int forearmLength){
-    vcForearmLength->setValue(forearmLength);
-}
-
-void BodyMeasurementView::setHandLength(int handLength){
-    vcHandLength->setValue(handLength);
-}
-
-void BodyMeasurementView::setTorsoHeight(int torsoHeight){
-    vcTorsoHeight->setValue(torsoHeight);
 }
