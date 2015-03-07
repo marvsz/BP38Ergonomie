@@ -7,10 +7,6 @@ EmployeePopUp::EmployeePopUp(QWidget *parent):
     setLayout(mainLayout);
 }
 
-void EmployeePopUp::onEnter(){
-
-}
-
 void EmployeePopUp::addEmployee(QHash<QString, QVariant> values){
     QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_EMPLOYEE_STAFF_NUMBER).toString());
     DetailedListItem *newListItem = new DetailedListItem(this, "userIcon", tr("Employee"), employeeCaptions, false, true, false, false, false);
@@ -60,12 +56,13 @@ void EmployeePopUp::clear(){
     }
 }
 
+void EmployeePopUp::setEmployeeSelected(int id){
+    selectedEmployeeChanged(id);
+}
+
+//PRIVATE SLOTS
 void EmployeePopUp::selectedEmployeeChanged(int id){
     selectedEmployeeID = id;
     emit selectedEmployee(id);
-}
-
-void EmployeePopUp::setSelectedEmployee(int id){
-    selectedEmployeeChanged(id);
 }
 
