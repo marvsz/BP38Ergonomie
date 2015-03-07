@@ -31,14 +31,14 @@ ResetPopUp::ResetPopUp(QWidget *parent):
     connect(shiftData, SIGNAL(clicked()), this, SLOT(shiftDataClicked()));
     connect(ftpConnection, SIGNAL(clicked()), this, SLOT(ftpConnectionClicked()));
 
-    headData->setFixedSize(250, 60);
-    workplaces->setFixedSize(250, 60);
-    equipment->setFixedSize(250, 60);
-    products->setFixedSize(250, 60);
-    transportation->setFixedSize(250, 60);
-    employee->setFixedSize(250, 60);
-    shiftData->setFixedSize(250, 60);
-    ftpConnection->setFixedSize(250, 60);
+    headData->setFixedSize(260, 60);
+    workplaces->setFixedSize(260, 60);
+    equipment->setFixedSize(260, 60);
+    products->setFixedSize(260, 60);
+    transportation->setFixedSize(260, 60);
+    employee->setFixedSize(260, 60);
+    shiftData->setFixedSize(260, 60);
+    ftpConnection->setFixedSize(260, 60);
 
     QGridLayout *mainLayout = new QGridLayout;
     mainLayout->addWidget(headData, 0, 0, 1, 1, 0);

@@ -115,20 +115,6 @@ void MainMenu::btnImportClicked(){
     emit showPopUp(PopUpType::IMPORT_DATA_POPUP);
 }
 
-//TRANSLATE
-void MainMenu::changeEvent(QEvent *e){
-    if(e->type() == QEvent::LanguageChange){
-        retranslate();
-    }
-}
-
-void MainMenu::retranslate(){
-    btnMetaDataView->setText(tr("Head Data"));
-    btnWorkplaceList->setText(tr("Workplaces"));
-    btnRessourceManagement->setText(tr("Ressource Management"));
-    btnShift->setText(tr("Shift Data"));
-}
-
 void MainMenu::btnCameraClicked(){
 #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     emit showPopUp(PopUpType::CAMERA_POPUP);
