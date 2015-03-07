@@ -90,7 +90,7 @@ HEADERS +=\
     $$PWD/interfaces/irotationgroup.h \
     $$PWD/interfaces/iworkplacelist.h \
     $$PWD/interfaces/irotationgrouptasklist.h \
-    $$PWD/interfaces/ibodymeasurement.h
+    $$PWD/interfaces/ibodymeasurement.h \
     $$PWD/capture.h \
     $$PWD/converter.h \
     $$PWD/imageviewer.h \
