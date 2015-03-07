@@ -119,6 +119,7 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
 
     //EmployeePopUp signal/slots
     connect(employeePopUp, SIGNAL(saveEmployeeSelected(int)), this, SLOT(setSelectedEmployee(int)));
+    connect(employeePopUp, SIGNAL(resetEmployeeSelection()), this, SLOT(resetEmployeeSelection()));
     connect(this, SIGNAL(employeeSelected(int)), employeePopUp, SLOT(setEmployeeSelected(int)));
     connect(this, SIGNAL(clearAll()), employeePopUp, SLOT(clearEmployees()));
     connect(this, SIGNAL(clearEmployees()), employeePopUp, SLOT(clearEmployees()));
@@ -930,6 +931,10 @@ void Controller::saveEmployee(QHash<QString, QVariant> values){
 
 void Controller::setSelectedEmployee(int id){
     selectedEmployee_ID = id;
+}
+
+void Controller::resetEmployeeSelection(){
+    emit employeeSelected(selectedEmployee_ID);
 }
 
 //BodyMeasurement

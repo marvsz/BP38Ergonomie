@@ -7,7 +7,7 @@ class IEmployeeSelect {
 
 signals:
     virtual void saveEmployeeSelected(int id) = 0;
-
+    virtual void resetEmployeeSelection() = 0;
 public slots:
     virtual void setEmployeeSelected(int id) = 0;
 

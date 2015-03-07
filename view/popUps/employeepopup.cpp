@@ -5,6 +5,7 @@ EmployeePopUp::EmployeePopUp(QWidget *parent):
     mainLayout(new QGridLayout)
 {
     connect(this, SIGNAL(confirm()), this, SLOT(onConfirm()));
+    connect(this, SIGNAL(cancel()), this, SLOT(onCancel()));
     setLayout(mainLayout);
 }
 
@@ -66,6 +67,11 @@ void EmployeePopUp::setEmployeeSelected(int id){
 //PRIVATE SLOTS
 void EmployeePopUp::onConfirm(){
     emit saveEmployeeSelected(selectedEmployeeID);
+    emit closePopUp();
+}
+
+void EmployeePopUp::onCancel(){
+    emit resetEmployeeSelection();
     emit closePopUp();
 }
 

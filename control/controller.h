@@ -89,6 +89,7 @@ signals:
     void updatedEmployee(QHash<QString, QVariant> values);
     void removedEmployee(int id);
 
+
     //EmployeeSelectList
     void employeeSelected(int id);
 
@@ -167,6 +168,7 @@ private slots:
     void selectEmployee(int id);
     void saveEmployee(QHash<QString, QVariant> values);
     void setSelectedEmployee(int id);
+    void resetEmployeeSelection();
 
     //BodyMeasurement
     void saveBodyMeasurement(QHash<QString, QVariant> values);

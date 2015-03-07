@@ -22,6 +22,7 @@ signals:
     void selectEmployee(int id);
 
     void saveEmployeeSelected(int id);
+    void resetEmployeeSelection();
 
     void selectedEmployee(int id);
 
@@ -36,6 +37,7 @@ public slots:
 
 private slots:
     void onConfirm();
+    void onCancel();
     void selectedEmployeeChanged(int id);
     void deselectedEmployee(int id);
 
