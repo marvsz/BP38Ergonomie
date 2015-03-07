@@ -3,6 +3,7 @@
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include "../flickcharm.h"
+#include "../../databaseHandler/dbconstants.h"
 
 LineView::LineView(QWidget *parent) : SimpleNavigateableWidget(tr("Line"), parent),
     listContentLayout(new QVBoxLayout),
@@ -72,24 +73,45 @@ LineView::LineView(QWidget *parent) : SimpleNavigateableWidget(tr("Line"), paren
 }
 
 LineView::~LineView(){
-
 }
 
-//PUBLIC SLOTS
-void LineView::setLine(const QString &name, const QString &description, int workplaceCount){
-    txtBxName->setText(name);
-    txtBxDescription->setText(description);
-    numBxWorkplaceCount->setValue(workplaceCount);
-}
-
-void LineView::addLine(int id, const QString &name){
-
-    DetailedListItem *newListItem = new DetailedListItem(this, "lineIcon", name, QList<QStringList>(), true, true, false);
-    newListItem->setID(id);
+void LineView::addLine(QHash<QString, QVariant> values){
+    DetailedListItem *newListItem = new DetailedListItem(this, "lineIcon", values.value(DBConstants::COL_LINE_DESCRIPTION).toString(), QList<QStringList>(), true, true, false, false, true);
+    newListItem->setID(values.value(DBConstants::COL_LINE_ID).toInt());
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedLineChanged(int)));
     connect(this, SIGNAL(lineSelected(int)), newListItem, SLOT(selectExclusiveWithID(int)));
     connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteLine(int)));
+    connect(newListItem, SIGNAL(editItem(int)), this, SLOT(editItemWithID(int)));
     listContentLayout->addWidget(newListItem);
+}
+
+void LineView::updateLine(QHash<QString, QVariant> values){
+    QLayoutItem *item;
+    int id = values.value(DBConstants::COL_LINE_ID).toInt();
+    int i = 0;
+    while((item = listContentLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            dli->setName(values.value(DBConstants::COL_LINE_NAME).toString());
+            break;
+        }
+        i++;
+    }
+}
+
+void LineView::removeLine(int id){
+    QLayoutItem *item;
+    int i = 0;
+    while((item = listContentLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            listContentLayout->removeItem(item);
+            delete item->widget();
+            delete item;
+            break;
+        }
+        i++;
+    }
 }
 
 void LineView::clear(){
@@ -98,6 +120,10 @@ void LineView::clear(){
         delete item->widget();
         delete item;
     }
+}
+
+void LineView::onLeaving(){
+    emit selectLine(selectedLineID);
 }
 
 void LineView::setSelectedLine(int id){
@@ -112,19 +138,17 @@ void LineView::selectedLineChanged(int id){
 }
 
 void LineView::btnAddClicked(){
-    emit saveLine();
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_LINE_NAME, txtBxName->text());
+    values.insert(DBConstants::COL_LINE_NUMBER_OF_WORKPLACES, numBxWorkplaceCount->getValue());
+    values.insert(DBConstants::COL_LINE_DESCRIPTION, txtBxDescription->toPlainText());
+    emit createLine(values);
     txtBxName->clear();
     txtBxDescription->clear();
     numBxWorkplaceCount->clear();
 }
 
-//GETTER and SETTER
-QString LineView::getName() const{
-    return txtBxName->text();
-}
-QString LineView::getDescription() const{
-    return txtBxDescription->toPlainText();
-}
-int LineView::getWorkplaceCount() const{
-    return numBxWorkplaceCount->getValue();
+void LineView::editLineClicked(int id){
+    emit editLine(id);
+    emit showPopUp(PopUpType::LINE_POPUP);
 }

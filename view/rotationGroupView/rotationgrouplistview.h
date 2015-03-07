@@ -29,7 +29,7 @@ public slots:
     void addRotationGroup(QHash<QString, QVariant> values);
     void updateRotationGroup(QHash<QString, QVariant> values);
     void removeRotationGroup(int id);
-    void clear();
+    void clearRotationGroups();
 
 private slots:
     void btnPlusClicked();
