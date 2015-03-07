@@ -91,7 +91,8 @@ HEADERS +=\
     $$PWD/interfaces/iworkplacelist.h \
     $$PWD/interfaces/irotationgrouptasklist.h \
     $$PWD/interfaces/ibodymeasurement.h \
-    $$PWD/popUps/factorysettingspopup.h
+    $$PWD/popUps/factorysettingspopup.h \
+    $$PWD/interfaces/ibodypostureview.h
 
 
 SOURCES +=\

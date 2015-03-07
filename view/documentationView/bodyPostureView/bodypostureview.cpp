@@ -62,6 +62,7 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
     armSpeci_Type(3),
     legSpeci_Type(3)
 {
+    values = QHash<QString, QVariant>();
 
     QVBoxLayout *categoryLayout = new QVBoxLayout;
     QScrollArea *categoryScrollArea = new QScrollArea;
