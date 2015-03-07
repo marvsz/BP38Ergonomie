@@ -23,14 +23,15 @@ class BodyPostureView : public TitledWidget
 public:
     explicit BodyPostureView(QWidget *parent = 0);
 
-    QSqlRecord getRecord() const;
-    void setRecord(const QSqlRecord &record);
-
 public slots:
     void setSelectedType(const AVType &type);
+    void setBodyPostureView(QHash<QString, QVariant> values);
+    void onLeaving();
 
 signals:
     void showExclusiveContentByName(const QString &name);
+    void saveBodyPostureView(QHash<QString, QVariant> values);
+
 
 private slots:
     void varConRequestShowContent(const QString &name);
@@ -125,9 +126,9 @@ private:
     VariantSpecification* varSpeciArms;
     VariantSpecification* varSpeciLegs;
 
-    QSqlRecord record;
     int armSpeci_Type;
     int legSpeci_Type;
+    QHash<QString, QVariant> values;
 
 };
 

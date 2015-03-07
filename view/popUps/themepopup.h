@@ -20,6 +20,7 @@ signals:
     void themeSelected(int id);
 
 public slots:
+    void onEnter();
     void setSelectedTheme(int id);
 
 private slots:

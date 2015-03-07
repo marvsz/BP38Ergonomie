@@ -1,6 +1,8 @@
 #include "languagepopup.h"
 #include <QGridLayout>
-
+#include <QFile>
+#include <QTextStream>
+#include "../standardpaths.h"
 
 LanguagePopUp::LanguagePopUp(QWidget *parent):
    AbstractPopUpWidget(ConfirmMode::ACCEPT, tr("Select language"), parent),
@@ -30,8 +32,15 @@ LanguagePopUp::~LanguagePopUp()
 }
 
 void LanguagePopUp::onEnter(){
-    //GET LANGUAGE FROM DATABASE
-    //setSelectedLanguage();
+    QFile file(StandardPaths::configFile());
+    file.open(QIODevice::ReadOnly);
+    QTextStream in(&file);
+    QString line = in.readLine();
+    QStringList settings = line.split(',');
+    if(settings.at(0) == "german")
+        german->select();
+    else
+        english->select();
 }
 
 void LanguagePopUp::selectedLanguageChanged(int id){

@@ -58,6 +58,7 @@ private:
     QVector<QVector<ValueControl*>*> *valueControls;
     QVector<SelectableValueButton*> *variantBtns;
 
+    bool shown;
 };
 
 #endif // VARIANTCONTROL_H

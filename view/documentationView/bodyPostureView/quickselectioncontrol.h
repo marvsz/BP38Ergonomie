@@ -54,6 +54,7 @@ private:
     const QStringList QUICK_TRUNK_POSTURE_TEXTS = QStringList()<<tr("strong bending to the front")<<tr("light bending to the front")<<tr("no bending at all")<<tr("light bending to behind")<<tr("strong bending to behind");
     const QStringList LEFT_RIGHT_TEXTS = QStringList()<<tr("left")<<tr("right");
 
+    bool shown;
 };
 
 #endif // QUICKSELECTIONCONTROL_H

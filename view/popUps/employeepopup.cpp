@@ -38,7 +38,18 @@ void EmployeePopUp::updateEmployee(QHash<QString, QVariant> values){
 }
 
 void EmployeePopUp::removeEmployee(int id){
-
+    QLayoutItem *item;
+    int i = 0;
+    while((item = mainLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            mainLayout->removeItem(item);
+            delete item->widget();
+            delete item;
+            break;
+        }
+        i++;
+    }
 }
 
 void EmployeePopUp::clear(){

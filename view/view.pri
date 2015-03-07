@@ -95,7 +95,8 @@ HEADERS +=\
     $$PWD/interfaces/icalendarlist.h \
     $$PWD/interfaces/icalendar.h \
     $$PWD/interfaces/ilinelist.h \
-    $$PWD/popUps/linepopup.h
+    $$PWD/popUps/linepopup.h \
+    $$PWD/interfaces/ibodypostureview.h
 
 
 SOURCES +=\
