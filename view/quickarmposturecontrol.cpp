@@ -35,6 +35,9 @@ void QuickArmPostureControl::setSelectedValue(int id){
 
 
     }
+    else if(currentSelectedBtn->getID() == id){
+        currentSelectedBtn->setSelected(true);
+    }
 }
 
 void QuickArmPostureControl::setSelectedSpecification(int id){
@@ -50,6 +53,8 @@ void QuickArmPostureControl::setSelectedSpecification(int id){
                     speciOptions.at(0)->setSelected(false);
                     emit specificationChanged(1);
                 }
+                else
+                    speciOptions.at(0)->setSelected(true);
             }
             break;
         case 1:
@@ -62,6 +67,8 @@ void QuickArmPostureControl::setSelectedSpecification(int id){
                     speciOptions.at(1)->setSelected(false);
                     emit specificationChanged(0);
                 }
+                else
+                    speciOptions.at(1)->setSelected(true);
             }
             break;
         default:
@@ -120,7 +127,9 @@ void QuickArmPostureControl::setValues(const QStringList &texts){
 
 void QuickArmPostureControl::setValues(const QStringList &texts, const QStringList &differ, const QString &label){
     clear();
-    mainLayout->addWidget(new QLabel(label));
+    QLabel *lblName = new QLabel(label);
+    lblName->setObjectName("lblHeader");
+    mainLayout->addWidget(lblName, 0, Qt::AlignHCenter);
 
     QHBoxLayout *generalButtonLayout = new QHBoxLayout();
     QVBoxLayout *variantButtonLayout = new QVBoxLayout();
@@ -152,22 +161,17 @@ void QuickArmPostureControl::setValues(const QStringList &texts, const QStringLi
         optionButtonLayout->addWidget(btn, 0, Qt::AlignVCenter);
         connect(btn, SIGNAL(clickedWithID(int)), this, SLOT(setSelectedValue(int)));
     }
-
+    mainLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Fixed, QSizePolicy::Expanding));
     generalButtonLayout->addLayout(optionButtonLayout);
     mainLayout->addLayout(generalButtonLayout);
     mainLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Fixed, QSizePolicy::Expanding));
     //mainLayout->addSpacerItem(new QSpacerItem());
     currentSelectedBtn = btnOptions.at(0);
     currentSelectedBtn->setSelected(true);
-    setSelectedValue(-1);
-    if(!speciOptions.isEmpty()){
-        currentSpeciBtn = speciOptions.at(0);
-        setSelectedSpecification(0);
-    }
-    if(!speciOptions.isEmpty()){
-        currentSpeciBtn = speciOptions.at(1);
-        setSelectedSpecification(1);
-    }
+    setSelectedValue(0);
+    currentSpeciBtn = speciOptions.at(0);
+    setSelectedSpecification(0);
+
 }
 
 //Private methods
@@ -198,6 +202,13 @@ QString QuickArmPostureControl::getSelectedTexts() const{
 int QuickArmPostureControl::getSelectedID() const{
     if(currentSelectedBtn != NULL)
         return currentSelectedBtn->getID();
+    else
+        return -1;
+}
+
+int QuickArmPostureControl::getSelectedSpecification() const{
+    if(currentSpeciBtn != NULL)
+        return currentSpeciBtn->getID();
     else
         return -1;
 }

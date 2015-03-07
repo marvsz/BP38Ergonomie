@@ -177,6 +177,7 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
     connect(vcHeadTwist, SIGNAL(valueChanged(int)), this, SLOT(vcHeadTwistValueChanged(int)));
 
     quickSelectionLayout->setName(tr("Quick Selection"));
+    quickSelectionLayout->setButtonIcon("quickButtonIcon",QSize(60,60));
     quickSelectionLayout->hideContent();
     connect(quickSelectionLayout, SIGNAL(requestShowContent(QString)), this, SLOT(varConRequestShowContent(QString)));
     connect(this, SIGNAL(showExclusiveContentByName(QString)), quickSelectionLayout, SLOT(setExclusiveDisplayByName(QString)));
@@ -186,6 +187,7 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
     connect(quickSelectionLayout, SIGNAL(quickTrunkPostureChanged(int)), this, SLOT(voscQuickTrunkPostureChanged(int)));
 
     varConTrunk->setName(tr("Trunk"));
+    varConTrunk->setButtonIcon("torsoButtonIcon",QSize(60,60));
     varConTrunk->addVariant(tr("Tilt"));
     varConTrunk->addSubVariant(0, vcTrunkTilt);
     varConTrunk->addVariant(tr("Sideways tilt"));
@@ -198,6 +200,7 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
     connect(this, SIGNAL(showExclusiveContentByName(QString)), varConTrunk, SLOT(setExclusiveDisplayByName(QString)));
 
     varConArms->setName(tr("Arms"));
+    varConArms->setButtonIcon("armsButtonIcon",QSize(60,60));
     varConArms->addVariant(tr("Posture"));
     varConArms->addSubVariant(0, vcUpperArmAngle);
     varConArms->addSubVariant(0, vcForearmAngle);
@@ -218,6 +221,7 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
     connect(this, SIGNAL(showExclusiveContentByName(QString)), varConArms, SLOT(setExclusiveDisplayByName(QString)));
 
     varConLegs->setName(tr("Legs"));
+    varConLegs->setButtonIcon("legsButtonIcon",QSize(60,60));
     varConLegs->addVariant(tr("Hip"));
     varConLegs->addSubVariant(0, vcHipAngle);
     varConLegs->addSubVariant(0, vcHipAngleSideways);
@@ -234,6 +238,7 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
     connect(this, SIGNAL(showExclusiveContentByName(QString)), varConLegs, SLOT(setExclusiveDisplayByName(QString)));
 
     varConHead->setName(tr("Head"));
+    varConHead->setButtonIcon("headButtonIcon",QSize(60,60));
     varConHead->addVariant(tr("Tilt"));
     varConHead->addSubVariant(0, vcHeadTilt);
     varConHead->addVariant(tr("Sideways tilt"));

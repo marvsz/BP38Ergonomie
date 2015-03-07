@@ -118,8 +118,8 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     connect(this, SIGNAL(selectedBodyMeasurement(QHash<QString,QVariant>)), bodyMeasurementView, SLOT(setBodyMeasurement(QHash<QString,QVariant>)));
 
     //EmployeePopUp signal/slots
-    connect(employeePopUp, SIGNAL(selectEmployee(int)), this, SLOT(setSelectedEmployee(int)));
-    connect(this, SIGNAL(employeeSelected(int)), employeePopUp, SLOT(setSelectedEmployee(int)));
+    connect(employeePopUp, SIGNAL(saveEmployeeSelected(int)), this, SLOT(setSelectedEmployee(int)));
+    connect(this, SIGNAL(employeeSelected(int)), employeePopUp, SLOT(setEmployeeSelected(int)));
     connect(this, SIGNAL(clearAll()), employeePopUp, SLOT(clearEmployees()));
     connect(this, SIGNAL(clearEmployees()), employeePopUp, SLOT(clearEmployees()));
     connect(this, SIGNAL(updatedEmployee(QHash<QString,QVariant>)), employeePopUp, SLOT(updateEmployee(QHash<QString,QVariant>)));
@@ -586,6 +586,7 @@ void Controller::initializeLines(){
     for(int i = 0; i < rows.count(); ++i)
         emit createdLine(rows.at(i));
 }
+
 
 void Controller::createLine(QHash<QString, QVariant> values){
     values.insert(DBConstants::COL_LINE_FACTORY_ID, factory_ID);

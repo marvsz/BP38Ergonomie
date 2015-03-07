@@ -37,6 +37,7 @@ public slots:
     void hideContent();
     void showContent();
     void setName(const QString &name);
+    void setButtonIcon(const QString &objectName, const QSize &size);
     void setSelectedVariant(int variantID);
     void setExclusiveDisplayByName(const QString &name);
 
@@ -45,6 +46,7 @@ private slots:
     void vcValueChanged(const QVariant &value);
     void btnNameClicked();
 private:
+    QString name;
     QVBoxLayout *variantsLayout;
     QVBoxLayout *valueControlLayout;
     QWidget *mainContent;

@@ -94,6 +94,7 @@ HEADERS +=\
     $$PWD/interfaces/iworkplace.h \
     $$PWD/interfaces/icomment.h \
     $$PWD/popUps/factorysettingspopup.h \
+    $$PWD/interfaces/iemployeeselect.h \
     $$PWD/interfaces/icalendarlist.h \
     $$PWD/interfaces/icalendar.h \
     $$PWD/interfaces/ilinelist.h \

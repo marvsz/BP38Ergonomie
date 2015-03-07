@@ -51,6 +51,9 @@ void QuickLegPostureControl::setSelectedValue(int id){
 
 
     }
+    else if(currentSelectedBtn->getID() == id){
+        currentSelectedBtn->setSelected(true);
+    }
 }
 
 void QuickLegPostureControl::setSelectedSpecification(int id){
@@ -66,6 +69,8 @@ void QuickLegPostureControl::setSelectedSpecification(int id){
                     speciOptions.at(0)->setSelected(false);
                     emit specificationChanged(1);
                 }
+                else
+                    speciOptions.at(0)->setSelected(true);
             }
             break;
         case 1:
@@ -78,11 +83,17 @@ void QuickLegPostureControl::setSelectedSpecification(int id){
                     speciOptions.at(1)->setSelected(false);
                     emit specificationChanged(0);
                 }
+                else
+                    speciOptions.at(1)->setSelected(true);
             }
             break;
         default:
             break;
         }
+    }
+    else{
+        speciOptions.at(0)->setSelected(false);
+        speciOptions.at(1)->setSelected(false);
     }
 }
 
@@ -136,7 +147,9 @@ void QuickLegPostureControl::setValues(const QStringList &texts){
 
 void QuickLegPostureControl::setValues(const QStringList &texts, const QStringList &differ, const QString &label){
     clear();
-    mainLayout->addWidget(new QLabel(label));
+    QLabel *lblName = new QLabel(label);
+    lblName->setObjectName("lblHeader");
+    mainLayout->addWidget(lblName, 0, Qt::AlignHCenter);
     QHBoxLayout *generalButtonLayout = new QHBoxLayout();
     QVBoxLayout *variantButtonLayout = new QVBoxLayout();
 

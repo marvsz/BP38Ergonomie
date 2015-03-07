@@ -1,6 +1,5 @@
 #include "quickselectioncontrol.h"
 #include "../../separator.h"
-
 QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     QWidget(parent),
     mainLayout(new QVBoxLayout),
@@ -9,7 +8,9 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     btnName(new QPushButton()),
     qlpcQuickLegPosture(new QuickLegPostureControl),
     voscQuickArmPosture(new QuickArmPostureControl),
-    voscQuickTrunkPosture(new VerticalOptionSelectionControl)
+    voscQuickTrunkPosture(new VerticalOptionSelectionControl),
+    //hans(new QPixmap),
+    hansHolder(new QLabel)
 {
 
     btnName->setMaximumWidth(150);
@@ -25,11 +26,18 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     voscQuickTrunkPosture->setValues(QUICK_TRUNK_POSTURE_TEXTS, tr("Quick Trunk Posture") );
     connect(voscQuickTrunkPosture, SIGNAL(selectionChanged(int)), this, SLOT(voscQuickTrunkPostureChanged(int)));
 
+
+
+    hansHolder->setPixmap(hans_standing_bothArms_atElbowHeight_noBending);
+    hansHolder->setFixedSize(QSize(275,313));
+
     verticalLayout->addWidget(qlpcQuickLegPosture);
     verticalLayout->addWidget(new Separator(Qt::Vertical, 3, this));
     verticalLayout->addWidget(voscQuickArmPosture);
     verticalLayout->addWidget(new Separator(Qt::Vertical, 3, this));
     verticalLayout->addWidget(voscQuickTrunkPosture);
+    verticalLayout->addWidget(new Separator(Qt::Vertical, 3, this));
+    verticalLayout->addWidget(hansHolder);
 
     mainContent->setLayout(verticalLayout);
 
@@ -50,7 +58,7 @@ void QuickSelectionControl::showContent(){
 }
 
 void QuickSelectionControl::setExclusiveDisplayByName(const QString &name){
-    if((name.compare(btnName->text()) == 0) && !shown){
+    if((name.compare(this->name) == 0) && !shown){
         showContent();
         shown = true;
     }
@@ -61,15 +69,40 @@ void QuickSelectionControl::setExclusiveDisplayByName(const QString &name){
 }
 
 void QuickSelectionControl::setName(const QString &name){
-    btnName->setText(name);
+    this->name = name;
+}
+
+void QuickSelectionControl::setButtonIcon(const QString &objectName, const QSize &size){
+    btnName->setObjectName(objectName);
+    btnName->setFixedSize(size);
 }
 
 void QuickSelectionControl::btnNameClicked() {  
-    emit requestShowContent(btnName->text());
+    emit requestShowContent(this->name);
 }
 
 void QuickSelectionControl::voscQuickTrunkPostureChanged(int id){
     emit quickTrunkPostureChanged(id);
+    switch (id) {
+    case 0:
+        hansHolder->setPixmap(hans_standing_bothArms_atElbowHeight_strongBendingFront);
+        break;
+    case 1:
+        hansHolder->setPixmap(hans_standing_bothArms_atElbowHeight_lightBendingFront);
+        break;
+    case 2:
+        hansHolder->setPixmap(hans_standing_bothArms_atElbowHeight_noBending);
+        break;
+    case 3:
+        hansHolder->setPixmap(hans_standing_bothArms_atElbowHeight_lightBendingBack);
+        break;
+    case 4:
+        hansHolder->setPixmap(hans_standing_bothArms_atElbowHeight_strongBendingBack);
+        break;
+    default:
+        hansHolder->setPixmap(hans);
+        break;
+    }
 }
 
 void QuickSelectionControl::voscQuickArmPostureChanged(int id, int sel){
@@ -88,5 +121,5 @@ void QuickSelectionControl::qlpcQuickLegPostureSpecificationChagend(int sel){
 //GETTER/SETTER
 
 QString QuickSelectionControl::getName() const{
-    return btnName->text();
+    return this->name;
 }

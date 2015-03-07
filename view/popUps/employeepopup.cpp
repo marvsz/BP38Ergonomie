@@ -4,6 +4,7 @@ EmployeePopUp::EmployeePopUp(QWidget *parent):
     AbstractPopUpWidget(ConfirmMode::ACCEPT, tr("Select employee"), parent),
     mainLayout(new QGridLayout)
 {
+    connect(this, SIGNAL(confirm()), this, SLOT(onConfirm()));
     setLayout(mainLayout);
 }
 
@@ -58,15 +59,16 @@ void EmployeePopUp::clearEmployees(){
     }
 }
 
-void EmployeePopUp::onLeaving(){
-    emit selectEmployee(selectedEmployeeID);
-}
-
-void EmployeePopUp::setSelectedEmployee(int id){
+void EmployeePopUp::setEmployeeSelected(int id){
     selectedEmployeeChanged(id);
 }
 
 //PRIVATE SLOTS
+void EmployeePopUp::onConfirm(){
+    emit saveEmployeeSelected(selectedEmployeeID);
+    emit closePopUp();
+}
+
 void EmployeePopUp::selectedEmployeeChanged(int id){
     selectedEmployeeID = id;
     emit selectedEmployee(id);
