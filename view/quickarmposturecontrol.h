@@ -16,6 +16,7 @@ public:
     QVariant getSelectedValue() const;
     QString getSelectedTexts() const;
     int getSelectedID() const;
+    int getSelectedSpecification() const;
 
 signals:
     void selectionChanged(int id, int sel);

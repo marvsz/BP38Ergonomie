@@ -612,7 +612,7 @@ void Controller::deleteWorkplace(int id)
 
 void Controller::updateLineView()
 {
-    lineView->clear();
+    /*lineView->clear();
     QString tbl = DBConstants::TBL_LINE;
     QList<QHash<QString, QVariant>> values = dbHandler->select(tbl, QString(""));
     for(int i = 0; i < values.count(); ++i)
@@ -622,7 +622,7 @@ void Controller::updateLineView()
                               row.value(DBConstants::COL_LINE_NAME).toString());
         }
     QHash<QString, QVariant> row = dbHandler->selectFirst(DBConstants::TBL_WORKPLACE, QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(workplace_ID));
-    lineView->setSelectedLine(row.value(DBConstants::COL_WORKPLACE_LINE_ID).toInt());
+    lineView->setSelectedLine(row.value(DBConstants::COL_WORKPLACE_LINE_ID).toInt());*/
 }
 
 int Controller::saveSelectedLine(int id)
@@ -636,7 +636,7 @@ int Controller::saveSelectedLine(int id)
 
 int Controller::createLine()
 {
-    QString tbl = DBConstants::TBL_LINE;
+    /*QString tbl = DBConstants::TBL_LINE;
     QString filter = QString("%1 = %2").arg(DBConstants::COL_LINE_ID).arg(QString::number(0));
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_LINE_NAME, lineView->getName());
@@ -647,7 +647,7 @@ int Controller::createLine()
     saveRecordingObservesLine(lineID);
     viewCon->showMessage(tr("Created line"), NotificationMessage::ACCEPT);
     updateLineView();
-    return lineID;
+    return lineID;*/
 }
 
 void Controller::deleteLine(int id)

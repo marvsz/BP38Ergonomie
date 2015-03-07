@@ -8,6 +8,8 @@
 #include "../../verticaloptionselectioncontrol.h"
 #include "../../quickarmposturecontrol.h"
 #include "../../quicklegposturecontrol.h"
+#include <QPixmap>
+#include <QLabel>
 class QuickSelectionControl : public QWidget
 { Q_OBJECT
 public:
@@ -54,6 +56,13 @@ private:
     const QStringList QUICK_TRUNK_POSTURE_TEXTS = QStringList()<<tr("strong bending to the front")<<tr("light bending to the front")<<tr("no bending at all")<<tr("light bending to behind")<<tr("strong bending to behind");
     const QStringList LEFT_RIGHT_TEXTS = QStringList()<<tr("left")<<tr("right");
 
+    QLabel *hansHolder;
+    const QPixmap hans = QPixmap(":/icons/QuickBodyPosture/Placeholder.png").scaled(QSize(275,313),Qt::KeepAspectRatio,Qt::SmoothTransformation);
+    const QPixmap hans_standing_bothArms_atElbowHeight_noBending = QPixmap(":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_noBending.png");
+    const QPixmap hans_standing_bothArms_atElbowHeight_lightBendingBack = QPixmap(":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_lightBendingBack.png");
+    const QPixmap hans_standing_bothArms_atElbowHeight_strongBendingBack = QPixmap(":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_strongBendingBack.png");
+    const QPixmap hans_standing_bothArms_atElbowHeight_lightBendingFront = QPixmap(":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_lightBendingFront.png");
+    const QPixmap hans_standing_bothArms_atElbowHeight_strongBendingFront = QPixmap(":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_strongBendingFront.png");
     bool shown;
 };
 
