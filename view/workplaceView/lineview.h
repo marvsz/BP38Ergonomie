@@ -11,34 +11,37 @@
 #include "../detailedlistitem.h"
 #include "../numberlineedit.h"
 #include "../textedit.h"
+#include "../interfaces/ilinelist.h"
 #include "../navigation/simplenavigateablewidget.h"
 
-class LineView : public SimpleNavigateableWidget
+class LineView : public SimpleNavigateableWidget, ILineList
 {
     Q_OBJECT
+    Q_INTERFACES(ILineList)
 public:
     explicit LineView(QWidget *parent = 0);
     ~LineView();
 
-    QString getName() const;
-    QString getDescription() const;
-    int getWorkplaceCount() const;
-
 signals:
-    void saveLine();
-    void saveSelectedLine(int id);
+    void createLine(QHash<QString, QVariant> values);
     void deleteLine(int id);
+    void selectLine(int id);
+    void editLine(int id);
+
     void lineSelected(int id);
 
 public slots:
-    void setLine(const QString &name, const QString &description, int workplaceCount);
-    void addLine(int id, const QString &name);
-    void clear();
+    void addLine(QHash<QString, QVariant> values);
+    void updateLine(QHash<QString, QVariant> values);
+    void removeLine(int id);
     void setSelectedLine(int id);
+    void clear();
+    void onLeaving();
 
 private slots:
     void btnAddClicked();
     void selectedLineChanged(int id);
+    void editLineClicked(int id);
 
 private:
     int selectedLineID;

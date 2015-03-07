@@ -9,7 +9,7 @@ public slots:
     virtual void addRotationGroup(QHash<QString, QVariant> values) = 0;
     virtual void updateRotationGroup(QHash<QString, QVariant> values) = 0;
     virtual void removeRotationGroup(int id) = 0;
-    virtual void clear() = 0;
+    virtual void clearRotationGroups() = 0;
 
 signals:
     virtual void createRotationGroup(QHash<QString, QVariant> values) = 0;

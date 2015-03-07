@@ -140,6 +140,7 @@ QList<QAbstractButton*> * ShiftCalendar::getAdditionalNavigation() const {
 
 // PUBLIC SLOTS
 
+/*
 void ShiftCalendar::setBeginTime(const QTime &beginTime){
     this->beginTime = beginTime;
     drawBackground();
@@ -192,6 +193,57 @@ void ShiftCalendar::clearCalendar(){
     }
     currentId = -1;
 }
+*/
+
+// PUBLIC SLOTS
+
+void  ShiftCalendar::addRotationGroup(QHash<QString, QVariant> values){
+
+}
+
+void ShiftCalendar::updateRotationGroup(QHash<QString, QVariant> values){
+
+}
+
+void ShiftCalendar::removeRotationGroup(int id){
+
+}
+
+void ShiftCalendar::clearRotationGroups(){
+
+}
+
+void ShiftCalendar::addCalendarRotationGroup(QHash<QString, QVariant> values){
+
+}
+
+void ShiftCalendar::updateCalendarRotationGroup(QHash<QString, QVariant> values){
+
+}
+
+void ShiftCalendar::removeCalendarRotationGroup(int id){
+
+}
+
+void ShiftCalendar::addCalendarBreak(QHash<QString, QVariant> values){
+
+}
+
+void ShiftCalendar::updateCalendarBreak(QHash<QString, QVariant> values){
+
+}
+
+void ShiftCalendar::removeCalendarBreak(int id){
+
+}
+
+void ShiftCalendar::clearCalendar(){
+
+}
+
+void ShiftCalendar::setTimes(QHash<QString, QVariant> values){
+
+}
 
 // PRIVATE
 
@@ -236,7 +288,7 @@ void ShiftCalendar::drawBackground(){
 
 // PRIVATE SLOTS
 void ShiftCalendar::btnAddBreakClicked(){
-    emit createBreak();
+    //emit createBreak();
     numBxBreakDuration->clear();
     txtBxBreakName->clear();
 }

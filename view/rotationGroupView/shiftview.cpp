@@ -117,7 +117,7 @@ void ShiftView::updateShiftTimes(int type){
 }
 
 void ShiftView::btnEmployeeClicked(){
-    emit showView(ViewType::EMPLOYEE_VIEW);
+    emit showView(ViewType::EMPLOYEE_LIST_VIEW);
 }
 
 void ShiftView::btnCalendarClicked(){

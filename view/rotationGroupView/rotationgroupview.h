@@ -45,9 +45,6 @@ signals:
 
 public slots:
     void setRotationGroup(QHash<QString, QVariant> values);
-    /*void setRotationGroupName(const QString &name);
-    void setRotationGroupDuration(int duration);*/
-    //void setWorkplaceDuration(int duration);
 
     void addRotationGroupTask(QHash<QString, QVariant> values);
     void updateRotationGroupTask(QHash<QString, QVariant> values);

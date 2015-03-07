@@ -66,12 +66,18 @@
         <file>BodyPostureIcons/Torso/Twist/60.png</file>
         <file>BodyPostureIcons/Torso/Twist/90.png</file>
         <file>icons/GrabType/GrabType_Daumen auf 2 Finger.png</file>
-	<file>icons/GrabType/GrabType_Daumen-Zeigefinger.png</file>
-	<file>icons/GrabType/GrabType_Daumenkontaktgriff.png</file>
-	<file>icons/GrabType/GrabType_Fingerzufassungsgriff.png</file>
-	<file>icons/GrabType/GrabType_Handkontaktgriff.png</file>
-	<file>icons/GrabType/GrabType_Umfassungsgriff.png</file>
-	<file>icons/GrabType/GrabType_Zange.png</file>
-	<file>icons/GrabType/GrabType_Zeigefingerkontaktgriff.png</file>
+        <file>icons/GrabType/GrabType_Daumen-Zeigefinger.png</file>
+        <file>icons/GrabType/GrabType_Daumenkontaktgriff.png</file>
+        <file>icons/GrabType/GrabType_Fingerzufassungsgriff.png</file>
+        <file>icons/GrabType/GrabType_Handkontaktgriff.png</file>
+        <file>icons/GrabType/GrabType_Umfassungsgriff.png</file>
+        <file>icons/GrabType/GrabType_Zange.png</file>
+        <file>icons/GrabType/GrabType_Zeigefingerkontaktgriff.png</file>
+        <file>icons/QuickBodyPosture/Placeholder.png</file>
+        <file>icons/QuickBodyPosture/standing_bothArms_atElbowHeight_lightBendingBack.png</file>
+        <file>icons/QuickBodyPosture/standing_bothArms_atElbowHeight_lightBendingFront.png</file>
+        <file>icons/QuickBodyPosture/standing_bothArms_atElbowHeight_noBending.png</file>
+        <file>icons/QuickBodyPosture/standing_bothArms_atElbowHeight_strongBendingBack.png</file>
+        <file>icons/QuickBodyPosture/standing_bothArms_atElbowHeight_strongBendingFront.png</file>
     </qresource>
 </RCC>

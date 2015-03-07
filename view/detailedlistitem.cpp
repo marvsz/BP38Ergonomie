@@ -127,6 +127,10 @@ void DetailedListItem::setValues(const QList<QStringList> &values){
     }
 }
 
+void DetailedListItem::setName(const QString &name){
+    lblName->setText(name);
+}
+
 void DetailedListItem::changeSelection(){
     if(isCheckable){
         if(checkBox->isChecked())
