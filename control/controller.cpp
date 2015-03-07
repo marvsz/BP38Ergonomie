@@ -53,9 +53,8 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     workplacePopUp(new WorkplacePopUp()),
     importDataPopUp(new ImportDataPopUp()),
     resetPopUp(new ResetPopUp()),
-    factorySettingsPopUp(new FactorySettingsPopUp()),
-    employeePopUp(new EmployeePopUp())
-
+    employeePopUp(new EmployeePopUp()),
+    factorySettingsPopUp(new FactorySettingsPopUp())
 {
     analyst_ID = 0;
     recording_ID = 1;
@@ -1594,34 +1593,49 @@ void Controller::resetDatabaseFactory()
 
 
 void Controller::languageChanged(){
-    /*QFile saveFile("C:/Users/M/Documents/GitHub/BP38Ergonomie/assets/settings.csv");
-    saveFile.open(QIODevice::WriteOnly);
-    QTextStream out(&saveFile);*/
+    QFile file(StandardPaths::configFile());
+    file.open(QIODevice::ReadOnly);
+    QTextStream in(&file);
+    QString line = in.readLine();
+    QStringList settings = line.split(',');
+    file.close();
+    file.open(QIODevice::WriteOnly);
+    QTextStream out(&file);
 
     int languageID = languagePopUp->getSelectedLanguage();
     switch(languageID){
     case(0):
-         //out<<"german"<<','<<"blue";
+         out<<"german"<<','<<settings.at(1);
          settingsView->setCurrentLanguageIcon("germanIcon");
+         viewCon->showMessage(tr("Language changed"), NotificationMessage::ACCEPT);
+         viewCon->showMessage(("Neustart erforderlich um die Änderungen umzusetzen"), NotificationMessage::INFORMATION, NotificationMessage::PERSISTENT);
          break;
     case(1):
-         //out<<"english"<<','<<"blue";
+         out<<"english"<<','<<settings.at(1);
          settingsView->setCurrentLanguageIcon("englishIcon");
+         viewCon->showMessage(tr("Language changed"), NotificationMessage::ACCEPT);
+         viewCon->showMessage(("Restart App to apply changes"), NotificationMessage::INFORMATION, NotificationMessage::PERSISTENT);
          break;
     default:
-         //out<<"english"<<','<<"blue";
+         out<<"english"<<','<<settings.at(1);
          settingsView->setCurrentLanguageIcon("englishIcon");
          break;
     }
     viewCon->closePopUp();
-    viewCon->showMessage(tr("Language changed"), NotificationMessage::ACCEPT);
+
+
 }
 
 void Controller::themeChanged()
 {
-    /*QFile saveFile("C:/Users/M/Documents/GitHub/BP38Ergonomie/assets/settings.csv");
-    saveFile.open(QIODevice::WriteOnly);
-    QTextStream out(&saveFile);*/
+    QFile file(StandardPaths::configFile());
+    file.open(QIODevice::ReadOnly);
+    QTextStream in(&file);
+    QString line = in.readLine();
+    QStringList settings = line.split(',');
+    file.close();
+    file.open(QIODevice::WriteOnly);
+    QTextStream out(&file);
 
     int themeID = themePopUp->getSelectedTheme();
     switch(themeID)
@@ -1629,16 +1643,17 @@ void Controller::themeChanged()
         case(0):
             settingsView->setCurrentThemeIcon("blueIcon");
             application->setStyleSheet(stringFromResource(":/assets/stylesheet.qss"));
-               // out<<"german"<<','<<"blue";
+            out<<settings.at(0)<<','<<"blue";
             break;
         case(1):
             settingsView->setCurrentThemeIcon("greenIcon");
             application->setStyleSheet(stringFromResource(":/assets/stylesheetGreen.qss"));
-            //out<<"german"<<','<<"green";
+            out<<settings.at(0)<<','<<"green";
             break;
         default:
             settingsView->setCurrentThemeIcon("blueIcon");
             application->setStyleSheet(stringFromResource(":/assets/stylesheet.qss"));
+            out<<settings.at(0)<<','<<"blue";
             break;
         }
 
