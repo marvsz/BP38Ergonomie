@@ -12,9 +12,6 @@ MainMenu::MainMenu(QWidget *parent) :
     btnShift(new IconButton(this, "calendarIcon", tr("Shift Data"))),
     btnSettings(new QPushButton(this)),
     btnNewRecording(new QPushButton(this)),
-    #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
-    btnCamera(new QPushButton(this)),
-    #endif
     btnSendDatabase(new QPushButton(this)),
     btnImport(new QPushButton(this))
 {
@@ -36,11 +33,6 @@ MainMenu::MainMenu(QWidget *parent) :
 
     btnNewRecording->setObjectName("quickRecordingIcon");
     btnNewRecording->setFixedSize(45, 45);
-
-    #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
-    btnCamera->setObjectName("cameraIcon");
-    btnCamera->setFixedSize(45, 45);
-    #endif
 
     connect(btnMetaDataView, SIGNAL(clicked()), this, SLOT(btnMetaDataViewClicked()));
     connect(btnWorkplaceList, SIGNAL(clicked()), this, SLOT(btnWorkplaceListClicked()));

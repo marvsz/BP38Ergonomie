@@ -38,7 +38,6 @@ private slots:
     void btnRessourceManagementClicked();
     void btnShiftClicked();
     void btnNewRecordingClicked();
-    void btnCameraClicked();
     void btnSendDatabaseClicked();
     void btnImportClicked();
 
