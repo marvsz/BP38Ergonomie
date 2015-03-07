@@ -100,3 +100,18 @@ deployment.files += myfile.sqlite
 deployment.path = /assets
 INSTALLS += deployment
 
+contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
+    ANDROID_EXTRA_LIBS = \
+        /Users/mariusgassen/Documents/Qt/ErgonomieApp/android/libs/armeabi-v7a/libopencv_info.so \
+        /Users/mariusgassen/Documents/Qt/ErgonomieApp/android/libs/armeabi-v7a/libopencv_java.so \
+        $$PWD/android/libs/armeabi-v7a/libnative_camera_r2.2.0.so \
+        $$PWD/android/libs/armeabi-v7a/libnative_camera_r2.3.3.so \
+        $$PWD/android/libs/armeabi-v7a/libnative_camera_r3.0.1.so \
+        $$PWD/android/libs/armeabi-v7a/libnative_camera_r4.0.0.so \
+        $$PWD/android/libs/armeabi-v7a/libnative_camera_r4.0.3.so \
+        $$PWD/android/libs/armeabi-v7a/libnative_camera_r4.1.1.so \
+        $$PWD/android/libs/armeabi-v7a/libnative_camera_r4.2.0.so \
+        $$PWD/android/libs/armeabi-v7a/libnative_camera_r4.3.0.so \
+        $$PWD/android/libs/armeabi-v7a/libnative_camera_r4.4.0.so
+}
+
