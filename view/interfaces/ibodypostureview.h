@@ -6,7 +6,7 @@
 class IBodyPostureView{
 
 public slots:
-    virtual void setBodyPosture(QHash<QString, QVariant> values) = 0;
+    virtual void setBodyPostureView(QHash<QString, QVariant> values) = 0;
 
 signals:
     virtual void saveBodyPostureView(QHash<QString, QVariant> values) = 0;

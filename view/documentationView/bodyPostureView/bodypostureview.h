@@ -25,7 +25,7 @@ public:
 
 public slots:
     void setSelectedType(const AVType &type);
-    void setBodyPosture(QHash<QString, QVariant> values);
+    void setBodyPostureView(QHash<QString, QVariant> values);
     void onLeaving();
 
 signals:

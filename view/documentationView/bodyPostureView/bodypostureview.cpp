@@ -714,7 +714,7 @@ void BodyPostureView::vcHeadTwistValueChanged(int value){
     return this->record;
 }*/
 
-void BodyPostureView::setBodyPosture(QHash<QString, QVariant> values){
+void BodyPostureView::setBodyPostureView(QHash<QString, QVariant> values){
     vcTrunkTilt->setValue(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TILT).toInt());
     vcTrunkSidewaysTilt->setValue(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TILT_SIDEWAYS).toInt());
     vcTrunkTwist->setValue(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TWIST).toInt());
