@@ -16,6 +16,7 @@ signals:
     virtual void createLine(QHash<QString, QVariant> values) = 0;
     virtual void deleteLine(int id) = 0;
     virtual void selectLine(int id) = 0;
+    virtual void editLine(int id) = 0;
 
 };
 

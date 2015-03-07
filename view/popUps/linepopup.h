@@ -4,18 +4,26 @@
 #include "../textlineedit.h"
 #include "../numberlineedit.h"
 #include "../textedit.h"
+#include "../interfaces/iline.h"
 
-class LinePopUp : public AbstractPopUpWidget
+class LinePopUp : public AbstractPopUpWidget, ILine
 {
     Q_OBJECT
+    Q_INTERFACES(ILine)
 public:
     explicit LinePopUp(QWidget *parent = 0);
 
 signals:
+    void saveLine(QHash<QString, QVariant> values);
 
 public slots:
+    void setLine(QHash<QString, QVariant> values);
+
+private slots:
+    void onConfirm();
 
 private:
+    int id;
     TextLineEdit *txtBxName;
     NumberLineEdit *numBxWorkplaceCount;
     TextEdit *txtBxDescription;

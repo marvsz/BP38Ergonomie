@@ -81,7 +81,7 @@ void LineView::addLine(QHash<QString, QVariant> values){
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedLineChanged(int)));
     connect(this, SIGNAL(lineSelected(int)), newListItem, SLOT(selectExclusiveWithID(int)));
     connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteLine(int)));
-    connect(newListItem, SIGNAL(editItem(int)), this, SLOT(editItemWithID(int)));
+    connect(newListItem, SIGNAL(editItem(int)), this, SLOT(editLineClicked(int)));
     listContentLayout->addWidget(newListItem);
 }
 
@@ -151,4 +151,5 @@ void LineView::btnAddClicked(){
 
 void LineView::editLineClicked(int id){
     emit showPopUp(PopUpType::LINE_POPUP);
+    emit editLine(id);
 }
