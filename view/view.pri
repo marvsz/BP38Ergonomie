@@ -90,8 +90,8 @@ HEADERS +=\
     $$PWD/interfaces/irotationgroup.h \
     $$PWD/interfaces/iworkplacelist.h \
     $$PWD/interfaces/irotationgrouptasklist.h \
-    $$PWD/interfaces/ibodymeasurement.h
-    $$PWD/popUps/factorysettingspopup.h \
+    $$PWD/interfaces/ibodymeasurement.h \
+    $$PWD/popUps/factorysettingspopup.h
 
 
 SOURCES +=\
@@ -171,6 +171,6 @@ SOURCES +=\
     $$PWD/popUps/workplacepopup.cpp \
     $$PWD/popUps/resetpopup.cpp \
     $$PWD/popUps/employeepopup.cpp \
-    $$PWD/documentationView/bodyPostureView/quickselectioncontrol.cpp
+    $$PWD/documentationView/bodyPostureView/quickselectioncontrol.cpp \
     $$PWD/popUps/factorysettingspopup.cpp
 
