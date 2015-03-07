@@ -62,8 +62,8 @@ ProductView::~ProductView()
 }
 
 void ProductView::addProduct(QHash<QString, QVariant> values){
-    QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_PRODUCT_NUMBER).toString()) << (QStringList() << values.value(DBConstants::COL_PRODUCT_TOTAL_PERCENTAGE).toInt());
-    DetailedListItem *newListItem = new DetailedListItem(this, "productIcon", values.value(DBConstants::COL_PRODUCT_NAME), productItemScheme, true, false, false, false, false);
+    QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_PRODUCT_NUMBER).toString()) << (QStringList() << values.value(DBConstants::COL_PRODUCT_TOTAL_PERCENTAGE).toString());
+    DetailedListItem *newListItem = new DetailedListItem(this, "productIcon", values.value(DBConstants::COL_PRODUCT_NAME).toString(), productItemScheme, true, false, false, false, false);
     newListItem->setValues(dliValues);
     newListItem->setID(values.value(DBConstants::COL_PRODUCT_ID).toInt());
     connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteProduct(int)));
@@ -77,8 +77,8 @@ void ProductView::updateProduct(QHash<QString, QVariant> values){
     while((item = productListLayout->itemAt(i)) != NULL){
         DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
         if(dli->getID() == id){
-            QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_PRODUCT_NUMBER).toString()) << (QStringList() << values.value(DBConstants::COL_PRODUCT_TOTAL_PERCENTAGE).toInt());
-            dli->setName(values.value(DBConstants::COL_PRODUCT_NAME));
+            QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_PRODUCT_NUMBER).toString()) << (QStringList() << values.value(DBConstants::COL_PRODUCT_TOTAL_PERCENTAGE).toString());
+            dli->setName(values.value(DBConstants::COL_PRODUCT_NAME).toString());
             dli->setValues(dliValues);
             break;
         }

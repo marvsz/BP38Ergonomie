@@ -3,6 +3,7 @@
 #include "../detailedlistitem.h"
 
 
+
 ActivityPopUp::ActivityPopUp(QWidget *parent) :
     AbstractPopUpWidget(ConfirmMode::ACCEPT, tr("Edit Activity"), parent),
     productListLayout(new QVBoxLayout),
@@ -60,7 +61,7 @@ int ActivityPopUp::getSelectedProduct() const{
 // PUBLIC SLOTS
 void ActivityPopUp::addProduct(QHash<QString, QVariant> values){
     QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_PRODUCT_NUMBER).toString());
-    DetailedListItem *newListItem = new DetailedListItem(this, "productIcon", values.value(DBConstants::COL_PRODUCT_NAME), productItemScheme, false, true, false, false, false);
+    DetailedListItem *newListItem = new DetailedListItem(this, "productIcon", values.value(DBConstants::COL_PRODUCT_NAME).toString(), productItemScheme, false, true, false, false, false);
     newListItem->setValues(dliValues);
     newListItem->setID(values.value(DBConstants::COL_PRODUCT_ID).toInt());
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedProductChanged(int)));
@@ -76,7 +77,7 @@ void ActivityPopUp::updateProduct(QHash<QString, QVariant> values){
         DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
         if(dli->getID() == id){
             QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_PRODUCT_NUMBER).toString());
-            dli->setName(values.value(DBConstants::COL_PRODUCT_NAME));
+            dli->setName(values.value(DBConstants::COL_PRODUCT_NAME).toString());
             dli->setValues(dliValues);
             break;
         }
@@ -86,14 +87,13 @@ void ActivityPopUp::updateProduct(QHash<QString, QVariant> values){
 
 void ActivityPopUp::removeProduct(int id){
     QLayoutItem *item;
-    int id = values.value(DBConstants::COL_PRODUCT_ID).toInt();
     int i = 0;
     while((item = productListLayout->itemAt(i)) != NULL){
         DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
         if(dli->getID() == id){
-            QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_PRODUCT_NUMBER).toString());
-            dli->setName(values.value(DBConstants::COL_PRODUCT_NAME));
-            dli->setValues(dliValues);
+            productListLayout->removeItem(item);
+            delete item->widget();
+            delete item;
             break;
         }
         i++;

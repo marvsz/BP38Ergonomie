@@ -7,6 +7,7 @@
 #include "../textlineedit.h"
 #include "../numberlineedit.h"
 #include "../interfaces/iproductlist.h"
+#include "../../databaseHandler/dbconstants.h"
 
 class ActivityPopUp : public AbstractPopUpWidget, IProductList
 {
@@ -28,7 +29,6 @@ signals:
 
 public slots:
     void setActivity(const QString &description, int repetitions, int selectedProductID);
-    void addProduct(int id, const QString &name, const QString &productNumber);
     void setSelectedProduct(int id);
 
     void addProduct(QHash<QString, QVariant> values);

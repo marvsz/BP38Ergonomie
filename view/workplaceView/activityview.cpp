@@ -103,7 +103,7 @@ int ActivityView::getSelectedProduct() const {
 // PUBLIC SLOTS
 void ActivityView::addProduct(QHash<QString, QVariant> values){
     QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_PRODUCT_NUMBER).toString());
-    DetailedListItem *newListItem = new DetailedListItem(this, "productIcon", values.value(DBConstants::COL_PRODUCT_NAME), productItemScheme, false, true, false, false, false);
+    DetailedListItem *newListItem = new DetailedListItem(this, "productIcon", values.value(DBConstants::COL_PRODUCT_NAME).toString(), productItemScheme, false, true, false, false, false);
     newListItem->setValues(dliValues);
     newListItem->setID(values.value(DBConstants::COL_PRODUCT_ID).toInt());
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedProductChanged(int)));
@@ -119,7 +119,7 @@ void ActivityView::updateProduct(QHash<QString, QVariant> values){
         DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
         if(dli->getID() == id){
             QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_PRODUCT_NUMBER).toString());
-            dli->setName(values.value(DBConstants::COL_PRODUCT_NAME));
+            dli->setName(values.value(DBConstants::COL_PRODUCT_NAME).toString());
             dli->setValues(dliValues);
             break;
         }
@@ -186,7 +186,7 @@ void ActivityView::selectedProductChanged(int id){
 }
 
 void ActivityView::btnProductsClicked(){
-    emit showPopUp(PopUpType::PRODUCT_POPUP);
+    emit showPopUp(PopUpType::CREATE_PRODUCT_POPUP);
 }
 
 void ActivityView::workprocessClicked(){

@@ -10,7 +10,8 @@ CreateProductPopUp::CreateProductPopUp(QWidget *parent) :
     txtBxNumber->setPlaceholderText(tr("Product Number"));
     numBxTotalPercentage->setPlaceholderText(tr("Total Percentage"));
 
-    connect(this, SIGNAL(cancel()), this, SLOT(onClose());
+    connect(this, SIGNAL(cancel()), this, SLOT(onClose()));
+    connect(this, SIGNAL(confirm()), this, SLOT(onConfirm()));
 
     QGridLayout *mainLayout = new QGridLayout;
     mainLayout->setAlignment(Qt::AlignTop);
