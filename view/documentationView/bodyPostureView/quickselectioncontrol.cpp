@@ -3,13 +3,13 @@
 
 QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     QWidget(parent),
+    mainLayout(new QVBoxLayout),
+    verticalLayout(new QHBoxLayout()),
     mainContent(new QWidget()),
     btnName(new QPushButton()),
-    verticalLayout(new QHBoxLayout()),
     qlpcQuickLegPosture(new QuickLegPostureControl),
     voscQuickArmPosture(new QuickArmPostureControl),
-    voscQuickTrunkPosture(new VerticalOptionSelectionControl),
-    mainLayout(new QVBoxLayout)
+    voscQuickTrunkPosture(new VerticalOptionSelectionControl)
 {
 
     btnName->setMaximumWidth(150);
@@ -50,17 +50,21 @@ void QuickSelectionControl::showContent(){
 }
 
 void QuickSelectionControl::setExclusiveDisplayByName(const QString &name){
-    if(name.compare(btnName->text()) == 0)
+    if((name.compare(btnName->text()) == 0) && !shown){
         showContent();
-    else
+        shown = true;
+    }
+    else{
         hideContent();
+        shown = false;
+    }
 }
 
 void QuickSelectionControl::setName(const QString &name){
     btnName->setText(name);
 }
 
-void QuickSelectionControl::btnNameClicked() {
+void QuickSelectionControl::btnNameClicked() {  
     emit requestShowContent(btnName->text());
 }
 

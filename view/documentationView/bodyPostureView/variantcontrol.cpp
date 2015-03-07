@@ -67,10 +67,14 @@ void VariantControl::setSelectedSpecification(AVType type){
 }
 
 void VariantControl::setExclusiveDisplayByName(const QString &name){
-    if(name.compare(btnName->text()) == 0)
+    if((name.compare(btnName->text()) == 0) && !shown){
         showContent();
-    else
+        shown = true;
+    }
+    else{
         hideContent();
+        shown = false;
+    }
 }
 
 
