@@ -42,6 +42,7 @@
 #include "../view/interfaces/iftpconnections.h"
 #include "../view/popUps/resetpopup.h"
 #include "../view/popUps/employeepopup.h"
+#include "../view/popUps/factorysettingspopup.h"
 #include "../view/documentationView/appliedforceview.h"
 #include "../view/documentationView/loadhandlingview.h"
 #include "../view/documentationView/executionconditionview.h"
@@ -237,6 +238,7 @@ private:
     ImportDataPopUp *importDataPopUp;
     ResetPopUp *resetPopUp;
     EmployeePopUp *employeePopUp;
+    FactorySettingsPopUp *factorySettingsPopUp;
 
     int analyst_ID;
     int recording_ID;

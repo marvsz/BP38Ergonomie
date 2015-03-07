@@ -18,6 +18,7 @@ public:
     bool transportationSelected() const;
     bool employeeSelected() const;
     bool shiftDataSelected() const;
+    bool ftpConnectionSelected() const;
 
 public slots:
     void onEnter();
@@ -30,6 +31,7 @@ private slots:
     void transportationClicked();
     void employeeClicked();
     void shiftDataClicked();
+    void ftpConnectionClicked();
 
 private:
     DetailedListItem *headData;
@@ -39,6 +41,7 @@ private:
     DetailedListItem *transportation;
     DetailedListItem *employee;
     DetailedListItem *shiftData;
+    DetailedListItem *ftpConnection;
 
     bool bHeadData;
     bool bWorklpaces;
@@ -47,6 +50,7 @@ private:
     bool bTransportation;
     bool bEmployee;
     bool bShiftData;
+    bool bFtpConnection;
 };
 
 #endif // RESETPOPUP_H

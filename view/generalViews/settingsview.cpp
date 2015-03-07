@@ -75,8 +75,7 @@ SettingsView::SettingsView(QWidget *parent) :
 }
 
 void SettingsView::btnRestoreFactoryClicked(){
-    emit resetDatabase();
-    emit showView(ViewType::ANALYST_SELECTION_VIEW);
+    emit showPopUp((PopUpType::FACTORYSETTINGS_POPUP));
 }
 
 void SettingsView::btnResetRecordingsClicked(){
