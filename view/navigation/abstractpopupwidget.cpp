@@ -13,6 +13,7 @@ AbstractPopUpWidget::AbstractPopUpWidget(ConfirmMode mode, const QString &title,
 
     btnClose->setObjectName("cancelIcon");
     btnClose->setFixedSize(45, 45);
+    connect(btnClose, SIGNAL(clicked()), this, SIGNAL(cancel()));
     connect(btnClose, SIGNAL(clicked()), this, SIGNAL(closePopUp()));
 
     btnConfirm->setFixedSize(45, 45);

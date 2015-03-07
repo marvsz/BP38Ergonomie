@@ -19,6 +19,7 @@ public:
 
 signals:
     void closePopUp();
+    void cancel();
     void confirm();
 
 private:
