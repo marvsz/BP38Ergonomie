@@ -12,12 +12,17 @@ DocumentationView::DocumentationView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Documentation"), parent),
     indexBeforeTimeLineView(0),
     registeredTimerViewController(false),
+    btnCamera(new QPushButton(this)),
     views(new QComboBox(this)),
     mainContent(new QStackedWidget(this)),
     mainLayout(new QVBoxLayout),
     viewTypeToWidget(new QHash<ViewType, TitledWidget*>()),
     viewTypeToIndex(new QHash<ViewType, int>())
 {
+    btnCamera->setObjectName("cameraIcon");
+    btnCamera->setFixedSize(45, 45);
+    connect(btnCamera, SIGNAL(clicked()), this, SLOT(btnCameraClicked()));
+
     views->setMinimumSize(280, 40);
     connect(views, SIGNAL(currentIndexChanged(int)), this, SLOT(changeView(int)));
 
@@ -27,6 +32,12 @@ DocumentationView::DocumentationView(QWidget *parent) :
 }
 
 // PUBLIC
+QList<QAbstractButton*> * DocumentationView::getAdditionalNavigation() const {
+    QList<QAbstractButton*> *additions = new QList<QAbstractButton*>();
+    additions->append(btnCamera);
+    return additions;
+}
+
 void DocumentationView::showStartView(ViewType type){
     if(viewTypeToIndex->contains(type)){
         currentView = type;
@@ -66,6 +77,10 @@ void DocumentationView::onLeaving(){
 
 
 // PRIVATE SLOTS
+void DocumentationView::btnCameraClicked(){
+    emit showPopUp(PopUpType::CAMERA_POPUP);
+}
+
 void DocumentationView::showGant(){
     indexBeforeTimeLineView = mainContent->currentIndex();
     views->setCurrentIndex(viewTypeToIndex->value(ViewType::GANT_VIEW));

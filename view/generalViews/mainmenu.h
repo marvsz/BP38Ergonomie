@@ -51,9 +51,6 @@ private:
     IconButton *btnShift;
     QPushButton *btnSettings;
     QPushButton *btnNewRecording;
-    #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
-    QPushButton *btnCamera;
-    #endif
     QPushButton *btnSendDatabase;
     QPushButton *btnImport;
 

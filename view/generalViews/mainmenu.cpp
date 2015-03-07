@@ -50,9 +50,6 @@ MainMenu::MainMenu(QWidget *parent) :
     connect(btnSettings, SIGNAL(clicked()), this, SLOT(btnSettingsClicked()));
     connect(btnImport, SIGNAL(clicked()), this, SLOT(btnImportClicked()));
     connect(btnSendDatabase, SIGNAL(clicked()), this, SLOT(btnSendDatabaseClicked()));
-    #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
-    connect(btnCamera, SIGNAL(clicked()), this, SLOT(btnCameraClicked()));
-    #endif
 
     lblViewName->setObjectName("lblHeader");
 
@@ -77,9 +74,6 @@ QList<QAbstractButton*> * MainMenu::getAdditionalNavigation() const{
     additions->append(btnImport);
     additions->append(btnSendDatabase);
     additions->append(btnNewRecording);
-    #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
-    additions->append(btnCamera);
-    #endif
     return additions;
 }
 
@@ -127,11 +121,5 @@ void MainMenu::retranslate(){
     btnWorkplaceList->setText(tr("Workplaces"));
     btnRessourceManagement->setText(tr("Ressource Management"));
     btnShift->setText(tr("Shift Data"));
-}
-
-void MainMenu::btnCameraClicked(){
-#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
-    emit showPopUp(PopUpType::CAMERA_POPUP);
-#endif
 }
 

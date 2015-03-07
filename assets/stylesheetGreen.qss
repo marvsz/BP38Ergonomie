@@ -152,6 +152,7 @@ QPushButton#leftIcon:disabled {image: url(:/green/icons/Buttons/green/leftDisabl
 QPushButton#rightIcon:disabled {image: url(:/green/icons/Buttons/green/rightDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#plusIcon:disabled {image: url(:/green/icons/Buttons/green/plusDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#minusIcon:disabled {image: url(:/green/icons/Buttons/green/minusDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
+QPushButton#switchCameraIcon:disabled {image: url(:/green/icons/Buttons/green/switchCameraDisabled.png); width 70px; height 70px; border: none; background-color: transparent;}
 
 NotificationMessage {font: 100 18px; color: #F0EFF5; border: 2px solid rgba(150, 150, 150, 180); border-radius: 12px; background-color: rgba(150, 150, 150, 180); padding: 4px;}
 NotificationMessage:pressed {font: 100 18px; color: #4F4847; border: 2px solid rgba(150, 150, 150, 180); border-radius: 12px; background-color: rgba(0, 122, 255, 180); padding: 4px;}

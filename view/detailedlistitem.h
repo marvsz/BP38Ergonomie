@@ -34,7 +34,6 @@ public slots:
     void deselect(int id);
     void select();
     void deselect();
-    void checkState(int id);
 
 private slots:
     void itemPressed();
@@ -43,7 +42,7 @@ private slots:
     void editItem();
 
 protected:
-    void paintEvent(QPaintEvent *e);
+    void paintEvent(QPaintEvent *);
 
 private:
     int id;

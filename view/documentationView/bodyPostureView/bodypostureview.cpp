@@ -32,11 +32,11 @@ const QVector<int> BodyPostureView::ANKLE_ANGLE_SIDEWAYS_VALUES = QVector<int>()
 
 BodyPostureView::BodyPostureView(QWidget *parent) :
     TitledWidget(tr("Body posture"), parent),
+    quickSelectionLayout(new QuickSelectionControl()),
     varConTrunk(new VariantControl()),
     varConArms(new VariantControl()),
     varConLegs(new VariantControl()),
     varConHead(new VariantControl()),
-    quickSelectionLayout(new QuickSelectionControl()),
     vcTrunkTilt(new ValueControl(VALUE)),
     vcTrunkSidewaysTilt(new ValueControl(VALUE)),
     vcTrunkTwist(new ValueControl(VALUE)),

@@ -3,13 +3,13 @@
 
 QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     QWidget(parent),
+    mainLayout(new QVBoxLayout),
+    verticalLayout(new QHBoxLayout()),
     mainContent(new QWidget()),
     btnName(new QPushButton()),
-    verticalLayout(new QHBoxLayout()),
     qlpcQuickLegPosture(new QuickLegPostureControl),
     voscQuickArmPosture(new QuickArmPostureControl),
-    voscQuickTrunkPosture(new VerticalOptionSelectionControl),
-    mainLayout(new QVBoxLayout)
+    voscQuickTrunkPosture(new VerticalOptionSelectionControl)
 {
 
     btnName->setMaximumWidth(150);

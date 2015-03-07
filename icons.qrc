@@ -207,6 +207,8 @@
         <file>icons/Buttons/green/capture@2x.png</file>
         <file>icons/Buttons/green/capturePressed.png</file>
         <file>icons/Buttons/green/capturePressed@2x.png</file>
+        <file>icons/Buttons/green/switchCameraDisabled.png</file>
+        <file>icons/Buttons/green/switchCameraDisabled@2x.png</file>
     </qresource>
     <qresource prefix="/blue">
         <file>icons/Buttons/blue/accept.png</file>
@@ -418,5 +420,7 @@
         <file>icons/Buttons/blue/capturePressed@2x.png</file>
         <file>icons/Buttons/blue/welcome.png</file>
         <file>icons/Buttons/blue/welcome@2x.png</file>
+        <file>icons/Buttons/blue/switchCameraDisabled.png</file>
+        <file>icons/Buttons/blue/switchCameraDisabled@2x.png</file>
     </qresource>
 </RCC>

@@ -6,6 +6,8 @@
 #include <QComboBox>
 #include <QHash>
 #include <QStack>
+#include <QCamera>
+#include <QPushButton>
 #include "../timerView/timerviewcontroller.h"
 
 /**
@@ -30,6 +32,9 @@ public:
     QWidget * getInternalNavigation() const{
         return views;
     }
+
+    QList<QAbstractButton*> * getAdditionalNavigation() const;
+
     ViewType getCurrentView() const;
 
     void showStartView(ViewType type);
@@ -45,6 +50,7 @@ public slots:
     void onLeaving();
 
 private slots:
+    void btnCameraClicked();
     void showGant();
     void hideGant();
 
@@ -53,6 +59,7 @@ private:
     int indexBeforeTimeLineView;
     bool registeredTimerViewController;
 
+    QPushButton *btnCamera;
     QComboBox *views;
     QStackedWidget *mainContent;
     QVBoxLayout *mainLayout;
