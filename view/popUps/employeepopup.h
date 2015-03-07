@@ -3,6 +3,7 @@
 
 #include "../navigation/abstractpopupwidget.h"
 #include <QGridLayout>
+#include <QScrollArea>
 #include "../interfaces/iemployeelist.h"
 #include "../interfaces/iemployeeselect.h"
 #include "../databaseHandler/dbconstants.h"
@@ -44,6 +45,7 @@ private slots:
 private:
     const QList<QStringList> employeeCaptions = QList<QStringList>() <<(QStringList() << tr("Staff number"));
     QGridLayout *mainLayout;
+    QScrollArea *scEmployees;
     int selectedEmployeeID;
 
 };

@@ -1,12 +1,28 @@
 #include "employeepopup.h"
+#include "flickcharm.h"
+#include "QVBoxLayout"
 
 EmployeePopUp::EmployeePopUp(QWidget *parent):
     AbstractPopUpWidget(ConfirmMode::ACCEPT, tr("Select employee"), parent),
-    mainLayout(new QGridLayout)
+    mainLayout(new QGridLayout),
+    scEmployees(new QScrollArea())
 {
     connect(this, SIGNAL(confirm()), this, SLOT(onConfirm()));
     connect(this, SIGNAL(cancel()), this, SLOT(onCancel()));
-    setLayout(mainLayout);
+
+    QWidget *employeeListContent = new QWidget(this);
+    employeeListContent->setLayout(mainLayout);
+
+    scEmployees->setWidget(employeeListContent);
+    scEmployees->setMinimumWidth(300);
+    scEmployees->setWidgetResizable(true);
+
+    FlickCharm *flickCharmProducts = new FlickCharm(this);
+    flickCharmProducts->activateOn(scEmployees);
+
+    QVBoxLayout *ml = new QVBoxLayout;
+    ml->addWidget(scEmployees);
+    setLayout(ml);
 }
 
 //PUBLIC SLOTS

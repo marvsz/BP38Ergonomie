@@ -33,7 +33,7 @@
 #include "../view/popUps/transporationpopup.h"
 #include "../view/popUps/senddatabasepopup.h"
 #include "../view/popUps/analystpopup.h"
-#include "../view/popUps/productpopup.h"
+#include "../view/popUps/createproductpopup.h"
 #include "../view/popUps/activitypopup.h"
 #include "../view/popUps/languagepopup.h"
 #include "../view/popUps/themepopup.h"
@@ -91,12 +91,17 @@ signals:
     void updatedEmployee(QHash<QString, QVariant> values);
     void removedEmployee(int id);
 
-
     //EmployeeSelectList
     void employeeSelected(int id);
 
     //BodyMeasurement
     void selectedBodyMeasurement(QHash<QString, QVariant> values);
+
+    //Product
+    void clearProducts();
+    void createdProduct(QHash<QString, QVariant> values);
+    void updatedProduct(QHash<QString, QVariant> values);
+    void removedProduct(int id);
 
 private slots:
     void databaseError(QString error);
@@ -134,6 +139,12 @@ private slots:
     void deleteLine(int id);
     void selectLine(int id);
 
+    //Product
+    void initializeProducts();
+    void createProduct(QHash<QString, QVariant> values);
+    void saveProduct(QHash<QString, QVariant> values);
+    void deleteProduct(int id);
+
 
     int createWorkprocess(AVType type, const QTime &start, const QTime &end);
     void setSelectedWorkProcess(int, AVType);
@@ -145,12 +156,6 @@ private slots:
     void workProcessDurationChanged(QTime time);
 
     void initializeRecording();
-
-    void updateProductView();
-    void createProduct();
-    void createProductPopUp();
-    void createProduct(QHash<QString, QVariant> values);
-    void deleteProduct(int id);
 
     void updateEquipmentView();
     void createEquipment();
@@ -259,7 +264,7 @@ private:
     TransporationPopUp *transportationPopUp;
     SendDatabasePopUp *sendDatabasePopUp;
     AnalystPopUp *analystPopUp;
-    ProductPopUp *productPopUp;
+    CreateProductPopUp *createProductPopUp;
     ActivityPopUp *activityPopUp;
     LanguagePopUp *languagePopUp;
     ThemePopUp *themePopUp;

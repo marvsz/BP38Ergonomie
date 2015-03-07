@@ -46,7 +46,7 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     transportationPopUp(new TransporationPopUp()),
     sendDatabasePopUp(new SendDatabasePopUp()),
     analystPopUp(new AnalystPopUp()),
-    productPopUp(new ProductPopUp()),
+    createProductPopUp(new CreateProductPopUp()),
     activityPopUp(new ActivityPopUp()),
     languagePopUp(new LanguagePopUp()),
     themePopUp(new ThemePopUp()),
@@ -144,9 +144,31 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     connect(this, SIGNAL(editLine(QHash<QString,QVariant>)), linePopUp, SLOT(setLine(QHash<QString, QVariant>)));
     connect(linePopUp, SIGNAL(saveLine(QHash<QString, QVariant>)), this, SLOT(saveLine(QHash<QString,QVariant>)));
 
-    connect(productView, SIGNAL(saveProduct()), this, SLOT(createProduct()));
+    //ProductView signal/slots
+    connect(this, SIGNAL(clearAll()), productView, SLOT(clearProducts()));
+    connect(this, SIGNAL(clearProducts()), productView, SLOT(clearProducts()));
+    connect(productView, SIGNAL(createProduct(QHash<QString,QVariant>)), this, SLOT(createProduct(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(createdProduct(QHash<QString,QVariant>)), productView, SLOT(addProduct(QHash<QString,QVariant>)));
     connect(productView, SIGNAL(deleteProduct(int)), this, SLOT(deleteProduct(int)));
-    connect(productPopUp, SIGNAL(confirm()), this, SLOT(createProductPopUp()));
+    connect(this, SIGNAL(removedProduct(int)), productView, SLOT(removeProduct(int)));
+    connect(this, SIGNAL(updatedProduct(QHash<QString,QVariant>)), productView, SLOT(updateProduct(QHash<QString,QVariant>)));
+
+    //CreateProductPopUp signal/slots
+    connect(createProductPopUp, SIGNAL(saveProduct(QHash<QString, QVariant>)), this, SLOT(createProduct(QHash<QString,QVariant>)));
+
+    //ActivityPopUp signal/slots
+    connect(this, SIGNAL(clearAll()), activityPopUp, SLOT(clearProducts()));
+    connect(this, SIGNAL(clearProducts()), activityPopUp, SLOT(clearProducts()));
+    connect(this, SIGNAL(createdProduct(QHash<QString,QVariant>)), activityPopUp, SLOT(addProduct(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(removedProduct(int)), activityPopUp, SLOT(removeProduct(int)));
+    connect(this, SIGNAL(updatedProduct(QHash<QString,QVariant>)), activityPopUp, SLOT(updateProduct(QHash<QString,QVariant>)));
+
+    //ActivityView signal/slots
+    connect(this, SIGNAL(clearAll()), activityView, SLOT(clearProducts()));
+    connect(this, SIGNAL(clearProducts()), activityView, SLOT(clearProducts()));
+    connect(this, SIGNAL(createdProduct(QHash<QString,QVariant>)), activityView, SLOT(addProduct(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(removedProduct(int)), activityView, SLOT(removeProduct(int)));
+    connect(this, SIGNAL(updatedProduct(QHash<QString,QVariant>)), activityView, SLOT(updateProduct(QHash<QString,QVariant>)));
 
     connect(equipmentView, SIGNAL(saveEquipment()), this, SLOT(createEquipment()));
     connect(equipmentView, SIGNAL(deleteEquipment(int)), this, SLOT(deleteEquipment(int)));
@@ -160,7 +182,6 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     connect(activityView, SIGNAL(selectActivity(int)), this, SLOT(selectActivity(int)));
     connect(activityView, SIGNAL(deleteActivity(int)), this, SLOT(deleteActivity(int)));
     connect(activityView, SIGNAL(editActivity(int)), this, SLOT(updateActivityPopUp(int)));
-    connect(activityPopUp, SIGNAL(confirm()), this, SLOT(updateActivity()));
 
     connect(documentationView, SIGNAL(update(ViewType)), this, SLOT(update(ViewType)));
     connect(documentationView, SIGNAL(save(ViewType)), this, SLOT(save(ViewType)));
@@ -227,7 +248,7 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     viewCon->registerPopUp(equipmentPopUp, PopUpType::EQUIPMENT_POPUP);
     viewCon->registerPopUp(sendDatabasePopUp, PopUpType::DB_SEND_POPUP);
     viewCon->registerPopUp(transportationPopUp, PopUpType::TRANSPORTATION_POPUP);
-    viewCon->registerPopUp(productPopUp, PopUpType::PRODUCT_POPUP);
+    viewCon->registerPopUp(createProductPopUp, PopUpType::CREATE_PRODUCT_POPUP);
     viewCon->registerPopUp(analystPopUp, PopUpType::ANALYST_POPUP);
     viewCon->registerPopUp(activityPopUp, PopUpType::ACTIVITY_POPUP);
     viewCon->registerPopUp(languagePopUp, PopUpType::LANGUAGE_POPUP);
@@ -243,6 +264,7 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     documentationView->showStartView(ViewType::BODY_POSTURE_VIEW);
     viewCon->showStartView(ViewType::ANALYST_SELECTION_VIEW);
 
+    initializeProducts();
     initializeEmployees();
     initializeLines();
     initializeWorkplaces();
@@ -274,9 +296,6 @@ void Controller::update(ViewType type)
             break;
         case ViewType::TRANSPORTATION_VIEW:
             updateTransportationView();
-            break;
-        case ViewType::PRODUCT_VIEW:
-            updateProductView();
             break;
         case ViewType::BODY_POSTURE_VIEW:
             updateBodyPostureView();
@@ -501,7 +520,8 @@ void Controller::createWorkplace(QHash<QString, QVariant> values){
 
 void Controller::createWorkplace(QHash<QString, QVariant> values, QList<QHash<QString, QVariant>> activityValues){
     int workplace_ID = dbHandler->insert(DBConstants::TBL_WORKPLACE, DBConstants::HASH_WORKPLACE_TYPES, values,DBConstants::COL_WORKPLACE_ID);
-
+    values.insert(DBConstants::COL_WORKPLACE_ID, workplace_ID);
+    emit createdWorkplace(values);
     for(int i = 0; i < activityValues.size(); ++i){
         QHash<QString, QVariant> curValues = activityValues.at(i);
         if(curValues.contains(DBConstants::COL_PRODUCT_NAME)){
@@ -562,33 +582,7 @@ void Controller::saveComment(QHash<QString, QVariant> values){
     emit updatedComment(values);
 }
 
-
-/*void Controller::createWorkplacePopup()
-{
-
-    QString filter = QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(QString::number(0));
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-
-    values.insert(DBConstants::COL_WORKPLACE_NAME, workplacePopUp->getName());
-    values.insert(DBConstants::COL_WORKPLACE_DESCRIPTION, workplacePopUp->getDescription());
-    values.insert(DBConstants::COL_WORKPLACE_CODE, workplacePopUp->getCode());
-    values.insert(DBConstants::COL_WORKPLACE_PERCENTAGE_WOMAN, workplacePopUp->getWomanPercentage());
-    values.insert(DBConstants::COL_WORKPLACE_BASIC_TIME, qTimeToSeconds(workplacePopUp->getBasicTime()));
-    values.insert(DBConstants::COL_WORKPLACE_REST_TIME, qTimeToSeconds(workplacePopUp->getRestTime()));
-    values.insert(DBConstants::COL_WORKPLACE_ALLOWANCE_TIME, qTimeToSeconds(workplacePopUp->getAllowanceTime()));
-    values.insert(DBConstants::COL_WORKPLACE_SETUP_TIME, qTimeToSeconds(workplacePopUp->getSetupTime()));
-    values.insert(DBConstants::COL_WORKPLACE_CYCLE_TIME, qTimeToSeconds(workplacePopUp->getCycleTime()));
-
-    dbHandler->save(DBConstants::TBL_WORKPLACE, DBConstants::HASH_WORKPLACE_TYPES, values, filter, DBConstants::COL_WORKPLACE_ID);
-
-    // TODO update rotationgroupview workplaces
-    viewCon->closePopUp();
-    viewCon->showMessage(tr("Created new workplace"), NotificationMessage::ACCEPT);
-
-}*/
-
 //Line
-
 void Controller::initializeLines(){
     emit clearLines();
     QList<QHash<QString, QVariant>> rows = dbHandler->select(DBConstants::TBL_LINE, QString(""));
@@ -637,54 +631,31 @@ void Controller::selectLine(int id){
     selectedLine(lineValues);
 }
 
-
 //Product
-void Controller::updateProductView()
-{
-    productView->clear();
-    QString tbl = DBConstants::TBL_PRODUCT;
-    QList<QHash<QString, QVariant>> values = dbHandler->select(tbl, QString(""));
-    for(int i = 0; i < values.count(); ++i){
-            QHash<QString, QVariant> row = values.at(i);
-            productView->addProduct(row.value(DBConstants::COL_PRODUCT_ID).toInt(),
-                                    row.value(DBConstants::COL_PRODUCT_NAME).toString(),
-                                    row.value(DBConstants::COL_PRODUCT_NUMBER).toString(),
-                                    row.value(DBConstants::COL_PRODUCT_TOTAL_PERCENTAGE).toInt());
-        }
-}
-
-void Controller::createProduct()
-{
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_PRODUCT_NAME, productView->getName());
-    values.insert(DBConstants::COL_PRODUCT_NUMBER, productView->getNumber());
-    values.insert(DBConstants::COL_PRODUCT_TOTAL_PERCENTAGE, productView->getTotalPercentage());
-    dbHandler->insert(DBConstants::TBL_PRODUCT, DBConstants::HASH_PRODUCT_TYPES, values, DBConstants::COL_PRODUCT_ID);
-    viewCon->showMessage(tr("Created new product"), NotificationMessage::ACCEPT);
-    updateProductView();
-}
-
-void Controller::createProductPopUp()
-{
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_PRODUCT_NAME, productPopUp->getName());
-    values.insert(DBConstants::COL_PRODUCT_NUMBER, productPopUp->getNumber());
-    values.insert(DBConstants::COL_PRODUCT_TOTAL_PERCENTAGE, productPopUp->getTotalPercentage());
-    dbHandler->insert(DBConstants::TBL_PRODUCT, DBConstants::HASH_PRODUCT_TYPES, values, DBConstants::COL_PRODUCT_ID);
-    viewCon->closePopUp();
-    viewCon->showMessage(tr("Created new product"), NotificationMessage::ACCEPT);
-    updateActivityView();
+void Controller::initializeProducts(){
+    emit clearProducts();
+    QList<QHash<QString, QVariant>> rows = dbHandler->select(DBConstants::TBL_PRODUCT, QString(""));
+    for(int i = 0; i < rows.count(); ++i)
+        emit createdProduct(rows.at(i));
 }
 
 void Controller::createProduct(QHash<QString, QVariant> values){
-    dbHandler->insert(DBConstants::TBL_PRODUCT, DBConstants::HASH_PRODUCT_TYPES, values, DBConstants::COL_PRODUCT_ID);
+    int prod_ID = dbHandler->insert(DBConstants::TBL_PRODUCT, DBConstants::HASH_PRODUCT_TYPES, values, DBConstants::COL_PRODUCT_ID);
+    values.insert(DBConstants::COL_PRODUCT_ID, prod_ID);
+    emit createdProduct(values);
 }
 
-void Controller::deleteProduct(int id)
-{
-    dbHandler->deleteAll(DBConstants::TBL_PRODUCT, QString("%1 = %2").arg(DBConstants::COL_PRODUCT_ID).arg(QString::number(id)));
-    viewCon->showMessage(tr("Deleted product"), NotificationMessage::ACCEPT);
-    updateProductView();
+void Controller::saveProduct(QHash<QString, QVariant> values){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_PRODUCT_ID).arg(values.value(DBConstants::COL_PRODUCT_ID).toInt());
+    dbHandler->update(DBConstants::TBL_PRODUCT, DBConstants::HASH_PRODUCT_TYPES, values, filter);
+    emit updatedProduct(values);
+}
+
+
+void Controller::deleteProduct(int id){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_PRODUCT_ID).arg(id);
+    dbHandler->deleteAll(DBConstants::TBL_PRODUCT, filter);
+    emit removedProduct(id);
 }
 
 //Equipment View
@@ -744,16 +715,7 @@ void Controller::createEquipment(QHash<QString, QVariant> values){
 //ActivityView
 void Controller::updateActivityView()
 {
-    activityView->clearProducts();
-    QString tbl = DBConstants::TBL_PRODUCT;
-    QList<QHash<QString, QVariant>> values = dbHandler->select(tbl, QString(""));
-    for(int i = 0; i < values.count(); ++i)
-        {
-            QHash<QString, QVariant> row = values.at(i);
-            activityView->addProduct(row.value(DBConstants::COL_PRODUCT_ID).toInt(),
-                                     row.value(DBConstants::COL_PRODUCT_NAME).toString(),
-                                     row.value(DBConstants::COL_PRODUCT_NUMBER).toString());
-        }
+
     updateActivityViewActivities();
 }
 
@@ -809,15 +771,6 @@ void Controller::updateActivityPopUp(int id)
     if(!row.isEmpty())
         {
             activity_ID = id;
-
-            tbl = DBConstants::TBL_PRODUCT;
-            QList<QHash<QString, QVariant>> products = dbHandler->select(tbl, QString(""));
-            for(int i = 0; i < products.count(); ++i){
-                    QHash<QString, QVariant> product = products.at(i);
-                    activityPopUp->addProduct(product.value(DBConstants::COL_PRODUCT_ID).toInt(),
-                                              product.value(DBConstants::COL_PRODUCT_NAME).toString(),
-                                              product.value(DBConstants::COL_PRODUCT_NUMBER).toString());
-                }
 
             activityPopUp->setActivity(row.value(DBConstants::COL_ACTIVITY_DESCRIPTION).toString(),
                                        row.value(DBConstants::COL_ACTIVITY_REPETITIONS).toInt(),
