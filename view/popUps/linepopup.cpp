@@ -22,7 +22,7 @@ LinePopUp::LinePopUp(QWidget *parent) :
 
 // PUBLIC SLOTS
 void LinePopUp::setLine(QHash<QString, QVariant> values){
-    id = values.value(DBConstants::COL_LINE_ID).toString();
+    id = values.value(DBConstants::COL_LINE_ID).toInt();
     txtBxName->setText(values.value(DBConstants::COL_LINE_NAME).toString());
     numBxWorkplaceCount->setValue(values.value(DBConstants::COL_LINE_NUMBER_OF_WORKPLACES).toInt());
     txtBxDescription->setText(values.value(DBConstants::COL_LINE_DESCRIPTION).toString());
@@ -36,4 +36,5 @@ void LinePopUp::onConfirm(){
     values.insert(DBConstants::COL_LINE_NUMBER_OF_WORKPLACES, numBxWorkplaceCount->getValue());
     values.insert(DBConstants::COL_LINE_DESCRIPTION, txtBxDescription->toPlainText());
     emit saveLine(values);
+    emit closePopUp();
 }

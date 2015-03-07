@@ -54,7 +54,8 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     importDataPopUp(new ImportDataPopUp()),
     resetPopUp(new ResetPopUp()),
     employeePopUp(new EmployeePopUp()),
-    factorySettingsPopUp(new FactorySettingsPopUp())
+    factorySettingsPopUp(new FactorySettingsPopUp()),
+    linePopUp(new LinePopUp())
 {
     analyst_ID = 0;
     recording_ID = 1;
@@ -136,6 +137,12 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     connect(this, SIGNAL(removedLine(int)), lineView, SLOT(removeLine(int)));
     connect(lineView, SIGNAL(selectLine(int)), this, SLOT(selectLine(int)));
     connect(this, SIGNAL(selectedLine(QHash<QString,QVariant>)), lineView, SLOT(selectedLine(QHash<QString,QVariant>)));
+    connect(lineView, SIGNAL(editLine(int)), this, SLOT(editLine(int)));
+    connect(this, SIGNAL(updatedLine(QHash<QString,QVariant>)), lineView, SLOT(updateLine(QHash<QString,QVariant>)));
+
+    //LinePopUp signal/slots
+    connect(this, SIGNAL(editLine(QHash<QString,QVariant>)), linePopUp, SLOT(setLine(QHash<QString, QVariant>)));
+    connect(linePopUp, SIGNAL(saveLine(QHash<QString, QVariant>)), this, SLOT(saveLine(QHash<QString,QVariant>)));
 
     connect(productView, SIGNAL(saveProduct()), this, SLOT(createProduct()));
     connect(productView, SIGNAL(deleteProduct(int)), this, SLOT(deleteProduct(int)));
@@ -230,6 +237,7 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     viewCon->registerPopUp(resetPopUp, PopUpType::RESET_POPUP);
     viewCon->registerPopUp(employeePopUp,PopUpType::EMPlOYEE_POPUP);
     viewCon->registerPopUp(factorySettingsPopUp, PopUpType::FACTORYSETTINGS_POPUP);
+    viewCon->registerPopUp(linePopUp, PopUpType::LINE_POPUP);
 
     //Set the start Views
     documentationView->showStartView(ViewType::BODY_POSTURE_VIEW);
@@ -595,6 +603,17 @@ void Controller::createLine(QHash<QString, QVariant> values){
     values.insert(DBConstants::COL_LINE_ID, line_ID);
     saveRecordingObservesLine(line_ID);
     emit createdLine(values);
+}
+
+void Controller::editLine(int id){
+    QHash<QString, QVariant> values = dbHandler->selectFirst(DBConstants::TBL_LINE, QString("%1 = %2").arg(DBConstants::COL_LINE_ID).arg(id));
+    emit editLine(values);
+}
+
+void Controller::saveLine(QHash<QString, QVariant> values){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_LINE_ID).arg(values.value(DBConstants::COL_LINE_ID).toInt());
+    dbHandler->update(DBConstants::TBL_LINE, DBConstants::HASH_LINE_TYPES, values, filter);
+    emit updatedLine(values);
 }
 
 void Controller::deleteLine(int id){

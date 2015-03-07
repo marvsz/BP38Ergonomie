@@ -43,6 +43,7 @@
 #include "../view/popUps/resetpopup.h"
 #include "../view/popUps/employeepopup.h"
 #include "../view/popUps/factorysettingspopup.h"
+#include "../view/popUps/linepopup.h"
 #include "../view/documentationView/appliedforceview.h"
 #include "../view/documentationView/loadhandlingview.h"
 #include "../view/documentationView/executionconditionview.h"
@@ -78,6 +79,7 @@ signals:
     //Line
     void createdLine(QHash<QString, QVariant> values);
     void updatedLine(QHash<QString, QVariant> values);
+    void editLine(QHash<QString, QVariant> values);
     void removedLine(int id);
     void selectedLine(QHash<QString, QVariant> values);
     void clearLines();
@@ -127,6 +129,8 @@ private slots:
     //Line
     void initializeLines();
     void createLine(QHash<QString, QVariant> values);
+    void editLine(int id);
+    void saveLine(QHash<QString, QVariant> values);
     void deleteLine(int id);
     void selectLine(int id);
 
@@ -264,6 +268,7 @@ private:
     ResetPopUp *resetPopUp;
     EmployeePopUp *employeePopUp;
     FactorySettingsPopUp *factorySettingsPopUp;
+    LinePopUp *linePopUp;
 
     int analyst_ID;
     int recording_ID;

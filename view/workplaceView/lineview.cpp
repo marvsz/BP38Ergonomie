@@ -76,7 +76,7 @@ LineView::~LineView(){
 }
 
 void LineView::addLine(QHash<QString, QVariant> values){
-    DetailedListItem *newListItem = new DetailedListItem(this, "lineIcon", values.value(DBConstants::COL_LINE_DESCRIPTION).toString(), QList<QStringList>(), true, true, false, false, true);
+    DetailedListItem *newListItem = new DetailedListItem(this, "lineIcon", values.value(DBConstants::COL_LINE_NAME).toString(), QList<QStringList>(), true, true, false, false, true);
     newListItem->setID(values.value(DBConstants::COL_LINE_ID).toInt());
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedLineChanged(int)));
     connect(this, SIGNAL(lineSelected(int)), newListItem, SLOT(selectExclusiveWithID(int)));
