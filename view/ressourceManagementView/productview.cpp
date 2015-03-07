@@ -58,23 +58,30 @@ ProductView::ProductView(QWidget *parent) : SimpleNavigateableWidget(tr("Product
 
 ProductView::~ProductView()
 {
-
-}
-// PUBLIC
-QString ProductView::getName() const{
-    return txtBxName->text();
 }
 
-QString ProductView::getNumber() const{
-    return txtBxNumber->text();
+void ProductView::addProduct(QHash<QString, QVariant> values){
+
 }
 
-int ProductView::getTotalPercentage() const{
-    return numBxTotalPercentage->getValue();
+void ProductView::updateProduct(QHash<QString, QVariant> values){
+
+}
+
+void ProductView::removeProduct(int id){
+
+}
+
+void ProductView::clearProducts(){
+    QLayoutItem *item;
+    while((item = productListLayout->takeAt(0)) != NULL){
+        delete item->widget();
+        delete item;
+    }
 }
 
 //PUBLIC SLOTS
-void ProductView::setProduct(const QString &name, const QString &number, int totalPercentage){
+/*void ProductView::setProduct(const QString &name, const QString &number, int totalPercentage){
     txtBxName->setText(name);
     txtBxNumber->setText(number);
     numBxTotalPercentage->setValue(totalPercentage);
@@ -96,11 +103,11 @@ void ProductView::clear(){
         delete item->widget();
         delete item;
     }
-}
+}*/
 
 // PRIVATE SLOTS
 void ProductView::btnAddClicked(){
-    emit saveProduct();
+
     txtBxName->clear();
     txtBxNumber->clear();
     numBxTotalPercentage->clear();

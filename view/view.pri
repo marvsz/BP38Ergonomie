@@ -100,7 +100,8 @@ HEADERS +=\
     $$PWD/interfaces/ilinelist.h \
     $$PWD/popUps/linepopup.h \
     $$PWD/interfaces/ibodypostureview.h \
-    $$PWD/interfaces/iline.h
+    $$PWD/interfaces/iline.h \
+    $$PWD/interfaces/iproductlist.h
 
 
 SOURCES +=\

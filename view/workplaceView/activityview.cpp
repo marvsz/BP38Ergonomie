@@ -120,6 +120,26 @@ void ActivityView::workprocessClicked(){
 }
 
 // PUBLIC SLOTS
+void ActivityView::addProduct(QHash<QString, QVariant> values){
+
+}
+
+void ActivityView::updateProduct(QHash<QString, QVariant> values){
+
+}
+
+void ActivityView::removeProduct(int id){
+
+}
+
+void ActivityView::clearProducts(){
+    QLayoutItem *item;
+    while((item = productListLayout->takeAt(0)) != NULL){
+        delete item->widget();
+        delete item;
+    }
+}
+
 void ActivityView::addProduct(int id, const QString &name, const QString &productNumber){
     DetailedListItem *newListItem = new DetailedListItem(0, "productIcon", name, productItemScheme, false, true, false, false, false);
     newListItem->setID(id);
@@ -129,14 +149,6 @@ void ActivityView::addProduct(int id, const QString &name, const QString &produc
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedProductChanged(int)));
     connect(this, SIGNAL(selectedProduct(int)), newListItem, SLOT(selectExclusiveWithID(int)));
     productListLayout->addWidget(newListItem);
-}
-
-void ActivityView::clearProducts(){
-    QLayoutItem *item;
-    while((item = productListLayout->takeAt(0)) != NULL){
-        delete item->widget();
-        delete item;
-    }
 }
 
 void ActivityView::setSelectedProduct(int id){

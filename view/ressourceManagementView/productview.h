@@ -10,26 +10,25 @@
 #include <QScrollArea>
 #include "../numberlineedit.h"
 #include "../navigation/simplenavigateablewidget.h"
+#include "../interfaces/iproductlist.h"
 
-class ProductView : public SimpleNavigateableWidget
+class ProductView : public SimpleNavigateableWidget, IProductList
 {
     Q_OBJECT
+    Q_INTERFACES(IProductList)
 public:
     explicit ProductView(QWidget *parent = 0);
     ~ProductView();
 
-    QString getName() const;
-    QString getNumber() const;
-    int getTotalPercentage() const;
-
 signals:
-    void saveProduct();
+    void createProduct(QHash<QString, QVariant> values);
     void deleteProduct(int id);
 
 public slots:
-    void setProduct(const QString &name, const QString &number, int totalPercentage);
-    void addProduct(int id, const QString &name, const QString &productNumber, int totalPercentage);
-    void clear();
+    void addProduct(QHash<QString, QVariant> values);
+    void updateProduct(QHash<QString, QVariant> values);
+    void removeProduct(int id);
+    void clearProducts();
 
 private slots:
     void btnAddClicked();

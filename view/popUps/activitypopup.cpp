@@ -58,6 +58,28 @@ int ActivityPopUp::getSelectedProduct() const{
 
 
 // PUBLIC SLOTS
+
+void ActivityPopUp::addProduct(QHash<QString, QVariant> values){
+
+}
+
+void ActivityPopUp::updateProduct(QHash<QString, QVariant> values){
+
+}
+
+void ActivityPopUp::removeProduct(int id){
+
+}
+
+void ActivityPopUp::clearProducts(){
+    QLayoutItem *item;
+    while((item = productListLayout->takeAt(0)) != NULL){
+        delete item->widget();
+        delete item;
+    }
+}
+
+
 void ActivityPopUp::setActivity(const QString &description, int repetitions, int selectedProductID){
     txtBxActivityDescription->setText(description);
     numBxActivityRepetitions->setValue(repetitions);
@@ -74,13 +96,7 @@ void ActivityPopUp::addProduct(int id, const QString &name, const QString &produ
     connect(this, SIGNAL(selectedProduct(int)), newListItem, SLOT(selectExclusiveWithID(int)));
     productListLayout->addWidget(newListItem);
 }
-void ActivityPopUp::clearProducts(){
-    QLayoutItem *item;
-    while((item = productListLayout->takeAt(0)) != NULL){
-        delete item->widget();
-        delete item;
-    }
-}
+
 void ActivityPopUp::setSelectedProduct(int id){
     selectedProductChanged(id);
 }

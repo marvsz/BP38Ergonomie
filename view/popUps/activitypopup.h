@@ -6,10 +6,12 @@
 #include <QVBoxLayout>
 #include "../textlineedit.h"
 #include "../numberlineedit.h"
+#include "../interfaces/iproductlist.h"
 
-class ActivityPopUp : public AbstractPopUpWidget
+class ActivityPopUp : public AbstractPopUpWidget, IProductList
 {
     Q_OBJECT
+    Q_INTERFACES(IProductList)
 public:
     explicit ActivityPopUp(QWidget *parent = 0);
     ~ActivityPopUp();
@@ -21,11 +23,18 @@ public:
 signals:
     void selectedProduct(int id);
 
+    void createProduct(QHash<QString, QVariant> values);
+    void deleteProduct(int id);
+
 public slots:
     void setActivity(const QString &description, int repetitions, int selectedProductID);
     void addProduct(int id, const QString &name, const QString &productNumber);
-    void clearProducts();
     void setSelectedProduct(int id);
+
+    void addProduct(QHash<QString, QVariant> values);
+    void updateProduct(QHash<QString, QVariant> values);
+    void removeProduct(int id);
+    void clearProducts();
 
 private slots:
     void selectedProductChanged(int id);

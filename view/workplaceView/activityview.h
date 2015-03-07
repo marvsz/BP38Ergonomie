@@ -10,10 +10,12 @@
 #include "../textlineedit.h"
 #include "../numberlineedit.h"
 #include "../navigation/simplenavigateablewidget.h"
+#include "../interfaces/iproductlist.h"
 
-class ActivityView : public SimpleNavigateableWidget
+class ActivityView : public SimpleNavigateableWidget, IProductList
 {
     Q_OBJECT
+    Q_INTERFACES(IProductList)
 public:
     explicit ActivityView(QWidget *parent = 0);
 
@@ -28,14 +30,21 @@ signals:
     void selectActivity(int id);
     void editActivity(int id);
 
+    void createProduct(QHash<QString, QVariant> values);
+    void deleteProduct(int id);
+
 public slots:
     void addProduct(int id, const QString &name, const QString &productNumber);
-    void clearProducts();
     void setSelectedProduct(int id);
 
     void setActivity(const QString &description, int repetitions, int selectedProductID);
     void addActivity(int id, const QString &description, int repetitions);
     void clearActivities();
+
+    void addProduct(QHash<QString, QVariant> values);
+    void updateProduct(QHash<QString, QVariant> values);
+    void removeProduct(int id);
+    void clearProducts();
 
 private slots:
     void btnAddClicked();
