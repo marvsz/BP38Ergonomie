@@ -4,8 +4,6 @@
 #include <QTextStream>
 #include "control/controller.h"
 #include "translator.h"
-#include <opencv2/core/core.hpp>
-Q_DECLARE_METATYPE(cv::Mat)
 
 
 QString stringFromResource(const QString &resName)
@@ -22,8 +20,6 @@ extern "C" int qtmn(int argc, char **argv)
 int main(int argc, char *argv[])
 #endif
 {
-    qRegisterMetaType<cv::Mat>();
-
     QApplication a(argc, argv);
 
     a.setStyleSheet(stringFromResource(":/assets/stylesheet.qss"));
