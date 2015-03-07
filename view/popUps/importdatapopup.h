@@ -1,9 +1,9 @@
 #ifndef IMPORTDATAPOPUP_H
 #define IMPORTDATAPOPUP_H
 
-#include "../navigation/abstractpopupwidget.h"
-#include "../interfaces/iftpconnections.h"
-#include "../ftpconnectionswidget.h"
+#include "../view/navigation/abstractpopupwidget.h"
+#include "../view/interfaces/iftpconnections.h"
+#include "ftpconnectionswidget.h"
 
 class ImportDataPopUp : public AbstractPopUpWidget, public IFTPConnections
 {

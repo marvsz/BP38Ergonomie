@@ -5,7 +5,7 @@
 #include "../databaseHandler/dbhandler.h"
 #include "../view/navigation/viewcontroller.h"
 #include "../xmlHandler/xmlparser.h"
-#include "../standardpaths.h"
+#include "standardpaths.h"
 #include "../view/generalViews/mainmenu.h"
 #include "../view/generalViews/metadataview.h"
 #include "../view/workplaceView/activityview.h"

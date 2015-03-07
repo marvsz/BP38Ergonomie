@@ -4,7 +4,7 @@
 #include "../navigation/simplenavigateablewidget.h"
 #include "../interfaces/iemployeelist.h"
 #include "../detailedlistitem.h"
-#include "../../databaseHandler/dbconstants.h"
+#include "../databaseHandler/dbconstants.h"
 #include <QPushButton>
 #include <QScrollArea>
 
