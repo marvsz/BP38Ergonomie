@@ -4,6 +4,7 @@
 #include <QDebug>
 #include "../detailedlistitem.h"
 #include "../flickcharm.h"
+#include "../../databaseHandler/dbconstants.h"
 
 ProductView::ProductView(QWidget *parent) : SimpleNavigateableWidget(tr("Products"),parent),
     scProducts(new QScrollArea),
@@ -61,15 +62,43 @@ ProductView::~ProductView()
 }
 
 void ProductView::addProduct(QHash<QString, QVariant> values){
-
+    QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_PRODUCT_NUMBER).toString()) << (QStringList() << values.value(DBConstants::COL_PRODUCT_TOTAL_PERCENTAGE).toInt());
+    DetailedListItem *newListItem = new DetailedListItem(this, "productIcon", values.value(DBConstants::COL_PRODUCT_NAME), productItemScheme, true, false, false, false, false);
+    newListItem->setValues(dliValues);
+    newListItem->setID(values.value(DBConstants::COL_PRODUCT_ID).toInt());
+    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteProduct(int)));
+    productListLayout->addWidget(newListItem);
 }
 
 void ProductView::updateProduct(QHash<QString, QVariant> values){
-
+    QLayoutItem *item;
+    int id = values.value(DBConstants::COL_PRODUCT_ID).toInt();
+    int i = 0;
+    while((item = productListLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_PRODUCT_NUMBER).toString()) << (QStringList() << values.value(DBConstants::COL_PRODUCT_TOTAL_PERCENTAGE).toInt());
+            dli->setName(values.value(DBConstants::COL_PRODUCT_NAME));
+            dli->setValues(dliValues);
+            break;
+        }
+        i++;
+    }
 }
 
 void ProductView::removeProduct(int id){
-
+    QLayoutItem *item;
+    int i = 0;
+    while((item = productListLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            productListLayout->removeItem(item);
+            delete item->widget();
+            delete item;
+            break;
+        }
+        i++;
+    }
 }
 
 void ProductView::clearProducts(){
@@ -80,34 +109,13 @@ void ProductView::clearProducts(){
     }
 }
 
-//PUBLIC SLOTS
-/*void ProductView::setProduct(const QString &name, const QString &number, int totalPercentage){
-    txtBxName->setText(name);
-    txtBxNumber->setText(number);
-    numBxTotalPercentage->setValue(totalPercentage);
-}
-
-void ProductView::addProduct(int id, const QString &name, const QString &productNumber, int totalPercentage){
-    DetailedListItem *newListItem = new DetailedListItem(0, "productIcon", name, productItemScheme, true, false, false);
-    newListItem->setID(id);
-    QList<QStringList> values = QList<QStringList>() << (QStringList() << productNumber) << (QStringList() << QString::number(totalPercentage));
-    newListItem->setValues(values);
-    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteProduct(int)));
-    productListLayout->addWidget(newListItem);
-
-}
-
-void ProductView::clear(){
-    QLayoutItem *item;
-    while((item = productListLayout->takeAt(0)) != NULL){
-        delete item->widget();
-        delete item;
-    }
-}*/
-
 // PRIVATE SLOTS
 void ProductView::btnAddClicked(){
-
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_PRODUCT_NAME, txtBxName->text());
+    values.insert(DBConstants::COL_PRODUCT_NUMBER, txtBxNumber->text());
+    values.insert(DBConstants::COL_PRODUCT_TOTAL_PERCENTAGE, numBxTotalPercentage->getValue());
+    emit createProduct(values);
     txtBxName->clear();
     txtBxNumber->clear();
     numBxTotalPercentage->clear();

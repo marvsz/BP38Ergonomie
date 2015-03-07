@@ -34,7 +34,6 @@ signals:
     void deleteProduct(int id);
 
 public slots:
-    void addProduct(int id, const QString &name, const QString &productNumber);
     void setSelectedProduct(int id);
 
     void setActivity(const QString &description, int repetitions, int selectedProductID);

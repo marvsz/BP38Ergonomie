@@ -70,7 +70,6 @@ HEADERS +=\
     $$PWD/popUps/equipmentpopup.h \
     $$PWD/popUps/transporationpopup.h \
     $$PWD/popUps/analystpopup.h \
-    $$PWD/popUps/productpopup.h \
     $$PWD/popUps/activitypopup.h \
     $$PWD/popUps/languagepopup.h \
     $$PWD/iconbutton.h \
@@ -101,7 +100,9 @@ HEADERS +=\
     $$PWD/popUps/linepopup.h \
     $$PWD/interfaces/ibodypostureview.h \
     $$PWD/interfaces/iline.h \
-    $$PWD/interfaces/iproductlist.h
+    $$PWD/interfaces/iproductlist.h \
+    $$PWD/interfaces/iproduct.h \
+    $$PWD/popUps/createproductpopup.h
 
 
 SOURCES +=\
@@ -169,7 +170,6 @@ SOURCES +=\
     $$PWD/popUps/equipmentpopup.cpp \
     $$PWD/popUps/transporationpopup.cpp \
     $$PWD/popUps/analystpopup.cpp \
-    $$PWD/popUps/productpopup.cpp \
     $$PWD/popUps/activitypopup.cpp \
     $$PWD/popUps/languagepopup.cpp \
     $$PWD/iconbutton.cpp \
@@ -183,5 +183,6 @@ SOURCES +=\
     $$PWD/popUps/employeepopup.cpp \
     $$PWD/documentationView/bodyPostureView/quickselectioncontrol.cpp \
     $$PWD/popUps/factorysettingspopup.cpp \
-    $$PWD/popUps/linepopup.cpp
+    $$PWD/popUps/linepopup.cpp \
+    $$PWD/popUps/createproductpopup.cpp
 

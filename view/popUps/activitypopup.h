@@ -39,6 +39,10 @@ public slots:
 private slots:
     void selectedProductChanged(int id);
 
+    void onConfirm();
+    void onCancel();
+    void onClose();
+
 private:
     const QList<QStringList> productItemScheme = QList<QStringList>() << (QStringList() << tr("product number"));
 

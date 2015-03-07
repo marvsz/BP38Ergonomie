@@ -1,6 +1,6 @@
-#include "productpopup.h"
+#include "createproductpopup.h"
 
-ProductPopUp::ProductPopUp(QWidget *parent) :
+CreateProductPopUp::CreateProductPopUp(QWidget *parent) :
     AbstractPopUpWidget(ConfirmMode::ACCEPT, tr("Create product"), parent),
     txtBxName(new TextLineEdit()),
     txtBxNumber(new TextLineEdit()),
@@ -9,6 +9,8 @@ ProductPopUp::ProductPopUp(QWidget *parent) :
     txtBxName->setPlaceholderText(tr("Name"));
     txtBxNumber->setPlaceholderText(tr("Product Number"));
     numBxTotalPercentage->setPlaceholderText(tr("Total Percentage"));
+
+    connect(this, SIGNAL(cancel()), this, SLOT(onClose());
 
     QGridLayout *mainLayout = new QGridLayout;
     mainLayout->setAlignment(Qt::AlignTop);
@@ -22,29 +24,28 @@ ProductPopUp::ProductPopUp(QWidget *parent) :
     setLayout(mainLayout);
 }
 
-ProductPopUp::~ProductPopUp(){
+CreateProductPopUp::~CreateProductPopUp(){
 
 }
 
 // PUBLIC SLOTS
+void CreateProductPopUp::setProduct(QHash<QString, QVariant> values){
+}
 
-void ProductPopUp::onEnter(){
+// PRIVATE SLOTS
+void CreateProductPopUp::onConfirm(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_PRODUCT_NAME, txtBxName->text());
+    values.insert(DBConstants::COL_PRODUCT_NUMBER, txtBxNumber->text());
+    values.insert(DBConstants::COL_PRODUCT_TOTAL_PERCENTAGE, numBxTotalPercentage->getValue());
+    emit saveProduct(values);
+    onClose();
+}
+
+void CreateProductPopUp::onClose(){
     txtBxName->clear();
     txtBxNumber->clear();
     numBxTotalPercentage->clear();
+    emit closePopUp();
 }
-// GETTER
-
-QString ProductPopUp::getName() const{
-    return txtBxName->text();
-}
-
-QString ProductPopUp::getNumber() const{
-    return txtBxNumber->text();
-}
-
-int ProductPopUp::getTotalPercentage() const{
-    return numBxTotalPercentage->getValue();
-}
-
 

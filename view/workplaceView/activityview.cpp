@@ -2,6 +2,7 @@
 #include "../separator.h"
 #include "../flickcharm.h"
 #include "../detailedlistitem.h"
+#include "../../databaseHandler/dbconstants.h"
 
 ActivityView::ActivityView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Activities"), parent),
@@ -99,37 +100,34 @@ int ActivityView::getSelectedProduct() const {
     return this->selectedProductID;
 }
 
-// PRIVATE SLOTS
-void ActivityView::btnAddClicked(){
-    emit createActivity();
-    txtBxActivityDescription->clear();
-    numBxActivityRepetitions->clear();
-}
-
-void ActivityView::selectedProductChanged(int id){
-    selectedProductID = id;
-    emit selectedProduct(id);
-}
-
-void ActivityView::btnProductsClicked(){
-    emit showPopUp(PopUpType::PRODUCT_POPUP);
-}
-
-void ActivityView::workprocessClicked(){
-    emit showView(ViewType::DOCUMENTATION_VIEW);
-}
-
 // PUBLIC SLOTS
 void ActivityView::addProduct(QHash<QString, QVariant> values){
-
+    QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_PRODUCT_NUMBER).toString());
+    DetailedListItem *newListItem = new DetailedListItem(this, "productIcon", values.value(DBConstants::COL_PRODUCT_NAME), productItemScheme, false, true, false, false, false);
+    newListItem->setValues(dliValues);
+    newListItem->setID(values.value(DBConstants::COL_PRODUCT_ID).toInt());
+    connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedProductChanged(int)));
+    connect(this, SIGNAL(selectedProduct(int)), newListItem, SLOT(selectExclusiveWithID(int)));
+    productListLayout->addWidget(newListItem);
 }
 
 void ActivityView::updateProduct(QHash<QString, QVariant> values){
-
+    QLayoutItem *item;
+    int id = values.value(DBConstants::COL_PRODUCT_ID).toInt();
+    int i = 0;
+    while((item = productListLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_PRODUCT_NUMBER).toString());
+            dli->setName(values.value(DBConstants::COL_PRODUCT_NAME));
+            dli->setValues(dliValues);
+            break;
+        }
+        i++;
+    }
 }
 
 void ActivityView::removeProduct(int id){
-
 }
 
 void ActivityView::clearProducts(){
@@ -138,17 +136,6 @@ void ActivityView::clearProducts(){
         delete item->widget();
         delete item;
     }
-}
-
-void ActivityView::addProduct(int id, const QString &name, const QString &productNumber){
-    DetailedListItem *newListItem = new DetailedListItem(0, "productIcon", name, productItemScheme, false, true, false, false, false);
-    newListItem->setID(id);
-    QList<QStringList> values = QList<QStringList>() << (QStringList() << productNumber);
-    newListItem->setValues(values);
-    newListItem->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-    connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedProductChanged(int)));
-    connect(this, SIGNAL(selectedProduct(int)), newListItem, SLOT(selectExclusiveWithID(int)));
-    productListLayout->addWidget(newListItem);
 }
 
 void ActivityView::setSelectedProduct(int id){
@@ -185,3 +172,24 @@ void ActivityView::editActivityClicked(int id){
     emit editActivity(id);
     emit showPopUp(PopUpType::ACTIVITY_POPUP);
 }
+
+// PRIVATE SLOTS
+void ActivityView::btnAddClicked(){
+    emit createActivity();
+    txtBxActivityDescription->clear();
+    numBxActivityRepetitions->clear();
+}
+
+void ActivityView::selectedProductChanged(int id){
+    selectedProductID = id;
+    emit selectedProduct(id);
+}
+
+void ActivityView::btnProductsClicked(){
+    emit showPopUp(PopUpType::PRODUCT_POPUP);
+}
+
+void ActivityView::workprocessClicked(){
+    emit showView(ViewType::DOCUMENTATION_VIEW);
+}
+

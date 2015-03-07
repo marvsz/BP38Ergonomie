@@ -16,7 +16,7 @@ ActivityPopUp::ActivityPopUp(QWidget *parent) :
 {
     QGridLayout *mainLayout = new QGridLayout;
 
-    productListLayout->setAlignment(Qt::AlignCenter);
+    productListLayout->setAlignment(Qt::AlignTop);
     scProducts->setWidget(productListContent);
     scProducts->setWidgetResizable(true);
     scProducts->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -58,17 +58,46 @@ int ActivityPopUp::getSelectedProduct() const{
 
 
 // PUBLIC SLOTS
-
 void ActivityPopUp::addProduct(QHash<QString, QVariant> values){
-
+    QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_PRODUCT_NUMBER).toString());
+    DetailedListItem *newListItem = new DetailedListItem(this, "productIcon", values.value(DBConstants::COL_PRODUCT_NAME), productItemScheme, false, true, false, false, false);
+    newListItem->setValues(dliValues);
+    newListItem->setID(values.value(DBConstants::COL_PRODUCT_ID).toInt());
+    connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedProductChanged(int)));
+    connect(this, SIGNAL(selectedProduct(int)), newListItem, SLOT(selectExclusiveWithID(int)));
+    productListLayout->addWidget(newListItem);
 }
 
 void ActivityPopUp::updateProduct(QHash<QString, QVariant> values){
-
+    QLayoutItem *item;
+    int id = values.value(DBConstants::COL_PRODUCT_ID).toInt();
+    int i = 0;
+    while((item = productListLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_PRODUCT_NUMBER).toString());
+            dli->setName(values.value(DBConstants::COL_PRODUCT_NAME));
+            dli->setValues(dliValues);
+            break;
+        }
+        i++;
+    }
 }
 
 void ActivityPopUp::removeProduct(int id){
-
+    QLayoutItem *item;
+    int id = values.value(DBConstants::COL_PRODUCT_ID).toInt();
+    int i = 0;
+    while((item = productListLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_PRODUCT_NUMBER).toString());
+            dli->setName(values.value(DBConstants::COL_PRODUCT_NAME));
+            dli->setValues(dliValues);
+            break;
+        }
+        i++;
+    }
 }
 
 void ActivityPopUp::clearProducts(){
@@ -86,23 +115,25 @@ void ActivityPopUp::setActivity(const QString &description, int repetitions, int
     this->selectedProductID = selectedProductID;
 }
 
-void ActivityPopUp::addProduct(int id, const QString &name, const QString &productNumber){
-    DetailedListItem *newListItem = new DetailedListItem(0, "productIcon", name, productItemScheme, false, true, false, false, false);
-    newListItem->setID(id);
-    QList<QStringList> values = QList<QStringList>() << (QStringList() << productNumber);
-    newListItem->setValues(values);
-    newListItem->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-    connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedProductChanged(int)));
-    connect(this, SIGNAL(selectedProduct(int)), newListItem, SLOT(selectExclusiveWithID(int)));
-    productListLayout->addWidget(newListItem);
-}
-
 void ActivityPopUp::setSelectedProduct(int id){
     selectedProductChanged(id);
 }
 
-// PRIVATE SLOTs
+// PRIVATE SLOTS
 void ActivityPopUp::selectedProductChanged(int id){
     selectedProductID = id;
     emit selectedProduct(id);
+}
+
+void ActivityPopUp::onConfirm(){
+
+}
+
+void ActivityPopUp::onCancel(){
+
+}
+
+void ActivityPopUp::onClose(){
+    txtBxActivityDescription->clear();
+    numBxActivityRepetitions->clear();
 }
