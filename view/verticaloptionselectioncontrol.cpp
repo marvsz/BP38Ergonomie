@@ -19,6 +19,9 @@ void VerticalOptionSelectionControl::setSelectedValue(int id){
         currentSelectedBtn->setSelected(true);
         emit selectionChanged(id);
     }
+    else if(currentSelectedBtn->getID() == id){
+        currentSelectedBtn->setSelected(true);
+    }
 }
 
 void VerticalOptionSelectionControl::setSelectedValue(const QString &text){
@@ -71,7 +74,9 @@ void VerticalOptionSelectionControl::setValues(const QStringList &texts){
 
 void VerticalOptionSelectionControl::setValues(const QStringList &texts, const QString &label){
     clear();
-    mainLayout->addWidget(new QLabel(label));
+    QLabel *lblName = new QLabel(label);
+    lblName->setObjectName("lblHeader");
+    mainLayout->addWidget(lblName, 0, Qt::AlignHCenter);
     for(int i=0; i < texts.length(); ++i){
         SelectableValueButton *btn = new SelectableValueButton(i, texts.at(i), this);
         btn->setMinimumSize(45, 45);

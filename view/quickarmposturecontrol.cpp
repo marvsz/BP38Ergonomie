@@ -127,7 +127,9 @@ void QuickArmPostureControl::setValues(const QStringList &texts){
 
 void QuickArmPostureControl::setValues(const QStringList &texts, const QStringList &differ, const QString &label){
     clear();
-    mainLayout->addWidget(new QLabel(label));
+    QLabel *lblName = new QLabel(label);
+    lblName->setObjectName("lblHeader");
+    mainLayout->addWidget(lblName, 0, Qt::AlignHCenter);
 
     QHBoxLayout *generalButtonLayout = new QHBoxLayout();
     QVBoxLayout *variantButtonLayout = new QVBoxLayout();
@@ -159,7 +161,7 @@ void QuickArmPostureControl::setValues(const QStringList &texts, const QStringLi
         optionButtonLayout->addWidget(btn, 0, Qt::AlignVCenter);
         connect(btn, SIGNAL(clickedWithID(int)), this, SLOT(setSelectedValue(int)));
     }
-
+    mainLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Fixed, QSizePolicy::Expanding));
     generalButtonLayout->addLayout(optionButtonLayout);
     mainLayout->addLayout(generalButtonLayout);
     mainLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Fixed, QSizePolicy::Expanding));

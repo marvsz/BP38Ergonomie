@@ -67,7 +67,7 @@ void VariantControl::setSelectedSpecification(AVType type){
 }
 
 void VariantControl::setExclusiveDisplayByName(const QString &name){
-    if((name.compare(btnName->text()) == 0) && !shown){
+    if((name.compare(this->name) == 0) && !shown){
         showContent();
         shown = true;
     }
@@ -88,7 +88,12 @@ void VariantControl::showContent(){
 }
 
 void VariantControl::setName(const QString &name){
-    btnName->setText(name);
+    this->name = name;
+}
+
+void VariantControl::setButtonIcon(const QString &objectName, const QSize &size){
+    btnName->setObjectName(objectName);
+    btnName->setFixedSize(size);
 }
 
 void VariantControl::setSelectedVariant(int variantID){
@@ -125,12 +130,12 @@ void VariantControl::vcValueChanged(const QVariant &value){
 }
 
 void VariantControl::btnNameClicked() {
-    emit requestShowContent(btnName->text());
+    emit requestShowContent(this->name);
 }
 
 //GETTER/SETTER
 QString VariantControl::getName() const{
-    return btnName->text();
+    return this->name;
 }
 
 int VariantControl::getValue(int variantID, int subVariantID) const{

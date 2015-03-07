@@ -30,6 +30,7 @@ public slots:
     void hideContent();
     void showContent();
     void setName(const QString &name);
+    void setButtonIcon(const QString &objectName, const QSize &size);
     void setExclusiveDisplayByName(const QString &name);
     void voscQuickTrunkPostureChanged(int id);
     void voscQuickArmPostureChanged(int id, int sel);
@@ -41,6 +42,7 @@ private slots:
     void btnNameClicked();
 
 private:
+    QString name;
     QVBoxLayout *mainLayout;
     QHBoxLayout *verticalLayout;
     QWidget *mainContent;

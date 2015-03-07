@@ -26,7 +26,7 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     voscQuickTrunkPosture->setValues(QUICK_TRUNK_POSTURE_TEXTS, tr("Quick Trunk Posture") );
     connect(voscQuickTrunkPosture, SIGNAL(selectionChanged(int)), this, SLOT(voscQuickTrunkPostureChanged(int)));
 
-    //hans.load(":/icons/QuickBodyPosture/Placeholder.png");
+
 
     hansHolder->setPixmap(hans_standing_bothArms_atElbowHeight_noBending);
     hansHolder->setFixedSize(QSize(275,313));
@@ -58,7 +58,7 @@ void QuickSelectionControl::showContent(){
 }
 
 void QuickSelectionControl::setExclusiveDisplayByName(const QString &name){
-    if((name.compare(btnName->text()) == 0) && !shown){
+    if((name.compare(this->name) == 0) && !shown){
         showContent();
         shown = true;
     }
@@ -69,11 +69,16 @@ void QuickSelectionControl::setExclusiveDisplayByName(const QString &name){
 }
 
 void QuickSelectionControl::setName(const QString &name){
-    btnName->setText(name);
+    this->name = name;
+}
+
+void QuickSelectionControl::setButtonIcon(const QString &objectName, const QSize &size){
+    btnName->setObjectName(objectName);
+    btnName->setFixedSize(size);
 }
 
 void QuickSelectionControl::btnNameClicked() {  
-    emit requestShowContent(btnName->text());
+    emit requestShowContent(this->name);
 }
 
 void QuickSelectionControl::voscQuickTrunkPostureChanged(int id){
@@ -116,5 +121,5 @@ void QuickSelectionControl::qlpcQuickLegPostureSpecificationChagend(int sel){
 //GETTER/SETTER
 
 QString QuickSelectionControl::getName() const{
-    return btnName->text();
+    return this->name;
 }
