@@ -11,7 +11,7 @@
 #include "../valuecontrol.h"
 #include "../navigation/simplenavigateablewidget.h"
 #include "../interfaces/iemployee.h"
-#include "../../databaseHandler/dbconstants.h"
+#include "../databaseHandler/dbconstants.h"
 
 class EmployeeView : public SimpleNavigateableWidget, IEmployee
 {
