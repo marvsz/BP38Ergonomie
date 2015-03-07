@@ -71,7 +71,7 @@ void RotationGroupListView::removeRotationGroup(int id){
     }
 }
 
-void RotationGroupListView::clear(){
+void RotationGroupListView::clearRotationGroups(){
     QLayoutItem *item;
     while((item = listContentLayout->takeAt(0)) != NULL){
         delete item->widget();
@@ -89,7 +89,7 @@ QList<QAbstractButton*> * RotationGroupListView::getAdditionalNavigation() const
 // PRIVATE SLOTS
 void RotationGroupListView::btnPlusClicked(){
     emit createRotationGroup(QHash<QString, QVariant>());
-    // emit showView(ViewType::ROTATION_GROUP_VIEW);
+    emit showView(ViewType::ROTATION_GROUP_VIEW);
 }
 
 void RotationGroupListView::dliRotationGroupClicked(int id){

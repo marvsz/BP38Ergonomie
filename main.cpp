@@ -5,7 +5,6 @@
 #include "control/controller.h"
 #include "translator.h"
 
-
 QString stringFromResource(const QString &resName)
 {
     QFile file(resName);
@@ -20,19 +19,38 @@ extern "C" int qtmn(int argc, char **argv)
 int main(int argc, char *argv[])
 #endif
 {
-    QApplication a(argc, argv);
+    QStringList settings;
+    QFile file(StandardPaths::configFile());
+    if(file.open(QIODevice::ReadOnly)){
+        QTextStream in(&file);
+        QString line = in.readLine();
+        settings = line.split(',');
+    }
 
-    a.setStyleSheet(stringFromResource(":/assets/stylesheet.qss"));
-    a.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
-
+    QApplication a(argc, argv); 
     Translator t(&a);
     t.loadTranslations(":/translations");
-    t.setLanguage("trans_DE");
+
+    if(!settings.empty()){
+        if(settings.at(1) == "green")
+            a.setStyleSheet(stringFromResource(":/assets/stylesheetGreen.qss"));
+        else
+            a.setStyleSheet(stringFromResource(":/assets/stylesheet.qss"));
+        if(settings.at(0) == "german")
+            t.setLanguage("trans_DE");
+        else
+            t.setLanguage("trans_EN");
+    }
+    else {
+        file.open(QIODevice::WriteOnly);
+        QTextStream out(&file);
+        out<<"german"<<','<<"blue";
+        a.setStyleSheet(stringFromResource(":/assets/stylesheet.qss"));
+        t.setLanguage("trans_DE");
+    }
+    a.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 
     Controller c(0, &a, &t);
-    /*QTranslator translator;
-    translator.load(":/translations/ergo_trans_de");
-    a.installTranslator(&translator);*/
 
     return a.exec();
 }

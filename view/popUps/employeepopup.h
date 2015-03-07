@@ -22,16 +22,17 @@ signals:
     void selectedEmployee(int id);
 
 public slots:
-    void onEnter();
     void addEmployee(QHash<QString, QVariant> values);
     void updateEmployee(QHash<QString, QVariant> values);
     void removeEmployee(int id);
-    void clear();
+    void clearEmployees();
+    void onLeaving();
 
     void setSelectedEmployee(int id);
 
 private slots:
     void selectedEmployeeChanged(int id);
+    void deselectedEmployee(int id);
 
 private:
     const QList<QStringList> employeeCaptions = QList<QStringList>() <<(QStringList() << tr("Staff number"));

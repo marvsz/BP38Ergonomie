@@ -51,6 +51,7 @@ void WorkplaceListView::updateWorkplace(QHash<QString, QVariant> values){
         if(dli->getID() == id){
             QList<QStringList> wpValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_WORKPLACE_DESCRIPTION).toString() << values.value(DBConstants::COL_WORKPLACE_CODE).toString());
             dli->setValues(wpValues);
+            dli->setName(values.value(DBConstants::COL_WORKPLACE_NAME).toString());
             break;
         }
         i++;

@@ -1,5 +1,8 @@
 #include "themepopup.h"
 #include <QVBoxLayout>
+#include <QFile>
+#include <QTextStream>
+#include "../standardpaths.h"
 
 
 ThemePopUp::ThemePopUp(QWidget *parent) :
@@ -27,6 +30,18 @@ ThemePopUp::ThemePopUp(QWidget *parent) :
 ThemePopUp::~ThemePopUp()
 {
 
+}
+
+void ThemePopUp::onEnter(){
+    QFile file(StandardPaths::configFile());
+    file.open(QIODevice::ReadOnly);
+    QTextStream in(&file);
+    QString line = in.readLine();
+    QStringList settings = line.split(',');
+    if(settings.at(1) == "green")
+        green->select();
+    else
+        blue->select();
 }
 
 void ThemePopUp::selectedThemeChanged(int id){

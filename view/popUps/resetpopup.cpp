@@ -10,14 +10,16 @@ ResetPopUp::ResetPopUp(QWidget *parent):
     products(new DetailedListItem(this, "productIcon", tr("Products"), QList<QStringList>(), false, true, false, false, false)),
     transportation(new DetailedListItem(this, "transportationIcon", tr("Transportation"), QList<QStringList>(), false, true, false, false, false)),
     employee(new DetailedListItem(this, "employeeIcon", tr("Employee"), QList<QStringList>(), false, true, false, false, false)),
-    shiftData(new DetailedListItem(this, "calendarIcon", tr("Shift Data"),QList<QStringList>(), false, true, false, false, false)),
+    shiftData(new DetailedListItem(this, "calendarIcon", tr("Shift Data"), QList<QStringList>(), false, true, false, false, false)),
+    ftpConnection(new DetailedListItem(this, "sendIcon", tr("Ftp Connection"), QList<QStringList>(), false, true, false, false, false)),
     bHeadData(false),
     bWorklpaces(false),
     bEquipment(false),
     bProducts(false),
     bTransportation(false),
     bEmployee(false),
-    bShiftData(false)
+    bShiftData(false),
+    bFtpConnection(false)
 {
 
     connect(headData, SIGNAL(clicked()), this, SLOT(headDataClicked()));
@@ -27,6 +29,7 @@ ResetPopUp::ResetPopUp(QWidget *parent):
     connect(transportation, SIGNAL(clicked()), this, SLOT(transportationClicked()));
     connect(employee, SIGNAL(clicked()), this, SLOT(employeeClicked()));
     connect(shiftData, SIGNAL(clicked()), this, SLOT(shiftDataClicked()));
+    connect(ftpConnection, SIGNAL(clicked()), this, SLOT(ftpConnectionClicked()));
 
     headData->setFixedSize(250, 60);
     workplaces->setFixedSize(250, 60);
@@ -35,6 +38,7 @@ ResetPopUp::ResetPopUp(QWidget *parent):
     transportation->setFixedSize(250, 60);
     employee->setFixedSize(250, 60);
     shiftData->setFixedSize(250, 60);
+    ftpConnection->setFixedSize(250, 60);
 
     QGridLayout *mainLayout = new QGridLayout;
     mainLayout->addWidget(headData, 0, 0, 1, 1, 0);
@@ -44,6 +48,7 @@ ResetPopUp::ResetPopUp(QWidget *parent):
     mainLayout->addWidget(transportation, 2, 0, 1, 1, 0);
     mainLayout->addWidget(employee, 2, 1, 1, 1, 0);
     mainLayout->addWidget(shiftData, 3, 0, 1, 1, 0);
+    mainLayout->addWidget(ftpConnection, 3, 1, 1, 1, 0);
 
     setLayout(mainLayout);
 }
@@ -60,6 +65,7 @@ void ResetPopUp::onEnter(){
     transportation->deselect();
     employee->deselect();
     shiftData->deselect();
+    ftpConnection->deselect();
     bHeadData = false;
     bWorklpaces = false;
     bEquipment = false;
@@ -67,6 +73,7 @@ void ResetPopUp::onEnter(){
     bTransportation = false;
     bEmployee = false;
     bShiftData = false;
+    bFtpConnection = false;
 }
 
 //PUBLIC METHODS
@@ -98,6 +105,10 @@ bool ResetPopUp::shiftDataSelected() const{
     return bShiftData;
 }
 
+bool ResetPopUp::ftpConnectionSelected() const{
+    return bFtpConnection;
+}
+
 //PRIVATE SLOTS
 void ResetPopUp::headDataClicked(){
     bHeadData = !bHeadData;
@@ -125,4 +136,8 @@ void ResetPopUp::employeeClicked(){
 
 void ResetPopUp::shiftDataClicked(){
     bShiftData = !bShiftData;
+}
+
+void ResetPopUp::ftpConnectionClicked(){
+    bFtpConnection = !bFtpConnection;
 }

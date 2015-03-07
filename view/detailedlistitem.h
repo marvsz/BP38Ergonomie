@@ -28,6 +28,7 @@ signals:
 
 public slots:
     void setValues(const QList<QStringList> &values);
+    void setName(const QString &name);
     void changeSelection();
     void select(int id);
     void selectExclusiveWithID(int id);

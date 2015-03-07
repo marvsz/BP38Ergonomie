@@ -81,13 +81,14 @@ const QString DBConstants::COL_WORKPLACE_NAME = "workplace_name";
 const QString DBConstants::COL_WORKPLACE_DESCRIPTION = "workplace_description";
 const QString DBConstants::COL_WORKPLACE_PERCENTAGE_WOMAN = "percentage_women";
 const QString DBConstants::COL_WORKPLACE_LINE_ID = "line_ID";
+const QString DBConstants::COL_WORKPLACE_EMPLOYEE_ID = "employee_ID";
 const QString DBConstants::COL_WORKPLACE_CODE = "code";
 const QString DBConstants::COL_WORKPLACE_CYCLE_TIME = "cycle_time";
 const QString DBConstants::COL_WORKPLACE_SETUP_TIME = "setup_time";
 const QString DBConstants::COL_WORKPLACE_BASIC_TIME = "basic_time";
 const QString DBConstants::COL_WORKPLACE_REST_TIME = "rest_time";
 const QString DBConstants::COL_WORKPLACE_ALLOWANCE_TIME = "allowance_time";
-const QHash<QString, QVariant::Type> DBConstants::HASH_WORKPLACE_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_WORKPLACE_ID, QVariant::Int).add(DBConstants::COL_WORKPLACE_NAME, QVariant::Int).add(DBConstants::COL_WORKPLACE_DESCRIPTION, QVariant::Int).add(DBConstants::COL_WORKPLACE_PERCENTAGE_WOMAN, QVariant::Int).add(DBConstants::COL_WORKPLACE_LINE_ID, QVariant::Int).add(DBConstants::COL_WORKPLACE_CODE, QVariant::Int).add(DBConstants::COL_WORKPLACE_CYCLE_TIME, QVariant::Int).add(DBConstants::COL_WORKPLACE_SETUP_TIME, QVariant::Int).add(DBConstants::COL_WORKPLACE_BASIC_TIME, QVariant::Int).add(DBConstants::COL_WORKPLACE_REST_TIME, QVariant::Int).add(DBConstants::COL_WORKPLACE_ALLOWANCE_TIME, QVariant::Int).build();
+const QHash<QString, QVariant::Type> DBConstants::HASH_WORKPLACE_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_WORKPLACE_ID, QVariant::Int).add(DBConstants::COL_WORKPLACE_NAME, QVariant::Int).add(DBConstants::COL_WORKPLACE_DESCRIPTION, QVariant::Int).add(DBConstants::COL_WORKPLACE_PERCENTAGE_WOMAN, QVariant::Int).add(DBConstants::COL_WORKPLACE_LINE_ID, QVariant::Int).add(DBConstants::COL_WORKPLACE_CODE, QVariant::Int).add(DBConstants::COL_WORKPLACE_CYCLE_TIME, QVariant::Int).add(DBConstants::COL_WORKPLACE_SETUP_TIME, QVariant::Int).add(DBConstants::COL_WORKPLACE_BASIC_TIME, QVariant::Int).add(DBConstants::COL_WORKPLACE_REST_TIME, QVariant::Int).add(DBConstants::COL_WORKPLACE_ALLOWANCE_TIME, QVariant::Int).add(DBConstants::COL_WORKPLACE_EMPLOYEE_ID, QVariant::Int).build();
 
 //Comment
 const QString DBConstants::TBL_COMMENT = "Comment";

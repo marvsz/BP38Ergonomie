@@ -91,6 +91,7 @@ public:
     static const QString COL_WORKPLACE_DESCRIPTION;
     static const QString COL_WORKPLACE_PERCENTAGE_WOMAN;
     static const QString COL_WORKPLACE_LINE_ID;
+    static const QString COL_WORKPLACE_EMPLOYEE_ID;
     static const QString COL_WORKPLACE_CODE;
     static const QString COL_WORKPLACE_CYCLE_TIME;
     static const QString COL_WORKPLACE_SETUP_TIME;

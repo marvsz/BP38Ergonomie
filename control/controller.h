@@ -42,6 +42,7 @@
 #include "../view/interfaces/iftpconnections.h"
 #include "../view/popUps/resetpopup.h"
 #include "../view/popUps/employeepopup.h"
+#include "../view/popUps/factorysettingspopup.h"
 #include "../view/documentationView/appliedforceview.h"
 #include "../view/documentationView/loadhandlingview.h"
 #include "../view/documentationView/executionconditionview.h"
@@ -69,12 +70,17 @@ signals:
     void selectedWorkplace(QHash<QString, QVariant> values);
     void updatedWorkplace(QHash<QString, QVariant> values);
     void removedWorkplace(int id);
+
     //Workplace comment
     void selectedComment(QHash<QString, QVariant> values);
     void updatedComment(QHash<QString, QVariant> values);
 
     //Line
+    void createdLine(QHash<QString, QVariant> values);
     void updatedLine(QHash<QString, QVariant> values);
+    void removedLine(int id);
+    void selectedLine(QHash<QString, QVariant> values);
+    void clearLines();
 
     //Employee
     void clearEmployees();
@@ -82,6 +88,9 @@ signals:
     void selectedEmployee(QHash<QString, QVariant> values);
     void updatedEmployee(QHash<QString, QVariant> values);
     void removedEmployee(int id);
+
+    //EmployeeSelectList
+    void employeeSelected(int id);
 
     //BodyMeasurement
     void selectedBodyMeasurement(QHash<QString, QVariant> values);
@@ -111,12 +120,15 @@ private slots:
     void selectWorkplace(int id);
     void saveWorkplace(QHash<QString, QVariant> values);
 
+    //Comment
     void saveComment(QHash<QString, QVariant> values);
 
-    void updateLineView();
-    int saveSelectedLine(int id);
-    int createLine();
+    //Line
+    void initializeLines();
+    void createLine(QHash<QString, QVariant> values);
     void deleteLine(int id);
+    void selectLine(int id);
+
 
     int createWorkprocess(AVType type, const QTime &start, const QTime &end);
     void setSelectedWorkProcess(int, AVType);
@@ -154,7 +166,9 @@ private slots:
     void deleteEmployee(int id);
     void selectEmployee(int id);
     void saveEmployee(QHash<QString, QVariant> values);
+    void setSelectedEmployee(int id);
 
+    //BodyMeasurement
     void saveBodyMeasurement(QHash<QString, QVariant> values);
 
     void updateActivityView();
@@ -247,6 +261,7 @@ private:
     ImportDataPopUp *importDataPopUp;
     ResetPopUp *resetPopUp;
     EmployeePopUp *employeePopUp;
+    FactorySettingsPopUp *factorySettingsPopUp;
 
     int analyst_ID;
     int recording_ID;
@@ -261,6 +276,7 @@ private:
     int bodyPosture_ID;
     int employee_ID;
     int bodyMeasurement_ID;
+    int selectedEmployee_ID;
 
     IImportDataParser *parser;
     QString downloadDir;
