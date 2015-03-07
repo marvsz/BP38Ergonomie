@@ -53,8 +53,9 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     workplacePopUp(new WorkplacePopUp()),
     importDataPopUp(new ImportDataPopUp()),
     resetPopUp(new ResetPopUp()),
-    employeePopUp(new EmployeePopUp()),
-    cameraPopUp(new CameraPopUp())
+    factorySettingsPopUp(new FactorySettingsPopUp),
+    cameraPopUp(new CameraPopUp()),
+    employeePopUp(new EmployeePopUp())
 
 {
     analyst_ID = 0;
@@ -146,10 +147,10 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     connect(importDataPopUp, SIGNAL(selected(IFTPConnections*,int)), this, SLOT(selectedConnectionChanged(IFTPConnections*,int)));
     connect(importDataPopUp, SIGNAL(confirm()), this, SLOT(parseImportData()));
 
-    connect(settingsView, SIGNAL(resetDatabase()), this, SLOT(resetDatabaseFactory()));
     connect(languagePopUp, SIGNAL(confirm()), this, SLOT(languageChanged()));
     connect(themePopUp, SIGNAL(confirm()), this, SLOT(themeChanged()));
     connect(resetPopUp, SIGNAL(confirm()), this, SLOT(resetSelectedEntries()));
+    connect(factorySettingsPopUp, SIGNAL(confirm()), this, SLOT(resetDatabaseFactory()));
 
     // Register Documentation Views
     documentationView->registerView(workProcessMetaDataView, ViewType::WORK_PROCESS_META_DATA_VIEW);
@@ -197,7 +198,9 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     viewCon->registerPopUp(importDataPopUp, PopUpType::IMPORT_DATA_POPUP);
     viewCon->registerPopUp(resetPopUp, PopUpType::RESET_POPUP);
     viewCon->registerPopUp(employeePopUp,PopUpType::EMPlOYEE_POPUP);
+    viewCon->registerPopUp(factorySettingsPopUp, PopUpType::FACTORYSETTINGS_POPUP);
     viewCon->registerPopUp(cameraPopUp, PopUpType::CAMERA_POPUP);
+
     //Set the start Views
     documentationView->showStartView(ViewType::BODY_POSTURE_VIEW);
     viewCon->showStartView(ViewType::ANALYST_SELECTION_VIEW);
@@ -364,7 +367,7 @@ void Controller::removeAnalyst(int id)
 void Controller::selectAnalyst(int id)
 {
     analyst_ID = id;
-    viewCon->showMessage(tr("Hello ") + dbHandler->select(DBConstants::TBL_ANALYST, QString("")).
+    viewCon->showMessage(tr("Hello  ") + dbHandler->select(DBConstants::TBL_ANALYST, QString("")).
                          at(id -1).value(DBConstants::COL_ANALYST_FIRSTNAME).toString() + "! ",
                          NotificationMessage::WELCOME, NotificationMessage::LONG);
 }
@@ -1586,22 +1589,29 @@ void Controller::resetDatabaseFactory()
     dbHandler->deleteAll(DBConstants::TBL_LOAD_HANDLING_TYPE, emptyFilter);
     dbHandler->deleteAll(DBConstants::TBL_BODY_MEASUREMENT, emptyFilter);
     emit clearAll();
+    viewCon->closePopUp();
+    viewCon->showMessage(tr("Restored Factory Settings"), NotificationMessage::ACCEPT);
+    viewCon->showView(ViewType::ANALYST_SELECTION_VIEW);
 }
 
 
 void Controller::languageChanged(){
+    /*QFile saveFile("C:/Users/M/Documents/GitHub/BP38Ergonomie/assets/settings.csv");
+    saveFile.open(QIODevice::WriteOnly);
+    QTextStream out(&saveFile);*/
+
     int languageID = languagePopUp->getSelectedLanguage();
     switch(languageID){
     case(0):
-         translator->setLanguage("trans_DE");
+         //out<<"german"<<','<<"blue";
          settingsView->setCurrentLanguageIcon("germanIcon");
          break;
     case(1):
-         application->removeTranslator(translator->getCurrentTranslator());
+         //out<<"english"<<','<<"blue";
          settingsView->setCurrentLanguageIcon("englishIcon");
          break;
     default:
-         application->removeTranslator(translator->getCurrentTranslator());
+         //out<<"english"<<','<<"blue";
          settingsView->setCurrentLanguageIcon("englishIcon");
          break;
     }
@@ -1611,22 +1621,29 @@ void Controller::languageChanged(){
 
 void Controller::themeChanged()
 {
+    /*QFile saveFile("C:/Users/M/Documents/GitHub/BP38Ergonomie/assets/settings.csv");
+    saveFile.open(QIODevice::WriteOnly);
+    QTextStream out(&saveFile);*/
+
     int themeID = themePopUp->getSelectedTheme();
     switch(themeID)
         {
         case(0):
             settingsView->setCurrentThemeIcon("blueIcon");
             application->setStyleSheet(stringFromResource(":/assets/stylesheet.qss"));
+               // out<<"german"<<','<<"blue";
             break;
         case(1):
             settingsView->setCurrentThemeIcon("greenIcon");
             application->setStyleSheet(stringFromResource(":/assets/stylesheetGreen.qss"));
+            //out<<"german"<<','<<"green";
             break;
         default:
             settingsView->setCurrentThemeIcon("blueIcon");
             application->setStyleSheet(stringFromResource(":/assets/stylesheet.qss"));
             break;
         }
+
     viewCon->closePopUp();
     viewCon->showMessage(tr("Theme changed"), NotificationMessage::ACCEPT);
 }
@@ -1752,7 +1769,6 @@ void Controller::resetSelectedEntries(){
     if(resetPopUp->employeeSelected()){
         employee_ID = 1;
         bodyMeasurement_ID = 1;
-        dbHandler->deleteAll(DBConstants::TBL_CONNECTION, emptyFilter);
         dbHandler->deleteAll(DBConstants::TBL_EMPLOYEE, emptyFilter);
         dbHandler->deleteAll(DBConstants::TBL_EMPLOYEE_WORKS_SHIFT, emptyFilter);
         dbHandler->deleteAll(DBConstants::TBL_BODY_MEASUREMENT, emptyFilter);
@@ -1762,9 +1778,10 @@ void Controller::resetSelectedEntries(){
         dbHandler->deleteAll(DBConstants::TBL_SHIFT, emptyFilter);
         dbHandler->deleteAll(DBConstants::TBL_BREAK, emptyFilter);
     }
+    if(resetPopUp->ftpConnectionSelected()){
+        dbHandler->deleteAll(DBConstants::TBL_CONNECTION, emptyFilter);
+    }
 
     viewCon->closePopUp();
     viewCon->showMessage(tr("Reset successful"), NotificationMessage::ACCEPT);
 }
-
-

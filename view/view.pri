@@ -94,7 +94,9 @@ HEADERS +=\
     $$PWD/capture.h \
     $$PWD/converter.h \
     $$PWD/imageviewer.h \
-    $$PWD/popUps/camerapopup.h
+    $$PWD/popUps/camerapopup.h \
+    $$PWD/popUps/factorysettingspopup.h \
+    $$PWD/popUps/closeapppopup.h
 
 SOURCES +=\
     $$PWD/documentationView/bodyPostureView/variantspecification.cpp\
@@ -177,4 +179,5 @@ SOURCES +=\
     $$PWD/capture.cpp \
     $$PWD/converter.cpp \
     $$PWD/imageviewer.cpp \
-    $$PWD/popUps/camerapopup.cpp
+    $$PWD/popUps/camerapopup.cpp \
+    $$PWD/popUps/factorysettingspopup.cpp

@@ -46,6 +46,10 @@ public:
         return QString("%1/%2").arg(StandardPaths::writeableLocation()).arg("xmlData");
     }
 
+    static QString configFile(){
+        return QString("%1/%2").arg(StandardPaths::writeableLocation()).arg("config.csv");
+    }
+
 };
 
 #endif // STANDARDPATHS_H
