@@ -71,7 +71,7 @@ void EmployeeListView::removeEmployee(int id){
     }
 }
 
-void EmployeeListView::clear(){
+void EmployeeListView::clearEmployees(){
     QLayoutItem *item;
     while((item = listContentLayout->takeAt(0)) != NULL){
         delete item->widget();

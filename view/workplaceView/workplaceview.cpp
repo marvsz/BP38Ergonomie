@@ -7,7 +7,6 @@
 
 WorkplaceView::WorkplaceView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Workplace"), parent),
-    id(-1),
     btnEmployees(new QPushButton(this)),
     lblName(new QLabel(tr("Name:"))),
     lblDescription(new QLabel(tr("Description:"))),
@@ -27,9 +26,7 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     timeBasicTime(new TimeLineEdit(this)),
     timeRestTime(new TimeLineEdit(this)),
     timeAllowanceTime(new TimeLineEdit(this)),
-    timeCycleTime(new TimeLineEdit(this)),
-    additions(new QList<DetailedListItem*>())
-
+    timeCycleTime(new TimeLineEdit(this))
 {
     btnEmployees->setObjectName("employeeIcon");
     btnEmployees->setFixedSize(45, 45);
@@ -91,11 +88,6 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     connect(comment, SIGNAL(clicked()), this, SLOT(btnCommentClicked()));
     connect(employee, SIGNAL(clicked()), this, SLOT(btnEmployeeClicked()));
 
-    additions->append(line);
-    additions->append(employee);
-    additions->append(activity);
-    additions->append(comment);
-
     QGridLayout *workplaceMetaDataLayout = new QGridLayout;
     workplaceMetaDataLayout->addWidget(lblName, 0, 0, 1, 1, 0);
     workplaceMetaDataLayout->addWidget(txtBxName, 0, 1, 1, 1, 0);
@@ -107,9 +99,11 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     workplaceMetaDataLayout->addWidget(numBxWomanPercentage, 1, 3, 1, 1, 0);
 
     QVBoxLayout *additionsLayout = new QVBoxLayout;
-    for(int i = 0; i < additions->count(); ++i){
-        additionsLayout->addWidget(additions->at(i));
-    }
+    additionsLayout->addWidget(line);
+    additionsLayout->addWidget(employee);
+    additionsLayout->addWidget(activity);
+    additionsLayout->addWidget(comment);
+
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addLayout(workplaceMetaDataLayout);
@@ -123,61 +117,51 @@ WorkplaceView::WorkplaceView(QWidget *parent) :
     setLayout(mainLayout);
 }
 
-WorkplaceView::WorkplaceView(int id, QWidget *parent) : WorkplaceView(parent){
-    this->id = id;
+//public slots
+void WorkplaceView::setWorkplace(QHash<QString, QVariant> values){
+    txtBxName->setText(values.value(DBConstants::COL_WORKPLACE_NAME).toString());
+    txtBxDescription->setText(values.value(DBConstants::COL_WORKPLACE_DESCRIPTION).toString());
+    txtBxCode->setText(values.value(DBConstants::COL_WORKPLACE_CODE).toString());
+    numBxWomanPercentage->setValue(values.value(DBConstants::COL_WORKPLACE_PERCENTAGE_WOMAN).toInt());
+    QTime time = QTime(0, 0);
+    timeAllowanceTime->setTime(time.addSecs(values.value(DBConstants::COL_WORKPLACE_ALLOWANCE_TIME).toInt()));
+    timeBasicTime->setTime(time.addSecs(values.value(DBConstants::COL_WORKPLACE_BASIC_TIME).toInt()));
+    timeCycleTime->setTime(time.addSecs(values.value(DBConstants::COL_WORKPLACE_CYCLE_TIME).toInt()));
+    timeRestTime->setTime(time.addSecs(values.value(DBConstants::COL_WORKPLACE_REST_TIME).toInt()));
+    timeSetupTime->setTime(time.addSecs(values.value(DBConstants::COL_WORKPLACE_SETUP_TIME).toInt()));
 }
 
-//public slots
+void WorkplaceView::setSavedLine(QHash<QString, QVariant> values){
+    QList<QStringList> lineList = QList<QStringList>()<<(QStringList()<<values.value(DBConstants::COL_LINE_NAME).toString())<<(QStringList()<<values.value(DBConstants::COL_LINE_DESCRIPTION).toString());
+    line->setValues(lineList);
+    line->setID(values.value(DBConstants::COL_LINE_ID).toInt());
+}
+
+void WorkplaceView::setSavedComment(QHash<QString, QVariant> values){
+    QList<QStringList> commentList = QList<QStringList>()<<(QStringList()<<values.value(DBConstants::COL_COMMENT_PROBLEM_NAME).toString())<<(QStringList()<<values.value(DBConstants::COL_COMMENT_MEASURE_NAME).toString());
+    comment->setValues(commentList);
+    comment->setID(values.value(DBConstants::COL_COMMENT_ID).toInt());
+}
+
+void WorkplaceView::onLeaving(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_WORKPLACE_NAME, txtBxName->text());
+    values.insert(DBConstants::COL_WORKPLACE_DESCRIPTION, txtBxDescription->text());
+    values.insert(DBConstants::COL_WORKPLACE_CODE, txtBxCode->text());
+    values.insert(DBConstants::COL_WORKPLACE_PERCENTAGE_WOMAN, numBxWomanPercentage->getValue());
+    QTime time = QTime(0, 0);
+    values.insert(DBConstants::COL_WORKPLACE_ALLOWANCE_TIME, time.secsTo(timeAllowanceTime->getTime()));
+    values.insert(DBConstants::COL_WORKPLACE_BASIC_TIME, time.secsTo(timeBasicTime->getTime()));
+    values.insert(DBConstants::COL_WORKPLACE_CYCLE_TIME, time.secsTo(timeCycleTime->getTime()));
+    values.insert(DBConstants::COL_WORKPLACE_REST_TIME, time.secsTo(timeRestTime->getTime()));
+    values.insert(DBConstants::COL_WORKPLACE_SETUP_TIME, time.secsTo(timeSetupTime->getTime()));
+    emit saveWorkplace(values);
+}
+
 QList<QAbstractButton*> * WorkplaceView::getAdditionalNavigation() const{
     QList<QAbstractButton*> *additions = new QList<QAbstractButton*>();
     additions->append(btnEmployees);
     return additions;
-}
-
-void WorkplaceView::setName(const QString &name){
-    txtBxName->setText(name);
-}
-
-void WorkplaceView::setDescription(const QString &description){
-    txtBxDescription->setText(description);
-}
-
-void WorkplaceView::setCode(const QString &code){
-    txtBxCode->setText(code);
-}
-
-void WorkplaceView::setWomanPercentage(int womenPercentage){
-    numBxWomanPercentage->setValue(womenPercentage);
-}
-
-void WorkplaceView::setBasicTime(const QTime &basic){
-    timeBasicTime->setTime(basic);
-}
-
-void WorkplaceView::setSetupTime(const QTime &setup){
-    timeSetupTime->setTime(setup);
-}
-
-void WorkplaceView::setRestTime(const QTime &rest){
-    timeRestTime->setTime(rest);
-}
-
-void WorkplaceView::setAllowanceTime(const QTime &allowance){
-    timeAllowanceTime->setTime(allowance);
-}
-
-void WorkplaceView::setCycleTime(const QTime &cycle){
-    timeCycleTime->setTime(cycle);
-}
-
-void WorkplaceView::setLine(const QString &name, const QString &description){
-    QList<QStringList> values = QList<QStringList>() << (QStringList() << name) << (QStringList() << description);
-    line->setValues(values);
-}
-
-void WorkplaceView::setComment(const QString &problemName, const QString &measureName){
-    QList<QStringList> values = QList<QStringList>() << (QStringList() << problemName) << (QStringList() << measureName);
-    comment->setValues(values);
 }
 
 //private slots
@@ -201,39 +185,3 @@ void WorkplaceView::btnEmployeeClicked(){
     emit showPopUp(PopUpType::EMPlOYEE_POPUP);
 }
 
-// GETTER
-QString WorkplaceView::getName() const{
-    return txtBxName->text();
-}
-
-QString WorkplaceView::getDescription() const{
-    return txtBxDescription->text();
-}
-
-QString WorkplaceView::getCode() const{
-    return txtBxCode->text();
-}
-
-int WorkplaceView::getWomanPercentage() const{
-    return numBxWomanPercentage->getValue();
-}
-
-QTime WorkplaceView::getBasicTime() const{
-    return timeBasicTime->getTime();
-}
-
-QTime WorkplaceView::getSetupTime() const{
-    return timeSetupTime->getTime();
-}
-
-QTime WorkplaceView::getRestTime() const{
-    return timeRestTime->getTime();
-}
-
-QTime WorkplaceView::getAllowanceTime() const{
-    return timeAllowanceTime->getTime();
-}
-
-QTime WorkplaceView::getCycleTime() const{
-    return timeCycleTime->getTime();
-}

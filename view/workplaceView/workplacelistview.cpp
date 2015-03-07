@@ -4,8 +4,6 @@
 #include <QList>
 #include <QStringList>
 
-const QList<QStringList> WorkplaceListView::workplaceCaptions = QList<QStringList>() << (QStringList() << tr("Description") << tr("Code"));
-
 WorkplaceListView::WorkplaceListView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Workplaces"), parent),
     btnPlus(new QPushButton(this)),
@@ -33,22 +31,53 @@ WorkplaceListView::WorkplaceListView(QWidget *parent) :
     this->setLayout(mainLayout);
 }
 
-void WorkplaceListView::clear(){
+//PUBLIC SLOTS
+void WorkplaceListView::addWorkplace(QHash<QString, QVariant> values){
+    QList<QStringList> wpValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_WORKPLACE_DESCRIPTION).toString() << values.value(DBConstants::COL_WORKPLACE_CODE).toString());
+    DetailedListItem *newListItem = new DetailedListItem(this, "workplaceIcon", values.value(DBConstants::COL_WORKPLACE_NAME).toString(), workplaceCaptions, true, false, true);
+    newListItem->setValues(wpValues);
+    newListItem->setID(values.value(DBConstants::COL_WORKPLACE_ID).toInt());
+    connect(newListItem, SIGNAL(pressed(int)), this, SLOT(dliWorkplaceClicked(int)));
+    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteWorkplace(int)));
+    listContentLayout->addWidget(newListItem);
+}
+
+void WorkplaceListView::updateWorkplace(QHash<QString, QVariant> values){
+    QLayoutItem *item;
+    int i = 0;
+    int id = values.value(DBConstants::COL_WORKPLACE_ID).toInt();
+    while((item = listContentLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            QList<QStringList> wpValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_WORKPLACE_DESCRIPTION).toString() << values.value(DBConstants::COL_WORKPLACE_CODE).toString());
+            dli->setValues(wpValues);
+            break;
+        }
+        i++;
+    }
+}
+
+void WorkplaceListView::removeWorkplace(int id){
+    QLayoutItem *item;
+    int i = 0;
+    while((item = listContentLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            item = listContentLayout->takeAt(i);
+            delete item->widget();
+            delete item;
+            break;
+        }
+        i++;
+    }
+}
+
+void WorkplaceListView::clearWorkplaces(){
     QLayoutItem *item;
     while((item = listContentLayout->takeAt(0)) != NULL){
         delete item->widget();
         delete item;
     }
-}
-
-void WorkplaceListView::addWorkplace(int id, const QString &name, const QString &description, const QString &code){
-    QList<QStringList> values = QList<QStringList>() << (QStringList() << description << code);
-    DetailedListItem *newListItem = new DetailedListItem(this, "workplaceIcon", name, workplaceCaptions, true, false, true);
-    newListItem->setValues(values);
-    newListItem->setID(id);
-    connect(newListItem, SIGNAL(pressed(int)), this, SLOT(dliWorkplaceClicked(int)));
-    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(remove(int)));
-    listContentLayout->addWidget(newListItem);
 }
 
 //PUBLIC METHODS
@@ -60,11 +89,10 @@ QList<QAbstractButton*> * WorkplaceListView::getAdditionalNavigation() const{
 
 //PRIVATE SLOTS
 void WorkplaceListView::btnPlusClicked(){
-    emit create();
-    emit showView(ViewType::WORKPLACE_VIEW);
+    emit createWorkplace(QHash<QString, QVariant>());
 }
 
 void WorkplaceListView::dliWorkplaceClicked(int id){
-    emit selected(id);
+    emit selectWorkplace(id);
     emit showView(ViewType::WORKPLACE_VIEW);
 }

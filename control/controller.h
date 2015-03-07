@@ -63,6 +63,19 @@ public:
 signals:
     void clearAll();
 
+    //Workplace
+    void clearWorkplaces();
+    void createdWorkplace(QHash<QString, QVariant> values);
+    void selectedWorkplace(QHash<QString, QVariant> values);
+    void updatedWorkplace(QHash<QString, QVariant> values);
+    void removedWorkplace(int id);
+    //Workplace comment
+    void selectedComment(QHash<QString, QVariant> values);
+    void updatedComment(QHash<QString, QVariant> values);
+
+    //Line
+    void updatedLine(QHash<QString, QVariant> values);
+
     //Employee
     void clearEmployees();
     void createdEmployee(QHash<QString, QVariant> values);
@@ -90,24 +103,20 @@ private slots:
     void updateMetaDataView();
     void saveMetaDataView();
 
-    void updateWorkplacesView();
-
-    void updateWorkplaceView(int id);
-    void updateWorkplaceView();
-    int createWorkplace();
-    void saveWorkplaceView();
-    void deleteWorkplace(int id);
-    void createWorkplacePopup();
+    //Workplace
+    void initializeWorkplaces();
+    void createWorkplace(QHash<QString, QVariant> values);
     void createWorkplace(QHash<QString, QVariant> values, QList<QHash<QString, QVariant>> activityValues);
+    void deleteWorkplace(int id);
+    void selectWorkplace(int id);
+    void saveWorkplace(QHash<QString, QVariant> values);
+
+    void saveComment(QHash<QString, QVariant> values);
 
     void updateLineView();
     int saveSelectedLine(int id);
     int createLine();
     void deleteLine(int id);
-
-    void updateComment();
-    int saveComment();
-
 
     int createWorkprocess(AVType type, const QTime &start, const QTime &end);
     void setSelectedWorkProcess(int, AVType);
@@ -138,6 +147,7 @@ private slots:
     void createTransportation(QHash<QString, QVariant> values);
     void deleteTransportation(int id);
 
+    //Employee
     void initializeEmployees();
     void createEmployee(QHash<QString, QVariant> values);
     void createEmployee(QHash<QString, QVariant> values, QHash<QString, QVariant> bodyMeasurementValues);
@@ -149,7 +159,7 @@ private slots:
 
     void updateActivityView();
     void createActivity();
-    void deleteActivity(int id);
+    void deleteActivity(int id, bool showMessage = true);
     void selectActivity(int id);
     void updateActivityPopUp(int id);
     void updateActivity();

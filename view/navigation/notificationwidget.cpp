@@ -42,6 +42,7 @@ QSize NotificationWidget::sizeHint() const{
 void NotificationWidget::closePopUp(){
     currentPopUp->hide();
     popUpWidget->hide();
+    currentPopUp->onLeaving();
 }
 
 void NotificationWidget::showMessage(const QString &message, NotificationMessage::MessageType msgType, NotificationMessage::MessageDisplayType msgDisplayType){

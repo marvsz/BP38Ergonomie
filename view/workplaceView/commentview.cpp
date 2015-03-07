@@ -54,27 +54,21 @@ CommentView::~CommentView()
 }
 
 //PUBLIC SLOTS
-void CommentView::setComment(const QString &problemName, const QString &problemDesc, const QString &measureName, const QString &measureDesc, const QString &workerPerception){
-    txtBxProblemName->setText(problemName);
-    txtBxProblemDescription->setText(problemDesc);
-    txtBxMeasureName->setText(measureName);
-    txtBxMeasureDescription->setText(measureDesc);
-    txtBxPerceptionDescription->setText(workerPerception);
+void CommentView::setComment(QHash<QString, QVariant> values){
+    txtBxProblemName->setText(values.value(DBConstants::COL_COMMENT_PROBLEM_NAME).toString());
+    txtBxProblemDescription->setText(values.value(DBConstants::COL_COMMENT_PROBLEM_DESCRIPTION).toString());
+    txtBxMeasureName->setText(values.value(DBConstants::COL_COMMENT_MEASURE_NAME).toString());
+    txtBxMeasureDescription->setText(values.value(DBConstants::COL_COMMENT_MEASURE_DESCRIPTION).toString());
+    txtBxPerceptionDescription->setText(values.value(DBConstants::COL_COMMENT_WORKER_PERCEPTION).toString());
 }
 
-//GETTER
-QString CommentView::getProblemName() const{
-    return txtBxProblemName->text();
+void CommentView::onLeaving(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_COMMENT_PROBLEM_NAME, txtBxProblemName->text());
+    values.insert(DBConstants::COL_COMMENT_PROBLEM_DESCRIPTION, txtBxProblemDescription->toPlainText());
+    values.insert(DBConstants::COL_COMMENT_MEASURE_NAME, txtBxMeasureName->text());
+    values.insert(DBConstants::COL_COMMENT_MEASURE_DESCRIPTION, txtBxMeasureDescription->toPlainText());
+    values.insert(DBConstants::COL_COMMENT_WORKER_PERCEPTION, txtBxPerceptionDescription->toPlainText());
+    emit saveComment(values);
 }
-QString CommentView::getProblemDescription() const{
-    return txtBxProblemDescription->toPlainText();
-}
-QString CommentView::getMeasureName() const{
-    return txtBxMeasureName->text();
-}
-QString CommentView::getMeasureDescription() const{
-    return txtBxMeasureDescription->toPlainText();
-}
-QString CommentView::getWorkerPerception() const{
-    return txtBxPerceptionDescription->toPlainText();
-}
+

@@ -15,7 +15,7 @@ ViewController::ViewController(QWidget *parent) : NotificationWidget(parent),
     popUpTypeToWidget(new QHash<PopUpType, AbstractPopUpWidget*>()),
     btnBack(new QPushButton),
     btnForward(new QPushButton),
-    btnFeedback(new QPushButton),
+    //btnFeedback(new QPushButton),
     lblBackTitle(new QLabel),
     lblForwardTitle(new QLabel),
     lblTitle(new QLabel),
@@ -32,9 +32,9 @@ ViewController::ViewController(QWidget *parent) : NotificationWidget(parent),
     btnForward->setFixedSize(45, 45);
     connect(btnForward, SIGNAL(clicked()), this, SLOT(btnForwardClicked()));
 
-    btnFeedback->setObjectName("feedbackIcon");
+    /*btnFeedback->setObjectName("feedbackIcon");
     btnFeedback->setFixedSize(45, 45);
-    connect(btnFeedback, SIGNAL(clicked()), this, SLOT(btnFeedbackClicked()));
+    connect(btnFeedback, SIGNAL(clicked()), this, SLOT(btnFeedbackClicked()));*/
 
     middleNavigationLayout->addWidget(lblTitle);
 
@@ -50,7 +50,7 @@ ViewController::ViewController(QWidget *parent) : NotificationWidget(parent),
     navigationBarLayout->addSpacerItem(new QSpacerItem(20, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
     navigationBarLayout->addSpacerItem(rightSpacer);
     navigationBarLayout->addLayout(additionalNavigationLayout);
-    navigationBarLayout->addWidget(btnFeedback, 0, Qt::AlignRight);
+    //navigationBarLayout->addWidget(btnFeedback, 0, Qt::AlignRight);
     navigationBarLayout->addSpacerItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed));
     navigationBarLayout->addWidget(lblForwardTitle, 0, Qt::AlignRight);
     navigationBarLayout->addWidget(btnForward, 0, Qt::AlignRight);

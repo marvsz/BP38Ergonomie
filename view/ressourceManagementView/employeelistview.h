@@ -30,7 +30,7 @@ public slots:
     void addEmployee(QHash<QString, QVariant> values);
     void updateEmployee(QHash<QString, QVariant> values);
     void removeEmployee(int id);
-    void clear();
+    void clearEmployees();
 
 private slots:
     void btnPlusClicked();

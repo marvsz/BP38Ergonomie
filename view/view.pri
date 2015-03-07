@@ -90,7 +90,9 @@ HEADERS +=\
     $$PWD/interfaces/irotationgroup.h \
     $$PWD/interfaces/iworkplacelist.h \
     $$PWD/interfaces/irotationgrouptasklist.h \
-    $$PWD/interfaces/ibodymeasurement.h
+    $$PWD/interfaces/ibodymeasurement.h \
+    $$PWD/interfaces/iworkplace.h \
+    $$PWD/interfaces/icomment.h
 
 SOURCES +=\
     $$PWD/documentationView/bodyPostureView/variantspecification.cpp\

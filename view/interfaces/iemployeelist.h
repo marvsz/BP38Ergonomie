@@ -9,7 +9,7 @@ public slots:
     virtual void addEmployee(QHash<QString, QVariant> values) = 0;
     virtual void updateEmployee(QHash<QString, QVariant> values) = 0;
     virtual void removeEmployee(int id) = 0;
-    virtual void clear() = 0;
+    virtual void clearEmployees() = 0;
 
 signals:
     virtual void createEmployee(QHash<QString, QVariant> values) = 0;

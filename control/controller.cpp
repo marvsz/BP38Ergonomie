@@ -52,8 +52,8 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     themePopUp(new ThemePopUp()),
     workplacePopUp(new WorkplacePopUp()),
     importDataPopUp(new ImportDataPopUp()),
-    resetPopUp(new ResetPopUp()),
-    employeePopUp(new EmployeePopUp())
+    resetPopUp(new ResetPopUp())
+    //employeePopUp(new EmployeePopUp())
 
 {
     analyst_ID = 0;
@@ -79,18 +79,31 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
 
     connect(mainMenuView, SIGNAL(createBlankRecording()), this, SLOT(createBlankRecording()));
 
-    connect(workplaceListView, SIGNAL(remove(int)), this, SLOT(deleteWorkplace(int)));
-    connect(workplaceListView, SIGNAL(create()), this, SLOT(createWorkplace()));
-    connect(workplaceListView, SIGNAL(selected(int)), this, SLOT(updateWorkplaceView(int)));
-    connect(workplacePopUp, SIGNAL(confirm()), this, SLOT(createWorkplacePopup()));
+    connect(this, SIGNAL(clearAll()), workplaceListView, SLOT(clearWorkplaces()));
+    connect(this, SIGNAL(clearWorkplaces()), workplaceListView, SLOT(clearWorkplaces()));
+    connect(workplaceListView, SIGNAL(createWorkplace(QHash<QString,QVariant>)), this, SLOT(createWorkplace(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(createdWorkplace(QHash<QString,QVariant>)), workplaceListView, SLOT(addWorkplace(QHash<QString,QVariant>)));
+    connect(workplaceListView, SIGNAL(selectWorkplace(int)), this, SLOT(selectWorkplace(int)));
+    connect(this, SIGNAL(selectedWorkplace(QHash<QString,QVariant>)), workplaceView, SLOT(setWorkplace(QHash<QString, QVariant>)));
+    connect(workplaceListView, SIGNAL(deleteWorkplace(int)), this, SLOT(deleteWorkplace(int)));
+    connect(this, SIGNAL(removedWorkplace(int)), workplaceListView, SLOT(removeWorkplace(int)));
+    connect(this, SIGNAL(updatedWorkplace(QHash<QString,QVariant>)), workplaceListView, SLOT(updateWorkplace(QHash<QString,QVariant>)));
 
-    connect(this, SIGNAL(clearEmployees()), employeeListView, SLOT(clear()));
-    connect(this, SIGNAL(clearAll()), employeeListView, SLOT(clear()));
+    connect(this, SIGNAL(selectedComment(QHash<QString,QVariant>)), workplaceView, SLOT(setSavedComment(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(updatedComment(QHash<QString,QVariant>)), workplaceView, SLOT(setSavedComment(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(updatedLine(QHash<QString, QVariant>)), workplaceView, SLOT(setSavedLine(QHash<QString,QVariant>)));
+    connect(workplaceView, SIGNAL(saveWorkplace(QHash<QString,QVariant>)), this, SLOT(saveWorkplace(QHash<QString,QVariant>)));
+
+    connect(this, SIGNAL(selectedComment(QHash<QString,QVariant>)), commentView, SLOT(setComment(QHash<QString,QVariant>)));
+    connect(commentView, SIGNAL(saveComment(QHash<QString,QVariant>)), this, SLOT(saveComment(QHash<QString,QVariant>)));
+
+    connect(this, SIGNAL(clearEmployees()), employeeListView, SLOT(clearEmployees()));
+    connect(this, SIGNAL(clearAll()), employeeListView, SLOT(clearEmployees()));
     connect(employeeListView, SIGNAL(deleteEmployee(int)), this, SLOT(deleteEmployee(int)));
     connect(this, SIGNAL(removedEmployee(int)), employeeListView, SLOT(removeEmployee(int)));
     connect(employeeListView, SIGNAL(createEmployee(QHash<QString,QVariant>)), this, SLOT(createEmployee(QHash<QString,QVariant>)));
     connect(this, SIGNAL(createdEmployee(QHash<QString,QVariant>)), employeeListView, SLOT(addEmployee(QHash<QString,QVariant>)));
-    connect(this, SIGNAL(createdEmployee(QHash<QString,QVariant>)), employeePopUp, SLOT(addEmployee(QHash<QString,QVariant>)));
+    //connect(this, SIGNAL(createdEmployee(QHash<QString,QVariant>)), employeePopUp, SLOT(addEmployee(QHash<QString,QVariant>)));
     connect(employeeListView, SIGNAL(selectEmployee(int)), this, SLOT(selectEmployee(int)));
     connect(this, SIGNAL(updatedEmployee(QHash<QString,QVariant>)), employeeListView, SLOT(updateEmployee(QHash<QString,QVariant>)));
     connect(this, SIGNAL(selectedEmployee(QHash<QString,QVariant>)), employeeView, SLOT(setEmployee(QHash<QString,QVariant>)));
@@ -195,13 +208,14 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     viewCon->registerPopUp(workplacePopUp, PopUpType::WORKPLACE_POPUP);
     viewCon->registerPopUp(importDataPopUp, PopUpType::IMPORT_DATA_POPUP);
     viewCon->registerPopUp(resetPopUp, PopUpType::RESET_POPUP);
-    viewCon->registerPopUp(employeePopUp,PopUpType::EMPlOYEE_POPUP);
+    //viewCon->registerPopUp(employeePopUp,PopUpType::EMPlOYEE_POPUP);
 
     //Set the start Views
     documentationView->showStartView(ViewType::BODY_POSTURE_VIEW);
     viewCon->showStartView(ViewType::ANALYST_SELECTION_VIEW);
 
     initializeEmployees();
+    initializeWorkplaces();
 }
 //PRIVATE SLOTS
 
@@ -219,17 +233,8 @@ void Controller::update(ViewType type)
         case ViewType::METADATA_VIEW:
             updateMetaDataView();
             break;
-        case ViewType::WORKPLACELIST_VIEW:
-            updateWorkplacesView();
-            break;
-        case ViewType::WORKPLACE_VIEW:
-            updateWorkplaceView();
-            break;
         case ViewType::LINE_VIEW:
             updateLineView();
-            break;
-        case ViewType::COMMENT_VIEW:
-            updateComment();
             break;
         case ViewType::ACTIVITY_VIEW:
             updateActivityView();
@@ -289,14 +294,8 @@ void Controller::save(ViewType type)
         case ViewType::METADATA_VIEW:
             saveMetaDataView();
             break;
-        case ViewType::WORKPLACE_VIEW:
-            saveWorkplaceView();
-            break;
         case ViewType::LINE_VIEW:
             updateLineView();
-            break;
-        case ViewType::COMMENT_VIEW:
-            saveComment();
             break;
         case ViewType::DOCUMENTATION_VIEW:
             saveCurrentWorkProcess();
@@ -460,93 +459,82 @@ void Controller::saveMetaDataView()
     dbHandler->save(DBConstants::TBL_RECORDING, DBConstants::HASH_RECORDING_TYPES, values, filter, DBConstants::COL_RECORDING_ID);
 }
 
-//WorkplacesView
-void Controller::updateWorkplacesView()
-{
-    workplaceListView->clear();
-    const QString tbl = DBConstants::TBL_WORKPLACE;
-    QList<QHash<QString, QVariant>> values = dbHandler->select(tbl, QString(""));
-    for(int i = 0; i < values.count(); ++i)
-        {
-            QHash<QString, QVariant> row = values.at(i);
-            workplaceListView->addWorkplace(row.value(DBConstants::COL_WORKPLACE_ID).toInt(),
-                                            row.value(DBConstants::COL_WORKPLACE_NAME).toString(),
-                                            row.value(DBConstants::COL_WORKPLACE_DESCRIPTION).toString(),
-                                            row.value(DBConstants::COL_WORKPLACE_CODE).toString());
-        }
-}
 
 //WorkplaceView
-void Controller::updateWorkplaceView(int id)
-{
-    workplace_ID = id;
+void Controller::initializeWorkplaces(){
+    emit clearWorkplaces();
+    QList<QHash<QString, QVariant>> rows = dbHandler->select(DBConstants::TBL_WORKPLACE, QString(""));
+    for(int i = 0; i < rows.count(); ++i)
+        emit createWorkplace(rows.at(i));
+}
+
+void Controller::createWorkplace(QHash<QString, QVariant> values){
+    int wp_ID = dbHandler->insert(DBConstants::TBL_WORKPLACE, DBConstants::HASH_WORKPLACE_TYPES, values, DBConstants::COL_WORKPLACE_ID);
+    values.insert(DBConstants::COL_WORKPLACE_ID, wp_ID);
+    emit createdWorkplace(values);
+    saveRecordingObservesWorkplace(wp_ID);
+}
+
+void Controller::createWorkplace(QHash<QString, QVariant> values, QList<QHash<QString, QVariant>> activityValues){
+    int workplace_ID = dbHandler->insert(DBConstants::TBL_WORKPLACE, DBConstants::HASH_WORKPLACE_TYPES, values,DBConstants::COL_WORKPLACE_ID);
+
+    for(int i = 0; i < activityValues.size(); ++i){
+        QHash<QString, QVariant> curValues = activityValues.at(i);
+        if(curValues.contains(DBConstants::COL_PRODUCT_NAME)){
+            QString filter = QString("%1 = '%2'").arg(DBConstants::COL_PRODUCT_NAME).arg(curValues.value(DBConstants::COL_PRODUCT_NAME).toString());
+            QHash<QString, QVariant> productValues = dbHandler->selectFirst(DBConstants::TBL_PRODUCT, filter);
+            if(!productValues.isEmpty()){
+                curValues.insert(DBConstants::COL_ACTIVITY_PRODUCT_ID, productValues.value(DBConstants::COL_PRODUCT_ID));
+            }
+            curValues.remove(DBConstants::COL_PRODUCT_NAME);
+        }
+        curValues.insert(DBConstants::COL_ACTIVITY_WORKPLACE_ID, workplace_ID);
+        dbHandler->insert(DBConstants::TBL_ACTIVITY, DBConstants::HASH_ACTIVITY_TYPES, curValues, DBConstants::COL_ACTIVITY_ID);
+    }
+}
+
+void Controller::deleteWorkplace(int id){
     QString tbl = DBConstants::TBL_WORKPLACE;
-    QHash<QString, QVariant> row = dbHandler->selectFirst(tbl, QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(QString::number(id)));
+    dbHandler->deleteAll(tbl, QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(QString::number(id)));
 
-    workplaceView->setName(row.value(DBConstants::COL_WORKPLACE_NAME).toString());
-    workplaceView->setDescription(row.value(DBConstants::COL_WORKPLACE_DESCRIPTION).toString());
-    workplaceView->setCode(row.value(DBConstants::COL_WORKPLACE_CODE).toString());
-    workplaceView->setWomanPercentage(row.value(DBConstants::COL_WORKPLACE_PERCENTAGE_WOMAN).toInt());
+    deleteRecordingOberservesWorkplace(id);
 
-    QTime basicTime = QTime(0, 0);
-    basicTime = basicTime.addSecs(row.value(DBConstants::COL_WORKPLACE_BASIC_TIME).toInt());
-    QTime setupTime = QTime(0, 0);
-    setupTime = setupTime.addSecs(row.value(DBConstants::COL_WORKPLACE_SETUP_TIME).toInt());
-    QTime restTime = QTime(0, 0);
-    restTime = restTime.addSecs(row.value(DBConstants::COL_WORKPLACE_REST_TIME).toInt());
-    QTime allowanceTime = QTime(0, 0);
-    allowanceTime = allowanceTime.addSecs(row.value(DBConstants::COL_WORKPLACE_ALLOWANCE_TIME).toInt());
-    QTime cycleTime = QTime(0, 0);
-    cycleTime = cycleTime.addSecs(row.value(DBConstants::COL_WORKPLACE_CYCLE_TIME).toInt());
+    QList<QHash<QString, QVariant>> values = dbHandler->select(DBConstants::TBL_ACTIVITY, QString("%1 = %2").arg(DBConstants::COL_ACTIVITY_WORKPLACE_ID).arg(id));
+    for(int i = 0; i < values.count(); ++i)
+        deleteActivity(values.at(i).value(DBConstants::COL_ACTIVITY_ID).toInt(), false);
 
-    workplaceView->setBasicTime(basicTime);
-    workplaceView->setSetupTime(setupTime);
-    workplaceView->setRestTime(restTime);
-    workplaceView->setAllowanceTime(allowanceTime);
-    workplaceView->setCycleTime(cycleTime);
+    dbHandler->deleteAll(DBConstants::TBL_COMMENT, QString("%1 = %2").arg(DBConstants::COL_COMMENT_WORKPLACE_ID).arg(id));
 
-    tbl = DBConstants::TBL_LINE;
-    row = dbHandler->selectFirst(tbl, QString("%1 = %2").arg(DBConstants::COL_LINE_ID).arg(row.value(DBConstants::COL_WORKPLACE_LINE_ID).toString()));
-    if(!row.isEmpty()){
-            workplaceView->setLine(row.value(DBConstants::COL_LINE_NAME).toString(),
-                                   row.value(DBConstants::COL_LINE_DESCRIPTION).toString());
-        }
-    else
-        workplaceView->setLine("","");
+    viewCon->showMessage(tr("Deleted workplace"), NotificationMessage::ACCEPT);
 
-    tbl = DBConstants::TBL_COMMENT;
-    row = dbHandler->selectFirst(tbl, QString("%1 = %2").arg(DBConstants::COL_COMMENT_WORKPLACE_ID).arg(workplace_ID));
-    if(!row.isEmpty()){
-            workplaceView->setComment(row.value(DBConstants::COL_COMMENT_PROBLEM_NAME).toString(),
-                                      row.value(DBConstants::COL_COMMENT_MEASURE_NAME).toString());
-        }
-    else
-        workplaceView->setComment("","");
+    emit removedWorkplace(id);
+}
+
+void Controller::selectWorkplace(int id){
+    QHash<QString, QVariant> values = dbHandler->selectFirst(DBConstants::TBL_WORKPLACE, QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(id));
+    workplace_ID = id;
+    emit selectedWorkplace(values);
+    values = dbHandler->selectFirst(DBConstants::TBL_COMMENT, QString("%1 = %2").arg(DBConstants::COL_COMMENT_WORKPLACE_ID).arg(workplace_ID));
+    emit selectedComment(values);
 
 }
 
-void Controller::updateWorkplaceView()
-{
-    updateWorkplaceView(workplace_ID);
+void Controller::saveWorkplace(QHash<QString, QVariant> values){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(workplace_ID);
+    values.insert(DBConstants::COL_WORKPLACE_ID, workplace_ID);
+    dbHandler->update(DBConstants::TBL_WORKPLACE, DBConstants::HASH_WORKPLACE_TYPES, values, filter);
+    emit updatedComment(values);
 }
 
-int Controller::createWorkplace()
-{
-    QString filter = QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(QString::number(0));
-
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    int id = dbHandler->save(DBConstants::TBL_WORKPLACE, DBConstants::HASH_WORKPLACE_TYPES, values, filter, DBConstants::COL_WORKPLACE_ID);
-    updateWorkplaceView(id);
-    saveRecordingObservesWorkplace(id);
-    return id;
+void Controller::saveComment(QHash<QString, QVariant> values){
+    values.insert(DBConstants::COL_COMMENT_WORKPLACE_ID, workplace_ID);
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_COMMENT_WORKPLACE_ID).arg(workplace_ID);
+    dbHandler->save(DBConstants::TBL_COMMENT, DBConstants::HASH_COMMENT_TYPES, values, filter, DBConstants::COL_COMMENT_ID);
+    emit updatedComment(values);
 }
 
-void Controller::saveWorkplaceView()
-{
-    saveWorkplace(workplace_ID);
-}
 
-void Controller::createWorkplacePopup()
+/*void Controller::createWorkplacePopup()
 {
 
     QString filter = QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(QString::number(0));
@@ -568,42 +556,7 @@ void Controller::createWorkplacePopup()
     viewCon->closePopUp();
     viewCon->showMessage(tr("Created new workplace"), NotificationMessage::ACCEPT);
 
-}
-
-void Controller::createWorkplace(QHash<QString, QVariant> values, QList<QHash<QString, QVariant>> activityValues){
-    int workplace_ID = dbHandler->insert(DBConstants::TBL_WORKPLACE, DBConstants::HASH_WORKPLACE_TYPES, values,DBConstants::COL_WORKPLACE_ID);
-
-    for(int i = 0; i < activityValues.size(); ++i){
-        QHash<QString, QVariant> curValues = activityValues.at(i);
-        if(curValues.contains(DBConstants::COL_PRODUCT_NAME)){
-            QString filter = QString("%1 = '%2'").arg(DBConstants::COL_PRODUCT_NAME).arg(curValues.value(DBConstants::COL_PRODUCT_NAME).toString());
-            QHash<QString, QVariant> productValues = dbHandler->selectFirst(DBConstants::TBL_PRODUCT, filter);
-            if(!productValues.isEmpty()){
-                curValues.insert(DBConstants::COL_ACTIVITY_PRODUCT_ID, productValues.value(DBConstants::COL_PRODUCT_ID));
-            }
-            curValues.remove(DBConstants::COL_PRODUCT_NAME);
-        }
-        curValues.insert(DBConstants::COL_ACTIVITY_WORKPLACE_ID, workplace_ID);
-        dbHandler->insert(DBConstants::TBL_ACTIVITY, DBConstants::HASH_ACTIVITY_TYPES, curValues, DBConstants::COL_ACTIVITY_ID);
-    }
-}
-
-void Controller::deleteWorkplace(int id)
-{
-    QString tbl = DBConstants::TBL_WORKPLACE;
-    workplace_ID = id;
-    dbHandler->deleteAll(tbl, QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(QString::number(id)));
-
-    QList<QHash<QString, QVariant>> values = dbHandler->select(DBConstants::TBL_ACTIVITY, QString("%1 = %2").arg(DBConstants::COL_ACTIVITY_WORKPLACE_ID).arg(id));
-    for(int i = 0; i < values.count(); ++i)
-        deleteActivity(values.at(i).value(DBConstants::COL_ACTIVITY_ID).toInt());
-
-    dbHandler->deleteAll(DBConstants::TBL_COMMENT, QString("%1 = %2").arg(DBConstants::COL_COMMENT_WORKPLACE_ID).arg(id));
-    viewCon->showMessage(tr("Deleted workplace"), NotificationMessage::ACCEPT);
-    updateWorkplacesView();
-    deleteRecordingOberservesWorkplace(id);
-}
-
+}*/
 
 //Line
 
@@ -806,11 +759,12 @@ void Controller::createActivity()
     updateActivityViewActivities();
 }
 
-void Controller::deleteActivity(int id)
+void Controller::deleteActivity(int id, bool showMessage)
 {
     dbHandler->deleteAll(DBConstants::TBL_ACTIVITY, QString("%1 = %2").arg(DBConstants::COL_ACTIVITY_ID).arg(id));
     deleteWorkProcesses(id);
-    viewCon->showMessage(tr("Deleted activity"), NotificationMessage::ACCEPT);
+    if(showMessage)
+        viewCon->showMessage(tr("Deleted activity"), NotificationMessage::ACCEPT);
     updateActivityViewActivities();
 }
 
@@ -859,34 +813,6 @@ void Controller::updateActivity()
     updateActivityViewActivities();
 }
 
-
-
-//CommentView
-void Controller::updateComment()
-{
-    QString tbl = DBConstants::TBL_COMMENT;
-    QString filter = QString("%1 = %2").arg(DBConstants::COL_COMMENT_WORKPLACE_ID).arg(workplace_ID);
-    QHash<QString, QVariant> row = dbHandler->selectFirst(tbl, filter);
-    commentView->setComment(row.value(DBConstants::COL_COMMENT_PROBLEM_NAME).toString(),
-                            row.value(DBConstants::COL_COMMENT_PROBLEM_DESCRIPTION).toString(),
-                            row.value(DBConstants::COL_COMMENT_MEASURE_NAME).toString(),
-                            row.value(DBConstants::COL_COMMENT_MEASURE_DESCRIPTION).toString(),
-                            row.value(DBConstants::COL_COMMENT_WORKER_PERCEPTION).toString());
-}
-
-int Controller::saveComment()
-{
-    QString filter = QString("%1 = %2").arg(DBConstants::COL_COMMENT_WORKPLACE_ID).arg(workplace_ID);
-
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_COMMENT_PROBLEM_NAME, commentView->getProblemName());
-    values.insert(DBConstants::COL_COMMENT_PROBLEM_DESCRIPTION, commentView->getProblemDescription());
-    values.insert(DBConstants::COL_COMMENT_MEASURE_NAME, commentView->getMeasureName());
-    values.insert(DBConstants::COL_COMMENT_MEASURE_DESCRIPTION, commentView->getMeasureDescription());
-    values.insert(DBConstants::COL_COMMENT_WORKER_PERCEPTION, commentView->getWorkerPerception());
-    values.insert(DBConstants::COL_COMMENT_WORKPLACE_ID, workplace_ID);
-    return dbHandler->save(DBConstants::TBL_COMMENT, DBConstants::HASH_COMMENT_TYPES, values, filter, DBConstants::COL_COMMENT_ID);
-}
 
 //TransportationView
 void Controller::updateTransportationView()
@@ -1669,23 +1595,6 @@ void Controller::deleteRecordingOberservesWorkplace(int wpID)
 {
     QString filter = QString("%1 = %2").arg(DBConstants::COL_RECORDING_OB_WORKPLACE_WORKPLACE_ID).arg(QString::number(wpID));
     dbHandler->deleteAll(DBConstants::TBL_RECORDING_OB_WORKPLACE, filter);
-}
-
-int Controller::saveWorkplace(int id)
-{
-    QString filter = QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(QString::number(id));
-
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_WORKPLACE_NAME, workplaceView->getName());
-    values.insert(DBConstants::COL_WORKPLACE_DESCRIPTION, workplaceView->getDescription());
-    values.insert(DBConstants::COL_WORKPLACE_CODE, workplaceView->getCode());
-    values.insert(DBConstants::COL_WORKPLACE_PERCENTAGE_WOMAN, workplaceView->getWomanPercentage());
-    values.insert(DBConstants::COL_WORKPLACE_BASIC_TIME, qTimeToSeconds(workplaceView->getBasicTime()));
-    values.insert(DBConstants::COL_WORKPLACE_REST_TIME, qTimeToSeconds(workplaceView->getRestTime()));
-    values.insert(DBConstants::COL_WORKPLACE_ALLOWANCE_TIME, qTimeToSeconds(workplaceView->getAllowanceTime()));
-    values.insert(DBConstants::COL_WORKPLACE_SETUP_TIME, qTimeToSeconds(workplaceView->getSetupTime()));
-    values.insert(DBConstants::COL_WORKPLACE_CYCLE_TIME, qTimeToSeconds(workplaceView->getCycleTime()));
-    return dbHandler->save(DBConstants::TBL_WORKPLACE, DBConstants::HASH_WORKPLACE_TYPES, values, filter, DBConstants::COL_WORKPLACE_ID);
 }
 
 int Controller::qTimeToSeconds(const QTime &time)

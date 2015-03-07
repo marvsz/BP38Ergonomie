@@ -54,7 +54,7 @@ private:
 
     QPushButton *btnBack;
     QPushButton *btnForward;
-    QPushButton *btnFeedback;
+    //QPushButton *btnFeedback;
     QLabel *lblBackTitle;
     QLabel *lblForwardTitle;
     QLabel *lblTitle;

@@ -3,12 +3,15 @@
 
 #include "../detailedlistitem.h"
 #include "../navigation/simplenavigateablewidget.h"
+#include "../interfaces/IWorkplaceList.h"
+#include "../databaseHandler/dbconstants.h"
 #include <QPushButton>
 #include <QScrollArea>
 
-class WorkplaceListView : public SimpleNavigateableWidget
+class WorkplaceListView : public SimpleNavigateableWidget, IWorkplaceList
 {
     Q_OBJECT
+    Q_INTERFACES(IWorkplaceList)
 public:
     explicit WorkplaceListView(QWidget *parent = 0);
 
@@ -18,21 +21,23 @@ public:
 
     QList<QAbstractButton*> * getAdditionalNavigation() const;
 
-signals:
-    void create();
-    void selected(int id);
-    void remove(int id);
+signals:   
+    void createWorkplace(QHash<QString, QVariant> values);
+    void deleteWorkplace(int id);
+    void selectWorkplace(int id);
 
 public slots:
-    void clear();
-    void addWorkplace(int id, const QString &name, const QString &description, const QString &code);
+    void addWorkplace(QHash<QString, QVariant> values);
+    void updateWorkplace(QHash<QString, QVariant> values);
+    void removeWorkplace(int id);
+    void clearWorkplaces();
 
 private slots:
     void btnPlusClicked();
     void dliWorkplaceClicked(int id);
 
 private:
-    static const QList<QStringList> workplaceCaptions;
+    const QList<QStringList> workplaceCaptions = QList<QStringList>() << (QStringList() << tr("Description") << tr("Code"));
     QPushButton *btnPlus;
     QVBoxLayout *listContentLayout;
     QScrollArea *scWorkplaces;
