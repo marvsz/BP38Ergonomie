@@ -207,6 +207,26 @@
         <file>icons/Buttons/green/capture@2x.png</file>
         <file>icons/Buttons/green/capturePressed.png</file>
         <file>icons/Buttons/green/capturePressed@2x.png</file>
+        <file>icons/Buttons/green/armsButton.png</file>
+        <file>icons/Buttons/green/armsButton@2x.png</file>
+        <file>icons/Buttons/green/armsButtonPressed.png</file>
+        <file>icons/Buttons/green/armsButtonPressed@2x.png</file>
+        <file>icons/Buttons/green/legsButton.png</file>
+        <file>icons/Buttons/green/legsButton@2x.png</file>
+        <file>icons/Buttons/green/legsButtonPressed.png</file>
+        <file>icons/Buttons/green/legsButtonPressed@2x.png</file>
+        <file>icons/Buttons/green/torsoButton.png</file>
+        <file>icons/Buttons/green/torsoButton@2x.png</file>
+        <file>icons/Buttons/green/torsoButtonPressed.png</file>
+        <file>icons/Buttons/green/torsoButtonPressed@2x.png</file>
+        <file>icons/Buttons/green/headButton.png</file>
+        <file>icons/Buttons/green/headButton@2x.png</file>
+        <file>icons/Buttons/green/headButtonPressed.png</file>
+        <file>icons/Buttons/green/headButtonPressed@2x.png</file>
+        <file>icons/Buttons/green/quickButton.png</file>
+        <file>icons/Buttons/green/quickButton@2x.png</file>
+        <file>icons/Buttons/green/quickButtonPressed.png</file>
+        <file>icons/Buttons/green/quickButtonPressed@2x.png</file>
     </qresource>
     <qresource prefix="/blue">
         <file>icons/Buttons/blue/accept.png</file>
@@ -418,5 +438,25 @@
         <file>icons/Buttons/blue/capturePressed@2x.png</file>
         <file>icons/Buttons/blue/welcome.png</file>
         <file>icons/Buttons/blue/welcome@2x.png</file>
+        <file>icons/Buttons/blue/armsButton.png</file>
+        <file>icons/Buttons/blue/armsButton@2x.png</file>
+        <file>icons/Buttons/blue/armsButtonPressed.png</file>
+        <file>icons/Buttons/blue/armsButtonPressed@2x.png</file>
+        <file>icons/Buttons/blue/legsButton.png</file>
+        <file>icons/Buttons/blue/legsButton@2x.png</file>
+        <file>icons/Buttons/blue/legsButtonPressed.png</file>
+        <file>icons/Buttons/blue/legsButtonPressed@2x.png</file>
+        <file>icons/Buttons/blue/torsoButton.png</file>
+        <file>icons/Buttons/blue/torsoButton@2x.png</file>
+        <file>icons/Buttons/blue/torsoButtonPressed.png</file>
+        <file>icons/Buttons/blue/torsoButtonPressed@2x.png</file>
+        <file>icons/Buttons/blue/headButton.png</file>
+        <file>icons/Buttons/blue/headButton@2x.png</file>
+        <file>icons/Buttons/blue/headButtonPressed.png</file>
+        <file>icons/Buttons/blue/headButtonPressed@2x.png</file>
+        <file>icons/Buttons/blue/quickButton.png</file>
+        <file>icons/Buttons/blue/quickButton@2x.png</file>
+        <file>icons/Buttons/blue/quickButtonPressed.png</file>
+        <file>icons/Buttons/blue/quickButtonPressed@2x.png</file>
     </qresource>
 </RCC>

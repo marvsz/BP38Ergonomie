@@ -105,6 +105,11 @@ QPushButton#switchCameraIcon {image: url(:/green/icons/Buttons/green/switchCamer
 QPushButton#savePhotoIcon {image: url(:/green/icons/Buttons/green/savePhoto.png); width 70px; height 70px; border: none; background-color: transparent;}
 QPushButton#discardIcon {image: url(:/green/icons/Buttons/green/discard.png); width 70px; height 70px; border: none; background-color: transparent;}
 QPushButton#captureIcon {image: url(:/green/icons/Buttons/green/capture.png); width 70px; height 70px; border: none; background-color: transparent;}
+QPushButton#armsButtonIcon{image: url(:/green/icons/Buttons/green/armsButton.png); width 60px; height 60px; border: none; background-color: transparent;}
+QPushButton#legsButtonIcon{image: url(:/green/icons/Buttons/green/legsButton.png); width 60px; height 60px; border: none; background-color: transparent;}
+QPushButton#torsoButtonIcon{image: url(:/green/icons/Buttons/green/torsoButton.png); width 60px; height 60px; border: none; background-color: transparent;}
+QPushButton#headButtonIcon{image: url(:/green/icons/Buttons/green/headButton.png); width 60px; height 60px; border: none; background-color: transparent;}
+QPushButton#quickButtonIcon{image: url(:/green/icons/Buttons/green/quickButton.png); width 60px; height 60px; border: none; background-color: transparent;}
 
 QPushButton#cameraIcon:pressed {image: url(:/green/icons/Buttons/green/cameraPressed.png); width: 50px; height: 50px; border: none; background-color: transparent;}
 QPushButton#upIcon:pressed {image: url(:/green/icons/Buttons/green/upPressed.png); width 45px; height 45px; border: none; background-color: transparent;}
@@ -140,6 +145,11 @@ QPushButton#switchCameraIcon:pressed {image: url(:/green/icons/Buttons/green/swi
 QPushButton#savePhotoIcon:pressed {image: url(:/green/icons/Buttons/green/savePhotoPressed.png); width 70px; height 70px; border: none; background-color: transparent;}
 QPushButton#discardIcon:pressed {image: url(:/green/icons/Buttons/green/discardPressed.png); width 70px; height 70px; border: none; background-color: transparent;}
 QPushButton#captureIcon:pressed {image: url(:/green/icons/Buttons/green/capturePressed.png); width 70px; height 70px; border: none; background-color: transparent;}
+QPushButton#armsButtonIcon:pressed {image: url(:/green/icons/Buttons/green/armsButtonPressed.png); width 60px; height 60px; border: none; background-color: transparent;}
+QPushButton#legsButtonIcon:pressed {image: url(:/green/icons/Buttons/green/legsButtonPressed.png); width 60px; height 60px; border: none; background-color: transparent;}
+QPushButton#torsoButtonIcon:pressed {image: url(:/green/icons/Buttons/green/torsoButtonPressed.png); width 60px; height 60px; border: none; background-color: transparent;}
+QPushButton#headButtonIcon:pressed {image: url(:/green/icons/Buttons/green/headButtonPressed.png); width 60px; height 60px; border: none; background-color: transparent;}
+QPushButton#quickButtonIcon:pressed {image: url(:/green/icons/Buttons/green/quickButtonPressed.png); width 60px; height 60px; border: none; background-color: transparent;}
 
 QPushButton#playIcon:disabled {image: url(:/green/icons/Buttons/green/playDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
 QPushButton#pauseIcon:disabled {image: url(:/green/icons/Buttons/green/pauseDisabled.png); width 45px; height 45px; border: none; background-color: transparent;}
