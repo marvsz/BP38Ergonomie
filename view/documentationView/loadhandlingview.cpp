@@ -101,6 +101,13 @@ LoadHandlingView::~LoadHandlingView()
 }
 
 // PUBLIC SLOTS
+void LoadHandlingView::setLoadHandling(QHash<QString, QVariant> values){
+    vlcGraspType->setValue(values.value(DBConstants::COL_LOAD_HANDLING_TYPE_OF_GRASPING).toString());
+    vlcHandlingType->setValue(values.value(DBConstants::COL_LOAD_HANDLING_TYPE_NAME).toString());
+    vlcWeight->setValue(values.value(DBConstants::COL_LOAD_HANDLING_LOAD).toInt());
+    vlcDistance->setValue(values.value(DBConstants::COL_LOAD_HANDLING_DISTANCE()).toInt());
+}
+
 void LoadHandlingView::addTransportation(QHash<QString, QVariant> values){
     QString fixedRollers = values.value(DBConstants::COL_TRANSPORTATION_FIXED_ROLLER).toBool() ? tr("Yes") : tr("No");
     QString brakes = values.value(DBConstants::COL_TRANSPORTATION_BRAKES).toBool() ? tr("Yes") : tr("No");
@@ -157,6 +164,14 @@ void LoadHandlingView::clearTransportations(){
     }
 }
 
+void LoadHandlingView::onLeaving(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_LOAD_HANDLING_TYPE_OF_GRASPING, vlcGraspType->getTextValue());
+    values.insert(DBConstants::COL_LOAD_HANDLING_TYPE_NAME, vlcHandlingType->getTextValue());
+    values.insert(DBConstants::COL_LOAD_HANDLING_LOAD, vlcWeight->getValue());
+    values.insert(DBConstants::COL_LOAD_HANDLING_DISTANCE, vlcDistance->getValue());
+    emit saveLoadHandling(values);
+}
 
 // PRIVATE SLOTS
 void LoadHandlingView::selectedTransportationChanged(int id){
@@ -182,7 +197,6 @@ void LoadHandlingView::btnAddTransportationClicked(){
 }
 
 // GETTER
-
 QString LoadHandlingView::getHandlingType() const {
     return vlcHandlingType->getTextValue();
 }
@@ -201,22 +215,4 @@ int LoadHandlingView::getDistance(){
 
 int LoadHandlingView::getSelectedTransportation() const{
     return selectedTransportationID;
-}
-
-// SETTER
-
-void LoadHandlingView::setHandlingType(const QString &handlingType){
-    vlcHandlingType->setValue(handlingType);
-}
-
-void LoadHandlingView::setGraspType(const QString &graspType){
-    vlcGraspType->setValue(graspType);
-}
-
-void LoadHandlingView::setWeight(int weight){
-    vlcWeight->setValue(weight);
-}
-
-void LoadHandlingView::setDistance(int distance){
-    vlcDistance->setValue(distance);
 }

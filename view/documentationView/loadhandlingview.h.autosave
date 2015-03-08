@@ -41,6 +41,8 @@ public slots:
     void updateTransportation(QHash<QString, QVariant> values);
     void clearTransportations();
 
+    void onLeaving();
+    
 private slots:
     void selectedTransportationChanged(int id);
     void deselectTransportation(int id);
