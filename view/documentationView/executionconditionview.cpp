@@ -132,112 +132,68 @@ ExecutionConditionView::ExecutionConditionView(QWidget *parent) :
 }
 
 //PUBLIC SLOTS
-void ExecutionConditionView::setArmSupports(int ruas, int luas, int rfs, int lfs, int rhs, int lhs){
-    oscRightUpperArmSupport->setSelectedByValue(ruas);
-    oscLeftUpperArmSupport->setSelectedByValue(luas);
-    oscRightForearmSupport->setSelectedByValue(rfs);
-    oscLeftForearmSupport->setSelectedByValue(lfs);
-    oscRightHandSupport->setSelectedByValue(rhs);
-    oscLeftHandSupport->setSelectedByValue(lhs);
-}
-void ExecutionConditionView::setBodySupports(int head, int trunk){
-    oscHeadSupport->setSelectedByValue(head);
-    oscTrunkSupport->setSelectedByValue(trunk);
-}
-void ExecutionConditionView::setLegSupports(int rts, int lts, int rlls, int llls){
-    oscRightThighSupport->setSelectedByValue(rts);
-    oscLeftThighSupport->setSelectedByValue(lts);
-    oscRightLowerLegSupport->setSelectedByValue(rlls);
-    oscLeftLowerLegSupport->setSelectedByValue(llls);
-}
-void ExecutionConditionView::setResultingConstraints(int graspingType, int access, int ground, int lighting, int climate, int wind, int clothing, int roomToMove){
-    scGripCondition->setValue(graspingType);
-    scAccessibility->setValue(access);
-    scGround->setValue(ground);
-    scLighting->setValue(lighting);
-    scClimate->setValue(climate);
-    scWind->setValue(wind);
-    scClothing->setValue(clothing);
-    scRoomToMove->setValue(roomToMove);
-}
-void ExecutionConditionView::setConditionAttributes(int precision, int velocity, int acceleration, int vibration){
-    scPrecision->setValue(precision);
-    scVelocity->setValue(velocity);
-    scAcceleration->setValue(acceleration);
-    scVibration->setValue(vibration);
+void ExecutionConditionView::setExecutionCondition(QHash<QString, QVariant> values){
+    oscRightUpperArmSupport->setSelectedByValue(values.value(DBConstants::COL_WORK_CONDITION_RIGHT_UPPER_ARM_SUPPORTED).toInt());
+    oscLeftUpperArmSupport->setSelectedByValue(values.value(DBConstants::COL_WORK_CONDITION_LEFT_UPPER_ARM_SUPPORTED).toInt());
+    oscRightForearmSupport->setSelectedByValue(values.value(DBConstants::COL_WORK_CONDITION_RIGHT_FOREARM_SUPPORTED).toInt());
+    oscLeftForearmSupport->setSelectedByValue(values.value(DBConstants::COL_WORK_CONDITION_LEFT_FOREARM_SUPPORTED).toInt());
+    oscRightHandSupport->setSelectedByValue(values.value(DBConstants::COL_WORK_CONDITION_RIGHT_HAND_SUPPORTED).toInt());
+    oscLeftHandSupport->setSelectedByValue(values.value(DBConstants::COL_WORK_CONDITION_LEFT_HAND_SUPPORTED).toInt());
+
+    oscHeadSupport->setSelectedByValue(values.value(DBConstants::COL_WORK_CONDITION_HEAD_SUPPORTED).toInt());
+    oscTrunkSupport->setSelectedByValue(values.value(DBConstants::COL_WORK_CONDITION_TRUNK_SUPPORT).toInt());
+
+    oscRightThighSupport->setSelectedByValue(values.value(DBConstants::COL_WORK_CONDITION_RIGHT_THIGH_SUPPORTED).toInt());
+    oscLeftThighSupport->setSelectedByValue(values.value(DBConstants::COL_WORK_CONDITION_LEFT_THIGH_SUPPORTED).toInt());
+    oscRightLowerLegSupport->setSelectedByValue(values.value(DBConstants::COL_WORK_CONDITION_RIGHT_LOWER_LEG_SUPPORTED).toInt());
+    oscLeftLowerLegSupport->setSelectedByValue(values.value(DBConstants::COL_WORK_CONDITION_LEFT_LOWER_LEG_SUPPORTED).toInt());
+
+    scGripCondition->setValue(values.value(DBConstants::COL_WORK_CONDITION_GRIP_CONDITION).toInt());
+    scAccessibility->setValue(values.value(DBConstants::COL_WORK_CONDITION_ACCESSIBILITY).toInt());
+    scGround->setValue(values.value(DBConstants::COL_WORK_CONDITION_GROUND).toInt());
+    scLighting->setValue(values.value(DBConstants::COL_WORK_CONDITION_LIGHTING).toInt());
+    scClimate->setValue(values.value(DBConstants::COL_WORK_CONDITION_CLIMATE).toInt());
+    scWind->setValue(values.value(DBConstants::COL_WORK_CONDITION_WIND).toInt());
+    scClothing->setValue(values.value(DBConstants::COL_WORK_CONDITION_CLOTHING).toInt());
+    scRoomToMove->setValue(values.value(DBConstants::COL_WORK_CONDITION_ROOM_TO_MOVE).toInt());
+
+    scPrecision->setValue(values.value(DBConstants::COL_WORK_CONDITION_PRECISION).toInt());
+    scVelocity->setValue(values.value(DBConstants::COL_WORK_CONDITION_VELOCITY).toInt());
+    scAcceleration->setValue(values.value(DBConstants::COL_WORK_CONDITION_ACCELERATION).toInt());
+    scVibration->setValue(values.value(DBConstants::COL_WORK_CONDITION_VIBRATION).toInt());
 }
 
+void ExecutionConditionView::onLeaving(){
 
-//GETTER
-int ExecutionConditionView::getHeadSupport() const{
-    return oscHeadSupport->getSelectedValue().toInt();
-}
-int ExecutionConditionView::getRightUpperArmSupport() const{
-    return oscRightUpperArmSupport->getSelectedValue().toInt();
-}
-int ExecutionConditionView::getLeftUpperArmSupport() const{
-    return oscLeftUpperArmSupport->getSelectedValue().toInt();
-}
-int ExecutionConditionView::getRightForearmSupport() const{
-    return oscRightForearmSupport->getSelectedValue().toInt();
-}
-int ExecutionConditionView::getLeftForearmSupport() const{
-    return oscLeftForearmSupport->getSelectedValue().toInt();
-}
-int ExecutionConditionView::getRightHandSupport() const{
-    return oscRightHandSupport->getSelectedValue().toInt();
-}
-int ExecutionConditionView::getLeftHandSupport() const{
-    return oscLeftHandSupport->getSelectedValue().toInt();
-}
-int ExecutionConditionView::getTrunkSupport() const{
-    return oscTrunkSupport->getSelectedValue().toInt();
-}
-int ExecutionConditionView::getRightThighSupport() const{
-    return oscRightThighSupport->getSelectedValue().toInt();
-}
-int ExecutionConditionView::getLeftThighSupport() const{
-    return oscLeftThighSupport->getSelectedValue().toInt();
-}
-int ExecutionConditionView::getRightLowerLegSupport() const{
-    return oscRightLowerLegSupport->getSelectedValue().toInt();
-}
-int ExecutionConditionView::getLeftLowerLegSupport() const{
-    return oscLeftLowerLegSupport->getSelectedValue().toInt();
-}
-int ExecutionConditionView::getPrecision() const{
-    return scPrecision->getValue();
-}
-int ExecutionConditionView::getVelocity() const{
-    return scVelocity->getValue();
-}
-int ExecutionConditionView::getAcceleration() const{
-    return scAcceleration->getValue();
-}
-int ExecutionConditionView::getGraspingType() const{
-    return scGripCondition->getValue();
-}
-int ExecutionConditionView::getAccessibility() const{
-    return scAccessibility->getValue();
-}
-int ExecutionConditionView::getGround() const{
-    return scGround->getValue();
-}
-int ExecutionConditionView::getLighting() const{
-    return scLighting->getValue();
-}
-int ExecutionConditionView::getClimate() const{
-    return scClimate->getValue();
-}
-int ExecutionConditionView::getWind() const{
-    return scWind->getValue();
-}
-int ExecutionConditionView::getClothing() const{
-    return scClothing->getValue();
-}
-int ExecutionConditionView::getVibration() const{
-    return scVibration->getValue();
-}
-int ExecutionConditionView::getRoomToMove() const{
-    return scRoomToMove->getValue();
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+
+    values.insert(DBConstants::COL_WORK_CONDITION_RIGHT_UPPER_ARM_SUPPORTED, oscRightUpperArmSupport->getSelectedValue().toInt());
+    values.insert(DBConstants::COL_WORK_CONDITION_LEFT_UPPER_ARM_SUPPORTED, oscLeftUpperArmSupport->getSelectedValue().toInt());
+    values.insert(DBConstants::COL_WORK_CONDITION_RIGHT_FOREARM_SUPPORTED, oscRightForearmSupport->getSelectedValue().toInt());
+    values.insert(DBConstants::COL_WORK_CONDITION_LEFT_FOREARM_SUPPORTED, oscLeftForearmSupport->getSelectedValue().toInt());
+    values.insert(DBConstants::COL_WORK_CONDITION_RIGHT_HAND_SUPPORTED, oscRightHandSupport->getSelectedValue().toInt());
+    values.insert(DBConstants::COL_WORK_CONDITION_LEFT_HAND_SUPPORTED, oscLeftHandSupport->getSelectedValue().toInt());
+
+    values.insert(DBConstants::COL_WORK_CONDITION_HEAD_SUPPORTED, oscHeadSupport->getSelectedValue().toInt());
+    values.insert(DBConstants::COL_WORK_CONDITION_TRUNK_SUPPORT, oscTrunkSupport->getSelectedValue().toInt());
+    values.insert(DBConstants::COL_WORK_CONDITION_RIGHT_THIGH_SUPPORTED, oscRightThighSupport->getSelectedValue().toInt());
+    values.insert(DBConstants::COL_WORK_CONDITION_LEFT_THIGH_SUPPORTED, oscLeftThighSupport->getSelectedValue().toInt());
+    values.insert(DBConstants::COL_WORK_CONDITION_RIGHT_LOWER_LEG_SUPPORTED, oscRightLowerLegSupport->getSelectedValue().toInt());
+    values.insert(DBConstants::COL_WORK_CONDITION_LEFT_LOWER_LEG_SUPPORTED, oscLeftLowerLegSupport->getSelectedValue().toInt());
+
+    values.insert(DBConstants::COL_WORK_CONDITION_GRIP_CONDITION, scGripCondition->getValue());
+    values.insert(DBConstants::COL_WORK_CONDITION_ACCESSIBILITY, scAccessibility->getValue());
+    values.insert(DBConstants::COL_WORK_CONDITION_GROUND, scGround->getValue());
+    values.insert(DBConstants::COL_WORK_CONDITION_LIGHTING, scLighting->getValue());
+    values.insert(DBConstants::COL_WORK_CONDITION_CLIMATE, scClimate->getValue());
+    values.insert(DBConstants::COL_WORK_CONDITION_WIND, scWind->getValue());
+    values.insert(DBConstants::COL_WORK_CONDITION_CLOTHING, scClothing->getValue());
+    values.insert(DBConstants::COL_WORK_CONDITION_ROOM_TO_MOVE, scRoomToMove->getValue());
+
+    values.insert(DBConstants::COL_WORK_CONDITION_PRECISION, scPrecision->getValue());
+    values.insert(DBConstants::COL_WORK_CONDITION_VELOCITY, scVelocity->getValue());
+    values.insert(DBConstants::COL_WORK_CONDITION_ACCELERATION, scAcceleration->getValue());
+    values.insert(DBConstants::COL_WORK_CONDITION_VIBRATION, scVibration->getValue());
+
+    emit saveExecutionCondition(values);
 }

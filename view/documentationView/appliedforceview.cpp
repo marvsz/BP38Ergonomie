@@ -1,6 +1,7 @@
 #include "appliedforceview.h"
 #include "../separator.h"
 #include "../flickcharm.h"
+#include "../../databaseHandler/dbconstants.h"
 #include <QScroller>
 
 const QVector<int> AppliedForceView::INTENSITY_VALUES = QVector<int>()<<5<<20<<50<<100<<150;
@@ -45,26 +46,15 @@ AppliedForceView::AppliedForceView(QWidget *parent) :
 }
 
 //PUBLIC SLOTS
-void AppliedForceView::setOrgan(const QString &organ){
-    valConOrgan->setValue(organ);
+void AppliedForceView::setAppliedForce(QHash<QString, QVariant> values){
+    valConOrgan->setValue(values.value(DBConstants::COL_APPLIED_FORCE_ORGAN).toString());
+    valConDirection->setValue(values.value(DBConstants::COL_APPLIED_FORCE_DIRECTION).toString());
+    valConIntensity->setValue(values.value(DBConstants::COL_APPLIED_FORCE_INTENSITY).toInt());
 }
 
-void AppliedForceView::setDirection(const QString &direction){
-    valConDirection->setValue(direction);
-}
-
-void AppliedForceView::setIntensity(int intensity){
-    valConIntensity->setValue(intensity);
-}
-
-
-//GETTER
-int AppliedForceView::getIntensity() const{
-    return valConIntensity->getValue();
-}
-QString AppliedForceView::getOrgan() const{
-    return valConOrgan->getTextValue();
-}
-QString AppliedForceView::getDirection() const{
-    return valConDirection->getTextValue();
+void AppliedForceView::onLeaving(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_APPLIED_FORCE_ORGAN, valConOrgan->getTextValue());
+    values.insert(DBConstants::COL_APPLIED_FORCE_DIRECTION, valConDirection->getTextValue());
+    values.insert(DBConstants::COL_APPLIED_FORCE_INTENSITY, valConIntensity->getValue());
 }

@@ -6,46 +6,22 @@
 #include <QLabel>
 #include "../slidercontrol.h"
 #include "../optionselectioncontrol.h"
+#include "../interfaces/iexecutioncondition.h"
+#include "../../databaseHandler/dbconstants.h"
 
-class ExecutionConditionView : public TitledWidget
+class ExecutionConditionView : public TitledWidget, IExecutionCondition
 {
     Q_OBJECT
+    Q_INTERFACES(IExecutionCondition)
 public:
     explicit ExecutionConditionView(QWidget *parent = 0);
 
-    int getHeadSupport() const;
-    int getRightUpperArmSupport() const;
-    int getLeftUpperArmSupport() const;
-    int getRightForearmSupport() const;
-    int getLeftForearmSupport() const;
-    int getRightHandSupport() const;
-    int getLeftHandSupport() const;
-    int getTrunkSupport() const;
-    int getRightThighSupport() const;
-    int getLeftThighSupport() const;
-    int getRightLowerLegSupport() const;
-    int getLeftLowerLegSupport() const;
-    int getPrecision() const;
-    int getVelocity() const;
-    int getAcceleration() const;
-    int getGraspingType() const;
-    int getAccessibility() const;
-    int getGround() const;
-    int getLighting() const;
-    int getClimate() const;
-    int getWind() const;
-    int getClothing() const;
-    int getVibration() const;
-    int getRoomToMove() const;
-
 signals:
+    void saveExecutionCondition(QHash<QString, QVariant> values);
 
 public slots:
-    void setArmSupports(int ruas, int luas, int rfs, int lfs, int rhs, int lhs);
-    void setBodySupports(int head, int trunk);
-    void setLegSupports(int rts, int lts, int rlls, int llls);
-    void setResultingConstraints(int graspingType, int access, int ground, int lighting, int climate, int wind, int clothing, int roomToMove);
-    void setConditionAttributes(int precision, int velocity, int acceleration, int vibration);
+    void setExecutionCondition(QHash<QString, QVariant> values);
+    void onLeaving();
 
 private slots:
 

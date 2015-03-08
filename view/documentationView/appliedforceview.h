@@ -6,23 +6,22 @@
 #include <QVector>
 #include <QString>
 #include "../valuecontrol.h"
+#include "../interfaces/iappliedforce.h"
 
-class AppliedForceView : public TitledWidget
+class AppliedForceView : public TitledWidget, IAppliedForce
 {
     Q_OBJECT
+    Q_INTERFACES(IAppliedForce)
 public:
     explicit AppliedForceView(QWidget *parent = 0);
 
-    int getIntensity() const;
-    QString getOrgan() const;
-    QString getDirection() const;
-
 signals:
+    void saveAppliedForce(QHash<QString, QVariant> values);
 
 public slots:
-    void setOrgan(const QString &organ);
-    void setDirection(const QString &direction);
-    void setIntensity(int intensity);
+    void setAppliedForce(QHash<QString, QVariant> values);
+
+    void onLeaving();
 
 private:
     const QVector<QString> ORGAN_TEXTS = QVector<QString>()<<tr("finger")<<tr("hand")<<tr("arm")<<tr("foot/leg")<<tr("full body");
