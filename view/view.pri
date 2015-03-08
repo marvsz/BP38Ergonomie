@@ -98,7 +98,6 @@ HEADERS +=\
     $$PWD/interfaces/icalendar.h \
     $$PWD/interfaces/ilinelist.h \
     $$PWD/popUps/linepopup.h \
-    $$PWD/interfaces/ibodypostureview.h \
     $$PWD/interfaces/iline.h \
     $$PWD/interfaces/iproductlist.h \
     $$PWD/interfaces/iproduct.h \
@@ -113,7 +112,8 @@ HEADERS +=\
     $$PWD/interfaces/itransportationlist.h \
     $$PWD/interfaces/iequipmentlist.h \
     $$PWD/interfaces/iequipment.h \
-    $$PWD/interfaces/itransportation.h
+    $$PWD/interfaces/itransportation.h \
+    $$PWD/interfaces/ibodyposture.h
 
 
 SOURCES +=\

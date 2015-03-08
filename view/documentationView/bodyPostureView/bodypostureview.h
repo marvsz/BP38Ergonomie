@@ -25,12 +25,12 @@ public:
 
 public slots:
     void setSelectedType(const AVType &type);
-    void setBodyPostureView(QHash<QString, QVariant> values);
+    void setBodyPosture(QHash<QString, QVariant> values);
     void onLeaving();
 
 signals:
     void showExclusiveContentByName(const QString &name);
-    void saveBodyPostureView(QHash<QString, QVariant> values);
+    void saveBodyPosture(QHash<QString, QVariant> values);
 
 
 private slots:
