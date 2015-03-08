@@ -7,10 +7,13 @@
 #include "../numberlineedit.h"
 #include "../valuecontrol.h"
 #include "../optionselectioncontrol.h"
+#include "../interfaces/iequipmentlist.h"
+#include "../../databaseHandler/dbconstants.h"
 
-class WorkProcessMetaDataView : public TitledWidget
+class WorkProcessMetaDataView : public TitledWidget, IEquipmentList
 {
     Q_OBJECT
+    Q_INTERFACES(IEquipmentList)
 public:
     explicit WorkProcessMetaDataView(QWidget *parent = 0);
     ~WorkProcessMetaDataView();
@@ -21,20 +24,26 @@ public:
     int getDistance() const;
     int getImpulseIntensity() const;
     int getImpulseCount() const;
-    int getSelectedEquipment() const;
 
 signals:
     void selectEquipmentExclusive(int id);
 
+    void createEquipment(QHash<QString, QVariant> values);
+    void deleteEquipment(int id);
+    void selectEquipment(int id);
+
 public slots:
     void setWorkProcessMetaData(const QString &desc, const QString &mtmCode, int workingHeight, int distance, int impulseIntensity, int impulseCount);
-    void addEquipment(int id, const QString &name, int recoilCount, int recoilIntensity, int vibrationCount, int vibrationIntensity);
-    void clearEquipment();
-    void setSelectedEquipment(int id);
+
+    void addEquipment(QHash<QString, QVariant> values);
+    void updateEquipment(QHash<QString, QVariant> values);
+    void removeEquipment(int id);
+    void clearEquipments();
 
 private slots:
-    void dliEquipmentClicked(int id);
-    void btnEditEquipmentClicked();
+    void dliEquipmentSelected(int id);
+    void dliEquipmentDeselect(int id);
+    void btnCreateEquipmentClicked();
 
 private:
     QLabel *lblDescription;
@@ -44,7 +53,7 @@ private:
     QLabel *lblImpulseCount;
     QLabel *lblEquipment;
 
-    QPushButton *btnEditEquipment;
+    QPushButton *btnCreateEquipment;
 
     TextLineEdit *txtBxDescription;
     ValueControl *vcMTMCode;

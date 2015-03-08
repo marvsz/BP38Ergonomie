@@ -198,7 +198,10 @@ Controller::Controller(QObject *parent, QApplication *app) :
     connect(this, SIGNAL(createdEquipment(QHash<QString,QVariant>)), workProcessMetaDataView, SLOT(addEquipment(QHash<QString,QVariant>)));
     connect(this, SIGNAL(updatedEquipment(QHash<QString,QVariant>)), workProcessMetaDataView, SLOT(updateEquipment(QHash<QString,QVariant>)));
     connect(this, SIGNAL(removedEquipment(int)), workProcessMetaDataView, SLOT(removeEquipment(int)));
-
+    
+    //TransportationView signals/slots
+    connect(this, SIGNAL(clearAll()), transportationView, SLOT(clearTrans)
+    
     connect(documentationView, SIGNAL(update(ViewType)), this, SLOT(update(ViewType)));
     connect(documentationView, SIGNAL(save(ViewType)), this, SLOT(save(ViewType)));
 

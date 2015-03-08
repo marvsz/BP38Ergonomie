@@ -66,24 +66,46 @@ EquipmentView::~EquipmentView(){
 }
 
 // PUBLIC SLOTS
-void EquipmentView::setEquipment(const QString &name, int recoilCount, int recoilIntensity, int vibrationCount, int vibrationIntensity){
-    txtBxName->setText(name);
-    numBxRecoilCount->setValue(recoilCount);
-    numBxRecoilIntensity->setValue(recoilIntensity);
-    numBxVibrationCount->setValue(vibrationCount);
-    numBxVibrationIntensity->setValue(vibrationIntensity);
-}
-
-void EquipmentView::addEquipment(int id, const QString &name, int recoilCount, int recoilIntensity, int vibrationCount, int vibrationIntensity){
-    DetailedListItem *newListItem = new DetailedListItem(0, "equipmentIcon", name, equipmentItemScheme, true, false, false);
-    newListItem->setID(id);
-    QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(recoilCount) << QString::number(recoilIntensity)) << (QStringList() << QString::number(vibrationCount) << QString::number(vibrationIntensity));
-    newListItem->setValues(values);
+void EquipmentView::addEquipment(QHash<QString, QVariant> values){
+    DetailedListItem *newListItem = new DetailedListItem(0, "equipmentIcon", values.value(DBConstants::COL_EQUIPMENT_NAME).toString(), equipmentItemScheme, true, false, false);
+    newListItem->setID(values.value(DBConstants::COL_EQUIPMENT_ID).toInt());
+    QList<QStringList> eqValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_EQUIPMENT_RECOIL_COUNT).toString() << values.value(DBConstants::COL_EQUIPMENT_RECOIL_INTENSITY).toString()) << (QStringList() << values.value(DBConstants::COL_EQUIPMENT_VIBRATION_COUNT).toString() << values.value(DBConstants::COL_EQUIPMENT_VIBRATION_INTENSITY).toString());
+    newListItem->setValues(eqValues);
     connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteEquipment(int)));
     equipmentListLayout->addWidget(newListItem);
 }
 
-void EquipmentView::clear(){
+void EquipmentView::removeEquipment(int id){
+    QLayoutItem *item;
+    int i = 0;
+    while((item = equipmentListLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            equipmentListLayout->removeItem(item);
+            delete item->widget();
+            delete item;
+            break;
+        }
+        i++;
+    }
+}
+
+void EquipmentView::updateEquipment(QHash<QString, QVariant> values){
+    QLayoutItem *item;
+    int id = values.value(DBConstants::COL_EQUIPMENT_ID).toInt();
+    int i = 0;
+    while((item = equipmentListLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            QList<QStringList> eqValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_EQUIPMENT_RECOIL_COUNT).toString() << values.value(DBConstants::COL_EQUIPMENT_RECOIL_INTENSITY).toString()) << (QStringList() << values.value(DBConstants::COL_EQUIPMENT_VIBRATION_COUNT).toString() << values.value(DBConstants::COL_EQUIPMENT_VIBRATION_INTENSITY).toString());
+            dli->setValues(eqValues);
+            break;
+        }
+        i++;
+    }
+}
+
+void EquipmentView::clearEquipments(){
     QLayoutItem *item;
     while((item = equipmentListLayout->takeAt(0)) != NULL){
         delete item->widget();
@@ -92,9 +114,14 @@ void EquipmentView::clear(){
 }
 
 // PRIVATE SLOTS
-
 void EquipmentView::btnAddClicked(){
-    emit saveEquipment();
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_EQUIPMENT_NAME, txtBxName->text());
+    values.insert(DBConstants::COL_EQUIPMENT_RECOIL_COUNT, numBxRecoilCount->getValue());
+    values.insert(DBConstants::COL_EQUIPMENT_RECOIL_INTENSITY, numBxRecoilIntensity->getValue());
+    values.insert(DBConstants::COL_EQUIPMENT_VIBRATION_COUNT, numBxVibrationCount->getValue());
+    values.insert(DBConstants::COL_EQUIPMENT_VIBRATION_INTENSITY, numBxVibrationIntensity->getValue());
+    emit createEquipment(values);
     txtBxName->clear();
     numBxRecoilCount->clear();
     numBxRecoilIntensity->clear();
@@ -102,24 +129,3 @@ void EquipmentView::btnAddClicked(){
     numBxVibrationIntensity->clear();
 }
 
-// GETTER
-
-QString EquipmentView::getName() const{
-    return txtBxName->text();
-}
-
-int EquipmentView::getRecoilCount() const{
-    return numBxRecoilCount->getValue();
-}
-
-int EquipmentView::getRecoilIntensity() const{
-    return numBxRecoilIntensity->getValue();
-}
-
-int EquipmentView::getVibrationCount() const{
-    return numBxVibrationCount->getValue();
-}
-
-int EquipmentView::getVibrationIntensity() const{
-    return numBxVibrationIntensity->getValue();
-}

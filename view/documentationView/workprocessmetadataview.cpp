@@ -15,7 +15,7 @@ WorkProcessMetaDataView::WorkProcessMetaDataView(QWidget *parent) :
     lblImpulseIntensity(new QLabel(tr("Impulse intensity:"))),
     lblImpulseCount(new QLabel(tr("Impulse count:"))),
     lblEquipment(new QLabel(tr("Equipment:"))),
-    btnEditEquipment(new QPushButton()),
+    btnCreateEquipment(new QPushButton()),
     txtBxDescription(new TextLineEdit()),
     vcMTMCode(new ValueControl(TEXT)),
     numBxWorkingHeight(new NumberLineEdit()),
@@ -31,8 +31,8 @@ WorkProcessMetaDataView::WorkProcessMetaDataView(QWidget *parent) :
     numBxDistance->setPlaceholderText(tr("Distance from produced product [cm]"));
     numBxImpulseCount->setPlaceholderText(tr("Count of impulses"));
 
-    btnEditEquipment->setFixedSize(45, 45);
-    btnEditEquipment->setObjectName("editIcon");
+    btnCreateEquipment->setFixedSize(45, 45);
+    btnCreateEquipment->setObjectName("editIcon");
 
     oscImpulseIntensity->setValues(IMPULSE_INTENSITY_TEXTS, IMPULSE_INTENSITY_VALUES);
 
@@ -61,7 +61,7 @@ WorkProcessMetaDataView::WorkProcessMetaDataView(QWidget *parent) :
     mainLayout->addWidget(new Separator(Qt::Horizontal, 3), 9, 0, 1, 2, 0);
     mainLayout->addWidget(lblEquipment, 10, 0, 1, 1, 0);
     mainLayout->addWidget(equipmentList, 11, 0, 1, 3, 0);
-    mainLayout->addWidget(btnEditEquipment, 12, 1, 1, 1, 0);
+    mainLayout->addWidget(btnCreateEquipment, 12, 1, 1, 1, 0);
     mainLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 9, 0, 1, 2, 0);
 
     QWidget *mainContent = new QWidget();
@@ -78,7 +78,7 @@ WorkProcessMetaDataView::WorkProcessMetaDataView(QWidget *parent) :
 
     setLayout(wrapLayout);
 
-    connect(btnEditEquipment, SIGNAL(clicked()), this, SLOT(btnEditEquipmentClicked()));
+    connect(btnCreateEquipment, SIGNAL(clicked()), this, SLOT(btnCreateEquipmentClicked()));
 }
 
 WorkProcessMetaDataView::~WorkProcessMetaDataView()
@@ -95,17 +95,48 @@ void WorkProcessMetaDataView::setWorkProcessMetaData(const QString &desc, const 
     numBxImpulseCount->setValue(impulseCount);
 }
 
-void WorkProcessMetaDataView::addEquipment(int id, const QString &name, int recoilCount, int recoilIntensity, int vibrationCount, int vibrationIntensity){
-    DetailedListItem *newListItem = new DetailedListItem(0, "equipmentIcon", name, equipmentItemScheme, false, true, false);
-    newListItem->setID(id);
-    QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(recoilCount) << QString::number(recoilIntensity)) << (QStringList() << QString::number(vibrationCount) << QString::number(vibrationIntensity));
-    newListItem->setValues(values);
-    connect(newListItem, SIGNAL(selected(int)), this, SLOT(dliEquipmentClicked(int)));
+void WorkProcessMetaDataView::addEquipment(QHash<QString, QVariant> values){
+    DetailedListItem *newListItem = new DetailedListItem(0, "equipmentIcon", values.value(DBConstants::COL_EQUIPMENT_NAME).toString(), equipmentItemScheme, false, true, false);
+    newListItem->setID(values.value(DBConstants::COL_EQUIPMENT_ID).toInt());
+    QList<QStringList> eqValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_EQUIPMENT_RECOIL_COUNT).toString() << values.value(DBConstants::COL_EQUIPMENT_RECOIL_INTENSITY).toString()) << (QStringList() << values.value(DBConstants::COL_EQUIPMENT_VIBRATION_COUNT).toString() << values.value(DBConstants::COL_EQUIPMENT_VIBRATION_INTENSITY).toString());
+    newListItem->setValues(eqValues);
+    connect(newListItem, SIGNAL(selected(int)), this, SLOT(dliEquipmentSelected(int)));
+    connect(newListItem, SIGNAL(deselected(int)), this, SLOT(dliEquipmentDeselect(int)));
     connect(this, SIGNAL(selectEquipmentExclusive(int)), newListItem, SLOT(selectExclusiveWithID(int)));
     equipmentListLayout->addWidget(newListItem);
 }
 
-void WorkProcessMetaDataView::clearEquipment(){
+void WorkProcessMetaDataView::removeEquipment(int id){
+    QLayoutItem *item;
+    int i = 0;
+    while((item = equipmentListLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            equipmentListLayout->removeItem(item);
+            delete item->widget();
+            delete item;
+            break;
+        }
+        i++;
+    }
+}
+
+void WorkProcessMetaDataView::updateEquipment(QHash<QString, QVariant> values){
+    QLayoutItem *item;
+    int id = values.value(DBConstants::COL_EQUIPMENT_ID).toInt();
+    int i = 0;
+    while((item = equipmentListLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            QList<QStringList> eqValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_EQUIPMENT_RECOIL_COUNT).toString() << values.value(DBConstants::COL_EQUIPMENT_RECOIL_INTENSITY).toString()) << (QStringList() << values.value(DBConstants::COL_EQUIPMENT_VIBRATION_COUNT).toString() << values.value(DBConstants::COL_EQUIPMENT_VIBRATION_INTENSITY).toString());
+            dli->setValues(eqValues);
+            break;
+        }
+        i++;
+    }
+}
+
+void WorkProcessMetaDataView::clearEquipments(){
     QLayoutItem *item;
     while((item = equipmentListLayout->takeAt(0)) != NULL){
         delete item->widget();
@@ -113,17 +144,18 @@ void WorkProcessMetaDataView::clearEquipment(){
     }
 }
 
-void WorkProcessMetaDataView::setSelectedEquipment(int id){
-    dliEquipmentClicked(id);
-}
-
 //PRIVATE SLOTS
-void WorkProcessMetaDataView::dliEquipmentClicked(int id){
+void WorkProcessMetaDataView::dliEquipmentSelected(int id){
     selectedEquipment_ID = id;
     emit selectEquipmentExclusive(id);
 }
 
-void WorkProcessMetaDataView::btnEditEquipmentClicked(){
+void WorkProcessMetaDataView::dliEquipmentDeselect(int id){
+    if(selectedEquipment_ID == id)
+        selectedEquipment_ID = 0;
+}
+
+void WorkProcessMetaDataView::btnCreateEquipmentClicked(){
     emit showPopUp(PopUpType::EQUIPMENT_POPUP);
 }
 
@@ -146,7 +178,5 @@ int WorkProcessMetaDataView::getImpulseIntensity() const{
 int WorkProcessMetaDataView::getImpulseCount() const{
     return numBxImpulseCount->getValue();
 }
-int WorkProcessMetaDataView::getSelectedEquipment() const{
-    return selectedEquipment_ID;
-}
+
 

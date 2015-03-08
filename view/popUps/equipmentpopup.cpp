@@ -10,6 +10,9 @@ EquipmentPopUp::EquipmentPopUp(QWidget *parent):
     numBxVibrationCount(new NumberLineEdit()),
     numBxVibrationIntensity(new NumberLineEdit())
 {
+    connect(this, SIGNAL(closePopUp()), this, SLOT(onClose()));
+    connect(this, SIGNAL(confirm()), this, SLOT(onConfirm()));
+
     txtBxName->setPlaceholderText(tr("Name"));
     numBxRecoilCount->setPlaceholderText(tr("Recoil count"));
     numBxRecoilIntensity->setPlaceholderText(tr("Recoil intensity"));
@@ -36,28 +39,22 @@ EquipmentPopUp::~EquipmentPopUp()
 
 }
 
-//PUBLIC SLOTS
-void EquipmentPopUp::onEnter(){
+//PRIVATE SLOTS
+void EquipmentPopUp::onConfirm(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_EQUIPMENT_NAME, txtBxName->text());
+    values.insert(DBConstants::COL_EQUIPMENT_RECOIL_COUNT, numBxRecoilCount->getValue());
+    values.insert(DBConstants::COL_EQUIPMENT_RECOIL_INTENSITY, numBxRecoilIntensity->getValue());
+    values.insert(DBConstants::COL_EQUIPMENT_VIBRATION_COUNT, numBxVibrationCount->getValue());
+    values.insert(DBConstants::COL_EQUIPMENT_VIBRATION_INTENSITY, numBxVibrationIntensity->getValue());
+    emit saveEquipment(values);
+    emit closePopUp();
+}
+
+void EquipmentPopUp::onClose(){
     txtBxName->clear();
     numBxRecoilCount->clear();
     numBxRecoilIntensity->clear();
     numBxVibrationCount->clear();
     numBxVibrationIntensity->clear();
-}
-
-//GETTER
-QString EquipmentPopUp::getName() const{
-    return txtBxName->text();
-}
-int EquipmentPopUp::getRecoilCount() const{
-    return numBxRecoilCount->getValue();
-}
-int EquipmentPopUp::getRecoilIntensity() const{
-    return numBxRecoilIntensity->getValue();
-}
-int EquipmentPopUp::getVibrationCount() const{
-    return numBxVibrationCount->getValue();
-}
-int EquipmentPopUp::getVibrationIntensity() const{
-    return numBxVibrationIntensity->getValue();
 }

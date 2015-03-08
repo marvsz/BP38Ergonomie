@@ -2,23 +2,27 @@
 #define EQUIPMENTPOPUP_H
 
 #include "../navigation/abstractpopupwidget.h"
+#include "../interfaces/iequipment.h"
 #include "../numberlineedit.h"
+#include "../../databaseHandler/dbconstants.h"
 
-class EquipmentPopUp : public AbstractPopUpWidget
+class EquipmentPopUp : public AbstractPopUpWidget, IEquipment
 {
     Q_OBJECT
+    Q_INTERFACES(IEquipment)
 public:
     explicit EquipmentPopUp(QWidget *parent = 0);
     ~EquipmentPopUp();
 
-    QString getName() const;
-    int getRecoilCount() const;
-    int getRecoilIntensity() const;
-    int getVibrationCount() const;
-    int getVibrationIntensity() const;
+signals:
+    void saveEquipment(QHash<QString, QVariant> values);
 
 public slots:
-    void onEnter();
+    void setEquipment(QHash<QString, QVariant> values){}
+
+private slots:
+    void onConfirm();
+    void onClose();
 
 private:
     TextLineEdit *txtBxName;

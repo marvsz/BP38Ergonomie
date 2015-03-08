@@ -109,6 +109,19 @@ signals:
     void removedActivity(int id);
     void editActivity(QHash<QString, QVariant> values);
 
+    //Equipment
+    void clearEquipments();
+    void createdEquipment(QHash<QString, QVariant> values);
+    void updatedEquipment(QHash<QString, QVariant> values);
+    void removedEquipment(int id);
+
+    //Transportation
+    void clearTransportations();
+    void createdTransportation(QHash<QString, QVariant> values);
+    void updatedTransportation(QHash<QString, QVariant> values);
+    void removedTransportation(int id);
+
+
 private slots:
     void databaseError(QString error);
 
@@ -159,6 +172,17 @@ private slots:
     void selectACtivity(int id);
     void editActivity(int id);
 
+    //Equipment
+    void initializeEquipments();
+    void createEquipment(QHash<QString, QVariant> values);
+    void saveEquipment(QHash<QString, QVariant> values);
+    void deleteEquipment(int id);
+
+    //Transportation
+    void initializeTansportations();
+    void createTransportation(QHash<QString, QVariant> values);
+    void saveTransportation(QHash<QString, QVariant> values);
+    void deleteTransportation(int id);
 
     int createWorkprocess(AVType type, const QTime &start, const QTime &end);
     void setSelectedWorkProcess(int, AVType);
@@ -171,17 +195,6 @@ private slots:
 
     void initializeRecording();
 
-    void updateEquipmentView();
-    void createEquipment();
-    void createEquipmentPopUp();
-    void createEquipment(QHash<QString, QVariant> values);
-    void deleteEquipment(int id);
-
-    void updateTransportationView();
-    void createTransportation();
-    void createTransportationPopUp();
-    void createTransportation(QHash<QString, QVariant> values);
-    void deleteTransportation(int id);
 
     //Employee
     void initializeEmployees();
@@ -211,7 +224,6 @@ private slots:
     void updateLoadHandlingTransportations();
 
     void updateWorkProcessMetaDataView();
-    void updateWorkProcessMetaDataEquipment();
 
     void updateDocumentationViewRessources();
 
