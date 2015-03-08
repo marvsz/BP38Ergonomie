@@ -17,6 +17,7 @@ public:
     QVariant getSelectedValue() const;
     QString getSelectedTexts() const;
     int getSelectedID() const;
+    int getSelectedSpecification() const;
 
 signals:
     void selectionChanged(int id, int speci);
@@ -27,10 +28,10 @@ public slots:
     void setSelectedSpecification(int id);
     //void setSelectedLeft(int id);
     //void setSelectedRight(int id);
-    void setSelectedValue(const QString &text);
+    /*void setSelectedValue(const QString &text);
     void setSelectedByValue(int value);
     void setValues(const QStringList &texts, const QVector<QVariant> &values);
-    void setValues(const QStringList &texts);
+    void setValues(const QStringList &texts);*/
     void setValues(const QStringList &texts, const QStringList &differ, const QString &label);
 
 private:
@@ -49,6 +50,7 @@ private:
 
     int id;
     int idSpeci;
+    int specification;
     //int idLeft;
     //int idRight;
 

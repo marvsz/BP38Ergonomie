@@ -329,29 +329,29 @@ void BodyPostureView::voscQuickTrunkPostureChanged(int id){
 
     switch(id){
 
-    case 0:
+    case 1:
             values.insert(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,110);
             vcTrunkTilt->setValue(110);
             break;
 
-    case 1:
+    case 2:
             values.insert(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,20);
             vcTrunkTilt->setValue(20);
             break;
 
-    case 2:
+    case 3:
             values.insert(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,0);
             vcTrunkTilt->setValue(0);
             break;
 
 
-    case 3:
+    case 4:
             values.insert(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,-20);
             vcTrunkTilt->setValue(-20);
             break;
 
 
-    case 4:
+    case 5:
             values.insert(DBConstants::COL_BODY_POSTURE_TRUNK_TILT,-45);
             vcTrunkTilt->setValue(-45);
             break;
@@ -364,23 +364,23 @@ void BodyPostureView::voscQuickTrunkPostureChanged(int id){
 void BodyPostureView::voscQuickArmPostureChanged(int id, int sel){
 qDebug()<<"Option"<<id<<"Spezifikation"<<sel;
     switch(id){
-        case 0:
+        case 1:
         switch(sel){
-        case 0:
+        case 1:
             values.insert(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_LEFT,0);
             vcUpperArmAngle->setValue(0);
             values.insert(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_LEFT,90);
             vcForearmAngle->setValue(90);
             break;
 
-        case 1:
+        case 2:
             values.insert(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_RIGHT,0);
             vcUpperArmAngle->setValue(0);
             values.insert(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_RIGHT,90);
             vcForearmAngle->setValue(90);
             break;
 
-        case 2:
+        case 3:
             values.insert(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_RIGHT,0);
             values.insert(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_LEFT,0);
             vcUpperArmAngle->setValue(0);
@@ -394,23 +394,23 @@ qDebug()<<"Option"<<id<<"Spezifikation"<<sel;
 
         break;
 
-        case 1:
+        case 2:
         switch(sel){
-        case 0:
+        case 1:
             values.insert(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_LEFT,90);
             vcUpperArmAngle->setValue(90);
             values.insert(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_LEFT,180);
             vcForearmAngle->setValue(180);
             break;
 
-        case 1:
+        case 2:
             values.insert(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_RIGHT,90);
             vcUpperArmAngle->setValue(90);
             values.insert(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_RIGHT,180);
             vcForearmAngle->setValue(180);
             break;
 
-        case 2:
+        case 3:
             values.insert(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_RIGHT,90);
             values.insert(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_LEFT,90);
             vcUpperArmAngle->setValue(90);
@@ -423,23 +423,23 @@ qDebug()<<"Option"<<id<<"Spezifikation"<<sel;
         }
         break;
 
-        case 2:
+        case 3:
         switch(sel){
-        case 0:
+        case 1:
             values.insert(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_LEFT,135);
             vcUpperArmAngle->setValue(135);
             values.insert(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_LEFT,180);
             vcForearmAngle->setValue(180);
             break;
 
-        case 1:
+        case 2:
             values.insert(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_RIGHT,135);
             vcUpperArmAngle->setValue(135);
             values.insert(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_RIGHT,180);
             vcForearmAngle->setValue(180);
             break;
 
-        case 2:
+        case 3:
             values.insert(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_RIGHT,135);
             values.insert(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_LEFT,135);
             vcUpperArmAngle->setValue(135);
@@ -463,7 +463,7 @@ qDebug()<<"Spezifikation"<<id;
 void BodyPostureView::qlpcQuickLegPostureChanged(int id, int speci){
     qDebug()<<"Bein Option"<<id<<"Bein Spezifikation"<<speci;
     switch (id) {
-    case 0:
+    case 1:
         values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,180);
         values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,180);
         vcHipAngle->setValue(180);
@@ -474,7 +474,7 @@ void BodyPostureView::qlpcQuickLegPostureChanged(int id, int speci){
         values.insert(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT,90);
         vcAnkleAngle->setValue(90);
         break;
-    case 1:
+    case 2:
         values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,90);
         values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,90);
         vcHipAngle->setValue(90);
@@ -485,9 +485,9 @@ void BodyPostureView::qlpcQuickLegPostureChanged(int id, int speci){
         values.insert(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT,90);
         vcAnkleAngle->setValue(90);
         break;
-    case 2:
+    case 3:
         switch(speci){
-        case 0:
+        case 1:
             values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,135);
             values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,90);
             vcHipAngle->setValue(90);
@@ -498,7 +498,7 @@ void BodyPostureView::qlpcQuickLegPostureChanged(int id, int speci){
             values.insert(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT,90);
             vcAnkleAngle->setValue(90);
             break;
-        case 1:
+        case 2:
             values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,90);
             values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,135);
             vcHipAngle->setValue(90);
@@ -509,7 +509,7 @@ void BodyPostureView::qlpcQuickLegPostureChanged(int id, int speci){
             values.insert(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT,90);
             vcAnkleAngle->setValue(90);
             break;
-        case 2:
+        case 3:
             values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,135);
             values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,135);
             vcHipAngle->setValue(135);
@@ -523,7 +523,7 @@ void BodyPostureView::qlpcQuickLegPostureChanged(int id, int speci){
         }
 
         break;
-    case 3:
+    case 4:
         values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,180);
         values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,180);
         vcHipAngle->setValue(180);
@@ -534,7 +534,7 @@ void BodyPostureView::qlpcQuickLegPostureChanged(int id, int speci){
         values.insert(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT,90);
         vcAnkleAngle->setValue(90);
         break;
-    case 4:
+    case 5:
         values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,180);
         values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,180);
         vcHipAngle->setValue(180);
@@ -554,7 +554,7 @@ void BodyPostureView::qlpcQuickLegPostureChanged(int id, int speci){
 void BodyPostureView::qlpcQuickLegPostureSpecificationChagend(int id){
     qDebug()<<"Bein Spezifikation"<<id;
     switch(id){
-    case 0:
+    case 1:
         values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,135);
         values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,90);
         vcHipAngle->setValue(90);
@@ -565,7 +565,7 @@ void BodyPostureView::qlpcQuickLegPostureSpecificationChagend(int id){
         values.insert(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT,90);
         vcAnkleAngle->setValue(90);
         break;
-    case 1:
+    case 2:
         values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,90);
         values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,135);
         vcHipAngle->setValue(90);
@@ -576,7 +576,7 @@ void BodyPostureView::qlpcQuickLegPostureSpecificationChagend(int id){
         values.insert(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT,90);
         vcAnkleAngle->setValue(90);
         break;
-    case 2:
+    case 3:
         values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,135);
         values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,135);
         vcHipAngle->setValue(135);

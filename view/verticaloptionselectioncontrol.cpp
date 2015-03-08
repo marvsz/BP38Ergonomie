@@ -4,7 +4,8 @@
 VerticalOptionSelectionControl::VerticalOptionSelectionControl(QWidget *parent) :
     QWidget(parent),
     btnOptions(QVector<SelectableValueButton*>()),
-    mainLayout(new QVBoxLayout)
+    mainLayout(new QVBoxLayout),
+    id(1)
 {
     mainLayout->setContentsMargins(0,0,0,0);
     this->setLayout(mainLayout);
@@ -13,9 +14,9 @@ VerticalOptionSelectionControl::VerticalOptionSelectionControl(QWidget *parent) 
 
 //Public slots
 void VerticalOptionSelectionControl::setSelectedValue(int id){
-    if(id >= 0 && id < btnOptions.length() && currentSelectedBtn != NULL && currentSelectedBtn->getID() != id){
-        btnOptions.at(currentSelectedBtn->getID())->setSelected(false);
-        currentSelectedBtn = btnOptions.at(id);
+    if(id >= 0 && id < btnOptions.length()+1 && currentSelectedBtn != NULL && currentSelectedBtn->getID() != id){
+        btnOptions.at(currentSelectedBtn->getID()-1)->setSelected(false);
+        currentSelectedBtn = btnOptions.at(id-1);
         currentSelectedBtn->setSelected(true);
         emit selectionChanged(id);
     }
@@ -24,7 +25,7 @@ void VerticalOptionSelectionControl::setSelectedValue(int id){
     }
 }
 
-void VerticalOptionSelectionControl::setSelectedValue(const QString &text){
+/*void VerticalOptionSelectionControl::setSelectedValue(const QString &text){
     for(int i = 0; i < btnOptions.length(); ++i){
         SelectableValueButton *btn = btnOptions.at(i);
         if(btn->text().compare(text) == 0){
@@ -70,7 +71,7 @@ void VerticalOptionSelectionControl::setValues(const QStringList &texts){
     }
     currentSelectedBtn = btnOptions.at(1);
     setSelectedValue(0);
-}
+}*/
 
 void VerticalOptionSelectionControl::setValues(const QStringList &texts, const QString &label){
     clear();
@@ -78,7 +79,7 @@ void VerticalOptionSelectionControl::setValues(const QStringList &texts, const Q
     lblName->setObjectName("lblHeader");
     mainLayout->addWidget(lblName, 0, Qt::AlignHCenter);
     for(int i=0; i < texts.length(); ++i){
-        SelectableValueButton *btn = new SelectableValueButton(i, texts.at(i), this);
+        SelectableValueButton *btn = new SelectableValueButton(id++, texts.at(i), this);
         btn->setMinimumSize(45, 45);
         btn->setText(texts.at(i));
         btnOptions.append(btn);
@@ -86,7 +87,7 @@ void VerticalOptionSelectionControl::setValues(const QStringList &texts, const Q
         connect(btn, SIGNAL(clickedWithID(int)), this, SLOT(setSelectedValue(int)));
     }
     currentSelectedBtn = btnOptions.at(1);
-    setSelectedValue(0);
+    setSelectedValue(1);
 }
 
 //Private methods

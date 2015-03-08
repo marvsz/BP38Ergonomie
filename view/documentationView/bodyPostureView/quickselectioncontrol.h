@@ -10,6 +10,7 @@
 #include "../../quicklegposturecontrol.h"
 #include <QPixmap>
 #include <QLabel>
+#include <QHash>
 class QuickSelectionControl : public QWidget
 { Q_OBJECT
 public:
@@ -40,6 +41,7 @@ public slots:
 private slots:
 
     void btnNameClicked();
+    void updateDummyPosture();
 
 private:
     QString name;
@@ -66,6 +68,10 @@ private:
     const QPixmap hans_standing_bothArms_atElbowHeight_lightBendingFront = QPixmap(":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_lightBendingFront.png");
     const QPixmap hans_standing_bothArms_atElbowHeight_strongBendingFront = QPixmap(":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_strongBendingFront.png");
     bool shown;
+
+    int key;
+
+    QHash<int, QString> hansHash;
 };
 
 #endif // QUICKSELECTIONCONTROL_H

@@ -8,8 +8,9 @@ QuickLegPostureControl::QuickLegPostureControl(QWidget *parent) :
     //leftOptions(QVector<SelectableValueButton*>()),
     //rightOptions(QVector<SelectableValueButton*>()),
     mainLayout(new QVBoxLayout),
-    id(0),
-    idSpeci(0)
+    id(1),
+    idSpeci(1),
+    specification(3)
     //idLeft(0),
     //idRight(0)
 {
@@ -20,24 +21,28 @@ QuickLegPostureControl::QuickLegPostureControl(QWidget *parent) :
 
 //Public slots
 void QuickLegPostureControl::setSelectedValue(int id){
-    if(id >= 0 && id < btnOptions.length() && currentSelectedBtn != NULL && currentSelectedBtn->getID() != id){
-        btnOptions.at(currentSelectedBtn->getID())->setSelected(false);
-        currentSelectedBtn = btnOptions.at(id);
+    if(id >= 0 && id < btnOptions.length()+1 && currentSelectedBtn != NULL && currentSelectedBtn->getID() != id){
+        btnOptions.at(currentSelectedBtn->getID()-1)->setSelected(false);
+        currentSelectedBtn = btnOptions.at(id-1);
         currentSelectedBtn->setSelected(true);
         //emit selectionChanged(id);
-        if(currentSelectedBtn->getID()==2){
+        if(currentSelectedBtn->getID()==3){
             speciOptions.at(0)->setSelected(true);
             speciOptions.at(1)->setSelected(true);
-            emit selectionChanged(id,2);
+            emit selectionChanged(id,3);
+            specification = 3;
             if(speciOptions.at(0)->isSelected()&&speciOptions.at(1)->isSelected()){
-                emit selectionChanged(id,2);
+                emit selectionChanged(id,3);
+                specification = 3;
             }
             else{
                 if(speciOptions.at(0)->isSelected()){
-                    emit selectionChanged(id,0);
+                    emit selectionChanged(id,1);
+                    specification = 1;
                 }
                 if(speciOptions.at(1)->isSelected()){
-                    emit selectionChanged(id,1);
+                    emit selectionChanged(id,2);
+                    specification = 2;
                 }
 
             }
@@ -46,6 +51,7 @@ void QuickLegPostureControl::setSelectedValue(int id){
             speciOptions.at(0)->setSelected(false);
             speciOptions.at(1)->setSelected(false);
             emit selectionChanged(id,3);
+            specification = 3;
         }
 
 
@@ -57,31 +63,35 @@ void QuickLegPostureControl::setSelectedValue(int id){
 }
 
 void QuickLegPostureControl::setSelectedSpecification(int id){
-    if(id >= 0 && id < speciOptions.length() && currentSpeciBtn != NULL && currentSelectedBtn->getID() == 2){
+    if(id >= 0 && id < speciOptions.length()+1 && currentSpeciBtn != NULL && currentSelectedBtn->getID() == 3){
         switch (id) {
-        case 0:
-            if(!speciOptions.at(0)->isSelected()){
+        case 1:
+            if(!speciOptions.at(0)->isSelected()&&speciOptions.at(1)->isSelected()){
                 speciOptions.at(0)->setSelected(true);
-                emit specificationChanged(2);
+                emit specificationChanged(3);
+                specification = 3;
             }
             else{
                 if(speciOptions.at(0)->isSelected()&&speciOptions.at(1)->isSelected()){
                     speciOptions.at(0)->setSelected(false);
-                    emit specificationChanged(1);
+                    emit specificationChanged(2);
+                    specification = 2;
                 }
                 else
                     speciOptions.at(0)->setSelected(true);
             }
             break;
-        case 1:
-            if(!speciOptions.at(1)->isSelected()){
+        case 2:
+            if(!speciOptions.at(1)->isSelected()&&speciOptions.at(0)->isSelected()){
                 speciOptions.at(1)->setSelected(true);
-                emit specificationChanged(2);
+                emit specificationChanged(3);
+                specification = 3;
             }
             else{
                 if(speciOptions.at(1)->isSelected()&&speciOptions.at(0)->isSelected()){
                     speciOptions.at(1)->setSelected(false);
-                    emit specificationChanged(0);
+                    emit specificationChanged(1);
+                    specification = 1;
                 }
                 else
                     speciOptions.at(1)->setSelected(true);
@@ -94,10 +104,11 @@ void QuickLegPostureControl::setSelectedSpecification(int id){
     else{
         speciOptions.at(0)->setSelected(false);
         speciOptions.at(1)->setSelected(false);
+        specification = 3;
     }
 }
 
-void QuickLegPostureControl::setSelectedValue(const QString &text){
+/*void QuickLegPostureControl::setSelectedValue(const QString &text){
     for(int i = 0; i < btnOptions.length(); ++i){
         SelectableValueButton *btn = btnOptions.at(i);
         if(btn->text().compare(text) == 0){
@@ -144,7 +155,7 @@ void QuickLegPostureControl::setValues(const QStringList &texts){
     currentSelectedBtn = btnOptions.at(0);
     setSelectedValue(0);
 }
-
+*/
 void QuickLegPostureControl::setValues(const QStringList &texts, const QStringList &differ, const QString &label){
     clear();
     QLabel *lblName = new QLabel(label);
@@ -195,17 +206,9 @@ void QuickLegPostureControl::setValues(const QStringList &texts, const QStringLi
 
     currentSelectedBtn = btnOptions.at(0);
     currentSelectedBtn->setSelected(true);
-    setSelectedValue(-1);
-    if(!speciOptions.isEmpty()){
-        currentSpeciBtn = speciOptions.at(0);
-        //currentLeftBtn->setSelected(true);
-        setSelectedSpecification(0);
-    }
-    if(!speciOptions.isEmpty()){
-        currentSpeciBtn = speciOptions.at(1);
-        //currentRightBtn->setSelected(true);
-        setSelectedSpecification(1);
-    }
+    setSelectedValue(1);
+    setSelectedSpecification(1);
+    setSelectedSpecification(2);
 }
 
 //Private methods
@@ -237,5 +240,9 @@ int QuickLegPostureControl::getSelectedID() const{
     if(currentSelectedBtn != NULL)
         return currentSelectedBtn->getID();
     else
-        return -1;
+        return 0;
+}
+
+int QuickLegPostureControl::getSelectedSpecification() const{
+        return this->specification;
 }
