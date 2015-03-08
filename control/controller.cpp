@@ -198,6 +198,8 @@ Controller::Controller(QObject *parent, QApplication *app) :
     connect(this, SIGNAL(createdEquipment(QHash<QString,QVariant>)), workProcessMetaDataView, SLOT(addEquipment(QHash<QString,QVariant>)));
     connect(this, SIGNAL(updatedEquipment(QHash<QString,QVariant>)), workProcessMetaDataView, SLOT(updateEquipment(QHash<QString,QVariant>)));
     connect(this, SIGNAL(removedEquipment(int)), workProcessMetaDataView, SLOT(removeEquipment(int)));
+    connect(workProcessMetaDataView, SIGNAL(saveWorkProcess(QHash<QString, QVariant>)), this, SLOT(saveWorkProcess(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(setWorkProcess(QHash<QString,QVariant>)), workProcessMetaDataView, SLOT(setWorkProcess(QHash<QString, QVariant>)));
 
     //TransportationView signals/slots
     connect(this, SIGNAL(clearAll()), transportationView, SLOT(clearTransportations()));
@@ -211,26 +213,51 @@ Controller::Controller(QObject *parent, QApplication *app) :
     //TransportationPopUp signals/slots
     connect(transportationPopUp, SIGNAL(saveTransportation(QHash<QString,QVariant>)), this, SLOT(createTransportation(QHash<QString,QVariant>)));
 
-    //LoadHandling
+    //LoadHandling View signals/slots
     connect(this, SIGNAL(clearAll()), loadHandlingView, SLOT(clearTransportations()));
     connect(this, SIGNAL(clearTransportations()), loadHandlingView, SLOT(clearTransportations()));
     connect(this, SIGNAL(createdTransportation(QHash<QString,QVariant>)), loadHandlingView, SLOT(addTransportation(QHash<QString,QVariant>)));
     connect(this, SIGNAL(removedTransportation(int)), loadHandlingView, SLOT(removeTransportation(int)));
     connect(this, SIGNAL(updatedTransportation(QHash<QString,QVariant>)), loadHandlingView, SLOT(updateTransportation(QHash<QString,QVariant>)));
+    connect(loadHandlingView, SIGNAL(saveLoadHandling(QHash<QString,QVariant>)), this, SLOT(saveLoadHandling(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(setLoadHandling(QHash<QString,QVariant>)), loadHandlingView, SLOT(setLoadHandling(QHash<QString,QVariant>)));
 
-    connect(documentationView, SIGNAL(update(ViewType)), this, SLOT(update(ViewType)));
-    connect(documentationView, SIGNAL(save(ViewType)), this, SLOT(save(ViewType)));
+    //AppliedForce View signals/slots
+    connect(appliedForceView, SIGNAL(saveAppliedForce(QHash<QString, QVariant>)), this, SLOT(saveAppliedForce(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(setAppliedForce(QHash<QString,QVariant>)), appliedForceView, SLOT(setAppliedForce(QHash<QString, QVariant>)));
 
-    connect(gantTimerView, SIGNAL(workProcessSelected(int,AVType)), this, SLOT(setSelectedWorkProcess(int, AVType)));
+    //ExecutionCondition View signals/slots
+    connect(executionConditionView, SIGNAL(saveExecutionCondition(QHash<QString, QVariant>)), this, SLOT(saveExecutionCondition(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(setExecutionCondition(QHash<QString,QVariant>)), executionConditionView, SLOT(setExecutionCondition(QHash<QString, QVariant>)));
+
+    //BodyPosture View signals/slots
+    connect(bodyPostureView, SIGNAL(saveBodyPosture(QHash<QString,QVariant>)), this, SLOT(saveBodyPosture(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(setBodyPosture(QHash<QString,QVariant>)), bodyPostureView, SLOT(setBodyPosture(QHash<QString,QVariant>)));
+
+    //GanttTimer View signals/slots
+    connect(gantTimerView, SIGNAL(selectWorkProcess(QHash<QString,QVariant>)), this, SLOT(selectWorkProcess(QHash<QString, QVariant>)));
+    connect(gantTimerView, SIGNAL(saveWorkProcessFrequence(int)), this, SLOT(saveWorkProcessFrequence(int)));
+    connect(this, SIGNAL(initiliazedWorkProcesses(QList<QHash<QString,QVariant> >)), gantTimerView, SLOT(initiliazeWorkProcesses(QList<QHash<QString,QVariant> >)));
+    connect(this, SIGNAL(setSelectedWorkProcess(QHash<QString,QVariant>)), gantTimerView, SLOT(setSelectedWorkProcess(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(createdWorkProcess(QHash<QString, QVariant>)), gantTimerView, SLOT(addWorkProcess(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(resettedWorkProcesses()), gantTimerView, SLOT(resetWorkProcesses()));
 
     connect(gantTimerView, SIGNAL(entered()), timerViewController, SLOT(gantViewShown()));
     connect(gantTimerView, SIGNAL(left()), timerViewController, SLOT(gantViewHidden()));
-    connect(timerViewController, SIGNAL(createWorkProcess(AVType,QTime,QTime)), this, SLOT(createWorkprocess(AVType,QTime,QTime)));
-    connect(timerViewController, SIGNAL(nextWorkProcess()), this, SLOT(selectNextWorkProcess()));
-    connect(timerViewController, SIGNAL(previousWorkProcess()), this, SLOT(selectPreviousWorkProcess()));
+
+    //WorkProcessControll
+    connect(this, SIGNAL(initiliazedWorkProcesses(QList<QHash<QString,QVariant> >)), timerViewController, SLOT(initiliazedWorkProcesses(QList<QHash<QString,QVariant> >)));
+    connect(timerViewController, SIGNAL(createWorkProcess(QHash<QString,QVariant>)), this, SLOT(createWorkprocess(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(setSelectedWorkProcess(QHash<QString,QVariant>)), timerViewController, SLOT(setSelectedWorkProcess(QHash<QString,QVariant>)));
+    connect(timerViewController, SIGNAL(selectNextWorkProcess()), this, SLOT(selectPreviousWorkProcess()));
+    connect(this, SIGNAL(setHasPreviousWorkProcess(bool)), timerViewController, SLOT(setHasPreviousWorkProcess(bool)));
+    connect(this, SIGNAL(setHasNextWorkProcess(bool)), timerViewController, SLOT(setHasNextWorkProcess(bool)));
+    connect(timerViewController, SIGNAL(selectNextWorkProcess()), this, SLOT(selectNextWorkProcess()));
+    connect(this, SIGNAL(setSelectedWorkProcessType(AVType)), timerViewController, SLOT(setSelectedWorkProcessType(AVType)));
     connect(timerViewController, SIGNAL(workProcessTypeChanged(AVType)), this, SLOT(workProcessTypeChanged(AVType)));
+    connect(timerViewController, SIGNAL(workProcessDurationChanged(QTime)), this, SLOT(workProcessDurationChanged(QTime)));
     connect(timerViewController, SIGNAL(resetWorkProcesses()), this, SLOT(resetWorkProcesses()));
-    connect(timerViewController, SIGNAL(durationChanged(QTime)), this, SLOT(workProcessDurationChanged(QTime)));
+
 
     connect(sendDatabasePopUp, SIGNAL(create(IFTPConnections*)), this, SLOT(createConnection(IFTPConnections*)));
     connect(sendDatabasePopUp, SIGNAL(edit(IFTPConnections*,int)), this, SLOT(editConnection(IFTPConnections*,int)));
@@ -322,20 +349,6 @@ void Controller::update(ViewType type)
         case ViewType::METADATA_VIEW:
             updateMetaDataView();
             break;
-        case ViewType::BODY_POSTURE_VIEW:
-            updateBodyPostureView();
-            break;
-        case ViewType::APPLIED_FORCE_VIEW:
-            updateAppliedForceView();
-            break;
-        case ViewType::WORKING_CONDITION_VIEW:
-            updateExecutionConditionView();
-            break;
-        case ViewType::WORK_PROCESS_META_DATA_VIEW:
-            updateWorkProcessMetaDataView();
-            break;
-        case ViewType::SETTINGS_VIEW:
-            break;
         default:
             break;
         }
@@ -361,21 +374,6 @@ void Controller::save(ViewType type)
         {
         case ViewType::METADATA_VIEW:
             saveMetaDataView();
-            break;
-        case ViewType::DOCUMENTATION_VIEW:
-            saveCurrentWorkProcess();
-            break;
-        case ViewType::BODY_POSTURE_VIEW:
-            saveBodyPostureView();
-            break;
-        case ViewType::APPLIED_FORCE_VIEW:
-            saveAppliedForceView();
-            break;
-        case ViewType::WORKING_CONDITION_VIEW:
-            saveExecutionConditionView();
-            break;
-        case ViewType::WORK_PROCESS_META_DATA_VIEW:
-            saveCurrentWorkProcess();
             break;
         default:
             break;
@@ -447,8 +445,8 @@ void Controller::createBlankRecording(){
     prevViews.append(ViewType::ACTIVITY_VIEW);
 
     viewCon->showView(ViewType::DOCUMENTATION_VIEW, &prevViews);
-    setSelectedWorkProcess(1, AVType::BASIC);
-    initializeRecording();
+    selectWorkProcess(1, AVType::BASIC);
+    initilizeWorkProcesses();
 }
 
 //MetaDataView
@@ -741,6 +739,7 @@ void Controller::deleteActivity(int id, bool showMessage){
 
 void Controller::selectACtivity(int id){
     activity_ID = id;
+    initilizeWorkProcesses();
 }
 
 void Controller::editActivity(int id){
@@ -750,7 +749,7 @@ void Controller::editActivity(int id){
 }
 
 
-//TransportationView
+//Transportation
 void Controller::initializeTansportations(){
     emit clearTransportations();
     QList<QHash<QString, QVariant>> rows = dbHandler->select(DBConstants::TBL_TRANSPORTATION, QString(""));
@@ -776,8 +775,85 @@ void Controller::deleteTransportation(int id){
     emit removedTransportation(id);
 }
 
+//LoadHandling
+void Controller::saveLoadHandling(QHash<QString, QVariant> values){
+    QString filter = QString("%1 = '%2'").arg(DBConstants::COL_LOAD_HANDLING_TYPE_NAME).arg(values.value(DBConstants::COL_LOAD_HANDLING_TYPE_NAME).toString());
+    QHash<QString, QVariant> loadType = dbHandler->selectFirst(DBConstants::TBL_LOAD_HANDLING_TYPE, filter);
+    if(loadType.isEmpty()){
+        loadType.insert(DBConstants::COL_LOAD_HANDLING_TYPE_NAME, values.value(DBConstants::COL_LOAD_HANDLING_TYPE_NAME).toString());
+        int lt_ID = dbHandler->insert(DBConstants::TBL_LOAD_HANDLING_TYPE, DBConstants::HASH_LOAD_HANDLING_TYPE_TYPES, loadType, DBConstants::COL_LOAD_HANDLING_TYPE_ID);
+        loadType.insert(DBConstants::COL_LOAD_HANDLING_TYPE_ID, lt_ID);
+    }
+    values.insert(DBConstants::COL_LOAD_HANDLING_LOAD_HANDLING_TYPE_ID, loadType.value(DBConstants::COL_LOAD_HANDLING_TYPE_ID));
+    values.remove(DBConstants::COL_LOAD_HANDLING_TYPE_NAME);
 
-//EMPLOYEE
+    filter = QString("%1 = '%2'").arg(DBConstants::COL_TYPE_OF_GRASPING_NAME).arg(values.value(DBConstants::COL_TYPE_OF_GRASPING_NAME).toString());
+    QHash<QString, QVariant> graspType = dbHandler->selectFirst(DBConstants::TBL_TYPE_OF_GRASPING, filter);
+    if(graspType.isEmpty()){
+        graspType.insert(DBConstants::COL_TYPE_OF_GRASPING_NAME, values.value(DBConstants::COL_TYPE_OF_GRASPING_NAME).toString());
+        int gt_ID = dbHandler->insert(DBConstants::TBL_TYPE_OF_GRASPING, DBConstants::HASH_TYPE_OF_GRASPING_TYPES, graspType, DBConstants::COL_TYPE_OF_GRASPING_ID);
+        graspType.insert(DBConstants::COL_TYPE_OF_GRASPING_ID, gt_ID);
+    }
+    values.insert(DBConstants::COL_LOAD_HANDLING_TYPE_OF_GRASPING, graspType.value(DBConstants::COL_TYPE_OF_GRASPING_ID));
+    values.remove(DBConstants::COL_TYPE_OF_GRASPING_NAME);
+
+    filter = QString("%1 = %2").arg(DBConstants::COL_LOAD_HANDLING_ID).arg(loadhandling_ID);
+    int l_ID = dbHandler->save(DBConstants::TBL_LOAD_HANDLING, DBConstants::HASH_LOAD_HANDLING_TYPES, values, filter, DBConstants::COL_LOAD_HANDLING_ID);
+    if(l_ID > 0)
+        loadhandling_ID = l_ID;
+    values.insert(DBConstants::COL_LOAD_HANDLING_ID, loadhandling_ID);
+    emit setLoadHandling(values);
+    saveWorkProcess(QHash<QString, QVariant>());
+}
+
+//BodyPosture
+void Controller::saveBodyPosture(QHash<QString, QVariant> values){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_BODY_POSTURE_ID).arg(values.value(DBConstants::COL_BODY_POSTURE_ID).toInt());
+    int bp_ID = dbHandler->save(DBConstants::TBL_BODY_POSTURE, DBConstants::HASH_BODY_POSTURE_TYPES, values, filter, DBConstants::COL_BODY_POSTURE_ID);
+    if(bp_ID > 0)
+        bodyPosture_ID = bp_ID;
+    values.insert(DBConstants::COL_BODY_POSTURE_ID, bodyPosture_ID);
+    emit setBodyPosture(values);
+    saveWorkProcess(QHash<QString, QVariant>());
+}
+
+//AppliedForce
+void Controller::saveAppliedForce(QHash<QString, QVariant> values){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_APPLIED_FORCE_ID).arg(appliedforce_ID);
+    int af_ID = dbHandler->save(DBConstants::TBL_APPLIED_FORCE, DBConstants::HASH_APPLIED_FORCE_TYPES, values, filter, DBConstants::COL_APPLIED_FORCE_ID);
+    if(af_ID > 0)
+        appliedforce_ID = af_ID;
+    values.insert(DBConstants::COL_APPLIED_FORCE_ID, appliedforce_ID);
+    emit setAppliedForce(values);
+    saveWorkProcess(QHash<QString, QVariant>());
+}
+
+//WorkProcess
+void Controller::saveWorkProcess(QHash<QString, QVariant> values){
+    QString filter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_ID).arg(workprocess_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(workprocess_Type);
+    values.insert(DBConstants::COL_WORK_PROCESS_ID, workprocess_ID);
+    values.insert(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID, activity_ID);
+    values.insert(DBConstants::COL_WORK_PROCESS_TYPE, workprocess_Type);
+    values.insert(DBConstants::COL_WORK_PROCESS_APPLIED_FORCE_ID, appliedforce_ID);
+    values.insert(DBConstants::COL_WORK_PROCESS_CONDITION_ID, workcondition_ID);
+    values.insert(DBConstants::COL_WORK_PROCESS_LOAD_HANDLING_ID, loadhandling_ID);
+    values.insert(DBConstants::COL_WORK_PROCESS_POSTURE_ID, bodyPosture_ID);
+    dbHandler->update(DBConstants::TBL_WORK_PROCESS, DBConstants::HASH_WORK_PROCESS_TYPES, values, filter);
+    emit setWorkProcess(values);
+}
+
+//ExecutionCondition
+void Controller::saveExecutionCondition(QHash<QString, QVariant> values){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_WORK_CONDITION_ID).arg(workcondition_ID);
+    int wc_ID = dbHandler->save(DBConstants::TBL_WORK_CONDITION, DBConstants::HASH_WORK_CONDITION_TYPES, values, filter, DBConstants::COL_WORK_CONDITION_ID);
+    if(wc_ID > 0)
+        workcondition_ID = wc_ID;
+    values.insert(DBConstants::COL_WORK_CONDITION_ID, workcondition_ID);
+    emit setExecutionCondition(values);
+    saveWorkProcess(QHash<QString, QVariant>());
+}
+
+//Employee
 void Controller::initializeEmployees(){
     QList<QHash<QString, QVariant>> values = dbHandler->select(DBConstants::TBL_EMPLOYEE, QString(""));
     for(int i = 0; i < values.count(); ++i)
@@ -843,111 +919,53 @@ void Controller::saveBodyMeasurement(QHash<QString, QVariant> values){
 }
 
 
-//WORKPROCESS
-int Controller::createWorkprocess(AVType type, const QTime &start, const QTime &end)
-{
+//WorkProcessControll
+void Controller::initilizeWorkProcesses(){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID);
+    QList<QHash<QString, QVariant>> values = dbHandler->select(DBConstants::TBL_WORK_PROCESS, filter);
+    emit initiliazedWorkProcesses(values);
+}
+
+void Controller::createWorkprocess(QHash<QString, QVariant> values){
+    AVType type = (AVType) values.value(DBConstants::COL_WORK_PROCESS_TYPE).toInt();
     QString filter = QString("%1 = %2 AND %3 = %4").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(type);
 
     int id = dbHandler->getNextID(DBConstants::TBL_WORK_PROCESS, DBConstants::COL_WORK_PROCESS_ID, filter);
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_WORK_PROCESS_ID, id);
     values.insert(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID, activity_ID);
-    values.insert(DBConstants::COL_WORK_PROCESS_TYPE, type);
-    values.insert(DBConstants::COL_WORK_PROCESS_BEGIN, start.toString());
-    values.insert(DBConstants::COL_WORK_PROCESS_END, end.toString());
+    values.insert(DBConstants::COL_WORK_PROCESS_TYPE, values.value(DBConstants::COL_WORK_PROCESS_TYPE));
+    values.insert(DBConstants::COL_WORK_PROCESS_BEGIN, values.value(DBConstants::COL_WORK_PROCESS_BEGIN));
+    values.insert(DBConstants::COL_WORK_PROCESS_END, values.value(DBConstants::COL_WORK_PROCESS_END));
     dbHandler->insert(DBConstants::TBL_WORK_PROCESS, DBConstants::HASH_WORK_PROCESS_TYPES, values, DBConstants::COL_WORK_PROCESS_ID);
     if(type == workprocess_Type && id == workprocess_ID + 1 )
-        timerViewController->setHasNextAV(true);
-    gantTimerView->add(id, type, start, end);
-    if(workprocess_ID == 0)
-        {
-            setSelectedWorkProcess(id, type);
-        }
-    return id;
-}
-
-
-void Controller::setSelectedWorkProcess(int id , AVType type)
-{
-    if(workplace_ID > 0)
-        {
-            saveCurrentWorkProcess();
-            save(documentationView->getCurrentView());
-        }
-    QString absFilter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(type).arg(DBConstants::COL_WORK_PROCESS_ID);
-    QString filter = absFilter.arg(id);
-
-    QString tbl = DBConstants::TBL_WORK_PROCESS;
-    QHash<QString, QVariant> row = dbHandler->selectFirst(tbl, filter);
-    if(!row.isEmpty()){
-        bodyPosture_ID = row.value(DBConstants::COL_WORK_PROCESS_POSTURE_ID).toInt();
-        appliedforce_ID = row.value(DBConstants::COL_WORK_PROCESS_APPLIED_FORCE_ID).toInt();
-        loadhandling_ID = row.value(DBConstants::COL_WORK_PROCESS_LOAD_HANDLING_ID).toInt();
-        workcondition_ID = row.value(DBConstants::COL_WORK_PROCESS_CONDITION_ID).toInt();
-        QTime duration = QTime(0,0).addSecs(row.value(DBConstants::COL_WORK_PROCESS_BEGIN).toTime().secsTo(row.value(DBConstants::COL_WORK_PROCESS_END).toTime()));
-        workprocess_ID = id;
-        workprocess_Type = type;
-        update(documentationView->getCurrentView());
-        timerViewController->setSelectedType(type);
-        timerViewController->setSelectedAV(id, duration);
-        gantTimerView->setSelectedWorkProcess(id, type, row.value(DBConstants::COL_WORK_PROCESS_FREQUENCY).toInt());
-        timerViewController->setHasPreviousAV(!dbHandler->isSelectEmpty(tbl, absFilter.arg(id - 1)));
-        timerViewController->setHasNextAV(!dbHandler->isSelectEmpty(tbl, absFilter.arg(id + 1)));
-
-    }
-    else{
-        timerViewController->setSelectedType(type);
-        timerViewController->setSelectedAV(0, QTime(0,0));
-        timerViewController->setSelectedAVNone();
-        timerViewController->setHasPreviousAV(false);
-        timerViewController->setHasNextAV(false);
-        workprocess_ID = 0;
+        emit setHasNextWorkProcess(true);
+    emit createdWorkProcess(values);
+    if(workprocess_ID == 0){
+        selectWorkProcess(id, type);
     }
 }
 
-void Controller::selectNextWorkProcess()
-{
-    setSelectedWorkProcess(workprocess_ID + 1, workprocess_Type);
+void Controller::selectNextWorkProcess(){
+    selectWorkProcess(workprocess_ID + 1, workprocess_Type);
+
 }
 
-void Controller::selectPreviousWorkProcess()
-{
-    setSelectedWorkProcess(workprocess_ID - 1, workprocess_Type);
+void Controller::selectPreviousWorkProcess(){
+    selectWorkProcess(workprocess_ID - 1, workprocess_Type);
 }
 
-void Controller::workProcessTypeChanged(AVType type)
-{
-    setSelectedWorkProcess(1, type);
+void Controller::workProcessTypeChanged(AVType type){
+    selectWorkProcess(1, type);
+
 }
 
-void Controller::resetWorkProcesses()
-{
+void Controller::resetWorkProcesses(){
     deleteWorkProcesses(activity_ID);
-    setSelectedWorkProcess(1, AVType::BASIC);
-    initializeRecording();
+    selectWorkProcess(1, AVType::BASIC);
+    initilizeWorkProcesses();
 }
 
-void Controller::saveCurrentWorkProcess()
-{
-    QString filter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_ID).arg(workprocess_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(workprocess_Type);
-
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_WORK_PROCESS_DESCRIPTION, workProcessMetaDataView->getDescription());
-    values.insert(DBConstants::COL_WORK_PROCESS_FREQUENCY, gantTimerView->getFrequenz());
-    values.insert(DBConstants::COL_WORK_PROCESS_MTM_CODE, workProcessMetaDataView->getMTMCode());
-    values.insert(DBConstants::COL_WORK_PROCESS_WORKING_HEIGHT, workProcessMetaDataView->getWorkingHeight());
-    values.insert(DBConstants::COL_WORK_PROCESS_DISTANCE, workProcessMetaDataView->getDistance());
-    values.insert(DBConstants::COL_WORK_PROCESS_IMPULSE_COUNT, workProcessMetaDataView->getImpulseCount());
-    values.insert(DBConstants::COL_WORK_PROCESS_IMPULSE_INTENSITY, workProcessMetaDataView->getImpulseIntensity());
-    values.insert(DBConstants::COL_WORK_PROCESS_POSTURE_ID, bodyPosture_ID);
-    values.insert(DBConstants::COL_WORK_PROCESS_LOAD_HANDLING_ID, loadhandling_ID);
-    values.insert(DBConstants::COL_WORK_PROCESS_APPLIED_FORCE_ID, appliedforce_ID);
-    values.insert(DBConstants::COL_WORK_PROCESS_CONDITION_ID, workcondition_ID);
-    dbHandler->save(DBConstants::TBL_WORK_PROCESS, DBConstants::HASH_WORK_PROCESS_TYPES, values, filter);
-}
-
-void Controller::workProcessDurationChanged(QTime time)
-{
+void Controller::workProcessDurationChanged(QTime time){
     QString tbl = DBConstants::TBL_WORK_PROCESS;
     QString filter = QString("%1 = %2 AND %3 = %4 AND %5 >= %6").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(workprocess_Type).arg(DBConstants::COL_WORK_PROCESS_ID).arg(workprocess_ID);
     QList<QHash<QString, QVariant>> rows = dbHandler->select(tbl, filter);
@@ -969,187 +987,42 @@ void Controller::workProcessDurationChanged(QTime time)
                     row.insert(DBConstants::COL_WORK_PROCESS_END, end.addSecs(diff));
                     dbHandler->update(tbl, DBConstants::HASH_WORK_PROCESS_TYPES, row, filter.arg(row.value(DBConstants::COL_WORK_PROCESS_ID).toInt()));
                 }
-            initializeRecording();
+            initilizeWorkProcesses();
         }
 }
 
-void Controller::initializeRecording()
+
+void Controller::selectWorkProcess(int id , AVType type)
 {
-    gantTimerView->clear();
-    QVector<QVariant> *leftWorkProcesses = new QVector<QVariant>();
-    QVector<QVariant> *rightWorkProcesses = new QVector<QVariant>();
-    QVector<QVariant> *basicWorkProcesses = new QVector<QVariant>();
-    QList<QHash<QString, QVariant>> values = dbHandler->select(DBConstants::TBL_WORK_PROCESS, QString("%1 = %2").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID));
-    for(int i = 0; i < values.count(); ++i){
-        QHash<QString, QVariant> row = values.at(i);
-        int type = row.value(DBConstants::COL_WORK_PROCESS_TYPE).toInt();
-        QVariant id = row.value(DBConstants::COL_WORK_PROCESS_ID);
-        QVariant start = row.value(DBConstants::COL_WORK_PROCESS_BEGIN);
-        QVariant end = row.value(DBConstants::COL_WORK_PROCESS_END);
-        if(type == 1){
-            leftWorkProcesses->append(id);
-            leftWorkProcesses->append(start);
-            leftWorkProcesses->append(end);
-        }
-        else if(type == 2){
-            rightWorkProcesses->append(id);
-            rightWorkProcesses->append(start);
-            rightWorkProcesses->append(end);
-        }
-        else{
-            basicWorkProcesses->append(id);
-            basicWorkProcesses->append(start);
-            basicWorkProcesses->append(end);
-        }
+    QString absFilter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(type).arg(DBConstants::COL_WORK_PROCESS_ID);
+    QString filter = absFilter.arg(id);
 
-    }
-    gantTimerView->setWorkProcessLists(leftWorkProcesses, rightWorkProcesses, basicWorkProcesses);
-    timerViewController->setWorkProcessLists(leftWorkProcesses, rightWorkProcesses, basicWorkProcesses);
-}
-
-
-// BodyPostureView
-void Controller::updateBodyPostureView()
-{
-    QString tbl = DBConstants::TBL_BODY_POSTURE;
-    QString filter = QString("%1 = %2").arg(DBConstants::COL_BODY_POSTURE_ID).arg(bodyPosture_ID);
-    QHash<QString, QVariant> row = dbHandler->selectFirst(tbl, filter);
-    if(!row.isEmpty()){
-        foreach(QString key, DBConstants::HASH_BODY_POSTURE_TYPES.keys())
-            row.insert(key, DBConstants::HASH_BODY_POSTURE_TYPES.value(key));
-    }
-    //bodyPostureView->setRecord(record);
-}
-
-void Controller::saveBodyPostureView()
-{
-    /*DB_TABLES tbl = DBConstants::TBL_BODY_POSTURE;
-    QString filter = QString("%1 = %2").arg(DBConstants::COL_BODY_POSTURE_ID).arg(bodyPosture_ID);
-    dbHandler->select(tbl, filter);
-    if(activity_ID != 0)
-        {
-            QSqlRecord record = bodyPostureView->getRecord();
-            if(dbHandler->rowCount(tbl) == 0)
-                {
-                    int id = dbHandler->getNextID(tbl, DBConstants::COL_BODY_POSTURE_ID);
-                    record.setValue(DBConstants::COL_BODY_POSTURE_ID, id);
-                    dbHandler->insertRow(tbl, record);
-                    bodyPosture_ID = id;
-                }
-            else
-                {
-                    dbHandler->updateRow(tbl, 0, record);
-                }
-            bodyPosture_ID = record.value(DBConstants::COL_BODY_POSTURE_ID).toInt();
-        }*/
-}
-
-// ExecutionConditionView
-void Controller::updateExecutionConditionView()
-{
-    QString tbl = DBConstants::TBL_WORK_CONDITION;
-    QString filter = QString("%1 = %2").arg(DBConstants::COL_WORK_CONDITION_ID).arg(workcondition_ID);
-    QHash<QString, QVariant> row = dbHandler->selectFirst(tbl, filter);
-    executionConditionView->setArmSupports(row.value(DBConstants::COL_WORK_CONDITION_RIGHT_UPPER_ARM_SUPPORTED).toInt(),
-                                           row.value(DBConstants::COL_WORK_CONDITION_LEFT_UPPER_ARM_SUPPORTED).toInt(),
-                                           row.value(DBConstants::COL_WORK_CONDITION_RIGHT_FOREARM_SUPPORTED).toInt(),
-                                           row.value(DBConstants::COL_WORK_CONDITION_LEFT_FOREARM_SUPPORTED).toInt(),
-                                           row.value(DBConstants::COL_WORK_CONDITION_RIGHT_HAND_SUPPORTED).toInt(),
-                                           row.value(DBConstants::COL_WORK_CONDITION_LEFT_HAND_SUPPORTED).toInt());
-    executionConditionView->setBodySupports(row.value(DBConstants::COL_WORK_CONDITION_HEAD_SUPPORTED).toInt(),
-                                            row.value(DBConstants::COL_WORK_CONDITION_TRUNK_SUPPORT).toInt());
-    executionConditionView->setLegSupports(row.value(DBConstants::COL_WORK_CONDITION_RIGHT_THIGH_SUPPORTED).toInt(),
-                                           row.value(DBConstants::COL_WORK_CONDITION_LEFT_THIGH_SUPPORTED).toInt(),
-                                           row.value(DBConstants::COL_WORK_CONDITION_RIGHT_LOWER_LEG_SUPPORTED).toInt(),
-                                           row.value(DBConstants::COL_WORK_CONDITION_LEFT_LOWER_LEG_SUPPORTED).toInt());
-    executionConditionView->setResultingConstraints(row.value(DBConstants::COL_WORK_CONDITION_GRIP_CONDITION).toInt(),
-                                                    row.value(DBConstants::COL_WORK_CONDITION_ACCESSIBILITY).toInt(),
-                                                    row.value(DBConstants::COL_WORK_CONDITION_GROUND).toInt(),
-                                                    row.value(DBConstants::COL_WORK_CONDITION_LIGHTING).toInt(),
-                                                    row.value(DBConstants::COL_WORK_CONDITION_CLIMATE).toInt(),
-                                                    row.value(DBConstants::COL_WORK_CONDITION_WIND).toInt(),
-                                                    row.value(DBConstants::COL_WORK_CONDITION_CLOTHING).toInt(),
-                                                    row.value(DBConstants::COL_WORK_CONDITION_ROOM_TO_MOVE).toInt());
-    executionConditionView->setConditionAttributes(row.value(DBConstants::COL_WORK_CONDITION_PRECISION).toInt(),
-                                                   row.value(DBConstants::COL_WORK_CONDITION_VELOCITY).toInt(),
-                                                   row.value(DBConstants::COL_WORK_CONDITION_ACCELERATION).toInt(),
-                                                   row.value(DBConstants::COL_WORK_CONDITION_VIBRATION).toInt());
-}
-
-void Controller::saveExecutionConditionView()
-{
-    QString filter = QString("%1 = %2").arg(DBConstants::COL_WORK_CONDITION_ID).arg(workcondition_ID);
-
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_WORK_CONDITION_ACCELERATION, executionConditionView->getAcceleration());
-    values.insert(DBConstants::COL_WORK_CONDITION_ACCESSIBILITY, executionConditionView->getAccessibility());
-    values.insert(DBConstants::COL_WORK_CONDITION_CLIMATE, executionConditionView->getClimate());
-    values.insert(DBConstants::COL_WORK_CONDITION_CLOTHING, executionConditionView->getClothing());
-    values.insert(DBConstants::COL_WORK_CONDITION_GRIP_CONDITION, executionConditionView->getGraspingType());
-    values.insert(DBConstants::COL_WORK_CONDITION_GROUND, executionConditionView->getGround());
-    values.insert(DBConstants::COL_WORK_CONDITION_HEAD_SUPPORTED, executionConditionView->getHeadSupport());
-    values.insert(DBConstants::COL_WORK_CONDITION_LEFT_FOREARM_SUPPORTED, executionConditionView->getLeftForearmSupport());
-    values.insert(DBConstants::COL_WORK_CONDITION_LEFT_HAND_SUPPORTED, executionConditionView->getLeftHandSupport());
-    values.insert(DBConstants::COL_WORK_CONDITION_LEFT_LOWER_LEG_SUPPORTED, executionConditionView->getLeftLowerLegSupport());
-    values.insert(DBConstants::COL_WORK_CONDITION_LEFT_THIGH_SUPPORTED, executionConditionView->getLeftThighSupport());
-    values.insert(DBConstants::COL_WORK_CONDITION_LEFT_UPPER_ARM_SUPPORTED, executionConditionView->getLeftUpperArmSupport());
-    values.insert(DBConstants::COL_WORK_CONDITION_LIGHTING, executionConditionView->getLighting());
-    values.insert(DBConstants::COL_WORK_CONDITION_PRECISION, executionConditionView->getPrecision());
-    values.insert(DBConstants::COL_WORK_CONDITION_RIGHT_FOREARM_SUPPORTED, executionConditionView->getRightForearmSupport());
-    values.insert(DBConstants::COL_WORK_CONDITION_RIGHT_HAND_SUPPORTED, executionConditionView->getRightHandSupport());
-    values.insert(DBConstants::COL_WORK_CONDITION_RIGHT_LOWER_LEG_SUPPORTED, executionConditionView->getRightLowerLegSupport());
-    values.insert(DBConstants::COL_WORK_CONDITION_RIGHT_THIGH_SUPPORTED, executionConditionView->getRightThighSupport());
-    values.insert(DBConstants::COL_WORK_CONDITION_RIGHT_UPPER_ARM_SUPPORTED, executionConditionView->getRightUpperArmSupport());
-    values.insert(DBConstants::COL_WORK_CONDITION_ROOM_TO_MOVE, executionConditionView->getRoomToMove());
-    values.insert(DBConstants::COL_WORK_CONDITION_TRUNK_SUPPORT, executionConditionView->getTrunkSupport());
-    values.insert(DBConstants::COL_WORK_CONDITION_VELOCITY, executionConditionView->getVelocity());
-    values.insert(DBConstants::COL_WORK_CONDITION_VIBRATION, executionConditionView->getVibration());
-    values.insert(DBConstants::COL_WORK_CONDITION_WIND, executionConditionView->getWind());
-    values.insert(DBConstants::COL_WORK_CONDITION_ID, workcondition_ID);
-    workcondition_ID = dbHandler->save(DBConstants::TBL_WORK_CONDITION, DBConstants::HASH_COMMENT_TYPES, values, filter, DBConstants::COL_WORK_CONDITION_ID);
-}
-
-// AppliedForceView
-void Controller::updateAppliedForceView()
-{
-    QString tbl = DBConstants::TBL_APPLIED_FORCE;
-    QString filter = QString("%1 = %2").arg(DBConstants::COL_APPLIED_FORCE_ID).arg(appliedforce_ID);
-    QHash<QString, QVariant> row = dbHandler->selectFirst(tbl, filter);
-    appliedForceView->setOrgan(row.value(DBConstants::COL_APPLIED_FORCE_ORGAN).toString());
-    appliedForceView->setDirection(row.value(DBConstants::COL_APPLIED_FORCE_DIRECTION).toString());
-    appliedForceView->setIntensity(row.value(DBConstants::COL_APPLIED_FORCE_INTENSITY).toInt());
-}
-
-void Controller::saveAppliedForceView()
-{
-    QString filter = QString("%1 = %2").arg(DBConstants::COL_APPLIED_FORCE_ID).arg(appliedforce_ID);
-
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_APPLIED_FORCE_ORGAN, appliedForceView->getOrgan());
-    values.insert(DBConstants::COL_APPLIED_FORCE_DIRECTION, appliedForceView->getDirection());
-    values.insert(DBConstants::COL_APPLIED_FORCE_INTENSITY, appliedForceView->getIntensity());
-    values.insert(DBConstants::COL_APPLIED_FORCE_ID, appliedforce_ID);
-    appliedforce_ID = dbHandler->save(DBConstants::TBL_APPLIED_FORCE, DBConstants::HASH_COMMENT_TYPES, values, filter, DBConstants::COL_APPLIED_FORCE_ID);
-}
-
-// LoadHandlingView
-
-
-//WorkProcessMetaDataView
-void Controller::updateWorkProcessMetaDataView()
-{
     QString tbl = DBConstants::TBL_WORK_PROCESS;
-    QString filter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_POSTURE_ID).arg(workprocess_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(workprocess_Type);
     QHash<QString, QVariant> row = dbHandler->selectFirst(tbl, filter);
-    workProcessMetaDataView->setWorkProcessMetaData(row.value(DBConstants::COL_WORK_PROCESS_DESCRIPTION).toString(),
-            row.value(DBConstants::COL_WORK_PROCESS_MTM_CODE).toString(),
-            row.value(DBConstants::COL_WORK_PROCESS_WORKING_HEIGHT).toInt(),
-            row.value(DBConstants::COL_WORK_PROCESS_DISTANCE).toInt(),
-            row.value(DBConstants::COL_WORK_PROCESS_IMPULSE_INTENSITY).toInt(),
-            row.value(DBConstants::COL_WORK_PROCESS_IMPULSE_COUNT).toInt());
+    bodyPosture_ID = row.value(DBConstants::COL_WORK_PROCESS_POSTURE_ID).toInt();
+    emit setBodyPosture(dbHandler->selectFirst(DBConstants::TBL_BODY_POSTURE, QString("%1 = %2").arg(DBConstants::COL_BODY_POSTURE_ID).arg(bodyPosture_ID)));
+    appliedforce_ID = row.value(DBConstants::COL_WORK_PROCESS_APPLIED_FORCE_ID).toInt();
+    emit setAppliedForce(dbHandler->selectFirst(DBConstants::TBL_BODY_POSTURE, QString("%1 = %2").arg(DBConstants::COL_APPLIED_FORCE_ID).arg(appliedforce_ID)));
+    loadhandling_ID = row.value(DBConstants::COL_WORK_PROCESS_LOAD_HANDLING_ID).toInt();
+    QHash<QString, QVariant> lhValues = dbHandler->selectFirst(DBConstants::TBL_BODY_POSTURE, QString("%1 = %2").arg(DBConstants::COL_LOAD_HANDLING_ID).arg(loadhandling_ID));
+    QHash<QString, QVariant> lhtValues = dbHandler->selectFirst(DBConstants::TBL_LOAD_HANDLING_TYPE, QString("%1 = %2").arg(DBConstants::COL_LOAD_HANDLING_TYPE_ID).arg(lhValues.value(DBConstants::COL_LOAD_HANDLING_LOAD_HANDLING_TYPE_ID).toString()));
+    lhValues.insert(DBConstants::COL_LOAD_HANDLING_TYPE_NAME, lhtValues.value(DBConstants::COL_LOAD_HANDLING_TYPE_NAME));
+    QHash<QString, QVariant> togValues = dbHandler->selectFirst(DBConstants::TBL_TYPE_OF_GRASPING, QString("%1 = %2").arg(DBConstants::COL_TYPE_OF_GRASPING_ID).arg(lhValues.value(DBConstants::COL_LOAD_HANDLING_TYPE_OF_GRASPING).toString()));
+    lhValues.insert(DBConstants::COL_TYPE_OF_GRASPING_NAME, togValues.value(DBConstants::COL_TYPE_OF_GRASPING_NAME));
+    emit setLoadHandling(lhValues);
+    workcondition_ID = row.value(DBConstants::COL_WORK_PROCESS_CONDITION_ID).toInt();
+    emit setExecutionCondition(dbHandler->selectFirst(DBConstants::TBL_BODY_POSTURE, QString("%1 = %2").arg(DBConstants::COL_WORK_CONDITION_ID).arg(workcondition_ID)));
+    workprocess_ID = id;
+    workprocess_Type = type;
+    emit setSelectedWorkProcessType((AVType) row.value(DBConstants::COL_WORK_PROCESS_TYPE).toInt());
+    emit setSelectedWorkProcess(row);
+    emit setWorkProcess(row);
+    //gantTimerView->setSelectedWorkProcess(id, type, row.value(DBConstants::COL_WORK_PROCESS_FREQUENCY).toInt());
+    bool hasPrevious = !dbHandler->isSelectEmpty(tbl, absFilter.arg(id - 1));
+    bool hasNext = !dbHandler->isSelectEmpty(tbl, absFilter.arg(id + 1));
+    emit setHasPreviousWorkProcess(hasPrevious);
+    emit setHasNextWorkProcess(hasNext);
 }
-
-
 
 //SendDatabasePopUp
 void Controller::updateFTPConnectionPopUp(IFTPConnections *widget)

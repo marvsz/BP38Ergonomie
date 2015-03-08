@@ -78,7 +78,30 @@ GantTimerView::~GantTimerView()
 }
 
 //PUBLIC SLOTS
-void GantTimerView::add(int id, AVType type, const QTime &start, const QTime &end){
+void GantTimerView::initiliazeWorkProcesses(QList<QHash<QString, QVariant> > values){
+    leftWorkProcesses = new QVector<QVariant>();
+    rightWorkProcesses = new QVector<QVariant>();
+    basicWorkProcesses = new QVector<QVariant>();
+    for(int i = 0; i < values.count(); ++i){
+        QHash<QString, QVariant> row = values.at(i);
+        AVType type = (AVType) row.value(DBConstants::COL_WORK_PROCESS_TYPE).toInt();
+        int id = row.value(DBConstants::COL_WORK_PROCESS_ID).toInt();
+        QTime start = row.value(DBConstants::COL_WORK_PROCESS_BEGIN).toTime();
+        QTime end = row.value(DBConstants::COL_WORK_PROCESS_END).toTime();
+        switch(type){
+        case AVType::LEFT: leftWorkProcesses->append(id);leftWorkProcesses->append(start);leftWorkProcesses->append(end);break;
+        case AVType::RIGHT: rightWorkProcesses->append(id);rightWorkProcesses->append(start);rightWorkProcesses->append(end);break;
+        case AVType::BASIC: basicWorkProcesses->append(id);basicWorkProcesses->append(start);basicWorkProcesses->append(end);break;
+        }
+    }
+    update();
+}
+
+void GantTimerView::addWorkProcess(QHash<QString, QVariant> values){
+    AVType type = (AVType) values.value(DBConstants::COL_WORK_PROCESS_TYPE).toInt();
+    int id = values.value(DBConstants::COL_WORK_PROCESS_ID).toInt();
+    QTime start = values.value(DBConstants::COL_WORK_PROCESS_BEGIN).toTime();
+    QTime end = values.value(DBConstants::COL_WORK_PROCESS_END).toTime();
     switch(type){
     case AVType::LEFT: leftWorkProcesses->append(id);leftWorkProcesses->append(start);leftWorkProcesses->append(end);break;
     case AVType::RIGHT: rightWorkProcesses->append(id);rightWorkProcesses->append(start);rightWorkProcesses->append(end);break;
@@ -87,65 +110,28 @@ void GantTimerView::add(int id, AVType type, const QTime &start, const QTime &en
     update();
 }
 
-void GantTimerView::resizeClear(){
-    QLayoutItem *item;
-    while((item = leftWP->takeAt(0)) != NULL){
-        delete item->widget();
-        delete item;
-    }
-    while((item = rightWP->takeAt(0)) != NULL){
-        delete item->widget();
-        delete item;
-    }
-    while((item = basicWP->takeAt(0)) != NULL){
-        delete item->widget();
-        delete item;
-    }
-}
-
-void GantTimerView::clear(){
-    leftWorkProcesses->clear();
-    rightWorkProcesses->clear();
-    basicWorkProcesses->clear();
-    QLayoutItem *item;
-    while((item = leftWP->takeAt(0)) != NULL){
-        delete item->widget();
-        delete item;
-    }
-    while((item = rightWP->takeAt(0)) != NULL){
-        delete item->widget();
-        delete item;
-    }
-    while((item = basicWP->takeAt(0)) != NULL){
-        delete item->widget();
-        delete item;
-    }
-}
-
-void GantTimerView::setSelectedWorkProcess(int id, AVType type, int frequenz){
-    selWP_ID = id;
-    selWP_Type = type;
-    numBxFrequenz->setValue(frequenz);
+void GantTimerView::setSelectedWorkProcess(QHash<QString, QVariant> values){
+    selWP_ID = values.value(DBConstants::COL_WORK_PROCESS_ID).toInt();
+    selWP_Type = (AVType) values.value(DBConstants::COL_WORK_PROCESS_TYPE).toInt();
+    numBxFrequenz->setValue(values.value(DBConstants::COL_WORK_PROCESS_FREQUENCY).toInt());
     update();
 }
 
+void GantTimerView::resetWorkProcesses(){
+    leftWorkProcesses->clear();
+    rightWorkProcesses->clear();
+    basicWorkProcesses->clear();
+    resizeClear();
+}
+
 void GantTimerView::onEnter(){
-    emit entered();
     update();
 }
 
 void GantTimerView::onLeaving(){
+    emit saveWorkProcessFrequence(numBxFrequenz->getValue());
     emit left();
 }
-
-void GantTimerView::setWorkProcessLists(QVector<QVariant> *leftWorkProcesses, QVector<QVariant> *rightWorkProcesses, QVector<QVariant> *basicWorkProcesses){
-    this->leftWorkProcesses = leftWorkProcesses;
-    this->rightWorkProcesses = rightWorkProcesses;
-    this->basicWorkProcesses = basicWorkProcesses;
-    update();
-}
-
-
 
 //PRIVATE SLOTS
 void GantTimerView::btnZoomInClicked(){
@@ -170,25 +156,49 @@ void GantTimerView::btnMinus(){
 }
 
 void GantTimerView::btnWPLeftClicked(int id){
-    emit workProcessSelected(id, AVType::LEFT);
+    workProcessClicked(id, AVType::LEFT);
 }
 
 void GantTimerView::btnWPRightClicked(int id){
-    emit workProcessSelected(id, AVType::RIGHT);
+    workProcessClicked(id, AVType::RIGHT);
 }
 
 void GantTimerView::btnWPBasicClicked(int id){
-    emit workProcessSelected(id, AVType::BASIC);
+    workProcessClicked(id, AVType::BASIC);
 }
 
 
 //PRIVATE METHODS
+void GantTimerView::workProcessClicked(int id, AVType type){
+    emit saveWorkProcessFrequence(numBxFrequenz->getValue());
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_WORK_PROCESS_ID, id);
+    values.insert(DBConstants::COL_WORK_PROCESS_TYPE, type);
+    emit selectWorkProcess(values);
+}
+
 QHBoxLayout* GantTimerView::getLayout(int type){
     switch(type){
         case 1: return leftWP; break;
         case 2: return rightWP; break;
         case 3: return basicWP; break;
         default: return basicWP; break;
+    }
+}
+
+void GantTimerView::resizeClear(){
+    QLayoutItem *item;
+    while((item = leftWP->takeAt(0)) != NULL){
+        delete item->widget();
+        delete item;
+    }
+    while((item = rightWP->takeAt(0)) != NULL){
+        delete item->widget();
+        delete item;
+    }
+    while((item = basicWP->takeAt(0)) != NULL){
+        delete item->widget();
+        delete item;
     }
 }
 
@@ -244,11 +254,6 @@ void GantTimerView::update(){
     }
     basicWP->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding));
 
-}
-
-//GETTER
-int GantTimerView::getFrequenz() const{
-    return numBxFrequenz->getValue();
 }
 
 

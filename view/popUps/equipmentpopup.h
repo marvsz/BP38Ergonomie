@@ -18,7 +18,7 @@ signals:
     void saveEquipment(QHash<QString, QVariant> values);
 
 public slots:
-    void setEquipment(QHash<QString, QVariant> values);
+    void setEquipment(QHash<QString, QVariant> values){}
 
 private slots:
     void onConfirm();

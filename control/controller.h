@@ -121,6 +121,29 @@ signals:
     void updatedTransportation(QHash<QString, QVariant> values);
     void removedTransportation(int id);
 
+    //LoadHandling
+    void setLoadHandling(QHash<QString, QVariant> values);
+
+    //BodyPosture
+    void setBodyPosture(QHash<QString, QVariant> values);
+
+    //AppliedForce
+    void setAppliedForce(QHash<QString, QVariant> values);
+
+    //WorkProcess
+    void setWorkProcess(QHash<QString, QVariant> values);
+
+    //ExecutionCondition
+    void setExecutionCondition(QHash<QString, QVariant> values);
+
+    //WorkProcessControll
+    void createdWorkProcess(QHash<QString, QVariant> values);
+    void setSelectedWorkProcess(QHash<QString, QVariant> values);
+    void setHasPreviousWorkProcess(bool hasPrevious);
+    void setHasNextWorkProcess(bool hasNext);
+    void setSelectedWorkProcessType(AVType type);
+    void initiliazedWorkProcesses(QList<QHash<QString, QVariant>> values);
+    void resettedWorkProcesses();
 
 private slots:
     void databaseError(QString error);
@@ -184,17 +207,30 @@ private slots:
     void saveTransportation(QHash<QString, QVariant> values);
     void deleteTransportation(int id);
 
-    int createWorkprocess(AVType type, const QTime &start, const QTime &end);
-    void setSelectedWorkProcess(int, AVType);
+    //LoadHandling
+    void saveLoadHandling(QHash<QString, QVariant> values);
+
+    //BodyPosture
+    void saveBodyPosture(QHash<QString, QVariant> values);
+
+    //AppliedForce
+    void saveAppliedForce(QHash<QString, QVariant> values);
+
+    //WorkProcess
+    void saveWorkProcess(QHash<QString, QVariant> values);
+
+    //ExecutionCondition
+    void saveExecutionCondition(QHash<QString, QVariant> values);
+
+    //WorkProcessControll
+    void initilizeWorkProcesses();
+    void createWorkprocess(QHash<QString, QVariant> values);
     void selectNextWorkProcess();
     void selectPreviousWorkProcess();
     void workProcessTypeChanged(AVType type);
     void resetWorkProcesses();
-    void saveCurrentWorkProcess();
     void workProcessDurationChanged(QTime time);
-
-    void initializeRecording();
-
+    void selectWorkProcess(int id, AVType type);
 
     //Employee
     void initializeEmployees();
@@ -208,20 +244,6 @@ private slots:
 
     //BodyMeasurement
     void saveBodyMeasurement(QHash<QString, QVariant> values);
-
-
-    void saveBodyPostureView();
-    void updateBodyPostureView();
-
-    void updateExecutionConditionView();
-    void saveExecutionConditionView();
-
-    void updateAppliedForceView();
-    void saveAppliedForceView();
-
-
-    void updateWorkProcessMetaDataView();
-
 
     void updateFTPConnectionPopUp(IFTPConnections *widget);
     void selectedConnectionChanged(IFTPConnections *widget, int id);

@@ -25,7 +25,7 @@ TimerViewController::TimerViewController(QWidget *parent):
     connect(maxTimerView, SIGNAL(avSet()), this, SLOT(createBasicWorkProcessRequested()));
     connect(maxTimerView, SIGNAL(leftSet()), this, SLOT(createLeftWorkProcessRequested()));
     connect(maxTimerView, SIGNAL(rightSet()), this, SLOT(createRightWorkProcessRequested()));
-    connect(maxTimerView, SIGNAL(durationChanged(QTime)), this, SIGNAL(durationChanged(QTime)));
+    connect(maxTimerView, SIGNAL(durationChanged(QTime)), this, SIGNAL(workProcessDurationChanged(QTime)));
 
     connect(maxTimerView, SIGNAL(leftChanged(bool)), this, SLOT(changeLeft(bool)));
     connect(maxTimerView, SIGNAL(rightChanged(bool)), this, SLOT(changeRight(bool)));
