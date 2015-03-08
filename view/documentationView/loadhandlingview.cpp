@@ -105,7 +105,7 @@ void LoadHandlingView::setLoadHandling(QHash<QString, QVariant> values){
     vlcGraspType->setValue(values.value(DBConstants::COL_LOAD_HANDLING_TYPE_OF_GRASPING).toString());
     vlcHandlingType->setValue(values.value(DBConstants::COL_LOAD_HANDLING_TYPE_NAME).toString());
     vlcWeight->setValue(values.value(DBConstants::COL_LOAD_HANDLING_LOAD).toInt());
-    vlcDistance->setValue(values.value(DBConstants::COL_LOAD_HANDLING_DISTANCE()).toInt());
+    vlcDistance->setValue(values.value(DBConstants::COL_LOAD_HANDLING_DISTANCE).toInt());
 }
 
 void LoadHandlingView::addTransportation(QHash<QString, QVariant> values){
@@ -194,25 +194,4 @@ void LoadHandlingView::typeChanged(QString newType){
 
 void LoadHandlingView::btnAddTransportationClicked(){
     emit showPopUp(PopUpType::TRANSPORTATION_POPUP);
-}
-
-// GETTER
-QString LoadHandlingView::getHandlingType() const {
-    return vlcHandlingType->getTextValue();
-}
-
-QString LoadHandlingView::getGraspType() const{
-    return vlcGraspType->getTextValue();
-}
-
-int LoadHandlingView::getWeight() {
-    return vlcWeight->getValue();
-}
-
-int LoadHandlingView::getDistance(){
-    return vlcDistance->getValue();
-}
-
-int LoadHandlingView::getSelectedTransportation() const{
-    return selectedTransportationID;
 }

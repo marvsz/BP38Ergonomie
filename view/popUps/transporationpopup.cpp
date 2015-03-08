@@ -46,7 +46,8 @@ void TransporationPopUp::setTransportation(QHash<QString, QVariant> values){
 void TransporationPopUp::onConfirm(){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_TRANSPORTATION_NAME, txtBxName->text());
-    values.insert(DBConstants::COL_TRANSPORTATION_EMPTY_WEIGHT, numBxWeight->text());
+    values.insert(DBConstants::COL_TRANSPORTATION_EMPTY_WEIGHT, numBxWeight->getValue());
+    values.insert(DBConstants::COL_TRANSPORTATION_MAX_LOAD, numBxMaxLoad->getValue());
     values.insert(DBConstants::COL_TRANSPORTATION_FIXED_ROLLER, oscFixedRoller->getSelectedValue().toInt());
     values.insert(DBConstants::COL_TRANSPORTATION_BRAKES, oscBrakes->getSelectedValue().toInt());
     emit saveTransportation(values);

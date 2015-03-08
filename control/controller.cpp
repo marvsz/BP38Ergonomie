@@ -199,6 +199,25 @@ Controller::Controller(QObject *parent, QApplication *app) :
     connect(this, SIGNAL(updatedEquipment(QHash<QString,QVariant>)), workProcessMetaDataView, SLOT(updateEquipment(QHash<QString,QVariant>)));
     connect(this, SIGNAL(removedEquipment(int)), workProcessMetaDataView, SLOT(removeEquipment(int)));
 
+    //TransportationView signals/slots
+    connect(this, SIGNAL(clearAll()), transportationView, SLOT(clearTransportations()));
+    connect(this, SIGNAL(clearTransportations()), transportationView, SLOT(clearTransportations()));
+    connect(transportationView, SIGNAL(createTransportation(QHash<QString,QVariant>)), this, SLOT(createTransportation(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(createdTransportation(QHash<QString,QVariant>)), transportationView, SLOT(addTransportation(QHash<QString,QVariant>)));
+    connect(transportationView, SIGNAL(deleteTransportation(int)), this, SLOT(deleteTransportation(int)));
+    connect(this, SIGNAL(removedTransportation(int)), transportationView, SLOT(removeTransportation(int)));
+    connect(this, SIGNAL(updatedTransportation(QHash<QString,QVariant>)), transportationView, SLOT(updateTransportation(QHash<QString,QVariant>)));
+
+    //TransportationPopUp signals/slots
+    connect(transportationPopUp, SIGNAL(saveTransportation(QHash<QString,QVariant>)), this, SLOT(createTransportation(QHash<QString,QVariant>)));
+
+    //LoadHandling
+    connect(this, SIGNAL(clearAll()), loadHandlingView, SLOT(clearTransportations()));
+    connect(this, SIGNAL(clearTransportations()), loadHandlingView, SLOT(clearTransportations()));
+    connect(this, SIGNAL(createdTransportation(QHash<QString,QVariant>)), loadHandlingView, SLOT(addTransportation(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(removedTransportation(int)), loadHandlingView, SLOT(removeTransportation(int)));
+    connect(this, SIGNAL(updatedTransportation(QHash<QString,QVariant>)), loadHandlingView, SLOT(updateTransportation(QHash<QString,QVariant>)));
+
     connect(documentationView, SIGNAL(update(ViewType)), this, SLOT(update(ViewType)));
     connect(documentationView, SIGNAL(save(ViewType)), this, SLOT(save(ViewType)));
 
@@ -281,6 +300,7 @@ Controller::Controller(QObject *parent, QApplication *app) :
     viewCon->showStartView(ViewType::ANALYST_SELECTION_VIEW);
 
     initializeProducts();
+    initializeTansportations();
     initializeEquipments();
     initializeEmployees();
     initializeLines();
@@ -302,17 +322,11 @@ void Controller::update(ViewType type)
         case ViewType::METADATA_VIEW:
             updateMetaDataView();
             break;
-        case ViewType::DOCUMENTATION_VIEW:
-            updateDocumentationViewRessources();
-            break;
         case ViewType::BODY_POSTURE_VIEW:
             updateBodyPostureView();
             break;
         case ViewType::APPLIED_FORCE_VIEW:
             updateAppliedForceView();
-            break;
-        case ViewType::LOAD_HANDLING_VIEW:
-            updateLoadHandlingView();
             break;
         case ViewType::WORKING_CONDITION_VIEW:
             updateExecutionConditionView();
@@ -356,9 +370,6 @@ void Controller::save(ViewType type)
             break;
         case ViewType::APPLIED_FORCE_VIEW:
             saveAppliedForceView();
-            break;
-        case ViewType::LOAD_HANDLING_VIEW:
-            saveLoadHandlingView();
             break;
         case ViewType::WORKING_CONDITION_VIEW:
             saveExecutionConditionView();
@@ -1122,67 +1133,7 @@ void Controller::saveAppliedForceView()
 }
 
 // LoadHandlingView
-void Controller::updateLoadHandlingView()
-{
-    QString tbl = DBConstants::TBL_LOAD_HANDLING;
-    QString filter = QString("%1 = %2").arg(DBConstants::COL_LOAD_HANDLING_ID).arg(loadhandling_ID);
-    QHash<QString, QVariant> row = dbHandler->selectFirst(tbl, filter);
-    loadHandlingView->setGraspType(row.value(DBConstants::COL_LOAD_HANDLING_TYPE_OF_GRASPING).toString());
-    loadHandlingView->setWeight(row.value(DBConstants::COL_LOAD_HANDLING_LOAD).toInt());
-    loadHandlingView->setDistance(row.value(DBConstants::COL_LOAD_HANDLING_DISTANCE).toInt());
-    int grasp_ID = row.value(DBConstants::COL_TYPE_OF_GRASPING_ID).toInt();
-    int handlingType_ID = row.value(DBConstants::COL_LOAD_HANDLING_LOAD_HANDLING_TYPE_ID).toInt();
-    int trans_ID = row.value(DBConstants::COL_LOAD_HANDLING_TRANSPORTATION_ID).toInt();
 
-    tbl = DBConstants::TBL_LOAD_HANDLING_TYPE;
-    row = dbHandler->selectFirst(tbl, QString("%1 = %2").arg(DBConstants::COL_LOAD_HANDLING_TYPE_ID).arg(handlingType_ID));
-    loadHandlingView->setHandlingType(row.value(DBConstants::COL_LOAD_HANDLING_TYPE_NAME).toString());
-
-    tbl = DBConstants::TBL_TYPE_OF_GRASPING;
-    row = dbHandler->selectFirst(tbl, QString("%1 = %2").arg(DBConstants::COL_TYPE_OF_GRASPING_ID).arg(grasp_ID));
-    loadHandlingView->setGraspType(row.value(DBConstants::COL_TYPE_OF_GRASPING_NAME).toString());
-    updateLoadHandlingTransportations();
-    loadHandlingView->setSelectedTransportation(trans_ID);
-}
-
-void Controller::saveLoadHandlingView()
-{
-    QString filter = QString("%1 = '%2'").arg(DBConstants::COL_TYPE_OF_GRASPING_NAME).arg(loadHandlingView->getGraspType());
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_TYPE_OF_GRASPING_NAME, loadHandlingView->getGraspType());
-    int grasp_ID = dbHandler->save(DBConstants::TBL_TYPE_OF_GRASPING, DBConstants::HASH_TYPE_OF_GRASPING_TYPES, values, filter, DBConstants::COL_TYPE_OF_GRASPING_ID);
-
-    filter = QString("%1 = '%2'").arg(DBConstants::COL_LOAD_HANDLING_TYPE_NAME).arg(loadHandlingView->getHandlingType());
-    values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_LOAD_HANDLING_TYPE_NAME, loadHandlingView->getHandlingType());
-    int loadHandlingType_ID = dbHandler->save(DBConstants::TBL_LOAD_HANDLING_TYPE, DBConstants::HASH_LOAD_HANDLING_TYPE_TYPES, values, filter, DBConstants::COL_LOAD_HANDLING_TYPE_ID);
-
-    filter = QString("%1 = %2").arg(DBConstants::COL_LOAD_HANDLING_ID).arg(loadhandling_ID);
-    values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_LOAD_HANDLING_TYPE_OF_GRASPING, grasp_ID);
-    values.insert(DBConstants::COL_LOAD_HANDLING_LOAD_HANDLING_TYPE_ID, loadHandlingType_ID);
-    values.insert(DBConstants::COL_LOAD_HANDLING_TRANSPORTATION_ID, loadHandlingView->getSelectedTransportation());
-    values.insert(DBConstants::COL_LOAD_HANDLING_LOAD, loadHandlingView->getWeight());
-    values.insert(DBConstants::COL_LOAD_HANDLING_DISTANCE, loadHandlingView->getDistance());
-    loadhandling_ID = dbHandler->save(DBConstants::TBL_LOAD_HANDLING, DBConstants::HASH_LOAD_HANDLING_TYPES, values, filter, DBConstants::COL_LOAD_HANDLING_ID);
-}
-
-void Controller::updateLoadHandlingTransportations()
-{
-    loadHandlingView->clearTransportation();
-    QString tbl = DBConstants::TBL_TRANSPORTATION;
-    QList<QHash<QString, QVariant>> values = dbHandler->select(tbl, "");
-    for(int i = 0; i < values.count(); ++i)
-        {
-            QHash<QString, QVariant> row = values.at(i);
-            loadHandlingView->addTransportation(row.value(DBConstants::COL_TRANSPORTATION_ID).toInt(),
-                                                row.value(DBConstants::COL_TRANSPORTATION_NAME).toString(),
-                                                row.value(DBConstants::COL_TRANSPORTATION_EMPTY_WEIGHT).toInt(),
-                                                row.value(DBConstants::COL_TRANSPORTATION_MAX_LOAD).toInt(),
-                                                row.value(DBConstants::COL_TRANSPORTATION_BRAKES).toBool(),
-                                                row.value(DBConstants::COL_TRANSPORTATION_FIXED_ROLLER).toBool());
-        }
-}
 
 //WorkProcessMetaDataView
 void Controller::updateWorkProcessMetaDataView()
@@ -1199,11 +1150,6 @@ void Controller::updateWorkProcessMetaDataView()
 }
 
 
-// Documentation View Ressource Lists
-void Controller::updateDocumentationViewRessources()
-{
-    updateLoadHandlingTransportations();
-}
 
 //SendDatabasePopUp
 void Controller::updateFTPConnectionPopUp(IFTPConnections *widget)

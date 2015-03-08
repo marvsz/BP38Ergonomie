@@ -12,11 +12,10 @@
 #include "../interfaces/itransportationlist.h"
 #include "../interfaces/itransportation.h"
 
-class TransportationView : public SimpleNavigateableWidget, ITransportationList, ITransportation
+class TransportationView : public SimpleNavigateableWidget, ITransportationList
 {
     Q_OBJECT
     Q_INTERFACES(ITransportationList)
-    Q_INTERFACES(ITransportation)
 public:
     explicit TransportationView(QWidget *parent = 0);
     ~TransportationView();
@@ -25,14 +24,12 @@ signals:
     void createTransportation(QHash<QString, QVariant> values);
     void deleteTransportation(int id);
     void selectTransportation(int id);
-    void saveTransportation(QHash<QString, QVariant> values);
 
 public slots:
     void addTransportation(QHash<QString, QVariant> values);
     void removeTransportation(int id);
     void updateTransportation(QHash<QString, QVariant> values);
     void clearTransportations();
-    void setTransportation(QHash<QString, QVariant> values);
 
 private slots:
     void btnAddClicked();

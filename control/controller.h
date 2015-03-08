@@ -219,13 +219,9 @@ private slots:
     void updateAppliedForceView();
     void saveAppliedForceView();
 
-    void updateLoadHandlingView();
-    void saveLoadHandlingView();
-    void updateLoadHandlingTransportations();
 
     void updateWorkProcessMetaDataView();
 
-    void updateDocumentationViewRessources();
 
     void updateFTPConnectionPopUp(IFTPConnections *widget);
     void selectedConnectionChanged(IFTPConnections *widget, int id);
