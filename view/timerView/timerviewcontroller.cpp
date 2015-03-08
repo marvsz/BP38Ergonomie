@@ -1,5 +1,6 @@
 #include "timerviewcontroller.h"
 #include <QVBoxLayout>
+#include "../../databaseHandler/dbconstants.h"
 
 TimerViewController::TimerViewController(QWidget *parent):
     QWidget(parent),
@@ -14,8 +15,8 @@ TimerViewController::TimerViewController(QWidget *parent):
     minTimerView(new MinimizedTimerView(TimerState::IDLE, this))
 {
     // PROPAGATE SIGNALS FROM MIN/MAX VIEW
-    connect(maxTimerView, SIGNAL(nextWorkProcess()), this, SIGNAL(nextWorkProcess()));
-    connect(maxTimerView, SIGNAL(previousWorkProcess()), this, SIGNAL(previousWorkProcess()));
+    connect(maxTimerView, SIGNAL(nextWorkProcess()), this, SIGNAL(selectNextWorkProcess()));
+    connect(maxTimerView, SIGNAL(previousWorkProcess()), this, SIGNAL(selectPreviousWorkProcess()));
     connect(maxTimerView, SIGNAL(workProcessTypeChanged(AVType)), this, SIGNAL(workProcessTypeChanged(AVType)));
     connect(maxTimerView, SIGNAL(play()), this, SLOT(startTimer()));
     connect(maxTimerView, SIGNAL(pause()), this, SLOT(pauseTimer()));
@@ -29,8 +30,8 @@ TimerViewController::TimerViewController(QWidget *parent):
     connect(maxTimerView, SIGNAL(leftChanged(bool)), this, SLOT(changeLeft(bool)));
     connect(maxTimerView, SIGNAL(rightChanged(bool)), this, SLOT(changeRight(bool)));
 
-    connect(minTimerView, SIGNAL(nextWorkProcess()), this, SIGNAL(nextWorkProcess()));
-    connect(minTimerView, SIGNAL(previousWorkProcess()), this, SIGNAL(previousWorkProcess()));
+    connect(minTimerView, SIGNAL(nextWorkProcess()), this, SIGNAL(selectNextWorkProcess()));
+    connect(minTimerView, SIGNAL(previousWorkProcess()), this, SIGNAL(selectPreviousWorkProcess()));
     connect(minTimerView, SIGNAL(workProcessTypeChanged(AVType)), this, SIGNAL(workProcessTypeChanged(AVType)));
     connect(minTimerView, SIGNAL(play()), this, SLOT(startTimer()));
     connect(minTimerView, SIGNAL(pause()), this, SLOT(pauseTimer()));
@@ -51,31 +52,61 @@ TimerViewController::TimerViewController(QWidget *parent):
 
 
 // PUBLIC SLOTS
-void TimerViewController::setSelectedAV(int id, const QTime &duration){
-    minTimerView->setSelectedAV(id);
-    maxTimerView->setSelectedAV(id, duration);
+void TimerViewController::setSelectedWorkProcess(QHash<QString, QVariant> values){
+    if(values.value(DBConstants::COL_WORK_PROCESS_ID).toInt() != 0){
+        QTime duration = QTime(0,0).addSecs(values.value(DBConstants::COL_WORK_PROCESS_BEGIN).toTime().secsTo(values.value(DBConstants::COL_WORK_PROCESS_END).toTime()));
+        minTimerView->setSelectedAV(values.value(DBConstants::COL_WORK_PROCESS_ID).toInt());
+        maxTimerView->setSelectedAV(values.value(DBConstants::COL_WORK_PROCESS_ID).toInt(), duration);
+    } else
+        setSelectedWorkprocessNone();
 }
 
-void TimerViewController::setSelectedAVNone(){
-    maxTimerView->setSelectedAVNone();
-    minTimerView->setSelectedAVNone();
-}
-
-void TimerViewController::setHasPreviousAV(bool hasPrevious){
+void TimerViewController::setHasPreviousWorkProcess(bool hasPrevious){
     maxTimerView->setHasPreviousAV(hasPrevious);
     minTimerView->setHasPreviousAV(hasPrevious);
 }
 
-void TimerViewController::setHasNextAV(bool hasNext){
+void TimerViewController::setHasNextWorkProcess(bool hasNext){
     maxTimerView->setHasNextAV(hasNext);
     minTimerView->setHasNextAV(hasNext);
 }
 
-void TimerViewController::setWorkProcessLists(QVector<QVariant> *leftWPs, QVector<QVariant> *rightWPs, QVector<QVariant> *basicWPs){
-    maxTimerView->initialize(leftWPs, rightWPs, basicWPs);
-    if(leftWPs->count() != 0 || rightWPs->count() != 0 || basicWPs->count() != 0){
+void TimerViewController::setSelectedWorkProcessType(AVType type){
+    setWorkProcessType(type, TYPE_PREFIXE.at(type - 1));
+}
+
+void TimerViewController::initiliazedWorkProcesses(QList<QHash<QString, QVariant>> values){
+    QVector<QVariant> *leftWorkProcesses = new QVector<QVariant>();
+    QVector<QVariant> *rightWorkProcesses = new QVector<QVariant>();
+    QVector<QVariant> *basicWorkProcesses = new QVector<QVariant>();
+
+    for(int i = 0; i < values.count(); ++i){
+        QHash<QString, QVariant> row = values.at(i);
+        int type = row.value(DBConstants::COL_WORK_PROCESS_TYPE).toInt();
+        QVariant id = row.value(DBConstants::COL_WORK_PROCESS_ID);
+        QVariant start = row.value(DBConstants::COL_WORK_PROCESS_BEGIN);
+        QVariant end = row.value(DBConstants::COL_WORK_PROCESS_END);
+        if(type == 1){
+            leftWorkProcesses->append(id);
+            leftWorkProcesses->append(start);
+            leftWorkProcesses->append(end);
+        }
+        else if(type == 2){
+            rightWorkProcesses->append(id);
+            rightWorkProcesses->append(start);
+            rightWorkProcesses->append(end);
+        }
+        else{
+            basicWorkProcesses->append(id);
+            basicWorkProcesses->append(start);
+            basicWorkProcesses->append(end);
+        }
+
+    }
+    maxTimerView->initialize(leftWorkProcesses, rightWorkProcesses, basicWorkProcesses);
+    if(leftWorkProcesses->count() != 0 || rightWorkProcesses->count() != 0 || basicWorkProcesses->count() != 0){
         syncTimerStates(TimerState::STOPPED);
-        syncCurrentTime(basicWPs->at(basicWPs->count() -1).toTime());
+        syncCurrentTime(basicWorkProcesses->at(basicWorkProcesses->count() -1).toTime());
     }
     else {
         syncTimerStates(TimerState::IDLE);
@@ -84,10 +115,7 @@ void TimerViewController::setWorkProcessLists(QVector<QVariant> *leftWPs, QVecto
     maxTimerView->updateGraphTimeLine(currentTime);
 }
 
-void TimerViewController::setSelectedType(AVType type){
-    setWorkProcessType(type, TYPE_PREFIXE.at(type - 1));
-}
-
+//OLD STUFF
 void TimerViewController::gantViewShown(){
     maxTimerView->disableMaximize();
     isGantShown = true;
@@ -105,6 +133,11 @@ void TimerViewController::closeTimerView(){
 }
 
 // PRIVATE SLOTS
+void TimerViewController::setSelectedWorkprocessNone(){
+    maxTimerView->setSelectedAVNone();
+    minTimerView->setSelectedAVNone();
+}
+
 void TimerViewController::minimizeView(){
     if (isGantShown){
         emit hideGantView();
@@ -123,10 +156,8 @@ void TimerViewController::maximizeView(){
         maxTimerView->show();
         displayState = TimerDisplayState::MAXIMIZED;
     }
-    else if(displayState == TimerDisplayState::MAXIMIZED && !isGantShown){
+    else if(displayState == TimerDisplayState::MAXIMIZED && !isGantShown)
         emit showGantView();
-        //displayState = TimerDisplayState::GANT;
-    }
 }
 
 void TimerViewController::startTimer(){
@@ -178,18 +209,30 @@ void TimerViewController::setTime(const QTime &time){
 
 void TimerViewController::createLeftWorkProcessRequested(){
     maxTimerView->leftEnded(currentTime);
-    emit createWorkProcess(AVType::LEFT, startTimeLeft, currentTime);
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_WORK_PROCESS_TYPE, AVType::LEFT);
+    values.insert(DBConstants::COL_WORK_PROCESS_BEGIN, startTimeLeft);
+    values.insert(DBConstants::COL_WORK_PROCESS_END, currentTime);
+    emit createWorkProcess(values);
 }
 
 void TimerViewController::createRightWorkProcessRequested(){
     maxTimerView->rightEnded(currentTime);
-    emit createWorkProcess(AVType::RIGHT, startTimeRight, currentTime);
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_WORK_PROCESS_TYPE, AVType::RIGHT);
+    values.insert(DBConstants::COL_WORK_PROCESS_BEGIN, startTimeRight);
+    values.insert(DBConstants::COL_WORK_PROCESS_END, currentTime);
+    emit createWorkProcess(values);
 }
 
 void TimerViewController::createBasicWorkProcessRequested(){
     if(currentTime > startTimeBasic){
         isBasicSet = true;
-        emit createWorkProcess(AVType::BASIC, startTimeBasic, currentTime);
+        QHash<QString, QVariant> values = QHash<QString, QVariant>();
+        values.insert(DBConstants::COL_WORK_PROCESS_TYPE, AVType::BASIC);
+        values.insert(DBConstants::COL_WORK_PROCESS_BEGIN, startTimeBasic);
+        values.insert(DBConstants::COL_WORK_PROCESS_END, currentTime);
+        emit createWorkProcess(values);
         startTimeBasic = currentTime;
         maxTimerView->basicEnded(currentTime);
         maxTimerView->basicStarted(currentTime);
@@ -239,6 +282,7 @@ void TimerViewController::timerEvent(QTimerEvent *){
     minTimerView->setTime(currentTime);
     maxTimerView->updateGraphTimeLine(currentTime);
 }
+
 
 
 
