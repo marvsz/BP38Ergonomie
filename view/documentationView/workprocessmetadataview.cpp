@@ -86,13 +86,13 @@ WorkProcessMetaDataView::~WorkProcessMetaDataView()
 
 }
 //PUBLIC SLOTS
-void WorkProcessMetaDataView::setWorkProcessMetaData(const QString &desc, const QString &mtmCode, int workingHeight, int distance, int impulseIntensity, int impulseCount){
-    txtBxDescription->setText(desc);
-    vcMTMCode->setValue(mtmCode);
-    numBxWorkingHeight->setValue(workingHeight);
-    numBxDistance->setValue(distance);
-    oscImpulseIntensity->setSelectedValue(impulseIntensity);
-    numBxImpulseCount->setValue(impulseCount);
+void WorkProcessMetaDataView::setWorkProcess(QHash<QString, QVariant> values){
+    txtBxDescription->setText(values.value(DBConstants::COL_WORK_PROCESS_DESCRIPTION).toString());
+    vcMTMCode->setValue(values.value(DBConstants::COL_WORK_PROCESS_MTM_CODE).toString());
+    numBxWorkingHeight->setValue(values.value(DBConstants::COL_WORK_PROCESS_WORKING_HEIGHT).toInt());
+    numBxDistance->setValue(values.value(DBConstants::COL_WORK_PROCESS_DISTANCE).toInt());
+    oscImpulseIntensity->setSelectedValue(values.value(DBConstants::COL_WORK_PROCESS_IMPULSE_INTENSITY).toInt());
+    numBxImpulseCount->setValue(values.value(DBConstants::COL_WORK_PROCESS_IMPULSE_COUNT).toInt());
 }
 
 void WorkProcessMetaDataView::addEquipment(QHash<QString, QVariant> values){
@@ -144,6 +144,17 @@ void WorkProcessMetaDataView::clearEquipments(){
     }
 }
 
+void WorkProcessMetaDataView::onLeaving(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_WORK_PROCESS_DESCRIPTION, txtBxDescription->text());
+    values.insert(DBConstants::COL_WORK_PROCESS_MTM_CODE, vcMTMCode->getTextValue());
+    values.insert(DBConstants::COL_WORK_PROCESS_WORKING_HEIGHT, numBxWorkingHeight->getValue());
+    values.insert(DBConstants::COL_WORK_PROCESS_DISTANCE, numBxDistance->getValue());
+    values.insert(DBConstants::COL_WORK_PROCESS_IMPULSE_INTENSITY, oscImpulseIntensity->getSelectedValue().toInt());
+    values.insert(DBConstants::COL_WORK_PROCESS_IMPULSE_COUNT, numBxImpulseCount->getValue());
+    emit saveWorkProcess(values);
+}
+
 //PRIVATE SLOTS
 void WorkProcessMetaDataView::dliEquipmentSelected(int id){
     selectedEquipment_ID = id;
@@ -157,26 +168,6 @@ void WorkProcessMetaDataView::dliEquipmentDeselect(int id){
 
 void WorkProcessMetaDataView::btnCreateEquipmentClicked(){
     emit showPopUp(PopUpType::EQUIPMENT_POPUP);
-}
-
-//GETTER
-QString WorkProcessMetaDataView::getDescription() const{
-    return txtBxDescription->text();
-}
-QString WorkProcessMetaDataView::getMTMCode() const{
-    return vcMTMCode->getTextValue();
-}
-int WorkProcessMetaDataView::getWorkingHeight() const{
-    return numBxWorkingHeight->getValue();
-}
-int WorkProcessMetaDataView::getDistance() const{
-    return numBxDistance->getValue();
-}
-int WorkProcessMetaDataView::getImpulseIntensity() const{
-    return oscImpulseIntensity->getSelectedValue().toInt();
-}
-int WorkProcessMetaDataView::getImpulseCount() const{
-    return numBxImpulseCount->getValue();
 }
 
 

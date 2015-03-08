@@ -19,6 +19,9 @@ TransporationPopUp::TransporationPopUp(QWidget *parent) :
     oscFixedRoller->setValues(YES_NO_TEXTS, YES_NO_VALUE);
     oscBrakes->setValues(YES_NO_TEXTS, YES_NO_VALUE);
 
+    oscFixedRoller->setSelectedValue(1);
+    oscBrakes->setSelectedValue(1);
+
     QGridLayout *mainLayout = new QGridLayout;
     mainLayout->addWidget(new QLabel(tr("Name:")), 0, 0, 1, 1, 0);
     mainLayout->addWidget(txtBxName, 0, 1, 1, 1, 0);
