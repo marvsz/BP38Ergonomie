@@ -102,7 +102,9 @@ HEADERS +=\
     $$PWD/interfaces/iline.h \
     $$PWD/interfaces/iproductlist.h \
     $$PWD/interfaces/iproduct.h \
-    $$PWD/popUps/createproductpopup.h
+    $$PWD/popUps/createproductpopup.h \
+    $$PWD/interfaces/iactivitylist.h \
+    $$PWD/interfaces/iactivity.h
 
 
 SOURCES +=\

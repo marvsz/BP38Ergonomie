@@ -11,33 +11,30 @@
 #include "../numberlineedit.h"
 #include "../navigation/simplenavigateablewidget.h"
 #include "../interfaces/iproductlist.h"
+#include "../interfaces/iactivitylist.h"
 
-class ActivityView : public SimpleNavigateableWidget, IProductList
+class ActivityView : public SimpleNavigateableWidget, IProductList, IActivityList
 {
     Q_OBJECT
     Q_INTERFACES(IProductList)
+    Q_INTERFACES(IActivityList)
 public:
     explicit ActivityView(QWidget *parent = 0);
 
-    QString getDescription() const;
-    int getRepetitions() const;
-    int getSelectedProduct() const;
-
 signals:
+    void createActivity(QHash<QString, QVariant> values);
     void deleteActivity(int id);
-    void selectedProduct(int id);
-    void createActivity();
-    void selectActivity(int id);
-    void editActivity(int id);
+    void editLine(int id);
 
     void createProduct(QHash<QString, QVariant> values);
     void deleteProduct(int id);
 
-public slots:
-    void setSelectedProduct(int id);
+    void selectedProduct(int id);
 
-    void setActivity(const QString &description, int repetitions, int selectedProductID);
-    void addActivity(int id, const QString &description, int repetitions);
+public slots:
+    void addActivity(QHash<QString, QVariant> values);
+    void updateActivity(QHash<QString, QVariant> values);
+    void removeActivity(int id);
     void clearActivities();
 
     void addProduct(QHash<QString, QVariant> values);

@@ -87,20 +87,28 @@ ActivityView::ActivityView(QWidget *parent) :
     setLayout(mainLayout);
 }
 
-// GETTER
-QString ActivityView::getDescription() const {
-    return txtBxActivityDescription->text();
-}
-
-int ActivityView::getRepetitions() const {
-    return numBxActivityRepetitions->getValue();
-}
-
-int ActivityView::getSelectedProduct() const {
-    return this->selectedProductID;
-}
-
 // PUBLIC SLOTS
+
+void ActivityView::addActivity(QHash<QString, QVariant> values){
+
+}
+
+void ActivityView::updateActivity(QHash<QString, QVariant> values){
+
+}
+
+void ActivityView::removeActivity(int id){
+
+}
+
+void ActivityView::clearActivities(){
+    QLayoutItem *item;
+    while((item = activityListLayout->takeAt(0)) != NULL){
+        delete item->widget();
+        delete item;
+    }
+}
+
 void ActivityView::addProduct(QHash<QString, QVariant> values){
     QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_PRODUCT_NUMBER).toString());
     DetailedListItem *newListItem = new DetailedListItem(this, "productIcon", values.value(DBConstants::COL_PRODUCT_NAME).toString(), productItemScheme, false, true, false, false, false);
@@ -150,10 +158,7 @@ void ActivityView::clearProducts(){
     }
 }
 
-void ActivityView::setSelectedProduct(int id){
-    selectedProductChanged(id);
-}
-
+/*
 void ActivityView::setActivity(const QString &description, int repetitions, int selectedProductID){
     txtBxActivityDescription->setText(description);
     numBxActivityRepetitions->setValue(repetitions);
@@ -171,21 +176,14 @@ void ActivityView::addActivity(int id, const QString &description, int repetitio
     connect(newListItem, SIGNAL(editItem(int)), this, SLOT(editActivityClicked(int)));
     activityListLayout->addWidget(newListItem);
 }
+*/
 
-void ActivityView::clearActivities(){
-    QLayoutItem *item;
-    while((item = activityListLayout->takeAt(0)) != NULL){
-        delete item->widget();
-        delete item;
-    }
-}
-
+// PRIVATE SLOTS
 void ActivityView::editActivityClicked(int id){
     emit editActivity(id);
     emit showPopUp(PopUpType::ACTIVITY_POPUP);
 }
 
-// PRIVATE SLOTS
 void ActivityView::btnAddClicked(){
     emit createActivity();
     txtBxActivityDescription->clear();

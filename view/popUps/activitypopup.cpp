@@ -44,22 +44,9 @@ ActivityPopUp::ActivityPopUp(QWidget *parent) :
 ActivityPopUp::~ActivityPopUp(){
 }
 
-// GETTER
-QString ActivityPopUp::getDescription() const{
-    return txtBxActivityDescription->text();
-}
-
-int ActivityPopUp::getRepetitions() const{
-    return numBxActivityRepetitions->getValue();
-}
-
-int ActivityPopUp::getSelectedProduct() const{
-    return selectedProductID;
-}
-
 
 // PUBLIC SLOTS
-void ActivityPopUp::addProduct(QHash<QString, QVariant> values){
+/*void ActivityPopUp::addProduct(QHash<QString, QVariant> values){
     QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_PRODUCT_NUMBER).toString());
     DetailedListItem *newListItem = new DetailedListItem(this, "productIcon", values.value(DBConstants::COL_PRODUCT_NAME).toString(), productItemScheme, false, true, false, false, false);
     newListItem->setValues(dliValues);
@@ -67,7 +54,7 @@ void ActivityPopUp::addProduct(QHash<QString, QVariant> values){
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedProductChanged(int)));
     connect(this, SIGNAL(selectedProduct(int)), newListItem, SLOT(selectExclusiveWithID(int)));
     productListLayout->addWidget(newListItem);
-}
+}*/
 
 void ActivityPopUp::updateProduct(QHash<QString, QVariant> values){
     QLayoutItem *item;
@@ -109,14 +96,8 @@ void ActivityPopUp::clearProducts(){
 }
 
 
-void ActivityPopUp::setActivity(const QString &description, int repetitions, int selectedProductID){
-    txtBxActivityDescription->setText(description);
-    numBxActivityRepetitions->setValue(repetitions);
-    this->selectedProductID = selectedProductID;
-}
+void ActivityPopUp::setActivity(QHash<QString, QVariant> values){
 
-void ActivityPopUp::setSelectedProduct(int id){
-    selectedProductChanged(id);
 }
 
 // PRIVATE SLOTS
