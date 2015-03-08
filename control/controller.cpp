@@ -7,10 +7,9 @@
 #include "../ftpHandler/ftphandler.h"
 
 
-Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
+Controller::Controller(QObject *parent, QApplication *app) :
     QObject(parent),
     application(app),
-    translator(trans),
     dbHandler(new DBHandler()),
     viewCon(new ViewController()),
     analystSelectionView(new AnalystSelectionView()),

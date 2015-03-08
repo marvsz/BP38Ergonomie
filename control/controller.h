@@ -49,7 +49,6 @@
 #include "../view/documentationView/executionconditionview.h"
 #include "../view/documentationView/workprocessmetadataview.h"
 #include "../view/documentationView/bodyPostureView/bodypostureview.h"
-#include "translator.h"
 #include <QSqlField>
 #include <QCryptographicHash>
 #include <QHash>
@@ -60,7 +59,7 @@ class Controller : QObject
 {
     Q_OBJECT
 public:
-    explicit Controller(QObject *parent = 0, QApplication *app = 0, Translator *trans = 0);
+    explicit Controller(QObject *parent = 0, QApplication *app = 0);
 
 signals:
     void clearAll();
@@ -233,7 +232,6 @@ private slots:
 
 private:
     QApplication *application;
-    Translator *translator;
     DBHandler *dbHandler;
     ViewController *viewCon;
 

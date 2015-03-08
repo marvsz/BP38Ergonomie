@@ -3,7 +3,6 @@
 #include <QFile>
 #include <QTextStream>
 #include "control/controller.h"
-#include "translator.h"
 
 QString stringFromResource(const QString &resName)
 {
@@ -28,8 +27,7 @@ int main(int argc, char *argv[])
     }
 
     QApplication a(argc, argv); 
-    Translator t(&a);
-    t.loadTranslations(":/translations");
+    QTranslator t;
 
     if(!settings.empty()){
         if(settings.at(1) == "green")
@@ -37,20 +35,21 @@ int main(int argc, char *argv[])
         else
             a.setStyleSheet(stringFromResource(":/assets/stylesheet.qss"));
         if(settings.at(0) == "german")
-            t.setLanguage("trans_DE");
+            t.load(":/translations/ergo_trans_de");
         else
-            t.setLanguage("trans_EN");
+            t.load(":/translations/ergo_trans_en");
     }
     else {
         file.open(QIODevice::WriteOnly);
         QTextStream out(&file);
         out<<"german"<<','<<"blue"<<','<<"nTrue"<<','<<"tTrue";
         a.setStyleSheet(stringFromResource(":/assets/stylesheet.qss"));
-        t.setLanguage("trans_DE");
+        t.load(":/translations/ergo_trans_de");
     }
+    a.installTranslator(&t);
     a.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 
-    Controller c(0, &a, &t);
+    Controller c(0, &a);
 
     return a.exec();
 }
