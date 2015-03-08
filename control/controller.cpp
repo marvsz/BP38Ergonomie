@@ -1487,25 +1487,26 @@ void Controller::languageChanged(){
     int languageID = languagePopUp->getSelectedLanguage();
     switch(languageID){
     case(0):
-         out<<"german"<<','<<settings.at(1);
+         out<<"german"<<','<<settings.at(1)<<','<<settings.at(2)<<','<<settings.at(3);
+         file.close();
          settingsView->setCurrentLanguageIcon("germanIcon");
          viewCon->showMessage(tr("Language changed"), NotificationMessage::ACCEPT);
          viewCon->showMessage(("Neustart erforderlich um die Änderungen umzusetzen"), NotificationMessage::INFORMATION, NotificationMessage::PERSISTENT);
          break;
     case(1):
-         out<<"english"<<','<<settings.at(1);
+         out<<"english"<<','<<settings.at(1)<<','<<settings.at(2)<<','<<settings.at(3);
+         file.close();
          settingsView->setCurrentLanguageIcon("englishIcon");
          viewCon->showMessage(tr("Language changed"), NotificationMessage::ACCEPT);
          viewCon->showMessage(("Restart App to apply changes"), NotificationMessage::INFORMATION, NotificationMessage::PERSISTENT);
          break;
     default:
-         out<<"english"<<','<<settings.at(1);
+         out<<"english"<<','<<settings.at(1)<<','<<settings.at(2)<<','<<settings.at(3);
+         file.close();
          settingsView->setCurrentLanguageIcon("englishIcon");
          break;
     }
     viewCon->closePopUp();
-
-
 }
 
 void Controller::themeChanged()
@@ -1525,20 +1526,20 @@ void Controller::themeChanged()
         case(0):
             settingsView->setCurrentThemeIcon("blueIcon");
             application->setStyleSheet(stringFromResource(":/assets/stylesheet.qss"));
-            out<<settings.at(0)<<','<<"blue";
+            out<<settings.at(0)<<','<<"blue"<<','<<settings.at(2)<<','<<settings.at(3);
             break;
         case(1):
             settingsView->setCurrentThemeIcon("greenIcon");
             application->setStyleSheet(stringFromResource(":/assets/stylesheetGreen.qss"));
-            out<<settings.at(0)<<','<<"green";
+            out<<settings.at(0)<<','<<"green"<<','<<settings.at(2)<<','<<settings.at(3);
             break;
         default:
             settingsView->setCurrentThemeIcon("blueIcon");
             application->setStyleSheet(stringFromResource(":/assets/stylesheet.qss"));
-            out<<settings.at(0)<<','<<"blue";
+            out<<settings.at(0)<<','<<"blue"<<','<<settings.at(2)<<','<<settings.at(3);
             break;
         }
-
+    file.close();
     viewCon->closePopUp();
     viewCon->showMessage(tr("Theme changed"), NotificationMessage::ACCEPT);
 }

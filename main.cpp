@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
     else {
         file.open(QIODevice::WriteOnly);
         QTextStream out(&file);
-        out<<"german"<<','<<"blue";
+        out<<"german"<<','<<"blue"<<','<<"nTrue"<<','<<"tTrue";
         a.setStyleSheet(stringFromResource(":/assets/stylesheet.qss"));
         t.setLanguage("trans_DE");
     }

@@ -6,6 +6,7 @@
 #include <QDir>
 #include <QDateTime>
 #include <QTime>
+#include <QTextStream>
 
 ViewController::ViewController(QWidget *parent) : NotificationWidget(parent),
     content(new QStackedWidget()),
@@ -188,13 +189,24 @@ void ViewController::adaptNavigationBar(ViewType type){
     NavigateableWidget *currentWidget = viewTypeToWidget->value(type);
     int leftWidth = 0;
     int rightWidth = 0;
+
+    QFile file(StandardPaths::configFile());
+    file.open(QIODevice::ReadOnly);
+    QTextStream in(&file);
+    QString line = in.readLine();
+    QStringList settings = line.split(',');
+
+
     if(currentWidget->canGoBack()){
         btnBack->show();
         ViewType backType = currentWidget->getBackViewType();
         if(backType == UNKNOWN){
             backType = previousViews->at(previousViews->count() - 2);
         }
-        lblBackTitle->setText(viewTypeToWidget->value(backType)->getTitle());
+        if(settings.at(3) == "tTrue")
+            lblBackTitle->setText(viewTypeToWidget->value(backType)->getTitle());
+        else
+            lblBackTitle->setText("");
         lblBackTitle->adjustSize();
         leftWidth += btnBack->sizeHint().width();
         leftWidth += lblBackTitle->sizeHint().width();
@@ -206,7 +218,10 @@ void ViewController::adaptNavigationBar(ViewType type){
 
     if(currentWidget->canGoForward() && viewTypeToWidget->contains(currentWidget->getForwardViewType())){
         btnForward->show();
-        lblForwardTitle->setText(viewTypeToWidget->value(currentWidget->getForwardViewType())->getTitle());
+        if(settings.at(3) == "tTrue")
+            lblForwardTitle->setText(viewTypeToWidget->value(currentWidget->getForwardViewType())->getTitle());
+        else
+            lblForwardTitle->setText("");
         lblForwardTitle->adjustSize();
         rightWidth += btnForward->sizeHint().width();
         rightWidth += lblForwardTitle->sizeHint().width();

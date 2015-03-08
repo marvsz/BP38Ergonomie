@@ -1,5 +1,6 @@
 #include "notificationwidget.h"
 #include <QDebug>
+#include"../../standardpaths.h"
 
 NotificationWidget::NotificationWidget(QWidget *parent) : QWidget(parent),
     popUpLayout(new QGridLayout),
@@ -46,7 +47,14 @@ void NotificationWidget::closePopUp(){
 }
 
 void NotificationWidget::showMessage(const QString &message, NotificationMessage::MessageType msgType, NotificationMessage::MessageDisplayType msgDisplayType){
-    notifiMessage->showMessage(message, msgType, msgDisplayType);
+    QFile file(StandardPaths::configFile());
+    file.open(QIODevice::ReadOnly);
+    QTextStream in(&file);
+    QString line = in.readLine();
+    QStringList settings = line.split(',');
+
+    if(settings.at(2) == "nTrue" || msgType == NotificationMessage::WARNING || msgDisplayType == NotificationMessage::PERSISTENT)
+        notifiMessage->showMessage(message, msgType, msgDisplayType);
 }
 
 void NotificationWidget::closeMessage(){

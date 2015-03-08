@@ -28,6 +28,8 @@ private slots:
     void btnRestoreFactoryClicked();
     void btnSelectLanguageClicked();
     void btnSelectThemeClicked();
+    void showTitlesClicked();
+    void showNotificationsClicked();
 
 private:
     IconButton *btnResetRecordings;
@@ -37,6 +39,8 @@ private:
     DetailedListItem *dliShowTitles;
     DetailedListItem *dliShowNotifications;
 
+    bool showNotifications;
+    bool showTitles;
 };
 
 #endif // SETTINGSVIEW_H

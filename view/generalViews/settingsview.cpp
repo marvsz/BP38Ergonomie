@@ -1,9 +1,12 @@
 #include "settingsview.h"
 #include "../separator.h"
+#include "../../standardpaths.h"
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QTextStream>
+#include <QDebug>
 
 SettingsView::SettingsView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Settings"), parent),
@@ -14,6 +17,29 @@ SettingsView::SettingsView(QWidget *parent) :
     dliShowTitles(new DetailedListItem(this, "titleIcon", tr("Show Titles"), QList<QStringList>(), false, true, false, false, false)),
     dliShowNotifications(new DetailedListItem(this, "notificationIcon", tr("Show Notifications"), QList<QStringList>(), false, true, false, false, false))
 {
+    QFile file(StandardPaths::configFile());
+    file.open(QIODevice::ReadOnly);
+    QTextStream in(&file);
+    QString line = in.readLine();
+    QStringList settings = line.split(',');
+
+    if(settings.at(2) == "nTrue"){
+        showNotifications = true;
+        dliShowNotifications->select();
+    }
+    else{
+        showNotifications = false;
+        dliShowNotifications->deselect();
+    }
+    if(settings.at(3) == "tTrue"){
+        showTitles = true;
+        dliShowTitles->select();
+    }
+    else{
+        showTitles = false;
+        dliShowTitles->deselect();
+    }
+
     btnResetRecordings->setMinimumSize(400, 60);
     connect(btnResetRecordings, SIGNAL(clicked()), this, SLOT(btnResetRecordingsClicked()));
 
@@ -25,6 +51,9 @@ SettingsView::SettingsView(QWidget *parent) :
 
     btnSelectTheme->setMinimumSize(400, 60);
     connect(btnSelectTheme, SIGNAL(clicked()), this, SLOT(btnSelectThemeClicked()));
+
+    connect(dliShowNotifications, SIGNAL(clicked()), this, SLOT(showNotificationsClicked()));
+    connect(dliShowTitles, SIGNAL(clicked()), this, SLOT(showTitlesClicked()));
 
     QLabel *lblUiSettings = new QLabel(tr("User Interface Settings"));
     QLabel *lblAdvancedSettings = new QLabel(tr("Advanced Settings"));
@@ -96,4 +125,45 @@ void SettingsView::setCurrentLanguageIcon(const QString &objectName){
 
 void SettingsView::setCurrentThemeIcon(const QString &objectName){
     btnSelectTheme->setIcon(objectName);
+}
+
+void SettingsView::showNotificationsClicked(){
+    QFile file(StandardPaths::configFile());
+    file.open(QIODevice::ReadOnly);
+    QTextStream in(&file);
+    QString line = in.readLine();
+    QStringList settings = line.split(',');
+    file.close();
+    file.open(QIODevice::WriteOnly);
+    QTextStream out(&file);
+
+    if(showNotifications){
+        showNotifications = false;
+        out<<settings.at(0)<<','<<settings.at(1)<<','<<"nFalse"<<','<<settings.at(3);
+    }
+    else {
+        showNotifications = true;
+        out<<settings.at(0)<<','<<settings.at(1)<<','<<"nTrue"<<','<<settings.at(3);
+    }
+}
+
+void SettingsView::showTitlesClicked(){
+    QFile file(StandardPaths::configFile());
+    file.open(QIODevice::ReadOnly);
+    QTextStream in(&file);
+    QString line = in.readLine();
+    QStringList settings = line.split(',');
+    file.close();
+    file.open(QIODevice::WriteOnly);
+    QTextStream out(&file);
+
+    if(showTitles){
+        showTitles = false;
+        out<<settings.at(0)<<','<<settings.at(1)<<','<<settings.at(2)<<','<<"tFalse";
+    }
+    else {
+        showTitles = true;
+        out<<settings.at(0)<<','<<settings.at(1)<<','<<settings.at(2)<<','<<"tTrue";
+    }
+
 }
