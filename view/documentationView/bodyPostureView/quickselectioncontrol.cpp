@@ -19,7 +19,7 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     hansHash.insert(13112,":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_lightBendingFront.png");
     hansHash.insert(13113,":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_noBending.png");
     hansHash.insert(13114,":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_lightBendingBack.png");
-    hansHash.insert(13115,":/icons/QuickBodyPosture/standing_bothArms_atShoulderHeight_strongBendingBack.png");
+    hansHash.insert(13115,":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_strongBendingBack.png");
     hansHash.insert(13211,":/icons/QuickBodyPosture/standing_bothArms_atShoulderHeight_strongBendingFront.png");
     hansHash.insert(13212,":/icons/QuickBodyPosture/standing_bothArms_atShoulderHeight_lightBendingFront.png");
     hansHash.insert(13213,":/icons/QuickBodyPosture/standing_bothArms_atShoulderHeight_noBending.png");
@@ -35,7 +35,7 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     hansHash.insert(23112,":/icons/QuickBodyPosture/sitting_bothArms_atElbowHeight_lightBendingFront.png");
     hansHash.insert(23113,":/icons/QuickBodyPosture/sitting_bothArms_atElbowHeight_noBending.png");
     hansHash.insert(23114,":/icons/QuickBodyPosture/sitting_bothArms_atElbowHeight_lightBendingBack.png");
-    hansHash.insert(23115,":/icons/QuickBodyPosture/sitting_bothArms_atShoulderHeight_strongBendingBack.png");
+    hansHash.insert(23115,":/icons/QuickBodyPosture/sitting_bothArms_atElbowHeight_strongBendingBack.png");
     hansHash.insert(23211,":/icons/QuickBodyPosture/sitting_bothArms_atShoulderHeight_strongBendingFront.png");
     hansHash.insert(23212,":/icons/QuickBodyPosture/sitting_bothArms_atShoulderHeight_lightBendingFront.png");
     hansHash.insert(23213,":/icons/QuickBodyPosture/sitting_bothArms_atShoulderHeight_noBending.png");
@@ -51,7 +51,7 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     hansHash.insert(31112,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_lightBendingFront.png");
     hansHash.insert(31113,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_noBending.png");
     hansHash.insert(31114,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_lightBendingBack.png");
-    hansHash.insert(31115,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_strongBendingBack.png");
+    hansHash.insert(31115,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_strongBendingBack.png");
     hansHash.insert(31211,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_strongBendingFront.png");
     hansHash.insert(31212,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_lightBendingFront.png");
     hansHash.insert(31213,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_noBending.png");
@@ -67,7 +67,7 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     hansHash.insert(32112,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_lightBendingFront.png");
     hansHash.insert(32113,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_noBending.png");
     hansHash.insert(32114,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_lightBendingBack.png");
-    hansHash.insert(32115,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_strongBendingBack.png");
+    hansHash.insert(32115,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_strongBendingBack.png");
     hansHash.insert(32211,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_strongBendingFront.png");
     hansHash.insert(32212,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_lightBendingFront.png");
     hansHash.insert(32213,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_noBending.png");
@@ -83,7 +83,7 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     hansHash.insert(33112,":/icons/QuickBodyPosture/kneeling_bothArms_atElbowHeight_lightBendingFront.png");
     hansHash.insert(33113,":/icons/QuickBodyPosture/kneeling_bothArms_atElbowHeight_noBending.png");
     hansHash.insert(33114,":/icons/QuickBodyPosture/kneeling_bothArms_atElbowHeight_lightBendingBack.png");
-    hansHash.insert(33115,":/icons/QuickBodyPosture/kneeling_bothArms_atShoulderHeight_strongBendingBack.png");
+    hansHash.insert(33115,":/icons/QuickBodyPosture/kneeling_bothArms_atElbowHeight_strongBendingBack.png");
     hansHash.insert(33211,":/icons/QuickBodyPosture/kneeling_bothArms_atShoulderHeight_strongBendingFront.png");
     hansHash.insert(33212,":/icons/QuickBodyPosture/kneeling_bothArms_atShoulderHeight_lightBendingFront.png");
     hansHash.insert(33213,":/icons/QuickBodyPosture/kneeling_bothArms_atShoulderHeight_noBending.png");
@@ -131,7 +131,7 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     hansHash.insert(13122,":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_lightBendingFront.png");
     hansHash.insert(13123,":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_noBending.png");
     hansHash.insert(13124,":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_lightBendingBack.png");
-    hansHash.insert(13125,":/icons/QuickBodyPosture/standing_bothArms_atShoulderHeight_strongBendingBack.png");
+    hansHash.insert(13125,":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_strongBendingBack.png");
     hansHash.insert(13221,":/icons/QuickBodyPosture/standing_bothArms_atShoulderHeight_strongBendingFront.png");
     hansHash.insert(13222,":/icons/QuickBodyPosture/standing_bothArms_atShoulderHeight_lightBendingFront.png");
     hansHash.insert(13223,":/icons/QuickBodyPosture/standing_bothArms_atShoulderHeight_noBending.png");
@@ -147,7 +147,7 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     hansHash.insert(23122,":/icons/QuickBodyPosture/sitting_bothArms_atElbowHeight_lightBendingFront.png");
     hansHash.insert(23123,":/icons/QuickBodyPosture/sitting_bothArms_atElbowHeight_noBending.png");
     hansHash.insert(23124,":/icons/QuickBodyPosture/sitting_bothArms_atElbowHeight_lightBendingBack.png");
-    hansHash.insert(23125,":/icons/QuickBodyPosture/sitting_bothArms_atShoulderHeight_strongBendingBack.png");
+    hansHash.insert(23125,":/icons/QuickBodyPosture/sitting_bothArms_atElbowHeight_strongBendingBack.png");
     hansHash.insert(23221,":/icons/QuickBodyPosture/sitting_bothArms_atShoulderHeight_strongBendingFront.png");
     hansHash.insert(23222,":/icons/QuickBodyPosture/sitting_bothArms_atShoulderHeight_lightBendingFront.png");
     hansHash.insert(23223,":/icons/QuickBodyPosture/sitting_bothArms_atShoulderHeight_noBending.png");
@@ -163,7 +163,7 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     hansHash.insert(31122,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_lightBendingFront.png");
     hansHash.insert(31123,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_noBending.png");
     hansHash.insert(31124,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_lightBendingBack.png");
-    hansHash.insert(31125,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_strongBendingBack.png");
+    hansHash.insert(31125,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_strongBendingBack.png");
     hansHash.insert(31221,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_strongBendingFront.png");
     hansHash.insert(31222,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_lightBendingFront.png");
     hansHash.insert(31223,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_noBending.png");
@@ -179,7 +179,7 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     hansHash.insert(32122,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_lightBendingFront.png");
     hansHash.insert(32123,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_noBending.png");
     hansHash.insert(32124,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_lightBendingBack.png");
-    hansHash.insert(32125,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_strongBendingBack.png");
+    hansHash.insert(32125,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_strongBendingBack.png");
     hansHash.insert(32221,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_strongBendingFront.png");
     hansHash.insert(32222,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_lightBendingFront.png");
     hansHash.insert(32223,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_noBending.png");
@@ -195,7 +195,7 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     hansHash.insert(33122,":/icons/QuickBodyPosture/kneeling_bothArms_atElbowHeight_lightBendingFront.png");
     hansHash.insert(33123,":/icons/QuickBodyPosture/kneeling_bothArms_atElbowHeight_noBending.png");
     hansHash.insert(33124,":/icons/QuickBodyPosture/kneeling_bothArms_atElbowHeight_lightBendingBack.png");
-    hansHash.insert(33125,":/icons/QuickBodyPosture/kneeling_bothArms_atShoulderHeight_strongBendingBack.png");
+    hansHash.insert(33125,":/icons/QuickBodyPosture/kneeling_bothArms_atElbowHeight_strongBendingBack.png");
     hansHash.insert(33221,":/icons/QuickBodyPosture/kneeling_bothArms_atShoulderHeight_strongBendingFront.png");
     hansHash.insert(33222,":/icons/QuickBodyPosture/kneeling_bothArms_atShoulderHeight_lightBendingFront.png");
     hansHash.insert(33223,":/icons/QuickBodyPosture/kneeling_bothArms_atShoulderHeight_noBending.png");
@@ -244,7 +244,7 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     hansHash.insert(13132,":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_lightBendingFront.png");
     hansHash.insert(13133,":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_noBending.png");
     hansHash.insert(13134,":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_lightBendingBack.png");
-    hansHash.insert(13135,":/icons/QuickBodyPosture/standing_bothArms_atShoulderHeight_strongBendingBack.png");
+    hansHash.insert(13135,":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_strongBendingBack.png");
     hansHash.insert(13231,":/icons/QuickBodyPosture/standing_bothArms_atShoulderHeight_strongBendingFront.png");
     hansHash.insert(13232,":/icons/QuickBodyPosture/standing_bothArms_atShoulderHeight_lightBendingFront.png");
     hansHash.insert(13233,":/icons/QuickBodyPosture/standing_bothArms_atShoulderHeight_noBending.png");
@@ -276,7 +276,7 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     hansHash.insert(31132,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_lightBendingFront.png");
     hansHash.insert(31133,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_noBending.png");
     hansHash.insert(31134,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_lightBendingBack.png");
-    hansHash.insert(31135,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_strongBendingBack.png");
+    hansHash.insert(31135,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_strongBendingBack.png");
     hansHash.insert(31231,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_strongBendingFront.png");
     hansHash.insert(31232,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_lightBendingFront.png");
     hansHash.insert(31233,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_noBending.png");
@@ -292,7 +292,7 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     hansHash.insert(32132,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_lightBendingFront.png");
     hansHash.insert(32133,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_noBending.png");
     hansHash.insert(32134,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_lightBendingBack.png");
-    hansHash.insert(32135,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_strongBendingBack.png");
+    hansHash.insert(32135,":/icons/QuickBodyPosture/kneelingRight_bothArms_atElbowHeight_strongBendingBack.png");
     hansHash.insert(32231,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_strongBendingFront.png");
     hansHash.insert(32232,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_lightBendingFront.png");
     hansHash.insert(32233,":/icons/QuickBodyPosture/kneelingRight_bothArms_atShoulderHeight_noBending.png");
@@ -308,7 +308,7 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     hansHash.insert(33132,":/icons/QuickBodyPosture/kneeling_bothArms_atElbowHeight_lightBendingFront.png");
     hansHash.insert(33133,":/icons/QuickBodyPosture/kneeling_bothArms_atElbowHeight_noBending.png");
     hansHash.insert(33134,":/icons/QuickBodyPosture/kneeling_bothArms_atElbowHeight_lightBendingBack.png");
-    hansHash.insert(33135,":/icons/QuickBodyPosture/kneeling_bothArms_atShoulderHeight_strongBendingBack.png");
+    hansHash.insert(33135,":/icons/QuickBodyPosture/kneeling_bothArms_atElbowHeight_strongBendingBack.png");
     hansHash.insert(33231,":/icons/QuickBodyPosture/kneeling_bothArms_atShoulderHeight_strongBendingFront.png");
     hansHash.insert(33232,":/icons/QuickBodyPosture/kneeling_bothArms_atShoulderHeight_lightBendingFront.png");
     hansHash.insert(33233,":/icons/QuickBodyPosture/kneeling_bothArms_atShoulderHeight_noBending.png");
@@ -369,7 +369,7 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
 
 
 
-    hansHolder->setPixmap(hans_standing_bothArms_atElbowHeight_noBending);
+    hansHolder->setPixmap(hans_standing_bothArms_atElbowHeight_strongBendingFront);
     hansHolder->setFixedSize(QSize(275,313));
 
     verticalLayout->addWidget(qlpcQuickLegPosture);
