@@ -195,5 +195,17 @@
         <file>icons/QuickBodyPosture/standing_bothArms_overHead_strongBendingBack@2x.png</file>
         <file>icons/QuickBodyPosture/standing_bothArms_overHead_strongBendingFront.png</file>
         <file>icons/QuickBodyPosture/standing_bothArms_overHead_strongBendingFront@2x.png</file>
+        <file>icons/QuickBodyPosture/running_arms_atElbowHeight.png</file>
+        <file>icons/QuickBodyPosture/running_arms_atElbowHeight@2x.png</file>
+        <file>icons/QuickBodyPosture/running_arms_overHead.png</file>
+        <file>icons/QuickBodyPosture/running_arms_overHead@2x.png</file>
+        <file>icons/QuickBodyPosture/walking_arms_atElbowHeight.png</file>
+        <file>icons/QuickBodyPosture/walking_arms_atElbowHeight@2x.png</file>
+        <file>icons/QuickBodyPosture/walking_arms_atShoulderHeight.png</file>
+        <file>icons/QuickBodyPosture/walking_arms_atShoulderHeight@2x.png</file>
+        <file>icons/QuickBodyPosture/running_arms_atShoulderHeight.png</file>
+        <file>icons/QuickBodyPosture/running_arms_atShoulderHeight@2x.png</file>
+        <file>icons/QuickBodyPosture/walking_arms_overHead.png</file>
+        <file>icons/QuickBodyPosture/walking_arms_overHead@2x.png</file>
     </qresource>
 </RCC>
