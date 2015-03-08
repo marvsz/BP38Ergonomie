@@ -128,6 +128,18 @@ void ActivityView::updateProduct(QHash<QString, QVariant> values){
 }
 
 void ActivityView::removeProduct(int id){
+    QLayoutItem *item;
+    int i = 0;
+    while((item = productListLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            productListLayout->removeItem(item);
+            delete item->widget();
+            delete item;
+            break;
+        }
+        i++;
+    }
 }
 
 void ActivityView::clearProducts(){
