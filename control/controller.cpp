@@ -189,11 +189,6 @@ Controller::Controller(QObject *parent, QApplication *app) :
     connect(transportationView, SIGNAL(deleteTransportation(int)), this, SLOT(deleteTransportation(int)));
     connect(transportationPopUp, SIGNAL(confirm()), this, SLOT(createTransportationPopUp()));
 
-    connect(activityView, SIGNAL(createActivity()), this, SLOT(createActivity()));
-    connect(activityView, SIGNAL(selectActivity(int)), this, SLOT(selectActivity(int)));
-    connect(activityView, SIGNAL(deleteActivity(int)), this, SLOT(deleteActivity(int)));
-    connect(activityView, SIGNAL(editActivity(int)), this, SLOT(updateActivityPopUp(int)));
-
     connect(documentationView, SIGNAL(update(ViewType)), this, SLOT(update(ViewType)));
     connect(documentationView, SIGNAL(save(ViewType)), this, SLOT(save(ViewType)));
 
@@ -665,6 +660,10 @@ void Controller::deleteProduct(int id){
     QString filter = QString("%1 = %2").arg(DBConstants::COL_PRODUCT_ID).arg(id);
     dbHandler->deleteAll(DBConstants::TBL_PRODUCT, filter);
     emit removedProduct(id);
+    filter = QString("%1 = %2").arg(DBConstants::COL_ACTIVITY_PRODUCT_ID).arg(id);
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_ACTIVITY_PRODUCT_ID, 0);
+    dbHandler->update(DBConstants::TBL_ACTIVITY, DBConstants::HASH_ACTIVITY_TYPES, values, filter);
 }
 
 //Equipment View

@@ -46,8 +46,9 @@ public slots:
 private slots:
     void btnAddClicked();
     void btnProductsClicked();
-    void workprocessClicked();
+    void dliActivityClicked(int id);
     void selectedProductChanged(int id);
+    void deselectProduct(int id);
 
     void editActivityClicked(int id);
 

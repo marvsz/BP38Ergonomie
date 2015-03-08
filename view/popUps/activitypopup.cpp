@@ -54,6 +54,7 @@ void ActivityPopUp::addProduct(QHash<QString, QVariant> values){
     newListItem->setValues(dliValues);
     newListItem->setID(values.value(DBConstants::COL_PRODUCT_ID).toInt());
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedProductChanged(int)));
+    connect(newListItem, SIGNAL(deselected(int)), this, SLOT(deselectedProduct(int)));
     connect(this, SIGNAL(selectedProduct(int)), newListItem, SLOT(selectExclusiveWithID(int)));
     productListLayout->addWidget(newListItem);
 }
@@ -111,6 +112,11 @@ void ActivityPopUp::selectedProductChanged(int id){
     emit selectedProduct(id);
 }
 
+void ActivityPopUp::deselectedProduct(int id){
+    if(selectedProductID = id)
+        selectedProductID = 0;
+}
+
 void ActivityPopUp::onConfirm(){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_ACTIVITY_ID, id);
@@ -122,7 +128,5 @@ void ActivityPopUp::onConfirm(){
 }
 
 void ActivityPopUp::onClose(){
-    txtBxActivityDescription->clear();
-    numBxActivityRepetitions->clear();
     emit closePopUp();
 }

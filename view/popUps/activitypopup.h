@@ -36,6 +36,7 @@ public slots:
 
 private slots:
     void selectedProductChanged(int id);
+    void deselectedProduct(int id);
 
     void onConfirm();
     void onClose();

@@ -96,8 +96,7 @@ void ActivityView::addActivity(QHash<QString, QVariant> values){
     QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_ACTIVITY_REPETITIONS).toString());
     newListItem->setValues(dliValues);
     connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteActivity(int)));
-    connect(newListItem, SIGNAL(pressed(int)), this, SIGNAL(selectActivity(int)));
-    connect(newListItem, SIGNAL(clicked()), this, SLOT(workprocessClicked()));
+    connect(newListItem, SIGNAL(pressed(int)), this, SLOT(dliActivityClicked(int)));
     connect(newListItem, SIGNAL(editItem(int)), this, SLOT(editActivityClicked(int)));
     activityListLayout->addWidget(newListItem);
 }
@@ -147,6 +146,7 @@ void ActivityView::addProduct(QHash<QString, QVariant> values){
     newListItem->setValues(dliValues);
     newListItem->setID(values.value(DBConstants::COL_PRODUCT_ID).toInt());
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedProductChanged(int)));
+    connect(newListItem, SIGNAL(deselected(int)), this, SLOT(deselectProduct(int)));
     connect(this, SIGNAL(selectedProduct(int)), newListItem, SLOT(selectExclusiveWithID(int)));
     productListLayout->addWidget(newListItem);
 }
@@ -198,14 +198,13 @@ void ActivityView::editActivityClicked(int id){
 
 void ActivityView::btnAddClicked(){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_ACTIVITY_ID, id);
     values.insert(DBConstants::COL_ACTIVITY_DESCRIPTION, txtBxActivityDescription->text());
-    values.insert(DBConstants::COL_ACTIVITY_WORKPLACE_ID, numBxActivityRepetitions->getValue());
+    values.insert(DBConstants::COL_ACTIVITY_REPETITIONS, numBxActivityRepetitions->getValue());
     values.insert(DBConstants::COL_ACTIVITY_PRODUCT_ID, selectedProductID);
     emit createActivity(values);
     txtBxActivityDescription->clear();
     numBxActivityRepetitions->clear();
-    selectedProductChanged(-1);
+    selectedProduct(-1);
 }
 
 void ActivityView::selectedProductChanged(int id){
@@ -213,11 +212,17 @@ void ActivityView::selectedProductChanged(int id){
     emit selectedProduct(id);
 }
 
+void ActivityView::deselectProduct(int id){
+    if(id == selectedProductID)
+        selectedProductID = 0;
+}
+
 void ActivityView::btnProductsClicked(){
     emit showPopUp(PopUpType::CREATE_PRODUCT_POPUP);
 }
 
-void ActivityView::workprocessClicked(){
+void ActivityView::dliActivityClicked(int id){
+    emit selectActivity(id);
     emit showView(ViewType::DOCUMENTATION_VIEW);
 }
 
