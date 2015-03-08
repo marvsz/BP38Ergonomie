@@ -57,4 +57,5 @@ void AppliedForceView::onLeaving(){
     values.insert(DBConstants::COL_APPLIED_FORCE_ORGAN, valConOrgan->getTextValue());
     values.insert(DBConstants::COL_APPLIED_FORCE_DIRECTION, valConDirection->getTextValue());
     values.insert(DBConstants::COL_APPLIED_FORCE_INTENSITY, valConIntensity->getValue());
+    emit saveAppliedForce(values);
 }

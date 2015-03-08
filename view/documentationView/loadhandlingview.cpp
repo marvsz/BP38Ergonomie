@@ -102,10 +102,11 @@ LoadHandlingView::~LoadHandlingView()
 
 // PUBLIC SLOTS
 void LoadHandlingView::setLoadHandling(QHash<QString, QVariant> values){
-    vlcGraspType->setValue(values.value(DBConstants::COL_LOAD_HANDLING_TYPE_OF_GRASPING).toString());
+    vlcGraspType->setValue(values.value(DBConstants::COL_TYPE_OF_GRASPING_NAME).toString());
     vlcHandlingType->setValue(values.value(DBConstants::COL_LOAD_HANDLING_TYPE_NAME).toString());
     vlcWeight->setValue(values.value(DBConstants::COL_LOAD_HANDLING_LOAD).toInt());
     vlcDistance->setValue(values.value(DBConstants::COL_LOAD_HANDLING_DISTANCE).toInt());
+    selectedTransportationChanged(values.value(DBConstants::COL_LOAD_HANDLING_TRANSPORTATION_ID).toInt());
 }
 
 void LoadHandlingView::addTransportation(QHash<QString, QVariant> values){
@@ -166,10 +167,11 @@ void LoadHandlingView::clearTransportations(){
 
 void LoadHandlingView::onLeaving(){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_LOAD_HANDLING_TYPE_OF_GRASPING, vlcGraspType->getTextValue());
+    values.insert(DBConstants::COL_TYPE_OF_GRASPING_NAME, vlcGraspType->getTextValue());
     values.insert(DBConstants::COL_LOAD_HANDLING_TYPE_NAME, vlcHandlingType->getTextValue());
     values.insert(DBConstants::COL_LOAD_HANDLING_LOAD, vlcWeight->getValue());
     values.insert(DBConstants::COL_LOAD_HANDLING_DISTANCE, vlcDistance->getValue());
+    values.insert(DBConstants::COL_LOAD_HANDLING_TRANSPORTATION_ID, selectedTransportationID);
     emit saveLoadHandling(values);
 }
 

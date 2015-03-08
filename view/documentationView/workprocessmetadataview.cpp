@@ -93,6 +93,7 @@ void WorkProcessMetaDataView::setWorkProcess(QHash<QString, QVariant> values){
     numBxDistance->setValue(values.value(DBConstants::COL_WORK_PROCESS_DISTANCE).toInt());
     oscImpulseIntensity->setSelectedValue(values.value(DBConstants::COL_WORK_PROCESS_IMPULSE_INTENSITY).toInt());
     numBxImpulseCount->setValue(values.value(DBConstants::COL_WORK_PROCESS_IMPULSE_COUNT).toInt());
+    dliEquipmentSelected(values.value(DBConstants::COL_WORK_PROCESS_EQUIPMENT_ID).toInt());
 }
 
 void WorkProcessMetaDataView::addEquipment(QHash<QString, QVariant> values){
@@ -152,6 +153,7 @@ void WorkProcessMetaDataView::onLeaving(){
     values.insert(DBConstants::COL_WORK_PROCESS_DISTANCE, numBxDistance->getValue());
     values.insert(DBConstants::COL_WORK_PROCESS_IMPULSE_INTENSITY, oscImpulseIntensity->getSelectedValue().toInt());
     values.insert(DBConstants::COL_WORK_PROCESS_IMPULSE_COUNT, numBxImpulseCount->getValue());
+    values.insert(DBConstants::COL_WORK_PROCESS_EQUIPMENT_ID, selectedEquipment_ID);
     emit saveWorkProcess(values);
 }
 
