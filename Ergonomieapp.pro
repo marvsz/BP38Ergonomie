@@ -16,7 +16,9 @@ CONFIG += c++11
 RESOURCES += \
     btnIcons.qrc \
     assets.qrc \
-    icons.qrc
+    icons.qrc \
+    qstillbodyicons.qrc \
+    qmovingbodyicons.qrc
 
 HEADERS += \
     enum.h \
