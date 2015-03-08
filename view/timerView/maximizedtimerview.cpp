@@ -199,6 +199,7 @@ void MaximizedTimerView::setWorkProcessType(AVType type, const QString &prefix){
 
 void MaximizedTimerView::setSelectedAVNone(){
     wpSelector->setSelectedAVNone();
+    timePicker->setTime(QTime(0,0));
 }
 
 void MaximizedTimerView::setHasPreviousAV(bool hasPrevious){

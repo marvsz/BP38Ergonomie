@@ -223,7 +223,7 @@ private slots:
     void saveExecutionCondition(QHash<QString, QVariant> values);
 
     //WorkProcessControll
-    void initilizeWorkProcesses();
+    void initilizeWorkProcesses(bool selectFirst = true);
     void createWorkprocess(QHash<QString, QVariant> values);
     void selectNextWorkProcess();
     void selectPreviousWorkProcess();
