@@ -6,6 +6,7 @@
 
 ActivityView::ActivityView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Activities"), parent),
+    selectedProductID(0),
     mainLayout(new QVBoxLayout),
     productListLayout(new QVBoxLayout),
     activityListLayout(new QVBoxLayout),

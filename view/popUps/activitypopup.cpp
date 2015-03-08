@@ -5,6 +5,7 @@
 
 ActivityPopUp::ActivityPopUp(QWidget *parent) :
     AbstractPopUpWidget(ConfirmMode::ACCEPT, tr("Edit Activity"), parent),
+    selectedProductID(0),
     productListLayout(new QVBoxLayout),
     productListContent(new QWidget()),
     scProducts(new QScrollArea()),
