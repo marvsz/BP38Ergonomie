@@ -764,7 +764,7 @@ void Controller::selectActivity(int id)
 
 void Controller::updateActivityPopUp(int id)
 {
-    activityPopUp->clearProducts();
+    //activityPopUp->clearProducts();
 
     QString tbl = DBConstants::TBL_ACTIVITY;
     QHash<QString, QVariant> row = dbHandler->selectFirst(tbl, QString("%1 = %2").arg(DBConstants::COL_ACTIVITY_ID).arg(id));
