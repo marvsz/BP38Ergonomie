@@ -103,6 +103,13 @@ signals:
     void updatedProduct(QHash<QString, QVariant> values);
     void removedProduct(int id);
 
+    //Activity
+    void clearActivities();
+    void createdActivity(QHash<QString, QVariant> values);
+    void updatedActivity(QHash<QString, QVariant> values);
+    void removedActivity(int id);
+    void editActivity(QHash<QString, QVariant> values);
+
 private slots:
     void databaseError(QString error);
 
@@ -145,6 +152,14 @@ private slots:
     void saveProduct(QHash<QString, QVariant> values);
     void deleteProduct(int id);
 
+    //Activity
+    void initializeActivities(int workplace_ID);
+    void createActivity(QHash<QString, QVariant> values);
+    void saveActivity(QHash<QString, QVariant> values);
+    void deleteActivity(int id, bool showMessage = true);
+    void selectACtivity(int id);
+    void editActivity(int id);
+
 
     int createWorkprocess(AVType type, const QTime &start, const QTime &end);
     void setSelectedWorkProcess(int, AVType);
@@ -182,12 +197,6 @@ private slots:
     //BodyMeasurement
     void saveBodyMeasurement(QHash<QString, QVariant> values);
 
-    void updateActivityView();
-    void createActivity();
-    void deleteActivity(int id, bool showMessage = true);
-    void selectActivity(int id);
-    void updateActivityPopUp(int id);
-    void updateActivity();
 
     void saveBodyPostureView();
     void updateBodyPostureView();

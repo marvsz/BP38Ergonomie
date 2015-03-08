@@ -162,6 +162,8 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     connect(this, SIGNAL(createdProduct(QHash<QString,QVariant>)), activityPopUp, SLOT(addProduct(QHash<QString,QVariant>)));
     connect(this, SIGNAL(removedProduct(int)), activityPopUp, SLOT(removeProduct(int)));
     connect(this, SIGNAL(updatedProduct(QHash<QString,QVariant>)), activityPopUp, SLOT(updateProduct(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(editActivity(QHash<QString,QVariant>)), activityPopUp, SLOT(setActivity(QHash<QString,QVariant>)));
+    connect(activityPopUp, SIGNAL(saveActivity(QHash<QString,QVariant>)), this, SLOT(saveActivity(QHash<QString,QVariant>)));
 
     //ActivityView signal/slots
     connect(this, SIGNAL(clearAll()), activityView, SLOT(clearProducts()));
@@ -169,6 +171,16 @@ Controller::Controller(QObject *parent, QApplication *app, Translator *trans) :
     connect(this, SIGNAL(createdProduct(QHash<QString,QVariant>)), activityView, SLOT(addProduct(QHash<QString,QVariant>)));
     connect(this, SIGNAL(removedProduct(int)), activityView, SLOT(removeProduct(int)));
     connect(this, SIGNAL(updatedProduct(QHash<QString,QVariant>)), activityView, SLOT(updateProduct(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(clearAll()), activityView, SLOT(clearActivities()));
+    connect(this, SIGNAL(clearActivities()), activityView, SLOT(clearActivities()));
+    connect(activityView, SIGNAL(createActivity(QHash<QString,QVariant>)), this, SLOT(createActivity(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(createdActivity(QHash<QString,QVariant>)), activityView, SLOT(addActivity(QHash<QString,QVariant>)));
+    connect(activityView, SIGNAL(deleteActivity(int)), this, SLOT(deleteActivity(int)));
+    connect(this, SIGNAL(removedActivity(int)), activityView, SLOT(removeActivity(int)));
+    connect(activityView, SIGNAL(editActivity(int)), this, SLOT(editActivity(int)));
+    connect(this, SIGNAL(updatedActivity(QHash<QString,QVariant>)), activityView, SLOT(updateActivity(QHash<QString,QVariant>)));
+    connect(activityView, SIGNAL(selectActivity(int)), this, SLOT(selectACtivity(int)));
+
 
     connect(equipmentView, SIGNAL(saveEquipment()), this, SLOT(createEquipment()));
     connect(equipmentView, SIGNAL(deleteEquipment(int)), this, SLOT(deleteEquipment(int)));
@@ -284,9 +296,6 @@ void Controller::update(ViewType type)
             break;
         case ViewType::METADATA_VIEW:
             updateMetaDataView();
-            break;
-        case ViewType::ACTIVITY_VIEW:
-            updateActivityView();
             break;
         case ViewType::DOCUMENTATION_VIEW:
             updateDocumentationViewRessources();
@@ -564,6 +573,7 @@ void Controller::selectWorkplace(int id){
     emit selectedLine(values);
     values = dbHandler->selectFirst(DBConstants::TBL_COMMENT, QString("%1 = %2").arg(DBConstants::COL_COMMENT_WORKPLACE_ID).arg(workplace_ID));
     emit selectedComment(values);
+    initializeActivities(id);
 }
 
 void Controller::saveWorkplace(QHash<QString, QVariant> values){
@@ -713,82 +723,44 @@ void Controller::createEquipment(QHash<QString, QVariant> values){
 }
 
 //ActivityView
-void Controller::updateActivityView()
-{
-
-    updateActivityViewActivities();
+void Controller::initializeActivities(int workplace_ID){
+    emit clearActivities();
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_ACTIVITY_WORKPLACE_ID).arg(workplace_ID);
+    QList<QHash<QString, QVariant>> rows = dbHandler->select(DBConstants::TBL_ACTIVITY, filter);
+    for(int i = 0; i < rows.count(); ++i)
+        emit createActivity(rows.at(i));
 }
 
-void Controller::updateActivityViewActivities()
-{
-    activityView->clearActivities();
-    QString tbl = DBConstants::TBL_ACTIVITY;
-    QList<QHash<QString, QVariant>> values = dbHandler->select(tbl, QString("%1 == %2").arg(DBConstants::COL_ACTIVITY_WORKPLACE_ID).arg(workplace_ID));
-
-    for(int i = 0; i < values.count(); ++i){
-            QHash<QString, QVariant> row = values.at(i);
-            activityView->addActivity(row.value(DBConstants::COL_ACTIVITY_ID).toInt(),
-                                      row.value(DBConstants::COL_ACTIVITY_DESCRIPTION).toString(),
-                                      row.value(DBConstants::COL_ACTIVITY_REPETITIONS).toInt());
-        }
+void Controller::createActivity(QHash<QString, QVariant> values){
+   values.insert(DBConstants::COL_ACTIVITY_WORKPLACE_ID, workplace_ID);
+   int ac_ID = dbHandler->insert(DBConstants::TBL_ACTIVITY, DBConstants::HASH_ACTIVITY_TYPES, values, DBConstants::COL_ACTIVITY_ID);
+   values.insert(DBConstants::COL_ACTIVITY_ID, ac_ID);
+   emit createdActivity(values);
 }
 
-
-void Controller::createActivity()
-{
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_ACTIVITY_DESCRIPTION, activityView->getDescription());
-    values.insert(DBConstants::COL_ACTIVITY_PRODUCT_ID, activityView->getSelectedProduct());
-    values.insert(DBConstants::COL_ACTIVITY_REPETITIONS, activityView->getRepetitions());
+void Controller::saveActivity(QHash<QString, QVariant> values){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_ACTIVITY_ID).arg(values.value(DBConstants::COL_ACTIVITY_ID).toInt());
     values.insert(DBConstants::COL_ACTIVITY_WORKPLACE_ID, workplace_ID);
-    dbHandler->insert(DBConstants::TBL_ACTIVITY, DBConstants::HASH_ACTIVITY_TYPES, values, DBConstants::COL_ACTIVITY_ID);
-    viewCon->showMessage(tr("Created activity"), NotificationMessage::ACCEPT);
-    updateActivityViewActivities();
+    dbHandler->update(DBConstants::TBL_ACTIVITY, DBConstants::HASH_ACTIVITY_TYPES, values, filter);
+    emit updatedActivity(values);
 }
 
-void Controller::deleteActivity(int id, bool showMessage)
-{
+void Controller::deleteActivity(int id, bool showMessage){
     dbHandler->deleteAll(DBConstants::TBL_ACTIVITY, QString("%1 = %2").arg(DBConstants::COL_ACTIVITY_ID).arg(id));
     deleteWorkProcesses(id);
+    emit removedActivity(id);
     if(showMessage)
         viewCon->showMessage(tr("Deleted activity"), NotificationMessage::ACCEPT);
-    updateActivityViewActivities();
 }
 
-void Controller::selectActivity(int id)
-{
+void Controller::selectACtivity(int id){
     activity_ID = id;
-    workProcessTypeChanged(AVType::BASIC);
-    initializeRecording();
 }
 
-void Controller::updateActivityPopUp(int id)
-{
-    //activityPopUp->clearProducts();
-
-    QString tbl = DBConstants::TBL_ACTIVITY;
-    QHash<QString, QVariant> row = dbHandler->selectFirst(tbl, QString("%1 = %2").arg(DBConstants::COL_ACTIVITY_ID).arg(id));
-    if(!row.isEmpty())
-        {
-            activity_ID = id;
-
-            activityPopUp->setActivity(row.value(DBConstants::COL_ACTIVITY_DESCRIPTION).toString(),
-                                       row.value(DBConstants::COL_ACTIVITY_REPETITIONS).toInt(),
-                                       row.value(DBConstants::COL_ACTIVITY_PRODUCT_ID).toInt());
-        }
-}
-
-void Controller::updateActivity()
-{
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_ACTIVITY_ID, activity_ID);
-    values.insert(DBConstants::COL_ACTIVITY_DESCRIPTION, activityPopUp->getDescription());
-    values.insert(DBConstants::COL_ACTIVITY_REPETITIONS, activityPopUp->getRepetitions());
-    values.insert(DBConstants::COL_ACTIVITY_PRODUCT_ID, activityPopUp->getSelectedProduct());
-    dbHandler->update(DBConstants::TBL_ACTIVITY, DBConstants::HASH_ACTIVITY_TYPES, values, QString("%1 = %2").arg(DBConstants::COL_ACTIVITY_ID).arg(activity_ID));
-    viewCon->showMessage(tr("Updated activity"), NotificationMessage::ACCEPT);
-    viewCon->closePopUp();
-    updateActivityViewActivities();
+void Controller::editActivity(int id){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_ACTIVITY_ID).arg(id);
+    QHash<QString, QVariant> values = dbHandler->selectFirst(DBConstants::TBL_ACTIVITY, filter);
+    emit editActivity(values);
 }
 
 
