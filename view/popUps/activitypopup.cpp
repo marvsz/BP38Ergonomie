@@ -14,6 +14,9 @@ ActivityPopUp::ActivityPopUp(QWidget *parent) :
     txtBxActivityDescription(new TextLineEdit()),
     numBxActivityRepetitions(new NumberLineEdit())
 {
+    connect(this, SIGNAL(confirm()), this, SLOT(onConfirm()));
+    connect(this, SIGNAL(cancel()), this, SLOT(onClose()));
+
     QGridLayout *mainLayout = new QGridLayout;
 
     productListLayout->setAlignment(Qt::AlignTop);
@@ -97,9 +100,9 @@ void ActivityPopUp::clearProducts(){
 
 void ActivityPopUp::setActivity(QHash<QString, QVariant> values){
     id = values.value(DBConstants::COL_ACTIVITY_ID).toInt();
-    txtBxActivityDescription->setText(values.value(DBConstants::COL_ACTIVITY_DESCRIPTION));
-    numBxActivityRepetitions->setValue(values.value(DBConstants::COL_ACTIVITY_REPETITIONS));
-    values.value(DBConstants::)
+    txtBxActivityDescription->setText(values.value(DBConstants::COL_ACTIVITY_DESCRIPTION).toString());
+    numBxActivityRepetitions->setValue(values.value(DBConstants::COL_ACTIVITY_REPETITIONS).toInt());
+    selectedProductChanged(values.value(DBConstants::COL_ACTIVITY_PRODUCT_ID).toInt());
 }
 
 // PRIVATE SLOTS
@@ -109,14 +112,17 @@ void ActivityPopUp::selectedProductChanged(int id){
 }
 
 void ActivityPopUp::onConfirm(){
-
-}
-
-void ActivityPopUp::onCancel(){
-
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_ACTIVITY_ID, id);
+    values.insert(DBConstants::COL_ACTIVITY_DESCRIPTION, txtBxActivityDescription->text());
+    values.insert(DBConstants::COL_ACTIVITY_REPETITIONS, numBxActivityRepetitions->getValue());
+    values.insert(DBConstants::COL_ACTIVITY_PRODUCT_ID, selectedProductID);
+    emit saveActivity(values);
+    onClose();
 }
 
 void ActivityPopUp::onClose(){
     txtBxActivityDescription->clear();
     numBxActivityRepetitions->clear();
+    emit closePopUp();
 }

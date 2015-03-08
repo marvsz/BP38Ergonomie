@@ -26,7 +26,6 @@ signals:
     void deleteProduct(int id);
     void selectedProduct(int id);
 
-
 public slots:
     void setActivity(QHash<QString, QVariant> values);
 
@@ -39,7 +38,6 @@ private slots:
     void selectedProductChanged(int id);
 
     void onConfirm();
-    void onCancel();
     void onClose();
 
 private:

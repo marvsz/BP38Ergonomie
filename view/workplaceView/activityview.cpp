@@ -90,15 +90,47 @@ ActivityView::ActivityView(QWidget *parent) :
 // PUBLIC SLOTS
 
 void ActivityView::addActivity(QHash<QString, QVariant> values){
+    DetailedListItem *newListItem = new DetailedListItem(this, "activityIcon", values.value(DBConstants::COL_ACTIVITY_DESCRIPTION).toString(), activityItemScheme, true, false, true, false, true);
+    newListItem->setID(values.value(DBConstants::COL_ACTIVITY_ID).toInt());
 
+    QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_ACTIVITY_REPETITIONS).toString());
+    newListItem->setValues(dliValues);
+    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteActivity(int)));
+    connect(newListItem, SIGNAL(pressed(int)), this, SIGNAL(selectActivity(int)));
+    connect(newListItem, SIGNAL(clicked()), this, SLOT(workprocessClicked()));
+    connect(newListItem, SIGNAL(editItem(int)), this, SLOT(editActivityClicked(int)));
+    activityListLayout->addWidget(newListItem);
 }
 
 void ActivityView::updateActivity(QHash<QString, QVariant> values){
-
+    QLayoutItem *item;
+    int id = values.value(DBConstants::COL_ACTIVITY_ID).toInt();
+    int i = 0;
+    while((item = activityListLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            dli->setName(values.value(DBConstants::COL_ACTIVITY_DESCRIPTION).toString());
+            QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_ACTIVITY_REPETITIONS).toString());
+            dli->setValues(dliValues);
+            break;
+        }
+        i++;
+    }
 }
 
 void ActivityView::removeActivity(int id){
-
+    QLayoutItem *item;
+    int i = 0;
+    while((item = activityListLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            activityListLayout->removeItem(item);
+            delete item->widget();
+            delete item;
+            break;
+        }
+        i++;
+    }
 }
 
 void ActivityView::clearActivities(){
@@ -158,26 +190,6 @@ void ActivityView::clearProducts(){
     }
 }
 
-/*
-void ActivityView::setActivity(const QString &description, int repetitions, int selectedProductID){
-    txtBxActivityDescription->setText(description);
-    numBxActivityRepetitions->setValue(repetitions);
-    this->selectedProductID = selectedProductID;
-}
-
-void ActivityView::addActivity(int id, const QString &description, int repetitions){
-    DetailedListItem *newListItem = new DetailedListItem(0, "activityIcon", description, activityItemScheme, true, false, true, false, true);
-    newListItem->setID(id);
-    QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(repetitions));
-    newListItem->setValues(values);
-    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteActivity(int)));
-    connect(newListItem, SIGNAL(pressed(int)), this, SIGNAL(selectActivity(int)));
-    connect(newListItem, SIGNAL(clicked()), this, SLOT(workprocessClicked()));
-    connect(newListItem, SIGNAL(editItem(int)), this, SLOT(editActivityClicked(int)));
-    activityListLayout->addWidget(newListItem);
-}
-*/
-
 // PRIVATE SLOTS
 void ActivityView::editActivityClicked(int id){
     emit editActivity(id);
@@ -185,9 +197,15 @@ void ActivityView::editActivityClicked(int id){
 }
 
 void ActivityView::btnAddClicked(){
-    emit createActivity();
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_ACTIVITY_ID, id);
+    values.insert(DBConstants::COL_ACTIVITY_DESCRIPTION, txtBxActivityDescription->text());
+    values.insert(DBConstants::COL_ACTIVITY_WORKPLACE_ID, numBxActivityRepetitions->getValue());
+    values.insert(DBConstants::COL_ACTIVITY_PRODUCT_ID, selectedProductID);
+    emit createActivity(values);
     txtBxActivityDescription->clear();
     numBxActivityRepetitions->clear();
+    selectedProductChanged(-1);
 }
 
 void ActivityView::selectedProductChanged(int id){
