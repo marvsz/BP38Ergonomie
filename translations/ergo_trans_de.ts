@@ -787,7 +787,7 @@
     <message>
         <location filename="../view/workplaceView/commentview.cpp" line="13"/>
         <source>remarks of the factory</source>
-        <translation>Empfindung des Werkes</translation>
+        <translation>Anmerkung des Arbeiters</translation>
     </message>
     <message>
         <location filename="../view/workplaceView/commentview.cpp" line="25"/>
@@ -1218,7 +1218,7 @@
     <message>
         <location filename="../view/documentationView/executionconditionview.cpp" line="49"/>
         <source>Supports</source>
-        <translation>Ünterstützung</translation>
+        <translation>Unterstützung</translation>
     </message>
     <message>
         <location filename="../view/documentationView/executionconditionview.cpp" line="52"/>
@@ -1288,7 +1288,7 @@
     <message>
         <location filename="../view/documentationView/executionconditionview.cpp" line="90"/>
         <source>Needed precision:</source>
-        <translation>Notwendige Präzesion:</translation>
+        <translation>Notwendige Präzision:</translation>
     </message>
     <message>
         <location filename="../view/documentationView/executionconditionview.cpp" line="92"/>
@@ -2166,7 +2166,7 @@
     <message>
         <location filename="../view/popUps/resetpopup.cpp" line="14"/>
         <source>Ftp Connection</source>
-        <translation>FTB Verbindung</translation>
+        <translation>FTP Verbindung</translation>
     </message>
 </context>
 <context>
@@ -2392,7 +2392,7 @@
     <message>
         <location filename="../view/rotationGroupView/shiftview.cpp" line="13"/>
         <source>Begin:</source>
-        <translation>Begin:</translation>
+        <translation>Beginn:</translation>
     </message>
     <message>
         <location filename="../view/rotationGroupView/shiftview.cpp" line="14"/>
@@ -2578,7 +2578,7 @@
     <message>
         <location filename="../view/ressourceManagementView/transportationview.cpp" line="32"/>
         <source>name of the transportation</source>
-        <translation>name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="../view/ressourceManagementView/transportationview.cpp" line="33"/>
@@ -2822,7 +2822,7 @@
     <message>
         <location filename="../view/popUps/workplacepopup.cpp" line="8"/>
         <source>User population:</source>
-        <translation>Nutzerpopulation:</translation>
+        <translation>Nutzerpopulation (Anteil Frauen):</translation>
     </message>
     <message>
         <location filename="../view/popUps/workplacepopup.cpp" line="13"/>
@@ -2862,7 +2862,7 @@
     <message>
         <location filename="../view/popUps/workplacepopup.cpp" line="28"/>
         <source>description of the workplace</source>
-        <translation>Bescreibung des Arbeitsplatzes</translation>
+        <translation>Beschreibung des Arbeitsplatzes</translation>
     </message>
     <message>
         <location filename="../view/popUps/workplacepopup.cpp" line="29"/>
@@ -2895,7 +2895,7 @@
     <message>
         <location filename="../view/workplaceView/workplaceview.cpp" line="14"/>
         <source>User population:</source>
-        <translation>Nutzerpopulation:</translation>
+        <translation>Nutzerpopulation (Anteil Frauen):</translation>
     </message>
     <message>
         <location filename="../view/workplaceView/workplaceview.cpp" line="19"/>

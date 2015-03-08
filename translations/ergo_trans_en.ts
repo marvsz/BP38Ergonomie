@@ -584,7 +584,7 @@
     <message>
         <location filename="../view/documentationView/bodyPostureView/bodypostureview.cpp" line="179"/>
         <source>Quick Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Quick Selection</translation>
     </message>
     <message>
         <source>Quick Leg Posture</source>
@@ -823,7 +823,7 @@
     <message>
         <location filename="../control/controller.cpp" line="411"/>
         <source>Hello  </source>
-        <translation type="unfinished"></translation>
+        <translation>Hello  </translation>
     </message>
     <message>
         <location filename="../control/controller.cpp" line="421"/>
@@ -915,7 +915,7 @@
     <message>
         <location filename="../control/controller.cpp" line="1470"/>
         <source>Restored Factory Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Restore Factory Settings</translation>
     </message>
     <message>
         <location filename="../control/controller.cpp" line="1491"/>
@@ -943,37 +943,37 @@
     <message>
         <location filename="../view/popUps/createproductpopup.cpp" line="4"/>
         <source>Create product</source>
-        <translation type="unfinished">Create Product</translation>
+        <translation>Create Product</translation>
     </message>
     <message>
         <location filename="../view/popUps/createproductpopup.cpp" line="9"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="../view/popUps/createproductpopup.cpp" line="10"/>
         <source>Product Number</source>
-        <translation type="unfinished">Product Number</translation>
+        <translation>Product Number</translation>
     </message>
     <message>
         <location filename="../view/popUps/createproductpopup.cpp" line="11"/>
         <source>Total Percentage</source>
-        <translation type="unfinished">Total Percentage</translation>
+        <translation>Total Percentage</translation>
     </message>
     <message>
         <location filename="../view/popUps/createproductpopup.cpp" line="18"/>
         <source>Name:</source>
-        <translation type="unfinished">Name:</translation>
+        <translation>Name:</translation>
     </message>
     <message>
         <location filename="../view/popUps/createproductpopup.cpp" line="20"/>
         <source>Product Number:</source>
-        <translation type="unfinished">Product Number:</translation>
+        <translation>Product Number:</translation>
     </message>
     <message>
         <location filename="../view/popUps/createproductpopup.cpp" line="22"/>
         <source>Total Percentage:</source>
-        <translation type="unfinished">Total Percentage:</translation>
+        <translation>Total Percentage:</translation>
     </message>
 </context>
 <context>
@@ -1036,12 +1036,12 @@
     <message>
         <location filename="../view/popUps/employeepopup.cpp" line="31"/>
         <source>Employee</source>
-        <translation type="unfinished">Employee</translation>
+        <translation>Employee</translation>
     </message>
     <message>
         <location filename="../view/popUps/employeepopup.h" line="46"/>
         <source>Staff number</source>
-        <translation type="unfinished">Staff Number</translation>
+        <translation>Staff Number</translation>
     </message>
 </context>
 <context>
@@ -1438,12 +1438,12 @@
     <message>
         <location filename="../view/popUps/factorysettingspopup.cpp" line="5"/>
         <source>Restore Factory Settings</source>
-        <translation type="unfinished">Restore Factory Settings</translation>
+        <translation>Restore Factory Settings</translation>
     </message>
     <message>
         <location filename="../view/popUps/factorysettingspopup.cpp" line="8"/>
         <source>Are you sure? Restoring to Factory Settings will delete all data.</source>
-        <translation type="unfinished"></translation>
+        <translation>Are You Sure? Restoring to Factory Settings will Delete all Data.</translation>
     </message>
 </context>
 <context>
@@ -1581,22 +1581,22 @@
     <message>
         <location filename="../view/popUps/linepopup.cpp" line="6"/>
         <source>Edit Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Edit Line</translation>
     </message>
     <message>
         <location filename="../view/popUps/linepopup.cpp" line="14"/>
         <source>Name:</source>
-        <translation type="unfinished">Name:</translation>
+        <translation>Name:</translation>
     </message>
     <message>
         <location filename="../view/popUps/linepopup.cpp" line="16"/>
         <source>Workplace count:</source>
-        <translation type="unfinished"></translation>
+        <translation>Workplace Count:</translation>
     </message>
     <message>
         <location filename="../view/popUps/linepopup.cpp" line="18"/>
         <source>Description:</source>
-        <translation type="unfinished">Description:</translation>
+        <translation>Description:</translation>
     </message>
 </context>
 <context>
@@ -1898,7 +1898,7 @@
     <message>
         <location filename="../view/generalViews/metadataview.cpp" line="34"/>
         <source>begin:</source>
-        <translation>begin:</translation>
+        <translation type="unfinished">Begin:</translation>
     </message>
     <message>
         <location filename="../view/generalViews/metadataview.cpp" line="35"/>
@@ -2170,7 +2170,7 @@
     <message>
         <location filename="../view/popUps/resetpopup.cpp" line="14"/>
         <source>Ftp Connection</source>
-        <translation type="unfinished"></translation>
+        <translation>FTP Connection</translation>
     </message>
 </context>
 <context>

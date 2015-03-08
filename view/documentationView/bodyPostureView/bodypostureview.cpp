@@ -178,7 +178,7 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
 
     quickSelectionLayout->setName(tr("Quick Selection"));
     quickSelectionLayout->setButtonIcon("quickButtonIcon",QSize(60,60));
-    quickSelectionLayout->hideContent();
+    //quickSelectionLayout->hideContent();
     connect(quickSelectionLayout, SIGNAL(requestShowContent(QString)), this, SLOT(varConRequestShowContent(QString)));
     connect(this, SIGNAL(showExclusiveContentByName(QString)), quickSelectionLayout, SLOT(setExclusiveDisplayByName(QString)));
     connect(quickSelectionLayout, SIGNAL(quickLegPostureChanged(int,int)), this, SLOT(qlpcQuickLegPostureChanged(int,int)));

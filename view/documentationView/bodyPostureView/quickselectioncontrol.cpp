@@ -352,7 +352,7 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     hansHash.insert(53334,":/icons/QuickBodyPosture/running_arms_overHead.png");
     hansHash.insert(53335,":/icons/QuickBodyPosture/running_arms_overHead.png");
 
-
+    shown = true;
 
     btnName->setMaximumWidth(150);
     connect(btnName, SIGNAL(clicked()), this, SLOT(btnNameClicked()));
