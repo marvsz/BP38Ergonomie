@@ -6,7 +6,8 @@ class IActivityList{
 signals:
     virtual void createActivity(QHash<QString, QVariant> values) = 0;
     virtual void deleteActivity(int id) = 0;
-    virtual void editLine(int id) = 0;
+    virtual void editActivity(int id) = 0;
+    virtual void selectActivity(int id) = 0;
 
 public slots:
     virtual void addActivity(QHash<QString, QVariant> values) = 0;

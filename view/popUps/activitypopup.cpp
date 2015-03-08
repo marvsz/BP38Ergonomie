@@ -1,8 +1,7 @@
 #include "activitypopup.h"
 #include "../flickcharm.h"
 #include "../detailedlistitem.h"
-
-
+#include "../../databaseHandler/dbconstants.h"
 
 ActivityPopUp::ActivityPopUp(QWidget *parent) :
     AbstractPopUpWidget(ConfirmMode::ACCEPT, tr("Edit Activity"), parent),
@@ -46,7 +45,7 @@ ActivityPopUp::~ActivityPopUp(){
 
 
 // PUBLIC SLOTS
-/*void ActivityPopUp::addProduct(QHash<QString, QVariant> values){
+void ActivityPopUp::addProduct(QHash<QString, QVariant> values){
     QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_PRODUCT_NUMBER).toString());
     DetailedListItem *newListItem = new DetailedListItem(this, "productIcon", values.value(DBConstants::COL_PRODUCT_NAME).toString(), productItemScheme, false, true, false, false, false);
     newListItem->setValues(dliValues);
@@ -54,7 +53,7 @@ ActivityPopUp::~ActivityPopUp(){
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedProductChanged(int)));
     connect(this, SIGNAL(selectedProduct(int)), newListItem, SLOT(selectExclusiveWithID(int)));
     productListLayout->addWidget(newListItem);
-}*/
+}
 
 void ActivityPopUp::updateProduct(QHash<QString, QVariant> values){
     QLayoutItem *item;
@@ -97,7 +96,10 @@ void ActivityPopUp::clearProducts(){
 
 
 void ActivityPopUp::setActivity(QHash<QString, QVariant> values){
-
+    id = values.value(DBConstants::COL_ACTIVITY_ID).toInt();
+    txtBxActivityDescription->setText(values.value(DBConstants::COL_ACTIVITY_DESCRIPTION));
+    numBxActivityRepetitions->setValue(values.value(DBConstants::COL_ACTIVITY_REPETITIONS));
+    values.value(DBConstants::)
 }
 
 // PRIVATE SLOTS

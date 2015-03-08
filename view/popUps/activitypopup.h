@@ -45,6 +45,7 @@ private slots:
 private:
     const QList<QStringList> productItemScheme = QList<QStringList>() << (QStringList() << tr("product number"));
 
+    int id;
     int selectedProductID;
 
     QVBoxLayout *productListLayout;
