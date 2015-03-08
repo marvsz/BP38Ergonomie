@@ -5,6 +5,7 @@
 #include "../navigation/titledwidget.h"
 #include <QPushButton>
 #include "../valuecontrol.h"
+#include "../interfaces/itransportationlist.h"
 
 /**
  * @brief A class providing a view for transporthandling. The class contains
@@ -12,9 +13,10 @@
  * the way to go and the hand used. Furthermore there is a TransportationListControl
  * with the list of transportations available.
  */
-class LoadHandlingView : public TitledWidget
+class LoadHandlingView : public TitledWidget, ITransportationList
 {
     Q_OBJECT
+    Q_INTERFACES(ITransportationList)
 
 public:
     explicit LoadHandlingView(QWidget *parent = 0);
@@ -27,28 +29,28 @@ public:
     int getSelectedTransportation() const;
 
 signals:
-    void exclusivTransporationSelection(int id);
+    void createTransportation(QHash<QString, QVariant> values);
+    void deleteTransportation(int id);
+    void selectTransportation(int id);
+
+    void selectedTransportation(int id);
 
 public slots:
-    /**
-     * @brief A slot that is called, whenever the type of handling changes.
-     * Depending of the new type the ValueControl ranges of the weight
-     * to be handled are adapted.
-     * @param type The new type selected.
-     */
     void setGraspType(const QString &graspType);
     void setHandlingType(const QString &handlingType);
     void setWeight(int weight);
     void setDistance(int distance);
 
-    void addTransportation(int id, const QString &name, int weight, int maxLoad, bool hasBrakes, bool hasFixedRoller);
-    void clearTransportation();
-    void setSelectedTransportation(int id);
+    void addTransportation(QHash<QString, QVariant> values);
+    void removeTransportation(int id);
+    void updateTransportation(QHash<QString, QVariant> values);
+    void clearTransportations();
 
 private slots:
-    void dliTransportationSelected(int id);
+    void selectedTransportationChanged(int id);
+    void deselectTransportation(int id);
     void typeChanged(QString newType);
-    void btnEditTransportationClicked();
+    void btnAddTransportationClicked();
 
 private:
     ValueControl *vlcGraspType;
@@ -56,12 +58,12 @@ private:
     ValueControl *vlcWeight;
     ValueControl *vlcDistance;
     QLabel *lblTransportation;
-    QPushButton *btnEditTransportation;
+    QPushButton *btnAddTransportation;
 
     QWidget *main;
     QWidget *control;
 
-    int selectedTransportation_ID;
+    int selectedTransportationID;
 
 
     const QVector<QString> graspValues =QVector<QString>()<<tr("Thumbcontact grasp")<<tr("Indexcontact grasp")<<tr("Handcontact grasp")<<tr("Thumb to 2 Fingers")<<tr("Fingergrasp")<<tr("Thumbindex")<<tr("Wrench")<<tr("Fullgrasp");

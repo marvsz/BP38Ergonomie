@@ -114,7 +114,7 @@ void ActivityPopUp::selectedProductChanged(int id){
 }
 
 void ActivityPopUp::deselectedProduct(int id){
-    if(selectedProductID = id)
+    if(selectedProductID == id)
         selectedProductID = 0;
 }
 

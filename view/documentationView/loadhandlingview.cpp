@@ -8,6 +8,7 @@
 #include "../separator.h"
 #include "../flickcharm.h"
 #include "../detailedlistitem.h"
+#include "../../databaseHandler/dbconstants.h"
 
 /**
  * @brief Constructs a new Transportview
@@ -17,7 +18,7 @@
  */
 LoadHandlingView::LoadHandlingView(QWidget *parent) :
     TitledWidget(tr("Load handling"), parent),
-    selectedTransportation_ID(0)
+    selectedTransportationID(0)
 {
 
     main = new QWidget(this);
@@ -52,9 +53,9 @@ LoadHandlingView::LoadHandlingView(QWidget *parent) :
     vlcDistance->setText(tr("Weg"));
 
     lblTransportation = new QLabel(tr("Transportation:"));
-    btnEditTransportation = new QPushButton();
-    btnEditTransportation->setFixedSize(45, 45);
-    btnEditTransportation->setObjectName("editIcon");
+    btnAddTransportation = new QPushButton();
+    btnAddTransportation->setFixedSize(45, 45);
+    btnAddTransportation->setObjectName("editIcon");
 
     QVector<QString>* options = new QVector<QString>();
     options->append(tr("Bockrollen"));
@@ -73,8 +74,8 @@ LoadHandlingView::LoadHandlingView(QWidget *parent) :
     topGroupLayout->addWidget(new Separator(Qt::Horizontal, 3, this));
     topGroupLayout->addWidget(lblTransportation);
     topGroupLayout->addWidget(transportationList);
-    topGroupLayout->addWidget(btnEditTransportation);
-    topGroupLayout->setAlignment(btnEditTransportation, Qt::AlignCenter);
+    topGroupLayout->addWidget(btnAddTransportation);
+    topGroupLayout->setAlignment(btnAddTransportation, Qt::AlignCenter);
 
     control->setLayout(topGroupLayout);
 
@@ -90,7 +91,7 @@ LoadHandlingView::LoadHandlingView(QWidget *parent) :
     this->setLayout(mainLayout);
 
 
-    connect(btnEditTransportation, SIGNAL(clicked()), this, SLOT(btnEditTransportationClicked()));
+    connect(btnAddTransportation, SIGNAL(clicked()), this, SLOT(btnAddTransportationClicked()));
 }
 
 
@@ -99,19 +100,56 @@ LoadHandlingView::~LoadHandlingView()
 {
 }
 
-void LoadHandlingView::addTransportation(int id, const QString &name, int weight, int maxLoad, bool hasBrakes, bool hasFixedRoller){
-    DetailedListItem *newListItem = new DetailedListItem(0, "transportationIcon", name, transportationItemScheme, false, true, false);
-    newListItem->setID(id);
-    QString brakes = hasBrakes ? tr("yes") : tr("no");
-    QString fixedRoller = hasFixedRoller ? tr("yes") : tr("no");
-    QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(weight) << QString::number(maxLoad)) << (QStringList()<<brakes<<fixedRoller);
-    newListItem->setValues(values);
-    connect(newListItem, SIGNAL(selected(int)), this, SLOT(dliTransportationSelected(int)));
-    connect(this, SIGNAL(exclusivTransporationSelection(int)), newListItem, SLOT(selectExclusiveWithID(int)));
+// PUBLIC SLOTS
+void LoadHandlingView::addTransportation(QHash<QString, QVariant> values){
+    QString fixedRollers = values.value(DBConstants::COL_TRANSPORTATION_FIXED_ROLLER).toBool() ? tr("Yes") : tr("No");
+    QString brakes = values.value(DBConstants::COL_TRANSPORTATION_BRAKES).toBool() ? tr("Yes") : tr("No");
+    QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_TRANSPORTATION_EMPTY_WEIGHT).toString() << values.value(DBConstants::COL_TRANSPORTATION_MAX_LOAD).toString()) << (QStringList() << fixedRollers << brakes);
+    DetailedListItem *newListItem = new DetailedListItem(this, "transportationIcon", values.value(DBConstants::COL_TRANSPORTATION_NAME).toString(), transportationItemScheme, false, true, false, false, false);
+    newListItem->setValues(dliValues);
+    newListItem->setID(values.value(DBConstants::COL_TRANSPORTATION_ID).toInt());
+    //connect(newListItem, SIGNAL(selected(int)), this, SLOT(dliTransportationSelected(int)));
+    //connect(this, SIGNAL(exclusivTransporationSelection(int)), newListItem, SLOT(selectExclusiveWithID(int)));
+    connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedTransportationChanged(int)));
+    connect(newListItem, SIGNAL(deselected(int)), this, SLOT(deselectTransportation(int)));
+    connect(this, SIGNAL(selectedTransportation(int)), newListItem, SLOT(selectExclusiveWithID(int)));
     transportationListLayout->addWidget(newListItem);
 }
 
-void LoadHandlingView::clearTransportation(){
+void LoadHandlingView::removeTransportation(int id){
+    QLayoutItem *item;
+    int i = 0;
+    while((item = transportationListLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            transportationListLayout->removeItem(item);
+            delete item->widget();
+            delete item;
+            break;
+        }
+        i++;
+    }
+}
+
+void LoadHandlingView::updateTransportation(QHash<QString, QVariant> values){
+    QLayoutItem *item;
+    int id = values.value(DBConstants::COL_TRANSPORTATION_ID).toInt();
+    int i = 0;
+    while((item = transportationListLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            QString fixedRollers = values.value(DBConstants::COL_TRANSPORTATION_FIXED_ROLLER).toBool() ? tr("Yes") : tr("No");
+            QString brakes = values.value(DBConstants::COL_TRANSPORTATION_BRAKES).toBool() ? tr("Yes") : tr("No");
+            QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_TRANSPORTATION_EMPTY_WEIGHT).toString() << values.value(DBConstants::COL_TRANSPORTATION_MAX_LOAD).toString()) << (QStringList() << fixedRollers << brakes);
+            dli->setName(values.value(DBConstants::COL_TRANSPORTATION_NAME).toString());
+            dli->setValues(dliValues);
+            break;
+        }
+        i++;
+    }
+}
+
+void LoadHandlingView::clearTransportations(){
     QLayoutItem *item;
     while((item = transportationListLayout->takeAt(0)) != NULL){
         delete item->widget();
@@ -119,10 +157,16 @@ void LoadHandlingView::clearTransportation(){
     }
 }
 
+
 // PRIVATE SLOTS
-void LoadHandlingView::dliTransportationSelected(int id){
-    emit exclusivTransporationSelection(id);
-    selectedTransportation_ID = id;
+void LoadHandlingView::selectedTransportationChanged(int id){
+    selectedTransportationID = id;
+    emit selectedTransportation(id);
+}
+
+void LoadHandlingView::deselectTransportation(int id){
+    if(id == selectedTransportationID)
+        selectedTransportationID = 0;
 }
 
 
@@ -133,7 +177,7 @@ void LoadHandlingView::typeChanged(QString newType){
         vlcWeight->setValues(1, 100, weightValues, QString());
 }
 
-void LoadHandlingView::btnEditTransportationClicked(){
+void LoadHandlingView::btnAddTransportationClicked(){
     emit showPopUp(PopUpType::TRANSPORTATION_POPUP);
 }
 
@@ -156,7 +200,7 @@ int LoadHandlingView::getDistance(){
 }
 
 int LoadHandlingView::getSelectedTransportation() const{
-    return selectedTransportation_ID;
+    return selectedTransportationID;
 }
 
 // SETTER
@@ -175,8 +219,4 @@ void LoadHandlingView::setWeight(int weight){
 
 void LoadHandlingView::setDistance(int distance){
     vlcDistance->setValue(distance);
-}
-
-void LoadHandlingView::setSelectedTransportation(int id){
-    dliTransportationSelected(id);
 }

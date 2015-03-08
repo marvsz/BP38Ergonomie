@@ -4,22 +4,24 @@
 #include "../navigation/abstractpopupwidget.h"
 #include "../numberlineedit.h"
 #include "../optionselectioncontrol.h"
+#include "../interfaces/itransportation.h"
 
-class TransporationPopUp : public AbstractPopUpWidget
+class TransporationPopUp : public AbstractPopUpWidget, ITransportation
 {
     Q_OBJECT
+    Q_INTERFACES(ITransportation)
 public:
     explicit TransporationPopUp(QWidget *parent = 0);
     ~TransporationPopUp();
 
-    QString getName() const;
-    int getWeight() const;
-    int getMaxLoad() const;
-    bool getHasFixedRoller() const;
-    bool getHasBrakes() const;
+signals:
+    void saveTransportation(QHash<QString, QVariant> values);
 
 public slots:
-    void onEnter();
+    void setTransportation(QHash<QString, QVariant> values);
+
+    void onConfirm();
+    void onClose();
 
 private:
     TextLineEdit *txtBxName;
