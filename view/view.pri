@@ -104,7 +104,16 @@ HEADERS +=\
     $$PWD/interfaces/iproduct.h \
     $$PWD/popUps/createproductpopup.h \
     $$PWD/interfaces/iactivitylist.h \
-    $$PWD/interfaces/iactivity.h
+    $$PWD/interfaces/iactivity.h \
+    $$PWD/interfaces/iloadhandling.h \
+    $$PWD/interfaces/iexecutioncondition.h \
+    $$PWD/interfaces/iappliedforce.h \
+    $$PWD/interfaces/iworkprocess.h \
+    $$PWD/interfaces/iworkprocesscontroller.h \
+    $$PWD/interfaces/itransportationlist.h \
+    $$PWD/interfaces/iequipmentlist.h \
+    $$PWD/interfaces/iequipment.h \
+    $$PWD/interfaces/itransportation.h
 
 
 SOURCES +=\
