@@ -24,7 +24,8 @@ public:
 signals:
     void createActivity(QHash<QString, QVariant> values);
     void deleteActivity(int id);
-    void editLine(int id);
+    void editActivity(int id);
+    void selectActivity(int id);
 
     void createProduct(QHash<QString, QVariant> values);
     void deleteProduct(int id);
