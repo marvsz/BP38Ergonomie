@@ -60,13 +60,13 @@ private:
     const QStringList QUICK_TRUNK_POSTURE_TEXTS = QStringList()<<tr("strong bending to the front")<<tr("light bending to the front")<<tr("no bending at all")<<tr("light bending to behind")<<tr("strong bending to behind");
     const QStringList LEFT_RIGHT_TEXTS = QStringList()<<tr("left")<<tr("right");
 
-    QLabel *hansHolder;
-    const QPixmap hans_standing_bothArms_atElbowHeight_strongBendingFront = QPixmap(":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_strongBendingFront.png");
+    QLabel *dummyHolder;
+    const QPixmap dummy_standing_bothArms_atElbowHeight_strongBendingFront = QPixmap(":/icons/QuickBodyPosture/standing_bothArms_atElbowHeight_strongBendingFront.png");
     bool shown;
 
     int key;
 
-    QHash<int, QString> hansHash;
+    QHash<int, QString> dummyHash;
 };
 
 #endif // QUICKSELECTIONCONTROL_H
