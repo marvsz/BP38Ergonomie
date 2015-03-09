@@ -9,7 +9,6 @@
 #include "workprocessbutton.h"
 #include "../numberlineedit.h"
 #include "spaceritemtimer.h"
-#include "enum.h"
 #include "../interfaces/igantt.h"
 #include "../../databaseHandler/dbconstants.h"
 
@@ -23,8 +22,9 @@ public:
 
 signals:
     void saveWorkProcessFrequence(int frequence);
-    void selectWorkProcess(QHash<QString, QVariant> values);
+    void selectWorkProcess(int id, AVType type);
     void left();
+    void entered();
 
 public slots:
     void initiliazeWorkProcesses(QList<QHash<QString, QVariant>> values);

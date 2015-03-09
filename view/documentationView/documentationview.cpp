@@ -50,6 +50,7 @@ void DocumentationView::setTimerViewController(TimerViewController *timerViewCon
 
         connect(timerViewController, SIGNAL(showGantView()), this, SLOT(showGant()));
         connect(timerViewController, SIGNAL(hideGantView()), this, SLOT(hideGant()));
+        connect(timerViewController, SIGNAL(changingWorkProcess()), this, SLOT(saveCurrentView()));
 
         mainLayout->addWidget(new Separator(Qt::Horizontal, 14, this));
         mainLayout->addWidget(timerViewController);
@@ -60,7 +61,7 @@ void DocumentationView::setTimerViewController(TimerViewController *timerViewCon
 
 // PUBLIC SLOTS
 void DocumentationView::onLeaving(){
-    emit save((ViewType) views->currentData().toInt());
+    viewTypeToWidget->value((ViewType) views->currentData().toInt())->onLeaving();
     timerViewController->closeTimerView();
 }
 
@@ -76,16 +77,18 @@ void DocumentationView::hideGant(){
         views->setCurrentIndex(indexBeforeTimeLineView);
 }
 
+void DocumentationView::saveCurrentView(){
+    viewTypeToWidget->value((ViewType) views->currentData().toInt())->onLeaving();
+}
+
 void DocumentationView::changeView(int index){
     if(viewTypeToIndex->contains(currentView)){
         viewTypeToWidget->value(currentView)->onLeaving();
         if(currentView == GANT_VIEW)
             timerViewController->gantViewHidden();
-        emit save(currentView);
     }
     ViewType nextView = (ViewType) views->currentData().toInt();
     if(viewTypeToIndex->contains(nextView)){
-        emit update(nextView);
         mainContent->setCurrentIndex(index);
         currentView = nextView;
         viewTypeToWidget->value(nextView)->onEnter();

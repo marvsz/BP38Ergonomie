@@ -27,6 +27,7 @@ signals:
 
     void showGantView();
     void hideGantView();
+    void changingWorkProcess();
 
 public slots:
     void setSelectedWorkProcess(QHash<QString, QVariant> values);
@@ -57,6 +58,10 @@ private slots:
     void createLeftWorkProcessRequested();
     void createRightWorkProcessRequested();
     void createBasicWorkProcessRequested();
+
+    void selectPreviousWorkProcessClicked();
+    void selectNextWorkProcessClicked();
+    void changingWorkProcessTypeClicked(AVType type);
 
     void changeLeft(bool b);
     void changeRight(bool b);

@@ -15,9 +15,9 @@ TimerViewController::TimerViewController(QWidget *parent):
     minTimerView(new MinimizedTimerView(TimerState::IDLE, this))
 {
     // PROPAGATE SIGNALS FROM MIN/MAX VIEW
-    connect(maxTimerView, SIGNAL(nextWorkProcess()), this, SIGNAL(selectNextWorkProcess()));
-    connect(maxTimerView, SIGNAL(previousWorkProcess()), this, SIGNAL(selectPreviousWorkProcess()));
-    connect(maxTimerView, SIGNAL(workProcessTypeChanged(AVType)), this, SIGNAL(workProcessTypeChanged(AVType)));
+    connect(maxTimerView, SIGNAL(nextWorkProcess()), this, SLOT(selectNextWorkProcessClicked()));
+    connect(maxTimerView, SIGNAL(previousWorkProcess()), this, SLOT(selectPreviousWorkProcessClicked()));
+    connect(maxTimerView, SIGNAL(workProcessTypeChanged(AVType)), this, SLOT(changingWorkProcessTypeClicked(AVType)));
     connect(maxTimerView, SIGNAL(play()), this, SLOT(startTimer()));
     connect(maxTimerView, SIGNAL(pause()), this, SLOT(pauseTimer()));
     connect(maxTimerView, SIGNAL(stop()), this, SLOT(stopTimer()));
@@ -30,9 +30,9 @@ TimerViewController::TimerViewController(QWidget *parent):
     connect(maxTimerView, SIGNAL(leftChanged(bool)), this, SLOT(changeLeft(bool)));
     connect(maxTimerView, SIGNAL(rightChanged(bool)), this, SLOT(changeRight(bool)));
 
-    connect(minTimerView, SIGNAL(nextWorkProcess()), this, SIGNAL(selectNextWorkProcess()));
-    connect(minTimerView, SIGNAL(previousWorkProcess()), this, SIGNAL(selectPreviousWorkProcess()));
-    connect(minTimerView, SIGNAL(workProcessTypeChanged(AVType)), this, SIGNAL(workProcessTypeChanged(AVType)));
+    connect(minTimerView, SIGNAL(nextWorkProcess()), this, SLOT(selectNextWorkProcessClicked()));
+    connect(minTimerView, SIGNAL(previousWorkProcess()), this, SLOT(selectPreviousWorkProcessClicked()));
+    connect(minTimerView, SIGNAL(workProcessTypeChanged(AVType)), this, SLOT(changingWorkProcessTypeClicked(AVType)));
     connect(minTimerView, SIGNAL(play()), this, SLOT(startTimer()));
     connect(minTimerView, SIGNAL(pause()), this, SLOT(pauseTimer()));
 
@@ -237,6 +237,21 @@ void TimerViewController::createBasicWorkProcessRequested(){
         maxTimerView->basicEnded(currentTime);
         maxTimerView->basicStarted(currentTime);
     }
+}
+
+void TimerViewController::selectPreviousWorkProcessClicked(){
+    emit changingWorkProcess();
+    emit selectPreviousWorkProcess();
+}
+
+void TimerViewController::selectNextWorkProcessClicked(){
+    emit changingWorkProcess();
+    emit selectNextWorkProcess();
+}
+
+void TimerViewController::changingWorkProcessTypeClicked(AVType type){
+    emit changingWorkProcess();
+    emit workProcessTypeChanged(type);
 }
 
 void TimerViewController::setWorkProcessType(AVType type, const QString &prefix){

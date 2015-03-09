@@ -126,6 +126,7 @@ void GantTimerView::resetWorkProcesses(){
 
 void GantTimerView::onEnter(){
     update();
+    emit entered();
 }
 
 void GantTimerView::onLeaving(){
@@ -171,10 +172,8 @@ void GantTimerView::btnWPBasicClicked(int id){
 //PRIVATE METHODS
 void GantTimerView::workProcessClicked(int id, AVType type){
     emit saveWorkProcessFrequence(numBxFrequenz->getValue());
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_WORK_PROCESS_ID, id);
-    values.insert(DBConstants::COL_WORK_PROCESS_TYPE, type);
-    emit selectWorkProcess(values);
+    emit selectWorkProcess(id, type);
+    emit showView(ViewType::BODY_POSTURE_VIEW);
 }
 
 QHBoxLayout* GantTimerView::getLayout(int type){

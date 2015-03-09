@@ -235,7 +235,7 @@ Controller::Controller(QObject *parent, QApplication *app) :
     connect(this, SIGNAL(setBodyPosture(QHash<QString,QVariant>)), bodyPostureView, SLOT(setBodyPosture(QHash<QString,QVariant>)));
 
     //GanttTimer View signals/slots
-    connect(gantTimerView, SIGNAL(selectWorkProcess(QHash<QString,QVariant>)), this, SLOT(selectWorkProcess(QHash<QString, QVariant>)));
+    connect(gantTimerView, SIGNAL(selectWorkProcess(int, AVType)), this, SLOT(selectWorkProcess(int, AVType)));
     connect(gantTimerView, SIGNAL(saveWorkProcessFrequence(int)), this, SLOT(saveWorkProcessFrequence(int)));
     connect(this, SIGNAL(initiliazedWorkProcesses(QList<QHash<QString,QVariant> >)), gantTimerView, SLOT(initiliazeWorkProcesses(QList<QHash<QString,QVariant> >)));
     connect(this, SIGNAL(setSelectedWorkProcess(QHash<QString,QVariant>)), gantTimerView, SLOT(setSelectedWorkProcess(QHash<QString,QVariant>)));
@@ -810,7 +810,7 @@ void Controller::saveLoadHandling(QHash<QString, QVariant> values){
 
 //BodyPosture
 void Controller::saveBodyPosture(QHash<QString, QVariant> values){
-    QString filter = QString("%1 = %2").arg(DBConstants::COL_BODY_POSTURE_ID).arg(values.value(DBConstants::COL_BODY_POSTURE_ID).toInt());
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_BODY_POSTURE_ID).arg(bodyPosture_ID);
     int bp_ID = dbHandler->save(DBConstants::TBL_BODY_POSTURE, DBConstants::HASH_BODY_POSTURE_TYPES, values, filter, DBConstants::COL_BODY_POSTURE_ID);
     if(bp_ID > 0)
         bodyPosture_ID = bp_ID;
@@ -1022,6 +1022,15 @@ void Controller::selectWorkProcess(int id , AVType type){
     bool hasNext = !dbHandler->isSelectEmpty(tbl, absFilter.arg(id + 1));
     emit setHasPreviousWorkProcess(hasPrevious);
     emit setHasNextWorkProcess(hasNext);
+}
+
+//Gantt
+void Controller::saveWorkProcessFrequence(int frequence){
+    QString filter = QString("%1 = %2 AND %3 = %4 AND %5 = %6").arg(DBConstants::COL_WORK_PROCESS_ACTIVITY_ID).arg(activity_ID).arg(DBConstants::COL_WORK_PROCESS_TYPE).arg(workprocess_Type).arg(DBConstants::COL_WORK_PROCESS_ID).arg(workprocess_ID);
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_WORK_PROCESS_FREQUENCY, frequence);
+    dbHandler->update(DBConstants::TBL_WORK_PROCESS, DBConstants::HASH_WORK_PROCESS_TYPES, values, filter);
+
 }
 
 //SendDatabasePopUp

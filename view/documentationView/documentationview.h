@@ -48,6 +48,7 @@ private slots:
     void showGant();
     void hideGant();
 
+    void saveCurrentView();
     void changeView(int index);
 private:
     int indexBeforeTimeLineView;

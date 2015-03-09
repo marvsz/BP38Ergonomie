@@ -232,6 +232,9 @@ private slots:
     void workProcessDurationChanged(QTime time);
     void selectWorkProcess(int id, AVType type);
 
+    //Gantt
+    void saveWorkProcessFrequence(int frequence);
+
     //Employee
     void initializeEmployees();
     void createEmployee(QHash<QString, QVariant> values);
