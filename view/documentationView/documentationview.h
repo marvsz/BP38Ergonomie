@@ -30,16 +30,11 @@ public:
     QWidget * getInternalNavigation() const{
         return views;
     }
-    ViewType getCurrentView() const;
 
     void showStartView(ViewType type);
 
     void registerView(TitledWidget *widget, ViewType type);
     void setTimerViewController(TimerViewController *timerViewController);
-
-signals:
-    void update(ViewType type);
-    void save(ViewType type);
 
 public slots:
     void onLeaving();

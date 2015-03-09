@@ -102,8 +102,3 @@ void DocumentationView::changeView(ViewType type){
         views->setCurrentIndex(viewTypeToIndex->value(type));
     }
 }
-
-//GETTER / SETTER
-ViewType DocumentationView::getCurrentView() const{
-    return currentView;
-}

@@ -1388,15 +1388,19 @@ void Controller::resetSelectedEntries(){
         dbHandler->deleteAll(DBConstants::TBL_WORKPLACE, emptyFilter);
         dbHandler->deleteAll(DBConstants::TBL_WORK_CONDITION, emptyFilter);
         dbHandler->deleteAll(DBConstants::TBL_WORK_PROCESS, emptyFilter);
+        emit clearWorkplaces();
     }
     if(resetPopUp->equipmentSelected()){
         dbHandler->deleteAll(DBConstants::TBL_EQUIPMENT, emptyFilter);
+        emit clearEquipments();
     }
     if(resetPopUp->productsSelected()){
         dbHandler->deleteAll(DBConstants::TBL_PRODUCT, emptyFilter);
+        emit clearProducts();
     }
     if(resetPopUp->transportationSelected()){
         dbHandler->deleteAll(DBConstants::TBL_TRANSPORTATION, emptyFilter);
+        emit clearTransportations();
     }
     if(resetPopUp->employeeSelected()){
         employee_ID = 1;
