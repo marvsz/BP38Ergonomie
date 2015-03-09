@@ -21,23 +21,26 @@ void QuickLegPostureControl::setSelectedValue(int id){
         btnOptions.at(currentSelectedBtn->getID()-1)->setSelected(false);
         currentSelectedBtn = btnOptions.at(id-1);
         currentSelectedBtn->setSelected(true);
-        if(currentSelectedBtn->getID()==3){
+        if(currentSelectedBtn->getID()==3 && !speciOptions.at(0) && !speciOptions.at(1)){
             speciOptions.at(0)->setSelected(true);
             speciOptions.at(1)->setSelected(true);
-            emit selectionChanged(id,3);
             specification = 3;
+            emit selectionChanged(id,3);
             if(speciOptions.at(0)->isSelected()&&speciOptions.at(1)->isSelected()){
-                emit selectionChanged(id,3);
                 specification = 3;
+                emit selectionChanged(id,3);
+
             }
             else{
                 if(speciOptions.at(0)->isSelected()){
-                    emit selectionChanged(id,1);
                     specification = 1;
+                    emit selectionChanged(id,1);
+
                 }
                 if(speciOptions.at(1)->isSelected()){
-                    emit selectionChanged(id,2);
                     specification = 2;
+                    emit selectionChanged(id,2);
+
                 }
 
             }
@@ -45,8 +48,9 @@ void QuickLegPostureControl::setSelectedValue(int id){
         else{
             speciOptions.at(0)->setSelected(false);
             speciOptions.at(1)->setSelected(false);
-            emit selectionChanged(id,3);
             specification = 3;
+            emit selectionChanged(id,3);
+
         }
 
 
@@ -58,19 +62,22 @@ void QuickLegPostureControl::setSelectedValue(int id){
 }
 
 void QuickLegPostureControl::setSelectedSpecification(int id){
-    if(id >= 0 && id < speciOptions.length()+1 && currentSpeciBtn != NULL && currentSelectedBtn->getID() == 3){
+    if(id >= 0 && id < speciOptions.length()+1 && currentSpeciBtn != NULL){
+        emit setSelectedValue(3);
         switch (id) {
         case 1:
             if(speciOptions.at(0)->isSelected()&&speciOptions.at(1)->isSelected()){
                 speciOptions.at(0)->setSelected(false);
-                emit specificationChanged(2);
                 specification = 2;
+                emit specificationChanged(2);
+
             }
             else{
                 if(!speciOptions.at(0)->isSelected()&&speciOptions.at(1)->isSelected()){
                     speciOptions.at(0)->setSelected(true);
-                    emit specificationChanged(3);
                     specification = 3;
+                    emit specificationChanged(3);
+
                 }
 
 
@@ -85,14 +92,16 @@ void QuickLegPostureControl::setSelectedSpecification(int id){
         case 2:
             if(speciOptions.at(1)->isSelected()&&speciOptions.at(0)->isSelected()){
                 speciOptions.at(1)->setSelected(false);
-                emit specificationChanged(1);
                 specification = 1;
+                emit specificationChanged(1);
+
             }else{
 
             if(!speciOptions.at(1)->isSelected()&&speciOptions.at(0)->isSelected()){
                 speciOptions.at(1)->setSelected(true);
-                emit specificationChanged(3);
                 specification = 3;
+                emit specificationChanged(3);
+
             }
 
 
@@ -164,9 +173,9 @@ void QuickLegPostureControl::setValues(const QStringList &texts, const QStringLi
 
     currentSelectedBtn = btnOptions.at(0);
     currentSelectedBtn->setSelected(true);
-    setSelectedValue(1);
-    setSelectedSpecification(1);
-    setSelectedSpecification(2);
+    //setSelectedValue(1);
+    //setSelectedSpecification(1);
+    //setSelectedSpecification(2);
 }
 
 //Private methods
