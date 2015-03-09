@@ -9,11 +9,11 @@ MainMenu::MainMenu(QWidget *parent) :
     btnMetaDataView(new IconButton(this, "commentIcon", tr("Head Data"))),
     btnWorkplaceList(new IconButton(this, "workplaceIcon", tr("Workplaces"))),
     btnRessourceManagement(new IconButton(this, "equipmentIcon", tr ("Ressource Management"))),
-    btnShift(new IconButton(this, "calendarIcon", tr("Shift Data"))),
+    //btnShift(new IconButton(this, "calendarIcon", tr("Shift Data"))),
     btnSettings(new QPushButton(this)),
     btnNewRecording(new QPushButton(this)),
     #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
-    btnCamera(new QPushButton(this)),
+    //btnCamera(new QPushButton(this)),
     #endif
     btnSendDatabase(new QPushButton(this)),
     btnImport(new QPushButton(this))
@@ -23,7 +23,7 @@ MainMenu::MainMenu(QWidget *parent) :
     btnMetaDataView->setMinimumSize(300, 60);
     btnWorkplaceList->setMinimumSize(300, 60);
     btnRessourceManagement->setMinimumSize(300, 60);
-    btnShift->setMinimumSize(300, 60);
+    //btnShift->setMinimumSize(300, 60);
 
     btnSettings->setObjectName("settingsIcon");
     btnSettings->setFixedSize(45, 45);
@@ -38,20 +38,20 @@ MainMenu::MainMenu(QWidget *parent) :
     btnNewRecording->setFixedSize(45, 45);
 
     #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
-    btnCamera->setObjectName("cameraIcon");
-    btnCamera->setFixedSize(45, 45);
+    //btnCamera->setObjectName("cameraIcon");
+    //btnCamera->setFixedSize(45, 45);
     #endif
 
     connect(btnMetaDataView, SIGNAL(clicked()), this, SLOT(btnMetaDataViewClicked()));
     connect(btnWorkplaceList, SIGNAL(clicked()), this, SLOT(btnWorkplaceListClicked()));
     connect(btnRessourceManagement, SIGNAL(clicked()), this, SLOT(btnRessourceManagementClicked()));
-    connect(btnShift, SIGNAL(clicked()), this, SLOT(btnShiftClicked()));
+    //connect(btnShift, SIGNAL(clicked()), this, SLOT(btnShiftClicked()));
     connect(btnNewRecording, SIGNAL(clicked()), this, SLOT(btnNewRecordingClicked()));
     connect(btnSettings, SIGNAL(clicked()), this, SLOT(btnSettingsClicked()));
     connect(btnImport, SIGNAL(clicked()), this, SLOT(btnImportClicked()));
     connect(btnSendDatabase, SIGNAL(clicked()), this, SLOT(btnSendDatabaseClicked()));
     #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
-    connect(btnCamera, SIGNAL(clicked()), this, SLOT(btnCameraClicked()));
+    //connect(btnCamera, SIGNAL(clicked()), this, SLOT(btnCameraClicked()));
     #endif
 
     lblViewName->setObjectName("lblHeader");
@@ -63,7 +63,7 @@ MainMenu::MainMenu(QWidget *parent) :
     mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
     mainLayout->addWidget(btnRessourceManagement, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
-    mainLayout->addWidget(btnShift, 0, Qt::AlignCenter);
+    //mainLayout->addWidget(btnShift, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Minimum, QSizePolicy::Expanding));
 
     setLayout(mainLayout);
@@ -73,12 +73,12 @@ MainMenu::MainMenu(QWidget *parent) :
 //PUBLIC METHODS
 QList<QAbstractButton*> * MainMenu::getAdditionalNavigation() const{
     QList<QAbstractButton*> *additions = new QList<QAbstractButton*>();
-    additions->append(btnSettings);
+    additions->append(btnNewRecording);
     additions->append(btnImport);
     additions->append(btnSendDatabase);
-    additions->append(btnNewRecording);
+    additions->append(btnSettings);
     #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
-    additions->append(btnCamera);
+    //additions->append(btnCamera);
     #endif
     return additions;
 }

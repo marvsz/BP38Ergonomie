@@ -43,12 +43,10 @@ private:
     IconButton *btnMetaDataView;
     IconButton *btnWorkplaceList;
     IconButton *btnRessourceManagement;
-    IconButton *btnShift;
+    //IconButton *btnShift;
     QPushButton *btnSettings;
     QPushButton *btnNewRecording;
-    #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
-    QPushButton *btnCamera;
-    #endif
+    //QPushButton *btnCamera;
     QPushButton *btnSendDatabase;
     QPushButton *btnImport;
 
