@@ -225,6 +225,7 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
     varConLegs->addVariant(tr("Hip"));
     varConLegs->addSubVariant(0, vcHipAngle);
     varConLegs->addSubVariant(0, vcHipAngleSideways);
+    varConLegs->addSubVariant(0, vcHipTwist);
     varConLegs->addVariant(tr("Knee"));
     varConLegs->addSubVariant(1, vcKneeAngle);
     varConLegs->addVariant(tr("Ankle"));
