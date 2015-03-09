@@ -272,6 +272,7 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(categoryScrollArea);
     this->setLayout(mainLayout);
+    setSelectedType(AVType::BASIC);
 
 }
 
@@ -740,9 +741,10 @@ void BodyPostureView::setBodyPosture(QHash<QString, QVariant> values){
     vcAnkleAngle->setValue(values.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT).toInt());
     vcAnkleAngleSideways->setValue(values.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_SIDEWAYS_LEFT : DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_SIDEWAYS_RIGHT).toInt());
 
-    vcHeadTilt->setValue(values.value(DBConstants::COL_BODY_POSTURE_HEAD_TILT).toInt());;
-    vcHeadTiltSideways->setValue(values.value(DBConstants::COL_BODY_POSTURE_HEAD_TILT_SIDEWAYS).toInt());;
-    vcHeadTwist->setValue(values.value(DBConstants::COL_BODY_POSTURE_HEAD_TWIST).toInt());;
+    vcHeadTilt->setValue(values.value(DBConstants::COL_BODY_POSTURE_HEAD_TILT).toInt());
+    vcHeadTiltSideways->setValue(values.value(DBConstants::COL_BODY_POSTURE_HEAD_TILT_SIDEWAYS).toInt());
+    vcHeadTwist->setValue(values.value(DBConstants::COL_BODY_POSTURE_HEAD_TWIST).toInt());
+    this->values = values;
 }
 
 void BodyPostureView::onLeaving(){

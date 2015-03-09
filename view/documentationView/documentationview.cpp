@@ -29,7 +29,7 @@ DocumentationView::DocumentationView(QWidget *parent) :
 // PUBLIC
 void DocumentationView::showStartView(ViewType type){
     if(viewTypeToIndex->contains(type)){
-        currentView = type;
+        currentView = ViewType::UNKNOWN;
         views->setCurrentIndex(viewTypeToIndex->value(type));
     }
 }

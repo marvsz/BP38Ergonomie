@@ -815,7 +815,6 @@ void Controller::saveBodyPosture(QHash<QString, QVariant> values){
     if(bp_ID > 0)
         bodyPosture_ID = bp_ID;
     values.insert(DBConstants::COL_BODY_POSTURE_ID, bodyPosture_ID);
-    emit setBodyPosture(values);
     saveWorkProcess(QHash<QString, QVariant>());
 }
 

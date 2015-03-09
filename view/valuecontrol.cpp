@@ -200,10 +200,10 @@ void ValueControl::txtBxValueHasChanged(){
 void ValueControl::sldrValueHasChanged(){
     txtBxValue->setText(QString().number(sldrValue->value()));
     btnHighlight(sldrValue->value());
-    if(emitChangeValue){
+    //if(emitChangeValue){
         emit valueChanged(sldrValue->value());
         emit valueChanged(QVariant(sldrValue->value()));
-    }
+    //}
     emitChangeValue = true;
     if(sldrValue->value() == min)
         btnMinus->setEnabled(false);
