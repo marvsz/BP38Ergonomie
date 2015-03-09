@@ -39,6 +39,7 @@ void DocumentationView::registerView(TitledWidget *widget, ViewType type){
         viewTypeToWidget->insert(type, widget);
         viewTypeToIndex->insert(type, mainContent->addWidget(widget));
         views->addItem(widget->getTitle(), type);
+        connect(widget, SIGNAL(showView(ViewType)), this, SLOT(changeView(ViewType)));
         connect(widget, SIGNAL(showView(ViewType)), this, SIGNAL(showView(ViewType)));
         connect(widget, SIGNAL(showPopUp(PopUpType)), this, SIGNAL(showPopUp(PopUpType)));
     }
@@ -92,6 +93,13 @@ void DocumentationView::changeView(int index){
         mainContent->setCurrentIndex(index);
         currentView = nextView;
         viewTypeToWidget->value(nextView)->onEnter();
+    }
+
+}
+
+void DocumentationView::changeView(ViewType type){
+    if(viewTypeToWidget->contains(type)){
+        views->setCurrentIndex(viewTypeToIndex->value(type));
     }
 }
 

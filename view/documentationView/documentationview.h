@@ -50,6 +50,8 @@ private slots:
 
     void saveCurrentView();
     void changeView(int index);
+    void changeView(ViewType type);
+
 private:
     int indexBeforeTimeLineView;
     bool registeredTimerViewController;
