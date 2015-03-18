@@ -605,6 +605,7 @@ void Controller::createLine(QHash<QString, QVariant> values){
     values.insert(DBConstants::COL_LINE_ID, line_ID);
     saveRecordingObservesLine(line_ID);
     emit createdLine(values);
+    viewCon->showMessage(tr("Created new line"), NotificationMessage::ACCEPT);
 }
 
 void Controller::editLine(int id){
@@ -627,6 +628,7 @@ void Controller::deleteLine(int id){
     values.insert(DBConstants::COL_WORKPLACE_LINE_ID, 0);
     filter = QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_LINE_ID).arg(id);
     dbHandler->update(DBConstants::TBL_WORKPLACE, DBConstants::HASH_WORKPLACE_TYPES, values, filter);
+    viewCon->showMessage(tr("Deleted line"), NotificationMessage::ACCEPT);
 }
 
 void Controller::selectLine(int id){
@@ -651,6 +653,7 @@ void Controller::createProduct(QHash<QString, QVariant> values){
     int prod_ID = dbHandler->insert(DBConstants::TBL_PRODUCT, DBConstants::HASH_PRODUCT_TYPES, values, DBConstants::COL_PRODUCT_ID);
     values.insert(DBConstants::COL_PRODUCT_ID, prod_ID);
     emit createdProduct(values);
+    viewCon->showMessage(tr("Created new product"), NotificationMessage::ACCEPT);
 }
 
 void Controller::saveProduct(QHash<QString, QVariant> values){
@@ -668,6 +671,7 @@ void Controller::deleteProduct(int id){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_ACTIVITY_PRODUCT_ID, 0);
     dbHandler->update(DBConstants::TBL_ACTIVITY, DBConstants::HASH_ACTIVITY_TYPES, values, filter);
+    viewCon->showMessage(tr("Deleted product"), NotificationMessage::ACCEPT);
 }
 
 //Equipment
@@ -682,6 +686,7 @@ void Controller::createEquipment(QHash<QString, QVariant> values){
     int eq_ID = dbHandler->insert(DBConstants::TBL_EQUIPMENT, DBConstants::HASH_EQUIPMENT_TYPES, values, DBConstants::COL_EQUIPMENT_ID);
     values.insert(DBConstants::COL_EQUIPMENT_ID, eq_ID);
     emit createdEquipment(values);
+    viewCon->showMessage(tr("Created new equipment"), NotificationMessage::ACCEPT);
 }
 
 void Controller::saveEquipment(QHash<QString, QVariant> values){
@@ -694,6 +699,7 @@ void Controller::deleteEquipment(int id){
     QString filter = QString("%1 = %2").arg(DBConstants::COL_EQUIPMENT_ID).arg(id);
     dbHandler->deleteAll(DBConstants::TBL_EQUIPMENT, filter);
     emit removedEquipment(id);
+    viewCon->showMessage(tr("Deleted equipment"), NotificationMessage::ACCEPT);
 }
 
 //Activity
@@ -710,6 +716,7 @@ void Controller::createActivity(QHash<QString, QVariant> values){
    int ac_ID = dbHandler->insert(DBConstants::TBL_ACTIVITY, DBConstants::HASH_ACTIVITY_TYPES, values, DBConstants::COL_ACTIVITY_ID);
    values.insert(DBConstants::COL_ACTIVITY_ID, ac_ID);
    emit createdActivity(values);
+   viewCon->showMessage(tr("Created new activity"), NotificationMessage::ACCEPT);
 }
 
 void Controller::saveActivity(QHash<QString, QVariant> values){
@@ -751,6 +758,7 @@ void Controller::createTransportation(QHash<QString, QVariant> values){
     int trans_ID = dbHandler->insert(DBConstants::TBL_TRANSPORTATION, DBConstants::HASH_TRANSPORTATION_TYPES, values, DBConstants::COL_TRANSPORTATION_ID);
     values.insert(DBConstants::COL_TRANSPORTATION_ID, trans_ID);
     emit createdTransportation(values);
+    viewCon->showMessage(tr("Created new transportation"), NotificationMessage::ACCEPT);
 }
 
 void Controller::saveTransportation(QHash<QString, QVariant> values){
@@ -763,6 +771,7 @@ void Controller::deleteTransportation(int id){
     QString filter = QString("%1 = %2").arg(DBConstants::COL_TRANSPORTATION_ID).arg(id);
     dbHandler->deleteAll(DBConstants::TBL_TRANSPORTATION, filter);
     emit removedTransportation(id);
+    viewCon->showMessage(tr("Deleted transportation"), NotificationMessage::ACCEPT);
 }
 
 //LoadHandling
@@ -856,6 +865,7 @@ void Controller::createEmployee(QHash<QString, QVariant> values){
     int id = dbHandler->insert(DBConstants::TBL_EMPLOYEE, DBConstants::HASH_EMPLOYEE_TYPES, values, DBConstants::COL_EMPLOYEE_ID);
     values.insert(DBConstants::COL_EMPLOYEE_ID, id);
     emit createdEmployee(values);
+    viewCon->showMessage(tr("Created new employee"), NotificationMessage::ACCEPT);
 }
 
 void Controller::createEmployee(QHash<QString, QVariant> values, QHash<QString, QVariant> bodyMeasurementValues){
@@ -864,6 +874,7 @@ void Controller::createEmployee(QHash<QString, QVariant> values, QHash<QString, 
     int empID = dbHandler->insert(DBConstants::TBL_EMPLOYEE, DBConstants::HASH_EMPLOYEE_TYPES, values, DBConstants::COL_EMPLOYEE_ID);
     values.insert(DBConstants::COL_EMPLOYEE_ID, empID);
     emit createdEmployee(values);
+    viewCon->showMessage(tr("Created new employee"), NotificationMessage::ACCEPT);
 }
 
 void Controller::deleteEmployee(int id){
@@ -873,6 +884,7 @@ void Controller::deleteEmployee(int id){
     emit removedEmployee(id);
     filter = QString("%1 = %2").arg(DBConstants::COL_EMPLOYEE_BODY_MEASUREMENT_ID).arg(values.value(DBConstants::COL_EMPLOYEE_BODY_MEASUREMENT_ID).toInt());
     dbHandler->deleteAll(DBConstants::TBL_BODY_MEASUREMENT, filter);
+    viewCon->showMessage(tr("Deleted employee"), NotificationMessage::ACCEPT);
 }
 
 void Controller::selectEmployee(int id){
