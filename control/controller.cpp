@@ -874,7 +874,6 @@ void Controller::createEmployee(QHash<QString, QVariant> values, QHash<QString, 
     int empID = dbHandler->insert(DBConstants::TBL_EMPLOYEE, DBConstants::HASH_EMPLOYEE_TYPES, values, DBConstants::COL_EMPLOYEE_ID);
     values.insert(DBConstants::COL_EMPLOYEE_ID, empID);
     emit createdEmployee(values);
-    viewCon->showMessage(tr("Created new employee"), NotificationMessage::ACCEPT);
 }
 
 void Controller::deleteEmployee(int id){
