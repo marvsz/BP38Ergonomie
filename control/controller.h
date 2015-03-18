@@ -28,7 +28,6 @@
 #include "../view/ressourceManagementView/employeeview.h"
 #include "../view/ressourceManagementView/employeelistview.h"
 #include "../view/generalViews/settingsview.h"
-#include "../view/popUps//feedbackpopup.h"
 #include "../view/popUps/equipmentpopup.h"
 #include "../view/popUps/transporationpopup.h"
 #include "../view/popUps/senddatabasepopup.h"
@@ -312,7 +311,6 @@ private:
 
     TimerViewController *timerViewController;
 
-    FeedbackPopUp *feedbackPopUp;
     EquipmentPopUp *equipmentPopUp;
     TransporationPopUp *transportationPopUp;
     SendDatabasePopUp *sendDatabasePopUp;

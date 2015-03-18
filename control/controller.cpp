@@ -40,7 +40,6 @@ Controller::Controller(QObject *parent, QApplication *app) :
     executionConditionView(new ExecutionConditionView()),
     gantTimerView(new GantTimerView()),
     timerViewController(new TimerViewController()),
-    feedbackPopUp(new FeedbackPopUp()),
     equipmentPopUp(new EquipmentPopUp()),
     transportationPopUp(new TransporationPopUp()),
     sendDatabasePopUp(new SendDatabasePopUp()),
@@ -318,7 +317,6 @@ Controller::Controller(QObject *parent, QApplication *app) :
     viewCon->registerView(documentationView, ViewType::DOCUMENTATION_VIEW);
 
     // Register PopUps on ViewController
-    viewCon->registerPopUp(feedbackPopUp, PopUpType::FEEDBACK_POPUP);
     viewCon->registerPopUp(equipmentPopUp, PopUpType::EQUIPMENT_POPUP);
     viewCon->registerPopUp(sendDatabasePopUp, PopUpType::DB_SEND_POPUP);
     viewCon->registerPopUp(transportationPopUp, PopUpType::TRANSPORTATION_POPUP);
@@ -1216,7 +1214,7 @@ void Controller::languageChanged(){
          file.close();
          settingsView->setCurrentLanguageIcon("germanIcon");
          viewCon->showMessage(tr("Language changed"), NotificationMessage::ACCEPT);
-         viewCon->showMessage(("Neustart erforderlich um die Änderungen umzusetzen"), NotificationMessage::INFORMATION, NotificationMessage::PERSISTENT);
+         viewCon->showMessage(("Neustart erforderlich um die Änderungen zu übernehmen"), NotificationMessage::INFORMATION, NotificationMessage::PERSISTENT);
          break;
     case(1):
          out<<"english"<<','<<settings.at(1)<<','<<settings.at(2)<<','<<settings.at(3);
