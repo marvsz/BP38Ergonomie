@@ -40,7 +40,6 @@ Controller::Controller(QObject *parent, QApplication *app) :
     executionConditionView(new ExecutionConditionView()),
     gantTimerView(new GantTimerView()),
     timerViewController(new TimerViewController()),
-    feedbackPopUp(new FeedbackPopUp()),
     equipmentPopUp(new EquipmentPopUp()),
     transportationPopUp(new TransporationPopUp()),
     sendDatabasePopUp(new SendDatabasePopUp()),
@@ -71,13 +70,21 @@ Controller::Controller(QObject *parent, QApplication *app) :
 
     connect(viewCon, SIGNAL(update(ViewType)), this, SLOT(update(ViewType)));
     connect(viewCon, SIGNAL(save(ViewType)), this, SLOT(save(ViewType)));
-    connect(viewCon, SIGNAL(update(PopUpType)), this, SLOT(update(PopUpType)));
-
-    connect(analystSelectionView, SIGNAL(remove(int)), this, SLOT(removeAnalyst(int)));
-    connect(analystSelectionView, SIGNAL(select(int)), this, SLOT(selectAnalyst(int)));
-    connect(analystPopUp, SIGNAL(confirm()), this, SLOT(createAnalyst()));
 
     connect(mainMenuView, SIGNAL(createBlankRecording()), this, SLOT(createBlankRecording()));
+
+
+    //AnalystSelectionView signals/slots
+    connect(this, SIGNAL(clearAll()), analystSelectionView, SLOT(clearAnalysts()));
+    connect(this, SIGNAL(clearAnalysts()), analystSelectionView, SLOT(clearAnalysts()));
+    connect(this, SIGNAL(createdAnalyst(QHash<QString,QVariant>)), analystSelectionView, SLOT(addAnalyst(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(removedAnalyst(int)), analystSelectionView, SLOT(removeAnalyst(int)));
+    connect(analystSelectionView, SIGNAL(deleteAnalyst(int)), this, SLOT(deleteAnalyst(int)));
+    connect(analystSelectionView, SIGNAL(selectAnalyst(int)), this, SLOT(selectAnalyst(int)));
+    connect(this, SIGNAL(updatedAnalyst(QHash<QString,QVariant>)), analystSelectionView, SLOT(updateAnalyst(QHash<QString,QVariant>)));
+
+    //AnalystPopUp signals/slots
+    connect(analystPopUp, SIGNAL(saveAnalyst(QHash<QString,QVariant>)), this, SLOT(createAnalyst(QHash<QString,QVariant>)));
 
     //WorkplaceList View signal/slots
     connect(this, SIGNAL(clearAll()), workplaceListView, SLOT(clearWorkplaces()));
@@ -258,15 +265,19 @@ Controller::Controller(QObject *parent, QApplication *app) :
     connect(timerViewController, SIGNAL(workProcessDurationChanged(QTime)), this, SLOT(workProcessDurationChanged(QTime)));
     connect(timerViewController, SIGNAL(resetWorkProcesses()), this, SLOT(resetWorkProcesses()));
 
+    //SendDatabasePopUp signals/slots
+    connect(sendDatabasePopUp, SIGNAL(initializeFTPConnections(IFTPConnections*)), this, SLOT(initializeFTPConnections(IFTPConnections*)));
+    connect(sendDatabasePopUp, SIGNAL(createFTPConnection(IFTPConnections*)), this, SLOT(createFTPConnection(IFTPConnections*)));
+    connect(sendDatabasePopUp, SIGNAL(editFTPConnection(IFTPConnections*,int)), this, SLOT(editFTPConnection(IFTPConnections*,int)));
+    connect(sendDatabasePopUp, SIGNAL(selectFTPConnection(IFTPConnections*,int)), this, SLOT(selectFTPConnection(IFTPConnections*,int)));
+    connect(sendDatabasePopUp, SIGNAL(sendData(ISendData*)), this, SLOT(sendData(ISendData*)));
 
-    connect(sendDatabasePopUp, SIGNAL(create(IFTPConnections*)), this, SLOT(createConnection(IFTPConnections*)));
-    connect(sendDatabasePopUp, SIGNAL(edit(IFTPConnections*,int)), this, SLOT(editConnection(IFTPConnections*,int)));
-    connect(sendDatabasePopUp, SIGNAL(selected(IFTPConnections*,int)), this, SLOT(selectedConnectionChanged(IFTPConnections*,int)));
-
-    connect(importDataPopUp, SIGNAL(create(IFTPConnections*)), this, SLOT(createConnection(IFTPConnections*)));
-    connect(importDataPopUp, SIGNAL(edit(IFTPConnections*,int)), this, SLOT(editConnection(IFTPConnections*,int)));
-    connect(importDataPopUp, SIGNAL(selected(IFTPConnections*,int)), this, SLOT(selectedConnectionChanged(IFTPConnections*,int)));
-    connect(importDataPopUp, SIGNAL(confirm()), this, SLOT(parseImportData()));
+    //ImportDatabasePopUp signals/slots
+    connect(importDataPopUp, SIGNAL(initializeFTPConnections(IFTPConnections*)), this, SLOT(initializeFTPConnections(IFTPConnections*)));
+    connect(importDataPopUp, SIGNAL(createFTPConnection(IFTPConnections*)), this, SLOT(createFTPConnection(IFTPConnections*)));
+    connect(importDataPopUp, SIGNAL(editFTPConnection(IFTPConnections*,int)), this, SLOT(editFTPConnection(IFTPConnections*,int)));
+    connect(importDataPopUp, SIGNAL(selectFTPConnection(IFTPConnections*,int)), this, SLOT(selectFTPConnection(IFTPConnections*,int)));
+    connect(importDataPopUp, SIGNAL(importData(IImportData*)), this, SLOT(importData(IImportData*)));
 
     connect(languagePopUp, SIGNAL(confirm()), this, SLOT(languageChanged()));
     connect(themePopUp, SIGNAL(confirm()), this, SLOT(themeChanged()));
@@ -306,7 +317,6 @@ Controller::Controller(QObject *parent, QApplication *app) :
     viewCon->registerView(documentationView, ViewType::DOCUMENTATION_VIEW);
 
     // Register PopUps on ViewController
-    viewCon->registerPopUp(feedbackPopUp, PopUpType::FEEDBACK_POPUP);
     viewCon->registerPopUp(equipmentPopUp, PopUpType::EQUIPMENT_POPUP);
     viewCon->registerPopUp(sendDatabasePopUp, PopUpType::DB_SEND_POPUP);
     viewCon->registerPopUp(transportationPopUp, PopUpType::TRANSPORTATION_POPUP);
@@ -330,11 +340,12 @@ Controller::Controller(QObject *parent, QApplication *app) :
     initializeTansportations();
     initializeEquipments();
     initializeEmployees();
+    initializeAnalysts();
     initializeLines();
     initializeWorkplaces();
 }
-//PRIVATE SLOTS
 
+//PRIVATE SLOTS
 void Controller::databaseError(QString error){
     viewCon->showMessage(error, NotificationMessage::ERROR, NotificationMessage::PERSISTENT);
 }
@@ -343,9 +354,6 @@ void Controller::update(ViewType type)
 {
     switch(type)
         {
-        case ViewType::ANALYST_SELECTION_VIEW:
-            updateAnalystSelectionView();
-            break;
         case ViewType::METADATA_VIEW:
             updateMetaDataView();
             break;
@@ -354,19 +362,6 @@ void Controller::update(ViewType type)
         }
 }
 
-void Controller::update(PopUpType type)
-{
-    switch(type)
-        {
-        case PopUpType::DB_SEND_POPUP:
-            updateFTPConnectionPopUp(sendDatabasePopUp);
-            break;
-        case PopUpType::IMPORT_DATA_POPUP:
-            updateFTPConnectionPopUp(importDataPopUp);
-        default:
-            break;
-        }
-}
 
 void Controller::save(ViewType type)
 {
@@ -380,52 +375,45 @@ void Controller::save(ViewType type)
         }
 }
 
-
-//AnalystSelectionView
-void Controller::updateAnalystSelectionView()
-{
-    analystSelectionView->clear();
-    QList<QHash<QString, QVariant>> values = dbHandler->select(DBConstants::TBL_ANALYST, QString(""));
-    for(int i = 0; i < values.count(); ++i){
-        QHash<QString, QVariant> row = values.at(i);
-        analystSelectionView->add(row.value(DBConstants::COL_ANALYST_ID).toInt(),
-                                  row.value(DBConstants::COL_ANALYST_LASTNAME).toString(),
-                                  row.value(DBConstants::COL_ANALYST_FIRSTNAME).toString());
-    }
+//Analyst
+void Controller::initializeAnalysts(){
+    emit clearAnalysts();
+    QList<QHash<QString, QVariant>> rows = dbHandler->select(DBConstants::TBL_ANALYST, QString(""));
+    for(int i = 0; i < rows.size(); ++i)
+        emit createdAnalyst(rows.at(i));
 }
 
-void Controller::createAnalyst()
-{
-    QString filter = QString("%1 = %2").arg(DBConstants::COL_EMPLOYER_NAME).arg(analystPopUp->getAnalystEmployer());
+void Controller::createAnalyst(QHash<QString, QVariant> values){
+    QString empName = values.value(DBConstants::COL_EMPLOYER_NAME).toString();
+    QString filter = QString("%1 = '%2'").arg(DBConstants::COL_EMPLOYER_NAME).arg(empName);
     QHash<QString, QVariant> valuesEmployer = QHash<QString, QVariant>();
-    valuesEmployer.insert(DBConstants::COL_EMPLOYER_NAME, analystPopUp->getAnalystEmployer());
+    valuesEmployer.insert(DBConstants::COL_EMPLOYER_NAME, empName);
     int emp_ID = dbHandler->save(DBConstants::TBL_EMPLOYER, DBConstants::HASH_EMPLOYER_TYPES, valuesEmployer, filter, DBConstants::COL_EMPLOYER_ID);
 
-    QHash<QString, QVariant> valuesAnalyst = QHash<QString, QVariant>();
-    valuesAnalyst.insert(DBConstants::COL_ANALYST_LASTNAME, analystPopUp->getAnalystLastName());
-    valuesAnalyst.insert(DBConstants::COL_ANALYST_FIRSTNAME, analystPopUp->getAnalystFirstName());
-    valuesAnalyst.insert(DBConstants::COL_ANALYST_EMPLOYER_ID, emp_ID);
-    valuesAnalyst.insert(DBConstants::COL_ANALYST_EXPERIENCE, analystPopUp->getAnalystExperience());
-    dbHandler->insert(DBConstants::TBL_ANALYST, DBConstants::HASH_ANALYST_TYPES, valuesAnalyst, DBConstants::COL_ANALYST_ID);
-    updateAnalystSelectionView();
-    viewCon->closePopUp();
+    values.remove(DBConstants::COL_EMPLOYER_NAME);
+    values.insert(DBConstants::COL_ANALYST_EMPLOYER_ID, emp_ID);
+    dbHandler->insert(DBConstants::TBL_ANALYST, DBConstants::HASH_ANALYST_TYPES, values, DBConstants::COL_ANALYST_ID);
     viewCon->showMessage(tr("Created analyst"), NotificationMessage::ACCEPT);
+    emit createdAnalyst(values);
 }
 
-void Controller::removeAnalyst(int id)
-{
-    dbHandler->deleteAll(DBConstants::TBL_ANALYST, QString("%1 = %2").arg(DBConstants::COL_ANALYST_ID).arg(id));
+void Controller::deleteAnalyst(int id){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_ANALYST_ID).arg(id);
+    dbHandler->deleteAll(DBConstants::TBL_ANALYST, filter);
     viewCon->showMessage(tr("Deleted analyst"), NotificationMessage::ACCEPT);
-    updateAnalystSelectionView();
+    emit removedAnalyst(id);
 }
 
-void Controller::selectAnalyst(int id)
-{
+void Controller::selectAnalyst(int id){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_ANALYST_ID).arg(id);
+    QHash<QString, QVariant> values = dbHandler->selectFirst(DBConstants::TBL_ANALYST, filter);
     analyst_ID = id;
     viewCon->showMessage(tr("Hello  ") + dbHandler->select(DBConstants::TBL_ANALYST, QString("")).
                          at(id -1).value(DBConstants::COL_ANALYST_FIRSTNAME).toString() + "! ",
                          NotificationMessage::WELCOME, NotificationMessage::LONG);
+    emit selectedAnalyst(values);
 }
+
 
 //MainMenuView
 void Controller::createBlankRecording(){
@@ -617,6 +605,7 @@ void Controller::createLine(QHash<QString, QVariant> values){
     values.insert(DBConstants::COL_LINE_ID, line_ID);
     saveRecordingObservesLine(line_ID);
     emit createdLine(values);
+    viewCon->showMessage(tr("Created new line"), NotificationMessage::ACCEPT);
 }
 
 void Controller::editLine(int id){
@@ -639,6 +628,7 @@ void Controller::deleteLine(int id){
     values.insert(DBConstants::COL_WORKPLACE_LINE_ID, 0);
     filter = QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_LINE_ID).arg(id);
     dbHandler->update(DBConstants::TBL_WORKPLACE, DBConstants::HASH_WORKPLACE_TYPES, values, filter);
+    viewCon->showMessage(tr("Deleted line"), NotificationMessage::ACCEPT);
 }
 
 void Controller::selectLine(int id){
@@ -663,6 +653,7 @@ void Controller::createProduct(QHash<QString, QVariant> values){
     int prod_ID = dbHandler->insert(DBConstants::TBL_PRODUCT, DBConstants::HASH_PRODUCT_TYPES, values, DBConstants::COL_PRODUCT_ID);
     values.insert(DBConstants::COL_PRODUCT_ID, prod_ID);
     emit createdProduct(values);
+    viewCon->showMessage(tr("Created new product"), NotificationMessage::ACCEPT);
 }
 
 void Controller::saveProduct(QHash<QString, QVariant> values){
@@ -680,6 +671,7 @@ void Controller::deleteProduct(int id){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_ACTIVITY_PRODUCT_ID, 0);
     dbHandler->update(DBConstants::TBL_ACTIVITY, DBConstants::HASH_ACTIVITY_TYPES, values, filter);
+    viewCon->showMessage(tr("Deleted product"), NotificationMessage::ACCEPT);
 }
 
 //Equipment
@@ -694,6 +686,7 @@ void Controller::createEquipment(QHash<QString, QVariant> values){
     int eq_ID = dbHandler->insert(DBConstants::TBL_EQUIPMENT, DBConstants::HASH_EQUIPMENT_TYPES, values, DBConstants::COL_EQUIPMENT_ID);
     values.insert(DBConstants::COL_EQUIPMENT_ID, eq_ID);
     emit createdEquipment(values);
+    viewCon->showMessage(tr("Created new equipment"), NotificationMessage::ACCEPT);
 }
 
 void Controller::saveEquipment(QHash<QString, QVariant> values){
@@ -706,6 +699,7 @@ void Controller::deleteEquipment(int id){
     QString filter = QString("%1 = %2").arg(DBConstants::COL_EQUIPMENT_ID).arg(id);
     dbHandler->deleteAll(DBConstants::TBL_EQUIPMENT, filter);
     emit removedEquipment(id);
+    viewCon->showMessage(tr("Deleted equipment"), NotificationMessage::ACCEPT);
 }
 
 //Activity
@@ -722,6 +716,7 @@ void Controller::createActivity(QHash<QString, QVariant> values){
    int ac_ID = dbHandler->insert(DBConstants::TBL_ACTIVITY, DBConstants::HASH_ACTIVITY_TYPES, values, DBConstants::COL_ACTIVITY_ID);
    values.insert(DBConstants::COL_ACTIVITY_ID, ac_ID);
    emit createdActivity(values);
+   viewCon->showMessage(tr("Created new activity"), NotificationMessage::ACCEPT);
 }
 
 void Controller::saveActivity(QHash<QString, QVariant> values){
@@ -763,6 +758,7 @@ void Controller::createTransportation(QHash<QString, QVariant> values){
     int trans_ID = dbHandler->insert(DBConstants::TBL_TRANSPORTATION, DBConstants::HASH_TRANSPORTATION_TYPES, values, DBConstants::COL_TRANSPORTATION_ID);
     values.insert(DBConstants::COL_TRANSPORTATION_ID, trans_ID);
     emit createdTransportation(values);
+    viewCon->showMessage(tr("Created new transportation"), NotificationMessage::ACCEPT);
 }
 
 void Controller::saveTransportation(QHash<QString, QVariant> values){
@@ -775,6 +771,7 @@ void Controller::deleteTransportation(int id){
     QString filter = QString("%1 = %2").arg(DBConstants::COL_TRANSPORTATION_ID).arg(id);
     dbHandler->deleteAll(DBConstants::TBL_TRANSPORTATION, filter);
     emit removedTransportation(id);
+    viewCon->showMessage(tr("Deleted transportation"), NotificationMessage::ACCEPT);
 }
 
 //LoadHandling
@@ -868,6 +865,7 @@ void Controller::createEmployee(QHash<QString, QVariant> values){
     int id = dbHandler->insert(DBConstants::TBL_EMPLOYEE, DBConstants::HASH_EMPLOYEE_TYPES, values, DBConstants::COL_EMPLOYEE_ID);
     values.insert(DBConstants::COL_EMPLOYEE_ID, id);
     emit createdEmployee(values);
+    viewCon->showMessage(tr("Created new employee"), NotificationMessage::ACCEPT);
 }
 
 void Controller::createEmployee(QHash<QString, QVariant> values, QHash<QString, QVariant> bodyMeasurementValues){
@@ -875,7 +873,7 @@ void Controller::createEmployee(QHash<QString, QVariant> values, QHash<QString, 
     values.insert(DBConstants::COL_EMPLOYEE_BODY_MEASUREMENT_ID, bmID);
     int empID = dbHandler->insert(DBConstants::TBL_EMPLOYEE, DBConstants::HASH_EMPLOYEE_TYPES, values, DBConstants::COL_EMPLOYEE_ID);
     values.insert(DBConstants::COL_EMPLOYEE_ID, empID);
-    emit createEmployee(values);
+    emit createdEmployee(values);
 }
 
 void Controller::deleteEmployee(int id){
@@ -885,6 +883,7 @@ void Controller::deleteEmployee(int id){
     emit removedEmployee(id);
     filter = QString("%1 = %2").arg(DBConstants::COL_EMPLOYEE_BODY_MEASUREMENT_ID).arg(values.value(DBConstants::COL_EMPLOYEE_BODY_MEASUREMENT_ID).toInt());
     dbHandler->deleteAll(DBConstants::TBL_BODY_MEASUREMENT, filter);
+    viewCon->showMessage(tr("Deleted employee"), NotificationMessage::ACCEPT);
 }
 
 void Controller::selectEmployee(int id){
@@ -1032,69 +1031,47 @@ void Controller::saveWorkProcessFrequence(int frequence){
 
 }
 
-//SendDatabasePopUp
-void Controller::updateFTPConnectionPopUp(IFTPConnections *widget)
-{
-    widget->clear();
+//Connection
+void Controller::initializeFTPConnections(IFTPConnections *widget){
+    widget->clearFTPConnections();
+    int defaultConnection_ID = 0;
     QList<QHash<QString, QVariant>> values = dbHandler->select(DBConstants::TBL_CONNECTION, QString("%1 = %2").arg(DBConstants::COL_CONNECTION_ANALYST_ID).arg(analyst_ID));
-    int defaultID = 0;
     for(int i = 0; i < values.count(); ++i){
         QHash<QString, QVariant> row = values.at(i);
-
+        widget->addFTPConnection(row);
         if(row.value(DBConstants::COL_CONNECTION_DEFAULT).toBool())
-            defaultID = row.value(DBConstants::COL_CONNECTION_ID).toInt();
-
-        widget->add(row.value(DBConstants::COL_CONNECTION_NAME).toString(),
-                               row.value(DBConstants::COL_CONNECTION_ID).toInt());
+            defaultConnection_ID = row.value(DBConstants::COL_CONNECTION_ID).toInt();
     }
-    widget->select(defaultID);
+    widget->selectedFTPConnection(defaultConnection_ID);
 }
 
-void Controller::selectedConnectionChanged(IFTPConnections *widget, int id)
-{
+void Controller::selectFTPConnection(IFTPConnections *widget, int id){
     QHash<QString, QVariant> row = dbHandler->selectFirst(DBConstants::TBL_CONNECTION, QString("%1 = %2").arg(DBConstants::COL_CONNECTION_ID).arg(id));
     if(!row.isEmpty()){
-        widget->setName(row.value(DBConstants::COL_CONNECTION_NAME).toString());
-        widget->setUserName(row.value(DBConstants::COL_CONNECTION_USERNAME).toString());
-        widget->setPassword(row.value(DBConstants::COL_CONNECTION_PASSWORD).toString());
-        widget->setAddress(row.value(DBConstants::COL_CONNECTION_SERVER_ADDRESS).toString());
-        widget->setPort(row.value(DBConstants::COL_CONNECTION_PORT).toInt());
-        widget->setSetAsDefault(row.value(DBConstants::COL_CONNECTION_DEFAULT).toBool());
+        widget->setFTPConnection(row);
     }
 }
 
-void Controller::createConnection(IFTPConnections *widget)
+void Controller::createFTPConnection(IFTPConnections *widget)
 {
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_CONNECTION_NAME, widget->getName());
-    values.insert(DBConstants::COL_CONNECTION_USERNAME, widget->getUserName());
-    values.insert(DBConstants::COL_CONNECTION_PASSWORD, widget->getPassword());
-    values.insert(DBConstants::COL_CONNECTION_SERVER_ADDRESS, widget->getAddress());
-    values.insert(DBConstants::COL_CONNECTION_PORT, widget->getPort());
-    values.insert(DBConstants::COL_CONNECTION_DEFAULT, widget->getSetAsDefault());
+    QHash<QString, QVariant> values = widget->getFTPConnection();
     values.insert(DBConstants::COL_CONNECTION_ANALYST_ID, analyst_ID);
     dbHandler->insert(DBConstants::TBL_CONNECTION, DBConstants::HASH_CONNECTION_TYPES, values, DBConstants::COL_CONNECTION_ID);
 }
 
-void Controller::editConnection(IFTPConnections *widget, int id)
+void Controller::editFTPConnection(IFTPConnections *widget, int id)
 {
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_CONNECTION_NAME, widget->getName());
-    values.insert(DBConstants::COL_CONNECTION_USERNAME, widget->getUserName());
-    values.insert(DBConstants::COL_CONNECTION_PASSWORD, widget->getPassword());
-    values.insert(DBConstants::COL_CONNECTION_SERVER_ADDRESS, widget->getAddress());
-    values.insert(DBConstants::COL_CONNECTION_PORT, widget->getPort());
-    values.insert(DBConstants::COL_CONNECTION_DEFAULT, widget->getSetAsDefault());
+    QHash<QString, QVariant> values = widget->getFTPConnection();
     values.insert(DBConstants::COL_CONNECTION_ANALYST_ID, analyst_ID);
     dbHandler->update(DBConstants::TBL_CONNECTION, DBConstants::HASH_CONNECTION_TYPES, values, QString("%1 = %2").arg(DBConstants::COL_CONNECTION_ID).arg(id));
 }
 
-//Parse import data
-void Controller::parseImportData(){
+//ImportData
+void Controller::importData(IImportData *widget){
     viewCon->showMessage(tr("Start parsing"));
     viewCon->closePopUp();
-
-    if(importDataPopUp->getImportMode().compare("XML") == 0){
+    importDataWidget = widget;
+    if(widget->getImportMode().compare("XML") == 0){
         XMLParser *xmlParser = new XMLParser(this);
         connect(xmlParser, SIGNAL(createTransportation(QHash<QString,QVariant>)), this, SLOT(createTransportation(QHash<QString, QVariant>)));
         connect(xmlParser, SIGNAL(createEmployee(QHash<QString,QVariant>,QHash<QString,QVariant>)), this, SLOT(createEmployee(QHash<QString,QVariant>,QHash<QString,QVariant>)));
@@ -1117,20 +1094,21 @@ void Controller::parseImportData(){
         FtpHandler *ftpHandler = new FtpHandler();
         connect(ftpHandler, SIGNAL(error(QString)), this, SLOT(importDataDownloadError(QString)));
         connect(ftpHandler, SIGNAL(finished(QString)), this, SLOT(importDataDownloadFinished(QString)));
-        ftpHandler->setUser(importDataPopUp->getUserName(), importDataPopUp->getPassword());
-        ftpHandler->setPort(importDataPopUp->getPort());
-        ftpHandler->setServer(importDataPopUp->getAddress());
+        QHash<QString, QVariant> conValues = widget->getFTPConnection();
+        ftpHandler->setUser(conValues.value(DBConstants::COL_CONNECTION_USERNAME).toString(), conValues.value(DBConstants::COL_CONNECTION_PASSWORD).toString());
+        ftpHandler->setPort(conValues.value(DBConstants::COL_CONNECTION_PORT).toInt());
+        ftpHandler->setServer(conValues.value(DBConstants::COL_CONNECTION_SERVER_ADDRESS).toString());
 
         if(parser->getFileMode() == IImportDataParser::FileMode::MultiFile){
-            if(importDataPopUp->importTransportations())
+            if(widget->importTransportations())
                 ftpHandler->downloadFile(parser->getTransportationFilename(), downloadDir);
-            if(importDataPopUp->importEquipments())
+            if(widget->importEquipments())
                 ftpHandler->downloadFile(parser->getEquipmentFilename(), downloadDir);
-            if(importDataPopUp->importProducts())
+            if(widget->importProducts())
                 ftpHandler->downloadFile(parser->getProductFilename(), downloadDir);
-            if(importDataPopUp->importEmployees())
+            if(widget->importEmployees())
                 ftpHandler->downloadFile(parser->getEmployeeFilename(), downloadDir);
-            if(importDataPopUp->importWorkplaces())
+            if(widget->importWorkplaces())
                 ftpHandler->downloadFile(parser->getWorkplaceFilename(), downloadDir);
         }
         else {
@@ -1156,15 +1134,15 @@ void Controller::importDataDownloadFinished(const QString filename){
     }
     else {
         if(filename.compare(parser->getSingleFilename()) == 0){
-            if(importDataPopUp->importTransportations())
+            if(importDataWidget->importTransportations())
                 parser->parseTransportations(path.arg(filename));
-            if(importDataPopUp->importEquipments())
+            if(importDataWidget->importEquipments())
                 parser->parseEquipments(path.arg(filename));
-            if(importDataPopUp->importProducts())
+            if(importDataWidget->importProducts())
                 parser->parseProducts(path.arg(filename));
-            if(importDataPopUp->importEmployees())
+            if(importDataWidget->importEmployees())
                 parser->parseEmployees(path.arg(filename));
-            if(importDataPopUp->importWorkplaces())
+            if(importDataWidget->importWorkplaces())
                 parser->parseWorkplaces(path.arg(filename));
         }
     }
@@ -1174,6 +1152,10 @@ void Controller::importDataDownloadError(const QString &error){
     viewCon->showMessage(error, NotificationMessage::ERROR, NotificationMessage::PERSISTENT);
 }
 
+//SendData
+void Controller::sendData(ISendData *widget){
+
+}
 
 void Controller::resetDatabaseFactory()
 {
@@ -1243,7 +1225,7 @@ void Controller::languageChanged(){
          file.close();
          settingsView->setCurrentLanguageIcon("germanIcon");
          viewCon->showMessage(tr("Language changed"), NotificationMessage::ACCEPT);
-         viewCon->showMessage(("Neustart erforderlich um die Änderungen umzusetzen"), NotificationMessage::INFORMATION, NotificationMessage::PERSISTENT);
+         viewCon->showMessage(("Neustart erforderlich um die Änderungen zu übernehmen"), NotificationMessage::INFORMATION, NotificationMessage::PERSISTENT);
          break;
     case(1):
          out<<"english"<<','<<settings.at(1)<<','<<settings.at(2)<<','<<settings.at(3);

@@ -1,7 +1,6 @@
 #include "viewcontroller.h"
 #include "../separator.h"
 #include "../../standardpaths.h"
-#include "../popUps/feedbackpopup.h"
 #include <QVBoxLayout>
 #include <QDir>
 #include <QDateTime>
@@ -16,7 +15,6 @@ ViewController::ViewController(QWidget *parent) : NotificationWidget(parent),
     popUpTypeToWidget(new QHash<PopUpType, AbstractPopUpWidget*>()),
     btnBack(new QPushButton),
     btnForward(new QPushButton),
-    //btnFeedback(new QPushButton),
     lblBackTitle(new QLabel),
     lblForwardTitle(new QLabel),
     lblTitle(new QLabel),
@@ -33,10 +31,6 @@ ViewController::ViewController(QWidget *parent) : NotificationWidget(parent),
     btnForward->setFixedSize(45, 45);
     connect(btnForward, SIGNAL(clicked()), this, SLOT(btnForwardClicked()));
 
-    /*btnFeedback->setObjectName("feedbackIcon");
-    btnFeedback->setFixedSize(45, 45);
-    connect(btnFeedback, SIGNAL(clicked()), this, SLOT(btnFeedbackClicked()));*/
-
     middleNavigationLayout->addWidget(lblTitle);
 
     leftSpacer = new QSpacerItem(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -51,7 +45,6 @@ ViewController::ViewController(QWidget *parent) : NotificationWidget(parent),
     navigationBarLayout->addSpacerItem(new QSpacerItem(20, 0, QSizePolicy::Expanding, QSizePolicy::Fixed));
     navigationBarLayout->addSpacerItem(rightSpacer);
     navigationBarLayout->addLayout(additionalNavigationLayout);
-    //navigationBarLayout->addWidget(btnFeedback, 0, Qt::AlignRight);
     navigationBarLayout->addSpacerItem(new QSpacerItem(20, 0, QSizePolicy::Fixed, QSizePolicy::Fixed));
     navigationBarLayout->addWidget(lblForwardTitle, 0, Qt::AlignRight);
     navigationBarLayout->addWidget(btnForward, 0, Qt::AlignRight);
@@ -172,17 +165,6 @@ void ViewController::closePopUp(){
     emit update(previousViews->top());
 }
 
-void ViewController::btnFeedbackClicked(){
-    /*QPixmap pixmap(this->size());
-    this->render(&pixmap);
-    QString fileName = QString("%1%2.png").arg(StandardPaths::screenshotPath()).arg(QDateTime().currentDateTime().toString("ddMMyyyy_hhmmss"));
-    if(!QDir(StandardPaths::screenshotPath()).exists())
-        QDir().mkdir(StandardPaths::screenshotPath());
-    pixmap.save(fileName);*/
-    showPopUp(PopUpType::FEEDBACK_POPUP);
-    this->showMessage("Test");
-    this->showMessage("Klick mich", NotificationMessage::INFORMATION, NotificationMessage::PERSISTENT);
-}
 
 //PRIVATE METHODS
 void ViewController::adaptNavigationBar(ViewType type){

@@ -7,7 +7,6 @@
 
 ImportDataPopUp::ImportDataPopUp(QWidget *parent) :
     AbstractPopUpWidget(ConfirmMode::ACCEPT, tr("Import data"), parent),
-    countFinDownload(0),
     ftpConnectionWidget(new FTPConnectionsWidget(this)),
     cmbxImportMethod(new QComboBox()),
     chBxTransportation(new QCheckBox()),
@@ -52,34 +51,35 @@ ImportDataPopUp::~ImportDataPopUp()
 {
 
 }
+
 //PUBLIC SLOTS
-void ImportDataPopUp::add(const QString &name, int id)
-{
-    ftpConnectionWidget->add(name, id);
+void ImportDataPopUp::addFTPConnection(QHash<QString, QVariant> values){
+    ftpConnectionWidget->add(values.value(DBConstants::COL_CONNECTION_NAME).toString(), values.value(DBConstants::COL_CONNECTION_ID).toInt());
 }
 
-void ImportDataPopUp::select(int id)
-{
+void ImportDataPopUp::selectedFTPConnection(int id){
     ftpConnectionWidget->select(id);
 }
 
-void ImportDataPopUp::clear()
-{
+void ImportDataPopUp::clearFTPConnections(){
     ftpConnectionWidget->clear();
 }
 
-void ImportDataPopUp::onConfirm()
-{
-    if(ftpConnectionWidget->getSaved() && ftpConnectionWidget->getSelectedIndex() == 0)
-        emit create(this);
-    else if(ftpConnectionWidget->getSaved())
-        emit edit(this, ftpConnectionWidget->getSelectedID());
+void ImportDataPopUp::onEnter(){
+    emit initializeFTPConnections(this);
 }
 
 //PRIVATE SLOTS
-void ImportDataPopUp::selectedConnectionChanged(int id)
-{
-    emit selected(this, id);
+void ImportDataPopUp::selectedConnectionChanged(int id){
+    emit selectFTPConnection(this, id);
+}
+
+void ImportDataPopUp::onConfirm(){
+    if(ftpConnectionWidget->getSaved() && ftpConnectionWidget->getSelectedIndex() == 0)
+        emit createFTPConnection(this);
+    else if(ftpConnectionWidget->getSaved())
+        emit editFTPConnection(this, ftpConnectionWidget->getSelectedID());
+    emit importData(this);
 }
 
 
@@ -109,57 +109,24 @@ bool ImportDataPopUp::importWorkplaces() const
     return chBxWorkplace->isChecked();
 }
 
-QString ImportDataPopUp::getName() const
-{
-    return ftpConnectionWidget->getName();
+//GETTER / SETTER
+QHash<QString, QVariant> ImportDataPopUp::getFTPConnection() const{
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_CONNECTION_NAME, ftpConnectionWidget->getName());
+    values.insert(DBConstants::COL_CONNECTION_USERNAME, ftpConnectionWidget->getUserName());
+    values.insert(DBConstants::COL_CONNECTION_PASSWORD, ftpConnectionWidget->getPassword());
+    values.insert(DBConstants::COL_CONNECTION_PORT, ftpConnectionWidget->getPort());
+    values.insert(DBConstants::COL_CONNECTION_SERVER_ADDRESS, ftpConnectionWidget->getAddress());
+    values.insert(DBConstants::COL_CONNECTION_DEFAULT, ftpConnectionWidget->getSetAsDefault());
+    return values;
 }
-void ImportDataPopUp::setName(const QString &name)
-{
-    ftpConnectionWidget->setName(name);
-}
-
-QString ImportDataPopUp::getUserName() const
-{
-    return ftpConnectionWidget->getUserName();
-}
-void ImportDataPopUp::setUserName(const QString &username)
-{
-    ftpConnectionWidget->setUserName(username);
-}
-
-QString ImportDataPopUp::getPassword() const
-{
-    return ftpConnectionWidget->getPassword();
-}
-void ImportDataPopUp::setPassword(const QString &password)
-{
-    ftpConnectionWidget->setPassword(password);
+void ImportDataPopUp::setFTPConnection(QHash<QString, QVariant> values){
+    ftpConnectionWidget->setName(values.value(DBConstants::COL_CONNECTION_NAME).toString());
+    ftpConnectionWidget->setUserName(values.value(DBConstants::COL_CONNECTION_USERNAME).toString());
+    ftpConnectionWidget->setPassword(values.value(DBConstants::COL_CONNECTION_PASSWORD).toString());
+    ftpConnectionWidget->setPort(values.value(DBConstants::COL_CONNECTION_PORT).toInt());
+    ftpConnectionWidget->setAddress(values.value(DBConstants::COL_CONNECTION_SERVER_ADDRESS).toString());
+    ftpConnectionWidget->setSetAsDefault(values.value(DBConstants::COL_CONNECTION_DEFAULT).toBool());
 }
 
-QString ImportDataPopUp::getAddress() const
-{
-    return ftpConnectionWidget->getAddress();
-}
-void ImportDataPopUp::setAddress(const QString &address)
-{
-    ftpConnectionWidget->setAddress(address);
-}
-
-int ImportDataPopUp::getPort() const
-{
-    return ftpConnectionWidget->getPort();
-}
-void ImportDataPopUp::setPort(int port)
-{
-    ftpConnectionWidget->setPort(port);
-}
-
-bool ImportDataPopUp::getSetAsDefault() const
-{
-    return ftpConnectionWidget->getSetAsDefault();
-}
-void ImportDataPopUp::setSetAsDefault(bool setAsDefault)
-{
-    ftpConnectionWidget->setSetAsDefault(setAsDefault);
-}
 

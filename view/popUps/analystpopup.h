@@ -2,22 +2,29 @@
 #define ANALYSTPOPUP_H
 
 #include "../navigation/abstractpopupwidget.h"
+#include "../interfaces/ianalyst.h"
+#include "../../databaseHandler/dbconstants.h"
 #include "../textlineedit.h"
 
-class AnalystPopUp : public AbstractPopUpWidget
+class AnalystPopUp : public AbstractPopUpWidget, IAnalyst
 {
     Q_OBJECT
+    Q_INTERFACES(IAnalyst)
 public:
     explicit AnalystPopUp(QWidget *parent = 0);
     ~AnalystPopUp();
 
-    QString getAnalystLastName() const;
-    QString getAnalystFirstName() const;
-    QString getAnalystEmployer() const;
-    QString getAnalystExperience() const;
+signals:
+    void saveAnalyst(QHash<QString, QVariant> values);
 
 public slots:
     void onEnter();
+    void setAnalyst(QHash<QString, QVariant> values){
+
+    }
+
+private slots:
+    void onConfirm();
 
 private:
     TextLineEdit *txtBxAnalystLastName;

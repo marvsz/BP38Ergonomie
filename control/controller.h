@@ -28,7 +28,6 @@
 #include "../view/ressourceManagementView/employeeview.h"
 #include "../view/ressourceManagementView/employeelistview.h"
 #include "../view/generalViews/settingsview.h"
-#include "../view/popUps//feedbackpopup.h"
 #include "../view/popUps/equipmentpopup.h"
 #include "../view/popUps/transporationpopup.h"
 #include "../view/popUps/senddatabasepopup.h"
@@ -63,6 +62,13 @@ public:
 
 signals:
     void clearAll();
+
+    //Analyst
+    void clearAnalysts();
+    void createdAnalyst(QHash<QString, QVariant> values);
+    void selectedAnalyst(QHash<QString, QVariant> values);
+    void updatedAnalyst(QHash<QString, QVariant> values);
+    void removedAnalyst(int id);
 
     //Workplace
     void clearWorkplaces();
@@ -145,16 +151,17 @@ signals:
     void initiliazedWorkProcesses(QList<QHash<QString, QVariant>> values);
     void resettedWorkProcesses();
 
+
 private slots:
     void databaseError(QString error);
 
     void update(ViewType type);
-    void update(PopUpType type);
     void save(ViewType type);
 
-    void updateAnalystSelectionView();
-    void createAnalyst();
-    void removeAnalyst(int id);
+    //Analyst
+    void initializeAnalysts();
+    void createAnalyst(QHash<QString, QVariant> values);
+    void deleteAnalyst(int id);
     void selectAnalyst(int id);
 
     void createBlankRecording();
@@ -248,14 +255,19 @@ private slots:
     //BodyMeasurement
     void saveBodyMeasurement(QHash<QString, QVariant> values);
 
-    void updateFTPConnectionPopUp(IFTPConnections *widget);
-    void selectedConnectionChanged(IFTPConnections *widget, int id);
-    void createConnection(IFTPConnections *widget);
-    void editConnection(IFTPConnections *widget, int id);
+    //Connection
+    void initializeFTPConnections(IFTPConnections *widget);
+    void createFTPConnection(IFTPConnections *widget);
+    void editFTPConnection(IFTPConnections *widget, int id);
+    void selectFTPConnection(IFTPConnections *widget, int id);
 
-    void parseImportData();
+    //ImportData
+    void importData(IImportData *widget);
     void importDataDownloadFinished(const QString filename);
     void importDataDownloadError(const QString &error);
+
+    //SendData
+    void sendData(ISendData *widget);
 
     void resetDatabaseFactory();
     void resetSelectedEntries();
@@ -299,7 +311,6 @@ private:
 
     TimerViewController *timerViewController;
 
-    FeedbackPopUp *feedbackPopUp;
     EquipmentPopUp *equipmentPopUp;
     TransporationPopUp *transportationPopUp;
     SendDatabasePopUp *sendDatabasePopUp;
@@ -330,6 +341,7 @@ private:
     int bodyMeasurement_ID;
     int selectedEmployee_ID;
 
+    IImportData *importDataWidget;
     IImportDataParser *parser;
     QString downloadDir;
 

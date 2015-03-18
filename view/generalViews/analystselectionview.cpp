@@ -38,18 +38,49 @@ QList<QAbstractButton*> * AnalystSelectionView::getAdditionalNavigation() const{
     return additions;
 }
 
-void AnalystSelectionView::add(int id, const QString &lastName, const QString &firstName){
-    QString name = lastName + ", " + firstName;
+//PUBLIC SLOTS
+void AnalystSelectionView::addAnalyst(QHash<QString, QVariant> values){
+    QString name = QString("%1, %2").arg(values.value(DBConstants::COL_ANALYST_LASTNAME).toString()).arg(values.value(DBConstants::COL_ANALYST_FIRSTNAME).toString());
 
     DetailedListItem *newListItem = new DetailedListItem(this, "userIcon", name, QList<QStringList>(), true, false, true);
 
-    newListItem->setID(id);
+    newListItem->setID(values.value(DBConstants::COL_ANALYST_ID).toInt());
     connect(newListItem, SIGNAL(pressed(int)), this, SLOT(dliPressed(int)));
-    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(remove(int)));
+    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteAnalyst(int)));
     listContentLayout->addWidget(newListItem);
 }
 
-void AnalystSelectionView::clear(){
+void AnalystSelectionView::updateAnalyst(QHash<QString, QVariant> values){
+    QLayoutItem *item;
+    int id = values.value(DBConstants::COL_ANALYST_ID).toInt();
+    int i = 0;
+    while((item = listContentLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            QString name = QString("%1, %2").arg(values.value(DBConstants::COL_ANALYST_LASTNAME).toString()).arg(values.value(DBConstants::COL_ANALYST_FIRSTNAME).toString());
+            dli->setName(name);
+            break;
+        }
+        i++;
+    }
+}
+
+void AnalystSelectionView::removeAnalyst(int id){
+    QLayoutItem *item;
+    int i = 0;
+    while((item = listContentLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            listContentLayout->removeItem(item);
+            delete item->widget();
+            delete item;
+            break;
+        }
+        i++;
+    }
+}
+
+void AnalystSelectionView::clearAnalysts(){
     QLayoutItem *item;
     while((item = listContentLayout->takeAt(0)) != NULL){
         delete item->widget();
@@ -59,7 +90,7 @@ void AnalystSelectionView::clear(){
 
 //PRIVATE SLOTS
 void AnalystSelectionView::dliPressed(int id){
-    emit select(id);
+    emit selectAnalyst(id);
     emit showView(ViewType::MAIN_MENU_VIEW);
 }
 

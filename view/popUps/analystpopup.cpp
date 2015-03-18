@@ -24,6 +24,8 @@ AnalystPopUp::AnalystPopUp(QWidget *parent):
     mainLayout->addWidget(new QLabel(tr("Experience:")), 3, 0, 1, 1, 0);
     mainLayout->addWidget(txtBxAnalystExperience, 3, 1, 1, 1, 0);
 
+    connect(this, SIGNAL(confirm()), this, SLOT(onConfirm()));
+
     setLayout(mainLayout);
 }
 
@@ -40,19 +42,14 @@ void AnalystPopUp::onEnter(){
     txtBxAnalystExperience->clear();
 }
 
-//GETTER
-QString AnalystPopUp::getAnalystLastName() const {
-    return txtBxAnalystLastName->text();
+//PRIVATE SLOTS
+void AnalystPopUp::onConfirm(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_ANALYST_LASTNAME, txtBxAnalystLastName->text());
+    values.insert(DBConstants::COL_ANALYST_FIRSTNAME, txtBxAnalystFirstName->text());
+    values.insert(DBConstants::COL_ANALYST_EXPERIENCE, txtBxAnalystExperience->text());
+    values.insert(DBConstants::COL_EMPLOYER_NAME, txtBxAnalystEmployer->text());
+    emit saveAnalyst(values);
+    emit closePopUp();
 }
 
-QString AnalystPopUp::getAnalystFirstName() const {
-    return txtBxAnalystFirstName->text();
-}
-
-QString AnalystPopUp::getAnalystEmployer() const {
-    return txtBxAnalystEmployer->text();
-}
-
-QString AnalystPopUp::getAnalystExperience() const {
-    return txtBxAnalystExperience->text();
-}

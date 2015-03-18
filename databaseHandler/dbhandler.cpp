@@ -61,11 +61,11 @@ int DBHandler::insert(const QString &tbl, const QHash<QString, QVariant::Type> &
         record.setValue(key, colMapNameValue.value(key));
     }
 
-    insertRow(tbl, record);
-    return id;
+    bool success = getTableModelRef(tbl)->insertRecord(-1, record);
+    return success ? id : -1;
 }
 
-int DBHandler::update(const QString &tbl, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue, const QString &filter){
+int DBHandler::update(const QString &tbl, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue, const QString &filter, const QString &colID){
     QSqlRecord record;
 
     foreach(QString colName, colMapNameValue.keys()){
@@ -73,8 +73,18 @@ int DBHandler::update(const QString &tbl, const QHash<QString, QVariant::Type> &
         record.setValue(colName, colMapNameValue.value(colName));
     }
 
-    updateAll(tbl, filter, record);
-    return -1;
+    int id = -1;
+    int count = selectCount(tbl, filter);
+    if(count > 0) {
+        bool success = true;
+        QSqlTableModel *tblModel = getTableModelRef(tbl);
+        for(int i = 0; i < count; ++i)
+            success &= tblModel->setRecord(i, record);
+        if(success)
+            id = tblModel->record(0).value(colID).toInt();
+    }
+
+    return id;
 }
 
 int DBHandler::save(const QString &tbl, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue, const QString &filter, const QString &colID){
@@ -82,7 +92,7 @@ int DBHandler::save(const QString &tbl, const QHash<QString, QVariant::Type> &co
         return insert(tbl, colMapNameType, colMapNameValue, colID);
     }
     else {
-        return update(tbl, colMapNameType, colMapNameValue, filter);
+        return update(tbl, colMapNameType, colMapNameValue, filter, colID);
     }
 }
 
@@ -125,36 +135,11 @@ bool DBHandler::isSelectEmpty(const QString &tbl, const QString &filter, Qt::Sor
 }
 
 
-//DEPRECATED
-bool DBHandler::insertRow(const QString &tbl, const QSqlRecord &record){
-    QSqlTableModel* tm = getTableModelRef(tbl);
-    bool success = tm->insertRecord(-1, record);
-    tm->submitAll();
-    return success;
-}
-
-bool DBHandler::updateRow(const QString &tbl, int row, const QSqlRecord &record){
-    return getTableModelRef(tbl)->setRecord(row, record);
-}
-
-bool DBHandler::updateAll(const QString &tbl, const QString &filter, const QSqlRecord &record){
-    bool success = true;
-    int count = selectCount(tbl, filter);
-    QSqlTableModel *tblModel = getTableModelRef(tbl);
-    for(int i = 0; i < count; ++i)
-        success &= tblModel->setRecord(i, record);
-    return success;
-}
-//END DEPRECATED
-
-bool DBHandler::deleteRow(const QString &tbl, int row){
-    return getTableModelRef(tbl)->removeRow(row);
-}
-
 bool DBHandler::deleteAll(const QString &tbl, const QString &filter){
     bool success = true;
+    QSqlTableModel* tblModel = getTableModelRef(tbl);
     for(int i = selectCount(tbl, filter) - 1; i >= 0; --i)
-        success &= deleteRow(tbl, i);
+        success &= tblModel->removeRow(i);
     return success;
 }
 

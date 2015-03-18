@@ -65,7 +65,6 @@ HEADERS +=\
     $$PWD/rotationGroupView/rotationgrouplistview.h \
     $$PWD/navigation/notificationwidget.h \
     $$PWD/navigation/notificationmessage.h \
-    $$PWD/popUps/feedbackpopup.h \
     $$PWD/popUps/senddatabasepopup.h \
     $$PWD/popUps/equipmentpopup.h \
     $$PWD/popUps/transporationpopup.h \
@@ -114,7 +113,11 @@ HEADERS +=\
     $$PWD/interfaces/iequipment.h \
     $$PWD/interfaces/itransportation.h \
     $$PWD/interfaces/ibodyposture.h \
-    $$PWD/interfaces/igantt.h
+    $$PWD/interfaces/igantt.h \
+    $$PWD/interfaces/ianalyst.h \
+    $$PWD/interfaces/ianalystlist.h \
+    $$PWD/interfaces/iimportdata.h \
+    $$PWD/interfaces/isenddata.h
 
 
 SOURCES +=\
@@ -177,7 +180,6 @@ SOURCES +=\
     $$PWD/rotationGroupView/rotationgrouplistview.cpp \
     $$PWD/navigation/notificationwidget.cpp \
     $$PWD/navigation/notificationmessage.cpp \
-    $$PWD/popUps/feedbackpopup.cpp \
     $$PWD/popUps/senddatabasepopup.cpp \
     $$PWD/popUps/equipmentpopup.cpp \
     $$PWD/popUps/transporationpopup.cpp \

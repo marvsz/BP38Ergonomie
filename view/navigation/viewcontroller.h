@@ -43,7 +43,6 @@ private slots:
 
     void showPopUp(PopUpType type);
 
-    void btnFeedbackClicked();
 private:
     QStackedWidget *content;
     QStack<ViewType> *previousViews;
@@ -54,7 +53,6 @@ private:
 
     QPushButton *btnBack;
     QPushButton *btnForward;
-    //QPushButton *btnFeedback;
     QLabel *lblBackTitle;
     QLabel *lblForwardTitle;
     QLabel *lblTitle;

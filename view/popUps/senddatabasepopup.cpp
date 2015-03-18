@@ -24,23 +24,34 @@ SendDatabasePopUp::~SendDatabasePopUp()
 }
 
 //PUBLIC SLOTS
-void SendDatabasePopUp::add(const QString &name, int id){
-    ftpConnectionWidget->add(name, id);
+void SendDatabasePopUp::addFTPConnection(QHash<QString, QVariant> values){
+    ftpConnectionWidget->add(values.value(DBConstants::COL_CONNECTION_NAME).toString(), values.value(DBConstants::COL_CONNECTION_ID).toInt());
 }
 
-void SendDatabasePopUp::select(int id){
+void SendDatabasePopUp::selectedFTPConnection(int id){
     ftpConnectionWidget->select(id);
 }
 
-void SendDatabasePopUp::clear(){
+void SendDatabasePopUp::clearFTPConnections(){
     ftpConnectionWidget->clear();
+}
+
+void SendDatabasePopUp::onEnter(){
+    emit initializeFTPConnections(this);
+}
+
+//PRIVATE SLOTS
+void SendDatabasePopUp::selectedConnectionChanged(int id){
+    emit selectFTPConnection(this, id);
 }
 
 void SendDatabasePopUp::onConfirm(){
     if(ftpConnectionWidget->getSaved() && ftpConnectionWidget->getSelectedIndex() == 0)
-        emit create(this);
+        emit createFTPConnection(this);
     else if(ftpConnectionWidget->getSaved())
-        emit edit(this, ftpConnectionWidget->getSelectedID());
+        emit editFTPConnection(this, ftpConnectionWidget->getSelectedID());
+
+    emit sendData(this);
 
     FtpHandler *ftpHandler = new FtpHandler();
     connect(ftpHandler, SIGNAL(started()), this, SLOT(startedUpload()));
@@ -50,12 +61,6 @@ void SendDatabasePopUp::onConfirm(){
     ftpHandler->setPort(ftpConnectionWidget->getPort());
     ftpHandler->setServer(ftpConnectionWidget->getAddress());
     ftpHandler->uploadFile(StandardPaths::databasePath());
-}
-
-
-//PRIVATE SLOTS
-void SendDatabasePopUp::selectedConnectionChanged(int id){
-    emit selected(this, id);
 }
 
 void SendDatabasePopUp::startedUpload(){
@@ -72,44 +77,21 @@ void SendDatabasePopUp::errorDurringUpload(const QString &error){
 }
 
 //GETTER / SETTER
-QString SendDatabasePopUp::getName() const{
-    return ftpConnectionWidget->getName();
+QHash<QString, QVariant> SendDatabasePopUp::getFTPConnection() const{
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_CONNECTION_NAME, ftpConnectionWidget->getName());
+    values.insert(DBConstants::COL_CONNECTION_USERNAME, ftpConnectionWidget->getUserName());
+    values.insert(DBConstants::COL_CONNECTION_PASSWORD, ftpConnectionWidget->getPassword());
+    values.insert(DBConstants::COL_CONNECTION_PORT, ftpConnectionWidget->getPort());
+    values.insert(DBConstants::COL_CONNECTION_SERVER_ADDRESS, ftpConnectionWidget->getAddress());
+    values.insert(DBConstants::COL_CONNECTION_DEFAULT, ftpConnectionWidget->getSetAsDefault());
+    return values;
 }
-void SendDatabasePopUp::setName(const QString &name){
-    ftpConnectionWidget->setName(name);
-}
-
-QString SendDatabasePopUp::getUserName() const{
-    return ftpConnectionWidget->getUserName();
-}
-void SendDatabasePopUp::setUserName(const QString &username){
-    ftpConnectionWidget->setUserName(username);
-}
-
-QString SendDatabasePopUp::getPassword() const{
-    return ftpConnectionWidget->getPassword();
-}
-void SendDatabasePopUp::setPassword(const QString &password){
-    ftpConnectionWidget->setPassword(password);
-}
-
-QString SendDatabasePopUp::getAddress() const{
-    return ftpConnectionWidget->getAddress();
-}
-void SendDatabasePopUp::setAddress(const QString &address){
-    ftpConnectionWidget->setAddress(address);
-}
-
-int SendDatabasePopUp::getPort() const{
-    return ftpConnectionWidget->getPort();
-}
-void SendDatabasePopUp::setPort(int port){
-    ftpConnectionWidget->setPort(port);
-}
-
-bool SendDatabasePopUp::getSetAsDefault() const{
-    return ftpConnectionWidget->getSetAsDefault();
-}
-void SendDatabasePopUp::setSetAsDefault(bool setAsDefault){
-    ftpConnectionWidget->setSetAsDefault(setAsDefault);
+void SendDatabasePopUp::setFTPConnection(QHash<QString, QVariant> values){
+    ftpConnectionWidget->setName(values.value(DBConstants::COL_CONNECTION_NAME).toString());
+    ftpConnectionWidget->setUserName(values.value(DBConstants::COL_CONNECTION_USERNAME).toString());
+    ftpConnectionWidget->setPassword(values.value(DBConstants::COL_CONNECTION_PASSWORD).toString());
+    ftpConnectionWidget->setPort(values.value(DBConstants::COL_CONNECTION_PORT).toInt());
+    ftpConnectionWidget->setAddress(values.value(DBConstants::COL_CONNECTION_SERVER_ADDRESS).toString());
+    ftpConnectionWidget->setSetAsDefault(values.value(DBConstants::COL_CONNECTION_DEFAULT).toBool());
 }

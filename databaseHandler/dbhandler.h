@@ -31,13 +31,8 @@ public:
 
     int insert(const QString &tbl, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue, const QString &colID = "");
     int save(const QString &tbl, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue, const QString &filter = "", const QString &colID = "");
-    int update(const QString &tbl, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue, const QString &filter = "");
-    bool deleteRow(const QString &tbl, int row);
+    int update(const QString &tbl, const QHash<QString, QVariant::Type> &colMapNameType, QHash<QString, QVariant> &colMapNameValue, const QString &filter = "", const QString &colID = "");
     bool deleteAll(const QString &tbl, const QString &filter);
-
-    //PUBLIC ONLY UNTIL BODY POSTURE UPDATE
-    bool insertRow(const QString &tbl, const QSqlRecord &record);
-    bool updateRow(const QString &tbl, int row, const QSqlRecord &record);
 
 //signals:
     void databaseError(QString errorMessage){
