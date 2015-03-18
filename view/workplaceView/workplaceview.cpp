@@ -182,6 +182,6 @@ void WorkplaceView::btnCommentClicked(){
 }
 
 void WorkplaceView::btnEmployeeClicked(){
-    emit showPopUp(PopUpType::EMPlOYEE_POPUP);
+    emit showPopUp(PopUpType::EMPLOYEE_POPUP);
 }
 

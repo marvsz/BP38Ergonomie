@@ -30,7 +30,7 @@ void IconButton::setText(const QString &text){
     lblText->setText(text);
 }
 
-void IconButton::paintEvent(QPaintEvent *e){
+void IconButton::paintEvent(QPaintEvent*){
     QStylePainter p(this);
     QStyleOption opt;
     opt.initFrom(this);

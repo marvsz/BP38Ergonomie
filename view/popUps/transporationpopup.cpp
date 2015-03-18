@@ -41,10 +41,6 @@ TransporationPopUp::~TransporationPopUp()
 {
 }
 
-//PUBLIC SLOTS
-void TransporationPopUp::setTransportation(QHash<QString, QVariant> values){
-}
-
 // PRIVATE SLOTS
 void TransporationPopUp::onConfirm(){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();

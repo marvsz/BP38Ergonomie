@@ -43,7 +43,7 @@ private:
     IconButton *btnMetaDataView;
     IconButton *btnWorkplaceList;
     IconButton *btnRessourceManagement;
-    //IconButton *btnShift;
+    IconButton *btnShift;
     QPushButton *btnSettings;
     QPushButton *btnNewRecording;
     //QPushButton *btnCamera;

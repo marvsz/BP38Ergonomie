@@ -91,7 +91,7 @@ DetailedListItem::DetailedListItem(QWidget *parent, const QString &objectName, c
     connect(this, SIGNAL(clicked()), this, SLOT(itemPressed()));
 }
 
-void DetailedListItem::paintEvent(QPaintEvent *e){
+void DetailedListItem::paintEvent(QPaintEvent*){
     QStylePainter p(this);
     QStyleOption opt;
     opt.initFrom(this);
@@ -115,10 +115,6 @@ void DetailedListItem::itemPressed(){
 }
 
 // PUBLIC SLOTS
-void DetailedListItem::
-checkState(int id){
-}
-
 void DetailedListItem::setValues(const QList<QStringList> &values){
     for(int i = 0; i < values.count(); ++i){
         for(int j = 0; j < values.at(i).count(); ++j){

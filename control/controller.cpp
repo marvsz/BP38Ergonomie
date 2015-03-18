@@ -318,7 +318,7 @@ Controller::Controller(QObject *parent, QApplication *app) :
     viewCon->registerPopUp(workplacePopUp, PopUpType::WORKPLACE_POPUP);
     viewCon->registerPopUp(importDataPopUp, PopUpType::IMPORT_DATA_POPUP);
     viewCon->registerPopUp(resetPopUp, PopUpType::RESET_POPUP);
-    viewCon->registerPopUp(employeePopUp,PopUpType::EMPlOYEE_POPUP);
+    viewCon->registerPopUp(employeePopUp,PopUpType::EMPLOYEE_POPUP);
     viewCon->registerPopUp(factorySettingsPopUp, PopUpType::FACTORYSETTINGS_POPUP);
     viewCon->registerPopUp(linePopUp, PopUpType::LINE_POPUP);
 

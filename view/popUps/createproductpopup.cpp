@@ -29,10 +29,6 @@ CreateProductPopUp::~CreateProductPopUp(){
 
 }
 
-// PUBLIC SLOTS
-void CreateProductPopUp::setProduct(QHash<QString, QVariant> values){
-}
-
 // PRIVATE SLOTS
 void CreateProductPopUp::onConfirm(){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();

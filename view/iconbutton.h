@@ -21,7 +21,7 @@ signals:
 public slots:
 
 protected:
-    void paintEvent(QPaintEvent *e);
+    void paintEvent(QPaintEvent *);
     QSize sizeHint() const;
 
 private:

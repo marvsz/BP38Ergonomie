@@ -16,7 +16,8 @@ DocumentationView::DocumentationView(QWidget *parent) :
     mainContent(new QStackedWidget(this)),
     mainLayout(new QVBoxLayout),
     viewTypeToWidget(new QHash<ViewType, TitledWidget*>()),
-    viewTypeToIndex(new QHash<ViewType, int>())
+    viewTypeToIndex(new QHash<ViewType, int>()),
+    currentView(ViewType::UNKNOWN)
 {
     views->setMinimumSize(280, 40);
     connect(views, SIGNAL(currentIndexChanged(int)), this, SLOT(changeView(int)));

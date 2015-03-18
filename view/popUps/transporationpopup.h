@@ -18,7 +18,7 @@ signals:
     void saveTransportation(QHash<QString, QVariant> values);
 
 public slots:
-    void setTransportation(QHash<QString, QVariant> values);
+    void setTransportation(QHash<QString, QVariant>){}
 
     void onConfirm();
     void onClose();

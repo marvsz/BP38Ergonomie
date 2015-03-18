@@ -19,7 +19,7 @@ signals:
     void saveProduct(QHash<QString, QVariant> values);
 
 public slots:
-    void setProduct(QHash<QString, QVariant> values);
+    void setProduct(QHash<QString, QVariant>){}
 
 private slots:
     void onConfirm();

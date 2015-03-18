@@ -9,7 +9,7 @@ MainMenu::MainMenu(QWidget *parent) :
     btnMetaDataView(new IconButton(this, "commentIcon", tr("Head Data"))),
     btnWorkplaceList(new IconButton(this, "workplaceIcon", tr("Workplaces"))),
     btnRessourceManagement(new IconButton(this, "equipmentIcon", tr ("Ressource Management"))),
-    //btnShift(new IconButton(this, "calendarIcon", tr("Shift Data"))),
+    btnShift(new IconButton(this, "calendarIcon", tr("Shift Data"))),
     btnSettings(new QPushButton(this)),
     btnNewRecording(new QPushButton(this)),
     #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
@@ -23,7 +23,7 @@ MainMenu::MainMenu(QWidget *parent) :
     btnMetaDataView->setMinimumSize(300, 60);
     btnWorkplaceList->setMinimumSize(300, 60);
     btnRessourceManagement->setMinimumSize(300, 60);
-    //btnShift->setMinimumSize(300, 60);
+    btnShift->setMinimumSize(300, 60);
 
     btnSettings->setObjectName("settingsIcon");
     btnSettings->setFixedSize(45, 45);
@@ -45,7 +45,7 @@ MainMenu::MainMenu(QWidget *parent) :
     connect(btnMetaDataView, SIGNAL(clicked()), this, SLOT(btnMetaDataViewClicked()));
     connect(btnWorkplaceList, SIGNAL(clicked()), this, SLOT(btnWorkplaceListClicked()));
     connect(btnRessourceManagement, SIGNAL(clicked()), this, SLOT(btnRessourceManagementClicked()));
-    //connect(btnShift, SIGNAL(clicked()), this, SLOT(btnShiftClicked()));
+    connect(btnShift, SIGNAL(clicked()), this, SLOT(btnShiftClicked()));
     connect(btnNewRecording, SIGNAL(clicked()), this, SLOT(btnNewRecordingClicked()));
     connect(btnSettings, SIGNAL(clicked()), this, SLOT(btnSettingsClicked()));
     connect(btnImport, SIGNAL(clicked()), this, SLOT(btnImportClicked()));
@@ -63,7 +63,7 @@ MainMenu::MainMenu(QWidget *parent) :
     mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
     mainLayout->addWidget(btnRessourceManagement, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0,60,QSizePolicy::Minimum, QSizePolicy::Fixed));
-    //mainLayout->addWidget(btnShift, 0, Qt::AlignCenter);
+    mainLayout->addWidget(btnShift, 0, Qt::AlignCenter);
     mainLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Minimum, QSizePolicy::Expanding));
 
     setLayout(mainLayout);

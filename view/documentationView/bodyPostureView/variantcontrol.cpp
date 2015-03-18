@@ -2,6 +2,7 @@
 #include "../../separator.h"
 
 VariantControl::VariantControl(QWidget *parent) : QWidget(parent),
+    name(QString("")),
     variantsLayout(new QVBoxLayout),
     valueControlLayout(new QVBoxLayout),
     mainContent(new QWidget()),
@@ -9,7 +10,8 @@ VariantControl::VariantControl(QWidget *parent) : QWidget(parent),
     hasSpeci(false),
     svBtnCurrentSel(0),
     valueControls(new QVector<QVector<ValueControl*>*>()),
-    variantBtns(new QVector<SelectableValueButton*>())
+    variantBtns(new QVector<SelectableValueButton*>()),
+    shown(false)
 {
     btnName->setMaximumWidth(150);
     connect(btnName, SIGNAL(clicked()), this, SLOT(btnNameClicked()));

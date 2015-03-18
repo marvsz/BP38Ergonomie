@@ -50,6 +50,7 @@ private slots:
     void btnRotationClicked();
     void btnEmployeeClicked();
     void btnCalendarClicked();
+    void dliEmployeeSelectionClicked();
 
 private:
     int id;
@@ -63,6 +64,7 @@ private:
     QLabel *lblStart;
     QLabel *lblEnd;
     QLabel *lblEmployee;
+    DetailedListItem *dliEmployeeSelection;
     QPushButton *btnRotation;
     QPushButton *btnEmployee;
     QPushButton *btnCalendar;
