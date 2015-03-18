@@ -114,7 +114,11 @@ HEADERS +=\
     $$PWD/interfaces/iequipment.h \
     $$PWD/interfaces/itransportation.h \
     $$PWD/interfaces/ibodyposture.h \
-    $$PWD/interfaces/igantt.h
+    $$PWD/interfaces/igantt.h \
+    $$PWD/interfaces/ianalyst.h \
+    $$PWD/interfaces/ianalystlist.h \
+    $$PWD/interfaces/iimportdata.h \
+    $$PWD/interfaces/isenddata.h
 
 
 SOURCES +=\

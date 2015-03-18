@@ -2,22 +2,22 @@
 #define ANALYSTSELECTIONVIEW_H
 
 #include <QPushButton>
-#include "../navigation/simplenavigateablewidget.h"
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QScrollArea>
+#include "../navigation/simplenavigateablewidget.h"
+#include "../interfaces/ianalystlist.h"
 #include "../textlineedit.h"
 #include "../detailedlistitem.h"
-#include <QScrollArea>
+#include "../../databaseHandler/dbconstants.h"
 
-class AnalystSelectionView : public SimpleNavigateableWidget
+class AnalystSelectionView : public SimpleNavigateableWidget, IAnalystList
 {
     Q_OBJECT
+    Q_INTERFACES(IAnalystList)
+
 public:
     explicit AnalystSelectionView(QWidget *parent = 0);
-    QString getAnalystLastName() const;
-    QString getAnalystFirstName() const;
-    QString getAnalystEmployer() const;
-    QString getAnalystExperience() const;
 
     bool canGoBack() const{
         return false;
@@ -30,12 +30,15 @@ public:
     QList<QAbstractButton*> * getAdditionalNavigation() const;
 
 signals:
-    void remove(int id);
-    void select(int id);
+    void createAnalyst(QHash<QString, QVariant> values);
+    void deleteAnalyst(int id);
+    void selectAnalyst(int id);
 
 public slots:
-    void add(int id, const QString &lastName, const QString &firstName);
-    void clear();
+    void addAnalyst(QHash<QString, QVariant> values);
+    void updateAnalyst(QHash<QString, QVariant> values);
+    void removeAnalyst(int id);
+    void clearAnalysts();
 
 private slots:
     void dliPressed(int id);

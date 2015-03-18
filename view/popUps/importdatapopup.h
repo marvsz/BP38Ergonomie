@@ -2,16 +2,20 @@
 #define IMPORTDATAPOPUP_H
 
 #include "../view/navigation/abstractpopupwidget.h"
-#include "../view/interfaces/iftpconnections.h"
-#include "ftpconnectionswidget.h"
+#include "../view/interfaces/iimportdata.h"
+#include "../ftpconnectionswidget.h"
+#include "../../databaseHandler/dbconstants.h"
 
-class ImportDataPopUp : public AbstractPopUpWidget, public IFTPConnections
+class ImportDataPopUp : public AbstractPopUpWidget, public IImportData
 {
     Q_OBJECT
-    Q_INTERFACES(IFTPConnections)
+    Q_INTERFACES(IImportData)
 public:
     explicit ImportDataPopUp(QWidget *parent = 0);
     ~ImportDataPopUp();
+
+    QHash<QString, QVariant> getFTPConnection() const;
+    void setFTPConnection(QHash<QString, QVariant> values);
 
     QString getImportMode() const;
     bool importTransportations() const;
@@ -20,36 +24,25 @@ public:
     bool importEmployees() const;
     bool importWorkplaces() const;
 
-    //Inherited from IFTPConnections
-    QString getName() const;
-    void setName(const QString &name);
-    QString getUserName() const;
-    void setUserName(const QString &username);
-    QString getPassword() const;
-    void setPassword(const QString &password);
-    QString getAddress() const;
-    void setAddress(const QString &address);
-    int getPort() const;
-    void setPort(int port);
-    bool getSetAsDefault() const;
-    void setSetAsDefault(bool setAsDefault);
-
 signals:
-    void create(IFTPConnections *widget);
-    void edit(IFTPConnections *widget, int id);
-    void selected(IFTPConnections *widget, int id);
+    void initializeFTPConnections(IFTPConnections *widget);
+    void createFTPConnection(IFTPConnections *widget);
+    void editFTPConnection(IFTPConnections *widget, int id);
+    void selectFTPConnection(IFTPConnections *widget, int id);
+    void importData(IImportData *widget);
 
 public slots:
-    void add(const QString &name, int id);
-    void select(int id);
-    void clear();
-    void onConfirm();
+    void addFTPConnection(QHash<QString, QVariant> values);
+    void selectedFTPConnection(int id);
+    void clearFTPConnections();
+
+    void onEnter();
 
 private slots:
     void selectedConnectionChanged(int id);
+    void onConfirm();
 
 private:
-    int countFinDownload;
     FTPConnectionsWidget *ftpConnectionWidget;
     QComboBox *cmbxImportMethod;
     QCheckBox *chBxTransportation;

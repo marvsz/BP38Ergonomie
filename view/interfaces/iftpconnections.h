@@ -3,32 +3,22 @@
 
 #include <QtPlugin>
 
-class IFTPConnections
-{
+class IFTPConnections{
 
 public:
-    virtual QString getName() const = 0;
-    virtual void setName(const QString &name) = 0;
-    virtual QString getUserName() const = 0;
-    virtual void setUserName(const QString &username) = 0;
-    virtual QString getPassword() const = 0;
-    virtual void setPassword(const QString &password) = 0;
-    virtual QString getAddress() const = 0;
-    virtual void setAddress(const QString &address) = 0;
-    virtual int getPort() const = 0;
-    virtual void setPort(int port) = 0;
-    virtual bool getSetAsDefault() const = 0;
-    virtual void setSetAsDefault(bool setAsDefault) = 0;
+    virtual QHash<QString, QVariant> getFTPConnection() const = 0;
+    virtual void setFTPConnection(QHash<QString, QVariant> values) = 0;
 
 signals:
-  virtual void create(IFTPConnections *widget) = 0;
-  virtual void edit(IFTPConnections *widget, int id) = 0;
-  virtual void selected(IFTPConnections *widget, int id) = 0;
+    virtual void initializeFTPConnections(IFTPConnections *widget) = 0;
+    virtual void createFTPConnection(IFTPConnections *widget) = 0;
+    virtual void editFTPConnection(IFTPConnections *widget, int id) = 0;
+    virtual void selectFTPConnection(IFTPConnections *widget, int id) = 0;
 
 public slots:
-  virtual void add(const QString &name, int id) = 0;
-  virtual void select(int id) = 0;
-  virtual void clear() = 0;
+    virtual void addFTPConnection(QHash<QString, QVariant> values) = 0;
+    virtual void selectedFTPConnection(int id) = 0;
+    virtual void clearFTPConnections() = 0;
 };
 
 #define IFTPConnections_iid "IFTPConnections"
