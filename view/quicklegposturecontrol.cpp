@@ -18,13 +18,15 @@ QuickLegPostureControl::QuickLegPostureControl(QWidget *parent) :
 
 //Public slots
 void QuickLegPostureControl::setSelectedValue(int id){
-    if(id >= 0 && id < btnOptions.length()+1 && currentSelectedBtn != NULL && currentSelectedBtn->getID() != id){
+    if(id >= 1 && id < btnOptions.length()+1 && currentSelectedBtn != NULL && currentSelectedBtn->getID() != id){
         btnOptions.at(currentSelectedBtn->getID()-1)->setSelected(false);
         currentSelectedBtn = btnOptions.at(id-1);
         currentSelectedBtn->setSelected(true);
-        if(currentSelectedBtn->getID()==3 && !speciOptions.at(0) && !speciOptions.at(1)){
-            setSelectedSpecification(1);
-            setSelectedSpecification(2);
+        if(currentSelectedBtn->getID()==3){
+            if(!speciOptions.at(0)->isSelected() && !speciOptions.at(1)->isSelected()){
+                emit setSelectedSpecification(1);
+                emit setSelectedSpecification(2);
+            }
             qDebug()<<"beintest1";
             specification = 3;
             emit selectionChanged(id,3);
@@ -67,15 +69,15 @@ void QuickLegPostureControl::setSelectedValue(int id){
 
 void QuickLegPostureControl::setSelectedSpecification(int id){
     if(id >= 0 && id < speciOptions.length()+1 && currentSpeciBtn != NULL){
-        if(currentSelectedBtn->getID() != 3){
-        emit setSelectedValue(3);
-        }
+
         switch (id) {
         case 1:
             if(speciOptions.at(0)->isSelected()&&speciOptions.at(1)->isSelected()){
                 speciOptions.at(0)->setSelected(false);
                 specification = 2;
                 emit specificationChanged(2);
+                emit setSelectedValue(3);
+                emit selectionChanged(3,2);
 
             }
             else{
@@ -83,13 +85,16 @@ void QuickLegPostureControl::setSelectedSpecification(int id){
                     speciOptions.at(0)->setSelected(true);
                     specification = 3;
                     emit specificationChanged(3);
-
+                    emit setSelectedValue(3);
+                    emit selectionChanged(3,3);
                 }
 
 
                     else{
                         speciOptions.at(0)->setSelected(true);
                         specification = 1;
+                        emit setSelectedValue(3);
+                        emit selectionChanged(3,1);
                 }
             }
 
@@ -100,6 +105,8 @@ void QuickLegPostureControl::setSelectedSpecification(int id){
                 speciOptions.at(1)->setSelected(false);
                 specification = 1;
                 emit specificationChanged(1);
+                emit setSelectedValue(3);
+                emit selectionChanged(3,1);
 
             }else{
 
@@ -107,13 +114,16 @@ void QuickLegPostureControl::setSelectedSpecification(int id){
                 speciOptions.at(1)->setSelected(true);
                 specification = 3;
                 emit specificationChanged(3);
-
+                emit setSelectedValue(3);
+                emit selectionChanged(3,3);
             }
 
 
                 else{
                     speciOptions.at(1)->setSelected(true);
                     specification = 2;
+                    emit setSelectedValue(3);
+                    emit selectionChanged(3,2);
                 }
             }
             break;

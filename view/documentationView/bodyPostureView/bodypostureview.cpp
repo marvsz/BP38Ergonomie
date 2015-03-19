@@ -66,7 +66,8 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
     kneeAngleLeft(0),
     kneeAngleRight(0),
     ankleAngleLeft(0),
-    ankleAngleRight(0)
+    ankleAngleRight(0),
+    trunkPosture(0)
 {
     values = QHash<QString, QVariant>();
 
@@ -727,24 +728,53 @@ void BodyPostureView::vcHeadTwistValueChanged(int value){
 }*/
 
 void BodyPostureView::setBodyPosture(QHash<QString, QVariant> values){
+
+    //quickSelectionLayout->qlpcQuickLegPosture->setSelectedValue();
+    //quickSelectionLayout->voscQuickArmPosture->setSelectedValue();
+    //quickSelectionLayout->voscQuickTrunkPosture->setSelectedValue();
+    vcTrunkTilt->setValue(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TILT).toInt());
+    vcTrunkSidewaysTilt->setValue(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TILT_SIDEWAYS).toInt());
+    vcTrunkTwist->setValue(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TWIST).toInt());
+
+    vcUpperArmAngle->setValue(values.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_RIGHT).toInt());
+    vcForearmAngle->setValue(values.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_RIGHT).toInt());
+    vcUpperArmTwist->setValue(values.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_UPPER_ARM_TWIST_LEFT : DBConstants::COL_BODY_POSTURE_UPPER_ARM_TWIST_RIGHT).toInt());
+    vcForearmTwist->setValue(values.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_FOREARM_TWIST_LEFT : DBConstants::COL_BODY_POSTURE_FOREARM_TWIST_RIGHT).toInt());
+    vcArmOpening->setValue(values.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_ARM_OPENING_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_ARM_OPENING_ANGLE_RIGHT).toInt());
+    vcWristAngle->setValue(values.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_WRIST_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_WRIST_ANGLE_RIGHT).toInt());
+    vcWristAngleSideways->setValue(values.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_WRIST_ANGLE_SIDEWAYS_LEFT : DBConstants::COL_BODY_POSTURE_WRIST_ANGLE_SIDEWAYS_RIGHT).toInt());
+    vcWristMovement->setValue(values.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_WRIST_MOVEMENT_LEFT : DBConstants::COL_BODY_POSTURE_WRIST_MOVEMENT_RIGHT).toInt());
+
+    vcHipAngle->setValue(values.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT).toInt());
+    vcHipAngleSideways->setValue(values.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_HIP_ANGLE_SIDEWAYS_LEFT : DBConstants::COL_BODY_POSTURE_HIP_ANGLE_SIDEWAYS_RIGHT).toInt());
+    vcHipTwist->setValue(values.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_HIP_TWIST_LEFT : DBConstants::COL_BODY_POSTURE_HIP_TWIST_RIGHT).toInt());
+    vcKneeAngle->setValue(values.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_RIGHT).toInt());
+    vcAnkleAngle->setValue(values.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT).toInt());
+    vcAnkleAngleSideways->setValue(values.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_SIDEWAYS_LEFT : DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_SIDEWAYS_RIGHT).toInt());
+
+    vcHeadTilt->setValue(values.value(DBConstants::COL_BODY_POSTURE_HEAD_TILT).toInt());
+    vcHeadTiltSideways->setValue(values.value(DBConstants::COL_BODY_POSTURE_HEAD_TILT_SIDEWAYS).toInt());
+    vcHeadTwist->setValue(values.value(DBConstants::COL_BODY_POSTURE_HEAD_TWIST).toInt());
+
     //QuickTrunk
-    if(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TILT).toInt() < -20){
+    trunkPosture = values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TILT).toInt();
+    if(trunkPosture < -20){
         quickSelectionLayout->voscQuickTrunkPosture->setSelectedValue(5);
         qDebug()<<"1";
     }
-    else if(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TILT).toInt() < 0){
+    if(trunkPosture >= -20 && trunkPosture < 0){
         quickSelectionLayout->voscQuickTrunkPosture->setSelectedValue(4);
         qDebug()<<"2";
     }
-    else if(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TILT).toInt() <20){
+    if(trunkPosture >= 0 && trunkPosture < 20){
         quickSelectionLayout->voscQuickTrunkPosture->setSelectedValue(3);
         qDebug()<<"3";
     }
-    else if(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TILT).toInt() <45){
+    if(trunkPosture >= 20 && trunkPosture < 90){
         quickSelectionLayout->voscQuickTrunkPosture->setSelectedValue(2);
         qDebug()<<"4";
     }
-    else if(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TILT).toInt() <121){
+    if(trunkPosture >= 90){
         quickSelectionLayout->voscQuickTrunkPosture->setSelectedValue(1);
         qDebug()<<"5";
     }
@@ -777,44 +807,22 @@ void BodyPostureView::setBodyPosture(QHash<QString, QVariant> values){
     }
 
     if((hipAngleLeft == 135) && (hipAngleRight == 90) && (kneeAngleLeft == 0) && (kneeAngleRight == 45) && (ankleAngleLeft == 90) && (ankleAngleRight == 90)){
+        quickSelectionLayout->qlpcQuickLegPosture->setSelectedValue(1);
         quickSelectionLayout->qlpcQuickLegPosture->setSelectedValue(3);
         quickSelectionLayout->qlpcQuickLegPosture->setSelectedSpecification(2);
     }
 
     if((hipAngleLeft == 90) && (hipAngleRight == 135) && (kneeAngleLeft == 45) && (kneeAngleRight == 0) && (ankleAngleLeft == 90) && (ankleAngleRight == 90)){
+        quickSelectionLayout->qlpcQuickLegPosture->setSelectedValue(1);
         quickSelectionLayout->qlpcQuickLegPosture->setSelectedValue(3);
         quickSelectionLayout->qlpcQuickLegPosture->setSelectedSpecification(1);
     }
 
     if((hipAngleLeft == 135) && (hipAngleRight == 135) && (kneeAngleLeft == 0) && (kneeAngleRight == 0) && (ankleAngleLeft == 90) && (ankleAngleRight == 90)){
+        quickSelectionLayout->qlpcQuickLegPosture->setSelectedValue(1);
         quickSelectionLayout->qlpcQuickLegPosture->setSelectedValue(3);
     }
-    //quickSelectionLayout->qlpcQuickLegPosture->setSelectedValue();
-    //quickSelectionLayout->voscQuickArmPosture->setSelectedValue();
-    //quickSelectionLayout->voscQuickTrunkPosture->setSelectedValue();
-    vcTrunkTilt->setValue(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TILT).toInt());
-    vcTrunkSidewaysTilt->setValue(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TILT_SIDEWAYS).toInt());
-    vcTrunkTwist->setValue(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TWIST).toInt());
 
-    vcUpperArmAngle->setValue(values.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_RIGHT).toInt());
-    vcForearmAngle->setValue(values.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_RIGHT).toInt());
-    vcUpperArmTwist->setValue(values.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_UPPER_ARM_TWIST_LEFT : DBConstants::COL_BODY_POSTURE_UPPER_ARM_TWIST_RIGHT).toInt());
-    vcForearmTwist->setValue(values.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_FOREARM_TWIST_LEFT : DBConstants::COL_BODY_POSTURE_FOREARM_TWIST_RIGHT).toInt());
-    vcArmOpening->setValue(values.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_ARM_OPENING_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_ARM_OPENING_ANGLE_RIGHT).toInt());
-    vcWristAngle->setValue(values.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_WRIST_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_WRIST_ANGLE_RIGHT).toInt());
-    vcWristAngleSideways->setValue(values.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_WRIST_ANGLE_SIDEWAYS_LEFT : DBConstants::COL_BODY_POSTURE_WRIST_ANGLE_SIDEWAYS_RIGHT).toInt());
-    vcWristMovement->setValue(values.value((armSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_WRIST_MOVEMENT_LEFT : DBConstants::COL_BODY_POSTURE_WRIST_MOVEMENT_RIGHT).toInt());
-
-    vcHipAngle->setValue(values.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT).toInt());
-    vcHipAngleSideways->setValue(values.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_HIP_ANGLE_SIDEWAYS_LEFT : DBConstants::COL_BODY_POSTURE_HIP_ANGLE_SIDEWAYS_RIGHT).toInt());
-    vcHipTwist->setValue(values.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_HIP_TWIST_LEFT : DBConstants::COL_BODY_POSTURE_HIP_TWIST_RIGHT).toInt());
-    vcKneeAngle->setValue(values.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_RIGHT).toInt());
-    vcAnkleAngle->setValue(values.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_LEFT : DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT).toInt());
-    vcAnkleAngleSideways->setValue(values.value((legSpeci_Type == AVType::LEFT) ? DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_SIDEWAYS_LEFT : DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_SIDEWAYS_RIGHT).toInt());
-
-    vcHeadTilt->setValue(values.value(DBConstants::COL_BODY_POSTURE_HEAD_TILT).toInt());
-    vcHeadTiltSideways->setValue(values.value(DBConstants::COL_BODY_POSTURE_HEAD_TILT_SIDEWAYS).toInt());
-    vcHeadTwist->setValue(values.value(DBConstants::COL_BODY_POSTURE_HEAD_TWIST).toInt());
     this->values = values;
 }
 

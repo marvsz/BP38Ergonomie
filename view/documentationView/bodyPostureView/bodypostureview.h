@@ -134,6 +134,7 @@ private:
     int kneeAngleRight;
     int ankleAngleLeft;
     int ankleAngleRight;
+    int trunkPosture;
     QHash<QString, QVariant> values;
 
 };
