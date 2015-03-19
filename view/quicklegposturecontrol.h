@@ -26,24 +26,14 @@ signals:
 public slots:
     void setSelectedValue(int id);
     void setSelectedSpecification(int id);
-    //void setSelectedLeft(int id);
-    //void setSelectedRight(int id);
-    /*void setSelectedValue(const QString &text);
-    void setSelectedByValue(int value);
-    void setValues(const QStringList &texts, const QVector<QVariant> &values);
-    void setValues(const QStringList &texts);*/
     void setValues(const QStringList &texts, const QStringList &differ, const QString &label);
 
 private:
     SelectableValueButton *currentSelectedBtn;
     SelectableValueButton *currentSpeciBtn;
-    //SelectableValueButton *currentLeftBtn;
-    //SelectableValueButton *currentRightBtn;
 
     QVector<SelectableValueButton*> btnOptions;
     QVector<SelectableValueButton*> speciOptions;
-    //QVector<SelectableValueButton*> leftOptions;
-    //QVector<SelectableValueButton*> rightOptions;
     QVBoxLayout *mainLayout;
 
     void clear();
@@ -51,8 +41,6 @@ private:
     int id;
     int idSpeci;
     int specification;
-    //int idLeft;
-    //int idRight;
 
 };
 

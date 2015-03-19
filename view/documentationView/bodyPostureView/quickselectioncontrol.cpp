@@ -367,8 +367,6 @@ QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     connect(voscQuickTrunkPosture, SIGNAL(selectionChanged(int)), this, SLOT(voscQuickTrunkPostureChanged(int)));
     voscQuickTrunkPosture->setSelectedValue(3);
 
-
-    //dummyHolder->setPixmap(dummy_standing_bothArms_atElbowHeight_strongBendingFront);
     dummyHolder->setFixedSize(QSize(275,313));
 
     verticalLayout->addWidget(qlpcQuickLegPosture);

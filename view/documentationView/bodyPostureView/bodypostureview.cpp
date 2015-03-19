@@ -60,7 +60,13 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
     varSpeciArms(new VariantSpecification()),
     varSpeciLegs(new VariantSpecification()),
     armSpeci_Type(3),
-    legSpeci_Type(3)
+    legSpeci_Type(3),
+    hipAngleLeft(0),
+    hipAngleRight(0),
+    kneeAngleLeft(0),
+    kneeAngleRight(0),
+    ankleAngleLeft(0),
+    ankleAngleRight(0)
 {
     values = QHash<QString, QVariant>();
 
@@ -178,7 +184,6 @@ BodyPostureView::BodyPostureView(QWidget *parent) :
 
     quickSelectionLayout->setName(tr("Quick Selection"));
     quickSelectionLayout->setButtonIcon("quickButtonIcon",QSize(60,60));
-    //quickSelectionLayout->hideContent();
     connect(quickSelectionLayout, SIGNAL(requestShowContent(QString)), this, SLOT(varConRequestShowContent(QString)));
     connect(this, SIGNAL(showExclusiveContentByName(QString)), quickSelectionLayout, SLOT(setExclusiveDisplayByName(QString)));
     connect(quickSelectionLayout, SIGNAL(quickLegPostureChanged(int,int)), this, SLOT(qlpcQuickLegPostureChanged(int,int)));
@@ -722,6 +727,71 @@ void BodyPostureView::vcHeadTwistValueChanged(int value){
 }*/
 
 void BodyPostureView::setBodyPosture(QHash<QString, QVariant> values){
+    //QuickTrunk
+    if(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TILT).toInt() < -20){
+        quickSelectionLayout->voscQuickTrunkPosture->setSelectedValue(5);
+        qDebug()<<"1";
+    }
+    else if(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TILT).toInt() < 0){
+        quickSelectionLayout->voscQuickTrunkPosture->setSelectedValue(4);
+        qDebug()<<"2";
+    }
+    else if(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TILT).toInt() <20){
+        quickSelectionLayout->voscQuickTrunkPosture->setSelectedValue(3);
+        qDebug()<<"3";
+    }
+    else if(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TILT).toInt() <45){
+        quickSelectionLayout->voscQuickTrunkPosture->setSelectedValue(2);
+        qDebug()<<"4";
+    }
+    else if(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TILT).toInt() <121){
+        quickSelectionLayout->voscQuickTrunkPosture->setSelectedValue(1);
+        qDebug()<<"5";
+    }
+    //QuickArms
+    if((values.value(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_RIGHT).toInt() == 0) && (values.value(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_RIGHT).toInt() == 90)){
+        quickSelectionLayout->voscQuickArmPosture->setSelectedValue(1);
+    }
+
+    if((values.value(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_RIGHT).toInt() == 90) && (values.value(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_RIGHT).toInt() == 180)){
+        quickSelectionLayout->voscQuickArmPosture->setSelectedValue(2);
+    }
+
+    if((values.value(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_RIGHT).toInt() == 135) && (values.value(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_RIGHT).toInt() == 180)){
+        quickSelectionLayout->voscQuickArmPosture->setSelectedValue(3);
+    }
+    //QuickLegs
+    hipAngleLeft = values.value(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT).toInt();
+    hipAngleRight = values.value(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT).toInt();
+    kneeAngleLeft = values.value(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_LEFT).toInt();
+    kneeAngleRight = values.value(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_RIGHT).toInt();
+    ankleAngleLeft = values.value(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_LEFT).toInt();
+    ankleAngleRight = values.value(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT).toInt();
+
+    if((hipAngleLeft == 180) && (hipAngleRight == 180) && (kneeAngleLeft == 180) && (kneeAngleRight == 180) && (ankleAngleLeft == 90) && (ankleAngleRight == 90)){
+        quickSelectionLayout->qlpcQuickLegPosture->setSelectedValue(1);
+    }
+
+    if((hipAngleLeft == 90) && (hipAngleRight == 90) && (kneeAngleLeft == 90) && (kneeAngleRight == 90) && (ankleAngleLeft == 90) && (ankleAngleRight == 90)){
+        quickSelectionLayout->qlpcQuickLegPosture->setSelectedValue(2);
+    }
+
+    if((hipAngleLeft == 135) && (hipAngleRight == 90) && (kneeAngleLeft == 0) && (kneeAngleRight == 45) && (ankleAngleLeft == 90) && (ankleAngleRight == 90)){
+        quickSelectionLayout->qlpcQuickLegPosture->setSelectedValue(3);
+        quickSelectionLayout->qlpcQuickLegPosture->setSelectedSpecification(2);
+    }
+
+    if((hipAngleLeft == 90) && (hipAngleRight == 135) && (kneeAngleLeft == 45) && (kneeAngleRight == 0) && (ankleAngleLeft == 90) && (ankleAngleRight == 90)){
+        quickSelectionLayout->qlpcQuickLegPosture->setSelectedValue(3);
+        quickSelectionLayout->qlpcQuickLegPosture->setSelectedSpecification(1);
+    }
+
+    if((hipAngleLeft == 135) && (hipAngleRight == 135) && (kneeAngleLeft == 0) && (kneeAngleRight == 0) && (ankleAngleLeft == 90) && (ankleAngleRight == 90)){
+        quickSelectionLayout->qlpcQuickLegPosture->setSelectedValue(3);
+    }
+    //quickSelectionLayout->qlpcQuickLegPosture->setSelectedValue();
+    //quickSelectionLayout->voscQuickArmPosture->setSelectedValue();
+    //quickSelectionLayout->voscQuickTrunkPosture->setSelectedValue();
     vcTrunkTilt->setValue(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TILT).toInt());
     vcTrunkSidewaysTilt->setValue(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TILT_SIDEWAYS).toInt());
     vcTrunkTwist->setValue(values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TWIST).toInt());

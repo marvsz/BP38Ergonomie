@@ -128,6 +128,12 @@ private:
 
     int armSpeci_Type;
     int legSpeci_Type;
+    int hipAngleLeft;
+    int hipAngleRight;
+    int kneeAngleLeft;
+    int kneeAngleRight;
+    int ankleAngleLeft;
+    int ankleAngleRight;
     QHash<QString, QVariant> values;
 
 };

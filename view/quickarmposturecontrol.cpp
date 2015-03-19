@@ -85,54 +85,6 @@ void QuickArmPostureControl::setSelectedSpecification(int id){
     }
 }
 
-/*void QuickArmPostureControl::setSelectedValue(const QString &text){
-    for(int i = 0; i < btnOptions.length(); ++i){
-        SelectableValueButton *btn = btnOptions.at(i);
-        if(btn->text().compare(text) == 0){
-            setSelectedValue(btn->getID());
-            break;
-        }
-    }
-}
-
-void QuickArmPostureControl::setSelectedByValue(int value){
-    for(int i = 0; i < btnOptions.length()+1; ++i){
-        SelectableValueButton *btn = btnOptions.at(i);
-        if(btn->getValue().toInt() == value){
-            setSelectedValue(btn->getID());
-            break;
-        }
-    }
-}
-
-void QuickArmPostureControl::setValues(const QStringList &texts, const QVector<QVariant> &values){
-    clear();
-    for(int i=0; i < texts.length()+1; ++i){
-        SelectableValueButton *btn = new SelectableValueButton(i, values.at(i), this);
-        btn->setMinimumSize(45, 45);
-        btn->setText(texts.at(i));
-        btnOptions.append(btn);
-        mainLayout->addWidget(btn, 0, Qt::AlignVCenter);
-        connect(btn, SIGNAL(clickedWithID(int)), this, SLOT(setSelectedValue(int)));
-    }
-    currentSelectedBtn = btnOptions.at(1);
-    setSelectedValue(1);
-}
-
-void QuickArmPostureControl::setValues(const QStringList &texts){
-    clear();
-    for(int i=0; i < texts.length(); ++i){
-        SelectableValueButton *btn = new SelectableValueButton(i, texts.at(i), this);
-        btn->setMinimumSize(45, 45);
-        btn->setText(texts.at(i));
-        btnOptions.append(btn);
-        mainLayout->addWidget(btn, 0, Qt::AlignVCenter);
-        connect(btn, SIGNAL(clickedWithID(int)), this, SLOT(setSelectedValue(int)));
-    }
-    currentSelectedBtn = btnOptions.at(1);
-    setSelectedValue(1);
-}*/
-
 void QuickArmPostureControl::setValues(const QStringList &texts, const QStringList &differ, const QString &label){
     clear();
     QLabel *lblName = new QLabel(label);
@@ -173,7 +125,6 @@ void QuickArmPostureControl::setValues(const QStringList &texts, const QStringLi
     generalButtonLayout->addLayout(optionButtonLayout);
     mainLayout->addLayout(generalButtonLayout);
     mainLayout->addSpacerItem(new QSpacerItem(0,0,QSizePolicy::Fixed, QSizePolicy::Expanding));
-    //mainLayout->addSpacerItem(new QSpacerItem());
     currentSelectedBtn = btnOptions.at(0);
     currentSelectedBtn->setSelected(true);
     setSelectedValue(1);

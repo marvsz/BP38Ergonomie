@@ -18,6 +18,10 @@ public:
 
     QString getName() const;
 
+    QuickLegPostureControl *qlpcQuickLegPosture;
+    QuickArmPostureControl *voscQuickArmPosture;
+    VerticalOptionSelectionControl *voscQuickTrunkPosture;
+
 signals:
     void QuickSelectionChanged(int id);
     void requestShowContent(const QString &name);
@@ -51,9 +55,7 @@ private:
 
     QPushButton *btnName;
 
-    QuickLegPostureControl *qlpcQuickLegPosture;
-    QuickArmPostureControl *voscQuickArmPosture;
-    VerticalOptionSelectionControl *voscQuickTrunkPosture;
+
 
     const QStringList QUICK_LEG_POSTURE_TEXTS = QStringList()<<tr("Standing")<<"false"<<tr("Sitting")<<"false"<<tr("Kneeling")<<"true"<<tr("Walking")<<"false"<<tr("Running")<<"false";
     const QStringList QUICK_ARM_POSTURE_TEXTS = QStringList()<<tr("At Elbow height")<<tr("At Shoulder height")<<tr("At Head height");

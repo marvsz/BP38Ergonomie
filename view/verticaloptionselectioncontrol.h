@@ -23,10 +23,6 @@ signals:
 
 public slots:
     void setSelectedValue(int id);
-    /*void setSelectedValue(const QString &text);
-    void setSelectedByValue(int value);
-    void setValues(const QStringList &texts, const QVector<QVariant> &values);
-    void setValues(const QStringList &texts);*/
     void setValues(const QStringList &texts, const QString &label);
 
 private:

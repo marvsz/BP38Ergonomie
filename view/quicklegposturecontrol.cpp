@@ -1,5 +1,6 @@
 #include "quicklegposturecontrol.h"
 #include <QLabel>
+#include <QDebug>
 
 QuickLegPostureControl::QuickLegPostureControl(QWidget *parent) :
     QWidget(parent),
@@ -22,12 +23,14 @@ void QuickLegPostureControl::setSelectedValue(int id){
         currentSelectedBtn = btnOptions.at(id-1);
         currentSelectedBtn->setSelected(true);
         if(currentSelectedBtn->getID()==3 && !speciOptions.at(0) && !speciOptions.at(1)){
-            speciOptions.at(0)->setSelected(true);
-            speciOptions.at(1)->setSelected(true);
+            setSelectedSpecification(1);
+            setSelectedSpecification(2);
+            qDebug()<<"beintest1";
             specification = 3;
             emit selectionChanged(id,3);
             if(speciOptions.at(0)->isSelected()&&speciOptions.at(1)->isSelected()){
                 specification = 3;
+                qDebug()<<"beintest2";
                 emit selectionChanged(id,3);
 
             }
@@ -49,6 +52,7 @@ void QuickLegPostureControl::setSelectedValue(int id){
             speciOptions.at(0)->setSelected(false);
             speciOptions.at(1)->setSelected(false);
             specification = 3;
+            qDebug()<<"beintest3";
             emit selectionChanged(id,3);
 
         }
@@ -63,7 +67,9 @@ void QuickLegPostureControl::setSelectedValue(int id){
 
 void QuickLegPostureControl::setSelectedSpecification(int id){
     if(id >= 0 && id < speciOptions.length()+1 && currentSpeciBtn != NULL){
+        if(currentSelectedBtn->getID() != 3){
         emit setSelectedValue(3);
+        }
         switch (id) {
         case 1:
             if(speciOptions.at(0)->isSelected()&&speciOptions.at(1)->isSelected()){
@@ -170,12 +176,10 @@ void QuickLegPostureControl::setValues(const QStringList &texts, const QStringLi
         }
 
     }
-
+    speciOptions.at(0)->setSelected(false);
+    speciOptions.at(1)->setSelected(false);
     currentSelectedBtn = btnOptions.at(0);
     currentSelectedBtn->setSelected(true);
-    //setSelectedValue(1);
-    //setSelectedSpecification(1);
-    //setSelectedSpecification(2);
 }
 
 //Private methods
