@@ -1,15 +1,14 @@
 #include "quickselectioncontrol.h"
 #include "../../separator.h"
-#include <qDebug>
 QuickSelectionControl::QuickSelectionControl(QWidget *parent) :
     QWidget(parent),
+    qlpcQuickLegPosture(new QuickLegPostureControl),
+    voscQuickArmPosture(new QuickArmPostureControl),
+    voscQuickTrunkPosture(new VerticalOptionSelectionControl),
     mainLayout(new QVBoxLayout),
     verticalLayout(new QHBoxLayout()),
     mainContent(new QWidget()),
     btnName(new QPushButton()),
-    qlpcQuickLegPosture(new QuickLegPostureControl),
-    voscQuickArmPosture(new QuickArmPostureControl),
-    voscQuickTrunkPosture(new VerticalOptionSelectionControl),
     dummyHolder(new QLabel),
     key(0)
 {
@@ -441,7 +440,6 @@ void QuickSelectionControl::qlpcQuickLegPostureSpecificationChagend(int sel){
 
 void QuickSelectionControl::updateDummyPosture(){
     key=10000*qlpcQuickLegPosture->getSelectedID()+1000*qlpcQuickLegPosture->getSelectedSpecification()+100*voscQuickArmPosture->getSelectedID()+10*voscQuickArmPosture->getSelectedSpecification()+voscQuickTrunkPosture->getSelectedID();
-    qDebug()<<key;
     dummyHolder->setPixmap(dummyHash.value(key));
 }
 

@@ -4,7 +4,6 @@
 #include <QVBoxLayout>
 #include <QScrollArea>
 #include <QHBoxLayout>
-#include <QDebug>
 
 const QVector<int> BodyPostureView::TRUNK_TILT_VALUES = QVector<int>()<<-45<<-20<<0<<20<<45<<90<<110;
 const QVector<int> BodyPostureView::TRUNK_TILT_SIDEWAYS_VALUES = QVector<int>()<<0<<20<<45<<60<<90;
@@ -333,7 +332,7 @@ void BodyPostureView::legSpeciChanged(int type){
 }
 
 void BodyPostureView::voscQuickTrunkPostureChanged(int id){
-    //qDebug()<<id;
+
 
     switch(id){
 
@@ -370,7 +369,6 @@ void BodyPostureView::voscQuickTrunkPostureChanged(int id){
 }
 
 void BodyPostureView::voscQuickArmPostureChanged(int id, int sel){
-qDebug()<<"Option"<<id<<"Spezifikation"<<sel;
     switch(id){
         case 1:
         switch(sel){
@@ -465,11 +463,10 @@ qDebug()<<"Option"<<id<<"Spezifikation"<<sel;
 }
 
 /*void BodyPostureView::voscQuickArmPostureSpecificationChanged(int id){
-qDebug()<<"Spezifikation"<<id;
+
 }*/
 
 void BodyPostureView::qlpcQuickLegPostureChanged(int id, int speci){
-    qDebug()<<"Bein Option"<<id<<"Bein Spezifikation"<<speci;
     switch (id) {
     case 1:
         values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,180);
@@ -560,7 +557,6 @@ void BodyPostureView::qlpcQuickLegPostureChanged(int id, int speci){
 }
 
 void BodyPostureView::qlpcQuickLegPostureSpecificationChagend(int id){
-    qDebug()<<"Bein Spezifikation"<<id;
     switch(id){
     case 1:
         values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,135);
@@ -760,23 +756,18 @@ void BodyPostureView::setBodyPosture(QHash<QString, QVariant> values){
     trunkPosture = values.value(DBConstants::COL_BODY_POSTURE_TRUNK_TILT).toInt();
     if(trunkPosture < -20){
         quickSelectionLayout->voscQuickTrunkPosture->setSelectedValue(5);
-        qDebug()<<"1";
     }
     if(trunkPosture >= -20 && trunkPosture < 0){
         quickSelectionLayout->voscQuickTrunkPosture->setSelectedValue(4);
-        qDebug()<<"2";
     }
     if(trunkPosture >= 0 && trunkPosture < 20){
         quickSelectionLayout->voscQuickTrunkPosture->setSelectedValue(3);
-        qDebug()<<"3";
     }
     if(trunkPosture >= 20 && trunkPosture < 90){
         quickSelectionLayout->voscQuickTrunkPosture->setSelectedValue(2);
-        qDebug()<<"4";
     }
     if(trunkPosture >= 90){
         quickSelectionLayout->voscQuickTrunkPosture->setSelectedValue(1);
-        qDebug()<<"5";
     }
     //QuickArms
     if((values.value(DBConstants::COL_BODY_POSTURE_UPPER_ARM_ANGLE_RIGHT).toInt() == 0) && (values.value(DBConstants::COL_BODY_POSTURE_FOREARM_ANGLE_RIGHT).toInt() == 90)){

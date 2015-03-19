@@ -1,6 +1,5 @@
 #include "quicklegposturecontrol.h"
 #include <QLabel>
-#include <QDebug>
 
 QuickLegPostureControl::QuickLegPostureControl(QWidget *parent) :
     QWidget(parent),
@@ -27,12 +26,10 @@ void QuickLegPostureControl::setSelectedValue(int id){
                 emit setSelectedSpecification(1);
                 emit setSelectedSpecification(2);
             }
-            qDebug()<<"beintest1";
             specification = 3;
             emit selectionChanged(id,3);
             if(speciOptions.at(0)->isSelected()&&speciOptions.at(1)->isSelected()){
                 specification = 3;
-                qDebug()<<"beintest2";
                 emit selectionChanged(id,3);
 
             }
@@ -54,7 +51,6 @@ void QuickLegPostureControl::setSelectedValue(int id){
             speciOptions.at(0)->setSelected(false);
             speciOptions.at(1)->setSelected(false);
             specification = 3;
-            qDebug()<<"beintest3";
             emit selectionChanged(id,3);
 
         }
