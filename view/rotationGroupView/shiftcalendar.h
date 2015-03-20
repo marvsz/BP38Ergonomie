@@ -89,8 +89,6 @@ private:
     QLabel *lblAddBreak;
     QLabel *lblBreakDuration;
     NumberLineEdit *numBxBreakDuration;
-    QLabel *lblBreakName;
-    TextLineEdit *txtBxBreakName;
     QPushButton *btnAddBreak;
     int currentId;
 
@@ -98,15 +96,14 @@ private:
     QPicture picCalendar;
     QLabel *lblCalendar;
     QScrollArea *scCalendar;
-    QVBoxLayout *calendarEntryLayout;
-    QVector<SelectableValueButton*>* calendarEntries;
+    QVBoxLayout *calendarEntryLayout;    
     QPushButton *btnMoveUp;
     QPushButton *btnMoveDown;
     QPushButton *btnDelete;
 
     void drawBackground();
 
-    static const QList<QStringList> rotationGroupCaptions;
+    const QList<QStringList> rotationGroupCaptions = QList<QStringList>() << (QStringList() << tr("Duration"));
 
 };
 

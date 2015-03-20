@@ -1,5 +1,6 @@
 #include "shiftcalendar.h"
 #include "../flickcharm.h"
+#include "../../databaseHandler/dbconstants.h"
 #include "QFont"
 #include "../selectablevaluebutton.h"
 #include <QDebug>
@@ -10,7 +11,6 @@
 #include "../separator.h"
 #include "../detailedlistitem.h"
 
-const QList<QStringList> ShiftCalendar::rotationGroupCaptions = QList<QStringList>() << (QStringList() << tr("Duration") << tr("Workplaces"));
 
 ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTime &endTime) :
     SimpleNavigateableWidget(tr("Calendar"), parent),
@@ -24,8 +24,6 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
     lblAddBreak(new QLabel(tr("Add break:"))),
     lblBreakDuration(new QLabel(tr("Duration [min]:"))),
     numBxBreakDuration(new NumberLineEdit()),
-    lblBreakName(new QLabel(tr("Name:"))),
-    txtBxBreakName(new TextLineEdit()),
     btnAddBreak(new QPushButton(this)),
     currentId(-1),
     painter(),
@@ -33,7 +31,6 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
     lblCalendar(new QLabel()),
     scCalendar(new QScrollArea()),
     calendarEntryLayout(new QVBoxLayout()),
-    calendarEntries(new QVector<SelectableValueButton*>),
     btnMoveUp(new QPushButton(this)),
     btnMoveDown(new QPushButton(this)),
     btnDelete(new QPushButton(this))
@@ -104,9 +101,7 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
     leftLayout->addWidget(lblAddBreak, 3, 0, 1, 2, Qt::AlignLeft);
     leftLayout->addWidget(lblBreakDuration, 4, 0, 1, 1, Qt::AlignLeft);
     leftLayout->addWidget(numBxBreakDuration, 4, 1, 1, 1, Qt::AlignLeft);
-    leftLayout->addWidget(lblBreakName, 5, 0, 1, 1, Qt::AlignLeft);
-    leftLayout->addWidget(txtBxBreakName, 5, 1, 1, 1, Qt::AlignLeft);
-    leftLayout->addWidget(btnAddBreak, 6, 0, 1, 2, Qt::AlignCenter);
+    leftLayout->addWidget(btnAddBreak, 5, 0, 1, 2, Qt::AlignCenter);
 
     // RIGHT PART
     QHBoxLayout *rightBottomLayout = new QHBoxLayout;
@@ -198,19 +193,51 @@ void ShiftCalendar::clearCalendar(){
 // PUBLIC SLOTS
 
 void  ShiftCalendar::addRotationGroupTask(QHash<QString, QVariant> values){
-
+    QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_ROTATION_GROUP_TASK_DURATION).toString());
+    DetailedListItem *newListItem = new DetailedListItem(this, "rotationIcon", values.value(DBConstants::COL_ROTATION_GROUP_TASK_NAME).toString(), rotationGroupCaptions, false, false, false, true, false);
+    newListItem->setValues(dliValues);
+    newListItem->setID(values.value(DBConstants::COL_ROTATION_GROUP_TASK_ID).toInt());
+    connect(newListItem, SIGNAL(addItem(int)), this, SLOT(dliRotationGroupTaskAddClicked()));
+    rotationGroupListLayout->addWidget(newListItem);
 }
 
 void ShiftCalendar::updateRotationGroupTask(QHash<QString, QVariant> values){
-
+    QLayoutItem *item;
+    int i = 0;
+    int id = values.value(DBConstants::COL_ROTATION_GROUP_TASK_ID).toInt();
+    while((item = rotationGroupListLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            QList<QStringList> wpValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_ROTATION_GROUP_TASK_DURATION).toString());
+            dli->setValues(wpValues);
+            dli->setName(values.value(DBConstants::COL_ROTATION_GROUP_TASK_NAME).toString());
+            break;
+        }
+        i++;
+    }
 }
 
 void ShiftCalendar::removeRotationGroupTask(int id){
-
+    QLayoutItem *item;
+    int i = 0;
+    while((item = rotationGroupListLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            rotationGroupListLayout->removeItem(item);
+            delete item->widget();
+            delete item;
+            break;
+        }
+        i++;
+    }
 }
 
 void ShiftCalendar::clearRotationGroupTasks(){
-
+    QLayoutItem *item;
+    while((item = rotationGroupListLayout->takeAt(0)) != NULL){
+        delete item->widget();
+        delete item;
+    }
 }
 
 void ShiftCalendar::addCalendarRotationGroup(QHash<QString, QVariant> values){
@@ -242,7 +269,9 @@ void ShiftCalendar::clearCalendar(){
 }
 
 void ShiftCalendar::setTimes(QHash<QString, QVariant> values){
-
+    beginTime = values.value(DBConstants::COL_SHIFT_START).toTime();
+    endTime = values.value(DBConstants::COL_SHIFT_END).toTime();
+    drawBackground();
 }
 
 // PRIVATE
@@ -288,9 +317,10 @@ void ShiftCalendar::drawBackground(){
 
 // PRIVATE SLOTS
 void ShiftCalendar::btnAddBreakClicked(){
-    //emit createBreak();
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_BREAK_DURATION, numBxBreakDuration->getValue());
+    emit createCalendarBreak(values);
     numBxBreakDuration->clear();
-    txtBxBreakName->clear();
 }
 
 void ShiftCalendar::btnRotationClicked(){
@@ -298,13 +328,14 @@ void ShiftCalendar::btnRotationClicked(){
 }
 
 void ShiftCalendar::setSelectedId(int id){
-    currentId = id;
+     /*
+      * currentId = id;
     for(int i = 0; i < calendarEntries->length(); ++i) {
         SelectableValueButton *entry = calendarEntries->at(i);
         entry->setSelected(entry->getID() == id);
     }
 
-    /*if(id >= 0 && id < calendarEntries->length()){
+   if(id >= 0 && id < calendarEntries->length()){
             for(int i = 0; i < calendarEntries->length(); ++i){
                 SelectableValueButton *btn = calendarEntries->at(i);
                 if(btn->getID() == id){
