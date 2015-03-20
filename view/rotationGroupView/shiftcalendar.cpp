@@ -240,27 +240,35 @@ void ShiftCalendar::clearRotationGroupTasks(){
     }
 }
 
-void ShiftCalendar::addCalendarRotationGroup(QHash<QString, QVariant> values){
+void ShiftCalendar::addRotationGroup(QHash<QString, QVariant> values){
 
 }
 
-void ShiftCalendar::updateCalendarRotationGroup(QHash<QString, QVariant> values){
+void ShiftCalendar::updateRotationGroup(QHash<QString, QVariant> values){
 
 }
 
-void ShiftCalendar::removeCalendarRotationGroup(int id){
+void ShiftCalendar::removeRotationGroup(int id){
 
 }
 
-void ShiftCalendar::addCalendarBreak(QHash<QString, QVariant> values){
+void ShiftCalendar::addBreak(QHash<QString, QVariant> values){
 
 }
 
-void ShiftCalendar::updateCalendarBreak(QHash<QString, QVariant> values){
+void ShiftCalendar::updateBreak(QHash<QString, QVariant> values){
 
 }
 
-void ShiftCalendar::removeCalendarBreak(int id){
+void ShiftCalendar::removeBreak(int id){
+
+}
+
+void ShiftCalendar::moveEntryUp(int id){
+
+}
+
+void ShiftCalendar::moveEntryDown(int id){
 
 }
 
@@ -268,14 +276,13 @@ void ShiftCalendar::clearCalendar(){
 
 }
 
-void ShiftCalendar::setTimes(QHash<QString, QVariant> values){
+void ShiftCalendar::setShift(QHash<QString, QVariant> values){
     beginTime = values.value(DBConstants::COL_SHIFT_START).toTime();
     endTime = values.value(DBConstants::COL_SHIFT_END).toTime();
     drawBackground();
 }
 
 // PRIVATE
-
 void ShiftCalendar::drawBackground(){
     int begin = beginTime.hour();
     int end = endTime.minute() > 0 ? endTime.hour() + 1 : endTime.hour();
@@ -319,7 +326,7 @@ void ShiftCalendar::drawBackground(){
 void ShiftCalendar::btnAddBreakClicked(){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_BREAK_DURATION, numBxBreakDuration->getValue());
-    emit createCalendarBreak(values);
+    emit createBreak(values);
     numBxBreakDuration->clear();
 }
 

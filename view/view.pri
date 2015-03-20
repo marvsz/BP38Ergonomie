@@ -88,8 +88,6 @@ HEADERS +=\
     $$PWD/interfaces/icomment.h \
     $$PWD/popUps/factorysettingspopup.h \
     $$PWD/interfaces/iemployeeselect.h \
-    $$PWD/interfaces/icalendarlist.h \
-    $$PWD/interfaces/icalendar.h \
     $$PWD/interfaces/ilinelist.h \
     $$PWD/popUps/linepopup.h \
     $$PWD/interfaces/iline.h \
@@ -122,7 +120,8 @@ HEADERS +=\
     $$PWD/interfaces/ibranchofindustry.h \
     $$PWD/interfaces/ifactory.h \
     $$PWD/interfaces/irecording.h \
-    $$PWD/interfaces/icoperation.h
+    $$PWD/interfaces/icoperation.h \
+    $$PWD/interfaces/irotationgrouplist.h
 
 
 SOURCES +=\
