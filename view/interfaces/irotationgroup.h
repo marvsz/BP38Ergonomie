@@ -3,7 +3,7 @@
 
 #include <QtPlugin>
 
-class IRotationGrouplist {
+class IRotationGroup {
 
 public slots:
     virtual void addRotationGroup(QHash<QString, QVariant> values) = 0;
@@ -25,7 +25,7 @@ signals:
     virtual void requestMoveEntryDown(int id) = 0;
 };
 
-#define IRotationGrouplist_iid "IRotationGrouplist"
+#define IRotationGroup_iid "IRotationGroup"
 
-Q_DECLARE_INTERFACE(IRotationGrouplist, IRotationGrouplist_iid)
+Q_DECLARE_INTERFACE(IRotationGroup, IRotationGroup_iid)
 #endif // ICALENDARLIST_H

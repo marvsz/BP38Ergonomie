@@ -121,7 +121,7 @@ HEADERS +=\
     $$PWD/interfaces/ifactory.h \
     $$PWD/interfaces/irecording.h \
     $$PWD/interfaces/icoperation.h \
-    $$PWD/interfaces/irotationgrouplist.h
+    $$PWD/interfaces/irotationgroup.h
 
 
 SOURCES +=\

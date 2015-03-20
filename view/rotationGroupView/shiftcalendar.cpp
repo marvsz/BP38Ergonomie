@@ -123,6 +123,22 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
     setLayout(splitLayout);
 
     drawBackground();
+
+    DetailedListItem *dli = new DetailedListItem(this, "rotationIcon", "Rotationsgruppe 1", QList<QStringList>(), false, true, false, false, false);
+    dli->setID(1);
+    DetailedListItem *dli2 = new DetailedListItem(this, "rotationIcon", "Rotationsgruppe 1", QList<QStringList>(), false, true, false, false, false);
+    dli2->setID(2);
+    DetailedListItem *dli3 = new DetailedListItem(this, "rotationIcon", "Rotationsgruppe 1", QList<QStringList>(), false, true, false, false, false);
+    dli3->setID(3);
+
+    dli->setFixedHeight(30);
+    dli2->setFixedHeight(60);
+    dli3->setFixedHeight(120);
+
+    calendarEntryLayout->addWidget(dli);
+    calendarEntryLayout->addWidget(dli2);
+    calendarEntryLayout->addWidget(dli3);
+
 }
 
 
@@ -241,7 +257,6 @@ void ShiftCalendar::clearRotationGroupTasks(){
 }
 
 void ShiftCalendar::addRotationGroup(QHash<QString, QVariant> values){
-
 }
 
 void ShiftCalendar::updateRotationGroup(QHash<QString, QVariant> values){

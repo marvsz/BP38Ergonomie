@@ -8,7 +8,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QPushButton>
-#include "../interfaces/irotationgrouplist.h"
+#include "../interfaces/irotationgroup.h"
 #include "../interfaces/ishift.h"
 #include "../interfaces/irotationgrouptasklist.h"
 #include "../selectablevaluebutton.h"
@@ -16,11 +16,11 @@
 #include "../textlineedit.h"
 #include "../navigation/simplenavigateablewidget.h"
 
-class ShiftCalendar : public SimpleNavigateableWidget, IRotationGrouplist, IShift, IRotationGroupTaskList
+class ShiftCalendar : public SimpleNavigateableWidget, IRotationGroup, IShift, IRotationGroupTaskList
 {
     Q_OBJECT
     Q_INTERFACES(IRotationGroupTaskList)
-    Q_INTERFACES(IRotationGrouplist)
+    Q_INTERFACES(IRotationGroup)
     Q_INTERFACES(IShift)
 
 public:
