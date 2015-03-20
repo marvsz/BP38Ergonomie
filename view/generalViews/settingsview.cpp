@@ -23,6 +23,12 @@ SettingsView::SettingsView(QWidget *parent) :
     QString line = in.readLine();
     QStringList settings = line.split(',');
 
+    if(settings.at(0) == "english")
+        btnSelectLanguage->setIcon("englishIcon");
+
+    if(settings.at(1) == "green")
+        btnSelectTheme->setIcon("greenIcon");
+
     if(settings.at(2) == "nTrue"){
         showNotifications = true;
         dliShowNotifications->select();
