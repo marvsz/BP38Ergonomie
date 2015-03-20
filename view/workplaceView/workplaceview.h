@@ -24,6 +24,7 @@ public:
     QList<QAbstractButton*> * getAdditionalNavigation() const;
 
 signals:
+
     void saveWorkplace(QHash<QString, QVariant> values);
 
 

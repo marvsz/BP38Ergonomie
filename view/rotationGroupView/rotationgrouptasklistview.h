@@ -23,6 +23,7 @@ public:
 signals:
     void createRotationGroupTask(QHash<QString, QVariant> values);
     void deleteRotationGroupTask(int id);
+    void selectRotationGroupTask(int id);
 
 public slots:
     void addRotationGroupTask(QHash<QString, QVariant> values);
@@ -32,9 +33,10 @@ public slots:
 
 private slots:
     void btnPlusClicked();
+    void dliRotationGroupTaskClicked(int id);
 
 private:
-    const QList<QStringList> rotationGroupCaptions = QList<QStringList>() << (QStringList() << tr("Workplace Count") <<tr("Total Duration"));
+    const QList<QStringList> rotationGroupCaptions = QList<QStringList>() << (QStringList() << tr("Total Duration"));
     QPushButton *btnPlus;
     QVBoxLayout *listContentLayout;
     QScrollArea *scRotationGroups;

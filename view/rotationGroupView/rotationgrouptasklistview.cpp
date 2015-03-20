@@ -32,28 +32,29 @@ RotationGroupTaskListView::RotationGroupTaskListView(QWidget *parent) :
 
 // PUBLIC SLOTS
 void RotationGroupTaskListView::addRotationGroupTask(QHash<QString, QVariant> values){
-    /*QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBCONSTANTS:: ROTATION ZEUG).toString());
-    DetailedListItem *newListItem = new DetailedListItem(this, "rotationIcon", //values. name/, rotationGroupCaptions, true, false, true);
+    QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_ROTATION_GROUP_TASK_DURATION).toString());
+    DetailedListItem *newListItem = new DetailedListItem(this, "rotationIcon", values.value(DBConstants::COL_ROTATION_GROUP_TASK_NAME).toString(), rotationGroupCaptions, true, false, true, false, false);
     newListItem->setValues(dliValues);
-    newListItem->setID(values.value(DBConstants::).toInt());
-    connect(newListItem, SIGNAL(pressed(int)), this, SLOT(dliRotationGroupClicked(int)));
-    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteRotationGroup(int)));
-    listContentLayout->addWidget(newListItem);*/
+    newListItem->setID(values.value(DBConstants::COL_ROTATION_GROUP_TASK_ID).toInt());
+    connect(newListItem, SIGNAL(pressed(int)), this, SLOT(dliRotationGroupTaskClicked(int)));
+    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteRotationGroupTask(int)));
+    listContentLayout->addWidget(newListItem);
 }
 
 void RotationGroupTaskListView::updateRotationGroupTask(QHash<QString, QVariant> values){
-    /*QLayoutItem *item;
-    // id aus der db constants... int id = values.value(DBConstants::).toInt();
+    QLayoutItem *item;
     int i = 0;
+    int id = values.value(DBConstants::COL_ROTATION_GROUP_TASK_ID).toInt();
     while((item = listContentLayout->itemAt(i)) != NULL){
         DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
         if(dli->getID() == id){
-            QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(//DBConstants:: Rotation zeug).toString());
-            dli->setValues(dliValues);
+            QList<QStringList> wpValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_ROTATION_GROUP_TASK_DURATION).toString());
+            dli->setValues(wpValues);
+            dli->setName(values.value(DBConstants::COL_ROTATION_GROUP_TASK_NAME).toString());
             break;
         }
         i++;
-    }*/
+    }
 }
 
 void RotationGroupTaskListView::removeRotationGroupTask(int id){
@@ -89,5 +90,11 @@ QList<QAbstractButton*> * RotationGroupTaskListView::getAdditionalNavigation() c
 // PRIVATE SLOTS
 void RotationGroupTaskListView::btnPlusClicked(){
     emit createRotationGroupTask(QHash<QString, QVariant>());
+    // NUR ZUM TESTEN
+    emit showView(ViewType::ROTATION_GROUP_TASK_VIEW);
+}
+
+void RotationGroupTaskListView::dliRotationGroupTaskClicked(int id){
+    emit selectRotationGroupTask(id);
     emit showView(ViewType::ROTATION_GROUP_TASK_VIEW);
 }

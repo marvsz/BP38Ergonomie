@@ -1,6 +1,7 @@
 #include "shiftview.h"
 #include "../separator.h"
 #include "../flickcharm.h"
+#include "../../databaseHandler/dbconstants.h"
 
 ShiftView::ShiftView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Shift Data"), parent),
@@ -60,6 +61,9 @@ ShiftView::ShiftView(QWidget *parent) :
     setEndTime(QTime(14,0));
 }
 
+ShiftView::~ShiftView(){
+}
+
 // PUBLIC
 QList<QAbstractButton*> * ShiftView::getAdditionalNavigation() const {
     QList<QAbstractButton*> *additions = new QList<QAbstractButton*>();
@@ -69,33 +73,14 @@ QList<QAbstractButton*> * ShiftView::getAdditionalNavigation() const {
     return additions;
 }
 
-QTime ShiftView::getStartTime() const{
-    return tsStart->getTime();
-}
-
-QTime ShiftView::getEndTime() const{
-    return tsEnd->getTime();
-}
-
-int ShiftView::getShiftType() const{
-    return oscShiftType->getSelectedID();
-}
-
 // PUBLIC SLOTS
 void ShiftView::setShift(QHash<QString, QVariant> values) {
-
-}
-
-void ShiftView::setStartTime(const QTime &time){
-    tsStart->setTime(time);
-}
-
-void ShiftView::setEndTime(const QTime &time){
-    tsEnd->setTime(time);
-}
-
-void ShiftView::setShiftType(int type){
+    int type = values.value(DBConstants::COL_SHIFT_TYPE).toInt();
     oscShiftType->setSelectedValue(type);
+    updateShiftTimes(type);
+    tsStart->setTime(values.value(DBConstants::COL_SHIFT_START).toTime());
+    tsEnd->setTime(values.value(DBConstants::COL_SHIFT_END).toTime());
+
 }
 
 // PRIVATE SLOTS
@@ -118,9 +103,6 @@ void ShiftView::updateShiftTimes(int type){
         setEndTime(QTime(0, 0));
         break;
     }
-    emit shiftTypeChanged(type);
-    emit beginTimeChanged(tsStart->getTime());
-    emit endTimeChanged(tsEnd->getTime());
 }
 
 void ShiftView::btnEmployeeClicked(){
@@ -139,6 +121,12 @@ void ShiftView::dliEmployeeSelectionClicked(){
     emit showPopUp(PopUpType::EMPLOYEE_POPUP);
 }
 
-ShiftView::~ShiftView(){
-
+// PRIVATE
+void ShiftView::setStartTime(const QTime &time){
+    tsStart->setTime(time);
 }
+
+void ShiftView::setEndTime(const QTime &time){
+    tsEnd->setTime(time);
+}
+

@@ -81,22 +81,49 @@ RotationGroupTaskView::RotationGroupTaskView(QWidget *parent) :
     mainLayout->addLayout(rightLayout);
     setLayout(mainLayout);
 
-    //emit selectedWorkplaceChanged(-1);
-}
+    // TEST DATA ---->
+    QHash<QString, QVariant> values  = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID, 1);
+    values.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_WORKPLACE_ID, 1);
+    values.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_DURATION, 60);
+    addRotationGroupTaskEntry(values);
 
+    QHash<QString, QVariant> values1  = QHash<QString, QVariant>();
+    values1.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID, 2);
+    values1.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_WORKPLACE_ID, 1);
+    values1.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_DURATION, 120);
+    addRotationGroupTaskEntry(values1);
 
-// PUBLIC METHODS
+    QHash<QString, QVariant> values2  = QHash<QString, QVariant>();
+    values2.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID, 2);
+    values2.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_WORKPLACE_ID, 2);
+    values2.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_DURATION, 90);
+    addRotationGroupTaskEntry(values2);
 
-QString RotationGroupTaskView::getName() const{
-    return txtBxName->text();
-}
+    QHash<QString, QVariant> values3  = QHash<QString, QVariant>();
+    values3.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID, 2);
+    values3.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_WORKPLACE_ID, 1);
+    values3.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_DURATION, 30);
+    addRotationGroupTaskEntry(values3);
 
-int RotationGroupTaskView::getSelectedWorkplace() const {
-    return selectedWorkplaceID;
-}
+    QHash<QString, QVariant> values4  = QHash<QString, QVariant>();
+    values4.insert(DBConstants::COL_WORKPLACE_ID, 1);
+    values4.insert(DBConstants::COL_WORKPLACE_NAME, "Arbeitsplatz 1");
+    addWorkplace(values4);
 
-int RotationGroupTaskView::getWorkplaceDuration() const {
-    return numBxWorkplaceDuration->getValue();
+    QHash<QString, QVariant> values5  = QHash<QString, QVariant>();
+    values5.insert(DBConstants::COL_WORKPLACE_ID, 2);
+    values5.insert(DBConstants::COL_WORKPLACE_NAME, "Arbeitsplatz 2");
+    addWorkplace(values5);
+
+    QHash<QString, QVariant> values6  = QHash<QString, QVariant>();
+    values6.insert(DBConstants::COL_WORKPLACE_ID, 3);
+    values6.insert(DBConstants::COL_WORKPLACE_NAME, "Arbeitsplatz 3");
+    addWorkplace(values6);
+
+    // <--- DELETE LATER
+
+    emit selectedWorkplaceChanged(0);
 }
 
 // PUBLIC METHODS
@@ -114,7 +141,7 @@ void RotationGroupTaskView::setRotationGroupTask(QHash<QString, QVariant> values
 
 void RotationGroupTaskView::addRotationGroupTaskEntry(QHash<QString, QVariant> values){
     QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_DURATION).toString());
-    DetailedListItem *newListItem = new DetailedListItem(this, "workplaceIcon", "", rotationGroupTaskEntryCaptions, true, false, false, false, false);
+    DetailedListItem *newListItem = new DetailedListItem(this, "workplaceIcon", QString(tr("Rotation Group Entry ")).append(values.value(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID).toString()), rotationGroupTaskEntryCaptions, true, false, false, false, false);
     newListItem->setValues(dliValues);
     newListItem->setID(values.value(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID).toInt());
     connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteRotationGroupTaskEntry(int)));
@@ -145,11 +172,26 @@ void RotationGroupTaskView::clearRotationGroupTaskEntries(){
 }
 
 void RotationGroupTaskView::addWorkplace(QHash<QString, QVariant> values){
-
+    DetailedListItem *newListItem = new DetailedListItem(this, "workplaceIcon", values.value(DBConstants::COL_WORKPLACE_NAME).toString(), workplaceCaptions, false, true, false, false, false);
+    newListItem->setID(values.value(DBConstants::COL_WORKPLACE_ID).toInt());
+    connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedWorkplaceChanged(int)));
+    connect(newListItem, SIGNAL(deselected(int)), this, SLOT(deselectWorkplace(int)));
+    connect(this, SIGNAL(selectedWorkplace(int)), newListItem, SLOT(selectExclusiveWithID(int)));
+    workplaceListLayout->addWidget(newListItem);
 }
 
 void RotationGroupTaskView::updateWorkplace(QHash<QString, QVariant> values){
-
+    QLayoutItem *item;
+    int id = values.value(DBConstants::COL_WORKPLACE_ID).toInt();
+    int i = 0;
+    while((item = workplaceListLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            dli->setName(values.value(DBConstants::COL_WORKPLACE_NAME).toString());
+            break;
+        }
+        i++;
+    }
 }
 
 void RotationGroupTaskView::removeWorkplace(int id){
@@ -175,69 +217,32 @@ void RotationGroupTaskView::clearWorkplaces(){
     }
 }
 
-/*
-void RotationGroupView::setRotationGroupName(const QString &name){
-    txtBxName->setText(name);
+void RotationGroupTaskView::onLeaving(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_ROTATION_GROUP_TASK_NAME, txtBxName->text());
+    emit saveRotationGroupTask(values);
 }
-
-void RotationGroupView::setRotationGroupDuration(int duration){
-    lblTotalDurationValue->setText(QString::number(duration).append(" min"));
-}
-
-void RotationGroupView::setWorkplaceDuration(int duration){
-    numBxWorkplaceDuration->setValue(duration);
-}
-
-void RotationGroupView::addRotationGroupTask(int id, const QString &name, int duration){
-    QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(duration).append(" min"));
-    DetailedListItem *newListItem = new DetailedListItem(this, "workplaceIcon", name, rotationGroupTaskCaptions, true, false, false);
-    newListItem->setID(id);
-    newListItem->setValues(values);
-    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(removeRotationGroupTaskEntry(int)));
-    rotationGroupTaskListLayout->addWidget(newListItem);
-}
-
-void RotationGroupView::clearRotationGroupTasks(){
-    QLayoutItem *item;
-    while((item = rotationGroupTaskListLayout->takeAt(0)) != NULL){
-        delete item->widget();
-        delete item;
-    }
-}
-
-void RotationGroupView::addWorkplace(int id, const QString &name, int duration){
-    QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(duration).append(" min"));
-    DetailedListItem *newListItem = new DetailedListItem(this, "workplaceIcon", name, workplaceCaptions, false, true, false);
-    newListItem->setID(id);
-    newListItem->setValues(values);
-    connect(this, SIGNAL(selectedWorkplaceChanged(int)), newListItem, SLOT(selectExclusiveWithID(int)));
-    connect(newListItem, SIGNAL(selected(int)), this, SLOT(setSelectedWorkplace(int)));
-    workplaceListLayout->addWidget(newListItem);
-}
-
-void RotationGroupView::clearWorkplaces(){
-    QLayoutItem *item;
-    while((item = workplaceListLayout->takeAt(0)) != NULL){
-        delete item->widget();
-        delete item;
-    }
-}
-*/
 
 // PRIVATE SLOTS
 
-void RotationGroupTaskView::setSelectedWorkplace(int id){
+void RotationGroupTaskView::selectedWorkplaceChanged(int id){
     selectedWorkplaceID = id;
-    emit selectWorkplace(id);
-    // dann soll bitte die duration auf die standard duration (summe aller activities)
-    // gesetzt werden
+    emit selectedWorkplace(id);
+}
+
+void RotationGroupTaskView::deselectWorkplace(int id){
+    if(id == selectedWorkplaceID)
+        selectedWorkplaceID = 0;
 }
 
 void RotationGroupTaskView::btnAddClicked(){
-    if(selectedWorkplaceID > -1){
-        //emit createRotationGroupTask();
+    if(selectedWorkplaceID > 0){
+        QHash<QString, QVariant> values = QHash<QString, QVariant>();
+        values.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_WORKPLACE_ID, selectedWorkplaceID);
+        values.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_DURATION, numBxWorkplaceDuration->getValue());
+        emit createRotationGroupTaskEntry(values);
         numBxWorkplaceDuration->clear();
-        setSelectedWorkplace(-1);
+        selectedWorkplaceChanged(0);
     }
 }
 

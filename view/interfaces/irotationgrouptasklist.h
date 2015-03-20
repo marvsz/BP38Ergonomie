@@ -14,6 +14,7 @@ public slots:
 signals:
     virtual void createRotationGroupTask(QHash<QString, QVariant> values) = 0;
     virtual void deleteRotationGroupTask(int id) = 0;
+    virtual void selectRotationGroupTask(int id) = 0;
 };
 
 #define IRotationGroupTaskList_iid "IRotationGroupTaskList"

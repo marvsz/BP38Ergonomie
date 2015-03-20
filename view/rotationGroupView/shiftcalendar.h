@@ -39,6 +39,7 @@ public:
 signals:
     void createRotationGroupTask(QHash<QString, QVariant> values);
     void deleteRotationGroupTask(int id);
+    void selectRotationGroupTask(int id);
 
     void createCalendarRotationGroup(QHash<QString, QVariant> values);
     void deleteCalendarRotationGroup(int id);

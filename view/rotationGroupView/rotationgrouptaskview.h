@@ -28,11 +28,6 @@ public:
 
     QList<QAbstractButton*> * getAdditionalNavigation() const;
 
-    QString getName() const;
-
-    int getWorkplaceDuration() const;
-    int getSelectedWorkplace() const;
-
 signals:
     void saveRotationGroupTask(QHash<QString, QVariant> values);
     void createRotationGroupTaskEntry(QHash<QString, QVariant> values);
@@ -41,6 +36,8 @@ signals:
     void createWorkplace(QHash<QString, QVariant> values);
     void deleteWorkplace(int id);
     void selectWorkplace(int id);
+
+    void selectedWorkplace(int id);
 
 public slots:
     void setRotationGroupTask(QHash<QString, QVariant> values);
@@ -54,10 +51,14 @@ public slots:
     void removeWorkplace(int id);
     void clearWorkplaces();
 
+    void onLeaving();
+
 private slots:
-    void setSelectedWorkplace(int id);
     void btnAddClicked();
     void btnAddWorkplaceClicked();
+
+    void selectedWorkplaceChanged(int id);
+    void deselectWorkplace(int id);
 
 private:
     int id;
@@ -84,7 +85,7 @@ private:
     QPushButton *btnAddWorkplace;
 
     const QList<QStringList> rotationGroupTaskEntryCaptions = QList<QStringList>() << (QStringList() << tr("Duration:"));
-    const QList<QStringList> workplaceCaptions = QList<QStringList>();// << (QStringList() << tr("Duration:"));
+    const QList<QStringList> workplaceCaptions = QList<QStringList>();
 
 };
 

@@ -32,23 +32,11 @@ public:
 
     QList<QAbstractButton*> * getAdditionalNavigation() const;
 
-    int getShiftType() const;
-    QTime getStartTime() const;
-    QTime getEndTime() const;
-
 signals:
     void saveShift(QHash<QString, QVariant> values);
 
-    void shiftTypeChanged(int type);
-    void beginTimeChanged(QTime begin);
-    void endTimeChanged(QTime end);
-
 public slots:
     void setShift(QHash<QString, QVariant> values);
-
-    void setShiftType(int type);
-    void setStartTime(const QTime &time);
-    void setEndTime(const QTime &time);
 
 private slots:
     void updateShiftTimes(int type);
@@ -76,6 +64,9 @@ private:
     QPushButton *btnCalendar;
 
     const QStringList SHIFT_TEXTS = QStringList()<<(tr("early shift"))<<(tr("late shift"))<<(tr("night shift"))<<(tr("special shift"));
+
+    void setStartTime(const QTime &time);
+    void setEndTime(const QTime &time);
 };
 
 #endif // SHIFTVIEW_H
