@@ -307,11 +307,12 @@ const QHash<QString, QVariant::Type> DBConstants::HASH_CONNECTION_TYPES = QHashB
 //Shift
 const QString DBConstants::TBL_SHIFT = "Shift";
 const QString DBConstants::COL_SHIFT_ID = "shift_ID";
+const QString DBConstants::COL_SHIFT_RECORDING_ID = "recording_ID";
 const QString DBConstants::COL_SHIFT_TYPE = "type";
 const QString DBConstants::COL_SHIFT_START = "start";
 const QString DBConstants::COL_SHIFT_END = "end";
 const QString DBConstants::COL_SHIFT_ROTATION_GROUP_ID = "rotation_group_ID";
-const QHash<QString, QVariant::Type> DBConstants::HASH_SHIFT_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_SHIFT_ID, QVariant::Int).add(DBConstants::COL_SHIFT_TYPE, QVariant::Int).add(DBConstants::COL_SHIFT_START, QVariant::Int).add(DBConstants::COL_SHIFT_END, QVariant::Int).add(DBConstants::COL_SHIFT_ROTATION_GROUP_ID, QVariant::Int).build();
+const QHash<QString, QVariant::Type> DBConstants::HASH_SHIFT_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_SHIFT_ID, QVariant::Int).add(DBConstants::COL_SHIFT_RECORDING_ID, QVariant::Int).add(DBConstants::COL_SHIFT_TYPE, QVariant::Int).add(DBConstants::COL_SHIFT_START, QVariant::Int).add(DBConstants::COL_SHIFT_END, QVariant::Int).add(DBConstants::COL_SHIFT_ROTATION_GROUP_ID, QVariant::Int).build();
 
 //Break
 const QString DBConstants::TBL_BREAK = "Break";

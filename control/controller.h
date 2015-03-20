@@ -163,6 +163,23 @@ signals:
     void initiliazedWorkProcesses(QList<QHash<QString, QVariant>> values);
     void resettedWorkProcesses();
 
+    //Shift
+    void selectedShift(QHash<QString, QVariant> values);
+
+    //RotationGroup
+    void clearRotationGroup();
+
+    //RotationGroupTask
+    void clearRotationGroupTasks();
+    void createdRotationGroupTask(QHash<QString, QVariant> values);
+    void updatedRotationGroupTask(QHash<QString, QVariant> values);
+    void removedRotationGroupTask(int id);
+    void selectedRotationGroupTask(QHash<QString, QVariant> values);
+
+    //RotationGroupTaskEntry
+    void clearRotationGroupTaskEntries();
+    void createdRotationGroupTaskEntry(QHash<QString, QVariant> values);
+    void removedRotationGroupTaskEntry(int id);
 
 private slots:
     //Analyst
@@ -293,6 +310,26 @@ private slots:
     void sendDataUploadFinished(const QString filename);
     void sendDataUploadError(const QString &error);
 
+    //Shift
+    void initializeShift(int id);
+    void saveShift(QHash<QString, QVariant> values);
+
+    //RotationGroup
+    void initializeRotationGroup(int id);
+
+    //RotationGroupTask
+    void initializeGroupTasks();
+    void createRotationGroupTask(QHash<QString, QVariant> values);
+    void deleteRotationGroupTask(int id);
+    void selectRotationGroupTask(int id);
+    void saveRotationGroupTask(QHash<QString, QVariant> values);
+
+    //RotationGroupTaskEntry
+    void initializeGroupTaskEntries(int id);
+    void createRotationGroupTaskEntry(QHash<QString, QVariant> values);
+    void deleteRotationGroupTaskEntry(int id, bool showMesssage = true);
+
+    //Reset
     void resetDatabaseFactory();
     void resetSelectedEntries();
 
@@ -364,6 +401,8 @@ private:
     int employee_ID;
     int bodyMeasurement_ID;
     int selectedEmployee_ID;
+    int shift_ID;
+    int rotationGroup_ID;
 
     IImportData *importDataWidget;
     IImportDataParser *parser;

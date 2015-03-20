@@ -311,6 +311,7 @@ public:
     //Shift
     static const QString TBL_SHIFT;
     static const QString COL_SHIFT_ID;
+    static const QString COL_SHIFT_RECORDING_ID;
     static const QString COL_SHIFT_TYPE;
     static const QString COL_SHIFT_START;
     static const QString COL_SHIFT_END;

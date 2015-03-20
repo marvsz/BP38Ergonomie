@@ -285,6 +285,11 @@ Controller::Controller(QObject *parent, QApplication *app) :
     connect(importDataPopUp, SIGNAL(selectFTPConnection(IFTPConnections*,int)), this, SLOT(selectFTPConnection(IFTPConnections*,int)));
     connect(importDataPopUp, SIGNAL(importData(IImportData*)), this, SLOT(importData(IImportData*)));
 
+    //ShiftView signals/slots
+    connect(shiftView, SIGNAL(saveShift(QHash<QString,QVariant>)), this, SLOT(saveShift(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(selectedShift(QHash<QString,QVariant>)), shiftView, SLOT(setShift(QHash<QString,QVariant>)));
+
+
     connect(languagePopUp, SIGNAL(confirm()), this, SLOT(languageChanged()));
     connect(themePopUp, SIGNAL(confirm()), this, SLOT(themeChanged()));
     connect(resetPopUp, SIGNAL(confirm()), this, SLOT(resetSelectedEntries()));
@@ -496,6 +501,10 @@ void Controller::setRecording(int id){
         int factoryID = recordValues.value(DBConstants::COL_RECORDING_FACTORY_ID).toInt();
         if(factoryID > 0)
             setFactory(factoryID);
+        filter = QString("%1 = %2").arg(DBConstants::COL_SHIFT_RECORDING_ID).arg(recording_ID);
+        QHash<QString, QVariant> shiftValues = dbHandler->selectFirst(DBConstants::TBL_SHIFT, filter);
+        int shift_ID = shiftValues.value(DBConstants::COL_SHIFT_ID).toInt();
+        initializeShift(shift_ID);
     }
 }
 
@@ -1179,6 +1188,85 @@ void Controller::sendDataUploadFinished(const QString filename){
 
 void Controller::sendDataUploadError(const QString &error){
     viewCon->showMessage(error, NotificationMessage::ERROR, NotificationMessage::PERSISTENT);
+}
+
+//Shift
+void Controller::initializeShift(int id){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_SHIFT_ID).arg(id);
+    QHash<QString, QVariant> values = dbHandler->selectFirst(DBConstants::TBL_SHIFT, filter);
+    if(!values.isEmpty()){
+        shift_ID = values.value(DBConstants::COL_SHIFT_ID).toInt();
+        filter = QString ("%1 = %2").arg(DBConstants::COL_EMPLOYEE_WORKS_SHIFT_SHIFT_ID).arg(shift_ID);
+        selectedEmployee_ID = dbHandler->selectFirst(DBConstants::TBL_EMPLOYEE_WORKS_SHIFT, filter).value(DBConstants::COL_EMPLOYEE_WORKS_SHIFT_EMPLOYEE_ID).toInt();
+        emit employeeSelected(selectedEmployee_ID);
+        emit selectedShift(values);
+        rotationGroup_ID = values.value(DBConstants::COL_SHIFT_ROTATION_GROUP_ID).toInt();
+        initializeRotationGroup(rotationGroup_ID);
+    }
+}
+
+void Controller::saveShift(QHash<QString, QVariant> values){
+    QHash<QString, QVariant> ewsValues = QHash<QString, QVariant>();
+    ewsValues.insert(DBConstants::COL_EMPLOYEE_WORKS_SHIFT_EMPLOYEE_ID, selectedEmployee_ID);
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_EMPLOYEE_WORKS_SHIFT_SHIFT_ID).arg(shift_ID);
+    dbHandler->update(DBConstants::TBL_EMPLOYEE_WORKS_SHIFT, DBConstants::HASH_EMPLOYEE_WORKS_SHIFT_TYPES, ewsValues, filter, DBConstants::COL_EMPLOYEE_WORKS_SHIFT_EMPLOYEE_ID);
+    filter = QString("%1 = %2").arg(DBConstants::COL_SHIFT_ID).arg(shift_ID);
+    values.insert(DBConstants::COL_SHIFT_RECORDING_ID, recording_ID);
+    values.insert(DBConstants::COL_SHIFT_ROTATION_GROUP_ID, rotationGroup_ID);
+    values.insert(DBConstants::COL_SHIFT_ID, shift_ID);
+    dbHandler->save(DBConstants::TBL_SHIFT, DBConstants::HASH_SHIFT_TYPES, values, filter, DBConstants::COL_SHIFT_ID);
+
+}
+
+//RotationGroup
+void Controller::initializeRotationGroup(int id){
+
+}
+
+
+//RotationGroupTask
+void Controller::initializeGroupTasks(){
+    emit clearRotationGroupTasks();
+    QList<QHash<QString, QVariant>> rows = dbHandler->select(DBConstants::TBL_ROTATION_GROUP_TASK, QString(""));
+    for(int i = 0; i < rows.size(); ++i)
+        emit createdRotationGroupTask(rows.value(i));
+}
+
+void Controller::createRotationGroupTask(QHash<QString, QVariant> values){
+    dbHandler->insert(DBConstants::TBL_ROTATION_GROUP_TASK, DBConstants::HASH_ROTATION_GROUP_TASK_TYPES, values, DBConstants::COL_ROTATION_GROUP_TASK_ID);
+    viewCon->showMessage(tr("Created rotation group task"), NotificationMessage::ACCEPT);
+    emit createdRotationGroupTask(values);
+}
+
+void Controller::deleteRotationGroupTask(int id){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_ROTATION_GROUP_TASK_ID).arg(id);
+    dbHandler->deleteAll(DBConstants::TBL_ROTATION_GROUP_TASK, filter);
+    QList<QHash<QString, QVariant>> rgteRows = dbHandler->select(DBConstants::TBL_ROTATION_GROUP_TASK_ENTRY, QString("%1 = %2").arg(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_TASK_ID).arg(id));
+    for(int i = 0; i < rgteRows.size(); ++i){
+        deleteRotationGroupTaskEntry(rgteRows.at(i).value(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID).toInt(), false);
+    }
+    viewCon->showMessage(tr("Deleted rotation group task"), NotificationMessage::ACCEPT);
+    emit removedRotationGroupTask(id);
+}
+
+void Controller::selectRotationGroupTask(int id){
+
+}
+
+void Controller::saveRotationGroupTask(QHash<QString, QVariant> values){
+}
+
+//RotationGroupTaskEntry
+void Controller::initializeGroupTaskEntries(int id){
+
+}
+
+void Controller::createRotationGroupTaskEntry(QHash<QString, QVariant> values){
+
+}
+
+void Controller::deleteRotationGroupTaskEntry(int id, bool showMessage){
+
 }
 
 //Database Factory Reset
