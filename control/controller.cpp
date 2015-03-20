@@ -518,7 +518,7 @@ void Controller::initializeWorkplaces(){
     emit clearWorkplaces();
     QList<QHash<QString, QVariant>> rows = dbHandler->select(DBConstants::TBL_WORKPLACE, QString(""));
     for(int i = 0; i < rows.count(); ++i)
-        emit createWorkplace(rows.at(i));
+        emit createdWorkplace(rows.at(i));
 }
 
 void Controller::createWorkplace(QHash<QString, QVariant> values){
@@ -526,6 +526,7 @@ void Controller::createWorkplace(QHash<QString, QVariant> values){
     values.insert(DBConstants::COL_WORKPLACE_ID, wp_ID);
     emit createdWorkplace(values);
     saveRecordingObservesWorkplace(wp_ID);
+    viewCon->showMessage(tr("Created new workplace"), NotificationMessage::ACCEPT);
 }
 
 void Controller::createWorkplace(QHash<QString, QVariant> values, QList<QHash<QString, QVariant>> activityValues){
