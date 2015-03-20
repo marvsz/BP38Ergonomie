@@ -1,26 +1,26 @@
-#ifndef ROTATIONGROUPVIEW_H
-#define ROTATIONGROUPVIEW_H
+#ifndef ROTATIONGROUPTASKVIEW_H
+#define ROTATIONGROUPTASKVIEW_H
 
 #include <QWidget>
 #include <QLabel>
 #include <QScrollArea>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include "../interfaces/irotationgroup.h"
-#include "../interfaces/irotationgrouptasklist.h"
+#include "../interfaces/irotationgrouptask.h"
+#include "../interfaces/irotationgrouptaskentrylist.h"
 #include "../interfaces/iworkplacelist.h"
 #include "../navigation/simplenavigateablewidget.h"
 #include "../textlineedit.h"
 #include "../numberlineedit.h"
 
-class RotationGroupView : public SimpleNavigateableWidget, IRotationGroup, IWorkplaceList, IRotationGroupTaskList
+class RotationGroupTaskView : public SimpleNavigateableWidget, IRotationGroupTask, IWorkplaceList, IRotationGroupTaskEntryList
 {
     Q_OBJECT
-    Q_INTERFACES(IRotationGroupTaskList)
-    Q_INTERFACES(IRotationGroup)
+    Q_INTERFACES(IRotationGroupTaskEntryList)
+    Q_INTERFACES(IRotationGroupTask)
     Q_INTERFACES(IWorkplaceList)
 public:
-    explicit RotationGroupView(QWidget *parent = 0);
+    explicit RotationGroupTaskView(QWidget *parent = 0);
 
     bool hasAdditionalNavigation() const{
         return true;
@@ -34,22 +34,20 @@ public:
     int getSelectedWorkplace() const;
 
 signals:
-    void saveRotationGroup(QHash<QString, QVariant> values);
-    void createRotationGroupTask(QHash<QString, QVariant> values);
-    void deleteRotationGroupTask(int id);
-    void selectRotationGroupTask(int id);
+    void saveRotationGroupTask(QHash<QString, QVariant> values);
+    void createRotationGroupTaskEntry(QHash<QString, QVariant> values);
+    void deleteRotationGroupTaskEntry(int id);
 
     void createWorkplace(QHash<QString, QVariant> values);
     void deleteWorkplace(int id);
     void selectWorkplace(int id);
 
 public slots:
-    void setRotationGroup(QHash<QString, QVariant> values);
+    void setRotationGroupTask(QHash<QString, QVariant> values);
 
-    void addRotationGroupTask(QHash<QString, QVariant> values);
-    void updateRotationGroupTask(QHash<QString, QVariant> values);
-    void removeRotationGroupTask(int id);
-    void clearRotationGroupTasks();
+    void addRotationGroupTaskEntry(QHash<QString, QVariant> values);
+    void removeRotationGroupTaskEntry(int id);
+    void clearRotationGroupTaskEntries();
 
     void addWorkplace(QHash<QString, QVariant> values);
     void updateWorkplace(QHash<QString, QVariant> values);
@@ -71,11 +69,11 @@ private:
     TextLineEdit *txtBxName;
     QLabel *lblTotalDurationValue;
 
-    QWidget *rotationGroupTaskListContent;
+    QWidget *rotationGroupTaskEntryListContent;
     QWidget *workplaceListContent;
-    QVBoxLayout *rotationGroupTaskListLayout;
+    QVBoxLayout *rotationGroupTaskEntryListLayout;
     QVBoxLayout *workplaceListLayout;
-    QScrollArea *scRotationGroupTasks;
+    QScrollArea *scRotationGroupTaskEntries;
     QScrollArea *scWorkplaces;
 
     QLabel *lblAddWorkplace;
@@ -85,9 +83,9 @@ private:
     QPushButton *btnAdd;
     QPushButton *btnAddWorkplace;
 
-    static const QList<QStringList> rotationGroupTaskCaptions;
-    static const QList<QStringList> workplaceCaptions;
+    const QList<QStringList> rotationGroupTaskEntryCaptions = QList<QStringList>() << (QStringList() << tr("Duration:"));
+    const QList<QStringList> workplaceCaptions = QList<QStringList>();// << (QStringList() << tr("Duration:"));
 
 };
 
-#endif // ROTATIONGROUPVIEW_H
+#endif // ROTATIONGROUPTASKVIEW_H

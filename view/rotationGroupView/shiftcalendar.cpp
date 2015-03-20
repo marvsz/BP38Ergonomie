@@ -197,19 +197,19 @@ void ShiftCalendar::clearCalendar(){
 
 // PUBLIC SLOTS
 
-void  ShiftCalendar::addRotationGroup(QHash<QString, QVariant> values){
+void  ShiftCalendar::addRotationGroupTask(QHash<QString, QVariant> values){
 
 }
 
-void ShiftCalendar::updateRotationGroup(QHash<QString, QVariant> values){
+void ShiftCalendar::updateRotationGroupTask(QHash<QString, QVariant> values){
 
 }
 
-void ShiftCalendar::removeRotationGroup(int id){
+void ShiftCalendar::removeRotationGroupTask(int id){
 
 }
 
-void ShiftCalendar::clearRotationGroups(){
+void ShiftCalendar::clearRotationGroupTasks(){
 
 }
 
@@ -294,7 +294,7 @@ void ShiftCalendar::btnAddBreakClicked(){
 }
 
 void ShiftCalendar::btnRotationClicked(){
-    emit showView(ViewType::ROTATION_GROUP_LIST_VIEW);
+    emit showView(ViewType::ROTATION_GROUP_TASK_LIST_VIEW);
 }
 
 void ShiftCalendar::setSelectedId(int id){

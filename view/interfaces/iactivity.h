@@ -1,6 +1,8 @@
 #ifndef IACTIVITY_H
 #define IACTIVITY_H
 
+#include <QtPlugin>
+
 class IActivity {
 
 signals:

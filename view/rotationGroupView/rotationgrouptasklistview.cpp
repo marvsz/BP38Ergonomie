@@ -1,10 +1,10 @@
-#include "rotationgrouplistview.h"
+#include "rotationgrouptasklistview.h"
 #include "../flickcharm.h"
 #include "../detailedlistitem.h"
 #include "../../databaseHandler/dbconstants.h"
 #include <QList>
 
-RotationGroupListView::RotationGroupListView(QWidget *parent) :
+RotationGroupTaskListView::RotationGroupTaskListView(QWidget *parent) :
     SimpleNavigateableWidget(tr("Rotation Groups"), parent),
     btnPlus(new QPushButton(this)),
     listContentLayout(new QVBoxLayout),
@@ -31,7 +31,7 @@ RotationGroupListView::RotationGroupListView(QWidget *parent) :
 }
 
 // PUBLIC SLOTS
-void RotationGroupListView::addRotationGroup(QHash<QString, QVariant> values){
+void RotationGroupTaskListView::addRotationGroupTask(QHash<QString, QVariant> values){
     /*QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBCONSTANTS:: ROTATION ZEUG).toString());
     DetailedListItem *newListItem = new DetailedListItem(this, "rotationIcon", //values. name/, rotationGroupCaptions, true, false, true);
     newListItem->setValues(dliValues);
@@ -41,7 +41,7 @@ void RotationGroupListView::addRotationGroup(QHash<QString, QVariant> values){
     listContentLayout->addWidget(newListItem);*/
 }
 
-void RotationGroupListView::updateRotationGroup(QHash<QString, QVariant> values){
+void RotationGroupTaskListView::updateRotationGroupTask(QHash<QString, QVariant> values){
     /*QLayoutItem *item;
     // id aus der db constants... int id = values.value(DBConstants::).toInt();
     int i = 0;
@@ -56,7 +56,7 @@ void RotationGroupListView::updateRotationGroup(QHash<QString, QVariant> values)
     }*/
 }
 
-void RotationGroupListView::removeRotationGroup(int id){
+void RotationGroupTaskListView::removeRotationGroupTask(int id){
     QLayoutItem *item;
     int i = 0;
     while((item = listContentLayout->itemAt(i)) != NULL){
@@ -71,7 +71,7 @@ void RotationGroupListView::removeRotationGroup(int id){
     }
 }
 
-void RotationGroupListView::clearRotationGroups(){
+void RotationGroupTaskListView::clearRotationGroupTasks(){
     QLayoutItem *item;
     while((item = listContentLayout->takeAt(0)) != NULL){
         delete item->widget();
@@ -80,19 +80,14 @@ void RotationGroupListView::clearRotationGroups(){
 }
 
 // PUBLIC METHODS
-QList<QAbstractButton*> * RotationGroupListView::getAdditionalNavigation() const {
+QList<QAbstractButton*> * RotationGroupTaskListView::getAdditionalNavigation() const {
     QList<QAbstractButton*> *additions = new QList<QAbstractButton*>();
     additions->append(btnPlus);
     return additions;
 }
 
 // PRIVATE SLOTS
-void RotationGroupListView::btnPlusClicked(){
-    emit createRotationGroup(QHash<QString, QVariant>());
-    emit showView(ViewType::ROTATION_GROUP_VIEW);
-}
-
-void RotationGroupListView::dliRotationGroupClicked(int id){
-    emit selectRotationGroup(id);
-    emit showView(ViewType::ROTATION_GROUP_VIEW);
+void RotationGroupTaskListView::btnPlusClicked(){
+    emit createRotationGroupTask(QHash<QString, QVariant>());
+    emit showView(ViewType::ROTATION_GROUP_TASK_VIEW);
 }

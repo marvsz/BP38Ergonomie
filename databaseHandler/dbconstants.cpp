@@ -142,24 +142,6 @@ const QString DBConstants::COL_PRODUCT_NAME = "product_name";
 const QString DBConstants::COL_PRODUCT_TOTAL_PERCENTAGE = "total_percentage";
 const QHash<QString, QVariant::Type> DBConstants::HASH_PRODUCT_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_PRODUCT_ID, QVariant::Int).add(DBConstants::COL_PRODUCT_NUMBER, QVariant::Int).add(DBConstants::COL_PRODUCT_NAME, QVariant::Int).add(DBConstants::COL_PRODUCT_TOTAL_PERCENTAGE, QVariant::Int).build();
 
-//Shift
-const QString DBConstants::TBL_SHIFT = "Shift";
-const QString DBConstants::COL_SHIFT_ID = "shift_ID";
-const QString DBConstants::COL_SHIFT_ROTATION_SHIFT_ID = "rotation_shift_ID";
-const QString DBConstants::COL_SHIFT_TYPE = "type";
-const QString DBConstants::COL_SHIFT_START = "start";
-const QString DBConstants::COL_SHIFT_END = "end";
-const QHash<QString, QVariant::Type> DBConstants::HASH_SHIFT_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_SHIFT_ID, QVariant::Int).add(DBConstants::COL_SHIFT_ROTATION_SHIFT_ID, QVariant::Int).add(DBConstants::COL_SHIFT_TYPE, QVariant::Int).add(DBConstants::COL_SHIFT_START, QVariant::Int).add(DBConstants::COL_SHIFT_END, QVariant::Int).build();
-
-//Break
-const QString DBConstants::TBL_BREAK = "Break";
-const QString DBConstants::COL_BREAK_ID = "break_ID";
-const QString DBConstants::COL_BREAK_START = "break_start";
-const QString DBConstants::COL_BREAK_END = "break_end";
-const QString DBConstants::COL_BREAK_SHIFT_ID = "shift_ID";
-const QString DBConstants::COL_BREAK_EMPLOYEE_ID = "employee_ID";
-const QHash<QString, QVariant::Type> DBConstants::HASH_BREAK_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_BREAK_ID, QVariant::Int).add(DBConstants::COL_BREAK_START, QVariant::Int).add(DBConstants::COL_BREAK_END, QVariant::Int).add(DBConstants::COL_BREAK_SHIFT_ID, QVariant::Int).add(DBConstants::COL_BREAK_EMPLOYEE_ID, QVariant::Int).build();
-
 //Activity
 const QString DBConstants::TBL_ACTIVITY = "Activity";
 const QString DBConstants::COL_ACTIVITY_ID = "activity_ID";
@@ -322,7 +304,45 @@ const QString DBConstants::COL_CONNECTION_DEFAULT = "default";
 const QString DBConstants::COL_CONNECTION_ANALYST_ID = "analyst_ID";
 const QHash<QString, QVariant::Type> DBConstants::HASH_CONNECTION_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_CONNECTION_ID, QVariant::Int).add(DBConstants::COL_CONNECTION_NAME, QVariant::String).add(DBConstants::COL_CONNECTION_USERNAME, QVariant::String).add(DBConstants::COL_CONNECTION_PASSWORD, QVariant::String).add(DBConstants::COL_CONNECTION_SERVER_ADDRESS, QVariant::String).add(DBConstants::COL_CONNECTION_PORT, QVariant::Int).add(DBConstants::COL_CONNECTION_DEFAULT, QVariant::Bool).add(DBConstants::COL_CONNECTION_ANALYST_ID, QVariant::Int).build();
 
+//Shift
+const QString DBConstants::TBL_SHIFT = "Shift";
+const QString DBConstants::COL_SHIFT_ID = "shift_ID";
+const QString DBConstants::COL_SHIFT_TYPE = "type";
+const QString DBConstants::COL_SHIFT_START = "start";
+const QString DBConstants::COL_SHIFT_END = "end";
+const QString DBConstants::COL_SHIFT_ROTATION_GROUP_ID = "rotation_group_ID";
+const QHash<QString, QVariant::Type> DBConstants::HASH_SHIFT_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_SHIFT_ID, QVariant::Int).add(DBConstants::COL_SHIFT_TYPE, QVariant::Int).add(DBConstants::COL_SHIFT_START, QVariant::Int).add(DBConstants::COL_SHIFT_END, QVariant::Int).add(DBConstants::COL_SHIFT_ROTATION_GROUP_ID, QVariant::Int).build();
+
+//Break
+const QString DBConstants::TBL_BREAK = "Break";
+const QString DBConstants::COL_BREAK_ID = "break_ID";
+const QString DBConstants::COL_BREAK_DURATION = "duration";
+const QHash<QString, QVariant::Type> DBConstants::HASH_BREAK_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_BREAK_ID, QVariant::Int).add(DBConstants::COL_BREAK_DURATION, QVariant::Int).build();
+
+// Rotation Group
+const QString DBConstants::TBL_ROTATION_GROUP = "Rotation_Group";
+const QString DBConstants::COL_ROTATION_GROUP_ID = "rotation_group_ID";
+const QString DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER = "order_number";
+const QString DBConstants::COL_ROTATION_GROUP_IS_TASK = "is_task";
+const QString DBConstants::COL_ROTATION_GROUP_ENTRY_ID = "entry_ID";
+const QHash<QString, QVariant::Type> DBConstants::HASH_ROTATION_GROUP_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_ROTATION_GROUP_ID, QVariant::Int).add(DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER, QVariant::Int).add(DBConstants::COL_ROTATION_GROUP_IS_TASK, QVariant::Int).add(DBConstants::COL_ROTATION_GROUP_ENTRY_ID, QVariant::Int).build();
+
+// Rotation Group Task
+const QString DBConstants::TBL_ROTATION_GROUP_TASK = "Rotation_Group_Task";
+const QString DBConstants::COL_ROTATION_GROUP_TASK_ID = "rotation_group_task_ID";
+const QString DBConstants::COL_ROTATION_GROUP_TASK_NAME = "name";
+const QString DBConstants::COL_ROTATION_GROUP_TASK_DURATION = "duration";
+const QHash<QString, QVariant::Type> DBConstants::HASH_ROTATION_GROUP_TASK_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_ROTATION_GROUP_TASK_ID, QVariant::Int).add(DBConstants::COL_ROTATION_GROUP_TASK_NAME, QVariant::String).add(DBConstants::COL_ROTATION_GROUP_TASK_DURATION, QVariant::Int).build();
+
+// Rotation Group Task Entry
+const QString DBConstants::TBL_ROTATION_GROUP_TASK_ENTRY = "Rotation_Group_Task_Entry";
+const QString DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID = "rotation_group_task_entry_ID";
+const QString DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_TASK_ID = "rotation_group_task_ID";
+const QString DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_WORKPLACE_ID = "workplace_ID";
+const QString DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_DURATION = "duration";
+const QHash<QString, QVariant::Type> DBConstants::HASH_ROTATION_GROUP_TASK_ENTRY_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID, QVariant::Int).add(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_TASK_ID, QVariant::Int).add(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_DURATION, QVariant::Int).add(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_WORKPLACE_ID, QVariant::Int).build();
+
 //Table list
 //const QHash<QString, DB_TABLES> DBConstants::HASH_TBL_TO_DB_TABLES = QHashBuilder<QString, DB_TABLES>().add(DBConstants::TBL_ACTIVITY, DB_TABLES::ACTIVITY).add(DBConstants::TBL_ANALYST, DB_TABLES::ANALYST).add(DBConstants::TBL_APPLIED_FORCE, DB_TABLES::APPLIED_FORCE).add(DBConstants::TBL_BODY_POSTURE, DB_TABLES::BODY_POSTURE).add(DBConstants::TBL_BRANCH_OF_INDUSTRY, DB_TABLES::BRANCH_OF_INDUSTRY).add(DBConstants::TBL_BREAK, DB_TABLES::BREAK).add(DBConstants::TBL_COMMENT, DB_TABLES::COMMENT).add(DBConstants::TBL_CORPORATION, DB_TABLES::CORPORATION).add(DBConstants::TBL_EMPLOYEE, DB_TABLES::EMPLOYEE).add(DBConstants::TBL_EMPLOYEE_WORKS_SHIFT, DB_TABLES::EMPLOYEE_WORKS_SHIFT).add(DBConstants::TBL_EMPLOYER, DB_TABLES::EMPLOYER).add(DBConstants::TBL_EQUIPMENT, DB_TABLES::EQUIPMENT).add(DBConstants::TBL_FACTORY, DB_TABLES::FACTORY).add(DBConstants::TBL_LINE, DB_TABLES::LINE).add(DBConstants::TBL_LOAD_HANDLING, DB_TABLES::LOAD_HANDLING).add(DBConstants::TBL_LOAD_HANDLING_TYPE, DB_TABLES::LOAD_HANDLING_TYPE).add(DBConstants::TBL_PRODUCT, DB_TABLES::PRODUCT).add(DBConstants::TBL_RECORDING, DB_TABLES::RECORDING).add(DBConstants::TBL_RECORDING_OB_LINE, DB_TABLES::RECORDING_OBSERVES_LINE).add(DBConstants::TBL_RECORDING_OB_WORKPLACE, DB_TABLES::RECORDING_OBSERVES_WORKPLACE).add(DBConstants::TBL_SHIFT, DB_TABLES::SHIFT).add(DBConstants::TBL_TRANSPORTATION, DB_TABLES::TRANSPORTATION).add(DBConstants::TBL_TYPE_OF_GRASPING, DB_TABLES::TYPE_OF_GRASPING).add(DBConstants::TBL_WORKPLACE, DB_TABLES::WORKPLACE).add(DBConstants::TBL_WORK_CONDITION, DB_TABLES::WORK_CONDITION).add(DBConstants::TBL_WORK_PROCESS, DB_TABLES::WORK_PROCESS).add(DBConstants::TBL_CONNECTION, DB_TABLES::CONNECTION).add(DBConstants::TBL_BODY_MEASUREMENT, DB_TABLES::BODY_MEASUREMENT).build();
-const QList<QString> DBConstants::LIST_TABLE_NAMES = QList<QString>()<<DBConstants::TBL_ACTIVITY<<DBConstants::TBL_ANALYST<<DBConstants::TBL_APPLIED_FORCE<<DBConstants::TBL_BODY_POSTURE<<DBConstants::TBL_BRANCH_OF_INDUSTRY<<DBConstants::TBL_BREAK<<DBConstants::TBL_COMMENT<<DBConstants::TBL_CORPORATION<<DBConstants::TBL_EMPLOYEE<<DBConstants::TBL_EMPLOYEE_WORKS_SHIFT<<DBConstants::TBL_EMPLOYER<<DBConstants::TBL_EQUIPMENT<<DBConstants::TBL_FACTORY<<DBConstants::TBL_LINE<<DBConstants::TBL_LOAD_HANDLING<<DBConstants::TBL_LOAD_HANDLING_TYPE<<DBConstants::TBL_PRODUCT<<DBConstants::TBL_RECORDING<<DBConstants::TBL_RECORDING_OB_LINE<<DBConstants::TBL_RECORDING_OB_WORKPLACE<<DBConstants::TBL_SHIFT<<DBConstants::TBL_TRANSPORTATION<<DBConstants::TBL_TYPE_OF_GRASPING<<DBConstants::TBL_WORKPLACE<<DBConstants::TBL_WORK_CONDITION<<DBConstants::TBL_WORK_PROCESS<<DBConstants::TBL_CONNECTION<<DBConstants::TBL_BODY_MEASUREMENT;
+const QList<QString> DBConstants::LIST_TABLE_NAMES = QList<QString>()<<DBConstants::TBL_ACTIVITY<<DBConstants::TBL_ANALYST<<DBConstants::TBL_APPLIED_FORCE<<DBConstants::TBL_BODY_POSTURE<<DBConstants::TBL_BRANCH_OF_INDUSTRY<<DBConstants::TBL_BREAK<<DBConstants::TBL_COMMENT<<DBConstants::TBL_CORPORATION<<DBConstants::TBL_EMPLOYEE<<DBConstants::TBL_EMPLOYEE_WORKS_SHIFT<<DBConstants::TBL_EMPLOYER<<DBConstants::TBL_EQUIPMENT<<DBConstants::TBL_FACTORY<<DBConstants::TBL_LINE<<DBConstants::TBL_LOAD_HANDLING<<DBConstants::TBL_LOAD_HANDLING_TYPE<<DBConstants::TBL_PRODUCT<<DBConstants::TBL_RECORDING<<DBConstants::TBL_RECORDING_OB_LINE<<DBConstants::TBL_RECORDING_OB_WORKPLACE<<DBConstants::TBL_SHIFT<<DBConstants::TBL_TRANSPORTATION<<DBConstants::TBL_TYPE_OF_GRASPING<<DBConstants::TBL_WORKPLACE<<DBConstants::TBL_WORK_CONDITION<<DBConstants::TBL_WORK_PROCESS<<DBConstants::TBL_CONNECTION<<DBConstants::TBL_BODY_MEASUREMENT<<DBConstants::TBL_ROTATION_GROUP<<DBConstants::TBL_ROTATION_GROUP_TASK<<DBConstants::TBL_ROTATION_GROUP_TASK_ENTRY;
 

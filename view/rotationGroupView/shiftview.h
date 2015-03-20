@@ -10,6 +10,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QScrollArea>
+#include "../interfaces/ishift.h"
 #include "../optionselectioncontrol.h"
 #include "../timespinner.h"
 #include "../numberlineedit.h"
@@ -17,9 +18,10 @@
 #include "shiftcalendar.h"
 #include "../navigation/simplenavigateablewidget.h"
 
-class ShiftView : public SimpleNavigateableWidget
+class ShiftView : public SimpleNavigateableWidget, IShift
 {
     Q_OBJECT
+    Q_INTERFACES(IShift)
 public:
     explicit ShiftView(QWidget *parent = 0);
     ~ShiftView();
@@ -35,11 +37,15 @@ public:
     QTime getEndTime() const;
 
 signals:
+    void saveShift(QHash<QString, QVariant> values);
+
     void shiftTypeChanged(int type);
     void beginTimeChanged(QTime begin);
     void endTimeChanged(QTime end);
 
 public slots:
+    void setShift(QHash<QString, QVariant> values);
+
     void setShiftType(int type);
     void setStartTime(const QTime &time);
     void setEndTime(const QTime &time);

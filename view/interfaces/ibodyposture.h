@@ -1,7 +1,7 @@
 #ifndef IBODYPOSTURE
 #define IBODYPOSTURE
 
-#include <QTPlugin>
+#include <QtPlugin>
 
 class IBodyPosture{
 

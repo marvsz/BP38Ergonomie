@@ -1,6 +1,8 @@
 #ifndef IACTIVITYLIST_H
 #define IACTIVITYLIST_H
 
+#include <QtPlugin>
+
 class IActivityList{
 
 signals:

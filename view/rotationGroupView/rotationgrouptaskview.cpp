@@ -1,24 +1,22 @@
-#include "rotationgroupview.h"
+#include "rotationgrouptaskview.h"
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include "../separator.h"
 #include "../flickcharm.h"
 #include "../detailedlistitem.h"
+#include "../../databaseHandler/dbconstants.h"
 
-const QList<QStringList> RotationGroupView::rotationGroupTaskCaptions = QList<QStringList>() << (QStringList() << tr("Duration:"));
-const QList<QStringList> RotationGroupView::workplaceCaptions = QList<QStringList>() << (QStringList() << tr("Duration:"));
-
-RotationGroupView::RotationGroupView(QWidget *parent) :
+RotationGroupTaskView::RotationGroupTaskView(QWidget *parent) :
     SimpleNavigateableWidget(tr("New Rotation Group"), parent),
     lblName(new QLabel(tr("Name:"))),
     lblTotalDuration(new QLabel(tr("Total duration:"))),
     txtBxName(new TextLineEdit(this)),
     lblTotalDurationValue(new QLabel()),
-    rotationGroupTaskListContent(new QWidget()),
+    rotationGroupTaskEntryListContent(new QWidget()),
     workplaceListContent(new QWidget()),
-    rotationGroupTaskListLayout(new QVBoxLayout()),
+    rotationGroupTaskEntryListLayout(new QVBoxLayout()),
     workplaceListLayout(new QVBoxLayout()),
-    scRotationGroupTasks(new QScrollArea()),
+    scRotationGroupTaskEntries(new QScrollArea()),
     scWorkplaces(new QScrollArea()),
     lblAddWorkplace(new QLabel(tr("Add Workplace to Rotation Group"))),
     lblWorkplaceDuration(new QLabel(tr("Duration [min]:"))),
@@ -36,14 +34,14 @@ RotationGroupView::RotationGroupView(QWidget *parent) :
 
     // left part:
 
-    scRotationGroupTasks->setWidget(rotationGroupTaskListContent);
-    scRotationGroupTasks->setWidgetResizable(true);
-    scRotationGroupTasks->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    scRotationGroupTaskEntries->setWidget(rotationGroupTaskEntryListContent);
+    scRotationGroupTaskEntries->setWidgetResizable(true);
+    scRotationGroupTaskEntries->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     FlickCharm *flickCharmRotation = new FlickCharm(this);
-    flickCharmRotation->activateOn(scRotationGroupTasks);
+    flickCharmRotation->activateOn(scRotationGroupTaskEntries);
 
-    rotationGroupTaskListContent->setLayout(rotationGroupTaskListLayout);
-    rotationGroupTaskListLayout->setAlignment(Qt::AlignTop);
+    rotationGroupTaskEntryListContent->setLayout(rotationGroupTaskEntryListLayout);
+    rotationGroupTaskEntryListLayout->setAlignment(Qt::AlignTop);
 
     leftLayout->setAlignment(Qt::AlignTop);
     leftLayout->addWidget(lblName, 0, 0, 1, 1, 0);
@@ -51,7 +49,7 @@ RotationGroupView::RotationGroupView(QWidget *parent) :
     leftLayout->addWidget(lblTotalDuration, 1, 0, 1, 1, 0);
     leftLayout->addWidget(lblTotalDurationValue, 1, 1, 1, 1, 0);
     leftLayout->addWidget(new Separator(Qt::Horizontal, 3, 0), 2, 0, 1, 2, 0);
-    leftLayout->addWidget(scRotationGroupTasks, 3, 0, 1, 2, 0);
+    leftLayout->addWidget(scRotationGroupTaskEntries, 3, 0, 1, 2, 0);
 
     // right part:
     lblAddWorkplace->setObjectName("lblHeader");
@@ -71,7 +69,7 @@ RotationGroupView::RotationGroupView(QWidget *parent) :
     workplaceListLayout->setAlignment(Qt::AlignTop);
 
     rightLayout->setAlignment(Qt::AlignTop);
-    rightLayout->addWidget(lblAddWorkplace, 0, 0, 1, 2, Qt::AlignLeft);
+    rightLayout->addWidget(lblAddWorkplace, 0, 0, 1, 2, Qt::AlignCenter);
     rightLayout->addWidget(scWorkplaces, 1, 0, 1, 2, 0);
     rightLayout->addWidget(lblWorkplaceDuration, 2, 0, 1, 1, 0);
     rightLayout->addWidget(numBxWorkplaceDuration, 2, 1, 1, 1, 0);
@@ -89,62 +87,47 @@ RotationGroupView::RotationGroupView(QWidget *parent) :
 
 // PUBLIC METHODS
 
-QString RotationGroupView::getName() const{
+QString RotationGroupTaskView::getName() const{
     return txtBxName->text();
 }
 
-int RotationGroupView::getSelectedWorkplace() const {
+int RotationGroupTaskView::getSelectedWorkplace() const {
     return selectedWorkplaceID;
 }
 
-int RotationGroupView::getWorkplaceDuration() const {
+int RotationGroupTaskView::getWorkplaceDuration() const {
     return numBxWorkplaceDuration->getValue();
 }
 
 // PUBLIC METHODS
-QList<QAbstractButton*> * RotationGroupView::getAdditionalNavigation() const{
+QList<QAbstractButton*> * RotationGroupTaskView::getAdditionalNavigation() const{
     QList<QAbstractButton*> *additions = new QList<QAbstractButton*>();
     additions->append(btnAddWorkplace);
     return additions;
 }
 
 // PUBLIC SLOTS
-void RotationGroupView::setRotationGroup(QHash<QString, QVariant> values){
-    // set dies und das
+void RotationGroupTaskView::setRotationGroupTask(QHash<QString, QVariant> values){
+    txtBxName->setText(values.value(DBConstants::COL_ROTATION_GROUP_TASK_NAME).toString().append(" min"));
+    lblTotalDuration->setText(values.value(DBConstants::COL_ROTATION_GROUP_TASK_DURATION).toString());
 }
 
-void RotationGroupView::addRotationGroupTask(QHash<QString, QVariant> values){
-    /*// QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBCONSTANTS:: ROTATION ZEUG).toString());
-    DetailedListItem *newListItem = new DetailedListItem(this, "rotationIcon", values. name, rotationGroupCaptions, true, false, true);
+void RotationGroupTaskView::addRotationGroupTaskEntry(QHash<QString, QVariant> values){
+    QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_DURATION).toString());
+    DetailedListItem *newListItem = new DetailedListItem(this, "workplaceIcon", "", rotationGroupTaskEntryCaptions, true, false, false, false, false);
     newListItem->setValues(dliValues);
-    newListItem->setID(values.value(DBConstants::).toInt());
-    connect(newListItem, SIGNAL(pressed(int)), this, SLOT(dliRotationGroupClicked(int)));
-    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteRotationGroup(int)));
-    listContentLayout->addWidget(newListItem);*/
+    newListItem->setID(values.value(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID).toInt());
+    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteRotationGroupTaskEntry(int)));
+    rotationGroupTaskEntryListLayout->addWidget(newListItem);
 }
 
-void RotationGroupView::updateRotationGroupTask(QHash<QString, QVariant> values){
-/*    QLayoutItem *item;
-    int id = values.value(ROTATIONKRAM).toInt();
-    int i = 0;
-    while((item = rotationGroupTaskListLayout->itemAt(i)) != NULL){
-        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
-        if(dli->getID() == id){
-            QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(rotationgram).toString());
-            dli->setValues(dliValues);
-            break;
-        }
-        i++;
-    }*/
-}
-
-void RotationGroupView::removeRotationGroupTask(int id){
+void RotationGroupTaskView::removeRotationGroupTaskEntry(int id){
     QLayoutItem *item;
     int i = 0;
-    while((item = rotationGroupTaskListLayout->itemAt(i)) != NULL){
+    while((item = rotationGroupTaskEntryListLayout->itemAt(i)) != NULL){
         DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
         if(dli->getID() == id){
-            rotationGroupTaskListLayout->removeItem(item);
+            rotationGroupTaskEntryListLayout->removeItem(item);
             delete item->widget();
             delete item;
             break;
@@ -153,23 +136,23 @@ void RotationGroupView::removeRotationGroupTask(int id){
     }
 }
 
-void RotationGroupView::clearRotationGroupTasks(){
+void RotationGroupTaskView::clearRotationGroupTaskEntries(){
     QLayoutItem *item;
-    while((item = rotationGroupTaskListLayout->takeAt(0)) != NULL){
+    while((item = rotationGroupTaskEntryListLayout->takeAt(0)) != NULL){
         delete item->widget();
         delete item;
     }
 }
 
-void RotationGroupView::addWorkplace(QHash<QString, QVariant> values){
+void RotationGroupTaskView::addWorkplace(QHash<QString, QVariant> values){
 
 }
 
-void RotationGroupView::updateWorkplace(QHash<QString, QVariant> values){
+void RotationGroupTaskView::updateWorkplace(QHash<QString, QVariant> values){
 
 }
 
-void RotationGroupView::removeWorkplace(int id){
+void RotationGroupTaskView::removeWorkplace(int id){
     QLayoutItem *item;
     int i = 0;
     while((item = workplaceListLayout->itemAt(i)) != NULL){
@@ -184,7 +167,7 @@ void RotationGroupView::removeWorkplace(int id){
     }
 }
 
-void RotationGroupView::clearWorkplaces(){
+void RotationGroupTaskView::clearWorkplaces(){
     QLayoutItem *item;
     while((item = workplaceListLayout->takeAt(0)) != NULL){
         delete item->widget();
@@ -243,14 +226,14 @@ void RotationGroupView::clearWorkplaces(){
 
 // PRIVATE SLOTS
 
-void RotationGroupView::setSelectedWorkplace(int id){
+void RotationGroupTaskView::setSelectedWorkplace(int id){
     selectedWorkplaceID = id;
     emit selectWorkplace(id);
     // dann soll bitte die duration auf die standard duration (summe aller activities)
     // gesetzt werden
 }
 
-void RotationGroupView::btnAddClicked(){
+void RotationGroupTaskView::btnAddClicked(){
     if(selectedWorkplaceID > -1){
         //emit createRotationGroupTask();
         numBxWorkplaceDuration->clear();
@@ -258,6 +241,6 @@ void RotationGroupView::btnAddClicked(){
     }
 }
 
-void RotationGroupView::btnAddWorkplaceClicked(){
+void RotationGroupTaskView::btnAddWorkplaceClicked(){
     showPopUp(PopUpType::WORKPLACE_POPUP);
 }

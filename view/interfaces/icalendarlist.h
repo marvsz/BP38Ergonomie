@@ -1,10 +1,9 @@
 #ifndef ICALENDARLIST_H
 #define ICALENDARLIST_H
-#include "irotationgrouplist.h"
-#include "IWorkplaceList.h"
+
 #include <QtPlugin>
 
-class ICalendarList : public IRotationGroupList {
+class ICalendarList {
 
 public slots:
     virtual void addCalendarRotationGroup(QHash<QString, QVariant> values) = 0;
@@ -18,10 +17,10 @@ public slots:
 signals:
     virtual void createCalendarRotationGroup(QHash<QString, QVariant> values) = 0;
     virtual void deleteCalendarRotationGroup(int id) = 0;
-    virtual void selectCalendarRotationGroup(int id) = 0;
     virtual void createCalendarBreak(QHash<QString, QVariant> values) = 0;
     virtual void deleteCalendarBreak(int id) = 0;
-    virtual void selectCalendarBreak(int id) = 0;
+    virtual void moveEntryUp(int id) = 0;
+    virtual void moveEntryDown(int id) = 0;
 };
 
 #define ICalendarList_iid "ICalendarList"

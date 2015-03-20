@@ -19,9 +19,7 @@ signals:
 
 public slots:
     void onEnter();
-    void setAnalyst(QHash<QString, QVariant> values){
-
-    }
+    void setAnalyst(QHash<QString, QVariant>){}
 
 private slots:
     void onConfirm();

@@ -82,6 +82,10 @@ int ShiftView::getShiftType() const{
 }
 
 // PUBLIC SLOTS
+void ShiftView::setShift(QHash<QString, QVariant> values) {
+
+}
+
 void ShiftView::setStartTime(const QTime &time){
     tsStart->setTime(time);
 }
@@ -128,7 +132,7 @@ void ShiftView::btnCalendarClicked(){
 }
 
 void ShiftView::btnRotationClicked(){
-    emit showView(ViewType::ROTATION_GROUP_LIST_VIEW);
+    emit showView(ViewType::ROTATION_GROUP_TASK_LIST_VIEW);
 }
 
 void ShiftView::dliEmployeeSelectionClicked(){

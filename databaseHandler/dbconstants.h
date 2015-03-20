@@ -152,24 +152,6 @@ public:
     static const QString COL_PRODUCT_TOTAL_PERCENTAGE;
     static const QHash<QString, QVariant::Type> HASH_PRODUCT_TYPES;
 
-    //Shift
-    static const QString TBL_SHIFT;
-    static const QString COL_SHIFT_ID;
-    static const QString COL_SHIFT_ROTATION_SHIFT_ID;
-    static const QString COL_SHIFT_TYPE;
-    static const QString COL_SHIFT_START;
-    static const QString COL_SHIFT_END;
-    static const QHash<QString, QVariant::Type> HASH_SHIFT_TYPES;
-
-    //Break
-    static const QString TBL_BREAK;
-    static const QString COL_BREAK_ID;
-    static const QString COL_BREAK_START;
-    static const QString COL_BREAK_END;
-    static const QString COL_BREAK_SHIFT_ID;
-    static const QString COL_BREAK_EMPLOYEE_ID;
-    static const QHash<QString, QVariant::Type> HASH_BREAK_TYPES;
-
     //Activity
     static const QString TBL_ACTIVITY;
     static const QString COL_ACTIVITY_ID;
@@ -332,6 +314,43 @@ public:
     static const QString COL_CONNECTION_ANALYST_ID;
     static const QHash<QString, QVariant::Type> HASH_CONNECTION_TYPES;
 
+    //Shift
+    static const QString TBL_SHIFT;
+    static const QString COL_SHIFT_ID;
+    static const QString COL_SHIFT_TYPE;
+    static const QString COL_SHIFT_START;
+    static const QString COL_SHIFT_END;
+    static const QString COL_SHIFT_ROTATION_GROUP_ID;
+    static const QHash<QString, QVariant::Type> HASH_SHIFT_TYPES;
+
+    //Break
+    static const QString TBL_BREAK;
+    static const QString COL_BREAK_ID;
+    static const QString COL_BREAK_DURATION;
+    static const QHash<QString, QVariant::Type> HASH_BREAK_TYPES;
+
+    // Rotation Group
+    static const QString TBL_ROTATION_GROUP;
+    static const QString COL_ROTATION_GROUP_ID;
+    static const QString COL_ROTATION_GROUP_ORDER_NUMBER;
+    static const QString COL_ROTATION_GROUP_IS_TASK;
+    static const QString COL_ROTATION_GROUP_ENTRY_ID;
+    static const QHash<QString, QVariant::Type> HASH_ROTATION_GROUP_TYPES;
+
+    // Rotation Group Task
+    static const QString TBL_ROTATION_GROUP_TASK;
+    static const QString COL_ROTATION_GROUP_TASK_ID;
+    static const QString COL_ROTATION_GROUP_TASK_NAME;
+    static const QString COL_ROTATION_GROUP_TASK_DURATION;
+    static const QHash<QString, QVariant::Type> HASH_ROTATION_GROUP_TASK_TYPES;
+
+    // Rotation Group Task Entry
+    static const QString TBL_ROTATION_GROUP_TASK_ENTRY;
+    static const QString COL_ROTATION_GROUP_TASK_ENTRY_ID;
+    static const QString COL_ROTATION_GROUP_TASK_ENTRY_TASK_ID;
+    static const QString COL_ROTATION_GROUP_TASK_ENTRY_WORKPLACE_ID;
+    static const QString COL_ROTATION_GROUP_TASK_ENTRY_DURATION;
+    static const QHash<QString, QVariant::Type> HASH_ROTATION_GROUP_TASK_ENTRY_TYPES;
 
     //Table list
     //static const QHash<QString, DB_TABLES> HASH_TBL_TO_DB_TABLES;

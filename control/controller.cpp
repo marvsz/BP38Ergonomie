@@ -29,8 +29,8 @@ Controller::Controller(QObject *parent, QApplication *app) :
     bodyMeasurementView(new BodyMeasurementView()),
     shiftView(new ShiftView()),
     shiftCalendarView(new ShiftCalendar()),
-    rotationGroupView(new RotationGroupView()),
-    rotationGroupListView(new RotationGroupListView()),
+    rotationGroupTaskView(new RotationGroupTaskView()),
+    rotationGroupTaskListView(new RotationGroupTaskListView()),
     settingsView(new SettingsView()),
     documentationView(new DocumentationView()),
     workProcessMetaDataView(new WorkProcessMetaDataView()),
@@ -309,8 +309,8 @@ Controller::Controller(QObject *parent, QApplication *app) :
     viewCon->registerView(equipmentView, ViewType::EQUIPMENT_VIEW);
     viewCon->registerView(shiftView, ViewType::SHIFT_VIEW);
     viewCon->registerView(shiftCalendarView, ViewType::SHIFT_CALENDAR_VIEW);
-    viewCon->registerView(rotationGroupView, ViewType::ROTATION_GROUP_VIEW);
-    viewCon->registerView(rotationGroupListView, ViewType::ROTATION_GROUP_LIST_VIEW);
+    viewCon->registerView(rotationGroupTaskView, ViewType::ROTATION_GROUP_TASK_VIEW);
+    viewCon->registerView(rotationGroupTaskListView, ViewType::ROTATION_GROUP_TASK_LIST_VIEW);
     viewCon->registerView(employeeView, ViewType::EMPLOYEE_VIEW);
     viewCon->registerView(employeeListView, ViewType::EMPLOYEE_LIST_VIEW);
     viewCon->registerView(bodyMeasurementView, ViewType::BODY_MEASUREMENT_VIEW);

@@ -58,11 +58,9 @@ HEADERS +=\
     $$PWD/ressourceManagementView/bodymeasurementview.h \
     $$PWD/ressourceManagementView/employeeview.h \
     $$PWD/ressourceManagementView/employeelistview.h \
-    $$PWD/rotationGroupView/rotationgroupview.h \
     $$PWD/datelineedit.h \
     $$PWD/navigation/abstractpopupwidget.h \
     $$PWD/navigation/titledwidget.h \
-    $$PWD/rotationGroupView/rotationgrouplistview.h \
     $$PWD/navigation/notificationwidget.h \
     $$PWD/navigation/notificationmessage.h \
     $$PWD/popUps/senddatabasepopup.h \
@@ -84,10 +82,7 @@ HEADERS +=\
     $$PWD/documentationView/bodyPostureView/quickselectioncontrol.h \
     $$PWD/interfaces/iemployeelist.h \
     $$PWD/interfaces/iemployee.h \
-    $$PWD/interfaces/irotationgrouplist.h \
-    $$PWD/interfaces/irotationgroup.h \
     $$PWD/interfaces/iworkplacelist.h \
-    $$PWD/interfaces/irotationgrouptasklist.h \
     $$PWD/interfaces/ibodymeasurement.h \
     $$PWD/interfaces/iworkplace.h \
     $$PWD/interfaces/icomment.h \
@@ -117,7 +112,13 @@ HEADERS +=\
     $$PWD/interfaces/ianalyst.h \
     $$PWD/interfaces/ianalystlist.h \
     $$PWD/interfaces/iimportdata.h \
-    $$PWD/interfaces/isenddata.h
+    $$PWD/interfaces/isenddata.h \
+    $$PWD/interfaces/irotationgrouptaskentrylist.h \
+    $$PWD/interfaces/irotationgrouptasklist.h \
+    $$PWD/interfaces/irotationgrouptask.h \
+    $$PWD/rotationGroupView/rotationgrouptaskview.h \
+    $$PWD/rotationGroupView/rotationgrouptasklistview.h \
+    $$PWD/interfaces/ishift.h
 
 
 SOURCES +=\
@@ -174,10 +175,8 @@ SOURCES +=\
     $$PWD/ressourceManagementView/bodymeasurementview.cpp \
     $$PWD/ressourceManagementView/employeeview.cpp \
     $$PWD/ressourceManagementView/employeelistview.cpp \
-    $$PWD/rotationGroupView/rotationgroupview.cpp \
     $$PWD/datelineedit.cpp \
     $$PWD/navigation/abstractpopupwidget.cpp \
-    $$PWD/rotationGroupView/rotationgrouplistview.cpp \
     $$PWD/navigation/notificationwidget.cpp \
     $$PWD/navigation/notificationmessage.cpp \
     $$PWD/popUps/senddatabasepopup.cpp \
@@ -198,5 +197,7 @@ SOURCES +=\
     $$PWD/documentationView/bodyPostureView/quickselectioncontrol.cpp \
     $$PWD/popUps/factorysettingspopup.cpp \
     $$PWD/popUps/linepopup.cpp \
-    $$PWD/popUps/createproductpopup.cpp
+    $$PWD/popUps/createproductpopup.cpp \
+    $$PWD/rotationGroupView/rotationgrouptasklistview.cpp \
+    $$PWD/rotationGroupView/rotationgrouptaskview.cpp
 

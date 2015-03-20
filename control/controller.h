@@ -18,8 +18,8 @@
 #include "../view/timerView/ganttimerview.h"
 #include "../view/rotationGroupView/shiftview.h"
 #include "../view/rotationGroupView/shiftcalendar.h"
-#include "../view/rotationGroupView/rotationgroupview.h"
-#include "../view/rotationGroupView/rotationgrouplistview.h"
+#include "../view/rotationGroupView/rotationgrouptaskview.h"
+#include "../view/rotationGroupView/rotationgrouptasklistview.h"
 #include "../view/ressourceManagementView/equipmentview.h"
 #include "../view/ressourceManagementView/transportationview.h"
 #include "../view/ressourceManagementView/productview.h"
@@ -297,8 +297,8 @@ private:
     BodyMeasurementView *bodyMeasurementView;
     ShiftView *shiftView;
     ShiftCalendar *shiftCalendarView;
-    RotationGroupView *rotationGroupView;
-    RotationGroupListView *rotationGroupListView;
+    RotationGroupTaskView *rotationGroupTaskView;
+    RotationGroupTaskListView *rotationGroupTaskListView;
     SettingsView *settingsView;
 
     DocumentationView *documentationView;

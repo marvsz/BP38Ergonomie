@@ -10,15 +10,16 @@
 #include <QPushButton>
 #include "../interfaces/icalendarlist.h"
 #include "../interfaces/icalendar.h"
+#include "../interfaces/irotationgrouptasklist.h"
 #include "../selectablevaluebutton.h"
 #include "../numberlineedit.h"
 #include "../textlineedit.h"
 #include "../navigation/simplenavigateablewidget.h"
 
-class ShiftCalendar : public SimpleNavigateableWidget, ICalendarList, ICalendar
+class ShiftCalendar : public SimpleNavigateableWidget, ICalendarList, ICalendar, IRotationGroupTaskList
 {
     Q_OBJECT
-    Q_INTERFACES(IRotationGroupList)
+    Q_INTERFACES(IRotationGroupTaskList)
     Q_INTERFACES(ICalendarList)
     Q_INTERFACES(ICalendar)
 
@@ -36,22 +37,22 @@ public:
     int getBreakDuration() const;
 
 signals:
-    void createRotationGroup(QHash<QString, QVariant> values);
-    void deleteRotationGroup(int id);
-    void selectRotationGroup(int id);
+    void createRotationGroupTask(QHash<QString, QVariant> values);
+    void deleteRotationGroupTask(int id);
 
     void createCalendarRotationGroup(QHash<QString, QVariant> values);
     void deleteCalendarRotationGroup(int id);
-    void selectCalendarRotationGroup(int id);
     void createCalendarBreak(QHash<QString, QVariant> values);
     void deleteCalendarBreak(int id);
-    void selectCalendarBreak(int id);
+
+    void moveEntryUp(int id);
+    void moveEntryDown(int id);
 
 public slots:
-    void addRotationGroup(QHash<QString, QVariant> values);
-    void updateRotationGroup(QHash<QString, QVariant> values);
-    void removeRotationGroup(int id);
-    void clearRotationGroups();
+    void addRotationGroupTask(QHash<QString, QVariant> values);
+    void updateRotationGroupTask(QHash<QString, QVariant> values);
+    void removeRotationGroupTask(int id);
+    void clearRotationGroupTasks();
 
     void addCalendarRotationGroup(QHash<QString, QVariant> values);
     void updateCalendarRotationGroup(QHash<QString, QVariant> values);
