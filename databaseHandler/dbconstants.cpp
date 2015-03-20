@@ -154,11 +154,7 @@ const QHash<QString, QVariant::Type> DBConstants::HASH_SHIFT_TYPES = QHashBuilde
 //Break
 const QString DBConstants::TBL_BREAK = "Break";
 const QString DBConstants::COL_BREAK_ID = "break_ID";
-const QString DBConstants::COL_BREAK_START = "break_start";
-const QString DBConstants::COL_BREAK_END = "break_end";
-const QString DBConstants::COL_BREAK_SHIFT_ID = "shift_ID";
-const QString DBConstants::COL_BREAK_EMPLOYEE_ID = "employee_ID";
-const QHash<QString, QVariant::Type> DBConstants::HASH_BREAK_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_BREAK_ID, QVariant::Int).add(DBConstants::COL_BREAK_START, QVariant::Int).add(DBConstants::COL_BREAK_END, QVariant::Int).add(DBConstants::COL_BREAK_SHIFT_ID, QVariant::Int).add(DBConstants::COL_BREAK_EMPLOYEE_ID, QVariant::Int).build();
+const QHash<QString, QVariant::Type> DBConstants::HASH_BREAK_TYPES = QHashBuilder<QString, QVariant::Type>().add(DBConstants::COL_BREAK_ID, QVariant::Int).build();
 
 //Activity
 const QString DBConstants::TBL_ACTIVITY = "Activity";

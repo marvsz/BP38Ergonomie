@@ -138,12 +138,6 @@ public:
     static const QString COL_BODY_MEASUREMENT_FOOT_LENGTH;
     static const QHash<QString, QVariant::Type> HASH_BODY_MEASUREMENT_TYPES;
 
-    //Employee_works_Shift
-    static const QString TBL_EMPLOYEE_WORKS_SHIFT;
-    static const QString COL_EMPLOYEE_WORKS_SHIFT_EMPLOYEE_ID;
-    static const QString COL_EMPLOYEE_WORKS_SHIFT_SHIFT_ID;
-    static const QHash<QString, QVariant::Type> HASH_EMPLOYEE_WORKS_SHIFT_TYPES;
-
     //Product
     static const QString TBL_PRODUCT;
     static const QString COL_PRODUCT_ID;
@@ -152,23 +146,7 @@ public:
     static const QString COL_PRODUCT_TOTAL_PERCENTAGE;
     static const QHash<QString, QVariant::Type> HASH_PRODUCT_TYPES;
 
-    //Shift
-    static const QString TBL_SHIFT;
-    static const QString COL_SHIFT_ID;
-    static const QString COL_SHIFT_ROTATION_SHIFT_ID;
-    static const QString COL_SHIFT_TYPE;
-    static const QString COL_SHIFT_START;
-    static const QString COL_SHIFT_END;
-    static const QHash<QString, QVariant::Type> HASH_SHIFT_TYPES;
 
-    //Break
-    static const QString TBL_BREAK;
-    static const QString COL_BREAK_ID;
-    static const QString COL_BREAK_START;
-    static const QString COL_BREAK_END;
-    static const QString COL_BREAK_SHIFT_ID;
-    static const QString COL_BREAK_EMPLOYEE_ID;
-    static const QHash<QString, QVariant::Type> HASH_BREAK_TYPES;
 
     //Activity
     static const QString TBL_ACTIVITY;
@@ -331,6 +309,29 @@ public:
     static const QString COL_CONNECTION_DEFAULT;
     static const QString COL_CONNECTION_ANALYST_ID;
     static const QHash<QString, QVariant::Type> HASH_CONNECTION_TYPES;
+
+    //Shift
+    static const QString TBL_SHIFT;
+    static const QString COL_SHIFT_ID;
+    static const QString COL_SHIFT_ROTATION_SHIFT_ID;
+    static const QString COL_SHIFT_TYPE;
+    static const QString COL_SHIFT_START;
+    static const QString COL_SHIFT_END;
+    static const QHash<QString, QVariant::Type> HASH_SHIFT_TYPES;
+
+    //Employee_works_Shift
+    static const QString TBL_EMPLOYEE_WORKS_SHIFT;
+    static const QString COL_EMPLOYEE_WORKS_SHIFT_EMPLOYEE_ID;
+    static const QString COL_EMPLOYEE_WORKS_SHIFT_SHIFT_ID;
+    static const QHash<QString, QVariant::Type> HASH_EMPLOYEE_WORKS_SHIFT_TYPES;
+
+    //Break
+    static const QString TBL_BREAK;
+    static const QString COL_BREAK_ID;
+    static const QString COL_BREAK_DURATION;
+    static const QHash<QString, QVariant::Type> HASH_BREAK_TYPES;
+
+
 
 
     //Table list

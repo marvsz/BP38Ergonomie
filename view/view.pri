@@ -117,7 +117,11 @@ HEADERS +=\
     $$PWD/interfaces/ianalyst.h \
     $$PWD/interfaces/ianalystlist.h \
     $$PWD/interfaces/iimportdata.h \
-    $$PWD/interfaces/isenddata.h
+    $$PWD/interfaces/isenddata.h \
+    $$PWD/interfaces/ibranchofindustry.h \
+    $$PWD/interfaces/ifactory.h \
+    $$PWD/interfaces/irecording.h \
+    $$PWD/interfaces/icoperation.h
 
 
 SOURCES +=\

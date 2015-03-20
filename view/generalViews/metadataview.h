@@ -7,10 +7,19 @@
 #include <QDateTimeEdit>
 #include "../numberlineedit.h"
 #include "../datetimespinner.h"
+#include "../interfaces/irecording.h"
+#include "../interfaces/ifactory.h"
+#include "../interfaces/icoperation.h"
+#include "../interfaces/ibranchofindustry.h"
+#include "../../databaseHandler/dbconstants.h"
 
-class MetaDataView : public SimpleNavigateableWidget
+class MetaDataView : public SimpleNavigateableWidget, IRecording, IFactory, ICorperation, IBranchOfIndustry
 {
     Q_OBJECT
+    Q_INTERFACES(IRecording)
+    Q_INTERFACES(IFactory)
+    Q_INTERFACES(ICorperation)
+    Q_INTERFACES(IBranchOfIndustry)
 public:
     explicit MetaDataView(QWidget *parent = 0);
 
@@ -22,36 +31,21 @@ public:
         return ViewType::WORKPLACELIST_VIEW;
     }
 
-    QString getCorporationName() const;
-
-    QString getBranchOfIndustryName() const;
-    QString getBranchOfIndustryDescription() const;
-
-    QString getFactoryName() const;
-    QString getFactoryStreet() const;
-    int getFactoryZip() const;
-    QString getFactoryCity() const;
-    QString getFactoryCountry() const;
-    QString getFactoryContact() const;
-    int getFactoryEmployeeCount() const;
-
-    QDateTime getRecordTimeBegin() const;
-    QDateTime getRecordTimeEnd() const;
+signals:
+    void saveRecording(QHash<QString, QVariant> values);
+    void saveFactory(QHash<QString, QVariant> values);
+    void saveCorperation(QHash<QString, QVariant> values);
+    void saveBranchOfIndustry(QHash<QString, QVariant> values);
 
 public slots:
-    void setEmployer(const QString &employer);
-    void setCorporation(const QString &name);
-    void setBranchOfIndustry(const QString &name, const QString &description);
-    void setFactory(const QString &name, const QString &street, int zip, const QString &city, const QString &country, const QString &contact, int employeeCount);
-    void setRecordTime(const QDateTime &begin, const QDateTime &end);
+    void setRecording(QHash<QString, QVariant> values);
+    void setFactory(QHash<QString, QVariant> values);
+    void setCorperation(QHash<QString, QVariant> values);
+    void setBranchOfIndustry(QHash<QString, QVariant> values);
 
+    void onLeaving();
 
 private:
-    TextLineEdit *txtBxAnalystLastName;
-    TextLineEdit *txtBxAnalystFirstName;
-    TextLineEdit *txtBxAnalystEmployer;
-    TextLineEdit *txtBxAnalystExperience;
-
     QLabel *lblCorporation;
     QLabel *lblCorpName;
     TextLineEdit *txtBxCorpName;

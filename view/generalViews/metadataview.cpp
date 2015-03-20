@@ -117,84 +117,59 @@ MetaDataView::MetaDataView(QWidget *parent) :
     setLayout(mainLayout);
 }
 
-// GETTER
-
-QString MetaDataView::getCorporationName() const {
-    return txtBxCorpName->text();
+// PUBLIC SLOTS
+void MetaDataView::setRecording(QHash<QString, QVariant> values){
+    QDateTime time = QDateTime();
+    dteRecordingTimeBegin->setDateTime(time.fromString(values.value(DBConstants::COL_RECORDING_START).toString()));
+    dteRecordingTimeEnd->setDateTime(time.fromString(values.value(DBConstants::COL_RECORDING_END).toString()));
 }
 
-QString MetaDataView::getBranchOfIndustryName() const {
-    return txtBxBoIName->text();
+void MetaDataView::setFactory(QHash<QString, QVariant> values){
+    txtBxFactoryName->setText(values.value(DBConstants::COL_FACTORY_NAME).toString());
+    txtBxFactoryStreet->setText(values.value(DBConstants::COL_FACTORY_STREET).toString());
+    txtBxFactoryCity->setText(values.value(DBConstants::COL_FACTORY_CITY).toString());
+    txtBxFactoryZip->setValue(values.value(DBConstants::COL_FACTORY_ZIP).toInt());
+    txtBxFactoryCountry->setText(values.value(DBConstants::COL_FACTORY_COUNTRY).toString());
+    txtBxFactoryEmployeeCount->setValue(values.value(DBConstants::COL_FACTORY_HEADCOUNT).toInt());
+    txtBxFactoryContact->setText(values.value(DBConstants::COL_FACTORY_CONTACT_PERSON).toString());
 }
 
-QString MetaDataView::getBranchOfIndustryDescription() const {
-    return txtBxBoIDescription->text();
+void MetaDataView::setCorperation(QHash<QString, QVariant> values){
+    txtBxCorpName->setText(values.value(DBConstants::COL_CORPORATION_NAME).toString());
 }
 
-QString MetaDataView::getFactoryName() const {
-    return txtBxFactoryName->text();
+void MetaDataView::setBranchOfIndustry(QHash<QString, QVariant> values){
+    txtBxBoIName->setText(values.value(DBConstants::COL_BRANCH_OF_INDUSTRY_NAME).toString());
+    txtBxBoIDescription->setText(values.value(DBConstants::COL_BRANCH_OF_INDUSTRY_DESCRIPTION).toString());
 }
 
-QString MetaDataView::getFactoryStreet() const {
-    return txtBxFactoryStreet->text();
-}
 
-int MetaDataView::getFactoryZip() const {
-    return txtBxFactoryZip->getValue();
-}
+void MetaDataView::onLeaving(){
+    QHash<QString, QVariant> boiValues = QHash<QString, QVariant>();
+    boiValues.insert(DBConstants::COL_BRANCH_OF_INDUSTRY_NAME, txtBxBoIName->text());
+    boiValues.insert(DBConstants::COL_BRANCH_OF_INDUSTRY_DESCRIPTION, txtBxBoIDescription->text());
+    emit saveBranchOfIndustry(boiValues);
 
-QString MetaDataView::getFactoryCity() const {
-    return txtBxFactoryCity->text();
-}
+    QHash<QString, QVariant> corpValues = QHash<QString, QVariant>();
+    corpValues.insert(DBConstants::COL_CORPORATION_NAME, txtBxCorpName->text());
+    corpValues.insert(DBConstants::COL_BRANCH_OF_INDUSTRY_NAME, txtBxBoIName->text());
+    emit saveCorperation(corpValues);
 
-QString MetaDataView::getFactoryCountry() const {
-    return txtBxFactoryCountry->text();
-}
+    QHash<QString, QVariant> factoryValues = QHash<QString, QVariant>();
+    factoryValues.insert(DBConstants::COL_FACTORY_NAME, txtBxFactoryName->text());
+    factoryValues.insert(DBConstants::COL_FACTORY_STREET, txtBxFactoryStreet->text());
+    factoryValues.insert(DBConstants::COL_FACTORY_CITY, txtBxFactoryCity->text());
+    factoryValues.insert(DBConstants::COL_FACTORY_ZIP, txtBxFactoryZip->getValue());
+    factoryValues.insert(DBConstants::COL_FACTORY_COUNTRY, txtBxFactoryCountry->text());
+    factoryValues.insert(DBConstants::COL_FACTORY_HEADCOUNT, txtBxFactoryEmployeeCount->getValue());
+    factoryValues.insert(DBConstants::COL_FACTORY_CONTACT_PERSON, txtBxFactoryContact->text());
+    factoryValues.insert(DBConstants::COL_CORPORATION_NAME, txtBxCorpName->text());
+    emit saveFactory(factoryValues);
 
-QString MetaDataView::getFactoryContact() const {
-    return txtBxFactoryContact->text();
-}
-
-int MetaDataView::getFactoryEmployeeCount() const {
-    return txtBxFactoryEmployeeCount->getValue();
-}
-
-QDateTime MetaDataView::getRecordTimeBegin() const {
-    return dteRecordingTimeBegin->getDateTime();
-}
-
-QDateTime MetaDataView::getRecordTimeEnd() const {
-    return dteRecordingTimeEnd->getDateTime();
-}
-
-// SETTER
-
-void MetaDataView::setEmployer(const QString &employer){
-    txtBxAnalystEmployer->setText(employer);
-}
-
-void MetaDataView::setCorporation(const QString &name){
-    txtBxCorpName->setText(name);
-
-
-}
-
-void MetaDataView::setBranchOfIndustry(const QString &name, const QString &description){
-    txtBxBoIName->setText(name);
-    txtBxBoIDescription->setText(description);
-}
-
-void MetaDataView::setFactory(const QString &name, const QString &street, int zip, const QString &city, const QString &country, const QString &contact, int employeeCount){
-    txtBxFactoryName->setText(name);
-    txtBxFactoryStreet->setText(street);
-    txtBxFactoryZip->setValue(zip);
-    txtBxFactoryCity->setText(city);
-    txtBxFactoryCountry->setText(country);
-    txtBxFactoryContact->setText(contact);
-    txtBxFactoryEmployeeCount->setValue(employeeCount);
-}
-
-void MetaDataView::setRecordTime(const QDateTime &begin, const QDateTime &end){
-    dteRecordingTimeBegin->setDateTime(begin);
-    dteRecordingTimeEnd->setDateTime(end);
+    QHash<QString, QVariant> recordValues = QHash<QString, QVariant>();
+    recordValues.insert(DBConstants::COL_RECORDING_START, dteRecordingTimeBegin->getDateTime().toString());
+    recordValues.insert(DBConstants::COL_RECORDING_END, dteRecordingTimeEnd->getDateTime().toString());
+    recordValues.insert(DBConstants::COL_FACTORY_NAME, txtBxFactoryName->text());
+    recordValues.insert(DBConstants::COL_FACTORY_STREET, txtBxFactoryStreet->text());
+    emit saveRecording(recordValues);
 }
