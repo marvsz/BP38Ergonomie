@@ -289,6 +289,9 @@ private slots:
 
     //SendData
     void sendData(ISendData *widget);
+    void sendDataUploadStarted();
+    void sendDataUploadFinished(const QString filename);
+    void sendDataUploadError(const QString &error);
 
     void resetDatabaseFactory();
     void resetSelectedEntries();

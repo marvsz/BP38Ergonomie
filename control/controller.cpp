@@ -1117,7 +1117,6 @@ void Controller::importData(IImportData *widget){
         else {
             ftpHandler->downloadFile(parser->getSingleFilename(), downloadDir);
         }
-
     }
 }
 
@@ -1157,7 +1156,28 @@ void Controller::importDataDownloadError(const QString &error){
 
 //SendData
 void Controller::sendData(ISendData *widget){
+    FtpHandler *ftpHandler = new FtpHandler();
+    connect(ftpHandler, SIGNAL(started()), this, SLOT(sendDataUploadStarted()));
+    connect(ftpHandler, SIGNAL(finished(QString)), this, SLOT(sendDataUploadFinished(QString)));
+    connect(ftpHandler, SIGNAL(error(QString)), this, SLOT(sendDataUploadError(QString)));
+    QHash<QString, QVariant> conValues = widget->getFTPConnection();
+    ftpHandler->setUser(conValues.value(DBConstants::COL_CONNECTION_USERNAME).toString(), conValues.value(DBConstants::COL_CONNECTION_PASSWORD).toString());
+    ftpHandler->setPort(conValues.value(DBConstants::COL_CONNECTION_PORT).toInt());
+    ftpHandler->setServer(conValues.value(DBConstants::COL_CONNECTION_SERVER_ADDRESS).toString());
+    ftpHandler->uploadFile(StandardPaths::databasePath());
+}
 
+void Controller::sendDataUploadStarted(){
+    viewCon->showMessage(tr("Started Upload"), NotificationMessage::INFORMATION, NotificationMessage::MIDDLE);
+}
+
+void Controller::sendDataUploadFinished(const QString filename){
+    viewCon->showMessage(QString(tr("Finished Upload: ")).append(filename));
+    viewCon->closePopUp();
+}
+
+void Controller::sendDataUploadError(const QString &error){
+    viewCon->showMessage(error, NotificationMessage::ERROR, NotificationMessage::PERSISTENT);
 }
 
 //Database Factory Reset
