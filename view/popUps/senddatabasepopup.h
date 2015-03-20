@@ -36,10 +36,6 @@ private slots:
     void selectedConnectionChanged(int id);
     void onConfirm();
 
-    void startedUpload();
-    void finishedUpload(const QString filename);
-    void errorDurringUpload(const QString &error);
-
 private:
     FTPConnectionsWidget *ftpConnectionWidget;
 

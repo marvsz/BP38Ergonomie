@@ -53,27 +53,6 @@ void SendDatabasePopUp::onConfirm(){
 
     emit sendData(this);
 
-    FtpHandler *ftpHandler = new FtpHandler();
-    connect(ftpHandler, SIGNAL(started()), this, SLOT(startedUpload()));
-    connect(ftpHandler, SIGNAL(finished(QString)), this, SLOT(finishedUpload(QString)));
-    connect(ftpHandler, SIGNAL(error(QString)), this, SLOT(errorDurringUpload(QString)));
-    ftpHandler->setUser(ftpConnectionWidget->getUserName(), ftpConnectionWidget->getPassword());
-    ftpHandler->setPort(ftpConnectionWidget->getPort());
-    ftpHandler->setServer(ftpConnectionWidget->getAddress());
-    ftpHandler->uploadFile(StandardPaths::databasePath());
-}
-
-void SendDatabasePopUp::startedUpload(){
-    emit showMessage(tr("Started Upload"), NotificationMessage::INFORMATION, NotificationMessage::MIDDLE);
-}
-
-void SendDatabasePopUp::finishedUpload(const QString filename){
-    emit showMessage(QString(tr("Finished Upload: ")).append(filename), NotificationMessage::INFORMATION, NotificationMessage::MIDDLE);
-    emit closePopUp();
-}
-
-void SendDatabasePopUp::errorDurringUpload(const QString &error){
-    emit showMessage(error, NotificationMessage::ERROR, NotificationMessage::PERSISTENT);
 }
 
 //GETTER / SETTER

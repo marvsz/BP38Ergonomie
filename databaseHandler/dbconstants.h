@@ -138,12 +138,6 @@ public:
     static const QString COL_BODY_MEASUREMENT_FOOT_LENGTH;
     static const QHash<QString, QVariant::Type> HASH_BODY_MEASUREMENT_TYPES;
 
-    //Employee_works_Shift
-    static const QString TBL_EMPLOYEE_WORKS_SHIFT;
-    static const QString COL_EMPLOYEE_WORKS_SHIFT_EMPLOYEE_ID;
-    static const QString COL_EMPLOYEE_WORKS_SHIFT_SHIFT_ID;
-    static const QHash<QString, QVariant::Type> HASH_EMPLOYEE_WORKS_SHIFT_TYPES;
-
     //Product
     static const QString TBL_PRODUCT;
     static const QString COL_PRODUCT_ID;
@@ -323,6 +317,12 @@ public:
     static const QString COL_SHIFT_ROTATION_GROUP_ID;
     static const QHash<QString, QVariant::Type> HASH_SHIFT_TYPES;
 
+    //Employee_works_Shift
+    static const QString TBL_EMPLOYEE_WORKS_SHIFT;
+    static const QString COL_EMPLOYEE_WORKS_SHIFT_EMPLOYEE_ID;
+    static const QString COL_EMPLOYEE_WORKS_SHIFT_SHIFT_ID;
+    static const QHash<QString, QVariant::Type> HASH_EMPLOYEE_WORKS_SHIFT_TYPES;
+
     //Break
     static const QString TBL_BREAK;
     static const QString COL_BREAK_ID;
@@ -353,7 +353,6 @@ public:
     static const QHash<QString, QVariant::Type> HASH_ROTATION_GROUP_TASK_ENTRY_TYPES;
 
     //Table list
-    //static const QHash<QString, DB_TABLES> HASH_TBL_TO_DB_TABLES;
     static const QList<QString> LIST_TABLE_NAMES;
 };
 

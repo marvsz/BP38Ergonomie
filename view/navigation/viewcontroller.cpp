@@ -72,7 +72,6 @@ void ViewController::showStartView(ViewType type){
         previousViews->push(type);
         content->setCurrentIndex(viewTypeToIndex->value(type));
         adaptNavigationBar(type);
-        emit update(type);
         this->show();
     }
 }
@@ -118,13 +117,11 @@ void ViewController::goToView(ViewType type, const QList<ViewType> *prevTypes){
     if(viewTypeToIndex->contains(type)){
         ViewType currentView = previousViews->top();
         viewTypeToWidget->value(currentView)->onLeaving();
-        emit save(currentView);
         if(prevTypes != 0){
             for(int i = 0; i < prevTypes->count(); ++i)
                 previousViews->push(prevTypes->at(i));
         }
         viewTypeToWidget->value(type)->onEnter();
-        emit update(type);
         content->setCurrentIndex(viewTypeToIndex->value(type));
         previousViews->push(type);
         adaptNavigationBar(type);
@@ -134,7 +131,6 @@ void ViewController::goToView(ViewType type, const QList<ViewType> *prevTypes){
 void ViewController::backToView(ViewType type){
     if((viewTypeToIndex->contains(type) && previousViews->contains(type)) || type == ViewType::UNKNOWN){
         viewTypeToWidget->value(previousViews->top())->onLeaving();
-        emit save(previousViews->top());
         if(type == ViewType::UNKNOWN){
             previousViews->pop();
         }
@@ -144,7 +140,6 @@ void ViewController::backToView(ViewType type){
         }
         ViewType nextType = previousViews->top();
         viewTypeToWidget->value(nextType)->onEnter();
-        emit update(nextType);
         content->setCurrentIndex(viewTypeToIndex->value(nextType));
         adaptNavigationBar(nextType);
     }
@@ -154,7 +149,6 @@ void ViewController::showPopUp(PopUpType type){
     if(popUpTypeToWidget->contains(type)){
         AbstractPopUpWidget *popUp = popUpTypeToWidget->value(type);
         popUp->onEnter();
-        emit update(type);
         this->openPopUp(popUp);
         currentPopUp = type;
     }
@@ -162,7 +156,6 @@ void ViewController::showPopUp(PopUpType type){
 
 void ViewController::closePopUp(){
     NotificationWidget::closePopUp();
-    emit update(previousViews->top());
 }
 
 

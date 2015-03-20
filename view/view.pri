@@ -118,7 +118,11 @@ HEADERS +=\
     $$PWD/interfaces/irotationgrouptask.h \
     $$PWD/rotationGroupView/rotationgrouptaskview.h \
     $$PWD/rotationGroupView/rotationgrouptasklistview.h \
-    $$PWD/interfaces/ishift.h
+    $$PWD/interfaces/ishift.h \
+    $$PWD/interfaces/ibranchofindustry.h \
+    $$PWD/interfaces/ifactory.h \
+    $$PWD/interfaces/irecording.h \
+    $$PWD/interfaces/icoperation.h
 
 
 SOURCES +=\

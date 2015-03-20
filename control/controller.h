@@ -70,6 +70,18 @@ signals:
     void updatedAnalyst(QHash<QString, QVariant> values);
     void removedAnalyst(int id);
 
+    //Branch of Industry
+    void settedBranchOfIndustry(QHash<QString, QVariant> values);
+
+    //Corperation
+    void settedCorperation(QHash<QString, QVariant> values);
+
+    //Factory
+    void settedFactory(QHash<QString, QVariant> values);
+
+    //Recording
+    void settedRecording(QHash<QString, QVariant> values);
+
     //Workplace
     void clearWorkplaces();
     void createdWorkplace(QHash<QString, QVariant> values);
@@ -153,21 +165,30 @@ signals:
 
 
 private slots:
-    void databaseError(QString error);
-
-    void update(ViewType type);
-    void save(ViewType type);
-
     //Analyst
     void initializeAnalysts();
     void createAnalyst(QHash<QString, QVariant> values);
     void deleteAnalyst(int id);
     void selectAnalyst(int id);
 
+    //MainMenuView
     void createBlankRecording();
 
-    void updateMetaDataView();
-    void saveMetaDataView();
+    //BranchOfIndustry
+    void setBranchOfIndustry(int id);
+    void saveBranchOfIndustry(QHash<QString, QVariant> values);
+
+    //Corperation
+    void setCorperation(int id);
+    void saveCorperation(QHash<QString, QVariant> values);
+
+    //Factory
+    void setFactory(int id);
+    void saveFactory(QHash<QString, QVariant> values);
+
+    //Recording
+    void setRecording(int id);
+    void saveRecording(QHash<QString, QVariant> values);
 
     //Workplace
     void initializeWorkplaces();
@@ -268,6 +289,9 @@ private slots:
 
     //SendData
     void sendData(ISendData *widget);
+    void sendDataUploadStarted();
+    void sendDataUploadFinished(const QString filename);
+    void sendDataUploadError(const QString &error);
 
     void resetDatabaseFactory();
     void resetSelectedEntries();
@@ -345,20 +369,13 @@ private:
     IImportDataParser *parser;
     QString downloadDir;
 
+    void saveRecordingObservesLine(int line_ID);
+    void deleteRecordingObservesLine(int line_ID);
 
-    int saveWorkplace(int id);
-    int qTimeToSeconds(const QTime &time);
-
-    void saveRecordingObservesLine(int lineID);
-    void deleteRecordingObservesLine(int lineID);
-
-    void saveRecordingObservesWorkplace(int workplaceID);
-    void deleteRecordingOberservesWorkplace(int wpID);
-
-    void updateActivityViewActivities();
+    void saveRecordingObservesWorkplace(int workplace_ID);
+    void deleteRecordingOberservesWorkplace(int workplace_ID);
 
     void deleteWorkProcesses(int activity_ID);
-    void saveWorkProcessEvaluationID(const QString &colName, const int id);
 
     QString stringFromResource(const QString &resName);
 };

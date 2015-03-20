@@ -27,11 +27,6 @@ public:
 
     void showView(ViewType type, const QList<ViewType> *prevTypes = 0);
 
-signals:
-    void update(ViewType type);
-    void update(PopUpType type);
-    void save(ViewType type);
-
 public slots:
     void closePopUp();
 
