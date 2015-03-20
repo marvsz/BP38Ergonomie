@@ -20,6 +20,7 @@ public:
     void setDateTime(const QDateTime &time);
 
 signals:
+    void dateTimechanged();
 
 private:
     QGridLayout *spinnerLayout;

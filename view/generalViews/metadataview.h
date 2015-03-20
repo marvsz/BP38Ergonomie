@@ -45,6 +45,9 @@ public slots:
 
     void onLeaving();
 
+private slots:
+    void validateEndTime();
+
 private:
     QLabel *lblCorporation;
     QLabel *lblCorpName;

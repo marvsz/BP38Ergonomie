@@ -92,6 +92,9 @@ DateTimeSpinner::DateTimeSpinner(QWidget *parent) :
     connect(btnHourDec, SIGNAL(clicked()), timeBxTime, SLOT(decreaseHour()));
     connect(btnMinuteDec, SIGNAL(clicked()), timeBxTime, SLOT(decreaseMinute()));
 
+    connect(timeBxTime, SIGNAL(timeChanged()), this, SIGNAL(dateTimechanged()));
+    connect(dateBxDate, SIGNAL(dateChanged()), this, SIGNAL(dateTimechanged()));
+
     this->setLayout(spinnerLayout);
 }
 

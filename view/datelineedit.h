@@ -15,6 +15,7 @@ public:
     void setDate(const QDate &date);
 
 signals:
+    void dateChanged();
 
 public slots:
     void increaseDay();

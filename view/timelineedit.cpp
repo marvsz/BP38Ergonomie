@@ -83,6 +83,7 @@ void TimeLineEdit::updateText(){
         setText(currentTime.toString("HH:mm:ss"));
         break;
     }
+    emit timeChanged();
 }
 
 void TimeLineEdit::updateTime(){

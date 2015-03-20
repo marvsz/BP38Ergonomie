@@ -18,6 +18,8 @@ signals:
     void dayIncreased();
     void dayDecreased();
 
+    void timeChanged();
+
 public slots:
     void increaseHour();
     void decreaseHour();

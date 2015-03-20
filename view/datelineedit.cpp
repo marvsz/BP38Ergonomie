@@ -57,6 +57,7 @@ void DateLineEdit::decreaseYear(){
 
 void DateLineEdit::updateText(){
     setText(currentDate.toString("dd.MM.yyyy"));
+    emit dateChanged();
 }
 
 void DateLineEdit::updateDate(){

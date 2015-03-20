@@ -37,6 +37,8 @@ MetaDataView::MetaDataView(QWidget *parent) :
     dteRecordingTimeEnd(new DateTimeSpinner(this))
 
 {
+    connect(dteRecordingTimeEnd, SIGNAL(dateTimechanged()), this, SLOT(validateEndTime()));
+
     txtBxCorpName->setPlaceholderText(tr("name"));
     txtBxBoIName->setPlaceholderText(tr("name"));
     txtBxBoIDescription->setPlaceholderText(tr("description"));
@@ -172,4 +174,11 @@ void MetaDataView::onLeaving(){
     recordValues.insert(DBConstants::COL_FACTORY_NAME, txtBxFactoryName->text());
     recordValues.insert(DBConstants::COL_FACTORY_STREET, txtBxFactoryStreet->text());
     emit saveRecording(recordValues);
+}
+
+//PRIVATE SLOTS
+void MetaDataView::validateEndTime(){
+    if(dteRecordingTimeEnd->getDateTime() < dteRecordingTimeBegin->getDateTime()){
+        dteRecordingTimeBegin->setDateTime(dteRecordingTimeEnd->getDateTime());
+    }
 }
