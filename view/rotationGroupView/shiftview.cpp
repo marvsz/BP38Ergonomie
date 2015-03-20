@@ -75,15 +75,41 @@ QList<QAbstractButton*> * ShiftView::getAdditionalNavigation() const {
 
 // PUBLIC SLOTS
 void ShiftView::setShift(QHash<QString, QVariant> values) {
-    int type = values.value(DBConstants::COL_SHIFT_TYPE).toInt();
-    oscShiftType->setSelectedValue(type);
+    QString type = values.value(DBConstants::COL_SHIFT_TYPE).toString();
     updateShiftTimes(type);
     tsStart->setTime(values.value(DBConstants::COL_SHIFT_START).toTime());
     tsEnd->setTime(values.value(DBConstants::COL_SHIFT_END).toTime());
 
 }
 
+void ShiftView::onLeaving(){
+    QHash<QString, QVariant> values = QHash<QString, QVariant>();
+    values.insert(DBConstants::COL_SHIFT_TYPE, shiftTypes.at(oscShiftType->getSelectedID()));
+    values.insert(DBConstants::COL_SHIFT_START, tsStart->getTime());
+    values.insert(DBConstants::COL_SHIFT_END, tsStart->getTime());
+}
 // PRIVATE SLOTS
+void ShiftView::updateShiftTimes(const QString &type){
+    switch(shiftTypes.indexOf(type)){
+    case(0):
+        setStartTime(QTime(6,0));
+        setEndTime(QTime(14, 0));
+        break;
+    case(1):
+        setStartTime(QTime(14,0));
+        setEndTime(QTime(22, 0));
+        break;
+    case(2):
+        setStartTime(QTime(22,0));
+        setEndTime(QTime(6, 0));
+        break;
+    case(3):
+        setStartTime(QTime(0,0));
+        setEndTime(QTime(0, 0));
+        break;
+    }
+}
+
 void ShiftView::updateShiftTimes(int type){
     switch(type){
     case(0):
@@ -104,6 +130,7 @@ void ShiftView::updateShiftTimes(int type){
         break;
     }
 }
+
 
 void ShiftView::btnEmployeeClicked(){
     emit showView(ViewType::EMPLOYEE_LIST_VIEW);

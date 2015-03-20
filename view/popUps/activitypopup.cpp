@@ -54,6 +54,7 @@ void ActivityPopUp::addProduct(QHash<QString, QVariant> values){
     DetailedListItem *newListItem = new DetailedListItem(this, "productIcon", values.value(DBConstants::COL_PRODUCT_NAME).toString(), productItemScheme, false, true, false, false, false);
     newListItem->setValues(dliValues);
     newListItem->setID(values.value(DBConstants::COL_PRODUCT_ID).toInt());
+    newListItem->setMaximumWidth(270);
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedProductChanged(int)));
     connect(newListItem, SIGNAL(deselected(int)), this, SLOT(deselectedProduct(int)));
     connect(this, SIGNAL(selectedProduct(int)), newListItem, SLOT(selectExclusiveWithID(int)));

@@ -124,21 +124,22 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
 
     drawBackground();
 
-    DetailedListItem *dli = new DetailedListItem(this, "rotationIcon", "Rotationsgruppe 1", QList<QStringList>(), false, true, false, false, false);
-    dli->setID(1);
-    DetailedListItem *dli2 = new DetailedListItem(this, "rotationIcon", "Rotationsgruppe 1", QList<QStringList>(), false, true, false, false, false);
+    DetailedListItem *dli1 = new DetailedListItem(this, "", "Dli 1");
+    dli1->setID(1);
+    DetailedListItem *dli2 = new DetailedListItem(this, "", "Dli 2");
     dli2->setID(2);
-    DetailedListItem *dli3 = new DetailedListItem(this, "rotationIcon", "Rotationsgruppe 1", QList<QStringList>(), false, true, false, false, false);
+    DetailedListItem *dli3 = new DetailedListItem(this, "", "Dli 3");
     dli3->setID(3);
-
-    dli->setFixedHeight(30);
-    dli2->setFixedHeight(60);
-    dli3->setFixedHeight(120);
-
-    calendarEntryLayout->addWidget(dli);
+    DetailedListItem *dli4 = new DetailedListItem(this, "", "Dli 4");
+    dli4->setID(4);
+    DetailedListItem *dli5 = new DetailedListItem(this, "", "Dli 5");
+    dli5->setID(5);
+    calendarEntryLayout->addWidget(dli1);
     calendarEntryLayout->addWidget(dli2);
     calendarEntryLayout->addWidget(dli3);
-
+    calendarEntryLayout->addWidget(dli4);
+    calendarEntryLayout->addWidget(dli5);
+    moveEntryUp(1);
 }
 
 
@@ -256,39 +257,80 @@ void ShiftCalendar::clearRotationGroupTasks(){
     }
 }
 
-void ShiftCalendar::addRotationGroup(QHash<QString, QVariant> values){
-}
-
-void ShiftCalendar::updateRotationGroup(QHash<QString, QVariant> values){
+void ShiftCalendar::addRotationGroupEntry(QHash<QString, QVariant> values){
+    DetailedListItem *newRotationGroupEntry = new DetailedListItem(this, "btnIcon", QString(tr("Rotationgroup ")).append(values.value(DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER).toString()));
 
 }
 
-void ShiftCalendar::removeRotationGroup(int id){
+void ShiftCalendar::updateRotationGroupEntry(QHash<QString, QVariant> values){
 
 }
 
-void ShiftCalendar::addBreak(QHash<QString, QVariant> values){
+/*void ShiftCalendar::removeRotationGroupEntry(int id){
+
+}*/
+
+void ShiftCalendar::addBreakEntry(QHash<QString, QVariant> values){
 
 }
 
-void ShiftCalendar::updateBreak(QHash<QString, QVariant> values){
+/*void ShiftCalendar::updateBreak(QHash<QString, QVariant> values){
 
-}
+}*/
 
-void ShiftCalendar::removeBreak(int id){
+/*void ShiftCalendar::removeBreak(int id){
 
+}*/
+
+void ShiftCalendar::removeEntry(int id){
+    QLayoutItem *item;
+    int i = 0;
+    while((item = calendarEntryLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            calendarEntryLayout->removeItem(item);
+            delete item->widget();
+            delete item;
+            break;
+        }
+        i++;
+    }
 }
 
 void ShiftCalendar::moveEntryUp(int id){
-
+    QLayoutItem *item;
+    int i = 0;
+    while((item = calendarEntryLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            calendarEntryLayout->removeItem(item);
+            calendarEntryLayout->insertItem(i-1, item);
+            break;
+        }
+        i++;
+    }
 }
 
 void ShiftCalendar::moveEntryDown(int id){
-
+    QLayoutItem *item;
+    int i = 0;
+    while((item = calendarEntryLayout->itemAt(i)) != NULL){
+        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
+        if(dli->getID() == id){
+            calendarEntryLayout->removeItem(item);
+            calendarEntryLayout->insertItem(i+1, item);
+            break;
+        }
+        i++;
+    }
 }
 
 void ShiftCalendar::clearCalendar(){
-
+    QLayoutItem *item;
+    while((item = calendarEntryLayout->takeAt(0)) != NULL){
+        delete item->widget();
+        delete item;
+    }
 }
 
 void ShiftCalendar::setShift(QHash<QString, QVariant> values){
@@ -350,7 +392,9 @@ void ShiftCalendar::btnRotationClicked(){
 }
 
 void ShiftCalendar::setSelectedId(int id){
-     /*
+    currentId = id;
+
+    /*
       * currentId = id;
     for(int i = 0; i < calendarEntries->length(); ++i) {
         SelectableValueButton *entry = calendarEntries->at(i);
@@ -384,6 +428,7 @@ void ShiftCalendar::setSelectedId(int id){
 }
 
 void ShiftCalendar::btnMoveUpClicked(){
+    emit requestMoveEntryUp(currentId);
     /*SelectableValueButton* item = calendarEntries->at(currentId);
     calendarEntryLayout->removeWidget(item);
     calendarEntryLayout->insertWidget(currentId-1, item);
@@ -398,6 +443,7 @@ void ShiftCalendar::btnMoveUpClicked(){
 }
 
 void ShiftCalendar::btnMoveDownClicked(){
+    emit requestMoveEntryDown(currentId);
     /*SelectableValueButton* item = calendarEntries->at(currentId);
     calendarEntryLayout->removeWidget(item);
     calendarEntryLayout->insertWidget(currentId+1, item);
@@ -412,6 +458,7 @@ void ShiftCalendar::btnMoveDownClicked(){
 }
 
 void ShiftCalendar::btnDeleteClicked(){
+    emit requestRemoveEntry(currentId);
     /*SelectableValueButton* item = calendarEntries->at(currentId);
     calendarEntryLayout->removeWidget(item);
     delete item;

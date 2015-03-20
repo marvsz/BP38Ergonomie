@@ -81,48 +81,6 @@ RotationGroupTaskView::RotationGroupTaskView(QWidget *parent) :
     mainLayout->addLayout(rightLayout);
     setLayout(mainLayout);
 
-    // TEST DATA ---->
-    QHash<QString, QVariant> values  = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID, 1);
-    values.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_WORKPLACE_ID, 1);
-    values.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_DURATION, 60);
-    addRotationGroupTaskEntry(values);
-
-    QHash<QString, QVariant> values1  = QHash<QString, QVariant>();
-    values1.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID, 2);
-    values1.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_WORKPLACE_ID, 1);
-    values1.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_DURATION, 120);
-    addRotationGroupTaskEntry(values1);
-
-    QHash<QString, QVariant> values2  = QHash<QString, QVariant>();
-    values2.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID, 2);
-    values2.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_WORKPLACE_ID, 2);
-    values2.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_DURATION, 90);
-    addRotationGroupTaskEntry(values2);
-
-    QHash<QString, QVariant> values3  = QHash<QString, QVariant>();
-    values3.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID, 2);
-    values3.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_WORKPLACE_ID, 1);
-    values3.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_DURATION, 30);
-    addRotationGroupTaskEntry(values3);
-
-    QHash<QString, QVariant> values4  = QHash<QString, QVariant>();
-    values4.insert(DBConstants::COL_WORKPLACE_ID, 1);
-    values4.insert(DBConstants::COL_WORKPLACE_NAME, "Arbeitsplatz 1");
-    addWorkplace(values4);
-
-    QHash<QString, QVariant> values5  = QHash<QString, QVariant>();
-    values5.insert(DBConstants::COL_WORKPLACE_ID, 2);
-    values5.insert(DBConstants::COL_WORKPLACE_NAME, "Arbeitsplatz 2");
-    addWorkplace(values5);
-
-    QHash<QString, QVariant> values6  = QHash<QString, QVariant>();
-    values6.insert(DBConstants::COL_WORKPLACE_ID, 3);
-    values6.insert(DBConstants::COL_WORKPLACE_NAME, "Arbeitsplatz 3");
-    addWorkplace(values6);
-
-    // <--- DELETE LATER
-
     emit selectedWorkplaceChanged(0);
 }
 

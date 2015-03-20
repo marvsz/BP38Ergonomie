@@ -38,7 +38,10 @@ signals:
 public slots:
     void setShift(QHash<QString, QVariant> values);
 
+    void onLeaving();
+
 private slots:
+    void updateShiftTimes(const QString &type);
     void updateShiftTimes(int type);
 
     void btnRotationClicked();
@@ -64,7 +67,7 @@ private:
     QPushButton *btnCalendar;
 
     const QStringList SHIFT_TEXTS = QStringList()<<(tr("early shift"))<<(tr("late shift"))<<(tr("night shift"))<<(tr("special shift"));
-
+    const QStringList shiftTypes = QStringList() << "early_shift" << "late_shift" << "night_shift" << "special_shift";
     void setStartTime(const QTime &time);
     void setEndTime(const QTime &time);
 };

@@ -46,6 +46,7 @@ signals:
     void createBreak(QHash<QString, QVariant> values);
     void deleteBreak(int id);
 
+    void requestRemoveEntry(int id);
     void requestMoveEntryUp(int id);
     void requestMoveEntryDown(int id);
 
@@ -57,12 +58,13 @@ public slots:
     void removeRotationGroupTask(int id);
     void clearRotationGroupTasks();
 
-    void addRotationGroup(QHash<QString, QVariant> values);
-    void updateRotationGroup(QHash<QString, QVariant> values);
-    void removeRotationGroup(int id);
-    void addBreak(QHash<QString, QVariant> values);
-    void updateBreak(QHash<QString, QVariant> values);
-    void removeBreak(int id);
+    void addRotationGroupEntry(QHash<QString, QVariant> values);
+    void updateRotationGroupEntry(QHash<QString, QVariant> values);
+    //void removeRotationGroupEntry(int id);
+    void addBreakEntry(QHash<QString, QVariant> values);
+    //void removeBreakEntry(int id);
+
+    void removeEntry(int id);
     void moveEntryUp(int id);
     void moveEntryDown(int id);
     void clearCalendar();
@@ -79,7 +81,7 @@ private slots:
     void btnDeleteClicked();
 
 private:
-    static const int HOUR_HEIGHT = 80;
+    static const int HOUR_HEIGHT = 160;
 
     QTime beginTime;
     QTime endTime;
