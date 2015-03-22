@@ -289,6 +289,31 @@ Controller::Controller(QObject *parent, QApplication *app) :
     connect(shiftView, SIGNAL(saveShift(QHash<QString,QVariant>)), this, SLOT(saveShift(QHash<QString,QVariant>)));
     connect(this, SIGNAL(selectedShift(QHash<QString,QVariant>)), shiftView, SLOT(setShift(QHash<QString,QVariant>)));
 
+    //rotationGroupTaskListView signals/slots
+    connect(this, SIGNAL(clearAll()), rotationGroupTaskListView, SLOT(clearRotationGroupTasks()));
+    connect(this, SIGNAL(clearRotationGroupTasks()), rotationGroupTaskListView, SLOT(clearRotationGroupTasks()));
+    connect(this, SIGNAL(createdRotationGroupTask(QHash<QString,QVariant>)), rotationGroupTaskListView, SLOT(addRotationGroupTask(QHash<QString,QVariant>)));
+    connect(rotationGroupTaskListView, SIGNAL(createRotationGroupTask(QHash<QString,QVariant>)), this, SLOT(createRotationGroupTask(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(removedRotationGroupTask(int)), rotationGroupTaskListView, SLOT(removeRotationGroupTask(int)));
+    connect(rotationGroupTaskListView, SIGNAL(deleteRotationGroupTask(int)), this, SLOT(deleteRotationGroupTask(int)));
+    connect(rotationGroupTaskListView, SIGNAL(selectRotationGroupTask(int)), this, SLOT(selectRotationGroupTask(int)));
+    connect(this, SIGNAL(updatedRotationGroupTask(QHash<QString,QVariant>)), rotationGroupTaskListView, SLOT(updateRotationGroupTask(QHash<QString,QVariant>)));
+
+    //rotationGroupTaskView signals/slots
+    connect(this, SIGNAL(clearAll()), rotationGroupTaskView, SLOT(clearRotationGroupTaskEntries()));
+    connect(this, SIGNAL(clearAll()), rotationGroupTaskView, SLOT(clearWorkplaces()));
+    connect(this, SIGNAL(clearWorkplaces()), rotationGroupTaskView, SLOT(clearWorkplaces()));
+    connect(this, SIGNAL(clearRotationGroupTaskEntries()), rotationGroupTaskView, SLOT(clearRotationGroupTaskEntries()));
+    connect(this, SIGNAL(createdWorkplace(QHash<QString,QVariant>)), rotationGroupTaskView, SLOT(addWorkplace(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(updatedWorkplace(QHash<QString,QVariant>)), rotationGroupTaskView, SLOT(updateWorkplace(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(removedWorkplace(int)), rotationGroupTaskView, SLOT(removeWorkplace(int)));
+    connect(rotationGroupTaskView, SIGNAL(createRotationGroupTaskEntry(QHash<QString,QVariant>)), this, SLOT(createRotationGroupTaskEntry(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(createdRotationGroupTaskEntry(QHash<QString,QVariant>)), rotationGroupTaskView, SLOT(addRotationGroupTaskEntry(QHash<QString,QVariant>)));
+    connect(rotationGroupTaskListView, SIGNAL(deleteRotationGroupTask(int)), this, SLOT(deleteRotationGroupTaskEntry(int)));
+    connect(this, SIGNAL(removedRotationGroupTaskEntry(int)), rotationGroupTaskView, SLOT(removeRotationGroupTaskEntry(int)));
+    connect(rotationGroupTaskView, SIGNAL(saveRotationGroupTask(QHash<QString,QVariant>)), this, SLOT(saveRotationGroupTask(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(selectedRotationGroupTask(QHash<QString,QVariant>)), rotationGroupTaskView, SLOT(setRotationGroupTask(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(updatedRotationGroupTaskDuration(int)), rotationGroupTaskView, SLOT(setRotationGroupTaskDuration(int)));
 
     connect(languagePopUp, SIGNAL(confirm()), this, SLOT(languageChanged()));
     connect(themePopUp, SIGNAL(confirm()), this, SLOT(themeChanged()));
@@ -347,13 +372,14 @@ Controller::Controller(QObject *parent, QApplication *app) :
     documentationView->showStartView(ViewType::BODY_POSTURE_VIEW);
     viewCon->showStartView(ViewType::ANALYST_SELECTION_VIEW);
 
+    initializeAnalysts();
     initializeProducts();
     initializeTansportations();
     initializeEquipments();
     initializeEmployees();
-    initializeAnalysts();
     initializeLines();
     initializeWorkplaces();
+    initializeRotationGroupTasks();
 }
 
 //PRIVATE SLOTS
@@ -1225,7 +1251,7 @@ void Controller::initializeRotationGroup(int id){
 
 
 //RotationGroupTask
-void Controller::initializeGroupTasks(){
+void Controller::initializeRotationGroupTasks(){
     emit clearRotationGroupTasks();
     QList<QHash<QString, QVariant>> rows = dbHandler->select(DBConstants::TBL_ROTATION_GROUP_TASK, QString(""));
     for(int i = 0; i < rows.size(); ++i)
@@ -1250,23 +1276,51 @@ void Controller::deleteRotationGroupTask(int id){
 }
 
 void Controller::selectRotationGroupTask(int id){
-
+    rotationGroupTask_ID = id;
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_ROTATION_GROUP_TASK_ID).arg(id);
+    QHash<QString, QVariant> values = dbHandler->selectFirst(DBConstants::TBL_ROTATION_GROUP_TASK, filter);
+    emit selectedRotationGroupTask(values);
+    initializeRotationGroupTaskEntries(id);
 }
 
 void Controller::saveRotationGroupTask(QHash<QString, QVariant> values){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_ROTATION_GROUP_TASK_ID).arg(rotationGroupTask_ID);
+    values.insert(DBConstants::COL_ROTATION_GROUP_TASK_ID, rotationGroupTask_ID);
+    dbHandler->save(DBConstants::TBL_ROTATION_GROUP_TASK, DBConstants::HASH_ROTATION_GROUP_TASK_TYPES, values, filter, DBConstants::COL_ROTATION_GROUP_TASK_ID);
+    viewCon->showMessage(tr("Saved rotation group task"), NotificationMessage::ACCEPT);
+    emit updatedRotationGroupTask(values);
 }
 
+
 //RotationGroupTaskEntry
-void Controller::initializeGroupTaskEntries(int id){
+void Controller::initializeRotationGroupTaskEntries(int id){
+    emit clearRotationGroupTaskEntries();
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_TASK_ID).arg(id);
+    QList<QHash<QString, QVariant>> rgtesValues = dbHandler->select(DBConstants::TBL_ROTATION_GROUP_TASK_ENTRY, filter);
+    for(int i = 0; i < rgtesValues.size(); ++i)
+        emit createdRotationGroupTaskEntry(rgtesValues.at(i));
+    updateRotationGroupTaskDuration();
 
 }
 
 void Controller::createRotationGroupTaskEntry(QHash<QString, QVariant> values){
-
+    values.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_TASK_ID, rotationGroupTask_ID);
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_TASK_ID, rotationGroupTask_ID);
+    int rgte_ID = dbHandler->getNextID(DBConstants::TBL_ROTATION_GROUP_TASK_ENTRY, DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID, filter);
+    values.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID, rgte_ID);
+    dbHandler->insert(DBConstants::TBL_ROTATION_GROUP_TASK_ENTRY, DBConstants::HASH_ROTATION_GROUP_TASK_ENTRY_TYPES, values, DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID);
+    emit createdRotationGroupTaskEntry(values);
+    viewCon->showMessage(tr("Created rotation group task entry"), NotificationMessage::ACCEPT);
+    updateRotationGroupTaskDuration();
 }
 
 void Controller::deleteRotationGroupTaskEntry(int id, bool showMessage){
-
+    QString filter = QString("%1 = %2 AND %3 = %4").arg(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID).arg(id).arg(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_TASK_ID).arg(rotationGroupTask_ID);
+    dbHandler->deleteAll(DBConstants::TBL_ROTATION_GROUP_TASK_ENTRY, filter);
+    emit removedRotationGroupTaskEntry(id);
+    if(showMessage)
+        viewCon->showMessage(tr("Deleted rotation group task entry"), NotificationMessage::ACCEPT);
+    updateRotationGroupTaskDuration();
 }
 
 //Database Factory Reset
@@ -1392,6 +1446,17 @@ void Controller::themeChanged()
 }
 
 //PRIVATE METHODS
+void Controller::updateRotationGroupTaskDuration(){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_TASK_ID).arg(rotationGroupTask_ID);
+    QList<QHash<QString, QVariant>> rgtesValues = dbHandler->select(DBConstants::TBL_ROTATION_GROUP_TASK_ENTRY, filter);
+    int duration = 0;
+    for(int i = 0; rgtesValues.size(); ++i){
+        duration += rgtesValues.at(i).value(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_DURATION).toInt();
+    }
+    emit updatedRotationGroupTaskDuration(duration);
+}
+
+
 QString Controller::stringFromResource(const QString &resName)
 {
     QFile file(resName);

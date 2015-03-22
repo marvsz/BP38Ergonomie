@@ -48,8 +48,6 @@
 #include "../view/documentationView/executionconditionview.h"
 #include "../view/documentationView/workprocessmetadataview.h"
 #include "../view/documentationView/bodyPostureView/bodypostureview.h"
-#include <QSqlField>
-#include <QCryptographicHash>
 #include <QHash>
 #include <QApplication>
 
@@ -175,6 +173,7 @@ signals:
     void updatedRotationGroupTask(QHash<QString, QVariant> values);
     void removedRotationGroupTask(int id);
     void selectedRotationGroupTask(QHash<QString, QVariant> values);
+    void updatedRotationGroupTaskDuration(int duration);
 
     //RotationGroupTaskEntry
     void clearRotationGroupTaskEntries();
@@ -318,14 +317,14 @@ private slots:
     void initializeRotationGroup(int id);
 
     //RotationGroupTask
-    void initializeGroupTasks();
+    void initializeRotationGroupTasks();
     void createRotationGroupTask(QHash<QString, QVariant> values);
     void deleteRotationGroupTask(int id);
     void selectRotationGroupTask(int id);
     void saveRotationGroupTask(QHash<QString, QVariant> values);
 
     //RotationGroupTaskEntry
-    void initializeGroupTaskEntries(int id);
+    void initializeRotationGroupTaskEntries(int id);
     void createRotationGroupTaskEntry(QHash<QString, QVariant> values);
     void deleteRotationGroupTaskEntry(int id, bool showMesssage = true);
 
@@ -403,10 +402,13 @@ private:
     int selectedEmployee_ID;
     int shift_ID;
     int rotationGroup_ID;
+    int rotationGroupTask_ID;
 
     IImportData *importDataWidget;
     IImportDataParser *parser;
     QString downloadDir;
+
+    void updateRotationGroupTaskDuration();
 
     void saveRecordingObservesLine(int line_ID);
     void deleteRecordingObservesLine(int line_ID);
