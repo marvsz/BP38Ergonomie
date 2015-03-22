@@ -13,7 +13,7 @@ public slots:
     virtual void clearRotationGroup() = 0;
 
 signals:
-    virtual void removeRotationGroupEntry(int order) = 0;
+    virtual void createRotationGroupEntry(QHash<QString, QVariant> values) = 0;
     virtual void createRotationGroupBreakEntry(QHash<QString, QVariant> values) = 0;
 
     virtual void requestRemoveEntry(int order) = 0;

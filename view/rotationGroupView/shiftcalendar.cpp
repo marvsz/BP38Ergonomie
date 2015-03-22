@@ -123,23 +123,6 @@ ShiftCalendar::ShiftCalendar(QWidget *parent,  const QTime &beginTime, const QTi
     setLayout(splitLayout);
 
     drawBackground();
-
-    DetailedListItem *dli1 = new DetailedListItem(this, "", "Dli 1");
-    dli1->setID(1);
-    DetailedListItem *dli2 = new DetailedListItem(this, "", "Dli 2");
-    dli2->setID(2);
-    DetailedListItem *dli3 = new DetailedListItem(this, "", "Dli 3");
-    dli3->setID(3);
-    DetailedListItem *dli4 = new DetailedListItem(this, "", "Dli 4");
-    dli4->setID(4);
-    DetailedListItem *dli5 = new DetailedListItem(this, "", "Dli 5");
-    dli5->setID(5);
-    calendarEntryLayout->addWidget(dli1);
-    calendarEntryLayout->addWidget(dli2);
-    calendarEntryLayout->addWidget(dli3);
-    calendarEntryLayout->addWidget(dli4);
-    calendarEntryLayout->addWidget(dli5);
-    moveEntryUp(1);
 }
 
 
@@ -209,6 +192,7 @@ void ShiftCalendar::clearCalendar(){
 
 // PUBLIC SLOTS
 
+// IRotationGroupTaskList
 void  ShiftCalendar::addRotationGroupTask(QHash<QString, QVariant> values){
     QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_ROTATION_GROUP_TASK_DURATION).toString());
     DetailedListItem *newListItem = new DetailedListItem(this, "rotationIcon", values.value(DBConstants::COL_ROTATION_GROUP_TASK_NAME).toString(), rotationGroupCaptions, false, false, false, true, false);
@@ -257,8 +241,8 @@ void ShiftCalendar::clearRotationGroupTasks(){
     }
 }
 
+// IRotationGroup
 void ShiftCalendar::addRotationGroupEntry(QHash<QString, QVariant> values){
-    DetailedListItem *newRotationGroupEntry = new DetailedListItem(this, "btnIcon", QString(tr("Rotationgroup ")).append(values.value(DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER).toString()));
 
 }
 
@@ -266,66 +250,11 @@ void ShiftCalendar::updateRotationGroupEntry(QHash<QString, QVariant> values){
 
 }
 
-/*void ShiftCalendar::removeRotationGroupEntry(int id){
-
-}*/
-
-void ShiftCalendar::addBreakEntry(QHash<QString, QVariant> values){
+void ShiftCalendar::addRotationGroupBreakEntry(QHash<QString, QVariant> values){
 
 }
 
-/*void ShiftCalendar::updateBreak(QHash<QString, QVariant> values){
-
-}*/
-
-/*void ShiftCalendar::removeBreak(int id){
-
-}*/
-
-void ShiftCalendar::removeEntry(int id){
-    QLayoutItem *item;
-    int i = 0;
-    while((item = calendarEntryLayout->itemAt(i)) != NULL){
-        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
-        if(dli->getID() == id){
-            calendarEntryLayout->removeItem(item);
-            delete item->widget();
-            delete item;
-            break;
-        }
-        i++;
-    }
-}
-
-void ShiftCalendar::moveEntryUp(int id){
-    QLayoutItem *item;
-    int i = 0;
-    while((item = calendarEntryLayout->itemAt(i)) != NULL){
-        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
-        if(dli->getID() == id){
-            calendarEntryLayout->removeItem(item);
-            calendarEntryLayout->insertItem(i-1, item);
-            break;
-        }
-        i++;
-    }
-}
-
-void ShiftCalendar::moveEntryDown(int id){
-    QLayoutItem *item;
-    int i = 0;
-    while((item = calendarEntryLayout->itemAt(i)) != NULL){
-        DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
-        if(dli->getID() == id){
-            calendarEntryLayout->removeItem(item);
-            calendarEntryLayout->insertItem(i+1, item);
-            break;
-        }
-        i++;
-    }
-}
-
-void ShiftCalendar::clearCalendar(){
+void ShiftCalendar::clearRotationGroup(){
     QLayoutItem *item;
     while((item = calendarEntryLayout->takeAt(0)) != NULL){
         delete item->widget();
@@ -333,6 +262,7 @@ void ShiftCalendar::clearCalendar(){
     }
 }
 
+// IShift
 void ShiftCalendar::setShift(QHash<QString, QVariant> values){
     beginTime = values.value(DBConstants::COL_SHIFT_START).toTime();
     endTime = values.value(DBConstants::COL_SHIFT_END).toTime();
@@ -381,14 +311,10 @@ void ShiftCalendar::drawBackground(){
 
 // PRIVATE SLOTS
 void ShiftCalendar::btnAddBreakClicked(){
-    QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_BREAK_DURATION, numBxBreakDuration->getValue());
-    emit createBreak(values);
-    numBxBreakDuration->clear();
 }
 
 void ShiftCalendar::btnRotationClicked(){
-    emit showView(ViewType::ROTATION_GROUP_TASK_LIST_VIEW);
+
 }
 
 void ShiftCalendar::setSelectedId(int id){
@@ -428,7 +354,7 @@ void ShiftCalendar::setSelectedId(int id){
 }
 
 void ShiftCalendar::btnMoveUpClicked(){
-    emit requestMoveEntryUp(currentId);
+
     /*SelectableValueButton* item = calendarEntries->at(currentId);
     calendarEntryLayout->removeWidget(item);
     calendarEntryLayout->insertWidget(currentId-1, item);
@@ -443,7 +369,7 @@ void ShiftCalendar::btnMoveUpClicked(){
 }
 
 void ShiftCalendar::btnMoveDownClicked(){
-    emit requestMoveEntryDown(currentId);
+
     /*SelectableValueButton* item = calendarEntries->at(currentId);
     calendarEntryLayout->removeWidget(item);
     calendarEntryLayout->insertWidget(currentId+1, item);
@@ -458,7 +384,7 @@ void ShiftCalendar::btnMoveDownClicked(){
 }
 
 void ShiftCalendar::btnDeleteClicked(){
-    emit requestRemoveEntry(currentId);
+
     /*SelectableValueButton* item = calendarEntries->at(currentId);
     calendarEntryLayout->removeWidget(item);
     delete item;

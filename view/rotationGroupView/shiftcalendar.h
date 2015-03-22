@@ -37,38 +37,36 @@ public:
     int getBreakDuration() const;
 
 signals:
+    // IRotationGroupTaskList
     void createRotationGroupTask(QHash<QString, QVariant> values);
     void deleteRotationGroupTask(int id);
     void selectRotationGroupTask(int id);
 
-    void createRotationGroup(QHash<QString, QVariant> values);
-    void deleteRotationGroup(int id);
-    void createBreak(QHash<QString, QVariant> values);
-    void deleteBreak(int id);
+    // IRotationGroup
+    virtual void createRotationGroupEntry(QHash<QString, QVariant> values);
+    virtual void createRotationGroupBreakEntry(QHash<QString, QVariant> values);
 
-    void requestRemoveEntry(int id);
-    void requestMoveEntryUp(int id);
-    void requestMoveEntryDown(int id);
+    virtual void requestRemoveEntry(int order);
+    virtual void requestMoveEntryUp(int order);
+    virtual void requestMoveEntryDown(int order) ;
 
+    // IShift
     void saveShift(QHash<QString, QVariant> values);
 
 public slots:
+    // IRotationGroupTaskList
     void addRotationGroupTask(QHash<QString, QVariant> values);
     void updateRotationGroupTask(QHash<QString, QVariant> values);
     void removeRotationGroupTask(int id);
     void clearRotationGroupTasks();
 
+    // IRotationGroup
     void addRotationGroupEntry(QHash<QString, QVariant> values);
     void updateRotationGroupEntry(QHash<QString, QVariant> values);
-    //void removeRotationGroupEntry(int id);
-    void addBreakEntry(QHash<QString, QVariant> values);
-    //void removeBreakEntry(int id);
+    void addRotationGroupBreakEntry(QHash<QString, QVariant> values);
+    void clearRotationGroup();
 
-    void removeEntry(int id);
-    void moveEntryUp(int id);
-    void moveEntryDown(int id);
-    void clearCalendar();
-
+    // IShift
     void setShift(QHash<QString, QVariant> values);
 
 private slots:

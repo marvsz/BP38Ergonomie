@@ -86,7 +86,7 @@ void ShiftView::onLeaving(){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_SHIFT_TYPE, shiftTypes.at(oscShiftType->getSelectedID()));
     values.insert(DBConstants::COL_SHIFT_START, tsStart->getTime());
-    values.insert(DBConstants::COL_SHIFT_END, tsStart->getTime());
+    values.insert(DBConstants::COL_SHIFT_END, tsEnd->getTime());
     emit saveShift(values);
 }
 // PRIVATE SLOTS
