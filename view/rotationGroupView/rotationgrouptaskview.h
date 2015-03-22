@@ -41,6 +41,7 @@ signals:
 
 public slots:
     void setRotationGroupTask(QHash<QString, QVariant> values);
+    void setRotationGroupTaskDuration(int duration);
 
     void addRotationGroupTaskEntry(QHash<QString, QVariant> values);
     void removeRotationGroupTaskEntry(int id);
@@ -61,7 +62,6 @@ private slots:
     void deselectWorkplace(int id);
 
 private:
-    int id;
     int selectedWorkplaceID;
 
     QLabel *lblName;

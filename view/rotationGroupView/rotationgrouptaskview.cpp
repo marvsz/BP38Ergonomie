@@ -94,7 +94,10 @@ QList<QAbstractButton*> * RotationGroupTaskView::getAdditionalNavigation() const
 // PUBLIC SLOTS
 void RotationGroupTaskView::setRotationGroupTask(QHash<QString, QVariant> values){
     txtBxName->setText(values.value(DBConstants::COL_ROTATION_GROUP_TASK_NAME).toString().append(" min"));
-    lblTotalDuration->setText(values.value(DBConstants::COL_ROTATION_GROUP_TASK_DURATION).toString());
+}
+
+void RotationGroupTaskView::setRotationGroupTaskDuration(int duration){
+    lblTotalDurationValue->setText(QString::number(duration));
 }
 
 void RotationGroupTaskView::addRotationGroupTaskEntry(QHash<QString, QVariant> values){
@@ -134,6 +137,7 @@ void RotationGroupTaskView::addWorkplace(QHash<QString, QVariant> values){
     newListItem->setID(values.value(DBConstants::COL_WORKPLACE_ID).toInt());
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedWorkplaceChanged(int)));
     connect(newListItem, SIGNAL(deselected(int)), this, SLOT(deselectWorkplace(int)));
+    connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteRotationGroupTaskEntry(int)));
     connect(this, SIGNAL(selectedWorkplace(int)), newListItem, SLOT(selectExclusiveWithID(int)));
     workplaceListLayout->addWidget(newListItem);
 }
