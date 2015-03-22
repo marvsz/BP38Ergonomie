@@ -93,6 +93,7 @@ QList<QAbstractButton*> * RotationGroupTaskView::getAdditionalNavigation() const
 
 // PUBLIC SLOTS
 void RotationGroupTaskView::setRotationGroupTask(QHash<QString, QVariant> values){
+    txtBxName->clear();
     txtBxName->setText(values.value(DBConstants::COL_ROTATION_GROUP_TASK_NAME).toString());
 }
 
@@ -140,6 +141,7 @@ void RotationGroupTaskView::addWorkplace(QHash<QString, QVariant> values){
     connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteRotationGroupTaskEntry(int)));
     connect(this, SIGNAL(selectedWorkplace(int)), newListItem, SLOT(selectExclusiveWithID(int)));
     workplaceListLayout->addWidget(newListItem);
+    btnAdd->setEnabled(true);
 }
 
 void RotationGroupTaskView::updateWorkplace(QHash<QString, QVariant> values){
@@ -169,6 +171,8 @@ void RotationGroupTaskView::removeWorkplace(int id){
         }
         i++;
     }
+    if(workplaceListLayout->count() == 0)
+        btnAdd->setEnabled(false);
 }
 
 void RotationGroupTaskView::clearWorkplaces(){
@@ -177,6 +181,7 @@ void RotationGroupTaskView::clearWorkplaces(){
         delete item->widget();
         delete item;
     }
+    btnAdd->setEnabled(false);
 }
 
 void RotationGroupTaskView::onLeaving(){
@@ -191,15 +196,19 @@ void RotationGroupTaskView::onLeaving(){
 void RotationGroupTaskView::selectedWorkplaceChanged(int id){
     selectedWorkplaceID = id;
     emit selectedWorkplace(id);
+    if(selectedWorkplaceID > 0)
+        btnAdd->setEnabled(true);
 }
 
 void RotationGroupTaskView::deselectWorkplace(int id){
-    if(id == selectedWorkplaceID)
+    if(id == selectedWorkplaceID){
         selectedWorkplaceID = 0;
+        btnAdd->setEnabled(false);
+    }
 }
 
 void RotationGroupTaskView::btnAddClicked(){
-    if(selectedWorkplaceID > 0){
+    if(selectedWorkplaceID > 0 && numBxWorkplaceDuration->getValue() > 0){
         QHash<QString, QVariant> values = QHash<QString, QVariant>();
         values.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_WORKPLACE_ID, selectedWorkplaceID);
         values.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_DURATION, numBxWorkplaceDuration->getValue());
@@ -207,6 +216,8 @@ void RotationGroupTaskView::btnAddClicked(){
         numBxWorkplaceDuration->clear();
         selectedWorkplaceChanged(0);
     }
+    else
+        emit showMessage(tr("You have to select a Workplace and enter a Duration!"), NotificationMessage::ERROR);
 }
 
 void RotationGroupTaskView::btnAddWorkplaceClicked(){
