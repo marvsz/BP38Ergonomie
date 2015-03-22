@@ -103,7 +103,7 @@ void RotationGroupTaskView::setRotationGroupTaskDuration(int duration){
 
 void RotationGroupTaskView::addRotationGroupTaskEntry(QHash<QString, QVariant> values){
     QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_DURATION).toString());
-    DetailedListItem *newListItem = new DetailedListItem(this, "workplaceIcon", QString(tr("Rotation Group Entry ")).append(values.value(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID).toString()), rotationGroupTaskEntryCaptions, true, false, false, false, false);
+    DetailedListItem *newListItem = new DetailedListItem(this, "workplaceIcon", values.value(DBConstants::COL_WORKPLACE_NAME).toString(), rotationGroupTaskEntryCaptions, true, false, false, false, false);
     newListItem->setValues(dliValues);
     newListItem->setID(values.value(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID).toInt());
     connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteRotationGroupTaskEntry(int)));
@@ -141,7 +141,6 @@ void RotationGroupTaskView::addWorkplace(QHash<QString, QVariant> values){
     connect(newListItem, SIGNAL(deleteItem(int)), this, SIGNAL(deleteRotationGroupTaskEntry(int)));
     connect(this, SIGNAL(selectedWorkplace(int)), newListItem, SLOT(selectExclusiveWithID(int)));
     workplaceListLayout->addWidget(newListItem);
-    btnAdd->setEnabled(true);
 }
 
 void RotationGroupTaskView::updateWorkplace(QHash<QString, QVariant> values){
@@ -171,8 +170,6 @@ void RotationGroupTaskView::removeWorkplace(int id){
         }
         i++;
     }
-    if(workplaceListLayout->count() == 0)
-        btnAdd->setEnabled(false);
 }
 
 void RotationGroupTaskView::clearWorkplaces(){
@@ -181,7 +178,6 @@ void RotationGroupTaskView::clearWorkplaces(){
         delete item->widget();
         delete item;
     }
-    btnAdd->setEnabled(false);
 }
 
 void RotationGroupTaskView::onLeaving(){
@@ -198,6 +194,8 @@ void RotationGroupTaskView::selectedWorkplaceChanged(int id){
     emit selectedWorkplace(id);
     if(selectedWorkplaceID > 0)
         btnAdd->setEnabled(true);
+    else
+        btnAdd->setEnabled(false);
 }
 
 void RotationGroupTaskView::deselectWorkplace(int id){
