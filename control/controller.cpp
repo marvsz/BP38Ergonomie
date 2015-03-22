@@ -1297,18 +1297,22 @@ void Controller::initializeRotationGroupTaskEntries(int id){
     emit clearRotationGroupTaskEntries();
     QString filter = QString("%1 = %2").arg(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_TASK_ID).arg(id);
     QList<QHash<QString, QVariant>> rgtesValues = dbHandler->select(DBConstants::TBL_ROTATION_GROUP_TASK_ENTRY, filter);
-    for(int i = 0; i < rgtesValues.size(); ++i)
-        emit createdRotationGroupTaskEntry(rgtesValues.at(i));
+    for(int i = 0; i < rgtesValues.size(); ++i){
+        QHash<QString, QVariant> rgteValues = rgtesValues.at(i);
+        rgteValues.insert(DBConstants::COL_WORKPLACE_NAME, getWorkplaceNameByID(rgteValues.value(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_WORKPLACE_ID).toInt()));
+        emit createdRotationGroupTaskEntry(rgteValues);
+    }
     updateRotationGroupTaskDuration();
 
 }
 
 void Controller::createRotationGroupTaskEntry(QHash<QString, QVariant> values){
     values.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_TASK_ID, rotationGroupTask_ID);
-    QString filter = QString("%1 = %2").arg(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_TASK_ID, rotationGroupTask_ID);
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_TASK_ID).arg(rotationGroupTask_ID);
     int rgte_ID = dbHandler->getNextID(DBConstants::TBL_ROTATION_GROUP_TASK_ENTRY, DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID, filter);
     values.insert(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID, rgte_ID);
     dbHandler->insert(DBConstants::TBL_ROTATION_GROUP_TASK_ENTRY, DBConstants::HASH_ROTATION_GROUP_TASK_ENTRY_TYPES, values, DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID);
+    values.insert(DBConstants::COL_WORKPLACE_NAME, getWorkplaceNameByID(values.value(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_WORKPLACE_ID).toInt()));
     emit createdRotationGroupTaskEntry(values);
     viewCon->showMessage(tr("Created rotation group task entry"), NotificationMessage::ACCEPT);
     updateRotationGroupTaskDuration();
@@ -1339,35 +1343,9 @@ void Controller::resetDatabaseFactory()
     workprocess_ID = 0;
     employee_ID = 1;
     bodyMeasurement_ID = 1;
-    dbHandler->deleteAll(DBConstants::TBL_ACTIVITY, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_APPLIED_FORCE, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_BODY_POSTURE, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_BREAK, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_COMMENT, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_EMPLOYEE, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_BODY_MEASUREMENT, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_EMPLOYEE_WORKS_SHIFT, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_EQUIPMENT, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_LINE, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_LOAD_HANDLING, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_PRODUCT, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_RECORDING, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_RECORDING_OB_LINE, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_RECORDING_OB_WORKPLACE, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_SHIFT, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_TRANSPORTATION, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_WORKPLACE, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_WORK_CONDITION, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_WORK_PROCESS, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_CONNECTION, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_ANALYST, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_BRANCH_OF_INDUSTRY, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_CORPORATION, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_EMPLOYER, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_FACTORY, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_TYPE_OF_GRASPING, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_LOAD_HANDLING_TYPE, emptyFilter);
-    dbHandler->deleteAll(DBConstants::TBL_BODY_MEASUREMENT, emptyFilter);
+    QList<QString> tblNames = DBConstants::LIST_TABLE_NAMES;
+    for(int i = 0; i < tblNames.size(); ++i)
+        dbHandler->deleteAll(tblNames.at(i), emptyFilter);
     emit clearAll();
     viewCon->closePopUp();
     viewCon->showMessage(tr("Restored Factory Settings"), NotificationMessage::ACCEPT);
@@ -1450,10 +1428,15 @@ void Controller::updateRotationGroupTaskDuration(){
     QString filter = QString("%1 = %2").arg(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_TASK_ID).arg(rotationGroupTask_ID);
     QList<QHash<QString, QVariant>> rgtesValues = dbHandler->select(DBConstants::TBL_ROTATION_GROUP_TASK_ENTRY, filter);
     int duration = 0;
-    for(int i = 0; rgtesValues.size(); ++i){
+    for(int i = 0; i < rgtesValues.size(); ++i){
         duration += rgtesValues.at(i).value(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_DURATION).toInt();
     }
     emit updatedRotationGroupTaskDuration(duration);
+}
+
+QString Controller::getWorkplaceNameByID(int id){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(id);
+    return dbHandler->selectFirst(DBConstants::TBL_WORKPLACE, filter).value(DBConstants::COL_WORKPLACE_NAME).toString();
 }
 
 

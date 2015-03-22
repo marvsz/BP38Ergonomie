@@ -409,6 +409,7 @@ private:
     QString downloadDir;
 
     void updateRotationGroupTaskDuration();
+    QString getWorkplaceNameByID(int id);
 
     void saveRecordingObservesLine(int line_ID);
     void deleteRecordingObservesLine(int line_ID);
