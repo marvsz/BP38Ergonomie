@@ -43,15 +43,17 @@ signals:
     void selectRotationGroupTask(int id);
 
     // IRotationGroup
-    virtual void createRotationGroupEntry(QHash<QString, QVariant> values);
-    virtual void createRotationGroupBreakEntry(QHash<QString, QVariant> values);
+    void createRotationGroupEntry(QHash<QString, QVariant> values);
+    void createRotationGroupBreakEntry(QHash<QString, QVariant> values);
 
-    virtual void requestRemoveEntry(int order);
-    virtual void requestMoveEntryUp(int order);
-    virtual void requestMoveEntryDown(int order) ;
+    void requestRemoveEntry(int order);
+    void requestMoveEntryUp(int order);
+    void requestMoveEntryDown(int order) ;
 
     // IShift
     void saveShift(QHash<QString, QVariant> values);
+
+    void selectedEntry(int id);
 
 public slots:
     // IRotationGroupTaskList
@@ -72,14 +74,18 @@ public slots:
 private slots:
     void btnAddBreakClicked();
     void btnRotationClicked();
-    void setSelectedId(int id);
+    void dliRotationGroupTaskAddClicked(int id);
 
     void btnMoveUpClicked();
     void btnMoveDownClicked();
     void btnDeleteClicked();
 
+    void selectedEntryChanged(int id);
+    void deselectEntry(int id);
+
 private:
     static const int HOUR_HEIGHT = 160;
+    int selectedOrderID;
 
     QTime beginTime;
     QTime endTime;
