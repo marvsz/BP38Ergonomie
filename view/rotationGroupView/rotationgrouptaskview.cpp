@@ -9,7 +9,7 @@
 RotationGroupTaskView::RotationGroupTaskView(QWidget *parent) :
     SimpleNavigateableWidget(tr("New Rotation Group"), parent),
     lblName(new QLabel(tr("Name:"))),
-    lblTotalDuration(new QLabel(tr("Total duration:"))),
+    lblTotalDuration(new QLabel(tr("Total duration [min]:"))),
     txtBxName(new TextLineEdit(this)),
     lblTotalDurationValue(new QLabel()),
     rotationGroupTaskEntryListContent(new QWidget()),
@@ -93,7 +93,7 @@ QList<QAbstractButton*> * RotationGroupTaskView::getAdditionalNavigation() const
 
 // PUBLIC SLOTS
 void RotationGroupTaskView::setRotationGroupTask(QHash<QString, QVariant> values){
-    txtBxName->setText(values.value(DBConstants::COL_ROTATION_GROUP_TASK_NAME).toString().append(" min"));
+    txtBxName->setText(values.value(DBConstants::COL_ROTATION_GROUP_TASK_NAME).toString());
 }
 
 void RotationGroupTaskView::setRotationGroupTaskDuration(int duration){
@@ -182,6 +182,7 @@ void RotationGroupTaskView::clearWorkplaces(){
 void RotationGroupTaskView::onLeaving(){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
     values.insert(DBConstants::COL_ROTATION_GROUP_TASK_NAME, txtBxName->text());
+    values.insert(DBConstants::COL_ROTATION_GROUP_TASK_DURATION, lblTotalDurationValue->text().toInt());
     emit saveRotationGroupTask(values);
 }
 
