@@ -309,7 +309,7 @@ Controller::Controller(QObject *parent, QApplication *app) :
     connect(this, SIGNAL(removedWorkplace(int)), rotationGroupTaskView, SLOT(removeWorkplace(int)));
     connect(rotationGroupTaskView, SIGNAL(createRotationGroupTaskEntry(QHash<QString,QVariant>)), this, SLOT(createRotationGroupTaskEntry(QHash<QString,QVariant>)));
     connect(this, SIGNAL(createdRotationGroupTaskEntry(QHash<QString,QVariant>)), rotationGroupTaskView, SLOT(addRotationGroupTaskEntry(QHash<QString,QVariant>)));
-    connect(rotationGroupTaskListView, SIGNAL(deleteRotationGroupTask(int)), this, SLOT(deleteRotationGroupTaskEntry(int)));
+    connect(rotationGroupTaskView, SIGNAL(deleteRotationGroupTaskEntry(int)), this, SLOT(deleteRotationGroupTaskEntry(int)));
     connect(this, SIGNAL(removedRotationGroupTaskEntry(int)), rotationGroupTaskView, SLOT(removeRotationGroupTaskEntry(int)));
     connect(rotationGroupTaskView, SIGNAL(saveRotationGroupTask(QHash<QString,QVariant>)), this, SLOT(saveRotationGroupTask(QHash<QString,QVariant>)));
     connect(this, SIGNAL(selectedRotationGroupTask(QHash<QString,QVariant>)), rotationGroupTaskView, SLOT(setRotationGroupTask(QHash<QString,QVariant>)));
@@ -1268,6 +1268,7 @@ void Controller::deleteRotationGroupTask(int id){
     QString filter = QString("%1 = %2").arg(DBConstants::COL_ROTATION_GROUP_TASK_ID).arg(id);
     dbHandler->deleteAll(DBConstants::TBL_ROTATION_GROUP_TASK, filter);
     QList<QHash<QString, QVariant>> rgteRows = dbHandler->select(DBConstants::TBL_ROTATION_GROUP_TASK_ENTRY, QString("%1 = %2").arg(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_TASK_ID).arg(id));
+    rotationGroupTask_ID = id;
     for(int i = 0; i < rgteRows.size(); ++i){
         deleteRotationGroupTaskEntry(rgteRows.at(i).value(DBConstants::COL_ROTATION_GROUP_TASK_ENTRY_ID).toInt(), false);
     }
