@@ -87,9 +87,11 @@ void ShiftView::onLeaving(){
     values.insert(DBConstants::COL_SHIFT_TYPE, shiftTypes.at(oscShiftType->getSelectedID()));
     values.insert(DBConstants::COL_SHIFT_START, tsStart->getTime());
     values.insert(DBConstants::COL_SHIFT_END, tsStart->getTime());
+    emit saveShift(values);
 }
 // PRIVATE SLOTS
 void ShiftView::updateShiftTimes(const QString &type){
+    oscShiftType->setSelectedValue(shiftTypes.indexOf(type));
     switch(shiftTypes.indexOf(type)){
     case(0):
         setStartTime(QTime(6,0));
