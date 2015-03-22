@@ -90,8 +90,6 @@ QList<QAbstractButton*> * RotationGroupTaskListView::getAdditionalNavigation() c
 // PRIVATE SLOTS
 void RotationGroupTaskListView::btnPlusClicked(){
     emit createRotationGroupTask(QHash<QString, QVariant>());
-    // NUR ZUM TESTEN
-    emit showView(ViewType::ROTATION_GROUP_TASK_VIEW);
 }
 
 void RotationGroupTaskListView::dliRotationGroupTaskClicked(int id){
