@@ -315,6 +315,23 @@ Controller::Controller(QObject *parent, QApplication *app) :
     connect(this, SIGNAL(selectedRotationGroupTask(QHash<QString,QVariant>)), rotationGroupTaskView, SLOT(setRotationGroupTask(QHash<QString,QVariant>)));
     connect(this, SIGNAL(updatedRotationGroupTaskDuration(int)), rotationGroupTaskView, SLOT(setRotationGroupTaskDuration(int)));
 
+    //shiftCalendarView signals/slots
+    connect(this, SIGNAL(clearAll()), shiftCalendarView, SLOT(clearRotationGroup()));
+    connect(this, SIGNAL(clearAll()), shiftCalendarView, SLOT(clearRotationGroupTasks()));
+    connect(this, SIGNAL(clearRotationGroupTasks()), shiftCalendarView, SLOT(clearRotationGroupTasks()));
+    connect(this, SIGNAL(clearRotationGroup()), shiftCalendarView, SLOT(clearRotationGroup()));
+    connect(this, SIGNAL(createdRotationGroupTask(QHash<QString,QVariant>)), shiftCalendarView, SLOT(addRotationGroupTask(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(updatedRotationGroupTask(QHash<QString,QVariant>)), shiftCalendarView, SLOT(updateRotationGroupTask(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(removedRotationGroupTask(int)), shiftCalendarView, SLOT(removeRotationGroupTask(int)));
+    connect(this, SIGNAL(addRotationGroupBreakEntry(QHash<QString,QVariant>)), shiftCalendarView, SLOT(addRotationGroupBreakEntry(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(addRotationGroupEntry(QHash<QString,QVariant>)), shiftCalendarView, SLOT(addRotationGroupEntry(QHash<QString,QVariant>)));
+    connect(shiftCalendarView, SIGNAL(createRotationGroupBreakEntry(QHash<QString,QVariant>)), this, SLOT(createRotationGroupBreakEntry(QHash<QString,QVariant>)));
+    connect(shiftCalendarView, SIGNAL(createRotationGroupEntry(QHash<QString,QVariant>)), this, SLOT(createRotationGroupEntry(QHash<QString,QVariant>)));
+    connect(shiftCalendarView, SIGNAL(requestMoveEntryDown(int)), this, SLOT(moveRotationGroupEntryDown(int)));
+    connect(shiftCalendarView, SIGNAL(requestMoveEntryUp(int)), this, SLOT(moveRotationGroupEntryUp(int)));
+    connect(shiftCalendarView, SIGNAL(requestRemoveEntry(int)), this, SLOT(removeRotationGroupEntry(int)));
+
+
     connect(languagePopUp, SIGNAL(confirm()), this, SLOT(languageChanged()));
     connect(themePopUp, SIGNAL(confirm()), this, SLOT(themeChanged()));
     connect(resetPopUp, SIGNAL(confirm()), this, SLOT(resetSelectedEntries()));
@@ -1226,8 +1243,7 @@ void Controller::initializeShift(int id){
         selectedEmployee_ID = dbHandler->selectFirst(DBConstants::TBL_EMPLOYEE_WORKS_SHIFT, filter).value(DBConstants::COL_EMPLOYEE_WORKS_SHIFT_EMPLOYEE_ID).toInt();
         emit employeeSelected(selectedEmployee_ID);
         emit selectedShift(values);
-        rotationGroup_ID = values.value(DBConstants::COL_SHIFT_ROTATION_GROUP_ID).toInt();
-        initializeRotationGroup(rotationGroup_ID);
+        initializeRotationGroup(values.value(DBConstants::COL_SHIFT_ROTATION_GROUP_ID).toInt());
     }
 }
 
@@ -1246,7 +1262,89 @@ void Controller::saveShift(QHash<QString, QVariant> values){
 
 //RotationGroup
 void Controller::initializeRotationGroup(int id){
+    rotationGroup_ID = id;
+    emit clearRotationGroup();
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_ROTATION_GROUP_ID).arg(id);
+    QList<QHash<QString, QVariant>> rgesValues = dbHandler->select(DBConstants::TBL_ROTATION_GROUP, filter);
+    for(int i = 0; i < rgesValues.size(); ++i){
+        QHash<QString, QVariant> rgeValues = rgesValues.at(i);
+        int entry_ID = rgeValues.value(DBConstants::COL_ROTATION_GROUP_ENTRY_ID).toInt();
+        bool isTask = rgeValues.value(DBConstants::COL_ROTATION_GROUP_IS_TASK).toBool();
+        QHash<QString, QVariant> additionalValues;
+        QString tblName = isTask ? DBConstants::TBL_ROTATION_GROUP_TASK : DBConstants::TBL_BREAK;
+        QString colIDName = isTask ? DBConstants::COL_ROTATION_GROUP_TASK_ID : DBConstants::COL_BREAK_ID;
+        filter = QString("%1 = %2").arg(colIDName).arg(entry_ID);
+        additionalValues = dbHandler->selectFirst(tblName, filter);
+        foreach(QString key , additionalValues.keys())
+            rgeValues.insert(key, additionalValues.value(key));
+        if(isTask)
+            emit addRotationGroupEntry(rgeValues);
+        else
+            emit addRotationGroupBreakEntry(rgeValues);
+    }
 
+}
+
+void Controller::createRotationGroupEntry(QHash<QString, QVariant> values){
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_ROTATION_GROUP_ID).arg(rotationGroup_ID);
+    int order = dbHandler->getNextID(DBConstants::TBL_ROTATION_GROUP, DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER, filter);
+    values.insert(DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER, order);
+    values.insert(DBConstants::COL_ROTATION_GROUP_IS_TASK, true);
+    values.insert(DBConstants::COL_ROTATION_GROUP_ID, rotationGroup_ID);
+    int success = dbHandler->insert(DBConstants::TBL_ROTATION_GROUP, DBConstants::HASH_ROTATION_GROUP_TYPES, values, DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER);
+    if(success > 0) {
+        emit addRotationGroupEntry(values);
+        viewCon->showMessage(tr("Added rotation group task to calendar"), NotificationMessage::ACCEPT);
+    }
+}
+
+void Controller::createRotationGroupBreakEntry(QHash<QString, QVariant> values){
+    int duration = values.value(DBConstants::COL_BREAK_DURATION).toInt();
+    QString filter = QString("%1 = %2").arg(DBConstants::COL_BREAK_DURATION).arg(duration);
+    QHash<QString, QVariant> breakValues = QHash<QString, QVariant>();
+    breakValues.insert(DBConstants::COL_BREAK_DURATION, duration);
+    values.remove(DBConstants::COL_BREAK_DURATION);
+    int break_ID = dbHandler->save(DBConstants::TBL_BREAK, DBConstants::HASH_BREAK_TYPES, breakValues, filter, DBConstants::COL_BREAK_ID);
+    if(break_ID > 0) {
+        values.insert(DBConstants::COL_ROTATION_GROUP_ENTRY_ID, break_ID);
+        filter = QString("%1 = %2").arg(DBConstants::COL_ROTATION_GROUP_ID).arg(rotationGroup_ID);
+        int order = dbHandler->getNextID(DBConstants::TBL_ROTATION_GROUP, DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER, filter);
+        values.insert(DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER, order);
+        values.insert(DBConstants::COL_ROTATION_GROUP_IS_TASK, false);
+        values.insert(DBConstants::COL_ROTATION_GROUP_ID, rotationGroup_ID);
+        int success = dbHandler->insert(DBConstants::TBL_ROTATION_GROUP, DBConstants::HASH_ROTATION_GROUP_TYPES, values, DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER);
+        if(success > 0) {
+            emit addRotationGroupBreakEntry(values);
+            viewCon->showMessage(tr("Added break to calendar"), NotificationMessage::ACCEPT);
+        }
+    }
+}
+
+void Controller::removeRotationGroupEntry(int order){
+    QString filter = QString("%1 = %2 AND %3 = %4").arg(DBConstants::COL_ROTATION_GROUP_ID).arg(rotationGroup_ID).arg(DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER).arg(order);
+    if(dbHandler->deleteAll(DBConstants::TBL_ROTATION_GROUP, filter)){
+        viewCon->showMessage(tr("Removed entry form calendar"), NotificationMessage::ACCEPT);
+        filter = QString("%1 = %2 AND %3 > %4").arg(DBConstants::COL_ROTATION_GROUP_ID).arg(rotationGroup_ID).arg(DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER).arg(order);
+        QList<QHash<QString, QVariant>> rgesValues = dbHandler->select(DBConstants::TBL_ROTATION_GROUP, filter);
+        QString absFilter = QString("%1 = %2 AND %3 = %4").arg(DBConstants::COL_ROTATION_GROUP_ID).arg(rotationGroup_ID).arg(DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER);
+        for(int i = 0; i < rgesValues.size(); ++i){
+            QHash<QString, QVariant> rgeValues = rgesValues.at(i);
+            int order = rgeValues.value(DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER).toInt();
+            rgeValues.insert(DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER, order - 1);
+            dbHandler->update(DBConstants::TBL_ROTATION_GROUP, DBConstants::HASH_ROTATION_GROUP_TYPES, rgeValues, absFilter.arg(order), DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER);
+        }
+        initializeRotationGroup(rotationGroup_ID);
+    }
+}
+
+void Controller::moveRotationGroupEntryUp(int order){
+    swapRotationGroupEntries(order, order+1);
+    initializeRotationGroup(rotationGroup_ID);
+}
+
+void Controller::moveRotationGroupEntryDown(int order){
+    swapRotationGroupEntries(order, order-1);
+    initializeRotationGroup(rotationGroup_ID);
 }
 
 
@@ -1438,6 +1536,17 @@ void Controller::updateRotationGroupTaskDuration(){
 QString Controller::getWorkplaceNameByID(int id){
     QString filter = QString("%1 = %2").arg(DBConstants::COL_WORKPLACE_ID).arg(id);
     return dbHandler->selectFirst(DBConstants::TBL_WORKPLACE, filter).value(DBConstants::COL_WORKPLACE_NAME).toString();
+}
+
+void Controller::swapRotationGroupEntries(int order1, int order2){
+    QString absFilter = QString("%1 = %2 AND %3 = %4").arg(DBConstants::COL_ROTATION_GROUP_ID).arg(rotationGroup_ID).arg(DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER);
+    QHash<QString, QVariant> values1 = dbHandler->selectFirst(DBConstants::TBL_ROTATION_GROUP, absFilter.arg(order1));
+    dbHandler->deleteAll(DBConstants::TBL_ROTATION_GROUP, absFilter.arg(order1));
+    QHash<QString, QVariant> values2 = dbHandler->selectFirst(DBConstants::TBL_ROTATION_GROUP, absFilter.arg(order2));
+    values2.insert(DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER, order1);
+    dbHandler->update(DBConstants::TBL_ROTATION_GROUP, DBConstants::HASH_ROTATION_GROUP_TYPES, values2, absFilter.arg(order2), DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER);
+    values1.insert(DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER, order2);
+    dbHandler->insert(DBConstants::TBL_ROTATION_GROUP, DBConstants::HASH_ROTATION_GROUP_TYPES, values1, DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER);
 }
 
 

@@ -166,6 +166,9 @@ signals:
 
     //RotationGroup
     void clearRotationGroup();
+    void addRotationGroupEntry(QHash<QString, QVariant> values);
+    void updateRotationGroupEntry(QHash<QString, QVariant> values);
+    void addRotationGroupBreakEntry(QHash<QString, QVariant> values);
 
     //RotationGroupTask
     void clearRotationGroupTasks();
@@ -315,6 +318,11 @@ private slots:
 
     //RotationGroup
     void initializeRotationGroup(int id);
+    void createRotationGroupEntry(QHash<QString, QVariant> values);
+    void createRotationGroupBreakEntry(QHash<QString, QVariant> values);
+    void removeRotationGroupEntry(int order);
+    void moveRotationGroupEntryUp(int order);
+    void moveRotationGroupEntryDown(int order);
 
     //RotationGroupTask
     void initializeRotationGroupTasks();
@@ -410,6 +418,7 @@ private:
 
     void updateRotationGroupTaskDuration();
     QString getWorkplaceNameByID(int id);
+    void swapRotationGroupEntries(int order1, int order2);
 
     void saveRecordingObservesLine(int line_ID);
     void deleteRecordingObservesLine(int line_ID);
