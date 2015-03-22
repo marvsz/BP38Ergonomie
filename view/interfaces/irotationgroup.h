@@ -8,24 +8,17 @@ class IRotationGroup {
 public slots:
     virtual void addRotationGroupEntry(QHash<QString, QVariant> values) = 0;
     virtual void updateRotationGroupEntry(QHash<QString, QVariant> values) = 0;
-    //virtual void removeRotationGroupEntry(int id) = 0;
-    virtual void addBreakEntry(QHash<QString, QVariant> values) = 0;
-    //virtual void removeBreakEntry(int id) = 0;
+    virtual void addRotationGroupBreakEntry(QHash<QString, QVariant> values) = 0;
 
-    virtual void removeEntry(int id) = 0;
-    virtual void moveEntryUp(int id) = 0;
-    virtual void moveEntryDown(int id) = 0;
-    virtual void clearCalendar() = 0;
+    virtual void clearRotationGroup() = 0;
 
 signals:
-    virtual void createRotationGroupTask(QHash<QString, QVariant> values) = 0;
-    virtual void deleteRotationGroupTask(int id) = 0;
-    virtual void createBreak(QHash<QString, QVariant> values) = 0;
-    virtual void deleteBreak(int id) = 0;
+    virtual void removeRotationGroupEntry(int order) = 0;
+    virtual void createRotationGroupBreakEntry(QHash<QString, QVariant> values) = 0;
 
-    virtual void requestRemoveEntry(int id) = 0;
-    virtual void requestMoveEntryUp(int id) = 0;
-    virtual void requestMoveEntryDown(int id) = 0;
+    virtual void requestRemoveEntry(int order) = 0;
+    virtual void requestMoveEntryUp(int order) = 0;
+    virtual void requestMoveEntryDown(int order) = 0;
 };
 
 #define IRotationGroup_iid "IRotationGroup"
