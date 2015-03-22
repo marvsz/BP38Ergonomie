@@ -174,3 +174,7 @@ int DetailedListItem::getID() const{
 void DetailedListItem::setID(int id){
     this->id = id;
 }
+
+QString DetailedListItem::getName() const{
+    return this->lblName->text();
+}

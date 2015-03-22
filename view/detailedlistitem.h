@@ -17,6 +17,7 @@ public:
 
     int getID() const;
     void setID(int id);
+    QString getName() const;
 
 signals:
     void deleteItem(int id);

@@ -182,7 +182,19 @@ void RotationGroupTaskView::clearWorkplaces(){
 
 void RotationGroupTaskView::onLeaving(){
     QHash<QString, QVariant> values = QHash<QString, QVariant>();
-    values.insert(DBConstants::COL_ROTATION_GROUP_TASK_NAME, txtBxName->text());
+    if(txtBxName->text() != "")
+        values.insert(DBConstants::COL_ROTATION_GROUP_TASK_NAME, txtBxName->text());
+    else{
+        QString name = "";
+        int length = rotationGroupTaskEntryListLayout->count();
+        for(int i = 0; i < length - 1; ++i){
+            DetailedListItem *dli = qobject_cast<DetailedListItem*>(rotationGroupTaskEntryListLayout->itemAt(i)->widget());
+            name.append(dli->getName());
+            name.append(" -> ");
+        }
+        name.append(qobject_cast<DetailedListItem*>(rotationGroupTaskEntryListLayout->itemAt(length - 1)->widget())->getName());
+        values.insert(DBConstants::COL_ROTATION_GROUP_TASK_NAME, name);
+    }
     values.insert(DBConstants::COL_ROTATION_GROUP_TASK_DURATION, lblTotalDurationValue->text().toInt());
     emit saveRotationGroupTask(values);
 }
