@@ -190,6 +190,7 @@ void ShiftCalendar::addRotationGroupEntry(QHash<QString, QVariant> values){
     DetailedListItem *newListItem = new DetailedListItem(this, "workplaceIcon", values.value(DBConstants::COL_ROTATION_GROUP_TASK_NAME).toString(), QList<QStringList>(), false, true, false, false, false);
     int orderNumber = values.value(DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER).toInt();
     newListItem->setID(orderNumber);
+    // TODO HIER HÄNGT DAS PROBLEM!
     newListItem->setFixedSize(350, ((float) HOUR_HEIGHT / 60) * (float) values.value(DBConstants::COL_ROTATION_GROUP_TASK_DURATION).toInt());
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedEntryChanged(int)));
     connect(newListItem, SIGNAL(deselected(int)), this, SLOT(deselectEntry(int)));
@@ -201,20 +202,22 @@ void ShiftCalendar::addRotationGroupEntry(QHash<QString, QVariant> values){
         int i = 0;
         while((item = calendarEntryLayout->itemAt(i)) != NULL){
             DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
-            if(dli->getID() == orderNumber - 1)
+            if(dli->getID() == orderNumber - 1){
                 calendarEntryLayout->insertWidget(i+1, newListItem);
+                break;
+            }
             i++;
         }
     }
-
 }
 
 void ShiftCalendar::updateRotationGroupEntry(QHash<QString, QVariant> values){
     QLayoutItem *item;
     int i = 0;
+    int entryID = values.value(DBConstants::COL_ROTATION_GROUP_ENTRY_ID).toInt();
     while((item = calendarEntryLayout->itemAt(i)) != NULL){
         DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
-        if(dli->getID() == values.value(DBConstants::COL_ROTATION_GROUP_ENTRY_ID)){
+        if(dli->getID() == entryID){
                 dli->setName(values.value(DBConstants::COL_ROTATION_GROUP_TASK_NAME).toString());
                 dli->setFixedSize(350, ((float) HOUR_HEIGHT / 60) * (float) values.value(DBConstants::COL_ROTATION_GROUP_TASK_DURATION).toInt());
             break;
@@ -227,6 +230,7 @@ void ShiftCalendar::addRotationGroupBreakEntry(QHash<QString, QVariant> values){
     DetailedListItem *newListItem = new DetailedListItem(this, "btnIcon", tr("Break"), QList<QStringList>(), false, true, false, false, false);
     int orderNumber = values.value(DBConstants::COL_ROTATION_GROUP_ORDER_NUMBER).toInt();
     newListItem->setID(orderNumber);
+    // TODO HIER HÄNGT DAS PROBLEM!
     newListItem->setFixedSize(350, ((float) HOUR_HEIGHT / 60) * (float) values.value(DBConstants::COL_BREAK_DURATION).toInt());
     connect(newListItem, SIGNAL(selected(int)), this, SLOT(selectedEntryChanged(int)));
     connect(newListItem, SIGNAL(deselected(int)), this, SLOT(deselectEntry(int)));
@@ -238,8 +242,10 @@ void ShiftCalendar::addRotationGroupBreakEntry(QHash<QString, QVariant> values){
         int i = 0;
         while((item = calendarEntryLayout->itemAt(i)) != NULL){
             DetailedListItem *dli = qobject_cast<DetailedListItem*>(item->widget());
-            if(dli->getID() == orderNumber - 1)
+            if(dli->getID() == orderNumber - 1){
                 calendarEntryLayout->insertWidget(i+1, newListItem);
+                break;
+            }
             i++;
         }
     }

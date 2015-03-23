@@ -1,5 +1,5 @@
-#ifndef ICALENDARLIST_H
-#define ICALENDARLIST_H
+#ifndef IROTATIONGROUP_H
+#define IROTATIONGROUP_H
 
 #include <QtPlugin>
 
@@ -24,4 +24,4 @@ signals:
 #define IRotationGroup_iid "IRotationGroup"
 
 Q_DECLARE_INTERFACE(IRotationGroup, IRotationGroup_iid)
-#endif // ICALENDARLIST_H
+#endif // IROTATIONGROUP_H

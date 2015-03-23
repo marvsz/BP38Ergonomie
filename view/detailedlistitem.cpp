@@ -95,7 +95,8 @@ void DetailedListItem::paintEvent(QPaintEvent*){
     QStylePainter p(this);
     QStyleOption opt;
     opt.initFrom(this);
-    p.drawPrimitive(QStyle::PE_Widget, opt);}
+    p.drawPrimitive(QStyle::PE_Widget, opt);
+}
 
 // PRIVATE SLOTS
 void DetailedListItem::deleteItem(){

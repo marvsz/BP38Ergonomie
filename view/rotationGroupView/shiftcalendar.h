@@ -33,9 +33,6 @@ public:
 
     QList<QAbstractButton*> * getAdditionalNavigation() const;
 
-    QString getBreakName() const;
-    int getBreakDuration() const;
-
 signals:
     // IRotationGroupTaskList
     void createRotationGroupTask(QHash<QString, QVariant> values);
