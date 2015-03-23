@@ -325,6 +325,7 @@ Controller::Controller(QObject *parent, QApplication *app) :
     connect(this, SIGNAL(removedRotationGroupTask(int)), shiftCalendarView, SLOT(removeRotationGroupTask(int)));
     connect(this, SIGNAL(addRotationGroupBreakEntry(QHash<QString,QVariant>)), shiftCalendarView, SLOT(addRotationGroupBreakEntry(QHash<QString,QVariant>)));
     connect(this, SIGNAL(addRotationGroupEntry(QHash<QString,QVariant>)), shiftCalendarView, SLOT(addRotationGroupEntry(QHash<QString,QVariant>)));
+    connect(this, SIGNAL(selectedShift(QHash<QString,QVariant>)), shiftCalendarView, SLOT(setShift(QHash<QString,QVariant>)));
     connect(shiftCalendarView, SIGNAL(createRotationGroupBreakEntry(QHash<QString,QVariant>)), this, SLOT(createRotationGroupBreakEntry(QHash<QString,QVariant>)));
     connect(shiftCalendarView, SIGNAL(createRotationGroupEntry(QHash<QString,QVariant>)), this, SLOT(createRotationGroupEntry(QHash<QString,QVariant>)));
     connect(shiftCalendarView, SIGNAL(requestMoveEntryDown(int)), this, SLOT(moveRotationGroupEntryDown(int)));
@@ -1341,12 +1342,12 @@ void Controller::removeRotationGroupEntry(int order){
 }
 
 void Controller::moveRotationGroupEntryUp(int order){
-    swapRotationGroupEntries(order, order+1);
+    swapRotationGroupEntries(order, order-1);
     initializeRotationGroup(rotationGroup_ID);
 }
 
 void Controller::moveRotationGroupEntryDown(int order){
-    swapRotationGroupEntries(order, order-1);
+    swapRotationGroupEntries(order, order+1);
     initializeRotationGroup(rotationGroup_ID);
 }
 

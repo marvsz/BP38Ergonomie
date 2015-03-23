@@ -136,64 +136,6 @@ QList<QAbstractButton*> * ShiftCalendar::getAdditionalNavigation() const {
 }
 
 // PUBLIC SLOTS
-
-/*
-void ShiftCalendar::setBeginTime(const QTime &beginTime){
-    this->beginTime = beginTime;
-    drawBackground();
-}
-
-void ShiftCalendar::setEndTime(const QTime &endTime){
-    this->endTime = endTime;
-    drawBackground();
-}
-
-void ShiftCalendar::addSelectionRotationGroup(int id, int duration, int workplaces, const QString &name){
-    QList<QStringList> values = QList<QStringList>() << (QStringList() << QString::number(duration).append(" min") << QString::number(workplaces));
-    DetailedListItem *newItem = new DetailedListItem(0, "rotationIcon", name, rotationGroupCaptions, false, false, false, true);
-    newItem->setValues(values);
-    newItem->setID(id);
-    connect(newItem, SIGNAL(addItem(int)), this, SIGNAL(createCalendarRotationGroup(int)));
-    rotationGroupListLayout->addWidget(newItem);
-}
-
-void ShiftCalendar::clearSelection(){
-    QLayoutItem *item;
-    while((item = rotationGroupListLayout->takeAt(0)) != NULL){
-        delete item->widget();
-        delete item;
-    }
-}
-
-void ShiftCalendar::addCalendarRotationGroup(int id, int duration, const QString &name){
-    SelectableValueButton *newItem = new SelectableValueButton(id, name, 0);
-    newItem->setText(name);
-    newItem->setFixedSize(350, ((float) HOUR_HEIGHT / 60) * (float) duration);
-    calendarEntryLayout->addWidget(newItem);
-    calendarEntries->append(newItem);
-}
-
-void ShiftCalendar::addCalendarBreak(int id, int duration, const QString &name){
-    SelectableValueButton *newItem = new SelectableValueButton(id, name, 0);
-    newItem->setText(name);
-    newItem->setFixedSize(350, ((float) HOUR_HEIGHT / 60) * (float) duration);
-    connect(newItem, SIGNAL(clickedWithID(int)), this, SLOT(setSelectedId(int)));
-    calendarEntries->append(newItem);
-    calendarEntryLayout->addWidget(newItem);
-}
-
-void ShiftCalendar::clearCalendar(){
-    QLayoutItem *item;
-    while((item = calendarEntryLayout->takeAt(0)) != NULL){
-        delete item->widget();
-        delete item;
-    }
-    currentId = -1;
-}
-*/
-
-// PUBLIC SLOTS
-
 // IRotationGroupTaskList
 void  ShiftCalendar::addRotationGroupTask(QHash<QString, QVariant> values){
     QList<QStringList> dliValues = QList<QStringList>() << (QStringList() << values.value(DBConstants::COL_ROTATION_GROUP_TASK_DURATION).toString());
@@ -364,6 +306,7 @@ void ShiftCalendar::btnAddBreakClicked(){
         QHash<QString, QVariant> values = QHash<QString, QVariant>();
         values.insert(DBConstants::COL_BREAK_DURATION, numBxBreakDuration->getValue());
         emit createRotationGroupBreakEntry(values);
+        numBxBreakDuration->clear();
     }
     else
         emit showMessage(tr("You have to enter a duration for the break!"), NotificationMessage::ERROR);
@@ -381,42 +324,43 @@ void ShiftCalendar::dliRotationGroupTaskAddClicked(int id){
 
 void ShiftCalendar::btnMoveUpClicked(){
     emit requestMoveEntryUp(selectedOrderID);
+    selectedEntryChanged(0);
 }
 
 void ShiftCalendar::btnMoveDownClicked(){
     emit requestMoveEntryDown(selectedOrderID);
+    selectedEntryChanged(0);
 }
 
 void ShiftCalendar::btnDeleteClicked(){
     emit requestRemoveEntry(selectedOrderID);
+    selectedEntryChanged(0);
 }
 
 void ShiftCalendar::selectedEntryChanged(int id){
     selectedOrderID = id;
     if(selectedOrderID != 0)
         btnDelete->setEnabled(true);
-    else
+    else{
         btnDelete->setEnabled(false);
+        btnMoveUp->setEnabled(false);
+        btnMoveDown->setEnabled(false);
+    }
     if(selectedOrderID == 1)
         btnMoveUp->setEnabled(false);
     if(selectedOrderID == calendarEntryLayout->count())
         btnMoveDown->setEnabled(false);
     if(selectedOrderID > 1)
         btnMoveUp->setEnabled(true);
-    if(selectedOrderID < calendarEntryLayout->count())
+    if(selectedOrderID > 0 && selectedOrderID < calendarEntryLayout->count())
         btnMoveDown->setEnabled(true);
 
     emit selectedEntry(id);
 }
 
 void ShiftCalendar::deselectEntry(int id){
-    if(id == selectedOrderID){
-        selectedOrderID = 0;
-        btnDelete->setEnabled(false);
-        btnMoveUp->setEnabled(false);
-        btnMoveDown->setEnabled(false);
-    }
-
+    if(id == selectedOrderID)
+        selectedEntryChanged(0);
 }
 
 
