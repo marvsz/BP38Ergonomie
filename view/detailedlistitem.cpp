@@ -161,6 +161,10 @@ void DetailedListItem::deselect(){
     }
 }
 
+bool DetailedListItem::isSelected(){
+    return this->isChecked();
+}
+
 void DetailedListItem::selectExclusiveWithID(int id){
     if(this->id != id)
         deselect();

@@ -18,6 +18,7 @@ public:
     int getID() const;
     void setID(int id);
     QString getName() const;
+    bool isSelected();
 
 signals:
     void deleteItem(int id);
