@@ -4,6 +4,7 @@
 #include <QVBoxLayout>
 #include <QScrollArea>
 #include <QHBoxLayout>
+#include <QDebug>
 
 const QVector<int> BodyPostureView::TRUNK_TILT_VALUES = QVector<int>()<<-45<<-20<<0<<20<<45<<90<<110;
 const QVector<int> BodyPostureView::TRUNK_TILT_SIDEWAYS_VALUES = QVector<int>()<<0<<20<<45<<60<<90;
@@ -529,26 +530,11 @@ void BodyPostureView::qlpcQuickLegPostureChanged(int id, int speci){
 
         break;
     case 4:
-        values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,180);
-        values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,180);
-        vcHipAngle->setValue(180);
-        values.insert(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_LEFT,180);
-        values.insert(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_RIGHT,180);
-        vcKneeAngle->setValue(180);
-        values.insert(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_LEFT,90);
-        values.insert(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT,90);
-        vcAnkleAngle->setValue(90);
+        values.insert(DBConstants::COL_BODY_POSTURE_LEG_POSTURE,tr("Walking"));
         break;
+
     case 5:
-        values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_LEFT,180);
-        values.insert(DBConstants::COL_BODY_POSTURE_HIP_ANGLE_RIGHT,180);
-        vcHipAngle->setValue(180);
-        values.insert(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_LEFT,180);
-        values.insert(DBConstants::COL_BODY_POSTURE_KNEE_ANGLE_RIGHT,180);
-        vcKneeAngle->setValue(180);
-        values.insert(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_LEFT,90);
-        values.insert(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT,90);
-        vcAnkleAngle->setValue(90);
+        values.insert(DBConstants::COL_BODY_POSTURE_LEG_POSTURE,tr("Running"));
         break;
 
     default:
@@ -590,6 +576,9 @@ void BodyPostureView::qlpcQuickLegPostureSpecificationChagend(int id){
         values.insert(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_LEFT,90);
         values.insert(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT,90);
         vcAnkleAngle->setValue(90);
+        break;
+
+    default:
         break;
     }
 }
@@ -789,6 +778,14 @@ void BodyPostureView::setBodyPosture(QHash<QString, QVariant> values){
     ankleAngleLeft = values.value(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_LEFT).toInt();
     ankleAngleRight = values.value(DBConstants::COL_BODY_POSTURE_ANKLE_ANGLE_RIGHT).toInt();
 
+    if(values.value((DBConstants::COL_BODY_POSTURE_LEG_POSTURE))==tr("Walking")){
+        quickSelectionLayout->qlpcQuickLegPosture->setSelectedValue(4);
+    }
+
+    if(values.value((DBConstants::COL_BODY_POSTURE_LEG_POSTURE))==tr("Running")){
+        quickSelectionLayout->qlpcQuickLegPosture->setSelectedValue(5);
+    }
+    else{
     if((hipAngleLeft == 180) && (hipAngleRight == 180) && (kneeAngleLeft == 180) && (kneeAngleRight == 180) && (ankleAngleLeft == 90) && (ankleAngleRight == 90)){
         quickSelectionLayout->qlpcQuickLegPosture->setSelectedValue(1);
     }
@@ -812,6 +809,7 @@ void BodyPostureView::setBodyPosture(QHash<QString, QVariant> values){
     if((hipAngleLeft == 135) && (hipAngleRight == 135) && (kneeAngleLeft == 0) && (kneeAngleRight == 0) && (ankleAngleLeft == 90) && (ankleAngleRight == 90)){
         quickSelectionLayout->qlpcQuickLegPosture->setSelectedValue(1);
         quickSelectionLayout->qlpcQuickLegPosture->setSelectedValue(3);
+    }
     }
 
     this->values = values;
