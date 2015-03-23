@@ -2,24 +2,9 @@
 #include "standardpaths.h"
 
 
-DBHandler::DBHandler()
+DBHandler::DBHandler(const QString &databasePath)
 {
-    QFileInfo databaseFileInfo = QFileInfo(StandardPaths::databasePath());
-    QString databaseOriginPath = StandardPaths::originDatabasePath();
-    QString databasePath = databaseFileInfo.absoluteFilePath();
 
-    if ( !databaseFileInfo.exists() ){
-           bool copySuccess = QFile::copy( databaseOriginPath, databasePath );
-           if ( !copySuccess ){
-               QMessageBox::critical(0, "Error:", QString("Could not copy database from \n %1 to \n %2").arg(databaseOriginPath).arg(databasePath));
-               databasePath.clear();
-           }
-           else{
-                if(!QFile::setPermissions(databasePath,QFile::WriteOwner | QFile::ReadOwner)){
-                   QMessageBox::critical(0, "Error:", "Could not set permissions");
-                }
-           }
-       }
 
     database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName(databasePath);

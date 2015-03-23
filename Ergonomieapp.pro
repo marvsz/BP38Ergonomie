@@ -22,7 +22,8 @@ RESOURCES += \
 
 HEADERS += \
     enum.h \
-    standardpaths.h
+    standardpaths.h \
+    errorreporter.h
 
 SOURCES += \
     main.cpp

@@ -17,7 +17,7 @@ class DBHandler
 {
 
 public:
-    DBHandler();
+    DBHandler(const QString &databasePath);
     ~DBHandler();
 
     void registerTable(const QString &tblName);

@@ -5,12 +5,12 @@
 #include <QTextStream>
 #include <QDir>
 #include "../ftpHandler/ftphandler.h"
+#include "../errorreporter.h"
 
 
 Controller::Controller(QObject *parent, QApplication *app) :
     QObject(parent),
     application(app),
-    dbHandler(new DBHandler()),
     viewCon(new ViewController()),
     analystSelectionView(new AnalystSelectionView()),
     mainMenuView(new MainMenu()),
@@ -67,6 +67,31 @@ Controller::Controller(QObject *parent, QApplication *app) :
     workprocess_ID = 0;
     bodyMeasurement_ID = 1;
     employee_ID = 1;
+
+    //Initialisation of the database
+    QFileInfo databaseFileInfo = QFileInfo(StandardPaths::databasePath());
+    QString databaseOriginPath = StandardPaths::originDatabasePath();
+    QString databasePath = databaseFileInfo.absoluteFilePath();
+
+    //Copy database from the readOnly location to the writeable location,
+    //if the database does not exsist yet.
+    if ( !databaseFileInfo.exists() ){
+       bool copySuccess = QFile::copy( databaseOriginPath, databasePath );
+       if ( !copySuccess ){
+           QString errorMessage = QString("Could not copy database from \n %1 to \n %2").arg(databaseOriginPath).arg(databasePath);
+           ErrorReporter::reportError(errorMessage);
+           viewCon->showMessage(errorMessage, NotificationMessage::ERROR, NotificationMessage::PERSISTENT);
+           databasePath.clear();
+       }
+       else{
+            if(!QFile::setPermissions(databasePath,QFile::WriteOwner | QFile::ReadOwner)){
+                QString errorMessage = QString("Could not set read/write permissions on %1").arg(databasePath);
+                ErrorReporter::reportError(errorMessage);
+                viewCon->showMessage(errorMessage, NotificationMessage::ERROR, NotificationMessage::PERSISTENT);
+            }
+       }
+    }
+    dbHandler = new DBHandler(databasePath);
 
     connect(mainMenuView, SIGNAL(createBlankRecording()), this, SLOT(createBlankRecording()));
 

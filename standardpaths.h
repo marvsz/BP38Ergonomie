@@ -50,6 +50,10 @@ public:
         return QString("%1/%2").arg(StandardPaths::writeableLocation()).arg("config.csv");
     }
 
+    static QString errorLog(){
+        return QString("%1/%2").arg(StandardPaths::writeableLocation()).arg("error.log");
+    }
+
 };
 
 #endif // STANDARDPATHS_H
