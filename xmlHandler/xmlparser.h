@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QFile>
 #include <QXmlStreamReader>
-#include <QTime>
 #include "../databaseHandler/dbconstants.h"
 #include "xmlconstants.h"
 #include "iimportdataparser.h"
@@ -27,8 +26,6 @@ public:
     QString getProductFilename() const;
     QString getEmployeeFilename() const;
     QString getWorkplaceFilename() const;
-
-    QTime addTime(QTime &time1, QTime &time2);
 
     void parseTransportations(const QString path);
     void parseEquipments(const QString path);
@@ -57,14 +54,7 @@ private:
     QList<QHash<QString, QVariant>> parseActivities(QXmlStreamReader &xmlReader);
     QHash<QString, QVariant> parseActivity(QXmlStreamReader &xmlReader);
 
-    QList<QHash<QString, QVariant>> parseWorkProcesses(QXmlStreamReader &xmlReader);
-    QHash<QString, QVariant> parseWorkProcess(QXmlStreamReader &xmlReader, QTime &startTime);
-
-    QTime startTime;
-    QTime duration;
-
     void addElementDataToHash(QXmlStreamReader &xmlReader, const QString &key, QHash<QString, QVariant> &values);
-
 };
 
 #endif // XMLPARSER_H
